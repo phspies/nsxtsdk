@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,30 +17,21 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTALGTypeNSServiceType : NSXTNSServiceElementType
     {
-        public NSXTALGTypeNSServiceType()
-        {
-        }
         /// <summary>
         /// The Application Layer Gateway (ALG) protocol.
         /// Please note, protocol NBNS_BROADCAST and NBDG_BROADCAST are  deprecated.
         /// Please use UDP protocol and create L4 Port Set type of service instead.
         /// </summary>
         [JsonProperty(PropertyName = "alg", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"The Application Layer Gateway (ALG) protocol.Please note, protocol NBNS_BROADCAST and NBDG_BROADCAST are  deprecated.Please use UDP protocol and create L4 Port Set type of service instead.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTAlgtypeNsserviceAlgEnumType Alg { get; set; }
         /// <summary>
         /// The destination_port cannot be empty and must be a single value.
         /// </summary>
         [JsonProperty(PropertyName = "destination_ports", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"The destination_port cannot be empty and must be a single value.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<string> DestinationPorts { get; set; }
         /// <summary>
         /// Source ports
         /// </summary>
-        [JsonProperty(PropertyName = "source_ports")]
-        [NSXTProperty(IsRequired: false, Description: @"Source ports")]
         public IList<string> SourcePorts { get; set; }
     }
 }

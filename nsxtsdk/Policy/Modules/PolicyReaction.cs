@@ -21,16 +21,23 @@ namespace nsxtapi.PolicyModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public PolicyReaction(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public PolicyReaction(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTReactionListResultType ListInfraReactions(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTReactionListResultType> ListInfraReactions(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTReactionListResultType returnValue = default(NSXTReactionListResultType);
             StringBuilder ListInfraReactionsServiceURL = new StringBuilder("/infra/reactions");
@@ -47,31 +54,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListInfraReactionsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTReactionListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTReactionListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListInfraReactionsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTReactionListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTReactionListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTReactionType CreateOrUpdateInfraReaction(string ReactionId, NSXTReactionType Reaction)
+        public async Task<NSXTReactionType> CreateOrUpdateInfraReaction(string ReactionId, NSXTReactionType Reaction)
         {
             if (ReactionId == null) { throw new System.ArgumentNullException("ReactionId cannot be null"); }
             if (Reaction == null) { throw new System.ArgumentNullException("Reaction cannot be null"); }
@@ -86,31 +81,19 @@ namespace nsxtapi.PolicyModules
             CreateOrUpdateInfraReactionServiceURL.Replace("{reaction-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ReactionId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(Reaction, defaultSerializationSettings));
             request.Resource = CreateOrUpdateInfraReactionServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTReactionType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTReactionType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateOrUpdateInfraReactionServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTReactionType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTReactionType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void CreateOrPatchInfraReaction(string ReactionId, NSXTReactionType Reaction)
+        public async Task CreateOrPatchInfraReaction(string ReactionId, NSXTReactionType Reaction)
         {
             if (ReactionId == null) { throw new System.ArgumentNullException("ReactionId cannot be null"); }
             if (Reaction == null) { throw new System.ArgumentNullException("Reaction cannot be null"); }
@@ -125,7 +108,7 @@ namespace nsxtapi.PolicyModules
             CreateOrPatchInfraReactionServiceURL.Replace("{reaction-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ReactionId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(Reaction, defaultSerializationSettings));
             request.Resource = CreateOrPatchInfraReactionServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + CreateOrPatchInfraReactionServiceURL.ToString() + " did not complete successfull";
@@ -137,7 +120,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteInfraReaction(string ReactionId)
+        public async Task DeleteInfraReaction(string ReactionId)
         {
             if (ReactionId == null) { throw new System.ArgumentNullException("ReactionId cannot be null"); }
             
@@ -150,7 +133,7 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             DeleteInfraReactionServiceURL.Replace("{reaction-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ReactionId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteInfraReactionServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteInfraReactionServiceURL.ToString() + " did not complete successfull";
@@ -162,7 +145,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTReactionType GetInfraReaction(string ReactionId)
+        public async Task<NSXTReactionType> GetInfraReaction(string ReactionId)
         {
             if (ReactionId == null) { throw new System.ArgumentNullException("ReactionId cannot be null"); }
             NSXTReactionType returnValue = default(NSXTReactionType);
@@ -175,25 +158,13 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             GetInfraReactionServiceURL.Replace("{reaction-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ReactionId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetInfraReactionServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTReactionType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTReactionType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetInfraReactionServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTReactionType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTReactionType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

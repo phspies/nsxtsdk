@@ -21,16 +21,23 @@ namespace nsxtapi.PolicyModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public PolicyFirewallDnsSecurityProfileBinding(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public PolicyFirewallDnsSecurityProfileBinding(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDnsSecurityProfileBindingMapType GlobalGlobalInfraGetDnsSecurityProfileBinding(string DomainId, string GroupId, string DnsSecurityProfileBindingMapId)
+        public async Task<NSXTDnsSecurityProfileBindingMapType> GlobalGlobalInfraGetDnsSecurityProfileBinding(string DomainId, string GroupId, string DnsSecurityProfileBindingMapId)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (GroupId == null) { throw new System.ArgumentNullException("GroupId cannot be null"); }
@@ -47,31 +54,19 @@ namespace nsxtapi.PolicyModules
             GlobalInfraGetDnsSecurityProfileBindingServiceURL.Replace("{group-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GroupId, System.Globalization.CultureInfo.InvariantCulture)));
             GlobalInfraGetDnsSecurityProfileBindingServiceURL.Replace("{dns-security-profile-binding-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DnsSecurityProfileBindingMapId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GlobalInfraGetDnsSecurityProfileBindingServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDnsSecurityProfileBindingMapType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDnsSecurityProfileBindingMapType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraGetDnsSecurityProfileBindingServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDnsSecurityProfileBindingMapType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDnsSecurityProfileBindingMapType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDnsSecurityProfileBindingMapListResultType GlobalGlobalInfraListDnsSecurityProfileBindings(string DomainId, string GroupId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTDnsSecurityProfileBindingMapListResultType> GlobalGlobalInfraListDnsSecurityProfileBindings(string DomainId, string GroupId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (GroupId == null) { throw new System.ArgumentNullException("GroupId cannot be null"); }
@@ -92,31 +87,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GlobalInfraListDnsSecurityProfileBindingsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDnsSecurityProfileBindingMapListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDnsSecurityProfileBindingMapListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraListDnsSecurityProfileBindingsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDnsSecurityProfileBindingMapListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDnsSecurityProfileBindingMapListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDnsSecurityProfileBindingMapListResultType ListDnsSecurityProfileBindings(string DomainId, string GroupId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTDnsSecurityProfileBindingMapListResultType> ListDnsSecurityProfileBindings(string DomainId, string GroupId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (GroupId == null) { throw new System.ArgumentNullException("GroupId cannot be null"); }
@@ -137,31 +120,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListDnsSecurityProfileBindingsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDnsSecurityProfileBindingMapListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDnsSecurityProfileBindingMapListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListDnsSecurityProfileBindingsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDnsSecurityProfileBindingMapListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDnsSecurityProfileBindingMapListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDnsSecurityProfileBindingMapType UpdateDnsSecurityProfileBinding(string DomainId, string GroupId, string DnsSecurityProfileBindingMapId, NSXTDnsSecurityProfileBindingMapType DnsSecurityProfileBindingMap)
+        public async Task<NSXTDnsSecurityProfileBindingMapType> UpdateDnsSecurityProfileBinding(string DomainId, string GroupId, string DnsSecurityProfileBindingMapId, NSXTDnsSecurityProfileBindingMapType DnsSecurityProfileBindingMap)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (GroupId == null) { throw new System.ArgumentNullException("GroupId cannot be null"); }
@@ -180,31 +151,19 @@ namespace nsxtapi.PolicyModules
             UpdateDnsSecurityProfileBindingServiceURL.Replace("{dns-security-profile-binding-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DnsSecurityProfileBindingMapId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(DnsSecurityProfileBindingMap, defaultSerializationSettings));
             request.Resource = UpdateDnsSecurityProfileBindingServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDnsSecurityProfileBindingMapType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDnsSecurityProfileBindingMapType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateDnsSecurityProfileBindingServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDnsSecurityProfileBindingMapType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDnsSecurityProfileBindingMapType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteDnsSecurityProfileBinding(string DomainId, string GroupId, string DnsSecurityProfileBindingMapId)
+        public async Task DeleteDnsSecurityProfileBinding(string DomainId, string GroupId, string DnsSecurityProfileBindingMapId)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (GroupId == null) { throw new System.ArgumentNullException("GroupId cannot be null"); }
@@ -221,7 +180,7 @@ namespace nsxtapi.PolicyModules
             DeleteDnsSecurityProfileBindingServiceURL.Replace("{group-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GroupId, System.Globalization.CultureInfo.InvariantCulture)));
             DeleteDnsSecurityProfileBindingServiceURL.Replace("{dns-security-profile-binding-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DnsSecurityProfileBindingMapId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteDnsSecurityProfileBindingServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteDnsSecurityProfileBindingServiceURL.ToString() + " did not complete successfull";
@@ -233,7 +192,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDnsSecurityProfileBindingMapType GetDnsSecurityProfileBinding(string DomainId, string GroupId, string DnsSecurityProfileBindingMapId)
+        public async Task<NSXTDnsSecurityProfileBindingMapType> GetDnsSecurityProfileBinding(string DomainId, string GroupId, string DnsSecurityProfileBindingMapId)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (GroupId == null) { throw new System.ArgumentNullException("GroupId cannot be null"); }
@@ -250,31 +209,19 @@ namespace nsxtapi.PolicyModules
             GetDnsSecurityProfileBindingServiceURL.Replace("{group-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GroupId, System.Globalization.CultureInfo.InvariantCulture)));
             GetDnsSecurityProfileBindingServiceURL.Replace("{dns-security-profile-binding-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DnsSecurityProfileBindingMapId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetDnsSecurityProfileBindingServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDnsSecurityProfileBindingMapType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDnsSecurityProfileBindingMapType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetDnsSecurityProfileBindingServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDnsSecurityProfileBindingMapType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDnsSecurityProfileBindingMapType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchDnsSecurityProfileBinding(string DomainId, string GroupId, string DnsSecurityProfileBindingMapId, NSXTDnsSecurityProfileBindingMapType DnsSecurityProfileBindingMap)
+        public async Task PatchDnsSecurityProfileBinding(string DomainId, string GroupId, string DnsSecurityProfileBindingMapId, NSXTDnsSecurityProfileBindingMapType DnsSecurityProfileBindingMap)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (GroupId == null) { throw new System.ArgumentNullException("GroupId cannot be null"); }
@@ -293,7 +240,7 @@ namespace nsxtapi.PolicyModules
             PatchDnsSecurityProfileBindingServiceURL.Replace("{dns-security-profile-binding-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DnsSecurityProfileBindingMapId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(DnsSecurityProfileBindingMap, defaultSerializationSettings));
             request.Resource = PatchDnsSecurityProfileBindingServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchDnsSecurityProfileBindingServiceURL.ToString() + " did not complete successfull";

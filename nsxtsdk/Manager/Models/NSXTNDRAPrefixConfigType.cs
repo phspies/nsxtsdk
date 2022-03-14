@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -18,9 +18,6 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Overrides the router advertisement attributes for theIPv6 prefixes.")]
     public class NSXTNDRAPrefixConfigType 
     {
-        public NSXTNDRAPrefixConfigType()
-        {
-        }
         /// <summary>
         /// Override the neighbor discovery prefix preferred time and
         /// prefix valid time for the subnet on uplink port whose
@@ -28,26 +25,16 @@ namespace nsxtsdk.ManagerModels
         /// in network_prefix.
         /// </summary>
         [JsonProperty(PropertyName = "network_prefix", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Override the neighbor discovery prefix preferred time andprefix valid time for the subnet on uplink port whosenetwork matches with the network address of CIDR specifiedin network_prefix.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string NetworkPrefix { get; set; }
         /// <summary>
         /// The time interval in seconds, in which the prefix is advertised
         /// as valid.
         /// </summary>
-        [JsonProperty(PropertyName = "prefix_valid_time")]
-        [NSXTProperty(IsRequired: false, Description: @"The time interval in seconds, in which the prefix is advertisedas valid.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(4294967295)]
         public long? PrefixValidTime { get; set; }
         /// <summary>
         /// The time interval in seconds, in which the prefix is advertised
         /// as preferred.
         /// </summary>
-        [JsonProperty(PropertyName = "prefix_preferred_time")]
-        [NSXTProperty(IsRequired: false, Description: @"The time interval in seconds, in which the prefix is advertisedas preferred.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(4294967295)]
         public long? PrefixPreferredTime { get; set; }
     }
 }

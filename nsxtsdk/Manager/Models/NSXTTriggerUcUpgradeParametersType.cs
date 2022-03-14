@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTTriggerUcUpgradeParametersType 
     {
-        public NSXTTriggerUcUpgradeParametersType()
-        {
-        }
         /// <summary>
         /// Target upgrade coordinator version.
         /// </summary>
-        [JsonProperty(PropertyName = "product_version")]
-        [NSXTProperty(IsRequired: false, Description: @"Target upgrade coordinator version.")]
         public string? ProductVersion { get; set; }
     }
 }

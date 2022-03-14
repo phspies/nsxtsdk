@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,17 +17,12 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer MicroServiceMatch object")]
     public class NSXTALBMicroServiceMatchType 
     {
-        public NSXTALBMicroServiceMatchType()
-        {
-        }
         /// <summary>
         /// Criterion to use for Micro Service matching the HTTP
         /// request.
         /// Enum options - IS_IN, IS_NOT_IN.
         /// </summary>
         [JsonProperty(PropertyName = "match_criteria", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Criterion to use for Micro Service matching the HTTPrequest.Enum options - IS_IN, IS_NOT_IN.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTAlbmicroServiceMatchMatchCriteriaEnumType MatchCriteria { get; set; }
     }
 }

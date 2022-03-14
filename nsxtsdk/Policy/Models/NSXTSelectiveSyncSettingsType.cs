@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTSelectiveSyncSettingsType : NSXTListResultType
     {
-        public NSXTSelectiveSyncSettingsType()
-        {
-        }
         /// <summary>
         /// Enable or disable SelectiveSync
         /// </summary>
         [JsonProperty(PropertyName = "enabled", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Enable or disable SelectiveSync")]
-        [System.ComponentModel.DataAnnotations.Required]
         public bool Enabled { get; set; }
         /// <summary>
         /// If SelectiveSync is enabled, this contains 1 or more
@@ -34,8 +29,6 @@ namespace nsxtsdk.PolicyModels
         /// If SelectiveSync is disabled, do not define this or specify an
         /// empty list.
         /// </summary>
-        [JsonProperty(PropertyName = "selected_org_units")]
-        [NSXTProperty(IsRequired: false, Description: @"If SelectiveSync is enabled, this contains 1 or moreOrgUnits, which NSX will synchronize with in LDAP server.The full distiguished name (DN) should be used for OrgUnit.If SelectiveSync is disabled, do not define this or specify anempty list.")]
         public IList<string> SelectedOrgUnits { get; set; }
     }
 }

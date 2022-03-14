@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,27 +17,17 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTALBWafPolicyPSMGroupType : NSXTPolicyConfigResourceType
     {
-        public NSXTALBWafPolicyPSMGroupType()
-        {
-            Enable = test
-            MissAction = test
-            HitAction = test
-        }
         /// <summary>
         /// Enable or disable this WAF rule group.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as true.
         /// </summary>
-        [JsonProperty(PropertyName = "enable")]
-        [NSXTProperty(IsRequired: false, Description: @"Enable or disable this WAF rule group.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
         public bool? Enable { get; set; }
         /// <summary>
         /// This field indicates that this group is used for learning.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as false.
         /// </summary>
-        [JsonProperty(PropertyName = "is_learning_group")]
-        [NSXTProperty(IsRequired: false, Description: @"This field indicates that this group is used for learning.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
         public bool? IsLearningGroup { get; set; }
         /// <summary>
         /// If a rule in this group does not match the match_value
@@ -46,8 +36,6 @@ namespace nsxtsdk.PolicyModels
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as WAF_ACTION_NO_OP.
         /// </summary>
-        [JsonProperty(PropertyName = "miss_action")]
-        [NSXTProperty(IsRequired: false, Description: @"If a rule in this group does not match the match_valuepattern, this action will be executed.Allowed actions are WAF_ACTION_NO_OP and WAF_ACTION_BLOCK.Default value when not specified in API or module isinterpreted by ALB Controller as WAF_ACTION_NO_OP.")]
         public NSXTAlbwafPolicyPsmgroupMissActionEnumType? MissAction { get; set; }
         /// <summary>
         /// If a rule in this group matches the match_value pattern,
@@ -57,24 +45,18 @@ namespace nsxtsdk.PolicyModels
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as WAF_ACTION_ALLOW_PARAMETER.
         /// </summary>
-        [JsonProperty(PropertyName = "hit_action")]
-        [NSXTProperty(IsRequired: false, Description: @"If a rule in this group matches the match_value pattern,this action will be executed.Allowed actions are WAF_ACTION_NO_OP andWAF_ACTION_ALLOW_PARAMETER.Default value when not specified in API or module isinterpreted by ALB Controller as WAF_ACTION_ALLOW_PARAMETER.")]
         public NSXTAlbwafPolicyPsmgroupHitActionEnumType? HitAction { get; set; }
         /// <summary>
         /// Positive Security Model locations.
         /// These are used to partition the application name space.
         /// Maximum of 16384 items allowed.
         /// </summary>
-        [JsonProperty(PropertyName = "locations")]
-        [NSXTProperty(IsRequired: false, Description: @"Positive Security Model locations.These are used to partition the application name space.Maximum of 16384 items allowed.")]
         public IList<NSXTALBWafPSMLocationType> Locations { get; set; }
         /// <summary>
         /// List of labels to be used for granular RBAC.
         /// Allowed in Basic edition, Essentials edition, Enterprise
         /// edition.
         /// </summary>
-        [JsonProperty(PropertyName = "markers")]
-        [NSXTProperty(IsRequired: false, Description: @"List of labels to be used for granular RBAC.Allowed in Basic edition, Essentials edition, Enterpriseedition.")]
         public IList<NSXTALBRoleFilterMatchLabelType> Markers { get; set; }
     }
 }

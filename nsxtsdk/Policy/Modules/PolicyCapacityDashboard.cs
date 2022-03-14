@@ -21,16 +21,23 @@ namespace nsxtapi.PolicyModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public PolicyCapacityDashboard(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public PolicyCapacityDashboard(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTCapacityThresholdListType UpdatePolicyCapacityThresholds(NSXTCapacityThresholdListType CapacityThresholdList)
+        public async Task<NSXTCapacityThresholdListType> UpdatePolicyCapacityThresholds(NSXTCapacityThresholdListType CapacityThresholdList)
         {
             if (CapacityThresholdList == null) { throw new System.ArgumentNullException("CapacityThresholdList cannot be null"); }
             NSXTCapacityThresholdListType returnValue = default(NSXTCapacityThresholdListType);
@@ -43,31 +50,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(CapacityThresholdList, defaultSerializationSettings));
             request.Resource = UpdatePolicyCapacityThresholdsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTCapacityThresholdListType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTCapacityThresholdListType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdatePolicyCapacityThresholdsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTCapacityThresholdListType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTCapacityThresholdListType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTCapacityThresholdListType GetPolicyCapacityThresholds()
+        public async Task<NSXTCapacityThresholdListType> GetPolicyCapacityThresholds()
         {
             NSXTCapacityThresholdListType returnValue = default(NSXTCapacityThresholdListType);
             StringBuilder GetPolicyCapacityThresholdsServiceURL = new StringBuilder("/infra/capacity/threshold");
@@ -78,31 +73,19 @@ namespace nsxtapi.PolicyModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = GetPolicyCapacityThresholdsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTCapacityThresholdListType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTCapacityThresholdListType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetPolicyCapacityThresholdsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTCapacityThresholdListType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTCapacityThresholdListType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchPolicyCapacityThresholds(NSXTCapacityThresholdType CapacityThreshold)
+        public async Task PatchPolicyCapacityThresholds(NSXTCapacityThresholdType CapacityThreshold)
         {
             if (CapacityThreshold == null) { throw new System.ArgumentNullException("CapacityThreshold cannot be null"); }
             
@@ -115,7 +98,7 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(CapacityThreshold, defaultSerializationSettings));
             request.Resource = PatchPolicyCapacityThresholdsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchPolicyCapacityThresholdsServiceURL.ToString() + " did not complete successfull";
@@ -127,7 +110,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTCapacityUsageResponseType GetPolicyCapacityDashboardUsage(string? Category = null, string? Cursor = null, bool? Force = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTCapacityUsageResponseType> GetPolicyCapacityDashboardUsage(string? Category = null, string? Cursor = null, bool? Force = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTCapacityUsageResponseType returnValue = default(NSXTCapacityUsageResponseType);
             StringBuilder GetPolicyCapacityDashboardUsageServiceURL = new StringBuilder("/infra/capacity/dashboard/usage");
@@ -145,31 +128,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GetPolicyCapacityDashboardUsageServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTCapacityUsageResponseType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTCapacityUsageResponseType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetPolicyCapacityDashboardUsageServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTCapacityUsageResponseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTCapacityUsageResponseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyCapacityUsageResponseType GetPolicyCapacityUsage(string? Category = null, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTPolicyCapacityUsageResponseType> GetPolicyCapacityUsage(string? Category = null, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTPolicyCapacityUsageResponseType returnValue = default(NSXTPolicyCapacityUsageResponseType);
             StringBuilder GetPolicyCapacityUsageServiceURL = new StringBuilder("/infra/capacity/usage");
@@ -186,25 +157,13 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GetPolicyCapacityUsageServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyCapacityUsageResponseType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyCapacityUsageResponseType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetPolicyCapacityUsageServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyCapacityUsageResponseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyCapacityUsageResponseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

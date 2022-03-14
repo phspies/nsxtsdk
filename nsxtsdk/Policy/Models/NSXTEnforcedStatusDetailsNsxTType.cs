@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -19,20 +19,13 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Detailed Realized Status of an intent object on an NSX-T type of enforcement point. This isa detailed view of the Realized Status of an intent object from an NSX-T enforcement pointperspective.")]
     public class NSXTEnforcedStatusDetailsNsxTType 
     {
-        public NSXTEnforcedStatusDetailsNsxTType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "pending_changes_info")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTPendingChangesInfoNsxTType PendingChangesInfo { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "enforced_status_info")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTEnforcedStatusInfoNsxTType EnforcedStatusInfo { get; set; }
     }
 }

@@ -21,16 +21,23 @@ namespace nsxtapi.PolicyModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public PolicyFineTuning(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public PolicyFineTuning(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTResourceInfoListResultType ListResourceInfo(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? Type = null)
+        public async Task<NSXTResourceInfoListResultType> ListResourceInfo(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? Type = null)
         {
             NSXTResourceInfoListResultType returnValue = default(NSXTResourceInfoListResultType);
             StringBuilder ListResourceInfoServiceURL = new StringBuilder("/fine-tuning/resources");
@@ -48,25 +55,13 @@ namespace nsxtapi.PolicyModules
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             if (Type != null) { request.AddQueryParameter("type", Type.ToString()); }
             request.Resource = ListResourceInfoServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTResourceInfoListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTResourceInfoListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListResourceInfoServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTResourceInfoListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTResourceInfoListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,39 +17,23 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"The operation collector is defined to receive stats from hosts. (eg. vRNI-collector collects all the system metrics)")]
     public class NSXTOperationCollectorType 
     {
-        public NSXTOperationCollectorType()
-        {
-            CollectorType = test
-        }
         /// <summary>
         /// Port for the operation collector.
         /// </summary>
         [JsonProperty(PropertyName = "collector_port", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Port for the operation collector.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
-        [System.ComponentModel.DataAnnotations.Required]
         public int CollectorPort { get; set; }
         /// <summary>
         /// Port for the Wavefront tracing.
         /// </summary>
-        [JsonProperty(PropertyName = "tracing_port")]
-        [NSXTProperty(IsRequired: false, Description: @"Port for the Wavefront tracing.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
         public int? TracingPort { get; set; }
         /// <summary>
         /// Define the operation collector type.
         /// </summary>
-        [JsonProperty(PropertyName = "collector_type")]
-        [NSXTProperty(IsRequired: false, Description: @"Define the operation collector type.")]
         public NSXTOperationCollectorCollectorTypeEnumType? CollectorType { get; set; }
         /// <summary>
         /// IP address for the operation collector.
         /// </summary>
         [JsonProperty(PropertyName = "collector_ip", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"IP address for the operation collector.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string CollectorIp { get; set; }
     }
 }

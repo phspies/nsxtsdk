@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildL2VpnType : NSXTChildPolicyConfigResourceType
     {
-        public NSXTChildL2VpnType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty(PropertyName = "L2Vpn", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTL2VpnType L2Vpn { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,26 +17,17 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNodeLogPropertiesType : NSXTResourceType
     {
-        public NSXTNodeLogPropertiesType()
-        {
-        }
         /// <summary>
         /// Last modified time expressed in milliseconds since epoch
         /// </summary>
-        [JsonProperty(PropertyName = "last_modified_time")]
-        [NSXTProperty(IsRequired: false, Description: @"Last modified time expressed in milliseconds since epoch")]
         public long? LastModifiedTime { get; set; }
         /// <summary>
         /// Size of log file in bytes
         /// </summary>
-        [JsonProperty(PropertyName = "log_size")]
-        [NSXTProperty(IsRequired: false, Description: @"Size of log file in bytes")]
         public long? LogSize { get; set; }
         /// <summary>
         /// Name of log file
         /// </summary>
-        [JsonProperty(PropertyName = "log_name")]
-        [NSXTProperty(IsRequired: false, Description: @"Name of log file")]
         public string? LogName { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -18,26 +18,17 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"A packet is classified to have an address binding, if its addressconfiguration matches with all user specified properties.")]
     public class NSXTPacketAddressClassifierType 
     {
-        public NSXTPacketAddressClassifierType()
-        {
-        }
         /// <summary>
         /// Virtual Local Area Network Identifier
         /// </summary>
-        [JsonProperty(PropertyName = "vlan")]
-        [NSXTProperty(IsRequired: false, Description: @"Virtual Local Area Network Identifier")]
         public long? Vlan { get; set; }
         /// <summary>
         /// A single IP address or a subnet, e.g. x.x.x.x or x.x.x.x/y
         /// </summary>
-        [JsonProperty(PropertyName = "ip_address")]
-        [NSXTProperty(IsRequired: false, Description: @"A single IP address or a subnet, e.g. x.x.x.x or x.x.x.x/y")]
         public string? IpAddress { get; set; }
         /// <summary>
         /// A single MAC address
         /// </summary>
-        [JsonProperty(PropertyName = "mac_address")]
-        [NSXTProperty(IsRequired: false, Description: @"A single MAC address")]
         public string? MacAddress { get; set; }
     }
 }

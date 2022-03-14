@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,57 +17,35 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Represents a reference to a widget that is held by a container or a multi-widget or a View.")]
     public class NSXTWidgetItemType 
     {
-        public NSXTWidgetItemType()
-        {
-            Weight = test
-            Alignment = test
-        }
         /// <summary>
         /// Represents the vertical span of the widget / container
         /// </summary>
-        [JsonProperty(PropertyName = "rowspan")]
-        [NSXTProperty(IsRequired: false, Description: @"Represents the vertical span of the widget / container")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
         public int? Rowspan { get; set; }
         /// <summary>
         /// If true, separates this widget in a container.
         /// </summary>
-        [JsonProperty(PropertyName = "separator")]
-        [NSXTProperty(IsRequired: false, Description: @"If true, separates this widget in a container.")]
         public bool? Separator { get; set; }
         /// <summary>
         /// Determines placement of widget or container relative to other widgets and containers. The lower the weight, the higher
         /// it is in the placement order.
         /// </summary>
-        [JsonProperty(PropertyName = "weight")]
-        [NSXTProperty(IsRequired: false, Description: @"Determines placement of widget or container relative to other widgets and containers. The lower the weight, the higher it is in the placement order.")]
         public int? Weight { get; set; }
         /// <summary>
         /// Represents the horizontal span of the widget / container.
         /// </summary>
-        [JsonProperty(PropertyName = "span")]
-        [NSXTProperty(IsRequired: false, Description: @"Represents the horizontal span of the widget / container.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(12)]
         public int? Span { get; set; }
         /// <summary>
         /// Id of the widget configuration that is held by a multi-widget or a container or a view.
         /// </summary>
         [JsonProperty(PropertyName = "widget_id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Id of the widget configuration that is held by a multi-widget or a container or a view.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string WidgetId { get; set; }
         /// <summary>
         /// Aligns widget either left or right.
         /// </summary>
-        [JsonProperty(PropertyName = "alignment")]
-        [NSXTProperty(IsRequired: false, Description: @"Aligns widget either left or right.")]
         public NSXTWidgetItemAlignmentEnumType? Alignment { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "label")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTLabelType Label { get; set; }
     }
 }

@@ -21,16 +21,23 @@ namespace nsxtapi.PolicyModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public PolicyUrlCategorization(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public PolicyUrlCategorization(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyUrlCategorizationConfigType PutPolicyUrlCategorizationConfig(string SiteId, string EnforcementPointId, string EdgeClusterId, string UrlCategorizationConfigId, NSXTPolicyUrlCategorizationConfigType PolicyUrlCategorizationConfig)
+        public async Task<NSXTPolicyUrlCategorizationConfigType> PutPolicyUrlCategorizationConfig(string SiteId, string EnforcementPointId, string EdgeClusterId, string UrlCategorizationConfigId, NSXTPolicyUrlCategorizationConfigType PolicyUrlCategorizationConfig)
         {
             if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
             if (EnforcementPointId == null) { throw new System.ArgumentNullException("EnforcementPointId cannot be null"); }
@@ -51,31 +58,19 @@ namespace nsxtapi.PolicyModules
             PutPolicyUrlCategorizationConfigServiceURL.Replace("{url-categorization-config-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(UrlCategorizationConfigId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(PolicyUrlCategorizationConfig, defaultSerializationSettings));
             request.Resource = PutPolicyUrlCategorizationConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyUrlCategorizationConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyUrlCategorizationConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + PutPolicyUrlCategorizationConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyUrlCategorizationConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyUrlCategorizationConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeletePolicyUrlCategorizationConfig(string SiteId, string EnforcementPointId, string EdgeClusterId, string UrlCategorizationConfigId)
+        public async Task DeletePolicyUrlCategorizationConfig(string SiteId, string EnforcementPointId, string EdgeClusterId, string UrlCategorizationConfigId)
         {
             if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
             if (EnforcementPointId == null) { throw new System.ArgumentNullException("EnforcementPointId cannot be null"); }
@@ -94,7 +89,7 @@ namespace nsxtapi.PolicyModules
             DeletePolicyUrlCategorizationConfigServiceURL.Replace("{edge-cluster-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EdgeClusterId, System.Globalization.CultureInfo.InvariantCulture)));
             DeletePolicyUrlCategorizationConfigServiceURL.Replace("{url-categorization-config-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(UrlCategorizationConfigId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeletePolicyUrlCategorizationConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeletePolicyUrlCategorizationConfigServiceURL.ToString() + " did not complete successfull";
@@ -106,7 +101,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyUrlCategorizationConfigType GetPolicyUrlCategorizationConfig(string SiteId, string EnforcementPointId, string EdgeClusterId, string UrlCategorizationConfigId)
+        public async Task<NSXTPolicyUrlCategorizationConfigType> GetPolicyUrlCategorizationConfig(string SiteId, string EnforcementPointId, string EdgeClusterId, string UrlCategorizationConfigId)
         {
             if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
             if (EnforcementPointId == null) { throw new System.ArgumentNullException("EnforcementPointId cannot be null"); }
@@ -125,31 +120,19 @@ namespace nsxtapi.PolicyModules
             GetPolicyUrlCategorizationConfigServiceURL.Replace("{edge-cluster-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EdgeClusterId, System.Globalization.CultureInfo.InvariantCulture)));
             GetPolicyUrlCategorizationConfigServiceURL.Replace("{url-categorization-config-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(UrlCategorizationConfigId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetPolicyUrlCategorizationConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyUrlCategorizationConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyUrlCategorizationConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetPolicyUrlCategorizationConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyUrlCategorizationConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyUrlCategorizationConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyUrlCategorizationConfigType PatchPolicyUrlCategorizationConfig(string SiteId, string EnforcementPointId, string EdgeClusterId, string UrlCategorizationConfigId, NSXTPolicyUrlCategorizationConfigType PolicyUrlCategorizationConfig)
+        public async Task<NSXTPolicyUrlCategorizationConfigType> PatchPolicyUrlCategorizationConfig(string SiteId, string EnforcementPointId, string EdgeClusterId, string UrlCategorizationConfigId, NSXTPolicyUrlCategorizationConfigType PolicyUrlCategorizationConfig)
         {
             if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
             if (EnforcementPointId == null) { throw new System.ArgumentNullException("EnforcementPointId cannot be null"); }
@@ -170,31 +153,19 @@ namespace nsxtapi.PolicyModules
             PatchPolicyUrlCategorizationConfigServiceURL.Replace("{url-categorization-config-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(UrlCategorizationConfigId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(PolicyUrlCategorizationConfig, defaultSerializationSettings));
             request.Resource = PatchPolicyUrlCategorizationConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyUrlCategorizationConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyUrlCategorizationConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchPolicyUrlCategorizationConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyUrlCategorizationConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyUrlCategorizationConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTFqdnAnalysisConfigType PutFqdnAnalysisConfig(string SiteId, string EnforcementPointId, string EdgeClusterId, NSXTFqdnAnalysisConfigType FqdnAnalysisConfig)
+        public async Task<NSXTFqdnAnalysisConfigType> PutFqdnAnalysisConfig(string SiteId, string EnforcementPointId, string EdgeClusterId, NSXTFqdnAnalysisConfigType FqdnAnalysisConfig)
         {
             if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
             if (EnforcementPointId == null) { throw new System.ArgumentNullException("EnforcementPointId cannot be null"); }
@@ -213,31 +184,19 @@ namespace nsxtapi.PolicyModules
             PutFqdnAnalysisConfigServiceURL.Replace("{edge-cluster-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EdgeClusterId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(FqdnAnalysisConfig, defaultSerializationSettings));
             request.Resource = PutFqdnAnalysisConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTFqdnAnalysisConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTFqdnAnalysisConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + PutFqdnAnalysisConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTFqdnAnalysisConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTFqdnAnalysisConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteFqdnAnalysisConfig(string SiteId, string EnforcementPointId, string EdgeClusterId)
+        public async Task DeleteFqdnAnalysisConfig(string SiteId, string EnforcementPointId, string EdgeClusterId)
         {
             if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
             if (EnforcementPointId == null) { throw new System.ArgumentNullException("EnforcementPointId cannot be null"); }
@@ -254,7 +213,7 @@ namespace nsxtapi.PolicyModules
             DeleteFqdnAnalysisConfigServiceURL.Replace("{enforcement-point-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EnforcementPointId, System.Globalization.CultureInfo.InvariantCulture)));
             DeleteFqdnAnalysisConfigServiceURL.Replace("{edge-cluster-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EdgeClusterId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteFqdnAnalysisConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteFqdnAnalysisConfigServiceURL.ToString() + " did not complete successfull";
@@ -266,7 +225,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTFqdnAnalysisConfigType GetFqdnAnalysisConfig(string SiteId, string EnforcementPointId, string EdgeClusterId)
+        public async Task<NSXTFqdnAnalysisConfigType> GetFqdnAnalysisConfig(string SiteId, string EnforcementPointId, string EdgeClusterId)
         {
             if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
             if (EnforcementPointId == null) { throw new System.ArgumentNullException("EnforcementPointId cannot be null"); }
@@ -283,31 +242,19 @@ namespace nsxtapi.PolicyModules
             GetFqdnAnalysisConfigServiceURL.Replace("{enforcement-point-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EnforcementPointId, System.Globalization.CultureInfo.InvariantCulture)));
             GetFqdnAnalysisConfigServiceURL.Replace("{edge-cluster-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EdgeClusterId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetFqdnAnalysisConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTFqdnAnalysisConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTFqdnAnalysisConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetFqdnAnalysisConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTFqdnAnalysisConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTFqdnAnalysisConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTFqdnAnalysisConfigType PatchFqdnAnalysisConfig(string SiteId, string EnforcementPointId, string EdgeClusterId, NSXTFqdnAnalysisConfigType FqdnAnalysisConfig)
+        public async Task<NSXTFqdnAnalysisConfigType> PatchFqdnAnalysisConfig(string SiteId, string EnforcementPointId, string EdgeClusterId, NSXTFqdnAnalysisConfigType FqdnAnalysisConfig)
         {
             if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
             if (EnforcementPointId == null) { throw new System.ArgumentNullException("EnforcementPointId cannot be null"); }
@@ -326,31 +273,19 @@ namespace nsxtapi.PolicyModules
             PatchFqdnAnalysisConfigServiceURL.Replace("{edge-cluster-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EdgeClusterId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(FqdnAnalysisConfig, defaultSerializationSettings));
             request.Resource = PatchFqdnAnalysisConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTFqdnAnalysisConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTFqdnAnalysisConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchFqdnAnalysisConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTFqdnAnalysisConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTFqdnAnalysisConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyUrlCategoryListResultType ListPolicyUrlCategories(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTPolicyUrlCategoryListResultType> ListPolicyUrlCategories(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTPolicyUrlCategoryListResultType returnValue = default(NSXTPolicyUrlCategoryListResultType);
             StringBuilder ListPolicyUrlCategoriesServiceURL = new StringBuilder("/infra/url-categories");
@@ -367,31 +302,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListPolicyUrlCategoriesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyUrlCategoryListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyUrlCategoryListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListPolicyUrlCategoriesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyUrlCategoryListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyUrlCategoryListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyUrlReputationSeverityListResultType ListPolicyUrlReputationSeverities(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTPolicyUrlReputationSeverityListResultType> ListPolicyUrlReputationSeverities(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTPolicyUrlReputationSeverityListResultType returnValue = default(NSXTPolicyUrlReputationSeverityListResultType);
             StringBuilder ListPolicyUrlReputationSeveritiesServiceURL = new StringBuilder("/infra/url-reputation-severities");
@@ -408,25 +331,13 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListPolicyUrlReputationSeveritiesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyUrlReputationSeverityListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyUrlReputationSeverityListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListPolicyUrlReputationSeveritiesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyUrlReputationSeverityListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyUrlReputationSeverityListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

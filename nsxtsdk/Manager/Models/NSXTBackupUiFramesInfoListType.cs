@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTBackupUiFramesInfoListType 
     {
-        public NSXTBackupUiFramesInfoListType()
-        {
-        }
         /// <summary>
         /// List of backup frames(and metadata) to be displayed in UI
         /// </summary>
-        [JsonProperty(PropertyName = "backup_frames_list")]
-        [NSXTProperty(IsRequired: false, Description: @"List of backup frames(and metadata) to be displayed in UI")]
         public IList<NSXTBackupUiFramesInfoType> BackupFramesList { get; set; }
     }
 }

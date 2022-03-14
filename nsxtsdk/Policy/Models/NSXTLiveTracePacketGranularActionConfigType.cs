@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,36 +17,25 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Configuration of livetrace packet granular action")]
     public class NSXTLiveTracePacketGranularActionConfigType 
     {
-        public NSXTLiveTracePacketGranularActionConfigType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "reverse_filter")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTLiveTraceFilterDataType ReverseFilter { get; set; }
         /// <summary>
         /// Type of trace
         /// </summary>
         [JsonProperty(PropertyName = "trace_type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Type of trace")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTLiveTracePacketGranularActionConfigTraceTypeEnumType TraceType { get; set; }
         /// <summary>
         /// Policy path of logical port for the reverse direction of a livetrace session. It is required only when the
         /// trace type is bidirectional. Multiple bi-directional actions in a livetrace session should have the same
         /// port specified for the reverse direction.
         /// </summary>
-        [JsonProperty(PropertyName = "dest_port_path")]
-        [NSXTProperty(IsRequired: false, Description: @"Policy path of logical port for the reverse direction of a livetrace session. It is required only when thetrace type is bidirectional. Multiple bi-directional actions in a livetrace session should have the sameport specified for the reverse direction.")]
         public string? DestPortPath { get; set; }
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty(PropertyName = "sampling", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTLiveTraceSamplingConfigType Sampling { get; set; }
     }
 }

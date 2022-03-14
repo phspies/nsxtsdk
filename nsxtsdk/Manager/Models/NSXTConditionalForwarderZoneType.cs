@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,17 +17,12 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTConditionalForwarderZoneType : NSXTForwarderZoneType
     {
-        public NSXTConditionalForwarderZoneType()
-        {
-        }
         /// <summary>
         /// A forwarder domain name should be a valid FQDN. If reverse lookup is
         /// needed for this zone, reverse lookup domain name like X.in-addr.arpa
         /// can be defined. Here the X represents a subnet.
         /// </summary>
         [JsonProperty(PropertyName = "domain_names", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"A forwarder domain name should be a valid FQDN. If reverse lookup isneeded for this zone, reverse lookup domain name like X.in-addr.arpacan be defined. Here the X represents a subnet.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<string> DomainNames { get; set; }
     }
 }

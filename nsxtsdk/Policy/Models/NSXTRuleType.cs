@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,9 +17,6 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTRuleType : NSXTBaseRuleType
     {
-        public NSXTRuleType()
-        {
-        }
         /// <summary>
         /// The action to be applied to all the services
         /// The JUMP_TO_APPLICATION action is only supported for rules created in the
@@ -29,8 +26,6 @@ namespace nsxtsdk.PolicyModels
         /// the Application category then the default application rule will be hit.
         /// This is applicable only for DFW.
         /// </summary>
-        [JsonProperty(PropertyName = "action")]
-        [NSXTProperty(IsRequired: false, Description: @"The action to be applied to all the servicesThe JUMP_TO_APPLICATION action is only supported for rules created in theEnvironment category. Once a match is hit then the rule processingwill jump to the rules present in the Application category, skippingall further rules in the Environment category. If no rules match inthe Application category then the default application rule will be hit.This is applicable only for DFW.")]
         public NSXTRuleActionEnumType? Action { get; set; }
     }
 }

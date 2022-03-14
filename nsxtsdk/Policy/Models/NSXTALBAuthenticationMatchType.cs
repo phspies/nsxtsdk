@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,26 +17,17 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer AuthenticationMatch object")]
     public class NSXTALBAuthenticationMatchType 
     {
-        public NSXTALBAuthenticationMatchType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "host_hdr")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBHostHdrMatchType HostHdr { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "client_ip")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBIpAddrMatchType ClientIp { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "path")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBPathMatchType Path { get; set; }
     }
 }

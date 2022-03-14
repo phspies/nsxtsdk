@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public CentralApiModule(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public CentralApiModule(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void InvokePutTransportNodeCentralAPI(string TargetNodeId, string TargetUri)
+        public async Task InvokePutTransportNodeCentralAPI(string TargetNodeId, string TargetUri)
         {
             if (TargetNodeId == null) { throw new System.ArgumentNullException("TargetNodeId cannot be null"); }
             if (TargetUri == null) { throw new System.ArgumentNullException("TargetUri cannot be null"); }
@@ -45,7 +52,7 @@ namespace nsxtapi.ManagerModules
             InvokePutTransportNodeCentralAPIServiceURL.Replace("{target-node-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(TargetNodeId, System.Globalization.CultureInfo.InvariantCulture)));
             InvokePutTransportNodeCentralAPIServiceURL.Replace("{target-uri}", System.Uri.EscapeDataString(Helpers.ConvertToString(TargetUri, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = InvokePutTransportNodeCentralAPIServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + InvokePutTransportNodeCentralAPIServiceURL.ToString() + " did not complete successfull";
@@ -57,7 +64,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void InvokePostTransportNodeCentralAPI(string TargetNodeId, string TargetUri)
+        public async Task InvokePostTransportNodeCentralAPI(string TargetNodeId, string TargetUri)
         {
             if (TargetNodeId == null) { throw new System.ArgumentNullException("TargetNodeId cannot be null"); }
             if (TargetUri == null) { throw new System.ArgumentNullException("TargetUri cannot be null"); }
@@ -72,7 +79,7 @@ namespace nsxtapi.ManagerModules
             InvokePostTransportNodeCentralAPIServiceURL.Replace("{target-node-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(TargetNodeId, System.Globalization.CultureInfo.InvariantCulture)));
             InvokePostTransportNodeCentralAPIServiceURL.Replace("{target-uri}", System.Uri.EscapeDataString(Helpers.ConvertToString(TargetUri, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = InvokePostTransportNodeCentralAPIServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + InvokePostTransportNodeCentralAPIServiceURL.ToString() + " did not complete successfull";
@@ -84,7 +91,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void InvokeDeleteTransportNodeCentralAPI(string TargetNodeId, string TargetUri)
+        public async Task InvokeDeleteTransportNodeCentralAPI(string TargetNodeId, string TargetUri)
         {
             if (TargetNodeId == null) { throw new System.ArgumentNullException("TargetNodeId cannot be null"); }
             if (TargetUri == null) { throw new System.ArgumentNullException("TargetUri cannot be null"); }
@@ -99,7 +106,7 @@ namespace nsxtapi.ManagerModules
             InvokeDeleteTransportNodeCentralAPIServiceURL.Replace("{target-node-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(TargetNodeId, System.Globalization.CultureInfo.InvariantCulture)));
             InvokeDeleteTransportNodeCentralAPIServiceURL.Replace("{target-uri}", System.Uri.EscapeDataString(Helpers.ConvertToString(TargetUri, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = InvokeDeleteTransportNodeCentralAPIServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + InvokeDeleteTransportNodeCentralAPIServiceURL.ToString() + " did not complete successfull";
@@ -111,7 +118,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void InvokeGetTransportNodeCentralAPI(string TargetNodeId, string TargetUri)
+        public async Task InvokeGetTransportNodeCentralAPI(string TargetNodeId, string TargetUri)
         {
             if (TargetNodeId == null) { throw new System.ArgumentNullException("TargetNodeId cannot be null"); }
             if (TargetUri == null) { throw new System.ArgumentNullException("TargetUri cannot be null"); }
@@ -126,7 +133,7 @@ namespace nsxtapi.ManagerModules
             InvokeGetTransportNodeCentralAPIServiceURL.Replace("{target-node-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(TargetNodeId, System.Globalization.CultureInfo.InvariantCulture)));
             InvokeGetTransportNodeCentralAPIServiceURL.Replace("{target-uri}", System.Uri.EscapeDataString(Helpers.ConvertToString(TargetUri, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = InvokeGetTransportNodeCentralAPIServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + InvokeGetTransportNodeCentralAPIServiceURL.ToString() + " did not complete successfull";
@@ -138,7 +145,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void InvokePutClusterCentralAPI(string TargetNodeId, string TargetUri)
+        public async Task InvokePutClusterCentralAPI(string TargetNodeId, string TargetUri)
         {
             if (TargetNodeId == null) { throw new System.ArgumentNullException("TargetNodeId cannot be null"); }
             if (TargetUri == null) { throw new System.ArgumentNullException("TargetUri cannot be null"); }
@@ -153,7 +160,7 @@ namespace nsxtapi.ManagerModules
             InvokePutClusterCentralAPIServiceURL.Replace("{target-node-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(TargetNodeId, System.Globalization.CultureInfo.InvariantCulture)));
             InvokePutClusterCentralAPIServiceURL.Replace("{target-uri}", System.Uri.EscapeDataString(Helpers.ConvertToString(TargetUri, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = InvokePutClusterCentralAPIServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + InvokePutClusterCentralAPIServiceURL.ToString() + " did not complete successfull";
@@ -165,7 +172,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void InvokePostClusterCentralAPI(string TargetNodeId, string TargetUri)
+        public async Task InvokePostClusterCentralAPI(string TargetNodeId, string TargetUri)
         {
             if (TargetNodeId == null) { throw new System.ArgumentNullException("TargetNodeId cannot be null"); }
             if (TargetUri == null) { throw new System.ArgumentNullException("TargetUri cannot be null"); }
@@ -180,7 +187,7 @@ namespace nsxtapi.ManagerModules
             InvokePostClusterCentralAPIServiceURL.Replace("{target-node-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(TargetNodeId, System.Globalization.CultureInfo.InvariantCulture)));
             InvokePostClusterCentralAPIServiceURL.Replace("{target-uri}", System.Uri.EscapeDataString(Helpers.ConvertToString(TargetUri, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = InvokePostClusterCentralAPIServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + InvokePostClusterCentralAPIServiceURL.ToString() + " did not complete successfull";
@@ -192,7 +199,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void InvokeDeleteClusterCentralAPI(string TargetNodeId, string TargetUri)
+        public async Task InvokeDeleteClusterCentralAPI(string TargetNodeId, string TargetUri)
         {
             if (TargetNodeId == null) { throw new System.ArgumentNullException("TargetNodeId cannot be null"); }
             if (TargetUri == null) { throw new System.ArgumentNullException("TargetUri cannot be null"); }
@@ -207,7 +214,7 @@ namespace nsxtapi.ManagerModules
             InvokeDeleteClusterCentralAPIServiceURL.Replace("{target-node-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(TargetNodeId, System.Globalization.CultureInfo.InvariantCulture)));
             InvokeDeleteClusterCentralAPIServiceURL.Replace("{target-uri}", System.Uri.EscapeDataString(Helpers.ConvertToString(TargetUri, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = InvokeDeleteClusterCentralAPIServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + InvokeDeleteClusterCentralAPIServiceURL.ToString() + " did not complete successfull";
@@ -219,7 +226,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void InvokeGetClusterCentralAPI(string TargetNodeId, string TargetUri)
+        public async Task InvokeGetClusterCentralAPI(string TargetNodeId, string TargetUri)
         {
             if (TargetNodeId == null) { throw new System.ArgumentNullException("TargetNodeId cannot be null"); }
             if (TargetUri == null) { throw new System.ArgumentNullException("TargetUri cannot be null"); }
@@ -234,7 +241,7 @@ namespace nsxtapi.ManagerModules
             InvokeGetClusterCentralAPIServiceURL.Replace("{target-node-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(TargetNodeId, System.Globalization.CultureInfo.InvariantCulture)));
             InvokeGetClusterCentralAPIServiceURL.Replace("{target-uri}", System.Uri.EscapeDataString(Helpers.ConvertToString(TargetUri, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = InvokeGetClusterCentralAPIServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + InvokeGetClusterCentralAPIServiceURL.ToString() + " did not complete successfull";

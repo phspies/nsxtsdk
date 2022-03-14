@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,20 +17,13 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Describes whether bundle upload is allowed or not.")]
     public class NSXTBundleUploadPermissionType 
     {
-        public NSXTBundleUploadPermissionType()
-        {
-        }
         /// <summary>
         /// Reason for not allowing upload.
         /// </summary>
-        [JsonProperty(PropertyName = "reason")]
-        [NSXTProperty(IsRequired: false, Description: @"Reason for not allowing upload.")]
         public string? Reason { get; set; }
         /// <summary>
         /// Flag indication whether upload is allowed or not.
         /// </summary>
-        [JsonProperty(PropertyName = "upload_allowed")]
-        [NSXTProperty(IsRequired: false, Description: @"Flag indication whether upload is allowed or not.")]
         public bool? UploadAllowed { get; set; }
     }
 }

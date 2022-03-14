@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,24 +17,17 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer AutoScaleOpenStackSettings object")]
     public class NSXTALBAutoScaleOpenStackSettingsType 
     {
-        public NSXTALBAutoScaleOpenStackSettingsType()
-        {
-        }
         /// <summary>
         /// Avi Controller will use this URL to scale upthe pool.
         /// Cloud connector will automatically update the membership.
         /// This is an alpha feature.
         /// </summary>
-        [JsonProperty(PropertyName = "heat_scale_up_url")]
-        [NSXTProperty(IsRequired: false, Description: @"Avi Controller will use this URL to scale upthe pool.Cloud connector will automatically update the membership.This is an alpha feature.")]
         public string? HeatScaleUpUrl { get; set; }
         /// <summary>
         /// Avi Controller will use this URL to scale downthe pool.
         /// Cloud connector will automatically update the membership.
         /// This is an alpha feature.
         /// </summary>
-        [JsonProperty(PropertyName = "heat_scale_down_url")]
-        [NSXTProperty(IsRequired: false, Description: @"Avi Controller will use this URL to scale downthe pool.Cloud connector will automatically update the membership.This is an alpha feature.")]
         public string? HeatScaleDownUrl { get; set; }
     }
 }

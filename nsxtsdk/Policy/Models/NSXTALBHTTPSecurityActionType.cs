@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,9 +17,6 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer HTTPSecurityAction object")]
     public class NSXTALBHTTPSecurityActionType 
     {
-        public NSXTALBHTTPSecurityActionType()
-        {
-        }
         /// <summary>
         /// Type of the security action to perform.
         /// Enum options - HTTP_SECURITY_ACTION_CLOSE_CONN,
@@ -35,8 +32,6 @@ namespace nsxtsdk.PolicyModels
         /// edition, Enterprise edition.
         /// </summary>
         [JsonProperty(PropertyName = "action", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Type of the security action to perform.Enum options - HTTP_SECURITY_ACTION_CLOSE_CONN,HTTP_SECURITY_ACTION_SEND_RESPONSE,HTTP_SECURITY_ACTION_ALLOW,HTTP_SECURITY_ACTION_REDIRECT_TO_HTTPS,HTTP_SECURITY_ACTION_RATE_LIMIT,HTTP_SECURITY_ACTION_REQUEST_CHECK_ICAP.Allowed in Basic(Allowed values-HTTP_SECURITY_ACTION_CLOSE_CONN,HTTP_SECURITY_ACTION_SEND_RESPONSE,HTTP_SECURITY_ACTION_REDIRECT_TO_HTTPS)edition, Essentials(Allowed values-HTTP_SECURITY_ACTION_CLOSE_CONN,HTTP_SECURITY_ACTION_SEND_RESPONSE,HTTP_SECURITY_ACTION_REDIRECT_TO_HTTPS)edition, Enterprise edition.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTAlbhttpsecurityActionActionEnumType Action { get; set; }
         /// <summary>
         /// HTTP status code to use for local response.
@@ -47,29 +42,19 @@ namespace nsxtsdk.PolicyModels
         /// HTTP_LOCAL_RESPONSE_STATUS_CODE_429,
         /// HTTP_LOCAL_RESPONSE_STATUS_CODE_501.
         /// </summary>
-        [JsonProperty(PropertyName = "status_code")]
-        [NSXTProperty(IsRequired: false, Description: @"HTTP status code to use for local response.Enum options - HTTP_LOCAL_RESPONSE_STATUS_CODE_200,HTTP_LOCAL_RESPONSE_STATUS_CODE_204,HTTP_LOCAL_RESPONSE_STATUS_CODE_403,HTTP_LOCAL_RESPONSE_STATUS_CODE_404,HTTP_LOCAL_RESPONSE_STATUS_CODE_429,HTTP_LOCAL_RESPONSE_STATUS_CODE_501.")]
         public NSXTAlbhttpsecurityActionStatusCodeEnumType? StatusCode { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "rate_profile")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBHTTPSecurityActionRateProfileType RateProfile { get; set; }
         /// <summary>
         /// Secure SSL/TLS port to redirect the HTTP request to.
         /// Allowed values are 1-65535.
         /// </summary>
-        [JsonProperty(PropertyName = "https_port")]
-        [NSXTProperty(IsRequired: false, Description: @"Secure SSL/TLS port to redirect the HTTP request to.Allowed values are 1-65535.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
         public long? HttpsPort { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "file")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBHTTPLocalFileType File { get; set; }
     }
 }

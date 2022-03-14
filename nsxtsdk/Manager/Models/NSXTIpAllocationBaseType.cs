@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,29 +17,17 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIpAllocationBaseType : NSXTManagedResourceType
     {
-        public NSXTIpAllocationBaseType()
-        {
-            LeaseTime = test
-        }
         /// <summary>
         /// Lease time, in seconds, [60-(2^32-1)]. Default is 86400.
         /// </summary>
-        [JsonProperty(PropertyName = "lease_time")]
-        [NSXTProperty(IsRequired: false, Description: @"Lease time, in seconds, [60-(2^32-1)]. Default is 86400.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(60)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(4294967295)]
         public long? LeaseTime { get; set; }
         /// <summary>
         /// Gateway ip address of the allocation.
         /// </summary>
-        [JsonProperty(PropertyName = "gateway_ip")]
-        [NSXTProperty(IsRequired: false, Description: @"Gateway ip address of the allocation.")]
         public string? GatewayIp { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "options")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTDhcpOptionsType Options { get; set; }
     }
 }

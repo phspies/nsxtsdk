@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTMigrationFeedbackRequestListResultType : NSXTListResultType
     {
-        public NSXTMigrationFeedbackRequestListResultType()
-        {
-        }
         /// <summary>
         /// Paged Collection of feedback requests
         /// </summary>
         [JsonProperty(PropertyName = "results", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Paged Collection of feedback requests")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTMigrationFeedbackRequestType> Results { get; set; }
     }
 }

@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public TnContainerStatus(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public TnContainerStatus(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTContainerClusterSummaryType ReadContainerClusterStatus(string ClusterId)
+        public async Task<NSXTContainerClusterSummaryType> ReadContainerClusterStatus(string ClusterId)
         {
             if (ClusterId == null) { throw new System.ArgumentNullException("ClusterId cannot be null"); }
             NSXTContainerClusterSummaryType returnValue = default(NSXTContainerClusterSummaryType);
@@ -43,31 +50,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             ReadContainerClusterStatusServiceURL.Replace("{cluster-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ClusterId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadContainerClusterStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTContainerClusterSummaryType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTContainerClusterSummaryType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadContainerClusterStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTContainerClusterSummaryType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTContainerClusterSummaryType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteContainerClusterSummary(string ClusterId)
+        public async Task DeleteContainerClusterSummary(string ClusterId)
         {
             if (ClusterId == null) { throw new System.ArgumentNullException("ClusterId cannot be null"); }
             
@@ -80,7 +75,7 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             DeleteContainerClusterSummaryServiceURL.Replace("{cluster-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ClusterId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteContainerClusterSummaryServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteContainerClusterSummaryServiceURL.ToString() + " did not complete successfull";
@@ -92,7 +87,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTnHyperbusStatusType ReadTnHyperbusStatus(string NodeId)
+        public async Task<NSXTTnHyperbusStatusType> ReadTnHyperbusStatus(string NodeId)
         {
             if (NodeId == null) { throw new System.ArgumentNullException("NodeId cannot be null"); }
             NSXTTnHyperbusStatusType returnValue = default(NSXTTnHyperbusStatusType);
@@ -105,31 +100,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             ReadTnHyperbusStatusServiceURL.Replace("{node-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NodeId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadTnHyperbusStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTnHyperbusStatusType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTnHyperbusStatusType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadTnHyperbusStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTnHyperbusStatusType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTnHyperbusStatusType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTnNodeAgentStatusListResultType ReadTnContainerAgentStatus(string NodeId, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTTnNodeAgentStatusListResultType> ReadTnContainerAgentStatus(string NodeId, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (NodeId == null) { throw new System.ArgumentNullException("NodeId cannot be null"); }
             NSXTTnNodeAgentStatusListResultType returnValue = default(NSXTTnNodeAgentStatusListResultType);
@@ -147,31 +130,19 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ReadTnContainerAgentStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTnNodeAgentStatusListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTnNodeAgentStatusListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadTnContainerAgentStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTnNodeAgentStatusListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTnNodeAgentStatusListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTContainerClusterStatusType CreateContainerClusterStatus(NSXTContainerClusterStatusType ContainerClusterStatus)
+        public async Task<NSXTContainerClusterStatusType> CreateContainerClusterStatus(NSXTContainerClusterStatusType ContainerClusterStatus)
         {
             if (ContainerClusterStatus == null) { throw new System.ArgumentNullException("ContainerClusterStatus cannot be null"); }
             NSXTContainerClusterStatusType returnValue = default(NSXTContainerClusterStatusType);
@@ -184,31 +155,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(ContainerClusterStatus, defaultSerializationSettings));
             request.Resource = CreateContainerClusterStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTContainerClusterStatusType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTContainerClusterStatusType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CreateContainerClusterStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTContainerClusterStatusType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTContainerClusterStatusType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTContainerClusterStatusListType ReadContainerClusterStatusList(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? Status = null)
+        public async Task<NSXTContainerClusterStatusListType> ReadContainerClusterStatusList(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? Status = null)
         {
             NSXTContainerClusterStatusListType returnValue = default(NSXTContainerClusterStatusListType);
             StringBuilder ReadContainerClusterStatusListServiceURL = new StringBuilder("/systemhealth/container-cluster/ncp/status");
@@ -225,25 +184,13 @@ namespace nsxtapi.ManagerModules
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             if (Status != null) { request.AddQueryParameter("status", Status.ToString()); }
             request.Resource = ReadContainerClusterStatusListServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTContainerClusterStatusListType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTContainerClusterStatusListType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadContainerClusterStatusListServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTContainerClusterStatusListType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTContainerClusterStatusListType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

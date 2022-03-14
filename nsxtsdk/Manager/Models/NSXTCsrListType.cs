@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTCsrListType : NSXTListResultType
     {
-        public NSXTCsrListType()
-        {
-        }
         /// <summary>
         /// CSR list.
         /// </summary>
         [JsonProperty(PropertyName = "results", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"CSR list.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTCsrType> Results { get; set; }
     }
 }

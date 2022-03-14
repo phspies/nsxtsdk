@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,32 +17,21 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNodeSummaryType : NSXTResourceType
     {
-        public NSXTNodeSummaryType()
-        {
-        }
         /// <summary>
         /// Number of nodes of the type and at the component version
         /// </summary>
-        [JsonProperty(PropertyName = "node_count")]
-        [NSXTProperty(IsRequired: false, Description: @"Number of nodes of the type and at the component version")]
         public int? NodeCount { get; set; }
         /// <summary>
         /// Node type
         /// </summary>
-        [JsonProperty(PropertyName = "type")]
-        [NSXTProperty(IsRequired: false, Description: @"Node type")]
         public string? Type { get; set; }
         /// <summary>
         /// Component version
         /// </summary>
-        [JsonProperty(PropertyName = "component_version")]
-        [NSXTProperty(IsRequired: false, Description: @"Component version")]
         public string? ComponentVersion { get; set; }
         /// <summary>
         /// UpgradeUnit sub type
         /// </summary>
-        [JsonProperty(PropertyName = "upgrade_unit_subtype")]
-        [NSXTProperty(IsRequired: false, Description: @"UpgradeUnit sub type")]
         public NSXTNodeSummaryUpgradeUnitSubtypeEnumType? UpgradeUnitSubtype { get; set; }
     }
 }

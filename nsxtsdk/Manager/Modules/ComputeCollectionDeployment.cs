@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public ComputeCollectionDeployment(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public ComputeCollectionDeployment(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PerformActionOnComputeCollection(string CcExtId, string? Action = null)
+        public async Task PerformActionOnComputeCollection(string CcExtId, string? Action = null)
         {
             if (CcExtId == null) { throw new System.ArgumentNullException("CcExtId cannot be null"); }
             
@@ -44,7 +51,7 @@ namespace nsxtapi.ManagerModules
             PerformActionOnComputeCollectionServiceURL.Replace("{cc-ext-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CcExtId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Action != null) { request.AddQueryParameter("action", Action.ToString()); }
             request.Resource = PerformActionOnComputeCollectionServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + PerformActionOnComputeCollectionServiceURL.ToString() + " did not complete successfull";
@@ -56,7 +63,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTComputeCollectionType ReadComputeCollection(string CcExtId)
+        public async Task<NSXTComputeCollectionType> ReadComputeCollection(string CcExtId)
         {
             if (CcExtId == null) { throw new System.ArgumentNullException("CcExtId cannot be null"); }
             NSXTComputeCollectionType returnValue = default(NSXTComputeCollectionType);
@@ -69,31 +76,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             ReadComputeCollectionServiceURL.Replace("{cc-ext-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CcExtId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadComputeCollectionServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTComputeCollectionType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTComputeCollectionType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadComputeCollectionServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTComputeCollectionType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTComputeCollectionType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTHostNodeStatusListResultType GetHostNodeStatusOnComputeCollection(string CcExtId)
+        public async Task<NSXTHostNodeStatusListResultType> GetHostNodeStatusOnComputeCollection(string CcExtId)
         {
             if (CcExtId == null) { throw new System.ArgumentNullException("CcExtId cannot be null"); }
             NSXTHostNodeStatusListResultType returnValue = default(NSXTHostNodeStatusListResultType);
@@ -106,25 +101,13 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             GetHostNodeStatusOnComputeCollectionServiceURL.Replace("{cc-ext-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CcExtId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetHostNodeStatusOnComputeCollectionServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTHostNodeStatusListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTHostNodeStatusListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetHostNodeStatusOnComputeCollectionServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTHostNodeStatusListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTHostNodeStatusListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

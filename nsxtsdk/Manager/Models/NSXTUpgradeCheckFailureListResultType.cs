@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTUpgradeCheckFailureListResultType : NSXTListResultType
     {
-        public NSXTUpgradeCheckFailureListResultType()
-        {
-        }
         /// <summary>
         /// Collection of pre/post-upgrade check failures
         /// </summary>
         [JsonProperty(PropertyName = "results", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Collection of pre/post-upgrade check failures")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTUpgradeCheckFailureType> Results { get; set; }
     }
 }

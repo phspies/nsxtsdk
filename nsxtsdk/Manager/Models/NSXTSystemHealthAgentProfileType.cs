@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,28 +17,19 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTSystemHealthAgentProfileType : NSXTManagedResourceType
     {
-        public NSXTSystemHealthAgentProfileType()
-        {
-        }
         /// <summary>
         /// The on-off switch of System Health Agent
         /// </summary>
-        [JsonProperty(PropertyName = "enabled")]
-        [NSXTProperty(IsRequired: false, Description: @"The on-off switch of System Health Agent")]
         public bool? Enabled { get; set; }
         /// <summary>
         /// The id of System Health Agent plugin
         /// </summary>
         [JsonProperty(PropertyName = "plugin_id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"The id of System Health Agent plugin")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string PluginId { get; set; }
         /// <summary>
         /// The config content of System Health Agent
         /// </summary>
         [JsonProperty(PropertyName = "config", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"The config content of System Health Agent")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Config { get; set; }
         /// <summary>
         /// The type of System Health Agent.
@@ -46,8 +37,6 @@ namespace nsxtsdk.ManagerModels
         /// So the backend can obtain the type by the plugin definition directly. Mark this field as optional.
         /// If need to check the type value by given plugin id, please call /systemhealth/plugins/<plugin-id>.
         /// </summary>
-        [JsonProperty(PropertyName = "type")]
-        [NSXTProperty(IsRequired: false, Description: @"The type of System Health Agent.The System Health Agent plugin associated with given plugin id has already defined the profile type.So the backend can obtain the type by the plugin definition directly. Mark this field as optional.If need to check the type value by given plugin id, please call /systemhealth/plugins/&lt;plugin-id&gt;.")]
         public NSXTSystemHealthAgentProfileTypeEnumType? Type { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,22 +17,15 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTVirtualMachineTagUpdateType 
     {
-        public NSXTVirtualMachineTagUpdateType()
-        {
-        }
         /// <summary>
         /// External id of the virtual machine to which tags are to be applied
         /// </summary>
         [JsonProperty(PropertyName = "external_id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"External id of the virtual machine to which tags are to be applied")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string ExternalId { get; set; }
         /// <summary>
         /// List of tags to be applied to the virtual machine
         /// </summary>
         [JsonProperty(PropertyName = "tags", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"List of tags to be applied to the virtual machine")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTTagType> Tags { get; set; }
     }
 }

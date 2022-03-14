@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,26 +17,17 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyEdgeNodeInterSiteBgpSummaryType 
     {
-        public NSXTPolicyEdgeNodeInterSiteBgpSummaryType()
-        {
-        }
         /// <summary>
         /// Timestamp when the inter-site IBGP neighbors status was last updated.
         /// </summary>
-        [JsonProperty(PropertyName = "last_update_timestamp")]
-        [NSXTProperty(IsRequired: false, Description: @"Timestamp when the inter-site IBGP neighbors status was last updated.")]
         public long? LastUpdateTimestamp { get; set; }
         /// <summary>
         /// Status of all inter-site IBGP neighbors.
         /// </summary>
-        [JsonProperty(PropertyName = "neighbor_status")]
-        [NSXTProperty(IsRequired: false, Description: @"Status of all inter-site IBGP neighbors.")]
         public IList<NSXTPolicyBgpNeighborStatusType> NeighborStatus { get; set; }
         /// <summary>
         /// Edge node path whose status is being reported.
         /// </summary>
-        [JsonProperty(PropertyName = "edge_node_path")]
-        [NSXTProperty(IsRequired: false, Description: @"Edge node path whose status is being reported.")]
         public string? EdgeNodePath { get; set; }
     }
 }

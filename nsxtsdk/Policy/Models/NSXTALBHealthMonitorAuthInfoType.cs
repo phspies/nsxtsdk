@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,20 +17,13 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer HealthMonitorAuthInfo object")]
     public class NSXTALBHealthMonitorAuthInfoType 
     {
-        public NSXTALBHealthMonitorAuthInfoType()
-        {
-        }
         /// <summary>
         /// Username for server authentication.
         /// </summary>
-        [JsonProperty(PropertyName = "username")]
-        [NSXTProperty(IsRequired: false, Description: @"Username for server authentication.")]
         public string? Username { get; set; }
         /// <summary>
         /// Password for server authentication.
         /// </summary>
-        [JsonProperty(PropertyName = "password")]
-        [NSXTProperty(IsRequired: false, Description: @"Password for server authentication.")]
         public string? Password { get; set; }
     }
 }

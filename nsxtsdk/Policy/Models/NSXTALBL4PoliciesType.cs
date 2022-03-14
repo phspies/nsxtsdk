@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,23 +17,16 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer L4Policies object")]
     public class NSXTALBL4PoliciesType 
     {
-        public NSXTALBL4PoliciesType()
-        {
-        }
         /// <summary>
         /// ID of the virtual service L4 policy set.
         /// It is a reference to an object of type L4PolicySet.
         /// </summary>
         [JsonProperty(PropertyName = "l4_policy_set_path", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"ID of the virtual service L4 policy set.It is a reference to an object of type L4PolicySet.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string L4PolicySetPath { get; set; }
         /// <summary>
         /// Index of the virtual service L4 policy set.
         /// </summary>
         [JsonProperty(PropertyName = "index", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Index of the virtual service L4 policy set.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public long Index { get; set; }
     }
 }

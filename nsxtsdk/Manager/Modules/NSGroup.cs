@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public NSGroup(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public NSGroup(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTEffectiveMemberResourceListResultType GetEffectiveCloudNativeServiceInstances(string NsGroupId, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTEffectiveMemberResourceListResultType> GetEffectiveCloudNativeServiceInstances(string NsGroupId, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (NsGroupId == null) { throw new System.ArgumentNullException("NsGroupId cannot be null"); }
             NSXTEffectiveMemberResourceListResultType returnValue = default(NSXTEffectiveMemberResourceListResultType);
@@ -48,31 +55,19 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GetEffectiveCloudNativeServiceInstancesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTEffectiveMemberResourceListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTEffectiveMemberResourceListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetEffectiveCloudNativeServiceInstancesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTEffectiveMemberResourceListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTEffectiveMemberResourceListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTEffectiveMemberResourceListResultType GetEffectiveTransportNodeMembers(string NsGroupId, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTEffectiveMemberResourceListResultType> GetEffectiveTransportNodeMembers(string NsGroupId, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (NsGroupId == null) { throw new System.ArgumentNullException("NsGroupId cannot be null"); }
             NSXTEffectiveMemberResourceListResultType returnValue = default(NSXTEffectiveMemberResourceListResultType);
@@ -90,31 +85,19 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GetEffectiveTransportNodeMembersServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTEffectiveMemberResourceListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTEffectiveMemberResourceListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetEffectiveTransportNodeMembersServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTEffectiveMemberResourceListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTEffectiveMemberResourceListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTEffectiveMemberResourceListResultType GetEffectiveLogicalSwitchMembers(string NsGroupId, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTEffectiveMemberResourceListResultType> GetEffectiveLogicalSwitchMembers(string NsGroupId, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (NsGroupId == null) { throw new System.ArgumentNullException("NsGroupId cannot be null"); }
             NSXTEffectiveMemberResourceListResultType returnValue = default(NSXTEffectiveMemberResourceListResultType);
@@ -132,31 +115,19 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GetEffectiveLogicalSwitchMembersServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTEffectiveMemberResourceListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTEffectiveMemberResourceListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetEffectiveLogicalSwitchMembersServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTEffectiveMemberResourceListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTEffectiveMemberResourceListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTEffectiveMemberResourceListResultType GetEffectivePhysicalServerMembers(string NsGroupId, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTEffectiveMemberResourceListResultType> GetEffectivePhysicalServerMembers(string NsGroupId, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (NsGroupId == null) { throw new System.ArgumentNullException("NsGroupId cannot be null"); }
             NSXTEffectiveMemberResourceListResultType returnValue = default(NSXTEffectiveMemberResourceListResultType);
@@ -174,31 +145,19 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GetEffectivePhysicalServerMembersServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTEffectiveMemberResourceListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTEffectiveMemberResourceListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetEffectivePhysicalServerMembersServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTEffectiveMemberResourceListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTEffectiveMemberResourceListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNSGroupType UpdateNsgroup(string NsGroupId, NSXTNSGroupType Nsgroup)
+        public async Task<NSXTNSGroupType> UpdateNsgroup(string NsGroupId, NSXTNSGroupType Nsgroup)
         {
             if (NsGroupId == null) { throw new System.ArgumentNullException("NsGroupId cannot be null"); }
             if (Nsgroup == null) { throw new System.ArgumentNullException("Nsgroup cannot be null"); }
@@ -213,31 +172,19 @@ namespace nsxtapi.ManagerModules
             UpdateNsgroupServiceURL.Replace("{ns-group-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NsGroupId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(Nsgroup, defaultSerializationSettings));
             request.Resource = UpdateNsgroupServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNSGroupType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNSGroupType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateNsgroupServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNSGroupType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNSGroupType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNSGroupType AddOrRemoveNsgroupExpression(string NsGroupId, NSXTNSGroupExpressionListType NsgroupExpressionList, string Action)
+        public async Task<NSXTNSGroupType> AddOrRemoveNsgroupExpression(string NsGroupId, NSXTNSGroupExpressionListType NsgroupExpressionList, string Action)
         {
             if (NsGroupId == null) { throw new System.ArgumentNullException("NsGroupId cannot be null"); }
             if (NsgroupExpressionList == null) { throw new System.ArgumentNullException("NsgroupExpressionList cannot be null"); }
@@ -254,31 +201,19 @@ namespace nsxtapi.ManagerModules
             request.AddJsonBody(JsonConvert.SerializeObject(NsgroupExpressionList, defaultSerializationSettings));
             if (Action != null) { request.AddQueryParameter("action", Action.ToString()); }
             request.Resource = AddOrRemoveNsgroupExpressionServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNSGroupType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNSGroupType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + AddOrRemoveNsgroupExpressionServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNSGroupType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNSGroupType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNSGroupType ReadNsgroup(string NsGroupId, bool? PopulateReferences = null)
+        public async Task<NSXTNSGroupType> ReadNsgroup(string NsGroupId, bool? PopulateReferences = null)
         {
             if (NsGroupId == null) { throw new System.ArgumentNullException("NsGroupId cannot be null"); }
             NSXTNSGroupType returnValue = default(NSXTNSGroupType);
@@ -292,31 +227,19 @@ namespace nsxtapi.ManagerModules
             ReadNsgroupServiceURL.Replace("{ns-group-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NsGroupId, System.Globalization.CultureInfo.InvariantCulture)));
             if (PopulateReferences != null) { request.AddQueryParameter("populate_references", PopulateReferences.ToString()); }
             request.Resource = ReadNsgroupServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNSGroupType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNSGroupType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadNsgroupServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNSGroupType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNSGroupType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteNsgroup(string NsGroupId, bool? Force = null)
+        public async Task DeleteNsgroup(string NsGroupId, bool? Force = null)
         {
             if (NsGroupId == null) { throw new System.ArgumentNullException("NsGroupId cannot be null"); }
             
@@ -330,7 +253,7 @@ namespace nsxtapi.ManagerModules
             DeleteNsgroupServiceURL.Replace("{ns-group-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NsGroupId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
             request.Resource = DeleteNsgroupServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteNsgroupServiceURL.ToString() + " did not complete successfull";
@@ -342,7 +265,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTVirtualMachineListResultType GetEffectiveVirtualMachineMembers(string NsGroupId, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTVirtualMachineListResultType> GetEffectiveVirtualMachineMembers(string NsGroupId, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (NsGroupId == null) { throw new System.ArgumentNullException("NsGroupId cannot be null"); }
             NSXTVirtualMachineListResultType returnValue = default(NSXTVirtualMachineListResultType);
@@ -360,31 +283,19 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GetEffectiveVirtualMachineMembersServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTVirtualMachineListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTVirtualMachineListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetEffectiveVirtualMachineMembersServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTVirtualMachineListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTVirtualMachineListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTVirtualNetworkInterfaceListResultType GetEffectiveVifmembers(string NsGroupId, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTVirtualNetworkInterfaceListResultType> GetEffectiveVifmembers(string NsGroupId, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (NsGroupId == null) { throw new System.ArgumentNullException("NsGroupId cannot be null"); }
             NSXTVirtualNetworkInterfaceListResultType returnValue = default(NSXTVirtualNetworkInterfaceListResultType);
@@ -402,31 +313,19 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GetEffectiveVifmembersServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTVirtualNetworkInterfaceListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTVirtualNetworkInterfaceListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetEffectiveVifmembersServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTVirtualNetworkInterfaceListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTVirtualNetworkInterfaceListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTEffectiveMemberResourceListResultType GetEffectiveIpsetMembers(string NsGroupId, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTEffectiveMemberResourceListResultType> GetEffectiveIpsetMembers(string NsGroupId, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (NsGroupId == null) { throw new System.ArgumentNullException("NsGroupId cannot be null"); }
             NSXTEffectiveMemberResourceListResultType returnValue = default(NSXTEffectiveMemberResourceListResultType);
@@ -444,31 +343,19 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GetEffectiveIpsetMembersServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTEffectiveMemberResourceListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTEffectiveMemberResourceListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetEffectiveIpsetMembersServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTEffectiveMemberResourceListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTEffectiveMemberResourceListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTEffectiveMemberTypeListResultType GetMemberTypes(string NsGroupId, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTEffectiveMemberTypeListResultType> GetMemberTypes(string NsGroupId, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (NsGroupId == null) { throw new System.ArgumentNullException("NsGroupId cannot be null"); }
             NSXTEffectiveMemberTypeListResultType returnValue = default(NSXTEffectiveMemberTypeListResultType);
@@ -486,31 +373,19 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GetMemberTypesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTEffectiveMemberTypeListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTEffectiveMemberTypeListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetMemberTypesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTEffectiveMemberTypeListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTEffectiveMemberTypeListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTEffectiveIPAddressMemberListResultType GetEffectiveIpaddressMembers(string NsGroupId, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTEffectiveIPAddressMemberListResultType> GetEffectiveIpaddressMembers(string NsGroupId, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (NsGroupId == null) { throw new System.ArgumentNullException("NsGroupId cannot be null"); }
             NSXTEffectiveIPAddressMemberListResultType returnValue = default(NSXTEffectiveIPAddressMemberListResultType);
@@ -528,31 +403,19 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GetEffectiveIpaddressMembersServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTEffectiveIPAddressMemberListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTEffectiveIPAddressMemberListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetEffectiveIpaddressMembersServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTEffectiveIPAddressMemberListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTEffectiveIPAddressMemberListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTEffectiveMemberResourceListResultType GetEffectiveLogicalPortMembers(string NsGroupId, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTEffectiveMemberResourceListResultType> GetEffectiveLogicalPortMembers(string NsGroupId, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (NsGroupId == null) { throw new System.ArgumentNullException("NsGroupId cannot be null"); }
             NSXTEffectiveMemberResourceListResultType returnValue = default(NSXTEffectiveMemberResourceListResultType);
@@ -570,31 +433,19 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GetEffectiveLogicalPortMembersServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTEffectiveMemberResourceListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTEffectiveMemberResourceListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetEffectiveLogicalPortMembersServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTEffectiveMemberResourceListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTEffectiveMemberResourceListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTEffectiveMemberResourceListResultType GetEffectiveActiveDirectoryGroups(string NsGroupId, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTEffectiveMemberResourceListResultType> GetEffectiveActiveDirectoryGroups(string NsGroupId, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (NsGroupId == null) { throw new System.ArgumentNullException("NsGroupId cannot be null"); }
             NSXTEffectiveMemberResourceListResultType returnValue = default(NSXTEffectiveMemberResourceListResultType);
@@ -612,31 +463,19 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GetEffectiveActiveDirectoryGroupsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTEffectiveMemberResourceListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTEffectiveMemberResourceListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetEffectiveActiveDirectoryGroupsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTEffectiveMemberResourceListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTEffectiveMemberResourceListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNSGroupType CreateNsgroup(NSXTNSGroupType Nsgroup)
+        public async Task<NSXTNSGroupType> CreateNsgroup(NSXTNSGroupType Nsgroup)
         {
             if (Nsgroup == null) { throw new System.ArgumentNullException("Nsgroup cannot be null"); }
             NSXTNSGroupType returnValue = default(NSXTNSGroupType);
@@ -649,31 +488,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(Nsgroup, defaultSerializationSettings));
             request.Resource = CreateNsgroupServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNSGroupType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNSGroupType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CreateNsgroupServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNSGroupType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNSGroupType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNSGroupListResultType ListNsgroups(string? Cursor = null, string? IncludedFields = null, string? MemberTypes = null, long? PageSize = null, bool? PopulateReferences = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTNSGroupListResultType> ListNsgroups(string? Cursor = null, string? IncludedFields = null, string? MemberTypes = null, long? PageSize = null, bool? PopulateReferences = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTNSGroupListResultType returnValue = default(NSXTNSGroupListResultType);
             StringBuilder ListNsgroupsServiceURL = new StringBuilder("/ns-groups");
@@ -691,25 +518,13 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListNsgroupsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNSGroupListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNSGroupListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListNsgroupsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNSGroupListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNSGroupListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

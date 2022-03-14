@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,86 +17,57 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNodeInterfaceStatisticsPropertiesType : NSXTResourceType
     {
-        public NSXTNodeInterfaceStatisticsPropertiesType()
-        {
-        }
         /// <summary>
         /// Number of packets dropped
         /// </summary>
-        [JsonProperty(PropertyName = "tx_dropped")]
-        [NSXTProperty(IsRequired: false, Description: @"Number of packets dropped")]
         public long? TxDropped { get; set; }
         /// <summary>
         /// Number of packets received
         /// </summary>
-        [JsonProperty(PropertyName = "rx_packets")]
-        [NSXTProperty(IsRequired: false, Description: @"Number of packets received")]
         public long? RxPackets { get; set; }
         /// <summary>
         /// Number of carrier losses detected
         /// </summary>
-        [JsonProperty(PropertyName = "tx_carrier")]
-        [NSXTProperty(IsRequired: false, Description: @"Number of carrier losses detected")]
         public long? TxCarrier { get; set; }
         /// <summary>
         /// Number of bytes received
         /// </summary>
-        [JsonProperty(PropertyName = "rx_bytes")]
-        [NSXTProperty(IsRequired: false, Description: @"Number of bytes received")]
         public long? RxBytes { get; set; }
         /// <summary>
         /// Number of transmit errors
         /// </summary>
-        [JsonProperty(PropertyName = "tx_errors")]
-        [NSXTProperty(IsRequired: false, Description: @"Number of transmit errors")]
         public long? TxErrors { get; set; }
         /// <summary>
         /// Interface ID
         /// </summary>
-        [JsonProperty(PropertyName = "interface_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Interface ID")]
         public string? InterfaceId { get; set; }
         /// <summary>
         /// Number of collisions detected
         /// </summary>
-        [JsonProperty(PropertyName = "tx_colls")]
-        [NSXTProperty(IsRequired: false, Description: @"Number of collisions detected")]
         public long? TxColls { get; set; }
         /// <summary>
         /// Number of framing errors
         /// </summary>
-        [JsonProperty(PropertyName = "rx_frame")]
-        [NSXTProperty(IsRequired: false, Description: @"Number of framing errors")]
         public long? RxFrame { get; set; }
         /// <summary>
         /// Number of receive errors
         /// </summary>
-        [JsonProperty(PropertyName = "rx_errors")]
-        [NSXTProperty(IsRequired: false, Description: @"Number of receive errors")]
         public long? RxErrors { get; set; }
         /// <summary>
         /// Number of bytes transmitted
         /// </summary>
-        [JsonProperty(PropertyName = "tx_bytes")]
-        [NSXTProperty(IsRequired: false, Description: @"Number of bytes transmitted")]
         public long? TxBytes { get; set; }
         /// <summary>
         /// Number of packets dropped
         /// </summary>
-        [JsonProperty(PropertyName = "rx_dropped")]
-        [NSXTProperty(IsRequired: false, Description: @"Number of packets dropped")]
         public long? RxDropped { get; set; }
         /// <summary>
         /// Number of packets transmitted
         /// </summary>
-        [JsonProperty(PropertyName = "tx_packets")]
-        [NSXTProperty(IsRequired: false, Description: @"Number of packets transmitted")]
         public long? TxPackets { get; set; }
         /// <summary>
         /// Source of status data.
         /// </summary>
-        [JsonProperty(PropertyName = "source")]
-        [NSXTProperty(IsRequired: false, Description: @"Source of status data.")]
         public NSXTNodeInterfaceStatisticsPropertiesSourceEnumType? Source { get; set; }
     }
 }

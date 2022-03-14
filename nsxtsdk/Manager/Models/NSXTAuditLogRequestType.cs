@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,28 +17,17 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTAuditLogRequestType 
     {
-        public NSXTAuditLogRequestType()
-        {
-            LogFilterType = test
-        }
         /// <summary>
         /// Audit logs should meet the filter condition
         /// </summary>
-        [JsonProperty(PropertyName = "log_filter")]
-        [NSXTProperty(IsRequired: false, Description: @"Audit logs should meet the filter condition")]
         public string? LogFilter { get; set; }
         /// <summary>
         /// Include logs with timstamps not past the age limit in days
         /// </summary>
-        [JsonProperty(PropertyName = "log_age_limit")]
-        [NSXTProperty(IsRequired: false, Description: @"Include logs with timstamps not past the age limit in days")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
         public long? LogAgeLimit { get; set; }
         /// <summary>
         /// Type of log filter
         /// </summary>
-        [JsonProperty(PropertyName = "log_filter_type")]
-        [NSXTProperty(IsRequired: false, Description: @"Type of log filter")]
         public NSXTAuditLogRequestLogFilterTypeEnumType? LogFilterType { get; set; }
     }
 }

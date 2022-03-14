@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,41 +17,28 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTTlsCertificateType : NSXTPolicyConfigResourceType
     {
-        public NSXTTlsCertificateType()
-        {
-        }
         /// <summary>
         /// Purpose of this certificate. Can be empty or set to "signing-ca".
         /// </summary>
-        [JsonProperty(PropertyName = "purpose")]
-        [NSXTProperty(IsRequired: false, Description: @"Purpose of this certificate. Can be empty or set to &quot;signing-ca&quot;.")]
         public NSXTTlsCertificatePurposeEnumType? Purpose { get; set; }
         /// <summary>
         /// Classification of the TlsCertificate helps differentiate how a TlsCertificate could be
         /// used for various components either as a client trust certificate; CERTIFICATE_CA, or
         /// as a server identity certificate; CERTIFICATE_SIGNED,or CERTIFICATE_SELF_SIGNED.
         /// </summary>
-        [JsonProperty(PropertyName = "tls_certificate_type")]
-        [NSXTProperty(IsRequired: false, Description: @"Classification of the TlsCertificate helps differentiate how a TlsCertificate could beused for various components either as a client trust certificate; CERTIFICATE_CA, oras a server identity certificate; CERTIFICATE_SIGNED,or CERTIFICATE_SELF_SIGNED.")]
         public NSXTTlsCertificateTlsCertificateTypeEnumType? TlsCertificateType { get; set; }
         /// <summary>
         /// list of X509Certificates.
         /// </summary>
-        [JsonProperty(PropertyName = "details")]
-        [NSXTProperty(IsRequired: false, Description: @"list of X509Certificates.")]
         public IList<NSXTX509CertificateType> Details { get; set; }
         /// <summary>
         /// pem encoded certificate data.
         /// </summary>
         [JsonProperty(PropertyName = "pem_encoded", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"pem encoded certificate data.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string PemEncoded { get; set; }
         /// <summary>
         /// whether we have the private key for this certificate.
         /// </summary>
-        [JsonProperty(PropertyName = "has_private_key")]
-        [NSXTProperty(IsRequired: false, Description: @"whether we have the private key for this certificate.")]
         public bool? HasPrivateKey { get; set; }
     }
 }

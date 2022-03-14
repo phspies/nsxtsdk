@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyUrlCategoryListResultType : NSXTListResultType
     {
-        public NSXTPolicyUrlCategoryListResultType()
-        {
-        }
         /// <summary>
         /// Category list result
         /// </summary>
         [JsonProperty(PropertyName = "results", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Category list result")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTPolicyUrlCategoryType> Results { get; set; }
     }
 }

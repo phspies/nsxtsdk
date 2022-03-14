@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,24 +17,16 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer NetworkSecurityRule object")]
     public class NSXTALBNetworkSecurityRuleType 
     {
-        public NSXTALBNetworkSecurityRuleType()
-        {
-            Age = test
-        }
         /// <summary>
         /// Number of index.
         /// </summary>
         [JsonProperty(PropertyName = "index", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Number of index.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public long Index { get; set; }
         /// <summary>
         /// Placeholder for description of property enable of obj type
         /// NetworkSecurityRule field type str  type boolean.
         /// </summary>
         [JsonProperty(PropertyName = "enable", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Placeholder for description of property enable of obj typeNetworkSecurityRule field type str  type boolean.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public bool Enable { get; set; }
         /// <summary>
         /// Allowed in Basic(Allowed values- false) edition,
@@ -43,15 +35,11 @@ namespace nsxtsdk.PolicyModels
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as false.
         /// </summary>
-        [JsonProperty(PropertyName = "log")]
-        [NSXTProperty(IsRequired: false, Description: @"Allowed in Basic(Allowed values- false) edition,Essentials(Allowed values- false) edition, Enterpriseedition.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
         public bool? Log { get; set; }
         /// <summary>
         /// Name of the object.
         /// </summary>
         [JsonProperty(PropertyName = "name", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Name of the object.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Name { get; set; }
         /// <summary>
         /// Enum options - NETWORK_SECURITY_POLICY_ACTION_TYPE_ALLOW,
@@ -64,8 +52,6 @@ namespace nsxtsdk.PolicyModels
         /// Enterprise edition.
         /// </summary>
         [JsonProperty(PropertyName = "action", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Enum options - NETWORK_SECURITY_POLICY_ACTION_TYPE_ALLOW,NETWORK_SECURITY_POLICY_ACTION_TYPE_DENY,NETWORK_SECURITY_POLICY_ACTION_TYPE_RATE_LIMIT.Allowed in Basic(Allowed values-NETWORK_SECURITY_POLICY_ACTION_TYPE_DENY) edition,Essentials(Allowed values-NETWORK_SECURITY_POLICY_ACTION_TYPE_DENY) edition,Enterprise edition.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTAlbnetworkSecurityRuleActionEnumType Action { get; set; }
         /// <summary>
         /// Time in minutes after which rule will be deleted.
@@ -77,29 +63,19 @@ namespace nsxtsdk.PolicyModels
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 0.
         /// </summary>
-        [JsonProperty(PropertyName = "age")]
-        [NSXTProperty(IsRequired: false, Description: @"Time in minutes after which rule will be deleted.Allowed values are 1-4294967295.Special values are 0- &apos;blocked for ever&apos;.Unit is MIN.Allowed in Basic(Allowed values- 0) edition,Essentials(Allowed values- 0) edition, Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller as 0.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(4294967295)]
         public long? Age { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "rl_param")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBNetworkSecurityPolicyActionRLParamType RlParam { get; set; }
         /// <summary>
         /// Creator name.
         /// </summary>
-        [JsonProperty(PropertyName = "created_by")]
-        [NSXTProperty(IsRequired: false, Description: @"Creator name.")]
         public string? CreatedBy { get; set; }
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty(PropertyName = "match", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTALBNetworkSecurityMatchTargetType Match { get; set; }
     }
 }

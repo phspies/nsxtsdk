@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTStaticHopBfdPeerListResultType : NSXTListResultType
     {
-        public NSXTStaticHopBfdPeerListResultType()
-        {
-        }
         /// <summary>
         /// static hop BFD peer list results
         /// </summary>
-        [JsonProperty(PropertyName = "results")]
-        [NSXTProperty(IsRequired: false, Description: @"static hop BFD peer list results")]
         public IList<NSXTStaticHopBfdPeerType> Results { get; set; }
     }
 }

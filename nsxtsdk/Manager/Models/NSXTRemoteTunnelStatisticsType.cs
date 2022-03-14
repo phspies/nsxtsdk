@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,32 +17,21 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTRemoteTunnelStatisticsType 
     {
-        public NSXTRemoteTunnelStatisticsType()
-        {
-        }
         /// <summary>
         /// Ip address of remote tunnel destination.
         /// </summary>
-        [JsonProperty(PropertyName = "tunnel_destination_address")]
-        [NSXTProperty(IsRequired: false, Description: @"Ip address of remote tunnel destination.")]
         public string? TunnelDestinationAddress { get; set; }
         /// <summary>
         /// Ip address of remote tunnel source.
         /// </summary>
-        [JsonProperty(PropertyName = "tunnel_source_address")]
-        [NSXTProperty(IsRequired: false, Description: @"Ip address of remote tunnel source.")]
         public string? TunnelSourceAddress { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "rx")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTInterSitePortCountersType Rx { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "tx")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTInterSitePortCountersType Tx { get; set; }
     }
 }

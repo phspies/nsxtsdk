@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,47 +17,32 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTDhcpLeasePerIPType 
     {
-        public NSXTDhcpLeasePerIPType()
-        {
-        }
         /// <summary>
         /// subnet of client network
         /// </summary>
-        [JsonProperty(PropertyName = "subnet")]
-        [NSXTProperty(IsRequired: false, Description: @"subnet of client network")]
         public string? Subnet { get; set; }
         /// <summary>
         /// lease time of the ip address, in seconds
         /// </summary>
-        [JsonProperty(PropertyName = "lease_time")]
-        [NSXTProperty(IsRequired: false, Description: @"lease time of the ip address, in seconds")]
         public string? LeaseTime { get; set; }
         /// <summary>
         /// mac address of client
         /// </summary>
         [JsonProperty(PropertyName = "mac_address", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"mac address of client")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string MacAddress { get; set; }
         /// <summary>
         /// expire time of the lease
         /// </summary>
-        [JsonProperty(PropertyName = "expire_time")]
-        [NSXTProperty(IsRequired: false, Description: @"expire time of the lease")]
         public string? ExpireTime { get; set; }
         /// <summary>
         /// start time of lease
         /// </summary>
         [JsonProperty(PropertyName = "start_time", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"start time of lease")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string StartTime { get; set; }
         /// <summary>
         /// ip address of client
         /// </summary>
         [JsonProperty(PropertyName = "ip_address", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"ip address of client")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string IpAddress { get; set; }
     }
 }

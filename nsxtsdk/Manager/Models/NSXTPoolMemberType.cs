@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,27 +17,16 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTPoolMemberType 
     {
-        public NSXTPoolMemberType()
-        {
-            AdminState = test
-            Weight = test
-        }
         /// <summary>
         /// To ensure members are not overloaded, connections to a member can be
         /// capped by the load balancer. When a member reaches this limit, it is
         /// skipped during server selection.
         /// If it is not specified, it means that connections are unlimited.
         /// </summary>
-        [JsonProperty(PropertyName = "max_concurrent_connections")]
-        [NSXTProperty(IsRequired: false, Description: @"To ensure members are not overloaded, connections to a member can becapped by the load balancer. When a member reaches this limit, it isskipped during server selection.If it is not specified, it means that connections are unlimited.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(2147483647)]
         public long? MaxConcurrentConnections { get; set; }
         /// <summary>
         /// member admin state
         /// </summary>
-        [JsonProperty(PropertyName = "admin_state")]
-        [NSXTProperty(IsRequired: false, Description: @"member admin state")]
         public NSXTPoolMemberAdminStateEnumType? AdminState { get; set; }
         /// <summary>
         /// Backup servers are typically configured with a sorry page indicating to
@@ -46,30 +35,20 @@ namespace nsxtsdk.ManagerModels
         /// BACKUP members are skipped during server selection. When the pool is
         /// inactive, incoming connections are sent to only the BACKUP member(s).
         /// </summary>
-        [JsonProperty(PropertyName = "backup_member")]
-        [NSXTProperty(IsRequired: false, Description: @"Backup servers are typically configured with a sorry page indicating tothe user that the application is currently unavailable. While the poolis active (a specified minimum number of pool members are active)BACKUP members are skipped during server selection. When the pool isinactive, incoming connections are sent to only the BACKUP member(s).")]
         public bool? BackupMember { get; set; }
         /// <summary>
         /// Pool member weight is used for WEIGHTED_ROUND_ROBIN balancing
         /// algorithm. The weight value would be ignored in other algorithms.
         /// </summary>
-        [JsonProperty(PropertyName = "weight")]
-        [NSXTProperty(IsRequired: false, Description: @"Pool member weight is used for WEIGHTED_ROUND_ROBIN balancingalgorithm. The weight value would be ignored in other algorithms.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(256)]
         public long? Weight { get; set; }
         /// <summary>
         /// pool member name
         /// </summary>
-        [JsonProperty(PropertyName = "display_name")]
-        [NSXTProperty(IsRequired: false, Description: @"pool member name")]
         public string? DisplayName { get; set; }
         /// <summary>
         /// pool member IP address
         /// </summary>
         [JsonProperty(PropertyName = "ip_address", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"pool member IP address")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string IpAddress { get; set; }
         /// <summary>
         /// If port is specified, all connections will be sent to this port. Only
@@ -78,8 +57,6 @@ namespace nsxtsdk.ManagerModels
         /// be overrode by default_pool_member_port setting in virtual server.
         /// The port should not specified for port range case.
         /// </summary>
-        [JsonProperty(PropertyName = "port")]
-        [NSXTProperty(IsRequired: false, Description: @"If port is specified, all connections will be sent to this port. Onlysingle port is supported.If unset, the same port the client connected to will be used, it couldbe overrode by default_pool_member_port setting in virtual server.The port should not specified for port range case.")]
         public string? Port { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,15 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Upgrade Coordinator state properties")]
     public class NSXTUcStatePropertiesType 
     {
-        public NSXTUcStatePropertiesType()
-        {
-            UpdateUcStateProperties = test
-        }
         /// <summary>
         /// Flag for updating upgrade-coodinator state properties to database
         /// </summary>
-        [JsonProperty(PropertyName = "update_uc_state_properties")]
-        [NSXTProperty(IsRequired: false, Description: @"Flag for updating upgrade-coodinator state properties to database")]
         public bool? UpdateUcStateProperties { get; set; }
     }
 }

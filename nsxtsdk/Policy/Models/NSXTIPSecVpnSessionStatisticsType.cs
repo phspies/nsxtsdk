@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,39 +17,26 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIPSecVpnSessionStatisticsType : NSXTL3VpnStatisticsPerEnforcementPointType
     {
-        public NSXTIPSecVpnSessionStatisticsType()
-        {
-        }
         /// <summary>
         /// Timestamp when the data was last updated.
         /// </summary>
-        [JsonProperty(PropertyName = "last_update_timestamp")]
-        [NSXTProperty(IsRequired: false, Description: @"Timestamp when the data was last updated.")]
         public long? LastUpdateTimestamp { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "ike_traffic_statistics")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTIPSecVpnIkeTrafficStatisticsType IkeTrafficStatistics { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "ike_status")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTIPSecVpnIkeSessionStatusType IkeStatus { get; set; }
         /// <summary>
         /// Gives aggregate traffic statistics across all ipsec tunnels and individual tunnel
         /// statistics.
         /// </summary>
-        [JsonProperty(PropertyName = "policy_statistics")]
-        [NSXTProperty(IsRequired: false, Description: @"Gives aggregate traffic statistics across all ipsec tunnels and individual tunnelstatistics.")]
         public IList<NSXTIPSecVpnPolicyTrafficStatisticsType> PolicyStatistics { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "aggregate_traffic_counters")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTIPSecVpnTrafficCountersType AggregateTrafficCounters { get; set; }
     }
 }

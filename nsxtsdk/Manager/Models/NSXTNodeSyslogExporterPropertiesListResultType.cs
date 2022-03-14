@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNodeSyslogExporterPropertiesListResultType : NSXTListResultType
     {
-        public NSXTNodeSyslogExporterPropertiesListResultType()
-        {
-        }
         /// <summary>
         /// Node syslog exporter results
         /// </summary>
         [JsonProperty(PropertyName = "results", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Node syslog exporter results")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTNodeSyslogExporterPropertiesType> Results { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,25 +17,16 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Route advertisement rules and filtering")]
     public class NSXTRouteAdvertisementRuleType 
     {
-        public NSXTRouteAdvertisementRuleType()
-        {
-            Action = test
-            PrefixOperator = test
-        }
         /// <summary>
         /// Action to advertise filtered routes to the connected Tier0 gateway.
         /// PERMIT: Enables the advertisment
         /// DENY: Disables the advertisement
         /// </summary>
         [JsonProperty(PropertyName = "action", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Action to advertise filtered routes to the connected Tier0 gateway.PERMIT: Enables the advertismentDENY: Disables the advertisement")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTRouteAdvertisementRuleActionEnumType Action { get; set; }
         /// <summary>
         /// Network CIDRs to be routed.
         /// </summary>
-        [JsonProperty(PropertyName = "subnets")]
-        [NSXTProperty(IsRequired: false, Description: @"Network CIDRs to be routed.")]
         public IList<string> Subnets { get; set; }
         /// <summary>
         /// Prefix operator to filter subnets.
@@ -44,23 +35,17 @@ namespace nsxtsdk.PolicyModels
         /// EQ prefix operator filter all the routes with prefix length equal to
         /// the subnets configured.
         /// </summary>
-        [JsonProperty(PropertyName = "prefix_operator")]
-        [NSXTProperty(IsRequired: false, Description: @"Prefix operator to filter subnets.GE prefix operator filters all the routes with prefix length greaterthan or equal to the subnets configured.EQ prefix operator filter all the routes with prefix length equal tothe subnets configured.")]
         public NSXTRouteAdvertisementRulePrefixOperatorEnumType? PrefixOperator { get; set; }
         /// <summary>
         /// Display name should be unique.
         /// </summary>
         [JsonProperty(PropertyName = "name", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Display name should be unique.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Name { get; set; }
         /// <summary>
         /// Enable different types of route advertisements.
         /// When not specified, routes to IPSec VPN local-endpoint subnets
         /// (TIER1_IPSEC_LOCAL_ENDPOINT) are automatically advertised.
         /// </summary>
-        [JsonProperty(PropertyName = "route_advertisement_types")]
-        [NSXTProperty(IsRequired: false, Description: @"Enable different types of route advertisements.When not specified, routes to IPSec VPN local-endpoint subnets(TIER1_IPSEC_LOCAL_ENDPOINT) are automatically advertised.")]
         public IList<string> RouteAdvertisementTypes { get; set; }
     }
 }

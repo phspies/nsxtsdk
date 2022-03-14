@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,16 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer CompressionProfile object")]
     public class NSXTALBCompressionProfileType 
     {
-        public NSXTALBCompressionProfileType()
-        {
-            Type = test
-            RemoveAcceptEncodingHeader = test
-        }
         /// <summary>
         /// Custom filters used when auto compression is not selected.
         /// </summary>
-        [JsonProperty(PropertyName = "filter")]
-        [NSXTProperty(IsRequired: false, Description: @"Custom filters used when auto compression is not selected.")]
         public IList<NSXTALBCompressionFilterType> Filter { get; set; }
         /// <summary>
         /// Compress content automatically or add custom filters to
@@ -36,16 +29,12 @@ namespace nsxtsdk.PolicyModels
         /// interpreted by ALB Controller as AUTO_COMPRESSION.
         /// </summary>
         [JsonProperty(PropertyName = "type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Compress content automatically or add custom filters todefine compressible content and compression levels.Enum options - AUTO_COMPRESSION, CUSTOM_COMPRESSION.Default value when not specified in API or module isinterpreted by ALB Controller as AUTO_COMPRESSION.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTAlbcompressionProfileTypeEnumType Type { get; set; }
         /// <summary>
         /// Compress only content types listed in this string group.
         /// Content types not present in this list are not compressed.
         /// It is a reference to an object of type StringGroup.
         /// </summary>
-        [JsonProperty(PropertyName = "compressible_content_path")]
-        [NSXTProperty(IsRequired: false, Description: @"Compress only content types listed in this string group.Content types not present in this list are not compressed.It is a reference to an object of type StringGroup.")]
         public string? CompressibleContentPath { get; set; }
         /// <summary>
         /// Offload compression from the servers to AVI.
@@ -54,8 +43,6 @@ namespace nsxtsdk.PolicyModels
         /// interpreted by ALB Controller as true.
         /// </summary>
         [JsonProperty(PropertyName = "remove_accept_encoding_header", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Offload compression from the servers to AVI.Saves compute cycles on the servers.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public bool RemoveAcceptEncodingHeader { get; set; }
         /// <summary>
         /// Compress HTTP response content if it wasn't already
@@ -64,8 +51,6 @@ namespace nsxtsdk.PolicyModels
         /// interpreted by ALB Controller as false.
         /// </summary>
         [JsonProperty(PropertyName = "compression", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Compress HTTP response content if it wasn&apos;t alreadycompressed.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public bool Compression { get; set; }
     }
 }

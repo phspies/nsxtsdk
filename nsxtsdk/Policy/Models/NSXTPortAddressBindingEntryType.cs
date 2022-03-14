@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,26 +17,17 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Detailed information about static address for the port.")]
     public class NSXTPortAddressBindingEntryType 
     {
-        public NSXTPortAddressBindingEntryType()
-        {
-        }
         /// <summary>
         /// IP Address for port binding
         /// </summary>
-        [JsonProperty(PropertyName = "ip_address")]
-        [NSXTProperty(IsRequired: false, Description: @"IP Address for port binding")]
         public string? IpAddress { get; set; }
         /// <summary>
         /// VLAN ID for port binding
         /// </summary>
-        [JsonProperty(PropertyName = "vlan_id")]
-        [NSXTProperty(IsRequired: false, Description: @"VLAN ID for port binding")]
         public long? VlanId { get; set; }
         /// <summary>
         /// Mac address for port binding
         /// </summary>
-        [JsonProperty(PropertyName = "mac_address")]
-        [NSXTProperty(IsRequired: false, Description: @"Mac address for port binding")]
         public string? MacAddress { get; set; }
     }
 }

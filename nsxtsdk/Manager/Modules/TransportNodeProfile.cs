@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public TransportNodeProfile(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public TransportNodeProfile(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTransportNodeProfileType UpdateTransportNodeProfile(string TransportNodeProfileId, NSXTTransportNodeProfileType TransportNodeProfile, string? EsxMgmtIfMigrationDest = null, string? IfId = null, string? PingIp = null, bool? SkipValidation = null, string? Vnic = null, string? VnicMigrationDest = null)
+        public async Task<NSXTTransportNodeProfileType> UpdateTransportNodeProfile(string TransportNodeProfileId, NSXTTransportNodeProfileType TransportNodeProfile, string? EsxMgmtIfMigrationDest = null, string? IfId = null, string? PingIp = null, bool? SkipValidation = null, string? Vnic = null, string? VnicMigrationDest = null)
         {
             if (TransportNodeProfileId == null) { throw new System.ArgumentNullException("TransportNodeProfileId cannot be null"); }
             if (TransportNodeProfile == null) { throw new System.ArgumentNullException("TransportNodeProfile cannot be null"); }
@@ -51,31 +58,19 @@ namespace nsxtapi.ManagerModules
             if (Vnic != null) { request.AddQueryParameter("vnic", Vnic.ToString()); }
             if (VnicMigrationDest != null) { request.AddQueryParameter("vnic_migration_dest", VnicMigrationDest.ToString()); }
             request.Resource = UpdateTransportNodeProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTransportNodeProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTransportNodeProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateTransportNodeProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTransportNodeProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTransportNodeProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteTransportNodeProfile(string TransportNodeProfileId)
+        public async Task DeleteTransportNodeProfile(string TransportNodeProfileId)
         {
             if (TransportNodeProfileId == null) { throw new System.ArgumentNullException("TransportNodeProfileId cannot be null"); }
             
@@ -88,7 +83,7 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             DeleteTransportNodeProfileServiceURL.Replace("{transport-node-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(TransportNodeProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteTransportNodeProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteTransportNodeProfileServiceURL.ToString() + " did not complete successfull";
@@ -100,7 +95,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTransportNodeProfileType GetTransportNodeProfile(string TransportNodeProfileId)
+        public async Task<NSXTTransportNodeProfileType> GetTransportNodeProfile(string TransportNodeProfileId)
         {
             if (TransportNodeProfileId == null) { throw new System.ArgumentNullException("TransportNodeProfileId cannot be null"); }
             NSXTTransportNodeProfileType returnValue = default(NSXTTransportNodeProfileType);
@@ -113,31 +108,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             GetTransportNodeProfileServiceURL.Replace("{transport-node-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(TransportNodeProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetTransportNodeProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTransportNodeProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTransportNodeProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetTransportNodeProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTransportNodeProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTransportNodeProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTransportNodeProfileType CreateTransportNodeProfile(NSXTTransportNodeProfileType TransportNodeProfile)
+        public async Task<NSXTTransportNodeProfileType> CreateTransportNodeProfile(NSXTTransportNodeProfileType TransportNodeProfile)
         {
             if (TransportNodeProfile == null) { throw new System.ArgumentNullException("TransportNodeProfile cannot be null"); }
             NSXTTransportNodeProfileType returnValue = default(NSXTTransportNodeProfileType);
@@ -150,31 +133,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(TransportNodeProfile, defaultSerializationSettings));
             request.Resource = CreateTransportNodeProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTransportNodeProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTransportNodeProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CreateTransportNodeProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTransportNodeProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTransportNodeProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTransportNodeProfileListResultType ListTransportNodeProfiles(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTTransportNodeProfileListResultType> ListTransportNodeProfiles(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTTransportNodeProfileListResultType returnValue = default(NSXTTransportNodeProfileListResultType);
             StringBuilder ListTransportNodeProfilesServiceURL = new StringBuilder("/transport-node-profiles");
@@ -190,25 +161,13 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListTransportNodeProfilesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTransportNodeProfileListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTransportNodeProfileListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListTransportNodeProfilesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTransportNodeProfileListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTransportNodeProfileListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

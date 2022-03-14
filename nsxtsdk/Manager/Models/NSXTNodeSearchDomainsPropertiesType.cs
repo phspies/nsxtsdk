@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNodeSearchDomainsPropertiesType : NSXTResourceType
     {
-        public NSXTNodeSearchDomainsPropertiesType()
-        {
-        }
         /// <summary>
         /// Search domains
         /// </summary>
         [JsonProperty(PropertyName = "search_domains", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Search domains")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<string> SearchDomains { get; set; }
     }
 }

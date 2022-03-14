@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,16 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTPoolMemberGroupType 
     {
-        public NSXTPoolMemberGroupType()
-        {
-            IpRevisionFilter = test
-        }
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty(PropertyName = "grouping_object", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTResourceReferenceType GroupingObject { get; set; }
         /// <summary>
         /// Ip revision filter is used to filter IPv4 or IPv6 addresses from the
@@ -35,8 +29,6 @@ namespace nsxtsdk.ManagerModels
         /// used as server IPs.
         /// The link local and loopback addresses would be always filtered out.
         /// </summary>
-        [JsonProperty(PropertyName = "ip_revision_filter")]
-        [NSXTProperty(IsRequired: false, Description: @"Ip revision filter is used to filter IPv4 or IPv6 addresses from thegrouping object.If the filter is not specified, both IPv4 and IPv6 addresses would beused as server IPs.The link local and loopback addresses would be always filtered out.")]
         public NSXTPoolMemberGroupIpRevisionFilterEnumType? IpRevisionFilter { get; set; }
         /// <summary>
         /// The size is used to define the maximum number of grouping object IP
@@ -51,10 +43,6 @@ namespace nsxtsdk.ManagerModels
         /// members would be set to DISABLED so that the load balancer system
         /// itself is not overloaded during runtime.
         /// </summary>
-        [JsonProperty(PropertyName = "max_ip_list_size")]
-        [NSXTProperty(IsRequired: false, Description: @"The size is used to define the maximum number of grouping object IPaddress list. These IP addresses would be used as pool members.If the grouping object includes more than certain number ofIP addresses, the redundant parts would be ignored and those IPaddresses would not be treated as pool members.If the size is not specified, one member is budgeted for this dynamicpool so that the pool has at least one member even if some otherdynamic pools grow beyond the capacity of load balancer service. Othermembers are picked according to available dynamic capacity. The unusedmembers would be set to DISABLED so that the load balancer systemitself is not overloaded during runtime.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(2147483647)]
         public long? MaxIpListSize { get; set; }
         /// <summary>
         /// If port is specified, all connections will be sent to this port.
@@ -62,18 +50,12 @@ namespace nsxtsdk.ManagerModels
         /// be overridden by default_pool_member_ports setting in virtual server.
         /// The port should not specified for multiple ports case.
         /// </summary>
-        [JsonProperty(PropertyName = "port")]
-        [NSXTProperty(IsRequired: false, Description: @"If port is specified, all connections will be sent to this port.If unset, the same port the client connected to will be used, it couldbe overridden by default_pool_member_ports setting in virtual server.The port should not specified for multiple ports case.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
         public int? Port { get; set; }
         /// <summary>
         /// The list is used to show the customized pool member settings. User can
         /// only user pool member action API to update the admin state for a specific
         /// IP address.
         /// </summary>
-        [JsonProperty(PropertyName = "customized_members")]
-        [NSXTProperty(IsRequired: false, Description: @"The list is used to show the customized pool member settings. User canonly user pool member action API to update the admin state for a specificIP address.")]
         public IList<NSXTPoolMemberSettingType> CustomizedMembers { get; set; }
     }
 }

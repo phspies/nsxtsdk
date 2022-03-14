@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,10 +17,6 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer ServicePoolSelector object")]
     public class NSXTALBServicePoolSelectorType 
     {
-        public NSXTALBServicePoolSelectorType()
-        {
-            ServicePortRangeEnd = test
-        }
         /// <summary>
         /// Destination protocol to match for the pool selection.
         /// If not specified, it will match any protocol.
@@ -28,14 +24,10 @@ namespace nsxtsdk.PolicyModels
         /// PROTOCOL_TYPE_TCP_FAST_PATH, PROTOCOL_TYPE_UDP_FAST_PATH,
         /// PROTOCOL_TYPE_UDP_PROXY.
         /// </summary>
-        [JsonProperty(PropertyName = "service_protocol")]
-        [NSXTProperty(IsRequired: false, Description: @"Destination protocol to match for the pool selection.If not specified, it will match any protocol.Enum options - PROTOCOL_TYPE_TCP_PROXY,PROTOCOL_TYPE_TCP_FAST_PATH, PROTOCOL_TYPE_UDP_FAST_PATH,PROTOCOL_TYPE_UDP_PROXY.")]
         public NSXTAlbservicePoolSelectorServiceProtocolEnumType? ServiceProtocol { get; set; }
         /// <summary>
         /// It is a reference to an object of type Pool.
         /// </summary>
-        [JsonProperty(PropertyName = "service_pool_path")]
-        [NSXTProperty(IsRequired: false, Description: @"It is a reference to an object of type Pool.")]
         public string? ServicePoolPath { get; set; }
         /// <summary>
         /// The end of the Service port number range.
@@ -44,26 +36,16 @@ namespace nsxtsdk.PolicyModels
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 0.
         /// </summary>
-        [JsonProperty(PropertyName = "service_port_range_end")]
-        [NSXTProperty(IsRequired: false, Description: @"The end of the Service port number range.Allowed values are 1-65535.Special values are 0- &apos;single port&apos;.Default value when not specified in API or module isinterpreted by ALB Controller as 0.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
         public long? ServicePortRangeEnd { get; set; }
         /// <summary>
         /// It is a reference to an object of type PoolGroup.
         /// </summary>
-        [JsonProperty(PropertyName = "service_pool_group_path")]
-        [NSXTProperty(IsRequired: false, Description: @"It is a reference to an object of type PoolGroup.")]
         public string? ServicePoolGroupPath { get; set; }
         /// <summary>
         /// Pool based destination port.
         /// Allowed values are 1-65535.
         /// </summary>
         [JsonProperty(PropertyName = "service_port", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Pool based destination port.Allowed values are 1-65535.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
-        [System.ComponentModel.DataAnnotations.Required]
         public long ServicePort { get; set; }
     }
 }

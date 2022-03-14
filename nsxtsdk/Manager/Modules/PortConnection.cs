@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public PortConnection(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public PortConnection(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPortConnectionEntitiesType GetForwardingPath(string LportId, string PeerPortId)
+        public async Task<NSXTPortConnectionEntitiesType> GetForwardingPath(string LportId, string PeerPortId)
         {
             if (LportId == null) { throw new System.ArgumentNullException("LportId cannot be null"); }
             if (PeerPortId == null) { throw new System.ArgumentNullException("PeerPortId cannot be null"); }
@@ -45,25 +52,13 @@ namespace nsxtapi.ManagerModules
             GetForwardingPathServiceURL.Replace("{lport-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LportId, System.Globalization.CultureInfo.InvariantCulture)));
             if (PeerPortId != null) { request.AddQueryParameter("peer_port_id", PeerPortId.ToString()); }
             request.Resource = GetForwardingPathServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPortConnectionEntitiesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPortConnectionEntitiesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetForwardingPathServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPortConnectionEntitiesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPortConnectionEntitiesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

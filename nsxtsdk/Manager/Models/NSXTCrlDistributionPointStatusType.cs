@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,20 +17,13 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Reference to a CRL Distribution Point where to fetch a CRL")]
     public class NSXTCrlDistributionPointStatusType 
     {
-        public NSXTCrlDistributionPointStatusType()
-        {
-        }
         /// <summary>
         /// Status of the fetched CRL for this CrlDistributionPoint
         /// </summary>
-        [JsonProperty(PropertyName = "status")]
-        [NSXTProperty(IsRequired: false, Description: @"Status of the fetched CRL for this CrlDistributionPoint")]
         public NSXTCrlDistributionPointStatusStatusEnumType? Status { get; set; }
         /// <summary>
         /// Error message when fetching the CRL failed.
         /// </summary>
-        [JsonProperty(PropertyName = "error_message")]
-        [NSXTProperty(IsRequired: false, Description: @"Error message when fetching the CRL failed.")]
         public string? ErrorMessage { get; set; }
     }
 }

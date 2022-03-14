@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"URL of remote bundle which needs to be uploaded.")]
     public class NSXTRemoteBundleUrlType 
     {
-        public NSXTRemoteBundleUrlType()
-        {
-        }
         /// <summary>
         /// URL for uploading remote bundle
         /// </summary>
         [JsonProperty(PropertyName = "url", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"URL for uploading remote bundle")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Url { get; set; }
     }
 }

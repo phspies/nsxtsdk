@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,22 +17,11 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer AppLearningParams object")]
     public class NSXTALBAppLearningParamsType 
     {
-        public NSXTALBAppLearningParamsType()
-        {
-            EnablePerUriLearning = test
-            MaxUris = test
-            MinHitsToLearn = test
-            MaxParams = test
-            UpdateInterval = test
-            SamplingPercent = test
-        }
         /// <summary>
         /// Learn the params per URI path.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as true.
         /// </summary>
-        [JsonProperty(PropertyName = "enable_per_uri_learning")]
-        [NSXTProperty(IsRequired: false, Description: @"Learn the params per URI path.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
         public bool? EnablePerUriLearning { get; set; }
         /// <summary>
         /// Maximum number of URI paths to learn for an application.
@@ -40,10 +29,6 @@ namespace nsxtsdk.PolicyModels
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 500.
         /// </summary>
-        [JsonProperty(PropertyName = "max_uris")]
-        [NSXTProperty(IsRequired: false, Description: @"Maximum number of URI paths to learn for an application.Allowed values are 10-10000.Default value when not specified in API or module isinterpreted by ALB Controller as 500.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(10)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(10000)]
         public long? MaxUris { get; set; }
         /// <summary>
         /// Minimum number of occurances required for a Param to
@@ -51,8 +36,6 @@ namespace nsxtsdk.PolicyModels
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 10000.
         /// </summary>
-        [JsonProperty(PropertyName = "min_hits_to_learn")]
-        [NSXTProperty(IsRequired: false, Description: @"Minimum number of occurances required for a Param toqualify for learning.Default value when not specified in API or module isinterpreted by ALB Controller as 10000.")]
         public long? MinHitsToLearn { get; set; }
         /// <summary>
         /// Maximum number of params to learn for an application.
@@ -60,10 +43,6 @@ namespace nsxtsdk.PolicyModels
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 100.
         /// </summary>
-        [JsonProperty(PropertyName = "max_params")]
-        [NSXTProperty(IsRequired: false, Description: @"Maximum number of params to learn for an application.Allowed values are 10-1000.Default value when not specified in API or module isinterpreted by ALB Controller as 100.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(10)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(1000)]
         public long? MaxParams { get; set; }
         /// <summary>
         /// Frequency with which SE publishes Application learning data
@@ -73,10 +52,6 @@ namespace nsxtsdk.PolicyModels
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 30.
         /// </summary>
-        [JsonProperty(PropertyName = "update_interval")]
-        [NSXTProperty(IsRequired: false, Description: @"Frequency with which SE publishes Application learning datato controller.Allowed values are 1-60.Unit is MIN.Default value when not specified in API or module isinterpreted by ALB Controller as 30.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(60)]
         public long? UpdateInterval { get; set; }
         /// <summary>
         /// Percent of the requests subjected to Application learning.
@@ -85,10 +60,6 @@ namespace nsxtsdk.PolicyModels
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 1.
         /// </summary>
-        [JsonProperty(PropertyName = "sampling_percent")]
-        [NSXTProperty(IsRequired: false, Description: @"Percent of the requests subjected to Application learning.Allowed values are 1-100.Unit is PERCENT.Default value when not specified in API or module isinterpreted by ALB Controller as 1.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(100)]
         public long? SamplingPercent { get; set; }
     }
 }

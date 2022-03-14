@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,20 +17,13 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Result of checking a certificate")]
     public class NSXTCertificateCheckingStatusType 
     {
-        public NSXTCertificateCheckingStatusType()
-        {
-        }
         /// <summary>
         /// Status of the checked certificate.
         /// </summary>
-        [JsonProperty(PropertyName = "status")]
-        [NSXTProperty(IsRequired: false, Description: @"Status of the checked certificate.")]
         public NSXTCertificateCheckingStatusStatusEnumType? Status { get; set; }
         /// <summary>
         /// Error message when checking the certificate.
         /// </summary>
-        [JsonProperty(PropertyName = "error_message")]
-        [NSXTProperty(IsRequired: false, Description: @"Error message when checking the certificate.")]
         public string? ErrorMessage { get; set; }
     }
 }

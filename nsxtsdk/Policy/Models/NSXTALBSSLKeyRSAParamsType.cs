@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,27 +17,18 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer SSLKeyRSAParams object")]
     public class NSXTALBSSLKeyRSAParamsType 
     {
-        public NSXTALBSSLKeyRSAParamsType()
-        {
-            KeySize = test
-            Exponent = test
-        }
         /// <summary>
         /// Enum options - SSL_KEY_1024_BITS, SSL_KEY_2048_BITS,
         /// SSL_KEY_3072_BITS, SSL_KEY_4096_BITS.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as SSL_KEY_2048_BITS.
         /// </summary>
-        [JsonProperty(PropertyName = "key_size")]
-        [NSXTProperty(IsRequired: false, Description: @"Enum options - SSL_KEY_1024_BITS, SSL_KEY_2048_BITS,SSL_KEY_3072_BITS, SSL_KEY_4096_BITS.Default value when not specified in API or module isinterpreted by ALB Controller as SSL_KEY_2048_BITS.")]
         public NSXTAlbsslkeyRsaparamsKeySizeEnumType? KeySize { get; set; }
         /// <summary>
         /// Number of exponent.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 65537.
         /// </summary>
-        [JsonProperty(PropertyName = "exponent")]
-        [NSXTProperty(IsRequired: false, Description: @"Number of exponent.Default value when not specified in API or module isinterpreted by ALB Controller as 65537.")]
         public long? Exponent { get; set; }
     }
 }

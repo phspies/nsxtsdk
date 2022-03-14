@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -18,17 +18,12 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"List of Service config objects that needs to be either createdor updated with the respective profiles and precedence.")]
     public class NSXTServiceConfigListType 
     {
-        public NSXTServiceConfigListType()
-        {
-        }
         /// <summary>
         /// An Array of ServiceConfig objects containing details of
         /// profiles to be applied, entities on which these profiles
         /// will be applied and precedence.
         /// </summary>
         [JsonProperty(PropertyName = "service_configs", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"An Array of ServiceConfig objects containing details ofprofiles to be applied, entities on which these profileswill be applied and precedence.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTServiceConfigType> ServiceConfigs { get; set; }
     }
 }

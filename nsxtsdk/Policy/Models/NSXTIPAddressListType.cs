@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Collection of IP Addresses.")]
     public class NSXTIPAddressListType 
     {
-        public NSXTIPAddressListType()
-        {
-        }
         /// <summary>
         /// The array contains IP addresses.
         /// </summary>
         [JsonProperty(PropertyName = "ip_addresses", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"The array contains IP addresses.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<string> IpAddresses { get; set; }
     }
 }

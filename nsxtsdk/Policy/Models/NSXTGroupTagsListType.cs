@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Collection of tags used in a policy group listed per member type")]
     public class NSXTGroupTagsListType 
     {
-        public NSXTGroupTagsListType()
-        {
-        }
         /// <summary>
         /// Collection of tags used in a policy group listed per member type
         /// </summary>
         [JsonProperty(PropertyName = "results", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Collection of tags used in a policy group listed per member type")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTGroupMemberTagsListType> Results { get; set; }
     }
 }

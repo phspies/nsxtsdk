@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"List of NSGroupExpressions")]
     public class NSXTNSGroupExpressionListType 
     {
-        public NSXTNSGroupExpressionListType()
-        {
-        }
         /// <summary>
         /// List of NSGroupExpressions to be passed to add and remove APIs
         /// </summary>
         [JsonProperty(PropertyName = "members", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"List of NSGroupExpressions to be passed to add and remove APIs")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTNSGroupExpressionType> Members { get; set; }
     }
 }

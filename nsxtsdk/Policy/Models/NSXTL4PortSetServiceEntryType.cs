@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,27 +17,18 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTL4PortSetServiceEntryType : NSXTServiceEntryType
     {
-        public NSXTL4PortSetServiceEntryType()
-        {
-        }
         /// <summary>
         /// Number of values should not exceed 15, ranges count as 2 values.
         /// </summary>
-        [JsonProperty(PropertyName = "destination_ports")]
-        [NSXTProperty(IsRequired: false, Description: @"Number of values should not exceed 15, ranges count as 2 values.")]
         public IList<string> DestinationPorts { get; set; }
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty(PropertyName = "l4_protocol", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTL4PortSetServiceEntryL4ProtocolEnumType L4Protocol { get; set; }
         /// <summary>
         /// Number of values should not exceed 15, ranges count as 2 values.
         /// </summary>
-        [JsonProperty(PropertyName = "source_ports")]
-        [NSXTProperty(IsRequired: false, Description: @"Number of values should not exceed 15, ranges count as 2 values.")]
         public IList<string> SourcePorts { get; set; }
     }
 }

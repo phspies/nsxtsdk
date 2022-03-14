@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,17 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIntervalBackupScheduleType : NSXTBackupScheduleType
     {
-        public NSXTIntervalBackupScheduleType()
-        {
-            SecondsBetweenBackups = test
-        }
         /// <summary>
         /// Time interval in seconds between two consecutive automated backups
         /// </summary>
-        [JsonProperty(PropertyName = "seconds_between_backups")]
-        [NSXTProperty(IsRequired: false, Description: @"Time interval in seconds between two consecutive automated backups")]
-        //[System.ComponentModel.DataAnnotations.MinLength(300)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(86400)]
         public long? SecondsBetweenBackups { get; set; }
     }
 }

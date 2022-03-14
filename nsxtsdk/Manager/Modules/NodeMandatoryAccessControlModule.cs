@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public NodeMandatoryAccessControlModule(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public NodeMandatoryAccessControlModule(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GetNodeMandatoryAccessControlReport()
+        public async Task GetNodeMandatoryAccessControlReport()
         {
             
             StringBuilder GetNodeMandatoryAccessControlReportServiceURL = new StringBuilder("/node/hardening-policy/mandatory-access-control/report");
@@ -41,7 +48,7 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = GetNodeMandatoryAccessControlReportServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetNodeMandatoryAccessControlReportServiceURL.ToString() + " did not complete successfull";
@@ -53,7 +60,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTMandatoryAccessControlPropertiesType SetNodeMandatoryAccessControl(NSXTMandatoryAccessControlPropertiesType MandatoryAccessControlProperties)
+        public async Task<NSXTMandatoryAccessControlPropertiesType> SetNodeMandatoryAccessControl(NSXTMandatoryAccessControlPropertiesType MandatoryAccessControlProperties)
         {
             if (MandatoryAccessControlProperties == null) { throw new System.ArgumentNullException("MandatoryAccessControlProperties cannot be null"); }
             NSXTMandatoryAccessControlPropertiesType returnValue = default(NSXTMandatoryAccessControlPropertiesType);
@@ -66,31 +73,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(MandatoryAccessControlProperties, defaultSerializationSettings));
             request.Resource = SetNodeMandatoryAccessControlServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTMandatoryAccessControlPropertiesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTMandatoryAccessControlPropertiesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + SetNodeMandatoryAccessControlServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTMandatoryAccessControlPropertiesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTMandatoryAccessControlPropertiesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTMandatoryAccessControlPropertiesType GetNodeMandatoryAccessControl()
+        public async Task<NSXTMandatoryAccessControlPropertiesType> GetNodeMandatoryAccessControl()
         {
             NSXTMandatoryAccessControlPropertiesType returnValue = default(NSXTMandatoryAccessControlPropertiesType);
             StringBuilder GetNodeMandatoryAccessControlServiceURL = new StringBuilder("/node/hardening-policy/mandatory-access-control");
@@ -101,25 +96,13 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = GetNodeMandatoryAccessControlServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTMandatoryAccessControlPropertiesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTMandatoryAccessControlPropertiesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetNodeMandatoryAccessControlServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTMandatoryAccessControlPropertiesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTMandatoryAccessControlPropertiesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

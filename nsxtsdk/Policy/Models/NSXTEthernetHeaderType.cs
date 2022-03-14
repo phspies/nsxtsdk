@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,31 +17,19 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTEthernetHeaderType 
     {
-        public NSXTEthernetHeaderType()
-        {
-            EthType = test
-        }
         /// <summary>
         /// The destination MAC address of form:
         /// "^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$". For example: 00:00:00:00:00:00.
         /// </summary>
-        [JsonProperty(PropertyName = "dst_mac")]
-        [NSXTProperty(IsRequired: false, Description: @"The destination MAC address of form:&quot;^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$&quot;. For example: 00:00:00:00:00:00.")]
         public string? DstMac { get; set; }
         /// <summary>
         /// This field defaults to IPv4.
         /// </summary>
-        [JsonProperty(PropertyName = "eth_type")]
-        [NSXTProperty(IsRequired: false, Description: @"This field defaults to IPv4.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
         public long? EthType { get; set; }
         /// <summary>
         /// The source MAC address of form:
         /// "^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$". For example: 00:00:00:00:00:00.
         /// </summary>
-        [JsonProperty(PropertyName = "src_mac")]
-        [NSXTProperty(IsRequired: false, Description: @"The source MAC address of form:&quot;^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$&quot;. For example: 00:00:00:00:00:00.")]
         public string? SrcMac { get; set; }
     }
 }

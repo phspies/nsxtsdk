@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -19,39 +19,26 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Provides insights into details of a specific queue in the flows. For exampleGlobal Manager to Local Manager flow, there is a queue on the Global Managerfor sending and a queue on Local Manager for receiving.")]
     public class NSXTFederationQueueInfoType 
     {
-        public NSXTFederationQueueInfoType()
-        {
-        }
         /// <summary>
         /// Queue type - sender or receiver side
         /// </summary>
-        [JsonProperty(PropertyName = "type")]
-        [NSXTProperty(IsRequired: false, Description: @"Queue type - sender or receiver side")]
         public NSXTFederationQueueInfoTypeEnumType? Type { get; set; }
         /// <summary>
         /// Every persistent queue has name and namespace. For more debugging like
         /// dumping queue, namespace is needed.
         /// </summary>
-        [JsonProperty(PropertyName = "namespace")]
-        [NSXTProperty(IsRequired: false, Description: @"Every persistent queue has name and namespace. For more debugging likedumping queue, namespace is needed.")]
         public string? NamespaceProperty { get; set; }
         /// <summary>
         /// Queue name
         /// </summary>
-        [JsonProperty(PropertyName = "name")]
-        [NSXTProperty(IsRequired: false, Description: @"Queue name")]
         public string? Name { get; set; }
         /// <summary>
         /// Maixmum capacity of the queue
         /// </summary>
-        [JsonProperty(PropertyName = "max_size")]
-        [NSXTProperty(IsRequired: false, Description: @"Maixmum capacity of the queue")]
         public long? MaxSize { get; set; }
         /// <summary>
         /// Number of messages in the queue
         /// </summary>
-        [JsonProperty(PropertyName = "current_size")]
-        [NSXTProperty(IsRequired: false, Description: @"Number of messages in the queue")]
         public long? CurrentSize { get; set; }
     }
 }

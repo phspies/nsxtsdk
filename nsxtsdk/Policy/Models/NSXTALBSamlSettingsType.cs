@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,21 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer SamlSettings object")]
     public class NSXTALBSamlSettingsType 
     {
-        public NSXTALBSamlSettingsType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty(PropertyName = "sp", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTALBSamlServiceProviderSettingsType Sp { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "idp")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBSamlIdentityProviderSettingsType Idp { get; set; }
     }
 }

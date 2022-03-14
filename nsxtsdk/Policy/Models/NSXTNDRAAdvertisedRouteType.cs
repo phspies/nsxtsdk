@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,33 +17,20 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTNDRAAdvertisedRouteType 
     {
-        public NSXTNDRAAdvertisedRouteType()
-        {
-            RoutePreference = test
-            RouteLifetime = test
-        }
         /// <summary>
         /// Advertised route subnet
         /// </summary>
         [JsonProperty(PropertyName = "subnet", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Advertised route subnet")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Subnet { get; set; }
         /// <summary>
         /// NDRA Route preference. Indicates preference of the router associated
         /// with a prefix over others, when multiple identical prefixes (for
         /// different routers) have been received.
         /// </summary>
-        [JsonProperty(PropertyName = "route_preference")]
-        [NSXTProperty(IsRequired: false, Description: @"NDRA Route preference. Indicates preference of the router associatedwith a prefix over others, when multiple identical prefixes (fordifferent routers) have been received.")]
         public NSXTNdraadvertisedRouteRoutePreferenceEnumType? RoutePreference { get; set; }
         /// <summary>
         /// Lifetime of advertised route in seconds.
         /// </summary>
-        [JsonProperty(PropertyName = "route_lifetime")]
-        [NSXTProperty(IsRequired: false, Description: @"Lifetime of advertised route in seconds.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(65520)]
         public long? RouteLifetime { get; set; }
     }
 }

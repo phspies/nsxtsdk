@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,22 +17,15 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"An instance of a datasource configuration.")]
     public class NSXTDefaultFilterValueType 
     {
-        public NSXTDefaultFilterValueType()
-        {
-        }
         /// <summary>
         /// Filter alias.
         /// </summary>
         [JsonProperty(PropertyName = "alias", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Filter alias.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Alias { get; set; }
         /// <summary>
         /// Filter default value.
         /// </summary>
         [JsonProperty(PropertyName = "value", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Filter default value.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Value { get; set; }
     }
 }

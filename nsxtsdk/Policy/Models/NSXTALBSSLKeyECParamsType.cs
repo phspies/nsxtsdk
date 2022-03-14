@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,18 +17,12 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer SSLKeyECParams object")]
     public class NSXTALBSSLKeyECParamsType 
     {
-        public NSXTALBSSLKeyECParamsType()
-        {
-            Curve = test
-        }
         /// <summary>
         /// Enum options - SSL_KEY_EC_CURVE_SECP256R1,
         /// SSL_KEY_EC_CURVE_SECP384R1, SSL_KEY_EC_CURVE_SECP521R1.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as SSL_KEY_EC_CURVE_SECP256R1.
         /// </summary>
-        [JsonProperty(PropertyName = "curve")]
-        [NSXTProperty(IsRequired: false, Description: @"Enum options - SSL_KEY_EC_CURVE_SECP256R1,SSL_KEY_EC_CURVE_SECP384R1, SSL_KEY_EC_CURVE_SECP521R1.Default value when not specified in API or module isinterpreted by ALB Controller as SSL_KEY_EC_CURVE_SECP256R1.")]
         public NSXTAlbsslkeyEcparamsCurveEnumType? Curve { get; set; }
     }
 }

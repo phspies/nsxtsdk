@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTTokenBasedPrincipalIdentityListResultType : NSXTListResultType
     {
-        public NSXTTokenBasedPrincipalIdentityListResultType()
-        {
-        }
         /// <summary>
         /// TokenBasedPrincipalIdentity list.
         /// </summary>
         [JsonProperty(PropertyName = "results", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"TokenBasedPrincipalIdentity list.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTTokenBasedPrincipalIdentityType> Results { get; set; }
     }
 }

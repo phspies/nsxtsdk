@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,10 +17,6 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Inter SR IBGP configuration")]
     public class NSXTInterSRRoutingConfigType 
     {
-        public NSXTInterSRRoutingConfigType()
-        {
-            Enabled = test
-        }
         /// <summary>
         /// While creation of BGP config this flag will be set to
         /// - true for Tier0 logical router with Active-Active high-availability
@@ -29,8 +25,6 @@ namespace nsxtsdk.ManagerModels
         /// mode.
         /// User can change this value while updating inter-sr config.
         /// </summary>
-        [JsonProperty(PropertyName = "enabled")]
-        [NSXTProperty(IsRequired: false, Description: @"While creation of BGP config this flag will be set to- true for Tier0 logical router with Active-Active high-availabilitymode- false for Tier0 logical router with Active-Standby high-availabilitymode.User can change this value while updating inter-sr config.")]
         public bool? Enabled { get; set; }
     }
 }

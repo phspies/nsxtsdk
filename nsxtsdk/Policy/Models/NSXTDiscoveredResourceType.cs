@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -34,47 +34,32 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTDiscoveredResourceType : NSXTResourceType
     {
-        public NSXTDiscoveredResourceType()
-        {
-        }
         /// <summary>
         /// Defaults to ID if not set
         /// </summary>
-        [JsonProperty(PropertyName = "display_name")]
-        [NSXTProperty(IsRequired: false, Description: @"Defaults to ID if not set")]
         public string? DisplayName { get; set; }
         /// <summary>
         /// Description of this resource
         /// </summary>
-        [JsonProperty(PropertyName = "description")]
-        [NSXTProperty(IsRequired: false, Description: @"Description of this resource")]
         public string? Description { get; set; }
         /// <summary>
         /// Timestamp of last modification
         /// </summary>
-        [JsonProperty(PropertyName = "_last_sync_time")]
-        [NSXTProperty(IsRequired: false, Description: @"Timestamp of last modification")]
         public long? LastSyncTime { get; set; }
         /// <summary>
         /// Opaque identifiers meaningful to the API user
         /// </summary>
-        [JsonProperty(PropertyName = "tags")]
-        [NSXTProperty(IsRequired: false, Description: @"Opaque identifiers meaningful to the API user")]
         public IList<NSXTTagType> Tags { get; set; }
         /// <summary>
         /// Specifies list of scope of discovered resource. e.g. if VHC path is associated with
         /// principal identity, who owns the discovered resource, then scope id will be VHC path
         /// and scope type will be VHC.
         /// </summary>
-        [JsonProperty(PropertyName = "scope")]
-        [NSXTProperty(IsRequired: false, Description: @"Specifies list of scope of discovered resource. e.g. if VHC path is associated withprincipal identity, who owns the discovered resource, then scope id will be VHC pathand scope type will be VHC.")]
         public IList<NSXTDiscoveredResourceScopeType> Scope { get; set; }
         /// <summary>
         /// The type of this resource.
         /// </summary>
         [JsonProperty(PropertyName = "resource_type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"The type of this resource.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string ResourceType { get; set; }
     }
 }

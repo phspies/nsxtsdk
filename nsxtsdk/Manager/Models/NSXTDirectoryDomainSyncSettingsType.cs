@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,35 +17,20 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Domain synchronization settings")]
     public class NSXTDirectoryDomainSyncSettingsType 
     {
-        public NSXTDirectoryDomainSyncSettingsType()
-        {
-            SyncDelayInSec = test
-            DeltaSyncInterval = test
-        }
         /// <summary>
         /// Sync delay after Directory domain has been successfully created.
         /// if delay is -1, initial full sync will not be triggered.
         /// </summary>
-        [JsonProperty(PropertyName = "sync_delay_in_sec")]
-        [NSXTProperty(IsRequired: false, Description: @"Sync delay after Directory domain has been successfully created.if delay is -1, initial full sync will not be triggered.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(-1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(600)]
         public int? SyncDelayInSec { get; set; }
         /// <summary>
         /// Directory domain full synchronization schedule using cron expression. For example, cron expression "0 0 12 ? * SUN *"
         /// means full sync is scheduled every Sunday midnight. If this object is null, it means there is no background cron job
         /// running for full sync.
         /// </summary>
-        [JsonProperty(PropertyName = "full_sync_cron_expr")]
-        [NSXTProperty(IsRequired: false, Description: @"Directory domain full synchronization schedule using cron expression. For example, cron expression &quot;0 0 12 ? * SUN *&quot; means full sync is scheduled every Sunday midnight. If this object is null, it means there is no background cron job running for full sync.")]
         public string? FullSyncCronExpr { get; set; }
         /// <summary>
         /// Directory domain delta synchronization interval time between two delta sync in minutes.
         /// </summary>
-        [JsonProperty(PropertyName = "delta_sync_interval")]
-        [NSXTProperty(IsRequired: false, Description: @"Directory domain delta synchronization interval time between two delta sync in minutes.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(5)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(720)]
         public long? DeltaSyncInterval { get; set; }
     }
 }

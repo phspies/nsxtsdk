@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,28 +17,19 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer SamlServiceProviderNode object")]
     public class NSXTALBSamlServiceProviderNodeType 
     {
-        public NSXTALBSamlServiceProviderNodeType()
-        {
-        }
         /// <summary>
         /// Single Signon URL to be programmed on the IDP.
         /// </summary>
-        [JsonProperty(PropertyName = "single_signon_url")]
-        [NSXTProperty(IsRequired: false, Description: @"Single Signon URL to be programmed on the IDP.")]
         public string? SingleSignonUrl { get; set; }
         /// <summary>
         /// Globally unique entityID for this node.
         /// Entity ID on the IDP should match this.
         /// </summary>
-        [JsonProperty(PropertyName = "entity_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Globally unique entityID for this node.Entity ID on the IDP should match this.")]
         public string? EntityId { get; set; }
         /// <summary>
         /// Refers to the Cluster name identifier (Virtual IP or FQDN).
         /// </summary>
         [JsonProperty(PropertyName = "name", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Refers to the Cluster name identifier (Virtual IP or FQDN).")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Name { get; set; }
         /// <summary>
         /// Service Engines will use this SSL certificate to sign
@@ -46,8 +37,6 @@ namespace nsxtsdk.PolicyModels
         /// It is a reference to an object of type
         /// SSLKeyAndCertificate.
         /// </summary>
-        [JsonProperty(PropertyName = "signing_ssl_key_and_certificate_path")]
-        [NSXTProperty(IsRequired: false, Description: @"Service Engines will use this SSL certificate to signassertions going to the IdP.It is a reference to an object of typeSSLKeyAndCertificate.")]
         public string? SigningSslKeyAndCertificatePath { get; set; }
     }
 }

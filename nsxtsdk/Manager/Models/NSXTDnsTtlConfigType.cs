@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,24 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Firewall to use TTL config to manage firewall cache to expire snooped FQDN entries from DNS response.")]
     public class NSXTDnsTtlConfigType 
     {
-        public NSXTDnsTtlConfigType()
-        {
-            Ttl = test
-        }
         /// <summary>
         /// The number of seconds that snooped DNS responses are retained in the cache. Used only when dns_ttl_type is USE_TTL.
         /// </summary>
-        [JsonProperty(PropertyName = "ttl")]
-        [NSXTProperty(IsRequired: false, Description: @"The number of seconds that snooped DNS responses are retained in the cache. Used only when dns_ttl_type is USE_TTL.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(3600)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(864000)]
         public long? Ttl { get; set; }
         /// <summary>
         /// TTL type to decide how to manage ttl.
         /// </summary>
         [JsonProperty(PropertyName = "dns_ttl_type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"TTL type to decide how to manage ttl.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTDnsTtlConfigDnsTtlTypeEnumType DnsTtlType { get; set; }
     }
 }

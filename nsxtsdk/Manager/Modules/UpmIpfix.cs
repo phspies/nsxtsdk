@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public UpmIpfix(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public UpmIpfix(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIpfixUpmProfileType CreateIpfixUpmProfile(NSXTIpfixUpmProfileType IpfixUpmProfile)
+        public async Task<NSXTIpfixUpmProfileType> CreateIpfixUpmProfile(NSXTIpfixUpmProfileType IpfixUpmProfile)
         {
             if (IpfixUpmProfile == null) { throw new System.ArgumentNullException("IpfixUpmProfile cannot be null"); }
             NSXTIpfixUpmProfileType returnValue = default(NSXTIpfixUpmProfileType);
@@ -43,31 +50,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(IpfixUpmProfile, defaultSerializationSettings));
             request.Resource = CreateIpfixUpmProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIpfixUpmProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIpfixUpmProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CreateIpfixUpmProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIpfixUpmProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIpfixUpmProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIpfixUpmProfileListResultType ListIpfixUpmProfiles(string? AppliedToEntityId = null, string? AppliedToEntityType = null, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, string? ProfileTypes = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTIpfixUpmProfileListResultType> ListIpfixUpmProfiles(string? AppliedToEntityId = null, string? AppliedToEntityType = null, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, string? ProfileTypes = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTIpfixUpmProfileListResultType returnValue = default(NSXTIpfixUpmProfileListResultType);
             StringBuilder ListIpfixUpmProfilesServiceURL = new StringBuilder("/ipfix-profiles");
@@ -86,31 +81,19 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListIpfixUpmProfilesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIpfixUpmProfileListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIpfixUpmProfileListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListIpfixUpmProfilesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIpfixUpmProfileListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIpfixUpmProfileListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIpfixUpmProfileType UpdateIpfixUpmProfile(string IpfixProfileId, NSXTIpfixUpmProfileType IpfixUpmProfile)
+        public async Task<NSXTIpfixUpmProfileType> UpdateIpfixUpmProfile(string IpfixProfileId, NSXTIpfixUpmProfileType IpfixUpmProfile)
         {
             if (IpfixProfileId == null) { throw new System.ArgumentNullException("IpfixProfileId cannot be null"); }
             if (IpfixUpmProfile == null) { throw new System.ArgumentNullException("IpfixUpmProfile cannot be null"); }
@@ -125,31 +108,19 @@ namespace nsxtapi.ManagerModules
             UpdateIpfixUpmProfileServiceURL.Replace("{ipfix-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(IpfixProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(IpfixUpmProfile, defaultSerializationSettings));
             request.Resource = UpdateIpfixUpmProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIpfixUpmProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIpfixUpmProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateIpfixUpmProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIpfixUpmProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIpfixUpmProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIpfixUpmProfileType GetIpfixUpmProfile(string IpfixProfileId)
+        public async Task<NSXTIpfixUpmProfileType> GetIpfixUpmProfile(string IpfixProfileId)
         {
             if (IpfixProfileId == null) { throw new System.ArgumentNullException("IpfixProfileId cannot be null"); }
             NSXTIpfixUpmProfileType returnValue = default(NSXTIpfixUpmProfileType);
@@ -162,31 +133,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             GetIpfixUpmProfileServiceURL.Replace("{ipfix-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(IpfixProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetIpfixUpmProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIpfixUpmProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIpfixUpmProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetIpfixUpmProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIpfixUpmProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIpfixUpmProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteIpfixUpmProfile(string IpfixProfileId)
+        public async Task DeleteIpfixUpmProfile(string IpfixProfileId)
         {
             if (IpfixProfileId == null) { throw new System.ArgumentNullException("IpfixProfileId cannot be null"); }
             
@@ -199,7 +158,7 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             DeleteIpfixUpmProfileServiceURL.Replace("{ipfix-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(IpfixProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteIpfixUpmProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteIpfixUpmProfileServiceURL.ToString() + " did not complete successfull";

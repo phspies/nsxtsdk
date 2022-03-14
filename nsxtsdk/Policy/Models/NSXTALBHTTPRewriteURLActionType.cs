@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,26 +17,17 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer HTTPRewriteURLAction object")]
     public class NSXTALBHTTPRewriteURLActionType 
     {
-        public NSXTALBHTTPRewriteURLActionType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "host_hdr")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBURIParamType HostHdr { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "query")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBURIParamQueryType Query { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "path")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBURIParamType Path { get; set; }
     }
 }

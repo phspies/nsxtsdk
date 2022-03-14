@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,26 +17,17 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTPerNodeDnsFailedQueriesType : NSXTListResultType
     {
-        public NSXTPerNodeDnsFailedQueriesType()
-        {
-        }
         /// <summary>
         /// Timestamp of the request, in YYYY-MM-DD HH:MM:SS.zzz format.
         /// </summary>
-        [JsonProperty(PropertyName = "timestamp")]
-        [NSXTProperty(IsRequired: false, Description: @"Timestamp of the request, in YYYY-MM-DD HH:MM:SS.zzz format.")]
         public string? Timestamp { get; set; }
         /// <summary>
         /// The Uuid of active/standby transport node.
         /// </summary>
-        [JsonProperty(PropertyName = "node_id")]
-        [NSXTProperty(IsRequired: false, Description: @"The Uuid of active/standby transport node.")]
         public string? NodeId { get; set; }
         /// <summary>
         /// The list of failed DNS queries.
         /// </summary>
-        [JsonProperty(PropertyName = "results")]
-        [NSXTProperty(IsRequired: false, Description: @"The list of failed DNS queries.")]
         public IList<NSXTDnsFailedQueryType> Results { get; set; }
     }
 }

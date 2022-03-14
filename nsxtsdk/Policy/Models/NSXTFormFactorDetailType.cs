@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -19,20 +19,13 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Form factor contains, resources required to deployNSX Application Platform deployment and available features for a givenform factor.")]
     public class NSXTFormFactorDetailType 
     {
-        public NSXTFormFactorDetailType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "node_resources")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTNodeResourcesType NodeResources { get; set; }
         /// <summary>
         /// Features supported in this form factor.
         /// </summary>
-        [JsonProperty(PropertyName = "supported_features")]
-        [NSXTProperty(IsRequired: false, Description: @"Features supported in this form factor.")]
         public IList<string> SupportedFeatures { get; set; }
     }
 }

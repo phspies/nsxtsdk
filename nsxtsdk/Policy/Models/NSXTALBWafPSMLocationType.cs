@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,43 +17,30 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer WafPSMLocation object")]
     public class NSXTALBWafPSMLocationType 
     {
-        public NSXTALBWafPSMLocationType()
-        {
-        }
         /// <summary>
         /// A list of rules which should be applied on this location.
         /// Maximum of 1024 items allowed.
         /// </summary>
-        [JsonProperty(PropertyName = "rules")]
-        [NSXTProperty(IsRequired: false, Description: @"A list of rules which should be applied on this location.Maximum of 1024 items allowed.")]
         public IList<NSXTALBWafPSMRuleType> Rules { get; set; }
         /// <summary>
         /// Location index, this is used to determine the order of the
         /// locations.
         /// </summary>
         [JsonProperty(PropertyName = "index", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Location index, this is used to determine the order of thelocations.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public long Index { get; set; }
         /// <summary>
         /// Free-text comment about this location.
         /// </summary>
-        [JsonProperty(PropertyName = "description")]
-        [NSXTProperty(IsRequired: false, Description: @"Free-text comment about this location.")]
         public string? Description { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "match")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBWafPSMLocationMatchType Match { get; set; }
         /// <summary>
         /// User defined name for this location, it must be unique in
         /// the group.
         /// </summary>
         [JsonProperty(PropertyName = "name", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"User defined name for this location, it must be unique inthe group.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Name { get; set; }
     }
 }

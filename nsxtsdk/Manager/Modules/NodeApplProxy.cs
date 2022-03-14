@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public NodeApplProxy(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public NodeApplProxy(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNodeServiceStatusPropertiesType CreateApplProxyActionStart()
+        public async Task<NSXTNodeServiceStatusPropertiesType> CreateApplProxyActionStart()
         {
             NSXTNodeServiceStatusPropertiesType returnValue = default(NSXTNodeServiceStatusPropertiesType);
             StringBuilder CreateApplProxyActionStartServiceURL = new StringBuilder("/node/services/applianceproxy?action=start");
@@ -41,31 +48,19 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = CreateApplProxyActionStartServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNodeServiceStatusPropertiesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNodeServiceStatusPropertiesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CreateApplProxyActionStartServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNodeServiceStatusPropertiesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNodeServiceStatusPropertiesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNodeServiceStatusPropertiesType CreateApplProxyActionStop()
+        public async Task<NSXTNodeServiceStatusPropertiesType> CreateApplProxyActionStop()
         {
             NSXTNodeServiceStatusPropertiesType returnValue = default(NSXTNodeServiceStatusPropertiesType);
             StringBuilder CreateApplProxyActionStopServiceURL = new StringBuilder("/node/services/applianceproxy?action=stop");
@@ -76,31 +71,19 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = CreateApplProxyActionStopServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNodeServiceStatusPropertiesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNodeServiceStatusPropertiesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CreateApplProxyActionStopServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNodeServiceStatusPropertiesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNodeServiceStatusPropertiesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNodeServiceStatusPropertiesType CreateApplProxyActionRestart()
+        public async Task<NSXTNodeServiceStatusPropertiesType> CreateApplProxyActionRestart()
         {
             NSXTNodeServiceStatusPropertiesType returnValue = default(NSXTNodeServiceStatusPropertiesType);
             StringBuilder CreateApplProxyActionRestartServiceURL = new StringBuilder("/node/services/applianceproxy?action=restart");
@@ -111,31 +94,19 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = CreateApplProxyActionRestartServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNodeServiceStatusPropertiesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNodeServiceStatusPropertiesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CreateApplProxyActionRestartServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNodeServiceStatusPropertiesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNodeServiceStatusPropertiesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNodeServicePropertiesType ReadApplProxy()
+        public async Task<NSXTNodeServicePropertiesType> ReadApplProxy()
         {
             NSXTNodeServicePropertiesType returnValue = default(NSXTNodeServicePropertiesType);
             StringBuilder ReadApplProxyServiceURL = new StringBuilder("/node/services/applianceproxy");
@@ -146,31 +117,19 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = ReadApplProxyServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNodeServicePropertiesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNodeServicePropertiesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadApplProxyServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNodeServicePropertiesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNodeServicePropertiesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNodeServiceStatusPropertiesType ReadApplProxyStatus()
+        public async Task<NSXTNodeServiceStatusPropertiesType> ReadApplProxyStatus()
         {
             NSXTNodeServiceStatusPropertiesType returnValue = default(NSXTNodeServiceStatusPropertiesType);
             StringBuilder ReadApplProxyStatusServiceURL = new StringBuilder("/node/services/applianceproxy/status");
@@ -181,25 +140,13 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = ReadApplProxyStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNodeServiceStatusPropertiesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNodeServiceStatusPropertiesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadApplProxyStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNodeServiceStatusPropertiesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNodeServiceStatusPropertiesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

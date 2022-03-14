@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,30 +17,19 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer HTTPRedirectAction object")]
     public class NSXTALBHTTPRedirectActionType 
     {
-        public NSXTALBHTTPRedirectActionType()
-        {
-            KeepQuery = test
-            StatusCode = test
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "host")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBURIParamType Host { get; set; }
         /// <summary>
         /// Protocol type.
         /// Enum options - HTTP, HTTPS.
         /// </summary>
         [JsonProperty(PropertyName = "protocol", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Protocol type.Enum options - HTTP, HTTPS.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTAlbhttpredirectActionProtocolEnumType Protocol { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "path")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBURIParamType Path { get; set; }
         /// <summary>
         /// Keep or drop the query of the incoming request URI in the
@@ -48,8 +37,6 @@ namespace nsxtsdk.PolicyModels
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as true.
         /// </summary>
-        [JsonProperty(PropertyName = "keep_query")]
-        [NSXTProperty(IsRequired: false, Description: @"Keep or drop the query of the incoming request URI in theredirected URI.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
         public bool? KeepQuery { get; set; }
         /// <summary>
         /// HTTP redirect status code.
@@ -60,17 +47,11 @@ namespace nsxtsdk.PolicyModels
         /// interpreted by ALB Controller as
         /// HTTP_REDIRECT_STATUS_CODE_302.
         /// </summary>
-        [JsonProperty(PropertyName = "status_code")]
-        [NSXTProperty(IsRequired: false, Description: @"HTTP redirect status code.Enum options - HTTP_REDIRECT_STATUS_CODE_301,HTTP_REDIRECT_STATUS_CODE_302,HTTP_REDIRECT_STATUS_CODE_307.Default value when not specified in API or module isinterpreted by ALB Controller asHTTP_REDIRECT_STATUS_CODE_302.")]
         public NSXTAlbhttpredirectActionStatusCodeEnumType? StatusCode { get; set; }
         /// <summary>
         /// Port to which redirect the request.
         /// Allowed values are 1-65535.
         /// </summary>
-        [JsonProperty(PropertyName = "port")]
-        [NSXTProperty(IsRequired: false, Description: @"Port to which redirect the request.Allowed values are 1-65535.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
         public long? Port { get; set; }
     }
 }

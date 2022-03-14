@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,26 +17,17 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTL2VPNSessionStatisticsNsxTType : NSXTL2VPNSessionStatisticsPerEPType
     {
-        public NSXTL2VPNSessionStatisticsNsxTType()
-        {
-        }
         /// <summary>
         /// Traffic statistics per segment.
         /// </summary>
-        [JsonProperty(PropertyName = "traffic_statistics_per_segment")]
-        [NSXTProperty(IsRequired: false, Description: @"Traffic statistics per segment.")]
         public IList<NSXTL2VPNTrafficStatisticsPerSegmentType> TrafficStatisticsPerSegment { get; set; }
         /// <summary>
         /// Display name of l2vpn session.
         /// </summary>
-        [JsonProperty(PropertyName = "display_name")]
-        [NSXTProperty(IsRequired: false, Description: @"Display name of l2vpn session.")]
         public string? DisplayName { get; set; }
         /// <summary>
         /// Tunnel port traffic counters.
         /// </summary>
-        [JsonProperty(PropertyName = "tap_traffic_counters")]
-        [NSXTProperty(IsRequired: false, Description: @"Tunnel port traffic counters.")]
         public IList<NSXTL2VPNTapStatisticsType> TapTrafficCounters { get; set; }
     }
 }

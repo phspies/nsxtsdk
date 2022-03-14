@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,28 +17,19 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTDistributedVirtualPortgroupType : NSXTVirtualPortgroupType
     {
-        public NSXTDistributedVirtualPortgroupType()
-        {
-        }
         /// <summary>
         /// This parameters reflects the managed entity status of the portgroup
         /// as reported by VC.
         /// </summary>
-        [JsonProperty(PropertyName = "overall_status")]
-        [NSXTProperty(IsRequired: false, Description: @"This parameters reflects the managed entity status of the portgroupas reported by VC.")]
         public NSXTDistributedVirtualPortgroupOverallStatusEnumType? OverallStatus { get; set; }
         /// <summary>
         /// For distributed virtual portgroup, backing type is standard.
         /// For logical switch portgroup, the backing type is set to nsx.
         /// </summary>
-        [JsonProperty(PropertyName = "backing_type")]
-        [NSXTProperty(IsRequired: false, Description: @"For distributed virtual portgroup, backing type is standard.For logical switch portgroup, the backing type is set to nsx.")]
         public string? BackingType { get; set; }
         /// <summary>
         /// Generated UUID of the portgroup
         /// </summary>
-        [JsonProperty(PropertyName = "key")]
-        [NSXTProperty(IsRequired: false, Description: @"Generated UUID of the portgroup")]
         public string? Key { get; set; }
     }
 }

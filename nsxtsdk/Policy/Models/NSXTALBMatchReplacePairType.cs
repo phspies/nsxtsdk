@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,21 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer MatchReplacePair object")]
     public class NSXTALBMatchReplacePairType 
     {
-        public NSXTALBMatchReplacePairType()
-        {
-        }
         /// <summary>
         /// String to be matched.
         /// </summary>
         [JsonProperty(PropertyName = "match_string", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"String to be matched.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string MatchString { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "replacement_string")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBReplaceStringVarType ReplacementString { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -19,14 +19,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"If Virtual Distributed Switch is used as a HostSwitch to configure TransportNode or TransportNodeProfie, this mapping should be specified. You can either use vds_uplink_name or vds_lag_name to associate with uplink_name from UplinkHostSwitch profile.")]
     public class NSXTVdsUplinkType 
     {
-        public NSXTVdsUplinkType()
-        {
-        }
         /// <summary>
         /// Uplink name of VDS that is connected to Physical NIC on a host from vSphere.
         /// </summary>
-        [JsonProperty(PropertyName = "vds_uplink_name")]
-        [NSXTProperty(IsRequired: false, Description: @"Uplink name of VDS that is connected to Physical NIC on a host from vSphere.")]
         public string? VdsUplinkName { get; set; }
         /// <summary>
         /// This name is from UplinkHostSwitch profile that is associated with the HostSwitch specified in TransportNode or
@@ -34,14 +29,10 @@ namespace nsxtsdk.ManagerModels
         /// configuration.
         /// </summary>
         [JsonProperty(PropertyName = "uplink_name", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"This name is from UplinkHostSwitch profile that is associated with the HostSwitch specified in TransportNode or TransportNodeProfile configuration. This name will be used as an alias to either VDS uplink or lag in other configuration.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string UplinkName { get; set; }
         /// <summary>
         /// LAG name that is connected to Physical NIC on a host from vSphere.
         /// </summary>
-        [JsonProperty(PropertyName = "vds_lag_name")]
-        [NSXTProperty(IsRequired: false, Description: @"LAG name that is connected to Physical NIC on a host from vSphere.")]
         public string? VdsLagName { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,26 +17,17 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTSwitchingProfileStatusType 
     {
-        public NSXTSwitchingProfileStatusType()
-        {
-        }
         /// <summary>
         /// Number of logical ports using a switching profile
         /// </summary>
-        [JsonProperty(PropertyName = "num_logical_ports")]
-        [NSXTProperty(IsRequired: false, Description: @"Number of logical ports using a switching profile")]
         public long? NumLogicalPorts { get; set; }
         /// <summary>
         /// Identifier for the switching profile
         /// </summary>
-        [JsonProperty(PropertyName = "switching_profile_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Identifier for the switching profile")]
         public string? SwitchingProfileId { get; set; }
         /// <summary>
         /// Number of logical switches using a switching profile
         /// </summary>
-        [JsonProperty(PropertyName = "num_logical_switches")]
-        [NSXTProperty(IsRequired: false, Description: @"Number of logical switches using a switching profile")]
         public long? NumLogicalSwitches { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTControllerProfilerPropertiesType : NSXTResourceType
     {
-        public NSXTControllerProfilerPropertiesType()
-        {
-        }
         /// <summary>
         /// True for enabling controller profiler,
         /// False for disabling controller profiler.
         /// </summary>
-        [JsonProperty(PropertyName = "enabled")]
-        [NSXTProperty(IsRequired: false, Description: @"True for enabling controller profiler,False for disabling controller profiler.")]
         public bool? Enabled { get; set; }
     }
 }

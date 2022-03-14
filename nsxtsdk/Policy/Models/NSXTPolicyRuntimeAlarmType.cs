@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -19,26 +19,17 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Alarm associated with the PolicyRuntimeInfoPerEP that exposespotential errors when retrieving runtime information from theenforcement point.")]
     public class NSXTPolicyRuntimeAlarmType 
     {
-        public NSXTPolicyRuntimeAlarmType()
-        {
-        }
         /// <summary>
         /// Alarm error id.
         /// </summary>
-        [JsonProperty(PropertyName = "error_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Alarm error id.")]
         public string? ErrorId { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "error_details")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTPolicyApiErrorType ErrorDetails { get; set; }
         /// <summary>
         /// Error message describing the issue.
         /// </summary>
-        [JsonProperty(PropertyName = "message")]
-        [NSXTProperty(IsRequired: false, Description: @"Error message describing the issue.")]
         public string? Message { get; set; }
     }
 }

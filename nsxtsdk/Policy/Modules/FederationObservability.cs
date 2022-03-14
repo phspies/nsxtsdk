@@ -21,16 +21,23 @@ namespace nsxtapi.PolicyModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public FederationObservability(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public FederationObservability(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTMonitoringInfoType GetFlowDetails(string? SitePath = null)
+        public async Task<NSXTMonitoringInfoType> GetFlowDetails(string? SitePath = null)
         {
             NSXTMonitoringInfoType returnValue = default(NSXTMonitoringInfoType);
             StringBuilder GetFlowDetailsServiceURL = new StringBuilder("/observability/flow-details");
@@ -42,25 +49,13 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             if (SitePath != null) { request.AddQueryParameter("site_path", SitePath.ToString()); }
             request.Resource = GetFlowDetailsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTMonitoringInfoType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTMonitoringInfoType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetFlowDetailsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTMonitoringInfoType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTMonitoringInfoType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

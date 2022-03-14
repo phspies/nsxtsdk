@@ -21,16 +21,23 @@ namespace nsxtapi.PolicyModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public PolicyTag(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public PolicyTag(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyResourceReferenceListResultType ListTaggedObjects(string? Cursor = null, string? FilterText = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, string? Scope = null, bool? SortAscending = null, string? SortBy = null, string? Tag = null)
+        public async Task<NSXTPolicyResourceReferenceListResultType> ListTaggedObjects(string? Cursor = null, string? FilterText = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, string? Scope = null, bool? SortAscending = null, string? SortBy = null, string? Tag = null)
         {
             NSXTPolicyResourceReferenceListResultType returnValue = default(NSXTPolicyResourceReferenceListResultType);
             StringBuilder ListTaggedObjectsServiceURL = new StringBuilder("/infra/tags/effective-resources");
@@ -50,31 +57,19 @@ namespace nsxtapi.PolicyModules
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             if (Tag != null) { request.AddQueryParameter("tag", Tag.ToString()); }
             request.Resource = ListTaggedObjectsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyResourceReferenceListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyResourceReferenceListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListTaggedObjectsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyResourceReferenceListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyResourceReferenceListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTagBulkOperationType TagBulkUpdate(string OperationId, NSXTTagBulkOperationType TagBulkOperation)
+        public async Task<NSXTTagBulkOperationType> TagBulkUpdate(string OperationId, NSXTTagBulkOperationType TagBulkOperation)
         {
             if (OperationId == null) { throw new System.ArgumentNullException("OperationId cannot be null"); }
             if (TagBulkOperation == null) { throw new System.ArgumentNullException("TagBulkOperation cannot be null"); }
@@ -89,31 +84,19 @@ namespace nsxtapi.PolicyModules
             TagBulkUpdateServiceURL.Replace("{operation-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(OperationId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(TagBulkOperation, defaultSerializationSettings));
             request.Resource = TagBulkUpdateServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTagBulkOperationType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTagBulkOperationType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + TagBulkUpdateServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTagBulkOperationType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTagBulkOperationType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTagBulkOperationType GetTagBulkOperation(string OperationId)
+        public async Task<NSXTTagBulkOperationType> GetTagBulkOperation(string OperationId)
         {
             if (OperationId == null) { throw new System.ArgumentNullException("OperationId cannot be null"); }
             NSXTTagBulkOperationType returnValue = default(NSXTTagBulkOperationType);
@@ -126,31 +109,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             GetTagBulkOperationServiceURL.Replace("{operation-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(OperationId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetTagBulkOperationServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTagBulkOperationType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTagBulkOperationType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetTagBulkOperationServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTagBulkOperationType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTagBulkOperationType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTagBulkOperationStatusType GetTagBulkOperationStatus(string OperationId)
+        public async Task<NSXTTagBulkOperationStatusType> GetTagBulkOperationStatus(string OperationId)
         {
             if (OperationId == null) { throw new System.ArgumentNullException("OperationId cannot be null"); }
             NSXTTagBulkOperationStatusType returnValue = default(NSXTTagBulkOperationStatusType);
@@ -163,31 +134,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             GetTagBulkOperationStatusServiceURL.Replace("{operation-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(OperationId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetTagBulkOperationStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTagBulkOperationStatusType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTagBulkOperationStatusType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetTagBulkOperationStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTagBulkOperationStatusType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTagBulkOperationStatusType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTagInfoListResultType ListAllTags(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, string? Scope = null, bool? SortAscending = null, string? SortBy = null, string? Source = null, string? Tag = null)
+        public async Task<NSXTTagInfoListResultType> ListAllTags(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, string? Scope = null, bool? SortAscending = null, string? SortBy = null, string? Source = null, string? Tag = null)
         {
             NSXTTagInfoListResultType returnValue = default(NSXTTagInfoListResultType);
             StringBuilder ListAllTagsServiceURL = new StringBuilder("/infra/tags");
@@ -207,25 +166,13 @@ namespace nsxtapi.PolicyModules
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             if (Tag != null) { request.AddQueryParameter("tag", Tag.ToString()); }
             request.Resource = ListAllTagsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTagInfoListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTagInfoListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListAllTagsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTagInfoListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTagInfoListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

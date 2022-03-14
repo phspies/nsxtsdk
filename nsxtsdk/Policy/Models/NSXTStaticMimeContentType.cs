@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTStaticMimeContentType : NSXTPolicyConfigResourceType
     {
-        public NSXTStaticMimeContentType()
-        {
-        }
         /// <summary>
         /// text message.
         /// </summary>
         [JsonProperty(PropertyName = "text_message", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"text message.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string TextMessage { get; set; }
     }
 }

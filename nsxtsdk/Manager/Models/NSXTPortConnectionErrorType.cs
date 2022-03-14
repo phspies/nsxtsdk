@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,26 +17,17 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Errors encountered while fetching entities in the forwarding path")]
     public class NSXTPortConnectionErrorType 
     {
-        public NSXTPortConnectionErrorType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "error_summary")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public string? ErrorSummary { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "error_details")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public object? ErrorDetails { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "entity_type")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public string? EntityType { get; set; }
     }
 }

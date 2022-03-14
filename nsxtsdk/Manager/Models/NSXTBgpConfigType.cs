@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,36 +17,22 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTBgpConfigType : NSXTManagedResourceType
     {
-        public NSXTBgpConfigType()
-        {
-            Ecmp = test
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "inter_sr_ibgp")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTInterSRRoutingConfigType InterSrIbgp { get; set; }
         /// <summary>
         /// This is a deprecated property, Please use 'as_num' instead. For VRF logical router, the as_number from parent logical
         /// router will be effective.
         /// </summary>
-        [JsonProperty(PropertyName = "as_number")]
-        [NSXTProperty(IsRequired: false, Description: @"This is a deprecated property, Please use &apos;as_num&apos; instead. For VRF logical router, the as_number from parent logical router will be effective.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(4294967296)]
         public long? AsNumber { get; set; }
         /// <summary>
         /// List of routes to be aggregated
         /// </summary>
-        [JsonProperty(PropertyName = "route_aggregation")]
-        [NSXTProperty(IsRequired: false, Description: @"List of routes to be aggregated")]
         public IList<NSXTBgpRouteAggregationType> RouteAggregation { get; set; }
         /// <summary>
         /// Logical router id
         /// </summary>
-        [JsonProperty(PropertyName = "logical_router_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Logical router id")]
         public string? LogicalRouterId { get; set; }
         /// <summary>
         /// Flag to enable graceful restart. This field is deprecated, kindly use
@@ -58,14 +44,10 @@ namespace nsxtsdk.ManagerModels
         /// is not allowed and validation error will be thrown. For VRF logical router,
         /// the settings from parent logical router will be effective.
         /// </summary>
-        [JsonProperty(PropertyName = "graceful_restart")]
-        [NSXTProperty(IsRequired: false, Description: @"Flag to enable graceful restart. This field is deprecated, kindly usegraceful_restart_config parameter for graceful restart configuration.If both parameters are set and consistent with each other[i.e. graceful_restart=false and graceful_restart_mode=HELPER_ONLY ORgraceful_restart=true and graceful_restart_mode=GR_AND_HELPER]then this is allowed, but if inconsistent with each other then thisis not allowed and validation error will be thrown. For VRF logical router,the settings from parent logical router will be effective.")]
         public bool? GracefulRestart { get; set; }
         /// <summary>
         /// For VRF logical router, the as_num from parent logical router will be effective.
         /// </summary>
-        [JsonProperty(PropertyName = "as_num")]
-        [NSXTProperty(IsRequired: false, Description: @"For VRF logical router, the as_num from parent logical router will be effective.")]
         public string? AsNum { get; set; }
         /// <summary>
         /// While creation of BGP config this flag will be set to
@@ -77,21 +59,15 @@ namespace nsxtsdk.ManagerModels
         /// property is not specified in the payload, the default value will be
         /// considered as false irrespective of the high-availability mode.
         /// </summary>
-        [JsonProperty(PropertyName = "enabled")]
-        [NSXTProperty(IsRequired: false, Description: @"While creation of BGP config this flag will be set to- true for Tier0 logical router with Active-Active high-availabilitymode- false for Tier0 logical router with Active-Standby high-availanilitymode.User can change this value while updating the config. If thisproperty is not specified in the payload, the default value will beconsidered as false irrespective of the high-availability mode.")]
         public bool? Enabled { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "graceful_restart_config")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTGracefulRestartConfigType GracefulRestartConfig { get; set; }
         /// <summary>
         /// For TIER0 logical router, default is true. For VRF logical router, the settings from parent logical router will be
         /// effective.
         /// </summary>
-        [JsonProperty(PropertyName = "multipath_relax")]
-        [NSXTProperty(IsRequired: false, Description: @"For TIER0 logical router, default is true. For VRF logical router, the settings from parent logical router will be effective.")]
         public bool? MultipathRelax { get; set; }
         /// <summary>
         /// While creation of BGP config this flag will be set to true
@@ -99,8 +75,6 @@ namespace nsxtsdk.ManagerModels
         /// is not specified in the payload, the default value will be considered
         /// as true.
         /// </summary>
-        [JsonProperty(PropertyName = "ecmp")]
-        [NSXTProperty(IsRequired: false, Description: @"While creation of BGP config this flag will be set to trueUser can change this value while updating BGP config. If this propertyis not specified in the payload, the default value will be consideredas true.")]
         public bool? Ecmp { get; set; }
     }
 }

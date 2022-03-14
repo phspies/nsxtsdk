@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public Monitoring(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public Monitoring(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void BulkUpdateAlarms(string NewStatus, long? After = null, long? Before = null, string? Cursor = null, string? EventType = null, string? FeatureName = null, string? Id = null, string? IntentPath = null, string? NodeId = null, string? NodeResourceType = null, long? PageSize = null, string? Severity = null, bool? SortAscending = null, string? SortBy = null, string? Status = null, long? SuppressDuration = null)
+        public async Task BulkUpdateAlarms(string NewStatus, long? After = null, long? Before = null, string? Cursor = null, string? EventType = null, string? FeatureName = null, string? Id = null, string? IntentPath = null, string? NodeId = null, string? NodeResourceType = null, long? PageSize = null, string? Severity = null, bool? SortAscending = null, string? SortBy = null, string? Status = null, long? SuppressDuration = null)
         {
             if (NewStatus == null) { throw new System.ArgumentNullException("NewStatus cannot be null"); }
             
@@ -58,7 +65,7 @@ namespace nsxtapi.ManagerModules
             if (Status != null) { request.AddQueryParameter("status", Status.ToString()); }
             if (SuppressDuration != null) { request.AddQueryParameter("suppress_duration", SuppressDuration.ToString()); }
             request.Resource = BulkUpdateAlarmsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + BulkUpdateAlarmsServiceURL.ToString() + " did not complete successfull";
@@ -70,7 +77,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTAlarmType GetAlarm(string AlarmId)
+        public async Task<NSXTAlarmType> GetAlarm(string AlarmId)
         {
             if (AlarmId == null) { throw new System.ArgumentNullException("AlarmId cannot be null"); }
             NSXTAlarmType returnValue = default(NSXTAlarmType);
@@ -83,31 +90,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             GetAlarmServiceURL.Replace("{alarm-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlarmId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetAlarmServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTAlarmType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTAlarmType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetAlarmServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTAlarmType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTAlarmType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTEventListResultType ListEvents()
+        public async Task<NSXTEventListResultType> ListEvents()
         {
             NSXTEventListResultType returnValue = default(NSXTEventListResultType);
             StringBuilder ListEventsServiceURL = new StringBuilder("/events");
@@ -118,31 +113,19 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = ListEventsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTEventListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTEventListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListEventsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTEventListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTEventListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTMonitoringEventType UpdateEvent(string EventId, NSXTMonitoringEventType MonitoringEvent)
+        public async Task<NSXTMonitoringEventType> UpdateEvent(string EventId, NSXTMonitoringEventType MonitoringEvent)
         {
             if (EventId == null) { throw new System.ArgumentNullException("EventId cannot be null"); }
             if (MonitoringEvent == null) { throw new System.ArgumentNullException("MonitoringEvent cannot be null"); }
@@ -157,31 +140,19 @@ namespace nsxtapi.ManagerModules
             UpdateEventServiceURL.Replace("{event-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EventId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(MonitoringEvent, defaultSerializationSettings));
             request.Resource = UpdateEventServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTMonitoringEventType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTMonitoringEventType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateEventServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTMonitoringEventType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTMonitoringEventType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTMonitoringEventType GetEvent(string EventId)
+        public async Task<NSXTMonitoringEventType> GetEvent(string EventId)
         {
             if (EventId == null) { throw new System.ArgumentNullException("EventId cannot be null"); }
             NSXTMonitoringEventType returnValue = default(NSXTMonitoringEventType);
@@ -194,31 +165,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             GetEventServiceURL.Replace("{event-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EventId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetEventServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTMonitoringEventType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTMonitoringEventType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetEventServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTMonitoringEventType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTMonitoringEventType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTAlarmsListResultType GetAlarms(long? After = null, long? Before = null, string? Cursor = null, string? EventType = null, string? FeatureName = null, string? Id = null, string? IntentPath = null, string? NodeId = null, string? NodeResourceType = null, long? PageSize = null, string? Severity = null, bool? SortAscending = null, string? SortBy = null, string? Status = null)
+        public async Task<NSXTAlarmsListResultType> GetAlarms(long? After = null, long? Before = null, string? Cursor = null, string? EventType = null, string? FeatureName = null, string? Id = null, string? IntentPath = null, string? NodeId = null, string? NodeResourceType = null, long? PageSize = null, string? Severity = null, bool? SortAscending = null, string? SortBy = null, string? Status = null)
         {
             NSXTAlarmsListResultType returnValue = default(NSXTAlarmsListResultType);
             StringBuilder GetAlarmsServiceURL = new StringBuilder("/alarms");
@@ -243,31 +202,19 @@ namespace nsxtapi.ManagerModules
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             if (Status != null) { request.AddQueryParameter("status", Status.ToString()); }
             request.Resource = GetAlarmsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTAlarmsListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTAlarmsListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetAlarmsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTAlarmsListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTAlarmsListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTMonitoringEventType ResetEventValues(string EventId)
+        public async Task<NSXTMonitoringEventType> ResetEventValues(string EventId)
         {
             if (EventId == null) { throw new System.ArgumentNullException("EventId cannot be null"); }
             NSXTMonitoringEventType returnValue = default(NSXTMonitoringEventType);
@@ -280,31 +227,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             ResetEventValuesServiceURL.Replace("{event-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EventId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ResetEventValuesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTMonitoringEventType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTMonitoringEventType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + ResetEventValuesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTMonitoringEventType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTMonitoringEventType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTAlarmType UpdateAlarmStatus(string AlarmId, string NewStatus, long? SuppressDuration = null)
+        public async Task<NSXTAlarmType> UpdateAlarmStatus(string AlarmId, string NewStatus, long? SuppressDuration = null)
         {
             if (AlarmId == null) { throw new System.ArgumentNullException("AlarmId cannot be null"); }
             if (NewStatus == null) { throw new System.ArgumentNullException("NewStatus cannot be null"); }
@@ -320,25 +255,13 @@ namespace nsxtapi.ManagerModules
             if (NewStatus != null) { request.AddQueryParameter("new_status", NewStatus.ToString()); }
             if (SuppressDuration != null) { request.AddQueryParameter("suppress_duration", SuppressDuration.ToString()); }
             request.Resource = UpdateAlarmStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTAlarmType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTAlarmType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + UpdateAlarmStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTAlarmType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTAlarmType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

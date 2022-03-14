@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Parameters that affect how list results are processed")]
     public class NSXTListResultQueryParametersType 
     {
-        public NSXTListResultQueryParametersType()
-        {
-        }
         /// <summary>
         /// Comma-separated field names to include in query result
         /// </summary>
-        [JsonProperty(PropertyName = "fields")]
-        [NSXTProperty(IsRequired: false, Description: @"Comma-separated field names to include in query result")]
         public string? Fields { get; set; }
     }
 }

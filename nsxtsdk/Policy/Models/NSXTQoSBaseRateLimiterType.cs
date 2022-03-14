@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,22 +17,15 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"A Limiter configuration entry that specifies type and metrics")]
     public class NSXTQoSBaseRateLimiterType 
     {
-        public NSXTQoSBaseRateLimiterType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty(PropertyName = "enabled", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"")]
-        [System.ComponentModel.DataAnnotations.Required]
         public bool Enabled { get; set; }
         /// <summary>
         /// Type rate limiter
         /// </summary>
         [JsonProperty(PropertyName = "resource_type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Type rate limiter")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTQoSbaseRateLimiterResourceTypeEnumType ResourceType { get; set; }
     }
 }

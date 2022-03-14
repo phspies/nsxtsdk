@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,29 +17,18 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Contains IPv4 related discovery options.")]
     public class NSXTIPv4DiscoveryOptionsType 
     {
-        public NSXTIPv4DiscoveryOptionsType()
-        {
-            VmtoolsEnabled = test
-            DhcpSnoopingEnabled = test
-        }
         /// <summary>
         /// Indicates whether fetching IP using vm-tools is enabled.
         /// This option is only supported on ESX where vm-tools is installed.
         /// </summary>
-        [JsonProperty(PropertyName = "vmtools_enabled")]
-        [NSXTProperty(IsRequired: false, Description: @"Indicates whether fetching IP using vm-tools is enabled.This option is only supported on ESX where vm-tools is installed.")]
         public bool? VmtoolsEnabled { get; set; }
         /// <summary>
         /// Indicates whether DHCP snooping is enabled
         /// </summary>
-        [JsonProperty(PropertyName = "dhcp_snooping_enabled")]
-        [NSXTProperty(IsRequired: false, Description: @"Indicates whether DHCP snooping is enabled")]
         public bool? DhcpSnoopingEnabled { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "arp_snooping_config")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTArpSnoopingConfigType ArpSnoopingConfig { get; set; }
     }
 }

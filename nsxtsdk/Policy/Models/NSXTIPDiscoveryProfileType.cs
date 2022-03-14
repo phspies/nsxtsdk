@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,44 +17,27 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIPDiscoveryProfileType : NSXTPolicyConfigResourceType
     {
-        public NSXTIPDiscoveryProfileType()
-        {
-            ArpNdBindingTimeout = test
-            TofuEnabled = test
-        }
         /// <summary>
         /// This property controls the ARP and ND cache timeout period. It
         /// is recommended that this property be greater than the ARP/ND
         /// cache timeout on the VM.
         /// </summary>
-        [JsonProperty(PropertyName = "arp_nd_binding_timeout")]
-        [NSXTProperty(IsRequired: false, Description: @"This property controls the ARP and ND cache timeout period. Itis recommended that this property be greater than the ARP/NDcache timeout on the VM.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(5)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(120)]
         public int? ArpNdBindingTimeout { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "ip_v6_discovery_options")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTIPv6DiscoveryOptionsType IpV6DiscoveryOptions { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "duplicate_ip_detection")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTDuplicateIPDetectionOptionsType DuplicateIpDetection { get; set; }
         /// <summary>
         /// Indicates whether "Trust on First Use(TOFU)" paradigm is enabled.
         /// </summary>
-        [JsonProperty(PropertyName = "tofu_enabled")]
-        [NSXTProperty(IsRequired: false, Description: @"Indicates whether &quot;Trust on First Use(TOFU)&quot; paradigm is enabled.")]
         public bool? TofuEnabled { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "ip_v4_discovery_options")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTIPv4DiscoveryOptionsType IpV4DiscoveryOptions { get; set; }
     }
 }

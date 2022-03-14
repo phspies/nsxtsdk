@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,16 +17,11 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTBinaryPacketDataType : NSXTPacketDataType
     {
-        public NSXTBinaryPacketDataType()
-        {
-        }
         /// <summary>
         /// Up to 1000 bytes of payload may be supplied (with a base64-encoded length of 1336 bytes.) Additional bytes of traceflow
         /// metadata will be appended to the payload. The payload must contain all headers (Ethernet, IP, etc). Note that VLAN is
         /// not supported in the logical space. Hence, payload must not contain 802.1Q headers.
         /// </summary>
-        [JsonProperty(PropertyName = "payload")]
-        [NSXTProperty(IsRequired: false, Description: @"Up to 1000 bytes of payload may be supplied (with a base64-encoded length of 1336 bytes.) Additional bytes of traceflow metadata will be appended to the payload. The payload must contain all headers (Ethernet, IP, etc). Note that VLAN is not supported in the logical space. Hence, payload must not contain 802.1Q headers.")]
         public string? Payload { get; set; }
     }
 }

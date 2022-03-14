@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTStringArrayConstraintValueType : NSXTConstraintValueType
     {
-        public NSXTStringArrayConstraintValueType()
-        {
-        }
         /// <summary>
         /// Array of string values
         /// </summary>
         [JsonProperty(PropertyName = "values", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Array of string values")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<string> Values { get; set; }
     }
 }

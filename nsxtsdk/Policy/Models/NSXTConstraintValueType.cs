@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -18,15 +18,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"All the types of value extend from this abstract class. Thisis present for extensibility.")]
     public class NSXTConstraintValueType 
     {
-        public NSXTConstraintValueType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty(PropertyName = "resource_type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTConstraintValueResourceTypeEnumType ResourceType { get; set; }
     }
 }

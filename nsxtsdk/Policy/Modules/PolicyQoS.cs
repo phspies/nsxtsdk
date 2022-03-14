@@ -21,16 +21,23 @@ namespace nsxtapi.PolicyModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public PolicyQoS(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public PolicyQoS(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTQoSProfileType CreateOrReplaceQoSprofile(string QosProfileId, NSXTQoSProfileType QoSprofile, bool? Override = null)
+        public async Task<NSXTQoSProfileType> CreateOrReplaceQoSprofile(string QosProfileId, NSXTQoSProfileType QoSprofile, bool? Override = null)
         {
             if (QosProfileId == null) { throw new System.ArgumentNullException("QosProfileId cannot be null"); }
             if (QoSprofile == null) { throw new System.ArgumentNullException("QoSprofile cannot be null"); }
@@ -46,31 +53,19 @@ namespace nsxtapi.PolicyModules
             request.AddJsonBody(JsonConvert.SerializeObject(QoSprofile, defaultSerializationSettings));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = CreateOrReplaceQoSprofileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTQoSProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTQoSProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateOrReplaceQoSprofileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTQoSProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTQoSProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteQoSprofile(string QosProfileId, bool? Override = null)
+        public async Task DeleteQoSprofile(string QosProfileId, bool? Override = null)
         {
             if (QosProfileId == null) { throw new System.ArgumentNullException("QosProfileId cannot be null"); }
             
@@ -84,7 +79,7 @@ namespace nsxtapi.PolicyModules
             DeleteQoSprofileServiceURL.Replace("{qos-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(QosProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = DeleteQoSprofileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteQoSprofileServiceURL.ToString() + " did not complete successfull";
@@ -96,7 +91,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTQoSProfileType ReadQoSprofile(string QosProfileId)
+        public async Task<NSXTQoSProfileType> ReadQoSprofile(string QosProfileId)
         {
             if (QosProfileId == null) { throw new System.ArgumentNullException("QosProfileId cannot be null"); }
             NSXTQoSProfileType returnValue = default(NSXTQoSProfileType);
@@ -109,31 +104,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ReadQoSprofileServiceURL.Replace("{qos-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(QosProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadQoSprofileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTQoSProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTQoSProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadQoSprofileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTQoSProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTQoSProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchQoSprofile(string QosProfileId, NSXTQoSProfileType QoSprofile, bool? Override = null)
+        public async Task PatchQoSprofile(string QosProfileId, NSXTQoSProfileType QoSprofile, bool? Override = null)
         {
             if (QosProfileId == null) { throw new System.ArgumentNullException("QosProfileId cannot be null"); }
             if (QoSprofile == null) { throw new System.ArgumentNullException("QoSprofile cannot be null"); }
@@ -149,7 +132,7 @@ namespace nsxtapi.PolicyModules
             request.AddJsonBody(JsonConvert.SerializeObject(QoSprofile, defaultSerializationSettings));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = PatchQoSprofileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchQoSprofileServiceURL.ToString() + " did not complete successfull";
@@ -161,7 +144,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTQoSProfileListResultType ListQoSprofiles(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTQoSProfileListResultType> ListQoSprofiles(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTQoSProfileListResultType returnValue = default(NSXTQoSProfileListResultType);
             StringBuilder ListQoSprofilesServiceURL = new StringBuilder("/infra/qos-profiles");
@@ -177,31 +160,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListQoSprofilesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTQoSProfileListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTQoSProfileListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListQoSprofilesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTQoSProfileListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTQoSProfileListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTQoSProfileType GlobalGlobalInfraCreateOrReplaceQoSprofile(string QosProfileId, NSXTQoSProfileType QoSprofile, bool? Override = null)
+        public async Task<NSXTQoSProfileType> GlobalGlobalInfraCreateOrReplaceQoSprofile(string QosProfileId, NSXTQoSProfileType QoSprofile, bool? Override = null)
         {
             if (QosProfileId == null) { throw new System.ArgumentNullException("QosProfileId cannot be null"); }
             if (QoSprofile == null) { throw new System.ArgumentNullException("QoSprofile cannot be null"); }
@@ -217,31 +188,19 @@ namespace nsxtapi.PolicyModules
             request.AddJsonBody(JsonConvert.SerializeObject(QoSprofile, defaultSerializationSettings));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = GlobalInfraCreateOrReplaceQoSprofileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTQoSProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTQoSProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + GlobalInfraCreateOrReplaceQoSprofileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTQoSProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTQoSProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GlobalGlobalInfraDeleteQoSprofile(string QosProfileId, bool? Override = null)
+        public async Task GlobalGlobalInfraDeleteQoSprofile(string QosProfileId, bool? Override = null)
         {
             if (QosProfileId == null) { throw new System.ArgumentNullException("QosProfileId cannot be null"); }
             
@@ -255,7 +214,7 @@ namespace nsxtapi.PolicyModules
             GlobalInfraDeleteQoSprofileServiceURL.Replace("{qos-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(QosProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = GlobalInfraDeleteQoSprofileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + GlobalInfraDeleteQoSprofileServiceURL.ToString() + " did not complete successfull";
@@ -267,7 +226,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTQoSProfileType GlobalGlobalInfraReadQoSprofile(string QosProfileId)
+        public async Task<NSXTQoSProfileType> GlobalGlobalInfraReadQoSprofile(string QosProfileId)
         {
             if (QosProfileId == null) { throw new System.ArgumentNullException("QosProfileId cannot be null"); }
             NSXTQoSProfileType returnValue = default(NSXTQoSProfileType);
@@ -280,31 +239,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             GlobalInfraReadQoSprofileServiceURL.Replace("{qos-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(QosProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GlobalInfraReadQoSprofileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTQoSProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTQoSProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraReadQoSprofileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTQoSProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTQoSProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GlobalGlobalInfraPatchQoSprofile(string QosProfileId, NSXTQoSProfileType QoSprofile, bool? Override = null)
+        public async Task GlobalGlobalInfraPatchQoSprofile(string QosProfileId, NSXTQoSProfileType QoSprofile, bool? Override = null)
         {
             if (QosProfileId == null) { throw new System.ArgumentNullException("QosProfileId cannot be null"); }
             if (QoSprofile == null) { throw new System.ArgumentNullException("QoSprofile cannot be null"); }
@@ -320,7 +267,7 @@ namespace nsxtapi.PolicyModules
             request.AddJsonBody(JsonConvert.SerializeObject(QoSprofile, defaultSerializationSettings));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = GlobalInfraPatchQoSprofileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + GlobalInfraPatchQoSprofileServiceURL.ToString() + " did not complete successfull";
@@ -332,7 +279,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTQoSProfileListResultType GlobalGlobalInfraListQoSprofiles(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTQoSProfileListResultType> GlobalGlobalInfraListQoSprofiles(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTQoSProfileListResultType returnValue = default(NSXTQoSProfileListResultType);
             StringBuilder GlobalInfraListQoSprofilesServiceURL = new StringBuilder("/global-infra/qos-profiles");
@@ -348,25 +295,13 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GlobalInfraListQoSprofilesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTQoSProfileListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTQoSProfileListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraListQoSprofilesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTQoSProfileListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTQoSProfileListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

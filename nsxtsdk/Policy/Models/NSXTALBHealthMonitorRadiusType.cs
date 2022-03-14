@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,28 +17,19 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer HealthMonitorRadius object")]
     public class NSXTALBHealthMonitorRadiusType 
     {
-        public NSXTALBHealthMonitorRadiusType()
-        {
-        }
         /// <summary>
         /// Radius monitor will query Radius server with this username.
         /// </summary>
         [JsonProperty(PropertyName = "username", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Radius monitor will query Radius server with this username.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Username { get; set; }
         /// <summary>
         /// Radius monitor will query Radius server with this password.
         /// </summary>
-        [JsonProperty(PropertyName = "password")]
-        [NSXTProperty(IsRequired: false, Description: @"Radius monitor will query Radius server with this password.")]
         public string? Password { get; set; }
         /// <summary>
         /// Radius monitor will query Radius server with this shared
         /// secret.
         /// </summary>
-        [JsonProperty(PropertyName = "shared_secret")]
-        [NSXTProperty(IsRequired: false, Description: @"Radius monitor will query Radius server with this sharedsecret.")]
         public string? SharedSecret { get; set; }
     }
 }

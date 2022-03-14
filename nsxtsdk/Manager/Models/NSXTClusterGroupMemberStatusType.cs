@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,32 +17,21 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"This type contains the attributes and status of a group member.")]
     public class NSXTClusterGroupMemberStatusType 
     {
-        public NSXTClusterGroupMemberStatusType()
-        {
-        }
         /// <summary>
         /// IP of the group member
         /// </summary>
-        [JsonProperty(PropertyName = "member_ip")]
-        [NSXTProperty(IsRequired: false, Description: @"IP of the group member")]
         public string? MemberIp { get; set; }
         /// <summary>
         /// FQDN of the group member
         /// </summary>
-        [JsonProperty(PropertyName = "member_fqdn")]
-        [NSXTProperty(IsRequired: false, Description: @"FQDN of the group member")]
         public string? MemberFqdn { get; set; }
         /// <summary>
         /// Status of the group member
         /// </summary>
-        [JsonProperty(PropertyName = "member_status")]
-        [NSXTProperty(IsRequired: false, Description: @"Status of the group member")]
         public NSXTClusterGroupMemberStatusMemberStatusEnumType? MemberStatus { get; set; }
         /// <summary>
         /// UUID of the group member
         /// </summary>
-        [JsonProperty(PropertyName = "member_uuid")]
-        [NSXTProperty(IsRequired: false, Description: @"UUID of the group member")]
         public string? MemberUuid { get; set; }
     }
 }

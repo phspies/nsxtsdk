@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public AggSvcEdgeCluster(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public AggSvcEdgeCluster(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTEdgeClusterStatusType GetEdgeClusterStatus(string EdgeClusterId, string? Source = null)
+        public async Task<NSXTEdgeClusterStatusType> GetEdgeClusterStatus(string EdgeClusterId, string? Source = null)
         {
             if (EdgeClusterId == null) { throw new System.ArgumentNullException("EdgeClusterId cannot be null"); }
             NSXTEdgeClusterStatusType returnValue = default(NSXTEdgeClusterStatusType);
@@ -44,31 +51,19 @@ namespace nsxtapi.ManagerModules
             GetEdgeClusterStatusServiceURL.Replace("{edge-cluster-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EdgeClusterId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             request.Resource = GetEdgeClusterStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTEdgeClusterStatusType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTEdgeClusterStatusType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetEdgeClusterStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTEdgeClusterStatusType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTEdgeClusterStatusType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTEdgeClusterInterSiteStatusType GetEdgeClusterInterSiteStatus(string EdgeClusterId)
+        public async Task<NSXTEdgeClusterInterSiteStatusType> GetEdgeClusterInterSiteStatus(string EdgeClusterId)
         {
             if (EdgeClusterId == null) { throw new System.ArgumentNullException("EdgeClusterId cannot be null"); }
             NSXTEdgeClusterInterSiteStatusType returnValue = default(NSXTEdgeClusterInterSiteStatusType);
@@ -81,25 +76,13 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             GetEdgeClusterInterSiteStatusServiceURL.Replace("{edge-cluster-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EdgeClusterId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetEdgeClusterInterSiteStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTEdgeClusterInterSiteStatusType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTEdgeClusterInterSiteStatusType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetEdgeClusterInterSiteStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTEdgeClusterInterSiteStatusType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTEdgeClusterInterSiteStatusType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

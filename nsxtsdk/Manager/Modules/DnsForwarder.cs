@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public DnsForwarder(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public DnsForwarder(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDnsForwarderType UpdateDnsForwarder(string ForwarderId, NSXTDnsForwarderType DnsForwarder)
+        public async Task<NSXTDnsForwarderType> UpdateDnsForwarder(string ForwarderId, NSXTDnsForwarderType DnsForwarder)
         {
             if (ForwarderId == null) { throw new System.ArgumentNullException("ForwarderId cannot be null"); }
             if (DnsForwarder == null) { throw new System.ArgumentNullException("DnsForwarder cannot be null"); }
@@ -45,31 +52,19 @@ namespace nsxtapi.ManagerModules
             UpdateDnsForwarderServiceURL.Replace("{forwarder-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ForwarderId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(DnsForwarder, defaultSerializationSettings));
             request.Resource = UpdateDnsForwarderServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDnsForwarderType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDnsForwarderType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateDnsForwarderServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDnsForwarderType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDnsForwarderType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDnsForwarderType ReadDnsForwader(string ForwarderId)
+        public async Task<NSXTDnsForwarderType> ReadDnsForwader(string ForwarderId)
         {
             if (ForwarderId == null) { throw new System.ArgumentNullException("ForwarderId cannot be null"); }
             NSXTDnsForwarderType returnValue = default(NSXTDnsForwarderType);
@@ -82,31 +77,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             ReadDnsForwaderServiceURL.Replace("{forwarder-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ForwarderId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadDnsForwaderServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDnsForwarderType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDnsForwarderType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadDnsForwaderServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDnsForwarderType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDnsForwarderType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteDnsForwarder(string ForwarderId)
+        public async Task DeleteDnsForwarder(string ForwarderId)
         {
             if (ForwarderId == null) { throw new System.ArgumentNullException("ForwarderId cannot be null"); }
             
@@ -119,7 +102,7 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             DeleteDnsForwarderServiceURL.Replace("{forwarder-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ForwarderId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteDnsForwarderServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteDnsForwarderServiceURL.ToString() + " did not complete successfull";
@@ -131,7 +114,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTConfigurationStateType GetDnsForwarderState(string ForwarderId, long? BarrierId = null, string? RequestId = null)
+        public async Task<NSXTConfigurationStateType> GetDnsForwarderState(string ForwarderId, long? BarrierId = null, string? RequestId = null)
         {
             if (ForwarderId == null) { throw new System.ArgumentNullException("ForwarderId cannot be null"); }
             NSXTConfigurationStateType returnValue = default(NSXTConfigurationStateType);
@@ -146,31 +129,19 @@ namespace nsxtapi.ManagerModules
             if (BarrierId != null) { request.AddQueryParameter("barrier_id", BarrierId.ToString()); }
             if (RequestId != null) { request.AddQueryParameter("request_id", RequestId.ToString()); }
             request.Resource = GetDnsForwarderStateServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTConfigurationStateType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTConfigurationStateType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetDnsForwarderStateServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTConfigurationStateType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTConfigurationStateType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDnsFailedQueriesType GetFailedDnsQueries(string ForwarderId, long? Count = null)
+        public async Task<NSXTDnsFailedQueriesType> GetFailedDnsQueries(string ForwarderId, long? Count = null)
         {
             if (ForwarderId == null) { throw new System.ArgumentNullException("ForwarderId cannot be null"); }
             NSXTDnsFailedQueriesType returnValue = default(NSXTDnsFailedQueriesType);
@@ -184,31 +155,19 @@ namespace nsxtapi.ManagerModules
             GetFailedDnsQueriesServiceURL.Replace("{forwarder-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ForwarderId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Count != null) { request.AddQueryParameter("count", Count.ToString()); }
             request.Resource = GetFailedDnsQueriesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDnsFailedQueriesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDnsFailedQueriesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetFailedDnsQueriesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDnsFailedQueriesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDnsFailedQueriesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDnsForwarderType CreateDnsForwader(NSXTDnsForwarderType DnsForwarder)
+        public async Task<NSXTDnsForwarderType> CreateDnsForwader(NSXTDnsForwarderType DnsForwarder)
         {
             if (DnsForwarder == null) { throw new System.ArgumentNullException("DnsForwarder cannot be null"); }
             NSXTDnsForwarderType returnValue = default(NSXTDnsForwarderType);
@@ -221,31 +180,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(DnsForwarder, defaultSerializationSettings));
             request.Resource = CreateDnsForwaderServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDnsForwarderType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDnsForwarderType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CreateDnsForwaderServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDnsForwarderType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDnsForwarderType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDnsForwarderListResultType ListDnsForwaders(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTDnsForwarderListResultType> ListDnsForwaders(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTDnsForwarderListResultType returnValue = default(NSXTDnsForwarderListResultType);
             StringBuilder ListDnsForwadersServiceURL = new StringBuilder("/dns/forwarders");
@@ -261,31 +208,19 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListDnsForwadersServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDnsForwarderListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDnsForwarderListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListDnsForwadersServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDnsForwarderListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDnsForwarderListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DisableDnsForwarder(string ForwarderId)
+        public async Task DisableDnsForwarder(string ForwarderId)
         {
             if (ForwarderId == null) { throw new System.ArgumentNullException("ForwarderId cannot be null"); }
             
@@ -298,7 +233,7 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             DisableDnsForwarderServiceURL.Replace("{forwarder-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ForwarderId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DisableDnsForwarderServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + DisableDnsForwarderServiceURL.ToString() + " did not complete successfull";
@@ -310,7 +245,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDnsAnswerType LookupAddress(string ForwarderId, string? Address = null, string? ServerIp = null, string? SourceIp = null)
+        public async Task<NSXTDnsAnswerType> LookupAddress(string ForwarderId, string? Address = null, string? ServerIp = null, string? SourceIp = null)
         {
             if (ForwarderId == null) { throw new System.ArgumentNullException("ForwarderId cannot be null"); }
             NSXTDnsAnswerType returnValue = default(NSXTDnsAnswerType);
@@ -326,31 +261,19 @@ namespace nsxtapi.ManagerModules
             if (ServerIp != null) { request.AddQueryParameter("server_ip", ServerIp.ToString()); }
             if (SourceIp != null) { request.AddQueryParameter("source_ip", SourceIp.ToString()); }
             request.Resource = LookupAddressServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDnsAnswerType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDnsAnswerType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + LookupAddressServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDnsAnswerType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDnsAnswerType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void ClearDnsForwarderCache(string ForwarderId)
+        public async Task ClearDnsForwarderCache(string ForwarderId)
         {
             if (ForwarderId == null) { throw new System.ArgumentNullException("ForwarderId cannot be null"); }
             
@@ -363,7 +286,7 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             ClearDnsForwarderCacheServiceURL.Replace("{forwarder-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ForwarderId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ClearDnsForwarderCacheServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + ClearDnsForwarderCacheServiceURL.ToString() + " did not complete successfull";
@@ -375,7 +298,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void EnableDnsForwarder(string ForwarderId)
+        public async Task EnableDnsForwarder(string ForwarderId)
         {
             if (ForwarderId == null) { throw new System.ArgumentNullException("ForwarderId cannot be null"); }
             
@@ -388,7 +311,7 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             EnableDnsForwarderServiceURL.Replace("{forwarder-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ForwarderId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = EnableDnsForwarderServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + EnableDnsForwarderServiceURL.ToString() + " did not complete successfull";

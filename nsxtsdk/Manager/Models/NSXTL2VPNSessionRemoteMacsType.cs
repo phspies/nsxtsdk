@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,26 +17,17 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Remote MAC addresses for all logical switches for a L2VPN session.")]
     public class NSXTL2VPNSessionRemoteMacsType 
     {
-        public NSXTL2VPNSessionRemoteMacsType()
-        {
-        }
         /// <summary>
         /// List MAC addresses for all logical switch for a particular L2VPN session.
         /// </summary>
-        [JsonProperty(PropertyName = "remote_mac_addresses")]
-        [NSXTProperty(IsRequired: false, Description: @"List MAC addresses for all logical switch for a particular L2VPN session.")]
         public IList<NSXTL2VPNSessionRemoteMacsForLSType> RemoteMacAddresses { get; set; }
         /// <summary>
         /// L2VPN display name.
         /// </summary>
-        [JsonProperty(PropertyName = "display_name")]
-        [NSXTProperty(IsRequired: false, Description: @"L2VPN display name.")]
         public string? DisplayName { get; set; }
         /// <summary>
         /// L2VPN session identifier.
         /// </summary>
-        [JsonProperty(PropertyName = "session_id")]
-        [NSXTProperty(IsRequired: false, Description: @"L2VPN session identifier.")]
         public string? SessionId { get; set; }
     }
 }

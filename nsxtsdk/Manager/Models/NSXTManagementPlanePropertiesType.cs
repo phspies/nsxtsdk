@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,26 +17,17 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTManagementPlanePropertiesType : NSXTResourceType
     {
-        public NSXTManagementPlanePropertiesType()
-        {
-        }
         /// <summary>
         /// The account name to use when authenticating to the management plane's message bus.
         /// </summary>
-        [JsonProperty(PropertyName = "account")]
-        [NSXTProperty(IsRequired: false, Description: @"The account name to use when authenticating to the management plane&apos;s message bus.")]
         public object Account { get; set; }
         /// <summary>
         /// The shared secret to use when autnenticating to the management plane's message bus. Not returned in REST responses.
         /// </summary>
-        [JsonProperty(PropertyName = "secret")]
-        [NSXTProperty(IsRequired: false, Description: @"The shared secret to use when autnenticating to the management plane&apos;s message bus. Not returned in REST responses.")]
         public string? Secret { get; set; }
         /// <summary>
         /// The list of messaging brokers this controller is configured with.
         /// </summary>
-        [JsonProperty(PropertyName = "brokers")]
-        [NSXTProperty(IsRequired: false, Description: @"The list of messaging brokers this controller is configured with.")]
         public IList<NSXTManagementPlaneBrokerPropertiesType> Brokers { get; set; }
     }
 }

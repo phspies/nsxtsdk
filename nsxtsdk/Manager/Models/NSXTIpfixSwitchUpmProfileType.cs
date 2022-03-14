@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,14 +17,6 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIpfixSwitchUpmProfileType : NSXTIpfixUpmProfileType
     {
-        public NSXTIpfixSwitchUpmProfileType()
-        {
-            IdleTimeout = test
-            MaxFlows = test
-            ActiveTimeout = test
-            ExportOverlayFlow = test
-            PacketSampleProbability = test
-        }
         /// <summary>
         /// This priority field is used to resolve conflicts in logical ports/switch
         /// which inherit multiple switch IPFIX profiles from NSGroups.
@@ -39,75 +31,45 @@ namespace nsxtsdk.ManagerModels
         /// profile only.
         /// </summary>
         [JsonProperty(PropertyName = "priority", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"This priority field is used to resolve conflicts in logical ports/switch which inherit multiple switch IPFIX profiles from NSGroups.Override rule is : for multiple profiles inherited from NSGroups, theone with highest priority (lowest number) overrides others; the profiledirectly applied to logical switch overrides profiles inherited fromNSGroup; the profile directly applied to logical port overides profilesinherited from logical switch and/or nsgroup;The IPFIX exporter will send records to collectors of final effectiveprofile only.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(65536)]
-        [System.ComponentModel.DataAnnotations.Required]
         public int Priority { get; set; }
         /// <summary>
         /// Each IPFIX switching profile can have its own collector profile.
         /// </summary>
         [JsonProperty(PropertyName = "collector_profile", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Each IPFIX switching profile can have its own collector profile.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string CollectorProfile { get; set; }
         /// <summary>
         /// The time in seconds after a flow is expired if no more packets matching
         /// this flow are received by the cache.
         /// </summary>
-        [JsonProperty(PropertyName = "idle_timeout")]
-        [NSXTProperty(IsRequired: false, Description: @"The time in seconds after a flow is expired if no more packets matchingthis flow are received by the cache.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(60)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(3600)]
         public int? IdleTimeout { get; set; }
         /// <summary>
         /// The maximum number of flow entries in each exporter flow cache.
         /// </summary>
-        [JsonProperty(PropertyName = "max_flows")]
-        [NSXTProperty(IsRequired: false, Description: @"The maximum number of flow entries in each exporter flow cache.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(4294967295)]
         public long? MaxFlows { get; set; }
         /// <summary>
         /// An identifier that is unique to the exporting process and used to
         /// meter the Flows.
         /// </summary>
         [JsonProperty(PropertyName = "observation_domain_id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"An identifier that is unique to the exporting process and used tometer the Flows.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(4294967295)]
-        [System.ComponentModel.DataAnnotations.Required]
         public long ObservationDomainId { get; set; }
         /// <summary>
         /// The time in seconds after a flow is expired even if more packets
         /// matching this Flow are received by the cache.
         /// </summary>
-        [JsonProperty(PropertyName = "active_timeout")]
-        [NSXTProperty(IsRequired: false, Description: @"The time in seconds after a flow is expired even if more packetsmatching this Flow are received by the cache.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(60)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(3600)]
         public int? ActiveTimeout { get; set; }
         /// <summary>
         /// It controls whether sample result includes overlay flow info.
         /// </summary>
-        [JsonProperty(PropertyName = "export_overlay_flow")]
-        [NSXTProperty(IsRequired: false, Description: @"It controls whether sample result includes overlay flow info.")]
         public bool? ExportOverlayFlow { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "applied_tos")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTAppliedTosType AppliedTos { get; set; }
         /// <summary>
         /// The probability in percentage that a packet is sampled. The value should be
         /// in range (0,100] and can only have three decimal places at most. The probability
         /// is equal for every packet.
         /// </summary>
-        [JsonProperty(PropertyName = "packet_sample_probability")]
-        [NSXTProperty(IsRequired: false, Description: @"The probability in percentage that a packet is sampled. The value should be in range (0,100] and can only have three decimal places at most. The probability is equal for every packet.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(100)]
         public double? PacketSampleProbability { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,32 +17,21 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Categorization of feedback requests from the migration tool where user input is required.")]
     public class NSXTMigrationFeedbackCategoryType 
     {
-        public NSXTMigrationFeedbackCategoryType()
-        {
-        }
         /// <summary>
         /// Functional area that this query falls into.
         /// </summary>
-        [JsonProperty(PropertyName = "category")]
-        [NSXTProperty(IsRequired: false, Description: @"Functional area that this query falls into.")]
         public string? Category { get; set; }
         /// <summary>
         /// Total number of feedback requests for this functional area.
         /// </summary>
-        [JsonProperty(PropertyName = "count")]
-        [NSXTProperty(IsRequired: false, Description: @"Total number of feedback requests for this functional area.")]
         public int? Count { get; set; }
         /// <summary>
         /// Total number of resolved feedback requests for this functional area.
         /// </summary>
-        [JsonProperty(PropertyName = "resolved")]
-        [NSXTProperty(IsRequired: false, Description: @"Total number of resolved feedback requests for this functional area.")]
         public int? Resolved { get; set; }
         /// <summary>
         /// List of acceptable values for this feedback request.
         /// </summary>
-        [JsonProperty(PropertyName = "accepted_values")]
-        [NSXTProperty(IsRequired: false, Description: @"List of acceptable values for this feedback request.")]
         public IList<string> AcceptedValues { get; set; }
     }
 }

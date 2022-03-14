@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,49 +17,34 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer RateProfile object")]
     public class NSXTALBRateProfileType 
     {
-        public NSXTALBRateProfileType()
-        {
-        }
         /// <summary>
         /// HTTP header name.
         /// </summary>
-        [JsonProperty(PropertyName = "http_header")]
-        [NSXTProperty(IsRequired: false, Description: @"HTTP header name.")]
         public string? HttpHeader { get; set; }
         /// <summary>
         /// HTTP cookie name.
         /// </summary>
-        [JsonProperty(PropertyName = "http_cookie")]
-        [NSXTProperty(IsRequired: false, Description: @"HTTP cookie name.")]
         public string? HttpCookie { get; set; }
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty(PropertyName = "action", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTALBRateLimiterActionType Action { get; set; }
         /// <summary>
         /// Explicitly tracks an attacker across rate periods.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as false.
         /// </summary>
-        [JsonProperty(PropertyName = "explicit_tracking")]
-        [NSXTProperty(IsRequired: false, Description: @"Explicitly tracks an attacker across rate periods.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
         public bool? ExplicitTracking { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "rate_limiter")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBRateLimiterType RateLimiter { get; set; }
         /// <summary>
         /// Enable fine granularity.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as false.
         /// </summary>
-        [JsonProperty(PropertyName = "fine_grain")]
-        [NSXTProperty(IsRequired: false, Description: @"Enable fine granularity.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
         public bool? FineGrain { get; set; }
     }
 }

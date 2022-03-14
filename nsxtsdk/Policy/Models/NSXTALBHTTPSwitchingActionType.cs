@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,28 +17,19 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer HTTPSwitchingAction object")]
     public class NSXTALBHTTPSwitchingActionType 
     {
-        public NSXTALBHTTPSwitchingActionType()
-        {
-        }
         /// <summary>
         /// path of the pool of servers to serve the request.
         /// It is a reference to an object of type Pool.
         /// </summary>
-        [JsonProperty(PropertyName = "pool_path")]
-        [NSXTProperty(IsRequired: false, Description: @"path of the pool of servers to serve the request.It is a reference to an object of type Pool.")]
         public string? PoolPath { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "file")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBHTTPLocalFileType File { get; set; }
         /// <summary>
         /// path of the pool group to serve the request.
         /// It is a reference to an object of type PoolGroup.
         /// </summary>
-        [JsonProperty(PropertyName = "pool_group_path")]
-        [NSXTProperty(IsRequired: false, Description: @"path of the pool group to serve the request.It is a reference to an object of type PoolGroup.")]
         public string? PoolGroupPath { get; set; }
         /// <summary>
         /// Content switching action type.
@@ -50,8 +41,6 @@ namespace nsxtsdk.PolicyModels
         /// edition, Enterprise edition.
         /// </summary>
         [JsonProperty(PropertyName = "action", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Content switching action type.Enum options - HTTP_SWITCHING_SELECT_POOL,HTTP_SWITCHING_SELECT_LOCAL,HTTP_SWITCHING_SELECT_POOLGROUP.Allowed in Essentials(Allowed values-HTTP_SWITCHING_SELECT_POOL,HTTP_SWITCHING_SELECT_LOCAL)edition, Enterprise edition.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTAlbhttpswitchingActionActionEnumType Action { get; set; }
         /// <summary>
         /// HTTP status code to use when serving local response.
@@ -62,14 +51,10 @@ namespace nsxtsdk.PolicyModels
         /// HTTP_LOCAL_RESPONSE_STATUS_CODE_429,
         /// HTTP_LOCAL_RESPONSE_STATUS_CODE_501.
         /// </summary>
-        [JsonProperty(PropertyName = "status_code")]
-        [NSXTProperty(IsRequired: false, Description: @"HTTP status code to use when serving local response.Enum options - HTTP_LOCAL_RESPONSE_STATUS_CODE_200,HTTP_LOCAL_RESPONSE_STATUS_CODE_204,HTTP_LOCAL_RESPONSE_STATUS_CODE_403,HTTP_LOCAL_RESPONSE_STATUS_CODE_404,HTTP_LOCAL_RESPONSE_STATUS_CODE_429,HTTP_LOCAL_RESPONSE_STATUS_CODE_501.")]
         public NSXTAlbhttpswitchingActionStatusCodeEnumType? StatusCode { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "server")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBPoolServerType Server { get; set; }
     }
 }

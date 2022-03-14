@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,28 +17,19 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLbVirtualServerStatisticsType 
     {
-        public NSXTLbVirtualServerStatisticsType()
-        {
-        }
         /// <summary>
         /// Timestamp when the data was last updated
         /// </summary>
-        [JsonProperty(PropertyName = "last_update_timestamp")]
-        [NSXTProperty(IsRequired: false, Description: @"Timestamp when the data was last updated")]
         public long? LastUpdateTimestamp { get; set; }
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty(PropertyName = "statistics", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTLbStatisticsCounterType Statistics { get; set; }
         /// <summary>
         /// load balancer virtual server identifier
         /// </summary>
         [JsonProperty(PropertyName = "virtual_server_id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"load balancer virtual server identifier")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string VirtualServerId { get; set; }
     }
 }

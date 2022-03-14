@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,43 +17,29 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer AuthenticationRule object")]
     public class NSXTALBAuthenticationRuleType 
     {
-        public NSXTALBAuthenticationRuleType()
-        {
-            Enable = test
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "action")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBAuthenticationActionType Action { get; set; }
         /// <summary>
         /// Index of the rule.
         /// </summary>
         [JsonProperty(PropertyName = "index", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Index of the rule.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public long Index { get; set; }
         /// <summary>
         /// Enable or disable the rule.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as true.
         /// </summary>
-        [JsonProperty(PropertyName = "enable")]
-        [NSXTProperty(IsRequired: false, Description: @"Enable or disable the rule.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
         public bool? Enable { get; set; }
         /// <summary>
         /// Name of the rule.
         /// </summary>
         [JsonProperty(PropertyName = "name", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Name of the rule.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Name { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "match")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBAuthenticationMatchType Match { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,34 +17,23 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"ALB Auth Token")]
     public class NSXTALBAuthTokenType 
     {
-        public NSXTALBAuthTokenType()
-        {
-        }
         /// <summary>
         /// controller username.
         /// </summary>
         [JsonProperty(PropertyName = "username", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"controller username.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Username { get; set; }
         /// <summary>
         /// Hours to validate the token
         /// </summary>
         [JsonProperty(PropertyName = "hours", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Hours to validate the token")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Hours { get; set; }
         /// <summary>
         /// Token for Avi Controller.
         /// </summary>
-        [JsonProperty(PropertyName = "token")]
-        [NSXTProperty(IsRequired: false, Description: @"Token for Avi Controller.")]
         public string? Token { get; set; }
         /// <summary>
         /// Expiry time of the token will be set by LCM at the time of Enforcement Point Creation.
         /// </summary>
-        [JsonProperty(PropertyName = "expires_at")]
-        [NSXTProperty(IsRequired: false, Description: @"Expiry time of the token will be set by LCM at the time of Enforcement Point Creation.")]
         public string? ExpiresAt { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,69 +17,46 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTBgpNeighborStatusType 
     {
-        public NSXTBgpNeighborStatusType()
-        {
-        }
         /// <summary>
         /// Current state of the BGP session.
         /// </summary>
-        [JsonProperty(PropertyName = "connection_state")]
-        [NSXTProperty(IsRequired: false, Description: @"Current state of the BGP session.")]
         public NSXTBgpNeighborStatusConnectionStateEnumType? ConnectionState { get; set; }
         /// <summary>
         /// Count of messages received from the neighbor
         /// </summary>
-        [JsonProperty(PropertyName = "messages_received")]
-        [NSXTProperty(IsRequired: false, Description: @"Count of messages received from the neighbor")]
         public long? MessagesReceived { get; set; }
         /// <summary>
         /// Time in ms to wait for HELLO packet from BGP peer
         /// </summary>
-        [JsonProperty(PropertyName = "keep_alive_interval")]
-        [NSXTProperty(IsRequired: false, Description: @"Time in ms to wait for HELLO packet from BGP peer")]
         public long? KeepAliveInterval { get; set; }
         /// <summary>
         /// Router ID of the BGP neighbor.
         /// </summary>
-        [JsonProperty(PropertyName = "neighbor_router_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Router ID of the BGP neighbor.")]
         public string? NeighborRouterId { get; set; }
         /// <summary>
         /// Sum of out prefixes counts across all address families.
         /// </summary>
-        [JsonProperty(PropertyName = "total_out_prefix_count")]
-        [NSXTProperty(IsRequired: false, Description: @"Sum of out prefixes counts across all address families.")]
         public long? TotalOutPrefixCount { get; set; }
         /// <summary>
         /// Logical router component(Service Router/Distributed Router) id
         /// </summary>
-        [JsonProperty(PropertyName = "lr_component_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Logical router component(Service Router/Distributed Router) id")]
         public string? LrComponentId { get; set; }
         /// <summary>
         /// Count of connections established
         /// </summary>
-        [JsonProperty(PropertyName = "established_connection_count")]
-        [NSXTProperty(IsRequired: false, Description: @"Count of connections established")]
         public long? EstablishedConnectionCount { get; set; }
         /// <summary>
         /// Count of messages sent to the neighbor
         /// </summary>
-        [JsonProperty(PropertyName = "messages_sent")]
-        [NSXTProperty(IsRequired: false, Description: @"Count of messages sent to the neighbor")]
         public long? MessagesSent { get; set; }
         /// <summary>
         /// Time(in seconds) since connection was established.
         /// </summary>
-        [JsonProperty(PropertyName = "time_since_established")]
-        [NSXTProperty(IsRequired: false, Description: @"Time(in seconds) since connection was established.")]
         public long? TimeSinceEstablished { get; set; }
         /// <summary>
         /// Time in ms to wait for HELLO from BGP peer. If a HELLO packet is not seen from BGP Peer withing hold_time then BGP
         /// neighbor will be marked as down.
         /// </summary>
-        [JsonProperty(PropertyName = "hold_time")]
-        [NSXTProperty(IsRequired: false, Description: @"Time in ms to wait for HELLO from BGP peer. If a HELLO packet is not seen from BGP Peer withing hold_time then BGP neighbor will be marked as down.")]
         public long? HoldTime { get; set; }
         /// <summary>
         /// Current state of graceful restart where
@@ -87,8 +64,6 @@ namespace nsxtsdk.ManagerModels
         /// graceful_restart = false indicates graceful restart is disabled.
         /// This is deprecated field, use graceful_restart_mode instead.
         /// </summary>
-        [JsonProperty(PropertyName = "graceful_restart")]
-        [NSXTProperty(IsRequired: false, Description: @"Current state of graceful restart wheregraceful_restart = true indicates graceful restart is enabled andgraceful_restart = false indicates graceful restart is disabled.This is deprecated field, use graceful_restart_mode instead.")]
         public bool? GracefulRestart { get; set; }
         /// <summary>
         /// Current state of graceful restart of BGP neighbor. Possible
@@ -97,90 +72,58 @@ namespace nsxtsdk.ManagerModels
         /// 2. HELPER_ONLY - Helper only
         /// 3. DISABLE - Disabled
         /// </summary>
-        [JsonProperty(PropertyName = "graceful_restart_mode")]
-        [NSXTProperty(IsRequired: false, Description: @"Current state of graceful restart of BGP neighbor. Possiblevalues are -1. GR_AND_HELPER - Graceful restart with Helper2. HELPER_ONLY - Helper only3. DISABLE - Disabled")]
         public string? GracefulRestartMode { get; set; }
         /// <summary>
         /// Count of connection drop
         /// </summary>
-        [JsonProperty(PropertyName = "connection_drop_count")]
-        [NSXTProperty(IsRequired: false, Description: @"Count of connection drop")]
         public long? ConnectionDropCount { get; set; }
         /// <summary>
         /// TCP port number of remote BGP Connection
         /// </summary>
-        [JsonProperty(PropertyName = "remote_port")]
-        [NSXTProperty(IsRequired: false, Description: @"TCP port number of remote BGP Connection")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
         public long? RemotePort { get; set; }
         /// <summary>
         /// The Ip address of logical port
         /// </summary>
-        [JsonProperty(PropertyName = "source_address")]
-        [NSXTProperty(IsRequired: false, Description: @"The Ip address of logical port")]
         public string? SourceAddress { get; set; }
         /// <summary>
         /// Sum of in prefixes counts across all address families.
         /// </summary>
-        [JsonProperty(PropertyName = "total_in_prefix_count")]
-        [NSXTProperty(IsRequired: false, Description: @"Sum of in prefixes counts across all address families.")]
         public long? TotalInPrefixCount { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "remote_site")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTResourceReferenceType RemoteSite { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "transport_node")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTResourceReferenceType TransportNode { get; set; }
         /// <summary>
         /// TCP port number of Local BGP connection
         /// </summary>
-        [JsonProperty(PropertyName = "local_port")]
-        [NSXTProperty(IsRequired: false, Description: @"TCP port number of Local BGP connection")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
         public long? LocalPort { get; set; }
         /// <summary>
         /// AS number of the BGP neighbor
         /// </summary>
-        [JsonProperty(PropertyName = "remote_as_number")]
-        [NSXTProperty(IsRequired: false, Description: @"AS number of the BGP neighbor")]
         public string? RemoteAsNumber { get; set; }
         /// <summary>
         /// BGP capabilities sent to BGP neighbor.
         /// </summary>
-        [JsonProperty(PropertyName = "announced_capabilities")]
-        [NSXTProperty(IsRequired: false, Description: @"BGP capabilities sent to BGP neighbor.")]
         public IList<string> AnnouncedCapabilities { get; set; }
         /// <summary>
         /// BGP capabilities negotiated with BGP neighbor.
         /// </summary>
-        [JsonProperty(PropertyName = "negotiated_capability")]
-        [NSXTProperty(IsRequired: false, Description: @"BGP capabilities negotiated with BGP neighbor.")]
         public IList<string> NegotiatedCapability { get; set; }
         /// <summary>
         /// Address families of BGP neighbor
         /// </summary>
-        [JsonProperty(PropertyName = "address_families")]
-        [NSXTProperty(IsRequired: false, Description: @"Address families of BGP neighbor")]
         public IList<NSXTBgpAddressFamilyType> AddressFamilies { get; set; }
         /// <summary>
         /// BGP neighbor type
         /// </summary>
-        [JsonProperty(PropertyName = "type")]
-        [NSXTProperty(IsRequired: false, Description: @"BGP neighbor type")]
         public NSXTBgpNeighborStatusTypeEnumType? Type { get; set; }
         /// <summary>
         /// The IP of the BGP neighbor
         /// </summary>
-        [JsonProperty(PropertyName = "neighbor_address")]
-        [NSXTProperty(IsRequired: false, Description: @"The IP of the BGP neighbor")]
         public string? NeighborAddress { get; set; }
     }
 }

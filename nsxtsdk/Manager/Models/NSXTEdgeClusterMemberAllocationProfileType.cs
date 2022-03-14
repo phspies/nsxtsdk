@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTEdgeClusterMemberAllocationProfileType 
     {
-        public NSXTEdgeClusterMemberAllocationProfileType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "allocation_pool")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTEdgeClusterMemberAllocationPoolType AllocationPool { get; set; }
         /// <summary>
         /// Flag to enable the auto-relocation of standby service router running
@@ -32,16 +27,12 @@ namespace nsxtsdk.ManagerModels
         /// dynamically allocated tier1 logical routers are considered for the
         /// relocation.
         /// </summary>
-        [JsonProperty(PropertyName = "enable_standby_relocation")]
-        [NSXTProperty(IsRequired: false, Description: @"Flag to enable the auto-relocation of standby service router runningon edge cluster and node associated with the logical router. Onlydynamically allocated tier1 logical routers are considered for therelocation.")]
         public bool? EnableStandbyRelocation { get; set; }
         /// <summary>
         /// Allocation type is used to specify the mode used to allocate the LR.
         /// This is populated only for TIER1 logical router and for TIER0 this
         /// will be null.
         /// </summary>
-        [JsonProperty(PropertyName = "allocation_type")]
-        [NSXTProperty(IsRequired: false, Description: @"Allocation type is used to specify the mode used to allocate the LR.This is populated only for TIER1 logical router and for TIER0 thiswill be null.")]
         public NSXTEdgeClusterMemberAllocationProfileAllocationTypeEnumType? AllocationType { get; set; }
     }
 }

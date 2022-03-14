@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Section query parameters")]
     public class NSXTDSSectionQueryParametersType 
     {
-        public NSXTDSSectionQueryParametersType()
-        {
-        }
         /// <summary>
         /// Flag to cascade delete of this object to all it's child objects.
         /// </summary>
-        [JsonProperty(PropertyName = "cascade")]
-        [NSXTProperty(IsRequired: false, Description: @"Flag to cascade delete of this object to all it&apos;s child objects.")]
         public bool? Cascade { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTEdgeClusterMemberAllocationPoolType 
     {
-        public NSXTEdgeClusterMemberAllocationPoolType()
-        {
-        }
         /// <summary>
         /// Types of logical router allocation pool based on services
         /// </summary>
         [JsonProperty(PropertyName = "allocation_pool_type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Types of logical router allocation pool based on services")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTEdgeClusterMemberAllocationPoolAllocationPoolTypeEnumType AllocationPoolType { get; set; }
     }
 }

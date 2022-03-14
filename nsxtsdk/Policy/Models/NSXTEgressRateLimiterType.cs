@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,32 +17,17 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTEgressRateLimiterType : NSXTQoSBaseRateLimiterType
     {
-        public NSXTEgressRateLimiterType()
-        {
-            PeakBandwidth = test
-            AverageBandwidth = test
-            BurstSize = test
-        }
         /// <summary>
         /// Peak bandwidth in Mb/s
         /// </summary>
-        [JsonProperty(PropertyName = "peak_bandwidth")]
-        [NSXTProperty(IsRequired: false, Description: @"Peak bandwidth in Mb/s")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
         public int? PeakBandwidth { get; set; }
         /// <summary>
         /// Average bandwidth in Mb/s
         /// </summary>
-        [JsonProperty(PropertyName = "average_bandwidth")]
-        [NSXTProperty(IsRequired: false, Description: @"Average bandwidth in Mb/s")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
         public int? AverageBandwidth { get; set; }
         /// <summary>
         /// Burst size in bytes
         /// </summary>
-        [JsonProperty(PropertyName = "burst_size")]
-        [NSXTProperty(IsRequired: false, Description: @"Burst size in bytes")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
         public int? BurstSize { get; set; }
     }
 }

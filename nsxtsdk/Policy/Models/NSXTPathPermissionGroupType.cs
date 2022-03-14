@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,22 +17,15 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"RBAC Objects qualifier")]
     public class NSXTPathPermissionGroupType 
     {
-        public NSXTPathPermissionGroupType()
-        {
-        }
         /// <summary>
         /// Allowed operation
         /// </summary>
         [JsonProperty(PropertyName = "operation", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Allowed operation")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTPathPermissionGroupOperationEnumType Operation { get; set; }
         /// <summary>
         /// Full Object Path
         /// </summary>
         [JsonProperty(PropertyName = "object_path", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Full Object Path")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string ObjectPath { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -19,20 +19,13 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Contians realized state of the logical port. For example, transport nodeon which the port is located, discovered and realized address bindings ofthe logical port.")]
     public class NSXTLogicalPortStateType 
     {
-        public NSXTLogicalPortStateType()
-        {
-        }
         /// <summary>
         /// Identifiers of the transport node where the port is located
         /// </summary>
-        [JsonProperty(PropertyName = "transport_node_ids")]
-        [NSXTProperty(IsRequired: false, Description: @"Identifiers of the transport node where the port is located")]
         public IList<string> TransportNodeIds { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "attachment")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTLogicalPortAttachmentStateType Attachment { get; set; }
         /// <summary>
         /// If any address binding discovered on the port is also found on
@@ -40,23 +33,17 @@ namespace nsxtsdk.ManagerModels
         /// the duplicate bindings list along with the ID of the port with
         /// which it conflicts.
         /// </summary>
-        [JsonProperty(PropertyName = "duplicate_bindings")]
-        [NSXTProperty(IsRequired: false, Description: @"If any address binding discovered on the port is also found onother port on the same logical switch, then it is included inthe duplicate bindings list along with the ID of the port withwhich it conflicts.")]
         public IList<NSXTDuplicateAddressBindingEntryType> DuplicateBindings { get; set; }
         /// <summary>
         /// Contains the list of address bindings for a logical port that were
         /// automatically dicovered using various snooping methods like ARP, DHCP
         /// etc.
         /// </summary>
-        [JsonProperty(PropertyName = "discovered_bindings")]
-        [NSXTProperty(IsRequired: false, Description: @"Contains the list of address bindings for a logical port that wereautomatically dicovered using various snooping methods like ARP, DHCPetc.")]
         public IList<NSXTAddressBindingEntryType> DiscoveredBindings { get; set; }
         /// <summary>
         /// Id of the logical port
         /// </summary>
         [JsonProperty(PropertyName = "id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Id of the logical port")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Id { get; set; }
         /// <summary>
         /// List of logical port bindings that are realized. This list may be
@@ -64,8 +51,6 @@ namespace nsxtsdk.ManagerModels
         /// This binding configuration can be used by features such as firewall,
         /// spoof-guard, traceflow etc.
         /// </summary>
-        [JsonProperty(PropertyName = "realized_bindings")]
-        [NSXTProperty(IsRequired: false, Description: @"List of logical port bindings that are realized. This list may bepopulated from the discovered bindings or manual user specified bindings.This binding configuration can be used by features such as firewall,spoof-guard, traceflow etc.")]
         public IList<NSXTAddressBindingEntryType> RealizedBindings { get; set; }
     }
 }

@@ -21,16 +21,23 @@ namespace nsxtapi.PolicyModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public PolicySystemConfig(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public PolicySystemConfig(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void UpdatePartialPatchConfig(NSXTPartialPatchConfigType PartialPatchConfig)
+        public async Task UpdatePartialPatchConfig(NSXTPartialPatchConfigType PartialPatchConfig)
         {
             if (PartialPatchConfig == null) { throw new System.ArgumentNullException("PartialPatchConfig cannot be null"); }
             
@@ -43,7 +50,7 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(PartialPatchConfig, defaultSerializationSettings));
             request.Resource = UpdatePartialPatchConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + UpdatePartialPatchConfigServiceURL.ToString() + " did not complete successfull";
@@ -55,7 +62,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPartialPatchConfigType GetPartialPatchConfiguration()
+        public async Task<NSXTPartialPatchConfigType> GetPartialPatchConfiguration()
         {
             NSXTPartialPatchConfigType returnValue = default(NSXTPartialPatchConfigType);
             StringBuilder GetPartialPatchConfigurationServiceURL = new StringBuilder("/system-config/nsx-partial-patch-config");
@@ -66,25 +73,13 @@ namespace nsxtapi.PolicyModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = GetPartialPatchConfigurationServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPartialPatchConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPartialPatchConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetPartialPatchConfigurationServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPartialPatchConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPartialPatchConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

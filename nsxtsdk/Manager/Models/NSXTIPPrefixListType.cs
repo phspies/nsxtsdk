@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,21 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIPPrefixListType : NSXTManagedResourceType
     {
-        public NSXTIPPrefixListType()
-        {
-        }
         /// <summary>
         /// Ordered list of PrefixConfig
         /// </summary>
         [JsonProperty(PropertyName = "prefixes", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Ordered list of PrefixConfig")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTPrefixConfigType> Prefixes { get; set; }
         /// <summary>
         /// Logical router id
         /// </summary>
-        [JsonProperty(PropertyName = "logical_router_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Logical router id")]
         public string? LogicalRouterId { get; set; }
     }
 }

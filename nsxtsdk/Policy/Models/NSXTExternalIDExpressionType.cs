@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,22 +17,15 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTExternalIDExpressionType : NSXTExpressionType
     {
-        public NSXTExternalIDExpressionType()
-        {
-        }
         /// <summary>
         /// This array can consist of one or more external IDs for the specified member type.
         /// </summary>
         [JsonProperty(PropertyName = "external_ids", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"This array can consist of one or more external IDs for the specified member type.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<string> ExternalIds { get; set; }
         /// <summary>
         /// External ID member type
         /// </summary>
         [JsonProperty(PropertyName = "member_type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"External ID member type")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTExternalIdexpressionMemberTypeEnumType MemberType { get; set; }
     }
 }

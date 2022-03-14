@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public NodeSSHService(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public NodeSSHService(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNodeServiceStatusPropertiesType CreateSshserviceActionStart()
+        public async Task<NSXTNodeServiceStatusPropertiesType> CreateSshserviceActionStart()
         {
             NSXTNodeServiceStatusPropertiesType returnValue = default(NSXTNodeServiceStatusPropertiesType);
             StringBuilder CreateSshserviceActionStartServiceURL = new StringBuilder("/node/services/ssh?action=start");
@@ -41,31 +48,19 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = CreateSshserviceActionStartServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNodeServiceStatusPropertiesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNodeServiceStatusPropertiesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CreateSshserviceActionStartServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNodeServiceStatusPropertiesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNodeServiceStatusPropertiesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNodeSshServicePropertiesType UpdateSshservice(NSXTNodeSshServicePropertiesType NodeSshServiceProperties)
+        public async Task<NSXTNodeSshServicePropertiesType> UpdateSshservice(NSXTNodeSshServicePropertiesType NodeSshServiceProperties)
         {
             if (NodeSshServiceProperties == null) { throw new System.ArgumentNullException("NodeSshServiceProperties cannot be null"); }
             NSXTNodeSshServicePropertiesType returnValue = default(NSXTNodeSshServicePropertiesType);
@@ -78,31 +73,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(NodeSshServiceProperties, defaultSerializationSettings));
             request.Resource = UpdateSshserviceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNodeSshServicePropertiesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNodeSshServicePropertiesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateSshserviceServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNodeSshServicePropertiesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNodeSshServicePropertiesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNodeSshServicePropertiesType ReadSshservice()
+        public async Task<NSXTNodeSshServicePropertiesType> ReadSshservice()
         {
             NSXTNodeSshServicePropertiesType returnValue = default(NSXTNodeSshServicePropertiesType);
             StringBuilder ReadSshserviceServiceURL = new StringBuilder("/node/services/ssh");
@@ -113,31 +96,19 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = ReadSshserviceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNodeSshServicePropertiesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNodeSshServicePropertiesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadSshserviceServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNodeSshServicePropertiesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNodeSshServicePropertiesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNodeServiceStatusPropertiesType CreateSshserviceActionStop()
+        public async Task<NSXTNodeServiceStatusPropertiesType> CreateSshserviceActionStop()
         {
             NSXTNodeServiceStatusPropertiesType returnValue = default(NSXTNodeServiceStatusPropertiesType);
             StringBuilder CreateSshserviceActionStopServiceURL = new StringBuilder("/node/services/ssh?action=stop");
@@ -148,31 +119,19 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = CreateSshserviceActionStopServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNodeServiceStatusPropertiesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNodeServiceStatusPropertiesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CreateSshserviceActionStopServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNodeServiceStatusPropertiesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNodeServiceStatusPropertiesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNodeServiceStatusPropertiesType CreateSshserviceActionRestart()
+        public async Task<NSXTNodeServiceStatusPropertiesType> CreateSshserviceActionRestart()
         {
             NSXTNodeServiceStatusPropertiesType returnValue = default(NSXTNodeServiceStatusPropertiesType);
             StringBuilder CreateSshserviceActionRestartServiceURL = new StringBuilder("/node/services/ssh?action=restart");
@@ -183,31 +142,19 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = CreateSshserviceActionRestartServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNodeServiceStatusPropertiesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNodeServiceStatusPropertiesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CreateSshserviceActionRestartServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNodeServiceStatusPropertiesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNodeServiceStatusPropertiesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void CreateSshserviceRemoveHostFingerprintActionRemoveHostFingerprint(NSXTKnownHostParameterType KnownHostParameter)
+        public async Task CreateSshserviceRemoveHostFingerprintActionRemoveHostFingerprint(NSXTKnownHostParameterType KnownHostParameter)
         {
             if (KnownHostParameter == null) { throw new System.ArgumentNullException("KnownHostParameter cannot be null"); }
             
@@ -220,7 +167,7 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(KnownHostParameter, defaultSerializationSettings));
             request.Resource = CreateSshserviceRemoveHostFingerprintActionRemoveHostFingerprintServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CreateSshserviceRemoveHostFingerprintActionRemoveHostFingerprintServiceURL.ToString() + " did not complete successfull";
@@ -232,7 +179,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNodeServiceStatusPropertiesType ReadSshserviceStatus()
+        public async Task<NSXTNodeServiceStatusPropertiesType> ReadSshserviceStatus()
         {
             NSXTNodeServiceStatusPropertiesType returnValue = default(NSXTNodeServiceStatusPropertiesType);
             StringBuilder ReadSshserviceStatusServiceURL = new StringBuilder("/node/services/ssh/status");
@@ -243,31 +190,19 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = ReadSshserviceStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNodeServiceStatusPropertiesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNodeServiceStatusPropertiesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadSshserviceStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNodeServiceStatusPropertiesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNodeServiceStatusPropertiesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNodeServiceStatusPropertiesType CreateSshserviceActionNotifyMpaStop()
+        public async Task<NSXTNodeServiceStatusPropertiesType> CreateSshserviceActionNotifyMpaStop()
         {
             NSXTNodeServiceStatusPropertiesType returnValue = default(NSXTNodeServiceStatusPropertiesType);
             StringBuilder CreateSshserviceActionNotifyMpaStopServiceURL = new StringBuilder("/node/services/ssh/notify_mpa?action=stop");
@@ -278,31 +213,19 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = CreateSshserviceActionNotifyMpaStopServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNodeServiceStatusPropertiesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNodeServiceStatusPropertiesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CreateSshserviceActionNotifyMpaStopServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNodeServiceStatusPropertiesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNodeServiceStatusPropertiesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNodeServiceStatusPropertiesType CreateSshserviceActionNotifyMpaStart()
+        public async Task<NSXTNodeServiceStatusPropertiesType> CreateSshserviceActionNotifyMpaStart()
         {
             NSXTNodeServiceStatusPropertiesType returnValue = default(NSXTNodeServiceStatusPropertiesType);
             StringBuilder CreateSshserviceActionNotifyMpaStartServiceURL = new StringBuilder("/node/services/ssh/notify_mpa?action=start");
@@ -313,31 +236,19 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = CreateSshserviceActionNotifyMpaStartServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNodeServiceStatusPropertiesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNodeServiceStatusPropertiesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CreateSshserviceActionNotifyMpaStartServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNodeServiceStatusPropertiesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNodeServiceStatusPropertiesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNodeServiceStatusPropertiesType CreateSshserviceActionNotifyMpaRestart()
+        public async Task<NSXTNodeServiceStatusPropertiesType> CreateSshserviceActionNotifyMpaRestart()
         {
             NSXTNodeServiceStatusPropertiesType returnValue = default(NSXTNodeServiceStatusPropertiesType);
             StringBuilder CreateSshserviceActionNotifyMpaRestartServiceURL = new StringBuilder("/node/services/ssh/notify_mpa?action=restart");
@@ -348,25 +259,13 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = CreateSshserviceActionNotifyMpaRestartServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNodeServiceStatusPropertiesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNodeServiceStatusPropertiesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CreateSshserviceActionNotifyMpaRestartServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNodeServiceStatusPropertiesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNodeServiceStatusPropertiesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

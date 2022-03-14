@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,42 +17,26 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTStaticRouteNextHopType 
     {
-        public NSXTStaticRouteNextHopType()
-        {
-            AdministrativeDistance = test
-        }
         /// <summary>
         /// Action to be taken on matching packets for NULL routes.
         /// </summary>
-        [JsonProperty(PropertyName = "blackhole_action")]
-        [NSXTProperty(IsRequired: false, Description: @"Action to be taken on matching packets for NULL routes.")]
         public NSXTStaticRouteNextHopBlackholeActionEnumType? BlackholeAction { get; set; }
         /// <summary>
         /// Administrative Distance for the next hop IP
         /// </summary>
-        [JsonProperty(PropertyName = "administrative_distance")]
-        [NSXTProperty(IsRequired: false, Description: @"Administrative Distance for the next hop IP")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(255)]
         public long? AdministrativeDistance { get; set; }
         /// <summary>
         /// Next Hop IP
         /// </summary>
-        [JsonProperty(PropertyName = "ip_address")]
-        [NSXTProperty(IsRequired: false, Description: @"Next Hop IP")]
         public string? IpAddress { get; set; }
         /// <summary>
         /// Status of bfd for this next hop where bfd_enabled = true indicate bfd is enabled for this next hop and bfd_enabled =
         /// false indicate bfd peer is disabled or not configured for this next hop.
         /// </summary>
-        [JsonProperty(PropertyName = "bfd_enabled")]
-        [NSXTProperty(IsRequired: false, Description: @"Status of bfd for this next hop where bfd_enabled = true indicate bfd is enabled for this next hop and bfd_enabled = false indicate bfd peer is disabled or not configured for this next hop.")]
         public bool? BfdEnabled { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "logical_router_port_id")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTResourceReferenceType LogicalRouterPortId { get; set; }
     }
 }

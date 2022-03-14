@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,42 +17,29 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"User login session information")]
     public class NSXTUserSessionType 
     {
-        public NSXTUserSessionType()
-        {
-        }
         /// <summary>
         /// Logout time if applicable.  An active user session has no logout time.
         /// </summary>
-        [JsonProperty(PropertyName = "logout_time")]
-        [NSXTProperty(IsRequired: false, Description: @"Logout time if applicable.  An active user session has no logout time.")]
         public long? LogoutTime { get; set; }
         /// <summary>
         /// Login time.
         /// </summary>
         [JsonProperty(PropertyName = "login_time", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Login time.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public long LoginTime { get; set; }
         /// <summary>
         /// AD user name.
         /// </summary>
         [JsonProperty(PropertyName = "user_name", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"AD user name.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string UserName { get; set; }
         /// <summary>
         /// AD Domain of user.
         /// </summary>
         [JsonProperty(PropertyName = "domain_name", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"AD Domain of user.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string DomainName { get; set; }
         /// <summary>
         /// User session ID. This also indicates whether this is VDI / RDSH.
         /// </summary>
         [JsonProperty(PropertyName = "user_session_id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"User session ID. This also indicates whether this is VDI / RDSH.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public int UserSessionId { get; set; }
     }
 }

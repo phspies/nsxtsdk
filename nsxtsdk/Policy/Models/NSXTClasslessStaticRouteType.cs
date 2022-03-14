@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,22 +17,15 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"DHCP classless static route option.")]
     public class NSXTClasslessStaticRouteType 
     {
-        public NSXTClasslessStaticRouteType()
-        {
-        }
         /// <summary>
         /// IP address of next hop of the route.
         /// </summary>
         [JsonProperty(PropertyName = "next_hop", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"IP address of next hop of the route.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string NextHop { get; set; }
         /// <summary>
         /// Destination network in CIDR format.
         /// </summary>
         [JsonProperty(PropertyName = "network", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Destination network in CIDR format.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Network { get; set; }
     }
 }

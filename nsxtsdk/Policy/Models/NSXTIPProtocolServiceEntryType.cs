@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,17 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIPProtocolServiceEntryType : NSXTServiceEntryType
     {
-        public NSXTIPProtocolServiceEntryType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty(PropertyName = "protocol_number", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(255)]
-        [System.ComponentModel.DataAnnotations.Required]
         public long ProtocolNumber { get; set; }
     }
 }

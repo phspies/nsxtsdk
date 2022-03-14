@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer HardwareSecurityModule object")]
     public class NSXTALBHardwareSecurityModuleType 
     {
-        public NSXTALBHardwareSecurityModuleType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "rfs")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBHSMThalesRFSType Rfs { get; set; }
         /// <summary>
         /// HSM type to use.
@@ -32,26 +27,18 @@ namespace nsxtsdk.PolicyModels
         /// HSM_TYPE_SAFENET_LUNA, HSM_TYPE_AWS_CLOUDHSM.
         /// </summary>
         [JsonProperty(PropertyName = "type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"HSM type to use.Enum options - HSM_TYPE_THALES_NETHSM,HSM_TYPE_SAFENET_LUNA, HSM_TYPE_AWS_CLOUDHSM.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTAlbhardwareSecurityModuleTypeEnumType Type { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "sluna")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBHSMSafenetLunaType Sluna { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "cloudhsm")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBHSMAwsCloudHsmType Cloudhsm { get; set; }
         /// <summary>
         /// Thales netHSM specific configuration.
         /// </summary>
-        [JsonProperty(PropertyName = "nethsm")]
-        [NSXTProperty(IsRequired: false, Description: @"Thales netHSM specific configuration.")]
         public IList<NSXTALBHSMThalesNetHsmType> Nethsm { get; set; }
     }
 }

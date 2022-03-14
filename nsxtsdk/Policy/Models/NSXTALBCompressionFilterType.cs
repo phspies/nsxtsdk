@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,50 +17,33 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer CompressionFilter object")]
     public class NSXTALBCompressionFilterType 
     {
-        public NSXTALBCompressionFilterType()
-        {
-            Level = test
-            Match = test
-        }
         /// <summary>
         /// It is a reference to an object of type IpAddrGroup.
         /// </summary>
-        [JsonProperty(PropertyName = "ip_addrs_path")]
-        [NSXTProperty(IsRequired: false, Description: @"It is a reference to an object of type IpAddrGroup.")]
         public string? IpAddrsPath { get; set; }
         /// <summary>
         /// Placeholder for description of property ip_addr_ranges of
         /// obj type CompressionFilter field type str  type array.
         /// </summary>
-        [JsonProperty(PropertyName = "ip_addr_ranges")]
-        [NSXTProperty(IsRequired: false, Description: @"Placeholder for description of property ip_addr_ranges ofobj type CompressionFilter field type str  type array.")]
         public IList<NSXTALBIpAddrRangeType> IpAddrRanges { get; set; }
         /// <summary>
         /// It is a reference to an object of type StringGroup.
         /// </summary>
-        [JsonProperty(PropertyName = "devices_path")]
-        [NSXTProperty(IsRequired: false, Description: @"It is a reference to an object of type StringGroup.")]
         public string? DevicesPath { get; set; }
         /// <summary>
         /// Name of the object.
         /// </summary>
         [JsonProperty(PropertyName = "name", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Name of the object.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Name { get; set; }
         /// <summary>
         /// Number of index.
         /// </summary>
         [JsonProperty(PropertyName = "index", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Number of index.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public long Index { get; set; }
         /// <summary>
         /// Placeholder for description of property ip_addr_prefixes of
         /// obj type CompressionFilter field type str  type array.
         /// </summary>
-        [JsonProperty(PropertyName = "ip_addr_prefixes")]
-        [NSXTProperty(IsRequired: false, Description: @"Placeholder for description of property ip_addr_prefixes ofobj type CompressionFilter field type str  type array.")]
         public IList<NSXTALBIpAddrPrefixType> IpAddrPrefixes { get; set; }
         /// <summary>
         /// Enum options - AGGRESSIVE_COMPRESSION, NORMAL_COMPRESSION,
@@ -69,15 +52,11 @@ namespace nsxtsdk.PolicyModels
         /// interpreted by ALB Controller as NORMAL_COMPRESSION.
         /// </summary>
         [JsonProperty(PropertyName = "level", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Enum options - AGGRESSIVE_COMPRESSION, NORMAL_COMPRESSION,NO_COMPRESSION.Default value when not specified in API or module isinterpreted by ALB Controller as NORMAL_COMPRESSION.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTAlbcompressionFilterLevelEnumType Level { get; set; }
         /// <summary>
         /// Placeholder for description of property ip_addrs of obj
         /// type CompressionFilter field type str  type array.
         /// </summary>
-        [JsonProperty(PropertyName = "ip_addrs")]
-        [NSXTProperty(IsRequired: false, Description: @"Placeholder for description of property ip_addrs of objtype CompressionFilter field type str  type array.")]
         public IList<NSXTALBIpAddrType> IpAddrs { get; set; }
         /// <summary>
         /// Whether to apply Filter when group criteria is matched or
@@ -86,15 +65,11 @@ namespace nsxtsdk.PolicyModels
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as IS_IN.
         /// </summary>
-        [JsonProperty(PropertyName = "match")]
-        [NSXTProperty(IsRequired: false, Description: @"Whether to apply Filter when group criteria is matched ornot.Enum options - IS_IN, IS_NOT_IN.Default value when not specified in API or module isinterpreted by ALB Controller as IS_IN.")]
         public NSXTAlbcompressionFilterMatchEnumType? Match { get; set; }
         /// <summary>
         /// Placeholder for description of property user_agent of obj
         /// type CompressionFilter field type str  type array.
         /// </summary>
-        [JsonProperty(PropertyName = "user_agent")]
-        [NSXTProperty(IsRequired: false, Description: @"Placeholder for description of property user_agent of objtype CompressionFilter field type str  type array.")]
         public IList<string> UserAgent { get; set; }
     }
 }

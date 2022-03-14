@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,62 +17,41 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTOspfStatusInfoType 
     {
-        public NSXTOspfStatusInfoType()
-        {
-        }
         /// <summary>
         /// Retransmit request counter.
         /// </summary>
-        [JsonProperty(PropertyName = "retransmit_counter")]
-        [NSXTProperty(IsRequired: false, Description: @"Retransmit request counter.")]
         public long? RetransmitCounter { get; set; }
         /// <summary>
         /// request counter.
         /// </summary>
-        [JsonProperty(PropertyName = "request_counter")]
-        [NSXTProperty(IsRequired: false, Description: @"request counter.")]
         public long? RequestCounter { get; set; }
         /// <summary>
         /// OSPF neighbor state.
         /// </summary>
-        [JsonProperty(PropertyName = "state")]
-        [NSXTProperty(IsRequired: false, Description: @"OSPF neighbor state.")]
         public string? State { get; set; }
         /// <summary>
         /// Tier0 interface name.
         /// </summary>
-        [JsonProperty(PropertyName = "interface_name")]
-        [NSXTProperty(IsRequired: false, Description: @"Tier0 interface name.")]
         public string? InterfaceName { get; set; }
         /// <summary>
         /// Time remaining in before considering OSPF neighbor dead.
         /// </summary>
-        [JsonProperty(PropertyName = "dead_time")]
-        [NSXTProperty(IsRequired: false, Description: @"Time remaining in before considering OSPF neighbor dead.")]
         public string? DeadTime { get; set; }
         /// <summary>
         /// Multicast source address.
         /// </summary>
-        [JsonProperty(PropertyName = "source_address")]
-        [NSXTProperty(IsRequired: false, Description: @"Multicast source address.")]
         public string? SourceAddress { get; set; }
         /// <summary>
         /// Database summary counter.
         /// </summary>
-        [JsonProperty(PropertyName = "database_summary_counter")]
-        [NSXTProperty(IsRequired: false, Description: @"Database summary counter.")]
         public long? DatabaseSummaryCounter { get; set; }
         /// <summary>
         /// Time since last change in state.
         /// </summary>
-        [JsonProperty(PropertyName = "last_state_change")]
-        [NSXTProperty(IsRequired: false, Description: @"Time since last change in state.")]
         public string? LastStateChange { get; set; }
         /// <summary>
         /// Priority of the neighbor.
         /// </summary>
-        [JsonProperty(PropertyName = "priority")]
-        [NSXTProperty(IsRequired: false, Description: @"Priority of the neighbor.")]
         public long? Priority { get; set; }
     }
 }

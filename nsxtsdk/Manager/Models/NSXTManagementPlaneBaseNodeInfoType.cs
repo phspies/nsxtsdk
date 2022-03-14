@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,20 +17,13 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"The basic node info of management plane node")]
     public class NSXTManagementPlaneBaseNodeInfoType 
     {
-        public NSXTManagementPlaneBaseNodeInfoType()
-        {
-        }
         /// <summary>
         /// Management plane node UUID
         /// </summary>
-        [JsonProperty(PropertyName = "uuid")]
-        [NSXTProperty(IsRequired: false, Description: @"Management plane node UUID")]
         public string? Uuid { get; set; }
         /// <summary>
         /// The IP address of MP node
         /// </summary>
-        [JsonProperty(PropertyName = "mgmt_cluster_listen_ip_address")]
-        [NSXTProperty(IsRequired: false, Description: @"The IP address of MP node")]
         public string? MgmtClusterListenIpAddress { get; set; }
     }
 }

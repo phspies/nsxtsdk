@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,20 +17,13 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Parameter to filter overridden resource list by intent path or site path or both.")]
     public class NSXTOverrideListRequestParametersType 
     {
-        public NSXTOverrideListRequestParametersType()
-        {
-        }
         /// <summary>
         /// Site path
         /// </summary>
-        [JsonProperty(PropertyName = "site_path")]
-        [NSXTProperty(IsRequired: false, Description: @"Site path")]
         public string? SitePath { get; set; }
         /// <summary>
         /// Global resource path
         /// </summary>
-        [JsonProperty(PropertyName = "intent_path")]
-        [NSXTProperty(IsRequired: false, Description: @"Global resource path")]
         public string? IntentPath { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,29 +17,18 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTBasePolicyServiceInstanceType : NSXTPolicyConfigResourceType
     {
-        public NSXTBasePolicyServiceInstanceType()
-        {
-            TransportType = test
-            DeploymentMode = test
-        }
         /// <summary>
         /// Unique name of Partner Service in the Marketplace
         /// </summary>
         [JsonProperty(PropertyName = "partner_service_name", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Unique name of Partner Service in the Marketplace")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string PartnerServiceName { get; set; }
         /// <summary>
         /// Transport to be used while deploying Service-VM.
         /// </summary>
-        [JsonProperty(PropertyName = "transport_type")]
-        [NSXTProperty(IsRequired: false, Description: @"Transport to be used while deploying Service-VM.")]
         public NSXTBasePolicyServiceInstanceTransportTypeEnumType? TransportType { get; set; }
         /// <summary>
         /// Deployment mode specifies how the partner appliance will be deployed i.e. in HA or standalone mode.
         /// </summary>
-        [JsonProperty(PropertyName = "deployment_mode")]
-        [NSXTProperty(IsRequired: false, Description: @"Deployment mode specifies how the partner appliance will be deployed i.e. in HA or standalone mode.")]
         public NSXTBasePolicyServiceInstanceDeploymentModeEnumType? DeploymentMode { get; set; }
     }
 }

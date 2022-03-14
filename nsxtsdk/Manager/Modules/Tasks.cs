@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public Tasks(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public Tasks(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTaskPropertiesType ReadTaskProperties(string TaskId)
+        public async Task<NSXTTaskPropertiesType> ReadTaskProperties(string TaskId)
         {
             if (TaskId == null) { throw new System.ArgumentNullException("TaskId cannot be null"); }
             NSXTTaskPropertiesType returnValue = default(NSXTTaskPropertiesType);
@@ -43,31 +50,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             ReadTaskPropertiesServiceURL.Replace("{task-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(TaskId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadTaskPropertiesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTaskPropertiesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTaskPropertiesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadTaskPropertiesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTaskPropertiesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTaskPropertiesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTaskListResultType ListTasks(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, string? RequestUri = null, bool? SortAscending = null, string? SortBy = null, string? Status = null, string? User = null)
+        public async Task<NSXTTaskListResultType> ListTasks(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, string? RequestUri = null, bool? SortAscending = null, string? SortBy = null, string? Status = null, string? User = null)
         {
             NSXTTaskListResultType returnValue = default(NSXTTaskListResultType);
             StringBuilder ListTasksServiceURL = new StringBuilder("/tasks");
@@ -86,31 +81,19 @@ namespace nsxtapi.ManagerModules
             if (Status != null) { request.AddQueryParameter("status", Status.ToString()); }
             if (User != null) { request.AddQueryParameter("user", User.ToString()); }
             request.Resource = ListTasksServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTaskListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTaskListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListTasksServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTaskListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTaskListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public object ReadTaskResult(string TaskId)
+        public async Task<object> ReadTaskResult(string TaskId)
         {
             if (TaskId == null) { throw new System.ArgumentNullException("TaskId cannot be null"); }
             object returnValue  = default(object);
@@ -123,25 +106,13 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             ReadTaskResultServiceURL.Replace("{task-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(TaskId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadTaskResultServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<object> response = await restClient.ExecuteTaskAsyncWithPolicy<object>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadTaskResultServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<object>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(object).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

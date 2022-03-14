@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLbHttpRequestMethodConditionType : NSXTLbRuleConditionType
     {
-        public NSXTLbHttpRequestMethodConditionType()
-        {
-        }
         /// <summary>
         /// Type of HTTP request method
         /// </summary>
         [JsonProperty(PropertyName = "method", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Type of HTTP request method")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTLbHttpRequestMethodConditionMethodEnumType Method { get; set; }
     }
 }

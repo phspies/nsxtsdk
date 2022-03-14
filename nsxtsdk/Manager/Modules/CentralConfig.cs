@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public CentralConfig(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public CentralConfig(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTCentralNodeConfigProfileType UpdateCentralNodeConfigProfile(string NodeConfigProfileId, NSXTCentralNodeConfigProfileType CentralNodeConfigProfile)
+        public async Task<NSXTCentralNodeConfigProfileType> UpdateCentralNodeConfigProfile(string NodeConfigProfileId, NSXTCentralNodeConfigProfileType CentralNodeConfigProfile)
         {
             if (NodeConfigProfileId == null) { throw new System.ArgumentNullException("NodeConfigProfileId cannot be null"); }
             if (CentralNodeConfigProfile == null) { throw new System.ArgumentNullException("CentralNodeConfigProfile cannot be null"); }
@@ -45,31 +52,19 @@ namespace nsxtapi.ManagerModules
             UpdateCentralNodeConfigProfileServiceURL.Replace("{node-config-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NodeConfigProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(CentralNodeConfigProfile, defaultSerializationSettings));
             request.Resource = UpdateCentralNodeConfigProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTCentralNodeConfigProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTCentralNodeConfigProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateCentralNodeConfigProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTCentralNodeConfigProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTCentralNodeConfigProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTCentralNodeConfigProfileListResultType ListCentralNodeConfigProfiles()
+        public async Task<NSXTCentralNodeConfigProfileListResultType> ListCentralNodeConfigProfiles()
         {
             NSXTCentralNodeConfigProfileListResultType returnValue = default(NSXTCentralNodeConfigProfileListResultType);
             StringBuilder ListCentralNodeConfigProfilesServiceURL = new StringBuilder("/configs/central-config/node-config-profiles");
@@ -80,31 +75,19 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = ListCentralNodeConfigProfilesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTCentralNodeConfigProfileListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTCentralNodeConfigProfileListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListCentralNodeConfigProfilesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTCentralNodeConfigProfileListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTCentralNodeConfigProfileListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTCentralNodeConfigProfileType ReadCentralNodeConfigProfile(string ProfileId, bool? ShowSensitiveData = null)
+        public async Task<NSXTCentralNodeConfigProfileType> ReadCentralNodeConfigProfile(string ProfileId, bool? ShowSensitiveData = null)
         {
             if (ProfileId == null) { throw new System.ArgumentNullException("ProfileId cannot be null"); }
             NSXTCentralNodeConfigProfileType returnValue = default(NSXTCentralNodeConfigProfileType);
@@ -118,31 +101,19 @@ namespace nsxtapi.ManagerModules
             ReadCentralNodeConfigProfileServiceURL.Replace("{profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             if (ShowSensitiveData != null) { request.AddQueryParameter("show_sensitive_data", ShowSensitiveData.ToString()); }
             request.Resource = ReadCentralNodeConfigProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTCentralNodeConfigProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTCentralNodeConfigProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadCentralNodeConfigProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTCentralNodeConfigProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTCentralNodeConfigProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTCentralConfigPropertiesType UpdateCentralConfigProperties(NSXTCentralConfigPropertiesType CentralConfigProperties)
+        public async Task<NSXTCentralConfigPropertiesType> UpdateCentralConfigProperties(NSXTCentralConfigPropertiesType CentralConfigProperties)
         {
             if (CentralConfigProperties == null) { throw new System.ArgumentNullException("CentralConfigProperties cannot be null"); }
             NSXTCentralConfigPropertiesType returnValue = default(NSXTCentralConfigPropertiesType);
@@ -155,31 +126,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(CentralConfigProperties, defaultSerializationSettings));
             request.Resource = UpdateCentralConfigPropertiesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTCentralConfigPropertiesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTCentralConfigPropertiesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateCentralConfigPropertiesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTCentralConfigPropertiesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTCentralConfigPropertiesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTCentralConfigPropertiesType ReadCentralConfigProperties()
+        public async Task<NSXTCentralConfigPropertiesType> ReadCentralConfigProperties()
         {
             NSXTCentralConfigPropertiesType returnValue = default(NSXTCentralConfigPropertiesType);
             StringBuilder ReadCentralConfigPropertiesServiceURL = new StringBuilder("/node/central-config");
@@ -190,25 +149,13 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = ReadCentralConfigPropertiesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTCentralConfigPropertiesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTCentralConfigPropertiesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadCentralConfigPropertiesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTCentralConfigPropertiesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTCentralConfigPropertiesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

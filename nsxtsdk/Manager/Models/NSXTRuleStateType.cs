@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTRuleStateType : NSXTDSRuleStateType
     {
-        public NSXTRuleStateType()
-        {
-        }
         /// <summary>
         /// Pending changes to be realized.
         /// </summary>
-        [JsonProperty(PropertyName = "pending_change_list")]
-        [NSXTProperty(IsRequired: false, Description: @"Pending changes to be realized.")]
         public IList<NSXTPendingChangeType> PendingChangeList { get; set; }
     }
 }

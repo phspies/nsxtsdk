@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,22 +17,15 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTAuditLogListResultType : NSXTListResultType
     {
-        public NSXTAuditLogListResultType()
-        {
-        }
         /// <summary>
         /// Timestamp of the last full audit log collection
         /// </summary>
         [JsonProperty(PropertyName = "last_full_sync_timestamp", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Timestamp of the last full audit log collection")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string LastFullSyncTimestamp { get; set; }
         /// <summary>
         /// Audit log results
         /// </summary>
         [JsonProperty(PropertyName = "results", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Audit log results")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTAuditLogType> Results { get; set; }
     }
 }

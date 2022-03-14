@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.{{rootmodule}}Models
 {
@@ -23,35 +23,12 @@ namespace nsxtsdk.{{rootmodule}}Models
     [NSXTProperty(Description: @"{{ToXmlDoc def.description}}")]
     public class NSXT{{clz}}Type {{referenced}}
     {
-        public NSXT{{clz}}Type()
-        {
-            {{#def.Properties}}
-            {{#each def.Properties}}
-            {{#value.default}}
-            {{GetDotNetName value "field"}} = {{SetDefaultValue value}}
-            {{/value.default}}
-            {{/each}}
-            {{/def.Properties}}
-        }
         {{#def.Properties.Values}}
         /// <summary>
         /// {{ToXmlDoc description "wrap"}}
         /// </summary>
         {{#isRequired}}
         [JsonProperty(PropertyName = "{{name}}", Required = Required.AllowNull)]
-        {{/isRequired}}
-        {{^isRequired}}
-        [JsonProperty(PropertyName = "{{name}}")]
-        {{/isRequired}}
-        [NSXTProperty(IsRequired: {{GetLowerCase isRequired}}, Description: @"{{ToXmlDoc description}}")]
-        {{#minimum}}
-        //[System.ComponentModel.DataAnnotations.MinLength({{minimum}})]
-        {{/minimum}}
-        {{#maximum}}
-        //[System.ComponentModel.DataAnnotations.MaxLength({{maximum}})]
-        {{/maximum}}
-        {{#isRequired}}
-        [System.ComponentModel.DataAnnotations.Required]
         {{/isRequired}}
         public {{GetDotNetType . name clz}} {{GetDotNetName name "field"}} { get; set; }
         {{/def.Properties.Values}}

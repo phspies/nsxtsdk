@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,27 +17,18 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLogicalRouterPortArpTableType : NSXTListResultType
     {
-        public NSXTLogicalRouterPortArpTableType()
-        {
-        }
         /// <summary>
         /// Timestamp when the data was last updated; unset if data source has never updated the data.
         /// </summary>
-        [JsonProperty(PropertyName = "last_update_timestamp")]
-        [NSXTProperty(IsRequired: false, Description: @"Timestamp when the data was last updated; unset if data source has never updated the data.")]
         public long? LastUpdateTimestamp { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "results")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public IList<NSXTLogicalRouterPortArpEntryType> Results { get; set; }
         /// <summary>
         /// The ID of the logical router port
         /// </summary>
         [JsonProperty(PropertyName = "logical_router_port_id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"The ID of the logical router port")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string LogicalRouterPortId { get; set; }
     }
 }

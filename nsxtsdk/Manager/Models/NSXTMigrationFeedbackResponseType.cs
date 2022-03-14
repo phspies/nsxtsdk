@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,34 +17,23 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Detailed feedback requests from the migration tool where user input is required.")]
     public class NSXTMigrationFeedbackResponseType 
     {
-        public NSXTMigrationFeedbackResponseType()
-        {
-        }
         /// <summary>
         /// Action selected in response to the feedback request.
         /// </summary>
         [JsonProperty(PropertyName = "action", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Action selected in response to the feedback request.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Action { get; set; }
         /// <summary>
         /// User input provided in the form of a list of values in response to the feedback request.
         /// </summary>
-        [JsonProperty(PropertyName = "values")]
-        [NSXTProperty(IsRequired: false, Description: @"User input provided in the form of a list of values in response to the feedback request.")]
         public IList<string> Values { get; set; }
         /// <summary>
         /// Identifier of the feedback request.
         /// </summary>
         [JsonProperty(PropertyName = "id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Identifier of the feedback request.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Id { get; set; }
         /// <summary>
         /// User input provided in response to the feedback request.
         /// </summary>
-        [JsonProperty(PropertyName = "value")]
-        [NSXTProperty(IsRequired: false, Description: @"User input provided in response to the feedback request.")]
         public string? Value { get; set; }
     }
 }

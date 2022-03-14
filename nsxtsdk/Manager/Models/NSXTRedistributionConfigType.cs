@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,20 +17,13 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTRedistributionConfigType : NSXTManagedResourceType
     {
-        public NSXTRedistributionConfigType()
-        {
-        }
         /// <summary>
         /// Logical router id
         /// </summary>
-        [JsonProperty(PropertyName = "logical_router_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Logical router id")]
         public string? LogicalRouterId { get; set; }
         /// <summary>
         /// Flag to enable redistribution for BGP as destination protocol
         /// </summary>
-        [JsonProperty(PropertyName = "bgp_enabled")]
-        [NSXTProperty(IsRequired: false, Description: @"Flag to enable redistribution for BGP as destination protocol")]
         public bool? BgpEnabled { get; set; }
     }
 }

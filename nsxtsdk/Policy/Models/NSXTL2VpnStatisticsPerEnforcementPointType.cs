@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,21 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"L2Vpn Statistics Per Enforcement Point.")]
     public class NSXTL2VpnStatisticsPerEnforcementPointType 
     {
-        public NSXTL2VpnStatisticsPerEnforcementPointType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty(PropertyName = "resource_type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTL2VpnStatisticsPerEnforcementPointResourceTypeEnumType ResourceType { get; set; }
         /// <summary>
         /// Policy Path referencing the enforcement point wehere the statistics are fetched.
         /// </summary>
-        [JsonProperty(PropertyName = "enforcement_point_path")]
-        [NSXTProperty(IsRequired: false, Description: @"Policy Path referencing the enforcement point wehere the statistics are fetched.")]
         public string? EnforcementPointPath { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,26 +17,17 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTRemainingSupportBundleNodeType 
     {
-        public NSXTRemainingSupportBundleNodeType()
-        {
-        }
         /// <summary>
         /// Status of node
         /// </summary>
-        [JsonProperty(PropertyName = "status")]
-        [NSXTProperty(IsRequired: false, Description: @"Status of node")]
         public NSXTRemainingSupportBundleNodeStatusEnumType? Status { get; set; }
         /// <summary>
         /// Display name of node
         /// </summary>
-        [JsonProperty(PropertyName = "node_display_name")]
-        [NSXTProperty(IsRequired: false, Description: @"Display name of node")]
         public string? NodeDisplayName { get; set; }
         /// <summary>
         /// UUID of node
         /// </summary>
-        [JsonProperty(PropertyName = "node_id")]
-        [NSXTProperty(IsRequired: false, Description: @"UUID of node")]
         public string? NodeId { get; set; }
     }
 }

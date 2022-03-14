@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTEULAContentType : NSXTManagedResourceType
     {
-        public NSXTEULAContentType()
-        {
-        }
         /// <summary>
         /// Content of End User License Agreement
         /// </summary>
-        [JsonProperty(PropertyName = "content")]
-        [NSXTProperty(IsRequired: false, Description: @"Content of End User License Agreement")]
         public string? Content { get; set; }
     }
 }

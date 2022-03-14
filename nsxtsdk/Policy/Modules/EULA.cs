@@ -21,16 +21,23 @@ namespace nsxtapi.PolicyModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public EULA(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public EULA(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTEULAContentType GetEulacontent(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? ValueFormat = null)
+        public async Task<NSXTEULAContentType> GetEulacontent(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? ValueFormat = null)
         {
             NSXTEULAContentType returnValue = default(NSXTEULAContentType);
             StringBuilder GetEulacontentServiceURL = new StringBuilder("/eula/content");
@@ -47,31 +54,19 @@ namespace nsxtapi.PolicyModules
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             if (ValueFormat != null) { request.AddQueryParameter("value_format", ValueFormat.ToString()); }
             request.Resource = GetEulacontentServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTEULAContentType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTEULAContentType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetEulacontentServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTEULAContentType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTEULAContentType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTEULAAcceptanceType GetEulaacceptance()
+        public async Task<NSXTEULAAcceptanceType> GetEulaacceptance()
         {
             NSXTEULAAcceptanceType returnValue = default(NSXTEULAAcceptanceType);
             StringBuilder GetEulaacceptanceServiceURL = new StringBuilder("/eula/acceptance");
@@ -82,31 +77,19 @@ namespace nsxtapi.PolicyModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = GetEulaacceptanceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTEULAAcceptanceType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTEULAAcceptanceType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetEulaacceptanceServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTEULAAcceptanceType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTEULAAcceptanceType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void AcceptEULA()
+        public async Task AcceptEULA()
         {
             
             StringBuilder AcceptEULAServiceURL = new StringBuilder("/eula/accept");
@@ -117,7 +100,7 @@ namespace nsxtapi.PolicyModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = AcceptEULAServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + AcceptEULAServiceURL.ToString() + " did not complete successfull";

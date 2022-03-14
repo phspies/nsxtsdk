@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,21 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyMulticastForwardingType : NSXTListResultType
     {
-        public NSXTPolicyMulticastForwardingType()
-        {
-        }
         /// <summary>
         /// Policy path to Tier0 or Tier1 gateway.
         /// </summary>
         [JsonProperty(PropertyName = "gateway_path", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Policy path to Tier0 or Tier1 gateway.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string GatewayPath { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "mcast_forwarding_per_edge")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public IList<NSXTMulticastForwardingPerEdgeType> McastForwardingPerEdge { get; set; }
     }
 }

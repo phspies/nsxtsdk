@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,29 +17,20 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Identity Firewall user session data list and Directory Group to user mappings.")]
     public class NSXTIdfwUserSessionDataAndMappingsType 
     {
-        public NSXTIdfwUserSessionDataAndMappingsType()
-        {
-        }
         /// <summary>
         /// Archived user session data list
         /// </summary>
         [JsonProperty(PropertyName = "archived_user_sessions", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Archived user session data list")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTIdfwUserSessionDataType> ArchivedUserSessions { get; set; }
         /// <summary>
         /// Active user session data list
         /// </summary>
         [JsonProperty(PropertyName = "active_user_sessions", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Active user session data list")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTIdfwUserSessionDataType> ActiveUserSessions { get; set; }
         /// <summary>
         /// Directory Group to user session data mappings
         /// </summary>
         [JsonProperty(PropertyName = "dir_group_to_user_session_data_mappings", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Directory Group to user session data mappings")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTIdfwDirGroupUserSessionMappingType> DirGroupToUserSessionDataMappings { get; set; }
     }
 }

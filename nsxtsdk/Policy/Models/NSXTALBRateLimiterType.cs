@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,12 +17,6 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer RateLimiter object")]
     public class NSXTALBRateLimiterType 
     {
-        public NSXTALBRateLimiterType()
-        {
-            Count = test
-            BurstSz = test
-            Period = test
-        }
         /// <summary>
         /// Maximum number of connections, requests or packets
         /// permitted each period.
@@ -30,10 +24,6 @@ namespace nsxtsdk.PolicyModels
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 1000000000.
         /// </summary>
-        [JsonProperty(PropertyName = "count")]
-        [NSXTProperty(IsRequired: false, Description: @"Maximum number of connections, requests or packetspermitted each period.Allowed values are 1-1000000000.Default value when not specified in API or module isinterpreted by ALB Controller as 1000000000.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(1000000000)]
         public long? Count { get; set; }
         /// <summary>
         /// Maximum number of connections, requests or packets to be
@@ -43,17 +33,11 @@ namespace nsxtsdk.PolicyModels
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 0.
         /// </summary>
-        [JsonProperty(PropertyName = "burst_sz")]
-        [NSXTProperty(IsRequired: false, Description: @"Maximum number of connections, requests or packets to belet through instantaneously.If this is less than count, it will have no effect.Allowed values are 0-1000000000.Default value when not specified in API or module isinterpreted by ALB Controller as 0.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(1000000000)]
         public long? BurstSz { get; set; }
         /// <summary>
         /// Identifier for Rate Limit.
         /// Constructed according to context.
         /// </summary>
-        [JsonProperty(PropertyName = "name")]
-        [NSXTProperty(IsRequired: false, Description: @"Identifier for Rate Limit.Constructed according to context.")]
         public string? Name { get; set; }
         /// <summary>
         /// Time value in seconds to enforce rate count.
@@ -62,10 +46,6 @@ namespace nsxtsdk.PolicyModels
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 1.
         /// </summary>
-        [JsonProperty(PropertyName = "period")]
-        [NSXTProperty(IsRequired: false, Description: @"Time value in seconds to enforce rate count.Allowed values are 1-1000000000.Unit is SEC.Default value when not specified in API or module isinterpreted by ALB Controller as 1.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(1000000000)]
         public long? Period { get; set; }
     }
 }

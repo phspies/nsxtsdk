@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,9 +17,6 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLbPersistenceProfileType : NSXTManagedResourceType
     {
-        public NSXTLbPersistenceProfileType()
-        {
-        }
         /// <summary>
         /// The persistence shared flag identifies whether the persistence table
         /// is shared among virtual-servers referring this profile.
@@ -47,15 +44,11 @@ namespace nsxtsdk.ManagerModels
         /// consume the same profile in the LbRule with this flag enabled are
         /// sharing the same persistence table.
         /// </summary>
-        [JsonProperty(PropertyName = "persistence_shared")]
-        [NSXTProperty(IsRequired: false, Description: @"The persistence shared flag identifies whether the persistence tableis shared among virtual-servers referring this profile.If persistence shared flag is not set in the cookie persistence profilebound to a virtual server, it defaults to cookie persistence that isprivate to each virtual server and is qualified by the pool. This isaccomplished by load balancer inserting a cookie with name in theformat &amp;lt;name&amp;gt;.&amp;lt;virtual_server_id&amp;gt;.&amp;lt;pool_id&amp;gt;.If persistence shared flag is set in the cookie persistence profile, incookie insert mode, cookie persistence could be shared across multiplevirtual servers that are bound to the same pools. The cookie name wouldbe changed to &amp;lt;name&amp;gt;.&amp;lt;profile-id&amp;gt;.&amp;lt;pool-id&amp;gt;.If persistence shared flag is not set in the sourceIp persistenceprofile bound to a virtual server, each virtual server that the profileis bound to maintains its own private persistence table.If persistence shared flag is set in the sourceIp persistence profile,all virtual servers the profile is bound to share the same persistencetable.If persistence shared flag is not set in the generic persistenceprofile, the persistence entries are matched and stored in the tablewhich is identified using both virtual server ID and profile ID.If persistence shared flag is set in the generic persistence profile,the persistence entries are matched and stored in the table which isidentified using profile ID. It means that virtual servers whichconsume the same profile in the LbRule with this flag enabled aresharing the same persistence table.")]
         public bool? PersistenceShared { get; set; }
         /// <summary>
         /// The resource_type property identifies persistence profile type.
         /// </summary>
         [JsonProperty(PropertyName = "resource_type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"The resource_type property identifies persistence profile type.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTLbPersistenceProfileResourceTypeEnumType ResourceType { get; set; }
     }
 }

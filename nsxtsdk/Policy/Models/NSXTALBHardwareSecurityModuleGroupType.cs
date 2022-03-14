@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,23 +17,16 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTALBHardwareSecurityModuleGroupType : NSXTPolicyConfigResourceType
     {
-        public NSXTALBHardwareSecurityModuleGroupType()
-        {
-        }
         /// <summary>
         /// List of labels to be used for granular RBAC.
         /// Allowed in Basic edition, Essentials edition, Enterprise
         /// edition.
         /// </summary>
-        [JsonProperty(PropertyName = "markers")]
-        [NSXTProperty(IsRequired: false, Description: @"List of labels to be used for granular RBAC.Allowed in Basic edition, Essentials edition, Enterpriseedition.")]
         public IList<NSXTALBRoleFilterMatchLabelType> Markers { get; set; }
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty(PropertyName = "hsm", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTALBHardwareSecurityModuleType Hsm { get; set; }
     }
 }

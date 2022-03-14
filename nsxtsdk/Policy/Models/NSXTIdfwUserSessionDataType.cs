@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -19,71 +19,50 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Identity Firewall user session data on a client machine (typically a VM).Multiple entries for the same user can be returned if the user logins tomultiple sessions on the same VM.")]
     public class NSXTIdfwUserSessionDataType 
     {
-        public NSXTIdfwUserSessionDataType()
-        {
-        }
         /// <summary>
         /// User session source can be one of:
         /// - GI (Guest Introspection)
         /// - ELS (AD Event log server)
         /// - LI (Log Insight)
         /// </summary>
-        [JsonProperty(PropertyName = "session_source")]
-        [NSXTProperty(IsRequired: false, Description: @"User session source can be one of:  - GI (Guest Introspection)  - ELS (AD Event log server)  - LI (Log Insight)")]
         public NSXTIdfwUserSessionDataSessionSourceEnumType? SessionSource { get; set; }
         /// <summary>
         /// AD user ID (may not exist).
         /// </summary>
-        [JsonProperty(PropertyName = "user_id")]
-        [NSXTProperty(IsRequired: false, Description: @"AD user ID (may not exist).")]
         public string? UserId { get; set; }
         /// <summary>
         /// User session ID.  This also indicates whether this is VDI / RDSH.
         /// </summary>
         [JsonProperty(PropertyName = "user_session_id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"User session ID.  This also indicates whether this is VDI / RDSH.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public int UserSessionId { get; set; }
         /// <summary>
         /// Virtual machine (external ID or BIOS UUID) where login/logout events occurred.
         /// </summary>
-        [JsonProperty(PropertyName = "vm_ext_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Virtual machine (external ID or BIOS UUID) where login/logout events occurred.")]
         public string? VmExtId { get; set; }
         /// <summary>
         /// Identifier of user session data.
         /// </summary>
-        [JsonProperty(PropertyName = "id")]
-        [NSXTProperty(IsRequired: false, Description: @"Identifier of user session data.")]
         public string? Id { get; set; }
         /// <summary>
         /// Login time.
         /// </summary>
         [JsonProperty(PropertyName = "login_time", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Login time.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public long LoginTime { get; set; }
         /// <summary>
         /// AD user name.
         /// </summary>
         [JsonProperty(PropertyName = "user_name", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"AD user name.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string UserName { get; set; }
         /// <summary>
         /// Logout time if applicable.  An active user session has no logout time.
         /// Non-active user session is stored (up to last 5 most recent entries) per
         /// VM and per user.
         /// </summary>
-        [JsonProperty(PropertyName = "logout_time")]
-        [NSXTProperty(IsRequired: false, Description: @"Logout time if applicable.  An active user session has no logout time.Non-active user session is stored (up to last 5 most recent entries) perVM and per user.")]
         public long? LogoutTime { get; set; }
         /// <summary>
         /// AD Domain of user.
         /// </summary>
         [JsonProperty(PropertyName = "domain_name", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"AD Domain of user.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string DomainName { get; set; }
     }
 }

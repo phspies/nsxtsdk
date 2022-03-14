@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,16 +17,11 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPathExpressionType : NSXTExpressionType
     {
-        public NSXTPathExpressionType()
-        {
-        }
         /// <summary>
         /// This array can consist of one or more policy paths. Only policy paths of groups, segments and policy logical ports are
         /// allowed.
         /// </summary>
         [JsonProperty(PropertyName = "paths", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"This array can consist of one or more policy paths. Only policy paths of groups, segments and policy logical ports are allowed.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<string> Paths { get; set; }
     }
 }

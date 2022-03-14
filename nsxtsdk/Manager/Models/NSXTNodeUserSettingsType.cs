@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,24 +17,16 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNodeUserSettingsType 
     {
-        public NSXTNodeUserSettingsType()
-        {
-            CliUsername = test
-        }
         /// <summary>
         /// To configure username, you must provide this property together with
         /// <b>cli_password</b>. Username must contain ASCII characters only.
         /// </summary>
-        [JsonProperty(PropertyName = "cli_username")]
-        [NSXTProperty(IsRequired: false, Description: @"To configure username, you must provide this property together with&lt;b&gt;cli_password&lt;/b&gt;. Username must contain ASCII characters only.")]
         public string? CliUsername { get; set; }
         /// <summary>
         /// The default username is "audit". To configure username, you must provide
         /// this property together with <b>audit_password</b>. Username must contain
         /// ASCII characters only.
         /// </summary>
-        [JsonProperty(PropertyName = "audit_username")]
-        [NSXTProperty(IsRequired: false, Description: @"The default username is &quot;audit&quot;. To configure username, you must providethis property together with &lt;b&gt;audit_password&lt;/b&gt;. Username must containASCII characters only.")]
         public string? AuditUsername { get; set; }
         /// <summary>
         /// Password for the node root user. For deployment,
@@ -45,8 +37,6 @@ namespace nsxtsdk.ManagerModels
         /// one special character (except quotes). Passwords based on dictionary words
         /// and palindromes are invalid.
         /// </summary>
-        [JsonProperty(PropertyName = "root_password")]
-        [NSXTProperty(IsRequired: false, Description: @"Password for the node root user. For deployment,this property is required. After deployment, this property is ignored, andthe node cli must be used to change the password.The password specified must be at least 12 characters in length and mustcontain at least one lowercase, one uppercase, one numeric character and one special character (except quotes). Passwords based on dictionary wordsand palindromes are invalid.")]
         public string? RootPassword { get; set; }
         /// <summary>
         /// Password for the node cli user. For deployment,
@@ -57,8 +47,6 @@ namespace nsxtsdk.ManagerModels
         /// one special character (except quotes). Passwords based on dictionary words
         /// and palindromes are invalid.
         /// </summary>
-        [JsonProperty(PropertyName = "cli_password")]
-        [NSXTProperty(IsRequired: false, Description: @"Password for the node cli user. For deployment,this property is required. After deployment, this property is ignored, andthe node cli must be used to change the password.The password specified must be at least 12 characters in length and mustcontain at least one lowercase, one uppercase, one numeric character andone special character (except quotes). Passwords based on dictionary wordsand palindromes are invalid.")]
         public string? CliPassword { get; set; }
         /// <summary>
         /// Password for the node audit user. For deployment,
@@ -69,8 +57,6 @@ namespace nsxtsdk.ManagerModels
         /// one special character (except quotes). Passwords based on dictionary words
         /// and palindromes are invalid.
         /// </summary>
-        [JsonProperty(PropertyName = "audit_password")]
-        [NSXTProperty(IsRequired: false, Description: @"Password for the node audit user. For deployment,this property is required. After deployment, this property is ignored, andthe node cli must be used to change the password.The password specified must be at least 12 characters in length and mustcontain at least one lowercase, one uppercase, one numeric character andone special character (except quotes). Passwords based on dictionary wordsand palindromes are invalid.")]
         public string? AuditPassword { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,35 +17,23 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Details about the AVI LB endpoint")]
     public class NSXTAviEndPointType 
     {
-        public NSXTAviEndPointType()
-        {
-            AviEndpointPort = test
-        }
         /// <summary>
         /// Username for AVI LB endpoint.
         /// </summary>
         [JsonProperty(PropertyName = "avi_endpoint_username", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Username for AVI LB endpoint.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string AviEndpointUsername { get; set; }
         /// <summary>
         /// AVI LB endpoint port.
         /// </summary>
-        [JsonProperty(PropertyName = "avi_endpoint_port")]
-        [NSXTProperty(IsRequired: false, Description: @"AVI LB endpoint port.")]
         public int? AviEndpointPort { get; set; }
         /// <summary>
         /// IP address of the AVI LB endpoint.
         /// </summary>
         [JsonProperty(PropertyName = "avi_endpoint_ip", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"IP address of the AVI LB endpoint.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string AviEndpointIp { get; set; }
         /// <summary>
         /// Password for AVI LB endpoint.
         /// </summary>
-        [JsonProperty(PropertyName = "avi_endpoint_password")]
-        [NSXTProperty(IsRequired: false, Description: @"Password for AVI LB endpoint.")]
         public string? AviEndpointPassword { get; set; }
     }
 }

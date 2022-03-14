@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,76 +17,49 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTServiceDeploymentType : NSXTManagedResourceType
     {
-        public NSXTServiceDeploymentType()
-        {
-            Perimeter = test
-            DeploymentMode = test
-            ClusteredDeploymentCount = test
-            DeploymentType = test
-        }
         /// <summary>
         /// This indicates the deployment perimeter, such as a VC cluster or a host.
         /// </summary>
-        [JsonProperty(PropertyName = "perimeter")]
-        [NSXTProperty(IsRequired: false, Description: @"This indicates the deployment perimeter, such as a VC cluster or a host.")]
         public NSXTServiceDeploymentPerimeterEnumType? Perimeter { get; set; }
         /// <summary>
         /// Name of the deployment spec to be used for deployment, which specifies the OVF provided by the partner and the form
         /// factor.
         /// </summary>
         [JsonProperty(PropertyName = "deployment_spec_name", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Name of the deployment spec to be used for deployment, which specifies the OVF provided by the partner and the form factor.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string DeploymentSpecName { get; set; }
         /// <summary>
         /// Mode of deployment. Currently, only stand alone deployment is supported. It is a single VM deployed through this
         /// deployment spec. In future, HA configurations will be supported here.
         /// </summary>
-        [JsonProperty(PropertyName = "deployment_mode")]
-        [NSXTProperty(IsRequired: false, Description: @"Mode of deployment. Currently, only stand alone deployment is supported. It is a single VM deployed through this deployment spec. In future, HA configurations will be supported here.")]
         public NSXTServiceDeploymentDeploymentModeEnumType? DeploymentMode { get; set; }
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty(PropertyName = "instance_deployment_template", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTDeploymentTemplateType InstanceDeploymentTemplate { get; set; }
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty(PropertyName = "service_deployment_config", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTServiceDeploymentConfigType ServiceDeploymentConfig { get; set; }
         /// <summary>
         /// The Service to which the service deployment is associated.
         /// </summary>
-        [JsonProperty(PropertyName = "service_id")]
-        [NSXTProperty(IsRequired: false, Description: @"The Service to which the service deployment is associated.")]
         public string? ServiceId { get; set; }
         /// <summary>
         /// Number of instances in case of clustered deployment.
         /// </summary>
-        [JsonProperty(PropertyName = "clustered_deployment_count")]
-        [NSXTProperty(IsRequired: false, Description: @"Number of instances in case of clustered deployment.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(10)]
         public long? ClusteredDeploymentCount { get; set; }
         /// <summary>
         /// List of resource references where service instance be deployed. Ex. Tier 0 Logical Router in case of N-S
         /// ServiceInsertion. Service Attachment in case of E-W ServiceInsertion.
         /// </summary>
-        [JsonProperty(PropertyName = "deployed_to")]
-        [NSXTProperty(IsRequired: false, Description: @"List of resource references where service instance be deployed. Ex. Tier 0 Logical Router in case of N-S ServiceInsertion. Service Attachment in case of E-W ServiceInsertion.")]
         public IList<NSXTResourceReferenceType> DeployedTo { get; set; }
         /// <summary>
         /// Specifies whether the service VM should be deployed on each host such that it provides partner service locally on the
         /// host, or whether the service VMs can be deployed as a cluster. If deployment_type is CLUSTERED, then the
         /// clustered_deployment_count should be provided.
         /// </summary>
-        [JsonProperty(PropertyName = "deployment_type")]
-        [NSXTProperty(IsRequired: false, Description: @"Specifies whether the service VM should be deployed on each host such that it provides partner service locally on the host, or whether the service VMs can be deployed as a cluster. If deployment_type is CLUSTERED, then the clustered_deployment_count should be provided.")]
         public NSXTServiceDeploymentDeploymentTypeEnumType? DeploymentType { get; set; }
     }
 }

@@ -21,16 +21,23 @@ namespace nsxtapi.PolicyModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public PolicyMetadataProxy(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public PolicyMetadataProxy(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyMetadataProxyStatusType ReadMetadataProxyStatus(string MetadataProxyId, string? EnforcementPointPath = null, string? SegmentPath = null, string? Source = null)
+        public async Task<NSXTPolicyMetadataProxyStatusType> ReadMetadataProxyStatus(string MetadataProxyId, string? EnforcementPointPath = null, string? SegmentPath = null, string? Source = null)
         {
             if (MetadataProxyId == null) { throw new System.ArgumentNullException("MetadataProxyId cannot be null"); }
             NSXTPolicyMetadataProxyStatusType returnValue = default(NSXTPolicyMetadataProxyStatusType);
@@ -46,31 +53,19 @@ namespace nsxtapi.PolicyModules
             if (SegmentPath != null) { request.AddQueryParameter("segment_path", SegmentPath.ToString()); }
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             request.Resource = ReadMetadataProxyStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyMetadataProxyStatusType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyMetadataProxyStatusType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadMetadataProxyStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyMetadataProxyStatusType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyMetadataProxyStatusType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyMetadataProxyStatisticsType GlobalGlobalInfraReadMetadataProxyStatistics(string MetadataProxyId, string? EnforcementPointPath = null, string? SegmentPath = null, string? Source = null)
+        public async Task<NSXTPolicyMetadataProxyStatisticsType> GlobalGlobalInfraReadMetadataProxyStatistics(string MetadataProxyId, string? EnforcementPointPath = null, string? SegmentPath = null, string? Source = null)
         {
             if (MetadataProxyId == null) { throw new System.ArgumentNullException("MetadataProxyId cannot be null"); }
             NSXTPolicyMetadataProxyStatisticsType returnValue = default(NSXTPolicyMetadataProxyStatisticsType);
@@ -86,31 +81,19 @@ namespace nsxtapi.PolicyModules
             if (SegmentPath != null) { request.AddQueryParameter("segment_path", SegmentPath.ToString()); }
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             request.Resource = GlobalInfraReadMetadataProxyStatisticsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyMetadataProxyStatisticsType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyMetadataProxyStatisticsType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraReadMetadataProxyStatisticsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyMetadataProxyStatisticsType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyMetadataProxyStatisticsType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyMetadataProxyStatusType GlobalGlobalInfraReadMetadataProxyStatus(string MetadataProxyId, string? EnforcementPointPath = null, string? SegmentPath = null, string? Source = null)
+        public async Task<NSXTPolicyMetadataProxyStatusType> GlobalGlobalInfraReadMetadataProxyStatus(string MetadataProxyId, string? EnforcementPointPath = null, string? SegmentPath = null, string? Source = null)
         {
             if (MetadataProxyId == null) { throw new System.ArgumentNullException("MetadataProxyId cannot be null"); }
             NSXTPolicyMetadataProxyStatusType returnValue = default(NSXTPolicyMetadataProxyStatusType);
@@ -126,31 +109,19 @@ namespace nsxtapi.PolicyModules
             if (SegmentPath != null) { request.AddQueryParameter("segment_path", SegmentPath.ToString()); }
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             request.Resource = GlobalInfraReadMetadataProxyStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyMetadataProxyStatusType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyMetadataProxyStatusType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraReadMetadataProxyStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyMetadataProxyStatusType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyMetadataProxyStatusType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTMetadataProxyConfigType UpdateMetadataProxyConfig(string MetadataProxyId, NSXTMetadataProxyConfigType MetadataProxyConfig)
+        public async Task<NSXTMetadataProxyConfigType> UpdateMetadataProxyConfig(string MetadataProxyId, NSXTMetadataProxyConfigType MetadataProxyConfig)
         {
             if (MetadataProxyId == null) { throw new System.ArgumentNullException("MetadataProxyId cannot be null"); }
             if (MetadataProxyConfig == null) { throw new System.ArgumentNullException("MetadataProxyConfig cannot be null"); }
@@ -165,31 +136,19 @@ namespace nsxtapi.PolicyModules
             UpdateMetadataProxyConfigServiceURL.Replace("{metadata-proxy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(MetadataProxyId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(MetadataProxyConfig, defaultSerializationSettings));
             request.Resource = UpdateMetadataProxyConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTMetadataProxyConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTMetadataProxyConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateMetadataProxyConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTMetadataProxyConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTMetadataProxyConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTMetadataProxyConfigType ReadMetadataProxyConfig(string MetadataProxyId)
+        public async Task<NSXTMetadataProxyConfigType> ReadMetadataProxyConfig(string MetadataProxyId)
         {
             if (MetadataProxyId == null) { throw new System.ArgumentNullException("MetadataProxyId cannot be null"); }
             NSXTMetadataProxyConfigType returnValue = default(NSXTMetadataProxyConfigType);
@@ -202,31 +161,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ReadMetadataProxyConfigServiceURL.Replace("{metadata-proxy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(MetadataProxyId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadMetadataProxyConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTMetadataProxyConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTMetadataProxyConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadMetadataProxyConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTMetadataProxyConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTMetadataProxyConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteMetadataProxyConfig(string MetadataProxyId)
+        public async Task DeleteMetadataProxyConfig(string MetadataProxyId)
         {
             if (MetadataProxyId == null) { throw new System.ArgumentNullException("MetadataProxyId cannot be null"); }
             
@@ -239,7 +186,7 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             DeleteMetadataProxyConfigServiceURL.Replace("{metadata-proxy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(MetadataProxyId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteMetadataProxyConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteMetadataProxyConfigServiceURL.ToString() + " did not complete successfull";
@@ -251,7 +198,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchMetadataProxyConfig(string MetadataProxyId, NSXTMetadataProxyConfigType MetadataProxyConfig)
+        public async Task PatchMetadataProxyConfig(string MetadataProxyId, NSXTMetadataProxyConfigType MetadataProxyConfig)
         {
             if (MetadataProxyId == null) { throw new System.ArgumentNullException("MetadataProxyId cannot be null"); }
             if (MetadataProxyConfig == null) { throw new System.ArgumentNullException("MetadataProxyConfig cannot be null"); }
@@ -266,7 +213,7 @@ namespace nsxtapi.PolicyModules
             PatchMetadataProxyConfigServiceURL.Replace("{metadata-proxy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(MetadataProxyId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(MetadataProxyConfig, defaultSerializationSettings));
             request.Resource = PatchMetadataProxyConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchMetadataProxyConfigServiceURL.ToString() + " did not complete successfull";
@@ -278,7 +225,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyMetadataProxyStatisticsType ReadMetadataProxyStatistics(string MetadataProxyId, string? EnforcementPointPath = null, string? SegmentPath = null, string? Source = null)
+        public async Task<NSXTPolicyMetadataProxyStatisticsType> ReadMetadataProxyStatistics(string MetadataProxyId, string? EnforcementPointPath = null, string? SegmentPath = null, string? Source = null)
         {
             if (MetadataProxyId == null) { throw new System.ArgumentNullException("MetadataProxyId cannot be null"); }
             NSXTPolicyMetadataProxyStatisticsType returnValue = default(NSXTPolicyMetadataProxyStatisticsType);
@@ -294,31 +241,19 @@ namespace nsxtapi.PolicyModules
             if (SegmentPath != null) { request.AddQueryParameter("segment_path", SegmentPath.ToString()); }
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             request.Resource = ReadMetadataProxyStatisticsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyMetadataProxyStatisticsType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyMetadataProxyStatisticsType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadMetadataProxyStatisticsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyMetadataProxyStatisticsType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyMetadataProxyStatisticsType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTMetadataProxyConfigListResultType ListMetadataProxyConfig(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTMetadataProxyConfigListResultType> ListMetadataProxyConfig(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTMetadataProxyConfigListResultType returnValue = default(NSXTMetadataProxyConfigListResultType);
             StringBuilder ListMetadataProxyConfigServiceURL = new StringBuilder("/infra/metadata-proxies");
@@ -335,25 +270,13 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListMetadataProxyConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTMetadataProxyConfigListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTMetadataProxyConfigListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListMetadataProxyConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTMetadataProxyConfigListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTMetadataProxyConfigListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

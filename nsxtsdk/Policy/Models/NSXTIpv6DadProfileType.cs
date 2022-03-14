@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,35 +17,19 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIpv6DadProfileType : NSXTPolicyConfigResourceType
     {
-        public NSXTIpv6DadProfileType()
-        {
-            WaitTime = test
-            NsRetries = test
-            DadMode = test
-        }
         /// <summary>
         /// The time duration in seconds, to wait for Neighbor advertisement
         /// after sending the Neighbor solicitation message.
         /// </summary>
-        [JsonProperty(PropertyName = "wait_time")]
-        [NSXTProperty(IsRequired: false, Description: @"The time duration in seconds, to wait for Neighbor advertisementafter sending the Neighbor solicitation message.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(60)]
         public long? WaitTime { get; set; }
         /// <summary>
         /// Number of Neighbor solicitation packets generated before completing the
         /// Duplicate address detection process.
         /// </summary>
-        [JsonProperty(PropertyName = "ns_retries")]
-        [NSXTProperty(IsRequired: false, Description: @"Number of Neighbor solicitation packets generated before completing theDuplicate address detection process.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(10)]
         public long? NsRetries { get; set; }
         /// <summary>
         /// DAD Mode
         /// </summary>
-        [JsonProperty(PropertyName = "dad_mode")]
-        [NSXTProperty(IsRequired: false, Description: @"DAD Mode")]
         public NSXTIpv6DadProfileDadModeEnumType? DadMode { get; set; }
     }
 }

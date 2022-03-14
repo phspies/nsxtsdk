@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTPrincipalIdentityWithCertificateType : NSXTPrincipalIdentityType
     {
-        public NSXTPrincipalIdentityWithCertificateType()
-        {
-        }
         /// <summary>
         /// PEM encoding of the new certificate.
         /// </summary>
         [JsonProperty(PropertyName = "certificate_pem", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"PEM encoding of the new certificate.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string CertificatePem { get; set; }
     }
 }

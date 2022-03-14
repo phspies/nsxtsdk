@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLbHttpRequestVersionConditionType : NSXTLbRuleConditionType
     {
-        public NSXTLbHttpRequestVersionConditionType()
-        {
-        }
         /// <summary>
         /// HTTP version
         /// </summary>
         [JsonProperty(PropertyName = "version", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"HTTP version")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTLbHttpRequestVersionConditionVersionEnumType Version { get; set; }
     }
 }

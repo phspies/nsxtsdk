@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,50 +17,32 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNotificationWatcherType : NSXTManagedResourceType
     {
-        public NSXTNotificationWatcherType()
-        {
-            SendTimeout = test
-            MaxSendUriCount = test
-        }
         /// <summary>
         /// Optional description that can be associated with this NotificationWatcher.
         /// </summary>
-        [JsonProperty(PropertyName = "description")]
-        [NSXTProperty(IsRequired: false, Description: @"Optional description that can be associated with this NotificationWatcher.")]
         public string? Description { get; set; }
         /// <summary>
         /// Optional time duration (in seconds) to specify request timeout to notification watcher. If the send reaches the timeout,
         /// will try to send refresh_needed as true in the next time interval. The default value is 30 seconds.
         /// </summary>
-        [JsonProperty(PropertyName = "send_timeout")]
-        [NSXTProperty(IsRequired: false, Description: @"Optional time duration (in seconds) to specify request timeout to notification watcher. If the send reaches the timeout, will try to send refresh_needed as true in the next time interval. The default value is 30 seconds.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
         public long? SendTimeout { get; set; }
         /// <summary>
         /// URI notification requests should be made on the specified server.
         /// </summary>
         [JsonProperty(PropertyName = "uri", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"URI notification requests should be made on the specified server.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Uri { get; set; }
         /// <summary>
         /// System generated identifier to identify a notification watcher uniquely.
         /// </summary>
-        [JsonProperty(PropertyName = "id")]
-        [NSXTProperty(IsRequired: false, Description: @"System generated identifier to identify a notification watcher uniquely.")]
         public string? Id { get; set; }
         /// <summary>
         /// Contains the hex-encoded SHA256 thumbprint of the HTTPS certificate. It must be specified if use_https is set to true.
         /// </summary>
-        [JsonProperty(PropertyName = "certificate_sha256_thumbprint")]
-        [NSXTProperty(IsRequired: false, Description: @"Contains the hex-encoded SHA256 thumbprint of the HTTPS certificate. It must be specified if use_https is set to true.")]
         public string? CertificateSha256Thumbprint { get; set; }
         /// <summary>
         /// Type of method notification requests should be made on the specified server. The value must be set to POST.
         /// </summary>
         [JsonProperty(PropertyName = "method", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Type of method notification requests should be made on the specified server. The value must be set to POST.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTNotificationWatcherMethodEnumType Method { get; set; }
         /// <summary>
         /// Optional time interval (in seconds) for which notification URIs will be accumulated. At the end of the time interval the
@@ -68,47 +50,30 @@ namespace nsxtsdk.ManagerModels
         /// notification requests as soon as possible. If it is not specified, the NotificationWatcher should expected to receive
         /// notifications at any time.
         /// </summary>
-        [JsonProperty(PropertyName = "send_interval")]
-        [NSXTProperty(IsRequired: false, Description: @"Optional time interval (in seconds) for which notification URIs will be accumulated. At the end of the time interval the accumulated notification URIs will be sent to this NotificationWatcher in the form of zero (nothing accumulated) or more notification requests as soon as possible. If it is not specified, the NotificationWatcher should expected to receive notifications at any time.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(30)]
         public long? SendInterval { get; set; }
         /// <summary>
         /// If the number of notification URIs accumulated in specified send_interval exceeds max_send_uri_count, then multiple
         /// notification requests (each with max_send_uri_count or less number of notification URIs) will be sent to this
         /// NotificationWatcher. The default value is 5000.
         /// </summary>
-        [JsonProperty(PropertyName = "max_send_uri_count")]
-        [NSXTProperty(IsRequired: false, Description: @"If the number of notification URIs accumulated in specified send_interval exceeds max_send_uri_count, then multiple notification requests (each with max_send_uri_count or less number of notification URIs) will be sent to this NotificationWatcher. The default value is 5000.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(5000)]
         public long? MaxSendUriCount { get; set; }
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty(PropertyName = "authentication_scheme", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTNotificationAuthenticationSchemeType AuthenticationScheme { get; set; }
         /// <summary>
         /// IP address or fully qualified domain name of the partner/customer watcher.
         /// </summary>
         [JsonProperty(PropertyName = "server", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"IP address or fully qualified domain name of the partner/customer watcher.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Server { get; set; }
         /// <summary>
         /// Optional integer port value to specify a non-standard HTTP or HTTPS port.
         /// </summary>
-        [JsonProperty(PropertyName = "port")]
-        [NSXTProperty(IsRequired: false, Description: @"Optional integer port value to specify a non-standard HTTP or HTTPS port.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
         public long? Port { get; set; }
         /// <summary>
         /// Optional field, when set to true indicates REST API server should use HTTPS.
         /// </summary>
-        [JsonProperty(PropertyName = "use_https")]
-        [NSXTProperty(IsRequired: false, Description: @"Optional field, when set to true indicates REST API server should use HTTPS.")]
         public bool? UseHttps { get; set; }
     }
 }

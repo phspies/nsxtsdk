@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Contains a list of Advanced Load Balancer controller node VM deployment requests.")]
     public class NSXTAddALBControllerNodeVMInfoType 
     {
-        public NSXTAddALBControllerNodeVMInfoType()
-        {
-        }
         /// <summary>
         /// Advanced Load Balancer Controller deployment requests to be deployed by NSX.
         /// </summary>
         [JsonProperty(PropertyName = "deployment_requests", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Advanced Load Balancer Controller deployment requests to be deployed by NSX.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTALBControllerNodeVMDeploymentRequestType> DeploymentRequests { get; set; }
     }
 }

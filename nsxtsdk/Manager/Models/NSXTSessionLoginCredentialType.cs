@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,20 +17,13 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTSessionLoginCredentialType : NSXTLoginCredentialType
     {
-        public NSXTSessionLoginCredentialType()
-        {
-        }
         /// <summary>
         /// The session_id to login to server.
         /// </summary>
-        [JsonProperty(PropertyName = "session_id")]
-        [NSXTProperty(IsRequired: false, Description: @"The session_id to login to server.")]
         public string? SessionId { get; set; }
         /// <summary>
         /// Thumbprint of the login server.
         /// </summary>
-        [JsonProperty(PropertyName = "thumbprint")]
-        [NSXTProperty(IsRequired: false, Description: @"Thumbprint of the login server.")]
         public string? Thumbprint { get; set; }
     }
 }

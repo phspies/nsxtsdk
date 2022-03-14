@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,32 +17,21 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Restore step info")]
     public class NSXTRestoreStepType 
     {
-        public NSXTRestoreStepType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "status")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTPerStepRestoreStatusType Status { get; set; }
         /// <summary>
         /// Restore step number
         /// </summary>
-        [JsonProperty(PropertyName = "step_number")]
-        [NSXTProperty(IsRequired: false, Description: @"Restore step number")]
         public long? StepNumber { get; set; }
         /// <summary>
         /// Restore step description
         /// </summary>
-        [JsonProperty(PropertyName = "description")]
-        [NSXTProperty(IsRequired: false, Description: @"Restore step description")]
         public string? Description { get; set; }
         /// <summary>
         /// Restore step value
         /// </summary>
-        [JsonProperty(PropertyName = "value")]
-        [NSXTProperty(IsRequired: false, Description: @"Restore step value")]
         public string? Value { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,21 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"BPDU filter configuration")]
     public class NSXTBpduFilterType 
     {
-        public NSXTBpduFilterType()
-        {
-        }
         /// <summary>
         /// Pre-defined list of allowed MAC addresses to be excluded from BPDU filtering
         /// </summary>
-        [JsonProperty(PropertyName = "white_list")]
-        [NSXTProperty(IsRequired: false, Description: @"Pre-defined list of allowed MAC addresses to be excluded from BPDU filtering")]
         public IList<string> WhiteList { get; set; }
         /// <summary>
         /// Indicates whether BPDU filter is enabled
         /// </summary>
         [JsonProperty(PropertyName = "enabled", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Indicates whether BPDU filter is enabled")]
-        [System.ComponentModel.DataAnnotations.Required]
         public bool Enabled { get; set; }
     }
 }

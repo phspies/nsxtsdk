@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,26 +17,17 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Upgrade progress status")]
     public class NSXTUpgradeProgressStatusType 
     {
-        public NSXTUpgradeProgressStatusType()
-        {
-        }
         /// <summary>
         /// True if upgrade bundle is present
         /// </summary>
-        [JsonProperty(PropertyName = "upgrade_bundle_present")]
-        [NSXTProperty(IsRequired: false, Description: @"True if upgrade bundle is present")]
         public bool? UpgradeBundlePresent { get; set; }
         /// <summary>
         /// Status of last upgrade step
         /// </summary>
-        [JsonProperty(PropertyName = "last_upgrade_step_status")]
-        [NSXTProperty(IsRequired: false, Description: @"Status of last upgrade step")]
         public object? LastUpgradeStepStatus { get; set; }
         /// <summary>
         /// Meta info of upgrade
         /// </summary>
-        [JsonProperty(PropertyName = "upgrade_metadata")]
-        [NSXTProperty(IsRequired: false, Description: @"Meta info of upgrade")]
         public object? UpgradeMetadata { get; set; }
     }
 }

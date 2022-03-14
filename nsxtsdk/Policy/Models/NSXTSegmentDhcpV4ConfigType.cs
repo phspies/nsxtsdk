@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTSegmentDhcpV4ConfigType : NSXTSegmentDhcpConfigType
     {
-        public NSXTSegmentDhcpV4ConfigType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "options")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTDhcpV4OptionsType Options { get; set; }
     }
 }

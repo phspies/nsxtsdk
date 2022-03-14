@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -18,39 +18,26 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Attribute specific to a partner. There attributes are passed on to the partner appliance and is opaque to the NSX Manager. The Attributes used by the partner applicance.")]
     public class NSXTAttributeType 
     {
-        public NSXTAttributeType()
-        {
-        }
         /// <summary>
         /// Read only Attribute cannot be overdidden by service instance/deployment.
         /// </summary>
-        [JsonProperty(PropertyName = "read_only")]
-        [NSXTProperty(IsRequired: false, Description: @"Read only Attribute cannot be overdidden by service instance/deployment.")]
         public bool? ReadOnly { get; set; }
         /// <summary>
         /// Attribute Type can be of any of the allowed enum type.
         /// </summary>
-        [JsonProperty(PropertyName = "attribute_type")]
-        [NSXTProperty(IsRequired: false, Description: @"Attribute Type can be of any of the allowed enum type.")]
         public NSXTAttributeAttributeTypeEnumType? AttributeType { get; set; }
         /// <summary>
         /// Attribute display name string value.
         /// </summary>
-        [JsonProperty(PropertyName = "display_name")]
-        [NSXTProperty(IsRequired: false, Description: @"Attribute display name string value.")]
         public string? DisplayName { get; set; }
         /// <summary>
         /// Attribute value string value.
         /// </summary>
-        [JsonProperty(PropertyName = "value")]
-        [NSXTProperty(IsRequired: false, Description: @"Attribute value string value.")]
         public string? Value { get; set; }
         /// <summary>
         /// Attribute key string value.
         /// </summary>
         [JsonProperty(PropertyName = "key", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Attribute key string value.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Key { get; set; }
     }
 }

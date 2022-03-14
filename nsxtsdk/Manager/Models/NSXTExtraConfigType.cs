@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -22,15 +22,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Extra config is intended for supporting vendor specific configuration on thedata path, it can be set as key value string pairs on either logical switchor logical port.If it was set on logical switch, it will be inherited automatically by logicalports in it. Also logical port setting will override logical switch settingif specific key was dual set on both logical switch and logical port.")]
     public class NSXTExtraConfigType 
     {
-        public NSXTExtraConfigType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty(PropertyName = "config_pair", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTUnboundedKeyValuePairType ConfigPair { get; set; }
     }
 }

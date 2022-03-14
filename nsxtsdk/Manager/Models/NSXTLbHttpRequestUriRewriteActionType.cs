@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,22 +17,15 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLbHttpRequestUriRewriteActionType : NSXTLbRuleActionType
     {
-        public NSXTLbHttpRequestUriRewriteActionType()
-        {
-        }
         /// <summary>
         /// Query string of URI, typically contains key value pairs, for example:
         /// foo1=bar1&foo2=bar2
         /// </summary>
-        [JsonProperty(PropertyName = "uri_arguments")]
-        [NSXTProperty(IsRequired: false, Description: @"Query string of URI, typically contains key value pairs, for example:foo1=bar1&amp;foo2=bar2")]
         public string? UriArguments { get; set; }
         /// <summary>
         /// URI of HTTP request
         /// </summary>
         [JsonProperty(PropertyName = "uri", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"URI of HTTP request")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Uri { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,20 +17,13 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"The credentials to login into the host node")]
     public class NSXTHostNodeLoginCredentialType 
     {
-        public NSXTHostNodeLoginCredentialType()
-        {
-        }
         /// <summary>
         /// The username of the account on the host node
         /// </summary>
-        [JsonProperty(PropertyName = "username")]
-        [NSXTProperty(IsRequired: false, Description: @"The username of the account on the host node")]
         public string? Username { get; set; }
         /// <summary>
         /// The authentication password of the host node
         /// </summary>
-        [JsonProperty(PropertyName = "password")]
-        [NSXTProperty(IsRequired: false, Description: @"The authentication password of the host node")]
         public string? Password { get; set; }
         /// <summary>
         /// For ESXi hosts, the thumbprint of the ESXi management service.
@@ -38,8 +31,6 @@ namespace nsxtsdk.ManagerModels
         /// If thumbprint is not provided then connection to host may not
         /// be established and API call will fail.
         /// </summary>
-        [JsonProperty(PropertyName = "thumbprint")]
-        [NSXTProperty(IsRequired: false, Description: @"For ESXi hosts, the thumbprint of the ESXi management service.For KVM hosts, the SSH key fingerprint.If thumbprint is not provided then connection to host may notbe established and API call will fail.")]
         public string? Thumbprint { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTTlsRuleType : NSXTBaseRuleType
     {
-        public NSXTTlsRuleType()
-        {
-        }
         /// <summary>
         /// TLS profile path.
         /// </summary>
         [JsonProperty(PropertyName = "tls_profile", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"TLS profile path.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string TlsProfile { get; set; }
     }
 }

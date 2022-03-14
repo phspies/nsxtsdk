@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public NodeAuthProviderVidm(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public NodeAuthProviderVidm(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNodeAuthProviderVidmPropertiesType UpdateAuthProviderVidm(NSXTNodeAuthProviderVidmPropertiesType NodeAuthProviderVidmProperties)
+        public async Task<NSXTNodeAuthProviderVidmPropertiesType> UpdateAuthProviderVidm(NSXTNodeAuthProviderVidmPropertiesType NodeAuthProviderVidmProperties)
         {
             if (NodeAuthProviderVidmProperties == null) { throw new System.ArgumentNullException("NodeAuthProviderVidmProperties cannot be null"); }
             NSXTNodeAuthProviderVidmPropertiesType returnValue = default(NSXTNodeAuthProviderVidmPropertiesType);
@@ -43,31 +50,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(NodeAuthProviderVidmProperties, defaultSerializationSettings));
             request.Resource = UpdateAuthProviderVidmServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNodeAuthProviderVidmPropertiesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNodeAuthProviderVidmPropertiesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateAuthProviderVidmServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNodeAuthProviderVidmPropertiesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNodeAuthProviderVidmPropertiesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNodeAuthProviderVidmPropertiesType ReadAuthProviderVidm()
+        public async Task<NSXTNodeAuthProviderVidmPropertiesType> ReadAuthProviderVidm()
         {
             NSXTNodeAuthProviderVidmPropertiesType returnValue = default(NSXTNodeAuthProviderVidmPropertiesType);
             StringBuilder ReadAuthProviderVidmServiceURL = new StringBuilder("/node/aaa/providers/vidm");
@@ -78,31 +73,19 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = ReadAuthProviderVidmServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNodeAuthProviderVidmPropertiesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNodeAuthProviderVidmPropertiesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadAuthProviderVidmServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNodeAuthProviderVidmPropertiesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNodeAuthProviderVidmPropertiesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNodeAuthProviderVidmStatusType ReadAuthProviderVidmStatus()
+        public async Task<NSXTNodeAuthProviderVidmStatusType> ReadAuthProviderVidmStatus()
         {
             NSXTNodeAuthProviderVidmStatusType returnValue = default(NSXTNodeAuthProviderVidmStatusType);
             StringBuilder ReadAuthProviderVidmStatusServiceURL = new StringBuilder("/node/aaa/providers/vidm/status");
@@ -113,25 +96,13 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = ReadAuthProviderVidmStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNodeAuthProviderVidmStatusType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNodeAuthProviderVidmStatusType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadAuthProviderVidmStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNodeAuthProviderVidmStatusType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNodeAuthProviderVidmStatusType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

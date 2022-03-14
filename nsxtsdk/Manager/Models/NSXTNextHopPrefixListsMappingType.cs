@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,22 +17,15 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Next hop to prefix lists mapping.")]
     public class NSXTNextHopPrefixListsMappingType 
     {
-        public NSXTNextHopPrefixListsMappingType()
-        {
-        }
         /// <summary>
         /// Array of Prefix list UUIDs.
         /// </summary>
         [JsonProperty(PropertyName = "prefix_lists", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Array of Prefix list UUIDs.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<string> PrefixLists { get; set; }
         /// <summary>
         /// Next hop address.
         /// </summary>
         [JsonProperty(PropertyName = "next_hop", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Next hop address.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string NextHop { get; set; }
     }
 }

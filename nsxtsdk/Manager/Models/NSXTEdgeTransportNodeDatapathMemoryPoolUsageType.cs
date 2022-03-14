@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,26 +17,17 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Datapath memory pool usage value.")]
     public class NSXTEdgeTransportNodeDatapathMemoryPoolUsageType 
     {
-        public NSXTEdgeTransportNodeDatapathMemoryPoolUsageType()
-        {
-        }
         /// <summary>
         /// Percentage of memory pool in use.
         /// </summary>
-        [JsonProperty(PropertyName = "usage")]
-        [NSXTProperty(IsRequired: false, Description: @"Percentage of memory pool in use.")]
         public double? Usage { get; set; }
         /// <summary>
         /// Name of the datapath memory pool as available on edge node CLI.
         /// </summary>
-        [JsonProperty(PropertyName = "name")]
-        [NSXTProperty(IsRequired: false, Description: @"Name of the datapath memory pool as available on edge node CLI.")]
         public string? Name { get; set; }
         /// <summary>
         /// Description of the memory pool.
         /// </summary>
-        [JsonProperty(PropertyName = "description")]
-        [NSXTProperty(IsRequired: false, Description: @"Description of the memory pool.")]
         public string? Description { get; set; }
     }
 }

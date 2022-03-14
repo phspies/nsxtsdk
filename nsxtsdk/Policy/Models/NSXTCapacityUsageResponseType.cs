@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,28 +17,19 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTCapacityUsageResponseType : NSXTManagedResourceType
     {
-        public NSXTCapacityUsageResponseType()
-        {
-        }
         /// <summary>
         /// List of capacity usage for NSX Objects
         /// </summary>
         [JsonProperty(PropertyName = "capacity_usage", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"List of capacity usage for NSX Objects")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTCapacityDashboardUsageType> CapacityUsage { get; set; }
         /// <summary>
         /// Meta data for capacity usage statistics
         /// </summary>
         [JsonProperty(PropertyName = "meta_info", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Meta data for capacity usage statistics")]
-        [System.ComponentModel.DataAnnotations.Required]
         public object MetaInfo { get; set; }
         /// <summary>
         /// Types for which usage data was not reported
         /// </summary>
-        [JsonProperty(PropertyName = "unreported_usage_types")]
-        [NSXTProperty(IsRequired: false, Description: @"Types for which usage data was not reported")]
         public IList<string> UnreportedUsageTypes { get; set; }
     }
 }

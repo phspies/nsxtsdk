@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public ApplianceStats(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public ApplianceStats(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNodeInterfacePropertiesListResultType ListClusterNodeInterfaces(string NodeId, string? Source = null)
+        public async Task<NSXTNodeInterfacePropertiesListResultType> ListClusterNodeInterfaces(string NodeId, string? Source = null)
         {
             if (NodeId == null) { throw new System.ArgumentNullException("NodeId cannot be null"); }
             NSXTNodeInterfacePropertiesListResultType returnValue = default(NSXTNodeInterfacePropertiesListResultType);
@@ -44,31 +51,19 @@ namespace nsxtapi.ManagerModules
             ListClusterNodeInterfacesServiceURL.Replace("{node-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NodeId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             request.Resource = ListClusterNodeInterfacesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNodeInterfacePropertiesListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNodeInterfacePropertiesListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListClusterNodeInterfacesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNodeInterfacePropertiesListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNodeInterfacePropertiesListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNodeInterfaceStatisticsPropertiesType ReadClusterNodeInterfaceStatistics(string NodeId, string InterfaceId, string? Source = null)
+        public async Task<NSXTNodeInterfaceStatisticsPropertiesType> ReadClusterNodeInterfaceStatistics(string NodeId, string InterfaceId, string? Source = null)
         {
             if (NodeId == null) { throw new System.ArgumentNullException("NodeId cannot be null"); }
             if (InterfaceId == null) { throw new System.ArgumentNullException("InterfaceId cannot be null"); }
@@ -84,31 +79,19 @@ namespace nsxtapi.ManagerModules
             ReadClusterNodeInterfaceStatisticsServiceURL.Replace("{interface-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(InterfaceId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             request.Resource = ReadClusterNodeInterfaceStatisticsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNodeInterfaceStatisticsPropertiesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNodeInterfaceStatisticsPropertiesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadClusterNodeInterfaceStatisticsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNodeInterfaceStatisticsPropertiesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNodeInterfaceStatisticsPropertiesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNodeInterfacePropertiesType ReadTransportNodeInterface(string TransportNodeId, string InterfaceId, string? Source = null)
+        public async Task<NSXTNodeInterfacePropertiesType> ReadTransportNodeInterface(string TransportNodeId, string InterfaceId, string? Source = null)
         {
             if (TransportNodeId == null) { throw new System.ArgumentNullException("TransportNodeId cannot be null"); }
             if (InterfaceId == null) { throw new System.ArgumentNullException("InterfaceId cannot be null"); }
@@ -124,31 +107,19 @@ namespace nsxtapi.ManagerModules
             ReadTransportNodeInterfaceServiceURL.Replace("{interface-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(InterfaceId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             request.Resource = ReadTransportNodeInterfaceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNodeInterfacePropertiesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNodeInterfacePropertiesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadTransportNodeInterfaceServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNodeInterfacePropertiesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNodeInterfacePropertiesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNodeInterfacePropertiesListResultType ListFabricNodeInterfaces(string NodeId, string? AdminStatus = null, string? Source = null)
+        public async Task<NSXTNodeInterfacePropertiesListResultType> ListFabricNodeInterfaces(string NodeId, string? AdminStatus = null, string? Source = null)
         {
             if (NodeId == null) { throw new System.ArgumentNullException("NodeId cannot be null"); }
             NSXTNodeInterfacePropertiesListResultType returnValue = default(NSXTNodeInterfacePropertiesListResultType);
@@ -163,31 +134,19 @@ namespace nsxtapi.ManagerModules
             if (AdminStatus != null) { request.AddQueryParameter("admin_status", AdminStatus.ToString()); }
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             request.Resource = ListFabricNodeInterfacesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNodeInterfacePropertiesListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNodeInterfacePropertiesListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListFabricNodeInterfacesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNodeInterfacePropertiesListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNodeInterfacePropertiesListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNodeInterfacePropertiesType ReadClusterNodeInterface(string NodeId, string InterfaceId, string? Source = null)
+        public async Task<NSXTNodeInterfacePropertiesType> ReadClusterNodeInterface(string NodeId, string InterfaceId, string? Source = null)
         {
             if (NodeId == null) { throw new System.ArgumentNullException("NodeId cannot be null"); }
             if (InterfaceId == null) { throw new System.ArgumentNullException("InterfaceId cannot be null"); }
@@ -203,31 +162,19 @@ namespace nsxtapi.ManagerModules
             ReadClusterNodeInterfaceServiceURL.Replace("{interface-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(InterfaceId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             request.Resource = ReadClusterNodeInterfaceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNodeInterfacePropertiesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNodeInterfacePropertiesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadClusterNodeInterfaceServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNodeInterfacePropertiesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNodeInterfacePropertiesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNodeInterfacePropertiesListResultType ListTransportNodeInterfaces(string TransportNodeId, string? AdminStatus = null, string? Source = null)
+        public async Task<NSXTNodeInterfacePropertiesListResultType> ListTransportNodeInterfaces(string TransportNodeId, string? AdminStatus = null, string? Source = null)
         {
             if (TransportNodeId == null) { throw new System.ArgumentNullException("TransportNodeId cannot be null"); }
             NSXTNodeInterfacePropertiesListResultType returnValue = default(NSXTNodeInterfacePropertiesListResultType);
@@ -242,31 +189,19 @@ namespace nsxtapi.ManagerModules
             if (AdminStatus != null) { request.AddQueryParameter("admin_status", AdminStatus.ToString()); }
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             request.Resource = ListTransportNodeInterfacesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNodeInterfacePropertiesListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNodeInterfacePropertiesListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListTransportNodeInterfacesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNodeInterfacePropertiesListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNodeInterfacePropertiesListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNodeInterfaceStatisticsPropertiesType ReadTransportNodeInterfaceStatistics(string TransportNodeId, string InterfaceId, string? Source = null)
+        public async Task<NSXTNodeInterfaceStatisticsPropertiesType> ReadTransportNodeInterfaceStatistics(string TransportNodeId, string InterfaceId, string? Source = null)
         {
             if (TransportNodeId == null) { throw new System.ArgumentNullException("TransportNodeId cannot be null"); }
             if (InterfaceId == null) { throw new System.ArgumentNullException("InterfaceId cannot be null"); }
@@ -282,25 +217,13 @@ namespace nsxtapi.ManagerModules
             ReadTransportNodeInterfaceStatisticsServiceURL.Replace("{interface-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(InterfaceId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             request.Resource = ReadTransportNodeInterfaceStatisticsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNodeInterfaceStatisticsPropertiesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNodeInterfaceStatisticsPropertiesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadTransportNodeInterfaceStatisticsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNodeInterfaceStatisticsPropertiesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNodeInterfaceStatisticsPropertiesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

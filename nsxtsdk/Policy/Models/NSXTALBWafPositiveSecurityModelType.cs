@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,9 +17,6 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer WafPositiveSecurityModel object")]
     public class NSXTALBWafPositiveSecurityModelType 
     {
-        public NSXTALBWafPositiveSecurityModelType()
-        {
-        }
         /// <summary>
         /// These groups should be used to separate different levels of
         /// concern.
@@ -29,8 +26,6 @@ namespace nsxtsdk.PolicyModels
         /// It is a reference to an object of type WafPolicyPSMGroup.
         /// Maximum of 64 items allowed.
         /// </summary>
-        [JsonProperty(PropertyName = "group_paths")]
-        [NSXTProperty(IsRequired: false, Description: @"These groups should be used to separate different levels ofconcern.The order of the groups matters, one group may mark partsof the request as valid, so that subsequent groups will notcheck these parts.It is a reference to an object of type WafPolicyPSMGroup.Maximum of 64 items allowed.")]
         public IList<string> GroupPaths { get; set; }
     }
 }

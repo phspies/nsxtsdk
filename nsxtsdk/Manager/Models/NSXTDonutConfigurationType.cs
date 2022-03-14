@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,40 +17,26 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTDonutConfigurationType : NSXTWidgetConfigurationType
     {
-        public NSXTDonutConfigurationType()
-        {
-            DisplayCount = test
-        }
         /// <summary>
         /// Expression to retrieve count to be shown on Donut.
         /// </summary>
-        [JsonProperty(PropertyName = "count")]
-        [NSXTProperty(IsRequired: false, Description: @"Expression to retrieve count to be shown on Donut.")]
         public string? Count { get; set; }
         /// <summary>
         /// Hyperlink of the specified UI page that provides details.
         /// </summary>
-        [JsonProperty(PropertyName = "navigation")]
-        [NSXTProperty(IsRequired: false, Description: @"Hyperlink of the specified UI page that provides details.")]
         public string? Navigation { get; set; }
         /// <summary>
         /// If true, displays the count of entities in the donut
         /// </summary>
-        [JsonProperty(PropertyName = "display_count")]
-        [NSXTProperty(IsRequired: false, Description: @"If true, displays the count of entities in the donut")]
         public bool? DisplayCount { get; set; }
         /// <summary>
         /// Sections
         /// </summary>
         [JsonProperty(PropertyName = "sections", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Sections")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTDonutSectionType> Sections { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "label")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTLabelType Label { get; set; }
     }
 }

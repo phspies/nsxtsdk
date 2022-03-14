@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLbVariablePersistenceLearnActionType : NSXTLbRuleActionType
     {
-        public NSXTLbVariablePersistenceLearnActionType()
-        {
-        }
         /// <summary>
         /// The property is used to enable a hash operation for variable value
         /// when composing the persistence key.
         /// </summary>
-        [JsonProperty(PropertyName = "variable_hash_enabled")]
-        [NSXTProperty(IsRequired: false, Description: @"The property is used to enable a hash operation for variable valuewhen composing the persistence key.")]
         public bool? VariableHashEnabled { get; set; }
         /// <summary>
         /// The property is the name of variable to be learnt. It is used to
@@ -36,16 +31,12 @@ namespace nsxtsdk.ManagerModels
         /// such as "article".
         /// </summary>
         [JsonProperty(PropertyName = "variable_name", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"The property is the name of variable to be learnt. It is used toidentify which variable&apos;s value is learnt from HTTP response.The variable can be a system embedded variable such as&quot;_cookie_JSESSIONID&quot;, a customized variable defined inLbVariableAssignmentAction or a captured variable in regular expressionsuch as &quot;article&quot;.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string VariableName { get; set; }
         /// <summary>
         /// If the persistence profile UUID is not specified, a default
         /// persistence table is created per virtual server. Currently, only
         /// LbGenericPersistenceProfile is supported.
         /// </summary>
-        [JsonProperty(PropertyName = "persistence_profile_id")]
-        [NSXTProperty(IsRequired: false, Description: @"If the persistence profile UUID is not specified, a defaultpersistence table is created per virtual server. Currently, onlyLbGenericPersistenceProfile is supported.")]
         public string? PersistenceProfileId { get; set; }
     }
 }

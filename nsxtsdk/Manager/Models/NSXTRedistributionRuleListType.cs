@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,21 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTRedistributionRuleListType : NSXTManagedResourceType
     {
-        public NSXTRedistributionRuleListType()
-        {
-        }
         /// <summary>
         /// List of redistribution rules.
         /// User needs to re-order rules to change the priority.
         /// </summary>
-        [JsonProperty(PropertyName = "rules")]
-        [NSXTProperty(IsRequired: false, Description: @"List of redistribution rules.User needs to re-order rules to change the priority.")]
         public IList<NSXTRedistributionRuleType> Rules { get; set; }
         /// <summary>
         /// Logical router id
         /// </summary>
-        [JsonProperty(PropertyName = "logical_router_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Logical router id")]
         public string? LogicalRouterId { get; set; }
     }
 }

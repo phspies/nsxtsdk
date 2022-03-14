@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,29 +17,18 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Match condition for client certficate subject DN")]
     public class NSXTLbClientCertificateSubjectDnConditionType 
     {
-        public NSXTLbClientCertificateSubjectDnConditionType()
-        {
-            CaseSensitive = test
-            MatchType = test
-        }
         /// <summary>
         /// If true, case is significant when comparing subject DN value.
         /// </summary>
-        [JsonProperty(PropertyName = "case_sensitive")]
-        [NSXTProperty(IsRequired: false, Description: @"If true, case is significant when comparing subject DN value.")]
         public bool? CaseSensitive { get; set; }
         /// <summary>
         /// Match type of subject DN
         /// </summary>
-        [JsonProperty(PropertyName = "match_type")]
-        [NSXTProperty(IsRequired: false, Description: @"Match type of subject DN")]
         public NSXTLbClientCertificateSubjectDnConditionMatchTypeEnumType? MatchType { get; set; }
         /// <summary>
         /// Value of subject DN
         /// </summary>
         [JsonProperty(PropertyName = "subject_dn", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Value of subject DN")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string SubjectDn { get; set; }
     }
 }

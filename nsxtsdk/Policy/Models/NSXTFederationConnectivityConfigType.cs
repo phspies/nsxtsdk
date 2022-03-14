@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Additional configuration required for federation.")]
     public class NSXTFederationConnectivityConfigType 
     {
-        public NSXTFederationConnectivityConfigType()
-        {
-        }
         /// <summary>
         /// Global id for by Layer3 services for federation usecases.
         /// </summary>
-        [JsonProperty(PropertyName = "global_overlay_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Global id for by Layer3 services for federation usecases.")]
         public long? GlobalOverlayId { get; set; }
     }
 }

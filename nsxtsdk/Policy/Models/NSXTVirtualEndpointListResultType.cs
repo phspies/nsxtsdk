@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTVirtualEndpointListResultType : NSXTListResultType
     {
-        public NSXTVirtualEndpointListResultType()
-        {
-        }
         /// <summary>
         /// All virtual endpoints under a Tier0
         /// </summary>
         [JsonProperty(PropertyName = "results", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"All virtual endpoints under a Tier0")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTVirtualEndpointType> Results { get; set; }
     }
 }

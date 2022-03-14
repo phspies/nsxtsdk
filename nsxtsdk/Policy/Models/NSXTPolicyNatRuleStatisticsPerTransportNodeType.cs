@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,20 +17,13 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyNatRuleStatisticsPerTransportNodeType : NSXTPolicyNATRuleCountersType
     {
-        public NSXTPolicyNatRuleStatisticsPerTransportNodeType()
-        {
-        }
         /// <summary>
         /// Timestamp when the data was last updated.
         /// </summary>
-        [JsonProperty(PropertyName = "last_update_timestamp")]
-        [NSXTProperty(IsRequired: false, Description: @"Timestamp when the data was last updated.")]
         public long? LastUpdateTimestamp { get; set; }
         /// <summary>
         /// Policy path of the Edge Node.
         /// </summary>
-        [JsonProperty(PropertyName = "transport_node_path")]
-        [NSXTProperty(IsRequired: false, Description: @"Policy path of the Edge Node.")]
         public string? TransportNodePath { get; set; }
     }
 }

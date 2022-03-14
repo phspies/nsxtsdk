@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,20 +17,13 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Port Connection Entity")]
     public class NSXTPortConnectionEntityType 
     {
-        public NSXTPortConnectionEntityType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "resource")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTManagedResourceType Resource { get; set; }
         /// <summary>
         /// Resource ID is mapped to this. (ID is Generated for Edge node groups, since resource will be null)
         /// </summary>
-        [JsonProperty(PropertyName = "id")]
-        [NSXTProperty(IsRequired: false, Description: @"Resource ID is mapped to this. (ID is Generated for Edge node groups, since resource will be null)")]
         public string? Id { get; set; }
     }
 }

@@ -21,16 +21,23 @@ namespace nsxtapi.PolicyModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public PolicyRealizedState(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public PolicyRealizedState(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTRealizedSecurityGroupListResultType ListSecurityGroupRealizedStates(string EnforcementPointName, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTRealizedSecurityGroupListResultType> ListSecurityGroupRealizedStates(string EnforcementPointName, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (EnforcementPointName == null) { throw new System.ArgumentNullException("EnforcementPointName cannot be null"); }
             NSXTRealizedSecurityGroupListResultType returnValue = default(NSXTRealizedSecurityGroupListResultType);
@@ -48,31 +55,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListSecurityGroupRealizedStatesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTRealizedSecurityGroupListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTRealizedSecurityGroupListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListSecurityGroupRealizedStatesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTRealizedSecurityGroupListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTRealizedSecurityGroupListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTRealizedFirewallSectionType ReadFirewallSectionRealizedState(string EnforcementPointName, string FirewallSectionId)
+        public async Task<NSXTRealizedFirewallSectionType> ReadFirewallSectionRealizedState(string EnforcementPointName, string FirewallSectionId)
         {
             if (EnforcementPointName == null) { throw new System.ArgumentNullException("EnforcementPointName cannot be null"); }
             if (FirewallSectionId == null) { throw new System.ArgumentNullException("FirewallSectionId cannot be null"); }
@@ -87,31 +82,19 @@ namespace nsxtapi.PolicyModules
             ReadFirewallSectionRealizedStateServiceURL.Replace("{enforcement-point-name}", System.Uri.EscapeDataString(Helpers.ConvertToString(EnforcementPointName, System.Globalization.CultureInfo.InvariantCulture)));
             ReadFirewallSectionRealizedStateServiceURL.Replace("{firewall-section-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FirewallSectionId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadFirewallSectionRealizedStateServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTRealizedFirewallSectionType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTRealizedFirewallSectionType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadFirewallSectionRealizedStateServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTRealizedFirewallSectionType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTRealizedFirewallSectionType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTGenericPolicyRealizedResourceListResultType ListNsgroupRealizedStates(string EnforcementPointName, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTGenericPolicyRealizedResourceListResultType> ListNsgroupRealizedStates(string EnforcementPointName, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (EnforcementPointName == null) { throw new System.ArgumentNullException("EnforcementPointName cannot be null"); }
             NSXTGenericPolicyRealizedResourceListResultType returnValue = default(NSXTGenericPolicyRealizedResourceListResultType);
@@ -129,31 +112,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListNsgroupRealizedStatesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTGenericPolicyRealizedResourceListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTGenericPolicyRealizedResourceListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListNsgroupRealizedStatesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTGenericPolicyRealizedResourceListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTGenericPolicyRealizedResourceListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTConsolidatedRealizedStatusType GlobalGlobalInfraReadIntentStatus(string IntentPath, bool? IncludeEnforcedStatus = null, string? SitePath = null)
+        public async Task<NSXTConsolidatedRealizedStatusType> GlobalGlobalInfraReadIntentStatus(string IntentPath, bool? IncludeEnforcedStatus = null, string? SitePath = null)
         {
             if (IntentPath == null) { throw new System.ArgumentNullException("IntentPath cannot be null"); }
             NSXTConsolidatedRealizedStatusType returnValue = default(NSXTConsolidatedRealizedStatusType);
@@ -168,31 +139,19 @@ namespace nsxtapi.PolicyModules
             if (IntentPath != null) { request.AddQueryParameter("intent_path", IntentPath.ToString()); }
             if (SitePath != null) { request.AddQueryParameter("site_path", SitePath.ToString()); }
             request.Resource = GlobalInfraReadIntentStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTConsolidatedRealizedStatusType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTConsolidatedRealizedStatusType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraReadIntentStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTConsolidatedRealizedStatusType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTConsolidatedRealizedStatusType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyAlarmResourceListResultType ListAlarms(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTPolicyAlarmResourceListResultType> ListAlarms(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTPolicyAlarmResourceListResultType returnValue = default(NSXTPolicyAlarmResourceListResultType);
             StringBuilder ListAlarmsServiceURL = new StringBuilder("/infra/realized-state/alarms");
@@ -208,31 +167,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListAlarmsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyAlarmResourceListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyAlarmResourceListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListAlarmsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyAlarmResourceListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyAlarmResourceListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTGenericPolicyRealizedResourceType ReadIpsetRealizedState(string EnforcementPointName, string IpSetName)
+        public async Task<NSXTGenericPolicyRealizedResourceType> ReadIpsetRealizedState(string EnforcementPointName, string IpSetName)
         {
             if (EnforcementPointName == null) { throw new System.ArgumentNullException("EnforcementPointName cannot be null"); }
             if (IpSetName == null) { throw new System.ArgumentNullException("IpSetName cannot be null"); }
@@ -247,31 +194,19 @@ namespace nsxtapi.PolicyModules
             ReadIpsetRealizedStateServiceURL.Replace("{enforcement-point-name}", System.Uri.EscapeDataString(Helpers.ConvertToString(EnforcementPointName, System.Globalization.CultureInfo.InvariantCulture)));
             ReadIpsetRealizedStateServiceURL.Replace("{ip-set-name}", System.Uri.EscapeDataString(Helpers.ConvertToString(IpSetName, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadIpsetRealizedStateServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTGenericPolicyRealizedResourceType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTGenericPolicyRealizedResourceType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadIpsetRealizedStateServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTGenericPolicyRealizedResourceType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTGenericPolicyRealizedResourceType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTGenericPolicyRealizedResourceType ReadNsgroupRealizedState(string EnforcementPointName, string NsgroupName)
+        public async Task<NSXTGenericPolicyRealizedResourceType> ReadNsgroupRealizedState(string EnforcementPointName, string NsgroupName)
         {
             if (EnforcementPointName == null) { throw new System.ArgumentNullException("EnforcementPointName cannot be null"); }
             if (NsgroupName == null) { throw new System.ArgumentNullException("NsgroupName cannot be null"); }
@@ -286,31 +221,19 @@ namespace nsxtapi.PolicyModules
             ReadNsgroupRealizedStateServiceURL.Replace("{enforcement-point-name}", System.Uri.EscapeDataString(Helpers.ConvertToString(EnforcementPointName, System.Globalization.CultureInfo.InvariantCulture)));
             ReadNsgroupRealizedStateServiceURL.Replace("{nsgroup-name}", System.Uri.EscapeDataString(Helpers.ConvertToString(NsgroupName, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadNsgroupRealizedStateServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTGenericPolicyRealizedResourceType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTGenericPolicyRealizedResourceType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadNsgroupRealizedStateServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTGenericPolicyRealizedResourceType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTGenericPolicyRealizedResourceType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTVirtualMachineListResultType ListSystemVms(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, string? Query = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTVirtualMachineListResultType> ListSystemVms(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, string? Query = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTVirtualMachineListResultType returnValue = default(NSXTVirtualMachineListResultType);
             StringBuilder ListSystemVmsServiceURL = new StringBuilder("/infra/realized-state/system-virtual-machines");
@@ -327,31 +250,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListSystemVmsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTVirtualMachineListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTVirtualMachineListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListSystemVmsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTVirtualMachineListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTVirtualMachineListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTGenericPolicyRealizedResourceType ReadNsserviceRealizedState(string EnforcementPointName, string NsserviceName)
+        public async Task<NSXTGenericPolicyRealizedResourceType> ReadNsserviceRealizedState(string EnforcementPointName, string NsserviceName)
         {
             if (EnforcementPointName == null) { throw new System.ArgumentNullException("EnforcementPointName cannot be null"); }
             if (NsserviceName == null) { throw new System.ArgumentNullException("NsserviceName cannot be null"); }
@@ -366,31 +277,19 @@ namespace nsxtapi.PolicyModules
             ReadNsserviceRealizedStateServiceURL.Replace("{enforcement-point-name}", System.Uri.EscapeDataString(Helpers.ConvertToString(EnforcementPointName, System.Globalization.CultureInfo.InvariantCulture)));
             ReadNsserviceRealizedStateServiceURL.Replace("{nsservice-name}", System.Uri.EscapeDataString(Helpers.ConvertToString(NsserviceName, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadNsserviceRealizedStateServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTGenericPolicyRealizedResourceType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTGenericPolicyRealizedResourceType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadNsserviceRealizedStateServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTGenericPolicyRealizedResourceType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTGenericPolicyRealizedResourceType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTConsolidatedRealizedStatusType ReadIntentStatus(string IntentPath, bool? IncludeEnforcedStatus = null, string? SitePath = null)
+        public async Task<NSXTConsolidatedRealizedStatusType> ReadIntentStatus(string IntentPath, bool? IncludeEnforcedStatus = null, string? SitePath = null)
         {
             if (IntentPath == null) { throw new System.ArgumentNullException("IntentPath cannot be null"); }
             NSXTConsolidatedRealizedStatusType returnValue = default(NSXTConsolidatedRealizedStatusType);
@@ -405,31 +304,19 @@ namespace nsxtapi.PolicyModules
             if (IntentPath != null) { request.AddQueryParameter("intent_path", IntentPath.ToString()); }
             if (SitePath != null) { request.AddQueryParameter("site_path", SitePath.ToString()); }
             request.Resource = ReadIntentStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTConsolidatedRealizedStatusType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTConsolidatedRealizedStatusType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadIntentStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTConsolidatedRealizedStatusType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTConsolidatedRealizedStatusType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTVirtualMachineListResultType ListAllUnAssociatedVirtualMachines(string? Cursor = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTVirtualMachineListResultType> ListAllUnAssociatedVirtualMachines(string? Cursor = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTVirtualMachineListResultType returnValue = default(NSXTVirtualMachineListResultType);
             StringBuilder ListAllUnAssociatedVirtualMachinesServiceURL = new StringBuilder("/infra/realized-state/unassociated-virtual-machines");
@@ -447,31 +334,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListAllUnAssociatedVirtualMachinesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTVirtualMachineListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTVirtualMachineListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListAllUnAssociatedVirtualMachinesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTVirtualMachineListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTVirtualMachineListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTRealizedFirewallSectionListResultType ListFirewallSectionRealizedStates(string EnforcementPointName, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTRealizedFirewallSectionListResultType> ListFirewallSectionRealizedStates(string EnforcementPointName, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (EnforcementPointName == null) { throw new System.ArgumentNullException("EnforcementPointName cannot be null"); }
             NSXTRealizedFirewallSectionListResultType returnValue = default(NSXTRealizedFirewallSectionListResultType);
@@ -489,31 +364,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListFirewallSectionRealizedStatesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTRealizedFirewallSectionListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTRealizedFirewallSectionListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListFirewallSectionRealizedStatesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTRealizedFirewallSectionListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTRealizedFirewallSectionListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTRealizedSecurityGroupType ReadSecurityGroupRealizedState(string EnforcementPointName, string SecuritygroupName)
+        public async Task<NSXTRealizedSecurityGroupType> ReadSecurityGroupRealizedState(string EnforcementPointName, string SecuritygroupName)
         {
             if (EnforcementPointName == null) { throw new System.ArgumentNullException("EnforcementPointName cannot be null"); }
             if (SecuritygroupName == null) { throw new System.ArgumentNullException("SecuritygroupName cannot be null"); }
@@ -528,31 +391,19 @@ namespace nsxtapi.PolicyModules
             ReadSecurityGroupRealizedStateServiceURL.Replace("{enforcement-point-name}", System.Uri.EscapeDataString(Helpers.ConvertToString(EnforcementPointName, System.Globalization.CultureInfo.InvariantCulture)));
             ReadSecurityGroupRealizedStateServiceURL.Replace("{securitygroup-name}", System.Uri.EscapeDataString(Helpers.ConvertToString(SecuritygroupName, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadSecurityGroupRealizedStateServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTRealizedSecurityGroupType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTRealizedSecurityGroupType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadSecurityGroupRealizedStateServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTRealizedSecurityGroupType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTRealizedSecurityGroupType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTRealizedEnforcementPointListResultType ListEnforcementPointRealizedStates(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTRealizedEnforcementPointListResultType> ListEnforcementPointRealizedStates(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTRealizedEnforcementPointListResultType returnValue = default(NSXTRealizedEnforcementPointListResultType);
             StringBuilder ListEnforcementPointRealizedStatesServiceURL = new StringBuilder("/infra/realized-state/enforcement-points");
@@ -568,31 +419,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListEnforcementPointRealizedStatesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTRealizedEnforcementPointListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTRealizedEnforcementPointListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListEnforcementPointRealizedStatesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTRealizedEnforcementPointListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTRealizedEnforcementPointListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTGenericPolicyRealizedResourceType ReadRealizedEntity(string RealizedPath)
+        public async Task<NSXTGenericPolicyRealizedResourceType> ReadRealizedEntity(string RealizedPath)
         {
             if (RealizedPath == null) { throw new System.ArgumentNullException("RealizedPath cannot be null"); }
             NSXTGenericPolicyRealizedResourceType returnValue = default(NSXTGenericPolicyRealizedResourceType);
@@ -605,31 +444,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             if (RealizedPath != null) { request.AddQueryParameter("realized_path", RealizedPath.ToString()); }
             request.Resource = ReadRealizedEntityServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTGenericPolicyRealizedResourceType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTGenericPolicyRealizedResourceType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadRealizedEntityServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTGenericPolicyRealizedResourceType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTGenericPolicyRealizedResourceType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTVirtualMachineDetailsType ReadVirtualMachineDetails(string EnforcementPointName, string VirtualMachineId)
+        public async Task<NSXTVirtualMachineDetailsType> ReadVirtualMachineDetails(string EnforcementPointName, string VirtualMachineId)
         {
             if (EnforcementPointName == null) { throw new System.ArgumentNullException("EnforcementPointName cannot be null"); }
             if (VirtualMachineId == null) { throw new System.ArgumentNullException("VirtualMachineId cannot be null"); }
@@ -644,31 +471,19 @@ namespace nsxtapi.PolicyModules
             ReadVirtualMachineDetailsServiceURL.Replace("{enforcement-point-name}", System.Uri.EscapeDataString(Helpers.ConvertToString(EnforcementPointName, System.Globalization.CultureInfo.InvariantCulture)));
             ReadVirtualMachineDetailsServiceURL.Replace("{virtual-machine-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(VirtualMachineId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadVirtualMachineDetailsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTVirtualMachineDetailsType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTVirtualMachineDetailsType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadVirtualMachineDetailsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTVirtualMachineDetailsType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTVirtualMachineDetailsType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTGenericPolicyRealizedResourceListResultType ListIpsetRealizedStates(string EnforcementPointName, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTGenericPolicyRealizedResourceListResultType> ListIpsetRealizedStates(string EnforcementPointName, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (EnforcementPointName == null) { throw new System.ArgumentNullException("EnforcementPointName cannot be null"); }
             NSXTGenericPolicyRealizedResourceListResultType returnValue = default(NSXTGenericPolicyRealizedResourceListResultType);
@@ -686,31 +501,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListIpsetRealizedStatesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTGenericPolicyRealizedResourceListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTGenericPolicyRealizedResourceListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListIpsetRealizedStatesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTGenericPolicyRealizedResourceListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTGenericPolicyRealizedResourceListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTRealizedEnforcementPointType ReadEnforcementPointRealizedState(string EnforcementPointName)
+        public async Task<NSXTRealizedEnforcementPointType> ReadEnforcementPointRealizedState(string EnforcementPointName)
         {
             if (EnforcementPointName == null) { throw new System.ArgumentNullException("EnforcementPointName cannot be null"); }
             NSXTRealizedEnforcementPointType returnValue = default(NSXTRealizedEnforcementPointType);
@@ -723,31 +526,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ReadEnforcementPointRealizedStateServiceURL.Replace("{enforcement-point-name}", System.Uri.EscapeDataString(Helpers.ConvertToString(EnforcementPointName, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadEnforcementPointRealizedStateServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTRealizedEnforcementPointType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTRealizedEnforcementPointType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadEnforcementPointRealizedStateServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTRealizedEnforcementPointType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTRealizedEnforcementPointType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GlobalGlobalInfraRefreshRealizedState(string IntentPath, string? EnforcementPointPath = null)
+        public async Task GlobalGlobalInfraRefreshRealizedState(string IntentPath, string? EnforcementPointPath = null)
         {
             if (IntentPath == null) { throw new System.ArgumentNullException("IntentPath cannot be null"); }
             
@@ -761,7 +552,7 @@ namespace nsxtapi.PolicyModules
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             if (IntentPath != null) { request.AddQueryParameter("intent_path", IntentPath.ToString()); }
             request.Resource = GlobalInfraRefreshRealizedStateServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + GlobalInfraRefreshRealizedStateServiceURL.ToString() + " did not complete successfull";
@@ -773,7 +564,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSearchResponseType ListVirtualMachinesOnEnforcementPoint(string EnforcementPointName, string? Cursor = null, string? Dsl = null, string? IncludedFields = null, long? PageSize = null, string? Query = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTSearchResponseType> ListVirtualMachinesOnEnforcementPoint(string EnforcementPointName, string? Cursor = null, string? Dsl = null, string? IncludedFields = null, long? PageSize = null, string? Query = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (EnforcementPointName == null) { throw new System.ArgumentNullException("EnforcementPointName cannot be null"); }
             NSXTSearchResponseType returnValue = default(NSXTSearchResponseType);
@@ -793,31 +584,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListVirtualMachinesOnEnforcementPointServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTSearchResponseType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTSearchResponseType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListVirtualMachinesOnEnforcementPointServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSearchResponseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSearchResponseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTVirtualMachineListResultType ListSystemExcludedVms(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, string? Query = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTVirtualMachineListResultType> ListSystemExcludedVms(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, string? Query = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTVirtualMachineListResultType returnValue = default(NSXTVirtualMachineListResultType);
             StringBuilder ListSystemExcludedVmsServiceURL = new StringBuilder("/infra/realized-state/system-excluded-virtual-machines");
@@ -834,31 +613,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListSystemExcludedVmsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTVirtualMachineListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTVirtualMachineListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListSystemExcludedVmsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTVirtualMachineListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTVirtualMachineListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void TagVirtualMachine(string EnforcementPointName, NSXTVirtualMachineTagsUpdateType VirtualMachineTagsUpdate)
+        public async Task TagVirtualMachine(string EnforcementPointName, NSXTVirtualMachineTagsUpdateType VirtualMachineTagsUpdate)
         {
             if (EnforcementPointName == null) { throw new System.ArgumentNullException("EnforcementPointName cannot be null"); }
             if (VirtualMachineTagsUpdate == null) { throw new System.ArgumentNullException("VirtualMachineTagsUpdate cannot be null"); }
@@ -873,7 +640,7 @@ namespace nsxtapi.PolicyModules
             TagVirtualMachineServiceURL.Replace("{enforcement-point-name}", System.Uri.EscapeDataString(Helpers.ConvertToString(EnforcementPointName, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(VirtualMachineTagsUpdate, defaultSerializationSettings));
             request.Resource = TagVirtualMachineServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + TagVirtualMachineServiceURL.ToString() + " did not complete successfull";
@@ -885,7 +652,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTGenericPolicyRealizedResourceListResultType ListMacsetRealizedStates(string EnforcementPointName, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTGenericPolicyRealizedResourceListResultType> ListMacsetRealizedStates(string EnforcementPointName, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (EnforcementPointName == null) { throw new System.ArgumentNullException("EnforcementPointName cannot be null"); }
             NSXTGenericPolicyRealizedResourceListResultType returnValue = default(NSXTGenericPolicyRealizedResourceListResultType);
@@ -903,31 +670,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListMacsetRealizedStatesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTGenericPolicyRealizedResourceListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTGenericPolicyRealizedResourceListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListMacsetRealizedStatesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTGenericPolicyRealizedResourceListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTGenericPolicyRealizedResourceListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTGenericPolicyRealizedResourceListResultType GlobalGlobalInfraListRealizedEntities(string IntentPath, string? SitePath = null)
+        public async Task<NSXTGenericPolicyRealizedResourceListResultType> GlobalGlobalInfraListRealizedEntities(string IntentPath, string? SitePath = null)
         {
             if (IntentPath == null) { throw new System.ArgumentNullException("IntentPath cannot be null"); }
             NSXTGenericPolicyRealizedResourceListResultType returnValue = default(NSXTGenericPolicyRealizedResourceListResultType);
@@ -941,31 +696,19 @@ namespace nsxtapi.PolicyModules
             if (IntentPath != null) { request.AddQueryParameter("intent_path", IntentPath.ToString()); }
             if (SitePath != null) { request.AddQueryParameter("site_path", SitePath.ToString()); }
             request.Resource = GlobalInfraListRealizedEntitiesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTGenericPolicyRealizedResourceListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTGenericPolicyRealizedResourceListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraListRealizedEntitiesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTGenericPolicyRealizedResourceListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTGenericPolicyRealizedResourceListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTVirtualNetworkInterfaceListResultType ListVifsOnEnforcementPoint(string EnforcementPointName, string? Cursor = null, string? IncludedFields = null, string? LportAttachmentId = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTVirtualNetworkInterfaceListResultType> ListVifsOnEnforcementPoint(string EnforcementPointName, string? Cursor = null, string? IncludedFields = null, string? LportAttachmentId = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (EnforcementPointName == null) { throw new System.ArgumentNullException("EnforcementPointName cannot be null"); }
             NSXTVirtualNetworkInterfaceListResultType returnValue = default(NSXTVirtualNetworkInterfaceListResultType);
@@ -984,31 +727,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListVifsOnEnforcementPointServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTVirtualNetworkInterfaceListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTVirtualNetworkInterfaceListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListVifsOnEnforcementPointServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTVirtualNetworkInterfaceListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTVirtualNetworkInterfaceListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTVirtualMachineListResultType ListAllVirtualMachines(string? Cursor = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTVirtualMachineListResultType> ListAllVirtualMachines(string? Cursor = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTVirtualMachineListResultType returnValue = default(NSXTVirtualMachineListResultType);
             StringBuilder ListAllVirtualMachinesServiceURL = new StringBuilder("/infra/realized-state/virtual-machines");
@@ -1026,31 +757,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListAllVirtualMachinesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTVirtualMachineListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTVirtualMachineListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListAllVirtualMachinesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTVirtualMachineListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTVirtualMachineListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTGenericPolicyRealizedResourceListResultType ListNsserviceRealizedStates(string EnforcementPointName, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTGenericPolicyRealizedResourceListResultType> ListNsserviceRealizedStates(string EnforcementPointName, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (EnforcementPointName == null) { throw new System.ArgumentNullException("EnforcementPointName cannot be null"); }
             NSXTGenericPolicyRealizedResourceListResultType returnValue = default(NSXTGenericPolicyRealizedResourceListResultType);
@@ -1068,31 +787,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListNsserviceRealizedStatesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTGenericPolicyRealizedResourceListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTGenericPolicyRealizedResourceListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListNsserviceRealizedStatesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTGenericPolicyRealizedResourceListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTGenericPolicyRealizedResourceListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void RefreshRealizedState(string IntentPath, string? EnforcementPointPath = null)
+        public async Task RefreshRealizedState(string IntentPath, string? EnforcementPointPath = null)
         {
             if (IntentPath == null) { throw new System.ArgumentNullException("IntentPath cannot be null"); }
             
@@ -1106,7 +813,7 @@ namespace nsxtapi.PolicyModules
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             if (IntentPath != null) { request.AddQueryParameter("intent_path", IntentPath.ToString()); }
             request.Resource = RefreshRealizedStateServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + RefreshRealizedStateServiceURL.ToString() + " did not complete successfull";
@@ -1118,7 +825,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTGenericPolicyRealizedResourceListResultType ListRealizedEntities(string IntentPath, string? SitePath = null)
+        public async Task<NSXTGenericPolicyRealizedResourceListResultType> ListRealizedEntities(string IntentPath, string? SitePath = null)
         {
             if (IntentPath == null) { throw new System.ArgumentNullException("IntentPath cannot be null"); }
             NSXTGenericPolicyRealizedResourceListResultType returnValue = default(NSXTGenericPolicyRealizedResourceListResultType);
@@ -1132,31 +839,19 @@ namespace nsxtapi.PolicyModules
             if (IntentPath != null) { request.AddQueryParameter("intent_path", IntentPath.ToString()); }
             if (SitePath != null) { request.AddQueryParameter("site_path", SitePath.ToString()); }
             request.Resource = ListRealizedEntitiesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTGenericPolicyRealizedResourceListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTGenericPolicyRealizedResourceListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListRealizedEntitiesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTGenericPolicyRealizedResourceListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTGenericPolicyRealizedResourceListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTGenericPolicyRealizedResourceType ReadMacsetRealizedState(string EnforcementPointName, string MacSetName)
+        public async Task<NSXTGenericPolicyRealizedResourceType> ReadMacsetRealizedState(string EnforcementPointName, string MacSetName)
         {
             if (EnforcementPointName == null) { throw new System.ArgumentNullException("EnforcementPointName cannot be null"); }
             if (MacSetName == null) { throw new System.ArgumentNullException("MacSetName cannot be null"); }
@@ -1171,25 +866,13 @@ namespace nsxtapi.PolicyModules
             ReadMacsetRealizedStateServiceURL.Replace("{enforcement-point-name}", System.Uri.EscapeDataString(Helpers.ConvertToString(EnforcementPointName, System.Globalization.CultureInfo.InvariantCulture)));
             ReadMacsetRealizedStateServiceURL.Replace("{mac-set-name}", System.Uri.EscapeDataString(Helpers.ConvertToString(MacSetName, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadMacsetRealizedStateServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTGenericPolicyRealizedResourceType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTGenericPolicyRealizedResourceType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadMacsetRealizedStateServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTGenericPolicyRealizedResourceType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTGenericPolicyRealizedResourceType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,20 +17,13 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Pre/post-upgrade check failure message")]
     public class NSXTUpgradeCheckFailureMessageType 
     {
-        public NSXTUpgradeCheckFailureMessageType()
-        {
-        }
         /// <summary>
         /// Error/warning message
         /// </summary>
-        [JsonProperty(PropertyName = "message")]
-        [NSXTProperty(IsRequired: false, Description: @"Error/warning message")]
         public string? Message { get; set; }
         /// <summary>
         /// Error code for the error/warning
         /// </summary>
-        [JsonProperty(PropertyName = "error_code")]
-        [NSXTProperty(IsRequired: false, Description: @"Error code for the error/warning")]
         public long? ErrorCode { get; set; }
     }
 }

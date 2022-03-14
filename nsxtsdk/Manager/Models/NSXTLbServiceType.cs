@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,31 +17,19 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLbServiceType : NSXTManagedResourceType
     {
-        public NSXTLbServiceType()
-        {
-            ErrorLogLevel = test
-            Enabled = test
-            Size = test
-        }
         /// <summary>
         /// Whether access log is enabled
         /// </summary>
-        [JsonProperty(PropertyName = "access_log_enabled")]
-        [NSXTProperty(IsRequired: false, Description: @"Whether access log is enabled")]
         public bool? AccessLogEnabled { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "attachment")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTResourceReferenceType Attachment { get; set; }
         /// <summary>
         /// Load balancer engine writes information about encountered issues of
         /// different severity levels to the error log. This setting is used to
         /// define the severity level of the error log.
         /// </summary>
-        [JsonProperty(PropertyName = "error_log_level")]
-        [NSXTProperty(IsRequired: false, Description: @"Load balancer engine writes information about encountered issues ofdifferent severity levels to the error log. This setting is used todefine the severity level of the error log.")]
         public NSXTLbServiceErrorLogLevelEnumType? ErrorLogLevel { get; set; }
         /// <summary>
         /// virtual servers can be associated to LbService(which is
@@ -50,8 +38,6 @@ namespace nsxtsdk.ManagerModels
         /// server identifier list here would be used to maintain the relationship of
         /// LbService and other Lb entities.
         /// </summary>
-        [JsonProperty(PropertyName = "virtual_server_ids")]
-        [NSXTProperty(IsRequired: false, Description: @"virtual servers can be associated to LbService(which issimilar to physical/virtual load balancer), Lb virtual servers,pools and other entities could be defined independently, the virtualserver identifier list here would be used to maintain the relationship ofLbService and other Lb entities.")]
         public IList<string> VirtualServerIds { get; set; }
         /// <summary>
         /// If relax_scale_validation is true, the scale validations for virtual
@@ -69,20 +55,14 @@ namespace nsxtsdk.ManagerModels
         /// for load balancer service.
         /// The property is deprecated as NSX-T Load Balancer is deprecated.
         /// </summary>
-        [JsonProperty(PropertyName = "relax_scale_validation")]
-        [NSXTProperty(IsRequired: false, Description: @"If relax_scale_validation is true, the scale validations for virtualservers/pools/pool members/rules are relaxed for load balancer service.When load balancer service is deployed on edge nodes, the scale ofvirtual servers/pools/pool members for the load balancer service shouldnot exceed the scale number of the largest load balancer size whichcould be configured on a certain edge form factor. For example, thelargest load balancer size supported on a MEDIUM edge node is MEDIUM.So one SMALL load balancer deployed on MEDIUM edge nodes can supportthe scale number of MEDIUM load balancer. It is not recommended toenable active monitors if relax_scale_validation is true due toperformance consideration.If relax_scale_validation is false, scale numbers should be validatedfor load balancer service.The property is deprecated as NSX-T Load Balancer is deprecated.")]
         public bool? RelaxScaleValidation { get; set; }
         /// <summary>
         /// Whether the load balancer service is enabled
         /// </summary>
-        [JsonProperty(PropertyName = "enabled")]
-        [NSXTProperty(IsRequired: false, Description: @"Whether the load balancer service is enabled")]
         public bool? Enabled { get; set; }
         /// <summary>
         /// The size of load balancer service
         /// </summary>
-        [JsonProperty(PropertyName = "size")]
-        [NSXTProperty(IsRequired: false, Description: @"The size of load balancer service")]
         public NSXTLbServiceSizeEnumType? Size { get; set; }
     }
 }

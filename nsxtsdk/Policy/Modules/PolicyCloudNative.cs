@@ -21,16 +21,23 @@ namespace nsxtapi.PolicyModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public PolicyCloudNative(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public PolicyCloudNative(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTUploadBundleStatusType GetUploadBundleStatus(string SiteId, string BundleId)
+        public async Task<NSXTUploadBundleStatusType> GetUploadBundleStatus(string SiteId, string BundleId)
         {
             if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
             if (BundleId == null) { throw new System.ArgumentNullException("BundleId cannot be null"); }
@@ -45,31 +52,19 @@ namespace nsxtapi.PolicyModules
             GetUploadBundleStatusServiceURL.Replace("{site-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SiteId, System.Globalization.CultureInfo.InvariantCulture)));
             GetUploadBundleStatusServiceURL.Replace("{bundle-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(BundleId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetUploadBundleStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTUploadBundleStatusType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTUploadBundleStatusType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetUploadBundleStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTUploadBundleStatusType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTUploadBundleStatusType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDeploymentRegistryType UpdateDeploymentRegistry(string SiteId, NSXTDeploymentRegistryType DeploymentRegistry)
+        public async Task<NSXTDeploymentRegistryType> UpdateDeploymentRegistry(string SiteId, NSXTDeploymentRegistryType DeploymentRegistry)
         {
             if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
             if (DeploymentRegistry == null) { throw new System.ArgumentNullException("DeploymentRegistry cannot be null"); }
@@ -84,31 +79,19 @@ namespace nsxtapi.PolicyModules
             UpdateDeploymentRegistryServiceURL.Replace("{site-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SiteId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(DeploymentRegistry, defaultSerializationSettings));
             request.Resource = UpdateDeploymentRegistryServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDeploymentRegistryType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDeploymentRegistryType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateDeploymentRegistryServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDeploymentRegistryType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDeploymentRegistryType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDeploymentRegistryType GetDeploymentRegistry(string SiteId)
+        public async Task<NSXTDeploymentRegistryType> GetDeploymentRegistry(string SiteId)
         {
             if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
             NSXTDeploymentRegistryType returnValue = default(NSXTDeploymentRegistryType);
@@ -121,31 +104,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             GetDeploymentRegistryServiceURL.Replace("{site-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SiteId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetDeploymentRegistryServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDeploymentRegistryType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDeploymentRegistryType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetDeploymentRegistryServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDeploymentRegistryType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDeploymentRegistryType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTUploadBundleIdType UploadContainerTools(string SiteId, string File)
+        public async Task<NSXTUploadBundleIdType> UploadContainerTools(string SiteId, string File)
         {
             if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
             if (File == null) { throw new System.ArgumentNullException("File cannot be null"); }
@@ -160,31 +131,19 @@ namespace nsxtapi.PolicyModules
             UploadContainerToolsServiceURL.Replace("{site-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SiteId, System.Globalization.CultureInfo.InvariantCulture)));
             
             request.Resource = UploadContainerToolsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTUploadBundleIdType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTUploadBundleIdType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + UploadContainerToolsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTUploadBundleIdType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTUploadBundleIdType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTUploadBundleIdType UploadContainerToolsFromRemoteServer(string SiteId, NSXTUploadBundleRemoteServerType UploadBundleRemoteServer)
+        public async Task<NSXTUploadBundleIdType> UploadContainerToolsFromRemoteServer(string SiteId, NSXTUploadBundleRemoteServerType UploadBundleRemoteServer)
         {
             if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
             if (UploadBundleRemoteServer == null) { throw new System.ArgumentNullException("UploadBundleRemoteServer cannot be null"); }
@@ -199,31 +158,19 @@ namespace nsxtapi.PolicyModules
             UploadContainerToolsFromRemoteServerServiceURL.Replace("{site-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SiteId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(UploadBundleRemoteServer, defaultSerializationSettings));
             request.Resource = UploadContainerToolsFromRemoteServerServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTUploadBundleIdType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTUploadBundleIdType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + UploadContainerToolsFromRemoteServerServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTUploadBundleIdType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTUploadBundleIdType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTUploadBundleIdType UploadKubeconfig(string SiteId, string File)
+        public async Task<NSXTUploadBundleIdType> UploadKubeconfig(string SiteId, string File)
         {
             if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
             if (File == null) { throw new System.ArgumentNullException("File cannot be null"); }
@@ -238,31 +185,19 @@ namespace nsxtapi.PolicyModules
             UploadKubeconfigServiceURL.Replace("{site-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SiteId, System.Globalization.CultureInfo.InvariantCulture)));
             
             request.Resource = UploadKubeconfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTUploadBundleIdType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTUploadBundleIdType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + UploadKubeconfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTUploadBundleIdType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTUploadBundleIdType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTKubeconfigInfoType GetKubeconfigInfo(string SiteId)
+        public async Task<NSXTKubeconfigInfoType> GetKubeconfigInfo(string SiteId)
         {
             if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
             NSXTKubeconfigInfoType returnValue = default(NSXTKubeconfigInfoType);
@@ -275,31 +210,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             GetKubeconfigInfoServiceURL.Replace("{site-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SiteId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetKubeconfigInfoServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTKubeconfigInfoType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTKubeconfigInfoType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetKubeconfigInfoServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTKubeconfigInfoType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTKubeconfigInfoType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTKubernetesToolsInfoType GetKubernetesToolsInfo(string SiteId)
+        public async Task<NSXTKubernetesToolsInfoType> GetKubernetesToolsInfo(string SiteId)
         {
             if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
             NSXTKubernetesToolsInfoType returnValue = default(NSXTKubernetesToolsInfoType);
@@ -312,31 +235,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             GetKubernetesToolsInfoServiceURL.Replace("{site-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SiteId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetKubernetesToolsInfoServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTKubernetesToolsInfoType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTKubernetesToolsInfoType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetKubernetesToolsInfoServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTKubernetesToolsInfoType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTKubernetesToolsInfoType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDeploymentRegistryType ResetDeploymentRegistry(string SiteId)
+        public async Task<NSXTDeploymentRegistryType> ResetDeploymentRegistry(string SiteId)
         {
             if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
             NSXTDeploymentRegistryType returnValue = default(NSXTDeploymentRegistryType);
@@ -349,31 +260,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ResetDeploymentRegistryServiceURL.Replace("{site-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SiteId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ResetDeploymentRegistryServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDeploymentRegistryType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDeploymentRegistryType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + ResetDeploymentRegistryServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDeploymentRegistryType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDeploymentRegistryType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTStorageClassesType GetStorageClasses(string SiteId)
+        public async Task<NSXTStorageClassesType> GetStorageClasses(string SiteId)
         {
             if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
             NSXTStorageClassesType returnValue = default(NSXTStorageClassesType);
@@ -386,25 +285,13 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             GetStorageClassesServiceURL.Replace("{site-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SiteId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetStorageClassesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTStorageClassesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTStorageClassesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetStorageClassesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTStorageClassesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTStorageClassesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

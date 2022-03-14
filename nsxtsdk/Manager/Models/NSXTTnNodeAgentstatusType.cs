@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,22 +17,15 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTTnNodeAgentstatusType 
     {
-        public NSXTTnNodeAgentstatusType()
-        {
-        }
         /// <summary>
         /// Show the Node Agent connected VM vif status.
         /// </summary>
         [JsonProperty(PropertyName = "hyperbus_connection_status", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Show the Node Agent connected VM vif status.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTTnNodeAgentstatusHyperbusConnectionStatusEnumType HyperbusConnectionStatus { get; set; }
         /// <summary>
         /// Connected VM vif id.
         /// </summary>
         [JsonProperty(PropertyName = "vif_id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Connected VM vif id.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string VifId { get; set; }
     }
 }

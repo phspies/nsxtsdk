@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,46 +17,30 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTRedistributionRuleType 
     {
-        public NSXTRedistributionRuleType()
-        {
-            AddressFamily = test
-        }
         /// <summary>
         /// Array of redistribution protocols
         /// </summary>
         [JsonProperty(PropertyName = "sources", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Array of redistribution protocols")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<string> Sources { get; set; }
         /// <summary>
         /// RouteMap Id for the filter
         /// </summary>
-        [JsonProperty(PropertyName = "route_map_id")]
-        [NSXTProperty(IsRequired: false, Description: @"RouteMap Id for the filter")]
         public string? RouteMapId { get; set; }
         /// <summary>
         /// Address family for Route Redistribution
         /// </summary>
-        [JsonProperty(PropertyName = "address_family")]
-        [NSXTProperty(IsRequired: false, Description: @"Address family for Route Redistribution")]
         public NSXTRedistributionRuleAddressFamilyEnumType? AddressFamily { get; set; }
         /// <summary>
         /// Display name
         /// </summary>
-        [JsonProperty(PropertyName = "display_name")]
-        [NSXTProperty(IsRequired: false, Description: @"Display name")]
         public string? DisplayName { get; set; }
         /// <summary>
         /// Destination redistribution protocol
         /// </summary>
-        [JsonProperty(PropertyName = "destination")]
-        [NSXTProperty(IsRequired: false, Description: @"Destination redistribution protocol")]
         public NSXTRedistributionRuleDestinationEnumType? Destination { get; set; }
         /// <summary>
         /// Description
         /// </summary>
-        [JsonProperty(PropertyName = "description")]
-        [NSXTProperty(IsRequired: false, Description: @"Description")]
         public string? Description { get; set; }
     }
 }

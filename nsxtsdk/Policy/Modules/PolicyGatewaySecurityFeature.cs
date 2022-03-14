@@ -21,16 +21,23 @@ namespace nsxtapi.PolicyModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public PolicyGatewaySecurityFeature(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public PolicyGatewaySecurityFeature(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSecurityFeaturesType CreateOrUpdateSecurityFeature(string Tier1Id, NSXTSecurityFeaturesType SecurityFeatures)
+        public async Task<NSXTSecurityFeaturesType> CreateOrUpdateSecurityFeature(string Tier1Id, NSXTSecurityFeaturesType SecurityFeatures)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (SecurityFeatures == null) { throw new System.ArgumentNullException("SecurityFeatures cannot be null"); }
@@ -45,31 +52,19 @@ namespace nsxtapi.PolicyModules
             CreateOrUpdateSecurityFeatureServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(SecurityFeatures, defaultSerializationSettings));
             request.Resource = CreateOrUpdateSecurityFeatureServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTSecurityFeaturesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTSecurityFeaturesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateOrUpdateSecurityFeatureServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSecurityFeaturesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSecurityFeaturesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSecurityFeaturesType PatchSecurityFeature(string Tier1Id, NSXTSecurityFeaturesType SecurityFeatures)
+        public async Task<NSXTSecurityFeaturesType> PatchSecurityFeature(string Tier1Id, NSXTSecurityFeaturesType SecurityFeatures)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (SecurityFeatures == null) { throw new System.ArgumentNullException("SecurityFeatures cannot be null"); }
@@ -84,31 +79,19 @@ namespace nsxtapi.PolicyModules
             PatchSecurityFeatureServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(SecurityFeatures, defaultSerializationSettings));
             request.Resource = PatchSecurityFeatureServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTSecurityFeaturesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTSecurityFeaturesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchSecurityFeatureServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSecurityFeaturesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSecurityFeaturesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSecurityFeaturesType ReadSecurityFeature(string Tier1Id, string? Cursor = null, string? Feature = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTSecurityFeaturesType> ReadSecurityFeature(string Tier1Id, string? Cursor = null, string? Feature = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             NSXTSecurityFeaturesType returnValue = default(NSXTSecurityFeaturesType);
@@ -127,31 +110,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ReadSecurityFeatureServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTSecurityFeaturesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTSecurityFeaturesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadSecurityFeatureServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSecurityFeaturesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSecurityFeaturesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTier0SecurityFeaturesType CreateOrUpdateTier0SecurityFeature(string Tier0Id, NSXTTier0SecurityFeaturesType Tier0SecurityFeatures)
+        public async Task<NSXTTier0SecurityFeaturesType> CreateOrUpdateTier0SecurityFeature(string Tier0Id, NSXTTier0SecurityFeaturesType Tier0SecurityFeatures)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (Tier0SecurityFeatures == null) { throw new System.ArgumentNullException("Tier0SecurityFeatures cannot be null"); }
@@ -166,31 +137,19 @@ namespace nsxtapi.PolicyModules
             CreateOrUpdateTier0SecurityFeatureServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(Tier0SecurityFeatures, defaultSerializationSettings));
             request.Resource = CreateOrUpdateTier0SecurityFeatureServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTier0SecurityFeaturesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTier0SecurityFeaturesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateOrUpdateTier0SecurityFeatureServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTier0SecurityFeaturesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTier0SecurityFeaturesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTier0SecurityFeaturesType ReadTier0SecurityFeature(string Tier0Id, string? Cursor = null, string? Feature = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTTier0SecurityFeaturesType> ReadTier0SecurityFeature(string Tier0Id, string? Cursor = null, string? Feature = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             NSXTTier0SecurityFeaturesType returnValue = default(NSXTTier0SecurityFeaturesType);
@@ -209,31 +168,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ReadTier0SecurityFeatureServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTier0SecurityFeaturesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTier0SecurityFeaturesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadTier0SecurityFeatureServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTier0SecurityFeaturesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTier0SecurityFeaturesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteTier0SecurityFeature(string Tier0Id, string? Cursor = null, string? Feature = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task DeleteTier0SecurityFeature(string Tier0Id, string? Cursor = null, string? Feature = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             
@@ -252,7 +199,7 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = DeleteTier0SecurityFeatureServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteTier0SecurityFeatureServiceURL.ToString() + " did not complete successfull";
@@ -264,7 +211,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTier0SecurityFeaturesType PatchTier0SecurityFeature(string Tier0Id, NSXTTier0SecurityFeaturesType Tier0SecurityFeatures)
+        public async Task<NSXTTier0SecurityFeaturesType> PatchTier0SecurityFeature(string Tier0Id, NSXTTier0SecurityFeaturesType Tier0SecurityFeatures)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (Tier0SecurityFeatures == null) { throw new System.ArgumentNullException("Tier0SecurityFeatures cannot be null"); }
@@ -279,25 +226,13 @@ namespace nsxtapi.PolicyModules
             PatchTier0SecurityFeatureServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(Tier0SecurityFeatures, defaultSerializationSettings));
             request.Resource = PatchTier0SecurityFeatureServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTier0SecurityFeaturesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTier0SecurityFeaturesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchTier0SecurityFeatureServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTier0SecurityFeaturesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTier0SecurityFeaturesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,36 +17,23 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLbHttpResponseHeaderConditionType : NSXTLbRuleConditionType
     {
-        public NSXTLbHttpResponseHeaderConditionType()
-        {
-            CaseSensitive = test
-            MatchType = test
-        }
         /// <summary>
         /// Value of HTTP header field
         /// </summary>
         [JsonProperty(PropertyName = "header_value", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Value of HTTP header field")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string HeaderValue { get; set; }
         /// <summary>
         /// If true, case is significant when comparing HTTP header value.
         /// </summary>
-        [JsonProperty(PropertyName = "case_sensitive")]
-        [NSXTProperty(IsRequired: false, Description: @"If true, case is significant when comparing HTTP header value.")]
         public bool? CaseSensitive { get; set; }
         /// <summary>
         /// Match type of HTTP header value
         /// </summary>
-        [JsonProperty(PropertyName = "match_type")]
-        [NSXTProperty(IsRequired: false, Description: @"Match type of HTTP header value")]
         public NSXTLbHttpResponseHeaderConditionMatchTypeEnumType? MatchType { get; set; }
         /// <summary>
         /// Name of HTTP header field
         /// </summary>
         [JsonProperty(PropertyName = "header_name", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Name of HTTP header field")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string HeaderName { get; set; }
     }
 }

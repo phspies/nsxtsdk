@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,24 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTEndpointPolicyType : NSXTPolicyConfigResourceType
     {
-        public NSXTEndpointPolicyType()
-        {
-            SequenceNumber = test
-        }
         /// <summary>
         /// Endpoint Rules that are a part of this EndpointPolicy
         /// </summary>
-        [JsonProperty(PropertyName = "endpoint_rules")]
-        [NSXTProperty(IsRequired: false, Description: @"Endpoint Rules that are a part of this EndpointPolicy")]
         public IList<NSXTEndpointRuleType> EndpointRules { get; set; }
         /// <summary>
         /// This field is used to resolve conflicts between maps
         /// across domains.
         /// </summary>
-        [JsonProperty(PropertyName = "sequence_number")]
-        [NSXTProperty(IsRequired: false, Description: @"This field is used to resolve conflicts between mapsacross domains.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(499)]
         public int? SequenceNumber { get; set; }
     }
 }

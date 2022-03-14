@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,24 +17,17 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTALBCertificateManagementProfileType : NSXTPolicyConfigResourceType
     {
-        public NSXTALBCertificateManagementProfileType()
-        {
-        }
         /// <summary>
         /// Placeholder for description of property script_params of
         /// obj type CertificateManagementProfile field type str  type
         /// array.
         /// </summary>
-        [JsonProperty(PropertyName = "script_params")]
-        [NSXTProperty(IsRequired: false, Description: @"Placeholder for description of property script_params ofobj type CertificateManagementProfile field type str  typearray.")]
         public IList<NSXTALBCustomParamsType> ScriptParams { get; set; }
         /// <summary>
         /// List of labels to be used for granular RBAC.
         /// Allowed in Basic edition, Essentials edition, Enterprise
         /// edition.
         /// </summary>
-        [JsonProperty(PropertyName = "markers")]
-        [NSXTProperty(IsRequired: false, Description: @"List of labels to be used for granular RBAC.Allowed in Basic edition, Essentials edition, Enterpriseedition.")]
         public IList<NSXTALBRoleFilterMatchLabelType> Markers { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,22 +17,15 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLbHttpRequestHeaderType 
     {
-        public NSXTLbHttpRequestHeaderType()
-        {
-        }
         /// <summary>
         /// Value of HTTP request header
         /// </summary>
         [JsonProperty(PropertyName = "header_value", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Value of HTTP request header")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string HeaderValue { get; set; }
         /// <summary>
         /// Name of HTTP request header
         /// </summary>
         [JsonProperty(PropertyName = "header_name", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Name of HTTP request header")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string HeaderName { get; set; }
     }
 }

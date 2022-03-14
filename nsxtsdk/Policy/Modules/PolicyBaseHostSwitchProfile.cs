@@ -21,16 +21,23 @@ namespace nsxtapi.PolicyModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public PolicyBaseHostSwitchProfile(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public PolicyBaseHostSwitchProfile(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyHostSwitchProfilesListResultType ListPolicyHostSwitchProfiles(string? Cursor = null, string? DeploymentType = null, string? HostswitchProfileType = null, bool? IncludeMarkForDeleteObjects = null, bool? IncludeSystemOwned = null, string? IncludedFields = null, int? MaxActiveUplinkCount = null, string? NodeType = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? UplinkTeamingPolicyName = null)
+        public async Task<NSXTPolicyHostSwitchProfilesListResultType> ListPolicyHostSwitchProfiles(string? Cursor = null, string? DeploymentType = null, string? HostswitchProfileType = null, bool? IncludeMarkForDeleteObjects = null, bool? IncludeSystemOwned = null, string? IncludedFields = null, int? MaxActiveUplinkCount = null, string? NodeType = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? UplinkTeamingPolicyName = null)
         {
             NSXTPolicyHostSwitchProfilesListResultType returnValue = default(NSXTPolicyHostSwitchProfilesListResultType);
             StringBuilder ListPolicyHostSwitchProfilesServiceURL = new StringBuilder("/infra/host-switch-profiles");
@@ -53,31 +60,19 @@ namespace nsxtapi.PolicyModules
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             if (UplinkTeamingPolicyName != null) { request.AddQueryParameter("uplink_teaming_policy_name", UplinkTeamingPolicyName.ToString()); }
             request.Resource = ListPolicyHostSwitchProfilesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyHostSwitchProfilesListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyHostSwitchProfilesListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListPolicyHostSwitchProfilesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyHostSwitchProfilesListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyHostSwitchProfilesListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyBaseHostSwitchProfileType CreateOrUpdatePolicyHostSwitchProfile(string HostSwitchProfileId, NSXTPolicyBaseHostSwitchProfileType PolicyBaseHostSwitchProfile)
+        public async Task<NSXTPolicyBaseHostSwitchProfileType> CreateOrUpdatePolicyHostSwitchProfile(string HostSwitchProfileId, NSXTPolicyBaseHostSwitchProfileType PolicyBaseHostSwitchProfile)
         {
             if (HostSwitchProfileId == null) { throw new System.ArgumentNullException("HostSwitchProfileId cannot be null"); }
             if (PolicyBaseHostSwitchProfile == null) { throw new System.ArgumentNullException("PolicyBaseHostSwitchProfile cannot be null"); }
@@ -92,31 +87,19 @@ namespace nsxtapi.PolicyModules
             CreateOrUpdatePolicyHostSwitchProfileServiceURL.Replace("{host-switch-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(HostSwitchProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(PolicyBaseHostSwitchProfile, defaultSerializationSettings));
             request.Resource = CreateOrUpdatePolicyHostSwitchProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyBaseHostSwitchProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyBaseHostSwitchProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateOrUpdatePolicyHostSwitchProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyBaseHostSwitchProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyBaseHostSwitchProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyBaseHostSwitchProfileType PatchPolicyHostSwitchProfile(string HostSwitchProfileId, NSXTPolicyBaseHostSwitchProfileType PolicyBaseHostSwitchProfile)
+        public async Task<NSXTPolicyBaseHostSwitchProfileType> PatchPolicyHostSwitchProfile(string HostSwitchProfileId, NSXTPolicyBaseHostSwitchProfileType PolicyBaseHostSwitchProfile)
         {
             if (HostSwitchProfileId == null) { throw new System.ArgumentNullException("HostSwitchProfileId cannot be null"); }
             if (PolicyBaseHostSwitchProfile == null) { throw new System.ArgumentNullException("PolicyBaseHostSwitchProfile cannot be null"); }
@@ -131,31 +114,19 @@ namespace nsxtapi.PolicyModules
             PatchPolicyHostSwitchProfileServiceURL.Replace("{host-switch-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(HostSwitchProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(PolicyBaseHostSwitchProfile, defaultSerializationSettings));
             request.Resource = PatchPolicyHostSwitchProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyBaseHostSwitchProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyBaseHostSwitchProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchPolicyHostSwitchProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyBaseHostSwitchProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyBaseHostSwitchProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyBaseHostSwitchProfileType GetPolicyHostSwitchProfile(string HostSwitchProfileId)
+        public async Task<NSXTPolicyBaseHostSwitchProfileType> GetPolicyHostSwitchProfile(string HostSwitchProfileId)
         {
             if (HostSwitchProfileId == null) { throw new System.ArgumentNullException("HostSwitchProfileId cannot be null"); }
             NSXTPolicyBaseHostSwitchProfileType returnValue = default(NSXTPolicyBaseHostSwitchProfileType);
@@ -168,31 +139,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             GetPolicyHostSwitchProfileServiceURL.Replace("{host-switch-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(HostSwitchProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetPolicyHostSwitchProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyBaseHostSwitchProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyBaseHostSwitchProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetPolicyHostSwitchProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyBaseHostSwitchProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyBaseHostSwitchProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeletePolicyHostSwitchProfile(string HostSwitchProfileId)
+        public async Task DeletePolicyHostSwitchProfile(string HostSwitchProfileId)
         {
             if (HostSwitchProfileId == null) { throw new System.ArgumentNullException("HostSwitchProfileId cannot be null"); }
             
@@ -205,7 +164,7 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             DeletePolicyHostSwitchProfileServiceURL.Replace("{host-switch-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(HostSwitchProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeletePolicyHostSwitchProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeletePolicyHostSwitchProfileServiceURL.ToString() + " did not complete successfull";

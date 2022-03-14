@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,22 +17,15 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNSServiceType : NSXTManagedResourceType
     {
-        public NSXTNSServiceType()
-        {
-        }
         /// <summary>
         /// The default NSServices are created in the system by default. These NSServices
         /// can't be modified/deleted
         /// </summary>
-        [JsonProperty(PropertyName = "default_service")]
-        [NSXTProperty(IsRequired: false, Description: @"The default NSServices are created in the system by default. These NSServicescan&apos;t be modified/deleted")]
         public bool? DefaultService { get; set; }
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty(PropertyName = "nsservice_element", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTNSServiceElementType NsserviceElement { get; set; }
     }
 }

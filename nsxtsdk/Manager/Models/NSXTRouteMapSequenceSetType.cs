@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,16 +17,11 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTRouteMapSequenceSetType 
     {
-        public NSXTRouteMapSequenceSetType()
-        {
-        }
         /// <summary>
         /// For incoming and import route_maps on receiving both v6 global
         /// and v6 link-local address for the route, prefer to use the global
         /// address as the next hop. By default, it prefers the link-local next hop.
         /// </summary>
-        [JsonProperty(PropertyName = "prefer_global_v6_next_hop")]
-        [NSXTProperty(IsRequired: false, Description: @"For incoming and import route_maps on receiving both v6 globaland v6 link-local address for the route, prefer to use the globaladdress as the next hop. By default, it prefers the link-local next hop.")]
         public bool? PreferGlobalV6NextHop { get; set; }
         /// <summary>
         /// Local preference indicates the degree of preference for one BGP route
@@ -34,46 +29,28 @@ namespace nsxtsdk.ManagerModels
         /// value is preferred/selected. If local preference value is not specified
         /// then it will be considered as 100 by default.
         /// </summary>
-        [JsonProperty(PropertyName = "local_preference")]
-        [NSXTProperty(IsRequired: false, Description: @"Local preference indicates the degree of preference for one BGP routeover other BGP routes. The path/route with highest local preferencevalue is preferred/selected. If local preference value is not specifiedthen it will be considered as 100 by default.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(4294967295)]
         public long? LocalPreference { get; set; }
         /// <summary>
         /// Weight used to select certain path
         /// </summary>
-        [JsonProperty(PropertyName = "weight")]
-        [NSXTProperty(IsRequired: false, Description: @"Weight used to select certain path")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
         public int? Weight { get; set; }
         /// <summary>
         /// Set large BGP community, community value shoud be in aa:bb:nn format where aa, bb, nn are unsigned integers with range
         /// [1-4294967295].
         /// </summary>
-        [JsonProperty(PropertyName = "large_community")]
-        [NSXTProperty(IsRequired: false, Description: @"Set large BGP community, community value shoud be in aa:bb:nn format where aa, bb, nn are unsigned integers with range [1-4294967295].")]
         public string? LargeCommunity { get; set; }
         /// <summary>
         /// As Path Prepending to influence path selection
         /// </summary>
-        [JsonProperty(PropertyName = "as_path_prepend")]
-        [NSXTProperty(IsRequired: false, Description: @"As Path Prepending to influence path selection")]
         public string? AsPathPrepend { get; set; }
         /// <summary>
         /// Set normal BGP community either well-known community name or
         /// community value in aa:nn(2byte:2byte) format.
         /// </summary>
-        [JsonProperty(PropertyName = "community")]
-        [NSXTProperty(IsRequired: false, Description: @"Set normal BGP community either well-known community name orcommunity value in aa:nn(2byte:2byte) format.")]
         public string? Community { get; set; }
         /// <summary>
         /// Multi Exit Discriminator (MED)
         /// </summary>
-        [JsonProperty(PropertyName = "multi_exit_discriminator")]
-        [NSXTProperty(IsRequired: false, Description: @"Multi Exit Discriminator (MED)")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(4294967295)]
         public long? MultiExitDiscriminator { get; set; }
     }
 }

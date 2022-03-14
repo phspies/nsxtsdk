@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,43 +17,28 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTL3VpnContextType : NSXTPolicyConfigResourceType
     {
-        public NSXTL3VpnContextType()
-        {
-            IkeLogLevel = test
-            Enabled = test
-        }
         /// <summary>
         /// Log level for internet key exchange (IKE).
         /// </summary>
-        [JsonProperty(PropertyName = "ike_log_level")]
-        [NSXTProperty(IsRequired: false, Description: @"Log level for internet key exchange (IKE).")]
         public NSXTL3VpnContextIkeLogLevelEnumType? IkeLogLevel { get; set; }
         /// <summary>
         /// If true, enable L3Vpn Service for given tier-0. Enabling/disabling this
         /// service affects all L3Vpns under the given tier-0.
         /// </summary>
-        [JsonProperty(PropertyName = "enabled")]
-        [NSXTProperty(IsRequired: false, Description: @"If true, enable L3Vpn Service for given tier-0. Enabling/disabling thisservice affects all L3Vpns under the given tier-0.")]
         public bool? Enabled { get; set; }
         /// <summary>
         /// Bypass L3Vpn rules that will be shared across L3Vpns. Only Bypass action is
         /// supported on these L3Vpn rules.
         /// </summary>
-        [JsonProperty(PropertyName = "bypass_rules")]
-        [NSXTProperty(IsRequired: false, Description: @"Bypass L3Vpn rules that will be shared across L3Vpns. Only Bypass action issupported on these L3Vpn rules.")]
         public IList<NSXTL3VpnRuleType> BypassRules { get; set; }
         /// <summary>
         /// Local gateway IPv4 addresses available for configuration of each L3Vpn.
         /// </summary>
-        [JsonProperty(PropertyName = "available_local_addresses")]
-        [NSXTProperty(IsRequired: false, Description: @"Local gateway IPv4 addresses available for configuration of each L3Vpn.")]
         public IList<NSXTPolicyIPAddressInfoType> AvailableLocalAddresses { get; set; }
         /// <summary>
         /// Policy path referencing Label. A label is used as a mechanism to group
         /// route-based L3Vpns in order to apply edge firewall rules on members' VTIs.
         /// </summary>
-        [JsonProperty(PropertyName = "label")]
-        [NSXTProperty(IsRequired: false, Description: @"Policy path referencing Label. A label is used as a mechanism to grouproute-based L3Vpns in order to apply edge firewall rules on members&apos; VTIs.")]
         public string? Label { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Cluster Certificate ID")]
     public class NSXTClusterCertificateIdType 
     {
-        public NSXTClusterCertificateIdType()
-        {
-        }
         /// <summary>
         /// Certificate ID
         /// </summary>
         [JsonProperty(PropertyName = "certificate_id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Certificate ID")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string CertificateId { get; set; }
     }
 }

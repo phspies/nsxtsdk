@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,10 +17,6 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer WafRule object")]
     public class NSXTALBWafRuleType 
     {
-        public NSXTALBWafRuleType()
-        {
-            Enable = test
-        }
         /// <summary>
         /// Exclude list for the WAF rule.
         /// The fields in the exclude list entry are logically and'ed
@@ -29,22 +25,16 @@ namespace nsxtsdk.PolicyModels
         /// 'logical or' of them.
         /// Maximum of 64 items allowed.
         /// </summary>
-        [JsonProperty(PropertyName = "exclude_list")]
-        [NSXTProperty(IsRequired: false, Description: @"Exclude list for the WAF rule.The fields in the exclude list entry are logically and&apos;edto deduce the exclusion criteria.If there are multiple excludelist entries, it will be&apos;logical or&apos; of them.Maximum of 64 items allowed.")]
         public IList<NSXTALBWafExcludeListEntryType> ExcludeList { get; set; }
         /// <summary>
         /// Enable or disable WAF Rule Group.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as true.
         /// </summary>
-        [JsonProperty(PropertyName = "enable")]
-        [NSXTProperty(IsRequired: false, Description: @"Enable or disable WAF Rule Group.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
         public bool? Enable { get; set; }
         /// <summary>
         /// User-friendly optional name for a rule.
         /// </summary>
-        [JsonProperty(PropertyName = "name")]
-        [NSXTProperty(IsRequired: false, Description: @"User-friendly optional name for a rule.")]
         public string? Name { get; set; }
         /// <summary>
         /// Tags for WAF rule as per Modsec language.
@@ -53,15 +43,11 @@ namespace nsxtsdk.PolicyModels
         /// set by the user.
         /// Maximum of 64 items allowed.
         /// </summary>
-        [JsonProperty(PropertyName = "avi_tags")]
-        [NSXTProperty(IsRequired: false, Description: @"Tags for WAF rule as per Modsec language.They are extracted from the tag actions in a Modsec rule.This field is generated from the rule itself and cannot beset by the user.Maximum of 64 items allowed.")]
         public IList<string> AviTags { get; set; }
         /// <summary>
         /// Number of index.
         /// </summary>
         [JsonProperty(PropertyName = "index", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Number of index.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public long Index { get; set; }
         /// <summary>
         /// The execution phase where this rule will be executed.
@@ -70,16 +56,12 @@ namespace nsxtsdk.PolicyModels
         /// WAF_PHASE_RESPONSE_HEADER, WAF_PHASE_RESPONSE_BODY,
         /// WAF_PHASE_LOGGING.
         /// </summary>
-        [JsonProperty(PropertyName = "phase")]
-        [NSXTProperty(IsRequired: false, Description: @"The execution phase where this rule will be executed.Enum options - WAF_PHASE_CONNECTION,WAF_PHASE_REQUEST_HEADER, WAF_PHASE_REQUEST_BODY,WAF_PHASE_RESPONSE_HEADER, WAF_PHASE_RESPONSE_BODY,WAF_PHASE_LOGGING.")]
         public NSXTAlbwafRulePhaseEnumType? Phase { get; set; }
         /// <summary>
         /// The rule field is sensitive and will not be displayed.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as false.
         /// </summary>
-        [JsonProperty(PropertyName = "is_sensitive")]
-        [NSXTProperty(IsRequired: false, Description: @"The rule field is sensitive and will not be displayed.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
         public bool? IsSensitive { get; set; }
         /// <summary>
         /// Identifier (id) for a rule per Modsec language.
@@ -88,15 +70,11 @@ namespace nsxtsdk.PolicyModels
         /// Rules within a single WAF Policy are required to have
         /// unique rule_ids.
         /// </summary>
-        [JsonProperty(PropertyName = "rule_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Identifier (id) for a rule per Modsec language.All SecRule and SecAction directives require an id.It is extracted from the id action in a Modsec rule.Rules within a single WAF Policy are required to haveunique rule_ids.")]
         public string? RuleId { get; set; }
         /// <summary>
         /// Rule as per Modsec language.
         /// </summary>
         [JsonProperty(PropertyName = "rule", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Rule as per Modsec language.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Rule { get; set; }
         /// <summary>
         /// WAF Rule mode.
@@ -106,8 +84,6 @@ namespace nsxtsdk.PolicyModels
         /// Enum options - WAF_MODE_DETECTION_ONLY,
         /// WAF_MODE_ENFORCEMENT.
         /// </summary>
-        [JsonProperty(PropertyName = "mode")]
-        [NSXTProperty(IsRequired: false, Description: @"WAF Rule mode.This can be detection or enforcement.If this is not set, the Policy mode is used.This only takes effect if the policy allows delegation.Enum options - WAF_MODE_DETECTION_ONLY,WAF_MODE_ENFORCEMENT.")]
         public NSXTAlbwafRuleModeEnumType? Mode { get; set; }
     }
 }

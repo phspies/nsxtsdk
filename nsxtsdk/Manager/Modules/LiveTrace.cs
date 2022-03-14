@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public LiveTrace(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public LiveTrace(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GetReversePktCapFileProxy(string LivetraceSessionId)
+        public async Task GetReversePktCapFileProxy(string LivetraceSessionId)
         {
             if (LivetraceSessionId == null) { throw new System.ArgumentNullException("LivetraceSessionId cannot be null"); }
             
@@ -43,7 +50,7 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             GetReversePktCapFileProxyServiceURL.Replace("{livetrace-session-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LivetraceSessionId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetReversePktCapFileProxyServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetReversePktCapFileProxyServiceURL.ToString() + " did not complete successfull";
@@ -55,7 +62,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLiveTraceStatusType CreateLiveTrace(NSXTLiveTraceRequestType LiveTraceRequest)
+        public async Task<NSXTLiveTraceStatusType> CreateLiveTrace(NSXTLiveTraceRequestType LiveTraceRequest)
         {
             if (LiveTraceRequest == null) { throw new System.ArgumentNullException("LiveTraceRequest cannot be null"); }
             NSXTLiveTraceStatusType returnValue = default(NSXTLiveTraceStatusType);
@@ -68,31 +75,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(LiveTraceRequest, defaultSerializationSettings));
             request.Resource = CreateLiveTraceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLiveTraceStatusType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLiveTraceStatusType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CreateLiveTraceServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLiveTraceStatusType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLiveTraceStatusType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLiveTraceListResultType ListLiveTrace(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTLiveTraceListResultType> ListLiveTrace(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTLiveTraceListResultType returnValue = default(NSXTLiveTraceListResultType);
             StringBuilder ListLiveTraceServiceURL = new StringBuilder("/livetraces");
@@ -108,31 +103,19 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListLiveTraceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLiveTraceListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLiveTraceListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListLiveTraceServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLiveTraceListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLiveTraceListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GetForwardPktCapFileProxy(string LivetraceSessionId)
+        public async Task GetForwardPktCapFileProxy(string LivetraceSessionId)
         {
             if (LivetraceSessionId == null) { throw new System.ArgumentNullException("LivetraceSessionId cannot be null"); }
             
@@ -145,7 +128,7 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             GetForwardPktCapFileProxyServiceURL.Replace("{livetrace-session-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LivetraceSessionId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetForwardPktCapFileProxyServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetForwardPktCapFileProxyServiceURL.ToString() + " did not complete successfull";
@@ -157,7 +140,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLiveTraceStatusType GetLiveTraceStatus(string LivetraceSessionId)
+        public async Task<NSXTLiveTraceStatusType> GetLiveTraceStatus(string LivetraceSessionId)
         {
             if (LivetraceSessionId == null) { throw new System.ArgumentNullException("LivetraceSessionId cannot be null"); }
             NSXTLiveTraceStatusType returnValue = default(NSXTLiveTraceStatusType);
@@ -170,31 +153,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             GetLiveTraceStatusServiceURL.Replace("{livetrace-session-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LivetraceSessionId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetLiveTraceStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLiveTraceStatusType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLiveTraceStatusType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetLiveTraceStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLiveTraceStatusType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLiveTraceStatusType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteLiveTrace(string LivetraceSessionId)
+        public async Task DeleteLiveTrace(string LivetraceSessionId)
         {
             if (LivetraceSessionId == null) { throw new System.ArgumentNullException("LivetraceSessionId cannot be null"); }
             
@@ -207,7 +178,7 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             DeleteLiveTraceServiceURL.Replace("{livetrace-session-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LivetraceSessionId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteLiveTraceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteLiveTraceServiceURL.ToString() + " did not complete successfull";
@@ -219,7 +190,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLiveTraceResultType GetLiveTraceResult(string LivetraceSessionId, string? ActionType = null, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTLiveTraceResultType> GetLiveTraceResult(string LivetraceSessionId, string? ActionType = null, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (LivetraceSessionId == null) { throw new System.ArgumentNullException("LivetraceSessionId cannot be null"); }
             NSXTLiveTraceResultType returnValue = default(NSXTLiveTraceResultType);
@@ -238,25 +209,13 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GetLiveTraceResultServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLiveTraceResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLiveTraceResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetLiveTraceResultServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLiveTraceResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLiveTraceResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

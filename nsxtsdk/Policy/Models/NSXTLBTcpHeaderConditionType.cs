@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLBTcpHeaderConditionType : NSXTLBRuleConditionType
     {
-        public NSXTLBTcpHeaderConditionType()
-        {
-        }
         /// <summary>
         /// TCP source port of HTTP message
         /// </summary>
         [JsonProperty(PropertyName = "source_port", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"TCP source port of HTTP message")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string SourcePort { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -18,15 +18,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"All the filtering criteria objects extend from this abstract class.This is present for extensibility.")]
     public class NSXTIdsProfileCriteriaType 
     {
-        public NSXTIdsProfileCriteriaType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty(PropertyName = "resource_type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTIdsProfileCriteriaResourceTypeEnumType ResourceType { get; set; }
     }
 }

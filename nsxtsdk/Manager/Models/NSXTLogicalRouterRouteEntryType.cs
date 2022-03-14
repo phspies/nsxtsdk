@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,52 +17,35 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLogicalRouterRouteEntryType 
     {
-        public NSXTLogicalRouterRouteEntryType()
-        {
-        }
         /// <summary>
         /// Logical router component(Service Router/Distributed Router) id
         /// </summary>
-        [JsonProperty(PropertyName = "lr_component_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Logical router component(Service Router/Distributed Router) id")]
         public string? LrComponentId { get; set; }
         /// <summary>
         /// The IP address of the next hop
         /// </summary>
-        [JsonProperty(PropertyName = "next_hop")]
-        [NSXTProperty(IsRequired: false, Description: @"The IP address of the next hop")]
         public string? NextHop { get; set; }
         /// <summary>
         /// Logical router component(Service Router/Distributed Router) type
         /// </summary>
-        [JsonProperty(PropertyName = "lr_component_type")]
-        [NSXTProperty(IsRequired: false, Description: @"Logical router component(Service Router/Distributed Router) type")]
         public string? LrComponentType { get; set; }
         /// <summary>
         /// CIDR network address
         /// </summary>
         [JsonProperty(PropertyName = "network", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"CIDR network address")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Network { get; set; }
         /// <summary>
         /// Route type (USER, CONNECTED, NSX_INTERNAL,..)
         /// </summary>
         [JsonProperty(PropertyName = "route_type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Route type (USER, CONNECTED, NSX_INTERNAL,..)")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string RouteType { get; set; }
         /// <summary>
         /// The id of the logical router port which is used as the next hop
         /// </summary>
-        [JsonProperty(PropertyName = "logical_router_port_id")]
-        [NSXTProperty(IsRequired: false, Description: @"The id of the logical router port which is used as the next hop")]
         public string? LogicalRouterPortId { get; set; }
         /// <summary>
         /// The admin distance of the next hop
         /// </summary>
-        [JsonProperty(PropertyName = "admin_distance")]
-        [NSXTProperty(IsRequired: false, Description: @"The admin distance of the next hop")]
         public long? AdminDistance { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -240,23 +240,16 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildPolicyConfigResourceType : NSXTManagedResourceType
     {
-        public NSXTChildPolicyConfigResourceType()
-        {
-        }
         /// <summary>
         /// Indicates whether this object is the overridden intent object Global intent objects cannot be modified by the user.
         /// However, certain global intent objects can be overridden locally by use of this property. In such cases, the overridden
         /// local values take precedence over the globally defined values for the properties.
         /// </summary>
-        [JsonProperty(PropertyName = "mark_for_override")]
-        [NSXTProperty(IsRequired: false, Description: @"Indicates whether this object is the overridden intent object Global intent objects cannot be modified by the user. However, certain global intent objects can be overridden locally by use of this property. In such cases, the overridden local values take precedence over the globally defined values for the properties.")]
         public bool? MarkForOverride { get; set; }
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty(PropertyName = "resource_type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string ResourceType { get; set; }
         /// <summary>
         /// If this field is set to true, delete operation is triggered on the
@@ -266,8 +259,6 @@ namespace nsxtsdk.PolicyModels
         /// not support deletion of single non-leaf node within the tree and should
         /// be used carefully.
         /// </summary>
-        [JsonProperty(PropertyName = "marked_for_delete")]
-        [NSXTProperty(IsRequired: false, Description: @"If this field is set to true, delete operation is triggered on theintent tree. This resource along with its all children in intent treewill be deleted. This is a cascade delete and should only be used ifintent object along with its all children are to be deleted. This doesnot support deletion of single non-leaf node within the tree and shouldbe used carefully.")]
         public bool? MarkedForDelete { get; set; }
     }
 }

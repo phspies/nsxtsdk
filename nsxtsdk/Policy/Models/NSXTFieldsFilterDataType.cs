@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,20 +17,13 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTFieldsFilterDataType : NSXTLiveTraceFilterDataType
     {
-        public NSXTFieldsFilterDataType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "ip_info")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTIPInfoType IpInfo { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "transport_info")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTTransportInfoType TransportInfo { get; set; }
     }
 }

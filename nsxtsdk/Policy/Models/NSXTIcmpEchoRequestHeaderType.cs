@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,26 +17,13 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIcmpEchoRequestHeaderType 
     {
-        public NSXTIcmpEchoRequestHeaderType()
-        {
-            Id = test
-            Sequence = test
-        }
         /// <summary>
         /// ICMP id
         /// </summary>
-        [JsonProperty(PropertyName = "id")]
-        [NSXTProperty(IsRequired: false, Description: @"ICMP id")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
         public long? Id { get; set; }
         /// <summary>
         /// ICMP sequence number
         /// </summary>
-        [JsonProperty(PropertyName = "sequence")]
-        [NSXTProperty(IsRequired: false, Description: @"ICMP sequence number")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
         public long? Sequence { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,20 +17,13 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Data for setting Appliance Proxy certificate for inter-site communication")]
     public class NSXTSetInterSiteAphCertificateRequestType 
     {
-        public NSXTSetInterSiteAphCertificateRequestType()
-        {
-        }
         /// <summary>
         /// ID of the certificate that is already imported.
         /// </summary>
-        [JsonProperty(PropertyName = "cert_id")]
-        [NSXTProperty(IsRequired: false, Description: @"ID of the certificate that is already imported.")]
         public string? CertId { get; set; }
         /// <summary>
         /// ID of the node that this certificate is used on.
         /// </summary>
-        [JsonProperty(PropertyName = "used_by_id")]
-        [NSXTProperty(IsRequired: false, Description: @"ID of the node that this certificate is used on.")]
         public string? UsedById { get; set; }
     }
 }

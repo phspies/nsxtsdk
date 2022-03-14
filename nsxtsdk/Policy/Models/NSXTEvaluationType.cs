@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -18,15 +18,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Criterion Evaluation is the basic logical condition to evaluatewhether the event could be potentially met.")]
     public class NSXTEvaluationType 
     {
-        public NSXTEvaluationType()
-        {
-        }
         /// <summary>
         /// Criterion Evaluation resource type.
         /// </summary>
         [JsonProperty(PropertyName = "resource_type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Criterion Evaluation resource type.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTEvaluationResourceTypeEnumType ResourceType { get; set; }
     }
 }

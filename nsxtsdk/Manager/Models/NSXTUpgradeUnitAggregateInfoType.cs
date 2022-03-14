@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,80 +17,53 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTUpgradeUnitAggregateInfoType : NSXTResourceType
     {
-        public NSXTUpgradeUnitAggregateInfoType()
-        {
-        }
         /// <summary>
         /// Status of upgrade unit
         /// </summary>
-        [JsonProperty(PropertyName = "status")]
-        [NSXTProperty(IsRequired: false, Description: @"Status of upgrade unit")]
         public NSXTUpgradeUnitAggregateInfoStatusEnumType? Status { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "pre_upgrade_checks")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTUpgradeCheckListResultsType PreUpgradeChecks { get; set; }
         /// <summary>
         /// List of errors occurred during upgrade of this upgrade unit
         /// </summary>
-        [JsonProperty(PropertyName = "errors")]
-        [NSXTProperty(IsRequired: false, Description: @"List of errors occurred during upgrade of this upgrade unit")]
         public IList<string> Errors { get; set; }
         /// <summary>
         /// Name of the upgrade unit
         /// </summary>
-        [JsonProperty(PropertyName = "display_name")]
-        [NSXTProperty(IsRequired: false, Description: @"Name of the upgrade unit")]
         public string? DisplayName { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "post_upgrade_checks")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTUpgradeCheckListResultsType PostUpgradeChecks { get; set; }
         /// <summary>
         /// List of warnings indicating issues with the upgrade unit that may result in upgrade failure
         /// </summary>
-        [JsonProperty(PropertyName = "warnings")]
-        [NSXTProperty(IsRequired: false, Description: @"List of warnings indicating issues with the upgrade unit that may result in upgrade failure")]
         public IList<string> Warnings { get; set; }
         /// <summary>
         /// This is component version e.g. if upgrade unit is of type edge, then this is edge version.
         /// </summary>
-        [JsonProperty(PropertyName = "current_version")]
-        [NSXTProperty(IsRequired: false, Description: @"This is component version e.g. if upgrade unit is of type edge, then this is edge version.")]
         public string? CurrentVersion { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "group")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTUpgradeUnitGroupInfoType Group { get; set; }
         /// <summary>
         /// Indicator of upgrade progress in percentage
         /// </summary>
-        [JsonProperty(PropertyName = "percent_complete")]
-        [NSXTProperty(IsRequired: false, Description: @"Indicator of upgrade progress in percentage")]
         public double? PercentComplete { get; set; }
         /// <summary>
         /// Upgrade unit type
         /// </summary>
-        [JsonProperty(PropertyName = "type")]
-        [NSXTProperty(IsRequired: false, Description: @"Upgrade unit type")]
         public string? Type { get; set; }
         /// <summary>
         /// Identifier of the upgrade unit
         /// </summary>
-        [JsonProperty(PropertyName = "id")]
-        [NSXTProperty(IsRequired: false, Description: @"Identifier of the upgrade unit")]
         public string? Id { get; set; }
         /// <summary>
         /// Metadata about upgrade unit
         /// </summary>
-        [JsonProperty(PropertyName = "metadata")]
-        [NSXTProperty(IsRequired: false, Description: @"Metadata about upgrade unit")]
         public IList<NSXTKeyValuePairType> Metadata { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -18,35 +18,24 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Contains up-to-date information relating to an auto-deployed VM, includingits status and (potentially) an error message.")]
     public class NSXTIntelligenceClusterNodeVMDeploymentStatusReportType 
     {
-        public NSXTIntelligenceClusterNodeVMDeploymentStatusReportType()
-        {
-        }
         /// <summary>
         /// Status of the addition or deletion of an auto-deployed NSX-Intelligence cluster node VM.
         /// </summary>
         [JsonProperty(PropertyName = "status", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Status of the addition or deletion of an auto-deployed NSX-Intelligence cluster node VM.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTIntelligenceClusterNodeVmdeploymentStatusReportStatusEnumType Status { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "deployment_progress_state")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTClusterNodeVMDeploymentProgressStateType DeploymentProgressState { get; set; }
         /// <summary>
         /// In case of auto-deployment-related failure, an error message will be
         /// stored here.
         /// </summary>
-        [JsonProperty(PropertyName = "failure_message")]
-        [NSXTProperty(IsRequired: false, Description: @"In case of auto-deployment-related failure, an error message will bestored here.")]
         public string? FailureMessage { get; set; }
         /// <summary>
         /// In case of auto-deployment-related failure, the code for the error will
         /// be stored here.
         /// </summary>
-        [JsonProperty(PropertyName = "failure_code")]
-        [NSXTProperty(IsRequired: false, Description: @"In case of auto-deployment-related failure, the code for the error willbe stored here.")]
         public long? FailureCode { get; set; }
     }
 }

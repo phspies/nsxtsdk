@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,12 +17,6 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer HSMThalesNetHsm object")]
     public class NSXTALBHSMThalesNetHsmType 
     {
-        public NSXTALBHSMThalesNetHsmType()
-        {
-            Priority = test
-            ModuleId = test
-            RemotePort = test
-        }
         /// <summary>
         /// Priority class of the nethsm in an high availability setup.
         /// 1 is the highest priority and 100 is the lowest priority.
@@ -31,10 +25,6 @@ namespace nsxtsdk.PolicyModels
         /// interpreted by ALB Controller as 100.
         /// </summary>
         [JsonProperty(PropertyName = "priority", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Priority class of the nethsm in an high availability setup.1 is the highest priority and 100 is the lowest priority.Allowed values are 1-100.Default value when not specified in API or module isinterpreted by ALB Controller as 100.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(100)]
-        [System.ComponentModel.DataAnnotations.Required]
         public long Priority { get; set; }
         /// <summary>
         /// Hash of the key that netHSM device uses to authenticate
@@ -42,24 +32,18 @@ namespace nsxtsdk.PolicyModels
         /// Use Thales anonkneti utility to find the netHSM keyhash.
         /// </summary>
         [JsonProperty(PropertyName = "keyhash", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Hash of the key that netHSM device uses to authenticateitself.Use Thales anonkneti utility to find the netHSM keyhash.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Keyhash { get; set; }
         /// <summary>
         /// Local module id of the netHSM device.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 0.
         /// </summary>
-        [JsonProperty(PropertyName = "module_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Local module id of the netHSM device.Default value when not specified in API or module isinterpreted by ALB Controller as 0.")]
         public long? ModuleId { get; set; }
         /// <summary>
         /// Electronic serial number of the netHSM device.
         /// Use Thales anonkneti utility to find the netHSM ESN.
         /// </summary>
         [JsonProperty(PropertyName = "esn", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Electronic serial number of the netHSM device.Use Thales anonkneti utility to find the netHSM ESN.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Esn { get; set; }
         /// <summary>
         /// Port at which the netHSM device accepts the connection.
@@ -67,17 +51,11 @@ namespace nsxtsdk.PolicyModels
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 9004.
         /// </summary>
-        [JsonProperty(PropertyName = "remote_port")]
-        [NSXTProperty(IsRequired: false, Description: @"Port at which the netHSM device accepts the connection.Allowed values are 1-65535.Default value when not specified in API or module isinterpreted by ALB Controller as 9004.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
         public long? RemotePort { get; set; }
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty(PropertyName = "remote_ip", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTALBIpAddrType RemoteIp { get; set; }
     }
 }

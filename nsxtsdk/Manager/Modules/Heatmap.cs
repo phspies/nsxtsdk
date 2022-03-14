@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public Heatmap(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public Heatmap(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTransportNodeStatusListResultType ListTransportNodeStatusForTransportZone(string ZoneId, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? Source = null, string? Status = null)
+        public async Task<NSXTTransportNodeStatusListResultType> ListTransportNodeStatusForTransportZone(string ZoneId, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? Source = null, string? Status = null)
         {
             if (ZoneId == null) { throw new System.ArgumentNullException("ZoneId cannot be null"); }
             NSXTTransportNodeStatusListResultType returnValue = default(NSXTTransportNodeStatusListResultType);
@@ -50,31 +57,19 @@ namespace nsxtapi.ManagerModules
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             if (Status != null) { request.AddQueryParameter("status", Status.ToString()); }
             request.Resource = ListTransportNodeStatusForTransportZoneServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTransportNodeStatusListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTransportNodeStatusListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListTransportNodeStatusForTransportZoneServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTransportNodeStatusListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTransportNodeStatusListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPnicBondStatusListResultType GetPnicStatusesForTransportNode(string NodeId, string? Status = null)
+        public async Task<NSXTPnicBondStatusListResultType> GetPnicStatusesForTransportNode(string NodeId, string? Status = null)
         {
             if (NodeId == null) { throw new System.ArgumentNullException("NodeId cannot be null"); }
             NSXTPnicBondStatusListResultType returnValue = default(NSXTPnicBondStatusListResultType);
@@ -88,31 +83,19 @@ namespace nsxtapi.ManagerModules
             GetPnicStatusesForTransportNodeServiceURL.Replace("{node-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NodeId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Status != null) { request.AddQueryParameter("status", Status.ToString()); }
             request.Resource = GetPnicStatusesForTransportNodeServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPnicBondStatusListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPnicBondStatusListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetPnicStatusesForTransportNodeServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPnicBondStatusListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPnicBondStatusListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTHeatMapTransportZoneStatusType GetAllTransportNodesStatus(string? NodeType = null)
+        public async Task<NSXTHeatMapTransportZoneStatusType> GetAllTransportNodesStatus(string? NodeType = null)
         {
             NSXTHeatMapTransportZoneStatusType returnValue = default(NSXTHeatMapTransportZoneStatusType);
             StringBuilder GetAllTransportNodesStatusServiceURL = new StringBuilder("/transport-nodes/status");
@@ -124,31 +107,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             if (NodeType != null) { request.AddQueryParameter("node_type", NodeType.ToString()); }
             request.Resource = GetAllTransportNodesStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTHeatMapTransportZoneStatusType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTHeatMapTransportZoneStatusType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetAllTransportNodesStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTHeatMapTransportZoneStatusType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTHeatMapTransportZoneStatusType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTransportNodeStatusListResultType ListRemoteTransportNodeStatus(string NodeId, string? BfdDiagnosticCode = null, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? Source = null, string? TunnelStatus = null)
+        public async Task<NSXTTransportNodeStatusListResultType> ListRemoteTransportNodeStatus(string NodeId, string? BfdDiagnosticCode = null, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? Source = null, string? TunnelStatus = null)
         {
             if (NodeId == null) { throw new System.ArgumentNullException("NodeId cannot be null"); }
             NSXTTransportNodeStatusListResultType returnValue = default(NSXTTransportNodeStatusListResultType);
@@ -169,31 +140,19 @@ namespace nsxtapi.ManagerModules
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             if (TunnelStatus != null) { request.AddQueryParameter("tunnel_status", TunnelStatus.ToString()); }
             request.Resource = ListRemoteTransportNodeStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTransportNodeStatusListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTransportNodeStatusListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListRemoteTransportNodeStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTransportNodeStatusListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTransportNodeStatusListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTransportNodeStatusType GetTransportNodeStatus(string NodeId, string? Source = null)
+        public async Task<NSXTTransportNodeStatusType> GetTransportNodeStatus(string NodeId, string? Source = null)
         {
             if (NodeId == null) { throw new System.ArgumentNullException("NodeId cannot be null"); }
             NSXTTransportNodeStatusType returnValue = default(NSXTTransportNodeStatusType);
@@ -207,31 +166,19 @@ namespace nsxtapi.ManagerModules
             GetTransportNodeStatusServiceURL.Replace("{node-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NodeId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             request.Resource = GetTransportNodeStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTransportNodeStatusType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTransportNodeStatusType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetTransportNodeStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTransportNodeStatusType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTransportNodeStatusType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTHeatMapTransportNodesAggregateStatusType GetAllTransportZoneStatus()
+        public async Task<NSXTHeatMapTransportNodesAggregateStatusType> GetAllTransportZoneStatus()
         {
             NSXTHeatMapTransportNodesAggregateStatusType returnValue = default(NSXTHeatMapTransportNodesAggregateStatusType);
             StringBuilder GetAllTransportZoneStatusServiceURL = new StringBuilder("/transport-zones/status");
@@ -242,31 +189,19 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = GetAllTransportZoneStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTHeatMapTransportNodesAggregateStatusType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTHeatMapTransportNodesAggregateStatusType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetAllTransportZoneStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTHeatMapTransportNodesAggregateStatusType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTHeatMapTransportNodesAggregateStatusType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTHeatMapTransportZoneStatusType GetHeatmapTransportZoneStatus(string ZoneId, string? Source = null)
+        public async Task<NSXTHeatMapTransportZoneStatusType> GetHeatmapTransportZoneStatus(string ZoneId, string? Source = null)
         {
             if (ZoneId == null) { throw new System.ArgumentNullException("ZoneId cannot be null"); }
             NSXTHeatMapTransportZoneStatusType returnValue = default(NSXTHeatMapTransportZoneStatusType);
@@ -280,31 +215,19 @@ namespace nsxtapi.ManagerModules
             GetHeatmapTransportZoneStatusServiceURL.Replace("{zone-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ZoneId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             request.Resource = GetHeatmapTransportZoneStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTHeatMapTransportZoneStatusType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTHeatMapTransportZoneStatusType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetHeatmapTransportZoneStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTHeatMapTransportZoneStatusType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTHeatMapTransportZoneStatusType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GetTransportNodeReportForAtransportZone(string ZoneId, string? Source = null, string? Status = null)
+        public async Task GetTransportNodeReportForAtransportZone(string ZoneId, string? Source = null, string? Status = null)
         {
             if (ZoneId == null) { throw new System.ArgumentNullException("ZoneId cannot be null"); }
             
@@ -319,7 +242,7 @@ namespace nsxtapi.ManagerModules
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             if (Status != null) { request.AddQueryParameter("status", Status.ToString()); }
             request.Resource = GetTransportNodeReportForAtransportZoneServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetTransportNodeReportForAtransportZoneServiceURL.ToString() + " did not complete successfull";
@@ -331,7 +254,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GetTransportNodeReport(string? Source = null, string? Status = null)
+        public async Task GetTransportNodeReport(string? Source = null, string? Status = null)
         {
             
             StringBuilder GetTransportNodeReportServiceURL = new StringBuilder("/transport-zones/transport-node-status-report");
@@ -344,7 +267,7 @@ namespace nsxtapi.ManagerModules
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             if (Status != null) { request.AddQueryParameter("status", Status.ToString()); }
             request.Resource = GetTransportNodeReportServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetTransportNodeReportServiceURL.ToString() + " did not complete successfull";
@@ -356,7 +279,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTransportNodeStatusListResultType ListTransportNodeStatus(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? Source = null, string? Status = null)
+        public async Task<NSXTTransportNodeStatusListResultType> ListTransportNodeStatus(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? Source = null, string? Status = null)
         {
             NSXTTransportNodeStatusListResultType returnValue = default(NSXTTransportNodeStatusListResultType);
             StringBuilder ListTransportNodeStatusServiceURL = new StringBuilder("/transport-zones/transport-node-status");
@@ -374,25 +297,13 @@ namespace nsxtapi.ManagerModules
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             if (Status != null) { request.AddQueryParameter("status", Status.ToString()); }
             request.Resource = ListTransportNodeStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTransportNodeStatusListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTransportNodeStatusListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListTransportNodeStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTransportNodeStatusListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTransportNodeStatusListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

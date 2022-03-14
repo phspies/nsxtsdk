@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,47 +17,32 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer HSMAwsCloudHsm object")]
     public class NSXTALBHSMAwsCloudHsmType 
     {
-        public NSXTALBHSMAwsCloudHsmType()
-        {
-        }
         /// <summary>
         /// AWS CloudHSM Cluster Certificate.
         /// </summary>
-        [JsonProperty(PropertyName = "cluster_cert")]
-        [NSXTProperty(IsRequired: false, Description: @"AWS CloudHSM Cluster Certificate.")]
         public string? ClusterCert { get; set; }
         /// <summary>
         /// Username of the Crypto User.
         /// This will be used to access the keys on the HSM .
         /// </summary>
-        [JsonProperty(PropertyName = "crypto_user_name")]
-        [NSXTProperty(IsRequired: false, Description: @"Username of the Crypto User.This will be used to access the keys on the HSM .")]
         public string? CryptoUserName { get; set; }
         /// <summary>
         /// client_config of HSMAwsCloudHsm.
         /// </summary>
-        [JsonProperty(PropertyName = "client_config")]
-        [NSXTProperty(IsRequired: false, Description: @"client_config of HSMAwsCloudHsm.")]
         public string? ClientConfig { get; set; }
         /// <summary>
         /// Password of the Crypto User.
         /// This will be used to access the keys on the HSM .
         /// </summary>
-        [JsonProperty(PropertyName = "crypto_user_password")]
-        [NSXTProperty(IsRequired: false, Description: @"Password of the Crypto User.This will be used to access the keys on the HSM .")]
         public string? CryptoUserPassword { get; set; }
         /// <summary>
         /// IP address of the HSM in the cluster.
         /// If there are more than one HSMs, only one is sufficient.
         /// </summary>
-        [JsonProperty(PropertyName = "hsm_ip")]
-        [NSXTProperty(IsRequired: false, Description: @"IP address of the HSM in the cluster.If there are more than one HSMs, only one is sufficient.")]
         public IList<string> HsmIp { get; set; }
         /// <summary>
         /// mgmt_config of HSMAwsCloudHsm.
         /// </summary>
-        [JsonProperty(PropertyName = "mgmt_config")]
-        [NSXTProperty(IsRequired: false, Description: @"mgmt_config of HSMAwsCloudHsm.")]
         public string? MgmtConfig { get; set; }
     }
 }

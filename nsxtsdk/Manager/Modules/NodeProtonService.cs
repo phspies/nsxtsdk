@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public NodeProtonService(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public NodeProtonService(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNodeServiceStatusPropertiesType CreateProtonServiceActionRestart()
+        public async Task<NSXTNodeServiceStatusPropertiesType> CreateProtonServiceActionRestart()
         {
             NSXTNodeServiceStatusPropertiesType returnValue = default(NSXTNodeServiceStatusPropertiesType);
             StringBuilder CreateProtonServiceActionRestartServiceURL = new StringBuilder("/node/services/manager?action=restart");
@@ -41,31 +48,19 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = CreateProtonServiceActionRestartServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNodeServiceStatusPropertiesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNodeServiceStatusPropertiesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CreateProtonServiceActionRestartServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNodeServiceStatusPropertiesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNodeServiceStatusPropertiesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNodeProtonServicePropertiesType UpdateProtonService(NSXTNodeProtonServicePropertiesType NodeProtonServiceProperties)
+        public async Task<NSXTNodeProtonServicePropertiesType> UpdateProtonService(NSXTNodeProtonServicePropertiesType NodeProtonServiceProperties)
         {
             if (NodeProtonServiceProperties == null) { throw new System.ArgumentNullException("NodeProtonServiceProperties cannot be null"); }
             NSXTNodeProtonServicePropertiesType returnValue = default(NSXTNodeProtonServicePropertiesType);
@@ -78,31 +73,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(NodeProtonServiceProperties, defaultSerializationSettings));
             request.Resource = UpdateProtonServiceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNodeProtonServicePropertiesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNodeProtonServicePropertiesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateProtonServiceServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNodeProtonServicePropertiesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNodeProtonServicePropertiesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNodeProtonServicePropertiesType ReadProtonService()
+        public async Task<NSXTNodeProtonServicePropertiesType> ReadProtonService()
         {
             NSXTNodeProtonServicePropertiesType returnValue = default(NSXTNodeProtonServicePropertiesType);
             StringBuilder ReadProtonServiceServiceURL = new StringBuilder("/node/services/manager");
@@ -113,31 +96,19 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = ReadProtonServiceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNodeProtonServicePropertiesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNodeProtonServicePropertiesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadProtonServiceServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNodeProtonServicePropertiesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNodeProtonServicePropertiesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNodeServiceStatusPropertiesType CreateProtonServiceActionStart()
+        public async Task<NSXTNodeServiceStatusPropertiesType> CreateProtonServiceActionStart()
         {
             NSXTNodeServiceStatusPropertiesType returnValue = default(NSXTNodeServiceStatusPropertiesType);
             StringBuilder CreateProtonServiceActionStartServiceURL = new StringBuilder("/node/services/manager?action=start");
@@ -148,31 +119,19 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = CreateProtonServiceActionStartServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNodeServiceStatusPropertiesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNodeServiceStatusPropertiesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CreateProtonServiceActionStartServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNodeServiceStatusPropertiesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNodeServiceStatusPropertiesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNodeServiceStatusPropertiesType CreateProtonServiceActionStop()
+        public async Task<NSXTNodeServiceStatusPropertiesType> CreateProtonServiceActionStop()
         {
             NSXTNodeServiceStatusPropertiesType returnValue = default(NSXTNodeServiceStatusPropertiesType);
             StringBuilder CreateProtonServiceActionStopServiceURL = new StringBuilder("/node/services/manager?action=stop");
@@ -183,31 +142,19 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = CreateProtonServiceActionStopServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNodeServiceStatusPropertiesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNodeServiceStatusPropertiesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CreateProtonServiceActionStopServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNodeServiceStatusPropertiesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNodeServiceStatusPropertiesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void ResetProtonServiceLoggingLevelActionResetManagerLoggingLevels()
+        public async Task ResetProtonServiceLoggingLevelActionResetManagerLoggingLevels()
         {
             
             StringBuilder ResetProtonServiceLoggingLevelActionResetManagerLoggingLevelsServiceURL = new StringBuilder("/node/services/manager?action=reset-manager-logging-levels");
@@ -218,7 +165,7 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = ResetProtonServiceLoggingLevelActionResetManagerLoggingLevelsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + ResetProtonServiceLoggingLevelActionResetManagerLoggingLevelsServiceURL.ToString() + " did not complete successfull";
@@ -230,7 +177,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNodeServiceStatusPropertiesType ReadProtonServiceStatus()
+        public async Task<NSXTNodeServiceStatusPropertiesType> ReadProtonServiceStatus()
         {
             NSXTNodeServiceStatusPropertiesType returnValue = default(NSXTNodeServiceStatusPropertiesType);
             StringBuilder ReadProtonServiceStatusServiceURL = new StringBuilder("/node/services/manager/status");
@@ -241,25 +188,13 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = ReadProtonServiceStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNodeServiceStatusPropertiesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNodeServiceStatusPropertiesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadProtonServiceStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNodeServiceStatusPropertiesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNodeServiceStatusPropertiesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

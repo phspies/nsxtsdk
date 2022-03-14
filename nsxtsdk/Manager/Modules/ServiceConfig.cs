@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public ServiceConfig(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public ServiceConfig(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTEffectiveProfileListResultType EffectiveProfiles(string ResourceId, string ResourceType, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, string? ProfileType = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTEffectiveProfileListResultType> EffectiveProfiles(string ResourceId, string ResourceType, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, string? ProfileType = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (ResourceId == null) { throw new System.ArgumentNullException("ResourceId cannot be null"); }
             if (ResourceType == null) { throw new System.ArgumentNullException("ResourceType cannot be null"); }
@@ -51,31 +58,19 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = EffectiveProfilesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTEffectiveProfileListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTEffectiveProfileListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + EffectiveProfilesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTEffectiveProfileListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTEffectiveProfileListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTServiceConfigListResultType ServiceConfigBatchOperation(NSXTServiceConfigListType ServiceConfigList)
+        public async Task<NSXTServiceConfigListResultType> ServiceConfigBatchOperation(NSXTServiceConfigListType ServiceConfigList)
         {
             if (ServiceConfigList == null) { throw new System.ArgumentNullException("ServiceConfigList cannot be null"); }
             NSXTServiceConfigListResultType returnValue = default(NSXTServiceConfigListResultType);
@@ -88,31 +83,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(ServiceConfigList, defaultSerializationSettings));
             request.Resource = ServiceConfigBatchOperationServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTServiceConfigListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTServiceConfigListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + ServiceConfigBatchOperationServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTServiceConfigListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTServiceConfigListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTServiceConfigType CreateServiceConfig(NSXTServiceConfigType ServiceConfig)
+        public async Task<NSXTServiceConfigType> CreateServiceConfig(NSXTServiceConfigType ServiceConfig)
         {
             if (ServiceConfig == null) { throw new System.ArgumentNullException("ServiceConfig cannot be null"); }
             NSXTServiceConfigType returnValue = default(NSXTServiceConfigType);
@@ -125,31 +108,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(ServiceConfig, defaultSerializationSettings));
             request.Resource = CreateServiceConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTServiceConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTServiceConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CreateServiceConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTServiceConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTServiceConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTServiceConfigListResultType ListServiceConfigs(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, string? ProfileType = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTServiceConfigListResultType> ListServiceConfigs(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, string? ProfileType = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTServiceConfigListResultType returnValue = default(NSXTServiceConfigListResultType);
             StringBuilder ListServiceConfigsServiceURL = new StringBuilder("/service-configs");
@@ -166,31 +137,19 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListServiceConfigsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTServiceConfigListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTServiceConfigListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListServiceConfigsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTServiceConfigListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTServiceConfigListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTServiceConfigType UpdateServiceConfig(string ConfigSetId, NSXTServiceConfigType ServiceConfig)
+        public async Task<NSXTServiceConfigType> UpdateServiceConfig(string ConfigSetId, NSXTServiceConfigType ServiceConfig)
         {
             if (ConfigSetId == null) { throw new System.ArgumentNullException("ConfigSetId cannot be null"); }
             if (ServiceConfig == null) { throw new System.ArgumentNullException("ServiceConfig cannot be null"); }
@@ -205,31 +164,19 @@ namespace nsxtapi.ManagerModules
             UpdateServiceConfigServiceURL.Replace("{config-set-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ConfigSetId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(ServiceConfig, defaultSerializationSettings));
             request.Resource = UpdateServiceConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTServiceConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTServiceConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateServiceConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTServiceConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTServiceConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTServiceConfigType ReadServiceConfig(string ConfigSetId)
+        public async Task<NSXTServiceConfigType> ReadServiceConfig(string ConfigSetId)
         {
             if (ConfigSetId == null) { throw new System.ArgumentNullException("ConfigSetId cannot be null"); }
             NSXTServiceConfigType returnValue = default(NSXTServiceConfigType);
@@ -242,31 +189,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             ReadServiceConfigServiceURL.Replace("{config-set-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ConfigSetId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadServiceConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTServiceConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTServiceConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadServiceConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTServiceConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTServiceConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteServiceConfig(string ConfigSetId)
+        public async Task DeleteServiceConfig(string ConfigSetId)
         {
             if (ConfigSetId == null) { throw new System.ArgumentNullException("ConfigSetId cannot be null"); }
             
@@ -279,7 +214,7 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             DeleteServiceConfigServiceURL.Replace("{config-set-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ConfigSetId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteServiceConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteServiceConfigServiceURL.ToString() + " did not complete successfull";

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,34 +17,23 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLdapIdentitySourceSearchResultItemType 
     {
-        public NSXTLdapIdentitySourceSearchResultItemType()
-        {
-        }
         /// <summary>
         /// Distinguished name (DN) of the entry.
         /// </summary>
-        [JsonProperty(PropertyName = "dn")]
-        [NSXTProperty(IsRequired: false, Description: @"Distinguished name (DN) of the entry.")]
         public string? Dn { get; set; }
         /// <summary>
         /// The Common Name (CN) of the entry, if available.
         /// </summary>
-        [JsonProperty(PropertyName = "common_name")]
-        [NSXTProperty(IsRequired: false, Description: @"The Common Name (CN) of the entry, if available.")]
         public string? CommonName { get; set; }
         /// <summary>
         /// For Active Directory (AD) users, this will be the user principal name (UPN), in the format user@domain. For non-AD
         /// users, this will be the user's uid property, followed by "@" and the domain of the directory. For groups, this will be
         /// the group's common name, followed by "@" and the domain of the directory.
         /// </summary>
-        [JsonProperty(PropertyName = "principal_name")]
-        [NSXTProperty(IsRequired: false, Description: @"For Active Directory (AD) users, this will be the user principal name (UPN), in the format user@domain. For non-AD users, this will be the user&apos;s uid property, followed by &quot;@&quot; and the domain of the directory. For groups, this will be the group&apos;s common name, followed by &quot;@&quot; and the domain of the directory.")]
         public string? PrincipalName { get; set; }
         /// <summary>
         /// Describes the type of the entry
         /// </summary>
-        [JsonProperty(PropertyName = "type")]
-        [NSXTProperty(IsRequired: false, Description: @"Describes the type of the entry")]
         public NSXTLdapIdentitySourceSearchResultItemTypeEnumType? Type { get; set; }
     }
 }

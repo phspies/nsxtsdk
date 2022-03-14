@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,20 +17,13 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"OSPF Neighbor Status.")]
     public class NSXTOspfNeighborStatusType 
     {
-        public NSXTOspfNeighborStatusType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "neighbor_status_info")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public IList<NSXTOspfStatusInfoType> NeighborStatusInfo { get; set; }
         /// <summary>
         /// OSPF neighbor address.
         /// </summary>
-        [JsonProperty(PropertyName = "neighbor_address")]
-        [NSXTProperty(IsRequired: false, Description: @"OSPF neighbor address.")]
         public string? NeighborAddress { get; set; }
     }
 }

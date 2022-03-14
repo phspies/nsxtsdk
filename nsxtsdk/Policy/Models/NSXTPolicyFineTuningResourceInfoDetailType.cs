@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,22 +17,15 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Contains the details of resource field")]
     public class NSXTPolicyFineTuningResourceInfoDetailType 
     {
-        public NSXTPolicyFineTuningResourceInfoDetailType()
-        {
-        }
         /// <summary>
         /// It will represent resource with name and fields.
         /// </summary>
         [JsonProperty(PropertyName = "field_name", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"It will represent resource with name and fields.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string FieldName { get; set; }
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty(PropertyName = "sub_type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTPolicyFineTuningResourceInfoType SubType { get; set; }
     }
 }

@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public ManagementPlaneModule(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public ManagementPlaneModule(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTManagementPlanePropertiesType UpdateManagementPlaneConfiguration(NSXTManagementPlanePropertiesType ManagementPlaneProperties)
+        public async Task<NSXTManagementPlanePropertiesType> UpdateManagementPlaneConfiguration(NSXTManagementPlanePropertiesType ManagementPlaneProperties)
         {
             if (ManagementPlaneProperties == null) { throw new System.ArgumentNullException("ManagementPlaneProperties cannot be null"); }
             NSXTManagementPlanePropertiesType returnValue = default(NSXTManagementPlanePropertiesType);
@@ -43,31 +50,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(ManagementPlaneProperties, defaultSerializationSettings));
             request.Resource = UpdateManagementPlaneConfigurationServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTManagementPlanePropertiesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTManagementPlanePropertiesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateManagementPlaneConfigurationServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTManagementPlanePropertiesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTManagementPlanePropertiesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTManagementPlanePropertiesType ReadManagementPlaneConfiguration()
+        public async Task<NSXTManagementPlanePropertiesType> ReadManagementPlaneConfiguration()
         {
             NSXTManagementPlanePropertiesType returnValue = default(NSXTManagementPlanePropertiesType);
             StringBuilder ReadManagementPlaneConfigurationServiceURL = new StringBuilder("/node/management-plane");
@@ -78,31 +73,19 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = ReadManagementPlaneConfigurationServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTManagementPlanePropertiesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTManagementPlanePropertiesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadManagementPlaneConfigurationServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTManagementPlanePropertiesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTManagementPlanePropertiesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteManagementPlaneConfiguration()
+        public async Task DeleteManagementPlaneConfiguration()
         {
             
             StringBuilder DeleteManagementPlaneConfigurationServiceURL = new StringBuilder("/node/management-plane");
@@ -113,7 +96,7 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = DeleteManagementPlaneConfigurationServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteManagementPlaneConfigurationServiceURL.ToString() + " did not complete successfull";

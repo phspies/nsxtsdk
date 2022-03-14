@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,37 +17,22 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTPrefixConfigType 
     {
-        public NSXTPrefixConfigType()
-        {
-        }
         /// <summary>
         /// Action for the IPPrefix
         /// </summary>
         [JsonProperty(PropertyName = "action", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Action for the IPPrefix")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTPrefixConfigActionEnumType Action { get; set; }
         /// <summary>
         /// Greater than or equal to
         /// </summary>
-        [JsonProperty(PropertyName = "ge")]
-        [NSXTProperty(IsRequired: false, Description: @"Greater than or equal to")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(128)]
         public long? Ge { get; set; }
         /// <summary>
         /// Less than or equal to
         /// </summary>
-        [JsonProperty(PropertyName = "le")]
-        [NSXTProperty(IsRequired: false, Description: @"Less than or equal to")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(128)]
         public long? Le { get; set; }
         /// <summary>
         /// If absent, the action applies to all addresses.
         /// </summary>
-        [JsonProperty(PropertyName = "network")]
-        [NSXTProperty(IsRequired: false, Description: @"If absent, the action applies to all addresses.")]
         public string? Network { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,23 +17,16 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLegendWidgetConfigurationType : NSXTWidgetConfigurationType
     {
-        public NSXTLegendWidgetConfigurationType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty(PropertyName = "layout", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTLegendType Layout { get; set; }
         /// <summary>
         /// Id of source widget, if any. Id should be a valid id of an existing widget. This property can be used to identify the
         /// source of the data for this legend widget.
         /// </summary>
         [JsonProperty(PropertyName = "source_widget_id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Id of source widget, if any. Id should be a valid id of an existing widget. This property can be used to identify the source of the data for this legend widget.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string SourceWidgetId { get; set; }
     }
 }

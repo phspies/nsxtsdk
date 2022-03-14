@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public LogicalSwitch(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public LogicalSwitch(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLogicalSwitchType CreateLogicalSwitch(NSXTLogicalSwitchType LogicalSwitch)
+        public async Task<NSXTLogicalSwitchType> CreateLogicalSwitch(NSXTLogicalSwitchType LogicalSwitch)
         {
             if (LogicalSwitch == null) { throw new System.ArgumentNullException("LogicalSwitch cannot be null"); }
             NSXTLogicalSwitchType returnValue = default(NSXTLogicalSwitchType);
@@ -43,31 +50,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(LogicalSwitch, defaultSerializationSettings));
             request.Resource = CreateLogicalSwitchServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLogicalSwitchType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLogicalSwitchType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CreateLogicalSwitchServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLogicalSwitchType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLogicalSwitchType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLogicalSwitchListResultType ListLogicalSwitches(string? Cursor = null, bool? Diagnostic = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? SwitchType = null, string? SwitchingProfileId = null, string? TransportType = null, string? TransportZoneId = null, string? UplinkTeamingPolicyName = null, long? Vlan = null, int? Vni = null)
+        public async Task<NSXTLogicalSwitchListResultType> ListLogicalSwitches(string? Cursor = null, bool? Diagnostic = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? SwitchType = null, string? SwitchingProfileId = null, string? TransportType = null, string? TransportZoneId = null, string? UplinkTeamingPolicyName = null, long? Vlan = null, int? Vni = null)
         {
             NSXTLogicalSwitchListResultType returnValue = default(NSXTLogicalSwitchListResultType);
             StringBuilder ListLogicalSwitchesServiceURL = new StringBuilder("/logical-switches");
@@ -91,31 +86,19 @@ namespace nsxtapi.ManagerModules
             if (Vlan != null) { request.AddQueryParameter("vlan", Vlan.ToString()); }
             if (Vni != null) { request.AddQueryParameter("vni", Vni.ToString()); }
             request.Resource = ListLogicalSwitchesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLogicalSwitchListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLogicalSwitchListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListLogicalSwitchesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLogicalSwitchListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLogicalSwitchListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLogicalSwitchStateType GetLogicalSwitchState(string LswitchId)
+        public async Task<NSXTLogicalSwitchStateType> GetLogicalSwitchState(string LswitchId)
         {
             if (LswitchId == null) { throw new System.ArgumentNullException("LswitchId cannot be null"); }
             NSXTLogicalSwitchStateType returnValue = default(NSXTLogicalSwitchStateType);
@@ -128,31 +111,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             GetLogicalSwitchStateServiceURL.Replace("{lswitch-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LswitchId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetLogicalSwitchStateServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLogicalSwitchStateType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLogicalSwitchStateType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetLogicalSwitchStateServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLogicalSwitchStateType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLogicalSwitchStateType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLogicalSwitchStatusType GetLogicalSwitchStatus(string LswitchId)
+        public async Task<NSXTLogicalSwitchStatusType> GetLogicalSwitchStatus(string LswitchId)
         {
             if (LswitchId == null) { throw new System.ArgumentNullException("LswitchId cannot be null"); }
             NSXTLogicalSwitchStatusType returnValue = default(NSXTLogicalSwitchStatusType);
@@ -165,31 +136,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             GetLogicalSwitchStatusServiceURL.Replace("{lswitch-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LswitchId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetLogicalSwitchStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLogicalSwitchStatusType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLogicalSwitchStatusType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetLogicalSwitchStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLogicalSwitchStatusType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLogicalSwitchStatusType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLogicalSwitchType UpdateLogicalSwitch(string LswitchId, NSXTLogicalSwitchType LogicalSwitch)
+        public async Task<NSXTLogicalSwitchType> UpdateLogicalSwitch(string LswitchId, NSXTLogicalSwitchType LogicalSwitch)
         {
             if (LswitchId == null) { throw new System.ArgumentNullException("LswitchId cannot be null"); }
             if (LogicalSwitch == null) { throw new System.ArgumentNullException("LogicalSwitch cannot be null"); }
@@ -204,31 +163,19 @@ namespace nsxtapi.ManagerModules
             UpdateLogicalSwitchServiceURL.Replace("{lswitch-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LswitchId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(LogicalSwitch, defaultSerializationSettings));
             request.Resource = UpdateLogicalSwitchServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLogicalSwitchType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLogicalSwitchType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateLogicalSwitchServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLogicalSwitchType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLogicalSwitchType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteLogicalSwitch(string LswitchId, bool? Cascade = null, bool? Detach = null)
+        public async Task DeleteLogicalSwitch(string LswitchId, bool? Cascade = null, bool? Detach = null)
         {
             if (LswitchId == null) { throw new System.ArgumentNullException("LswitchId cannot be null"); }
             
@@ -243,7 +190,7 @@ namespace nsxtapi.ManagerModules
             if (Cascade != null) { request.AddQueryParameter("cascade", Cascade.ToString()); }
             if (Detach != null) { request.AddQueryParameter("detach", Detach.ToString()); }
             request.Resource = DeleteLogicalSwitchServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteLogicalSwitchServiceURL.ToString() + " did not complete successfull";
@@ -255,7 +202,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLogicalSwitchType GetLogicalSwitch(string LswitchId)
+        public async Task<NSXTLogicalSwitchType> GetLogicalSwitch(string LswitchId)
         {
             if (LswitchId == null) { throw new System.ArgumentNullException("LswitchId cannot be null"); }
             NSXTLogicalSwitchType returnValue = default(NSXTLogicalSwitchType);
@@ -268,31 +215,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             GetLogicalSwitchServiceURL.Replace("{lswitch-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LswitchId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetLogicalSwitchServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLogicalSwitchType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLogicalSwitchType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetLogicalSwitchServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLogicalSwitchType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLogicalSwitchType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLogicalSwitchStateListResultType ListLogicalSwitchesByState(string? Status = null)
+        public async Task<NSXTLogicalSwitchStateListResultType> ListLogicalSwitchesByState(string? Status = null)
         {
             NSXTLogicalSwitchStateListResultType returnValue = default(NSXTLogicalSwitchStateListResultType);
             StringBuilder ListLogicalSwitchesByStateServiceURL = new StringBuilder("/logical-switches/state");
@@ -304,25 +239,13 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             if (Status != null) { request.AddQueryParameter("status", Status.ToString()); }
             request.Resource = ListLogicalSwitchesByStateServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLogicalSwitchStateListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLogicalSwitchStateListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListLogicalSwitchesByStateServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLogicalSwitchStateListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLogicalSwitchStateListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

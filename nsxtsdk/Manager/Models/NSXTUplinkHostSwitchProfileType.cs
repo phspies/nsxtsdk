@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,48 +17,30 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTUplinkHostSwitchProfileType : NSXTBaseHostSwitchProfileType
     {
-        public NSXTUplinkHostSwitchProfileType()
-        {
-            TransportVlan = test
-            OverlayEncap = test
-        }
         /// <summary>
         /// list of LACP group
         /// </summary>
-        [JsonProperty(PropertyName = "lags")]
-        [NSXTProperty(IsRequired: false, Description: @"list of LACP group")]
         public IList<NSXTLagType> Lags { get; set; }
         /// <summary>
         /// VLAN used for tagging Overlay traffic of associated HostSwitch
         /// </summary>
-        [JsonProperty(PropertyName = "transport_vlan")]
-        [NSXTProperty(IsRequired: false, Description: @"VLAN used for tagging Overlay traffic of associated HostSwitch")]
         public long? TransportVlan { get; set; }
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty(PropertyName = "teaming", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTTeamingPolicyType Teaming { get; set; }
         /// <summary>
         /// The protocol used to encapsulate overlay traffic
         /// </summary>
-        [JsonProperty(PropertyName = "overlay_encap")]
-        [NSXTProperty(IsRequired: false, Description: @"The protocol used to encapsulate overlay traffic")]
         public NSXTUplinkHostSwitchProfileOverlayEncapEnumType? OverlayEncap { get; set; }
         /// <summary>
         /// List of named uplink teaming policies that can be used by logical switches
         /// </summary>
-        [JsonProperty(PropertyName = "named_teamings")]
-        [NSXTProperty(IsRequired: false, Description: @"List of named uplink teaming policies that can be used by logical switches")]
         public IList<NSXTNamedTeamingPolicyType> NamedTeamings { get; set; }
         /// <summary>
         /// Maximum Transmission Unit used for uplinks
         /// </summary>
-        [JsonProperty(PropertyName = "mtu")]
-        [NSXTProperty(IsRequired: false, Description: @"Maximum Transmission Unit used for uplinks")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1280)]
         public int? Mtu { get; set; }
     }
 }

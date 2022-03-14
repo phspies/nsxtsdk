@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,16 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer SAMLSPConfig object")]
     public class NSXTALBSAMLSPConfigType 
     {
-        public NSXTALBSAMLSPConfigType()
-        {
-            CookieTimeout = test
-        }
         /// <summary>
         /// SAML Single Signon URL to be programmed on the IDP.
         /// </summary>
         [JsonProperty(PropertyName = "single_signon_url", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"SAML Single Signon URL to be programmed on the IDP.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string SingleSignonUrl { get; set; }
         /// <summary>
         /// Globally unique SAML entityID for this node.
@@ -34,14 +28,10 @@ namespace nsxtsdk.PolicyModels
         /// this.
         /// </summary>
         [JsonProperty(PropertyName = "entity_id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Globally unique SAML entityID for this node.The SAML application entity ID on the IDP should matchthis.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string EntityId { get; set; }
         /// <summary>
         /// Key to generate the cookie.
         /// </summary>
-        [JsonProperty(PropertyName = "key")]
-        [NSXTProperty(IsRequired: false, Description: @"Key to generate the cookie.")]
         public IList<NSXTALBHttpCookiePersistenceKeyType> Key { get; set; }
         /// <summary>
         /// SP will use this SSL certificate to sign requests going to
@@ -49,20 +39,14 @@ namespace nsxtsdk.PolicyModels
         /// It is a reference to an object of type
         /// SSLKeyAndCertificate.
         /// </summary>
-        [JsonProperty(PropertyName = "signing_ssl_key_and_certificate_path")]
-        [NSXTProperty(IsRequired: false, Description: @"SP will use this SSL certificate to sign requests going tothe IdP and decrypt the assertions coming from IdP.It is a reference to an object of typeSSLKeyAndCertificate.")]
         public string? SigningSslKeyAndCertificatePath { get; set; }
         /// <summary>
         /// SAML SP metadata for this application.
         /// </summary>
-        [JsonProperty(PropertyName = "sp_metadata")]
-        [NSXTProperty(IsRequired: false, Description: @"SAML SP metadata for this application.")]
         public string? SpMetadata { get; set; }
         /// <summary>
         /// HTTP cookie name for authenticated session.
         /// </summary>
-        [JsonProperty(PropertyName = "cookie_name")]
-        [NSXTProperty(IsRequired: false, Description: @"HTTP cookie name for authenticated session.")]
         public string? CookieName { get; set; }
         /// <summary>
         /// Cookie timeout in minutes.
@@ -71,18 +55,12 @@ namespace nsxtsdk.PolicyModels
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 60.
         /// </summary>
-        [JsonProperty(PropertyName = "cookie_timeout")]
-        [NSXTProperty(IsRequired: false, Description: @"Cookie timeout in minutes.Allowed values are 1-1440.Unit is MIN.Default value when not specified in API or module isinterpreted by ALB Controller as 60.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(1440)]
         public long? CookieTimeout { get; set; }
         /// <summary>
         /// By enabling this field IdP can control how long the SP
         /// session can exist through the SessionNotOnOrAfter field in
         /// the AuthNStatement of SAML Response.
         /// </summary>
-        [JsonProperty(PropertyName = "use_idp_session_timeout")]
-        [NSXTProperty(IsRequired: false, Description: @"By enabling this field IdP can control how long the SPsession can exist through the SessionNotOnOrAfter field inthe AuthNStatement of SAML Response.")]
         public bool? UseIdpSessionTimeout { get; set; }
     }
 }

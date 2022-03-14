@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,9 +17,6 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Identity (Directory) group")]
     public class NSXTIdentityGroupInfoType 
     {
-        public NSXTIdentityGroupInfoType()
-        {
-        }
         /// <summary>
         /// Each LDAP object is uniquely identified by its distinguished name (DN).
         /// A DN is a sequence of relative distinguished names (RDN) connected by commas.
@@ -29,8 +26,6 @@ namespace nsxtsdk.PolicyModels
         /// This value is valid only if it matches to exactly 1 LDAP object on the LDAP server.
         /// </summary>
         [JsonProperty(PropertyName = "distinguished_name", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Each LDAP object is uniquely identified by its distinguished name (DN).A DN is a sequence of relative distinguished names (RDN) connected by commas.e.g. CN=Larry Cole,CN=admin,DC=corp,DC=acme,DC=com.A valid fully qualified distinguished name should be provided to include specific groups elsethe create / update realization of the Group containing an invalid/ partial DN will fail.This value is valid only if it matches to exactly 1 LDAP object on the LDAP server.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string DistinguishedName { get; set; }
         /// <summary>
         /// This is the base distinguished name for the domain where this particular group
@@ -42,8 +37,6 @@ namespace nsxtsdk.PolicyModels
         /// the NC head.
         /// </summary>
         [JsonProperty(PropertyName = "domain_base_distinguished_name", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"This is the base distinguished name for the domain where this particular groupresides. (e.g. dc=example,dc=com)Each active directory domain has a domain naming context(NC), which contains domain-specific data. The root ofthis naming context is represented by a domain&apos;sdistinguished name (DN) and is typically referred to asthe NC head.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string DomainBaseDistinguishedName { get; set; }
         /// <summary>
         /// A security identifier (SID) is a unique value of variable length
@@ -56,8 +49,6 @@ namespace nsxtsdk.PolicyModels
         /// to the authority that issued the SID.
         /// This field is only populated for Microsoft Active Directory identity store.
         /// </summary>
-        [JsonProperty(PropertyName = "sid")]
-        [NSXTProperty(IsRequired: false, Description: @"A security identifier (SID) is a unique value of variable lengthused to identify a trustee. A SID consists of the following components:The revision level of the SID structure;A 48-bit identifier authority value that identifies theauthority that issued the SID;A variable number of subauthority or relative identifier(RID) values that uniquely identify the trustee relativeto the authority that issued the SID.This field is only populated for Microsoft Active Directory identity store.")]
         public string? Sid { get; set; }
     }
 }

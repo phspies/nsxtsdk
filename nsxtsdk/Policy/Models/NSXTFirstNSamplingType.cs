@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,17 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTFirstNSamplingType : NSXTSamplingArgumentType
     {
-        public NSXTFirstNSamplingType()
-        {
-        }
         /// <summary>
         /// Number of packets to be sampled
         /// </summary>
         [JsonProperty(PropertyName = "match_number", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Number of packets to be sampled")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(500)]
-        [System.ComponentModel.DataAnnotations.Required]
         public long MatchNumber { get; set; }
     }
 }

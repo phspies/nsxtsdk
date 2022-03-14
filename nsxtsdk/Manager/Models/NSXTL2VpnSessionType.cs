@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,41 +17,27 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTL2VpnSessionType : NSXTManagedResourceType
     {
-        public NSXTL2VpnSessionType()
-        {
-            Enabled = test
-        }
         /// <summary>
         /// List of transport tunnels for redundancy.
         /// </summary>
         [JsonProperty(PropertyName = "transport_tunnels", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"List of transport tunnels for redundancy.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTResourceReferenceType> TransportTunnels { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "tunnel_encapsulation")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTL2VpnTunnelEncapsulationType TunnelEncapsulation { get; set; }
         /// <summary>
         /// Enable to extend all the associated logical switches.
         /// </summary>
-        [JsonProperty(PropertyName = "enabled")]
-        [NSXTProperty(IsRequired: false, Description: @"Enable to extend all the associated logical switches.")]
         public bool? Enabled { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "l2vpn_tcp_mss_clamping")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTL2VpnTcpMssClampingType L2vpnTcpMssClamping { get; set; }
         /// <summary>
         /// L2VPN service id
         /// </summary>
         [JsonProperty(PropertyName = "l2vpn_service_id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"L2VPN service id")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string L2vpnServiceId { get; set; }
     }
 }

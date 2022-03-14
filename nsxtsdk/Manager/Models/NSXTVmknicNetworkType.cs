@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,24 +17,17 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Mapping of all vmk interfaces to destination networks")]
     public class NSXTVmknicNetworkType 
     {
-        public NSXTVmknicNetworkType()
-        {
-        }
         /// <summary>
         /// When migrating vmks to N-VDS/logical switches, the id is the logical switch id. When migrating out of N-VDS/logical
         /// switches, the id is the vSphere Switch portgroup name in a single vSphere Standard Switch (VSS), or distributed virtual
         /// portgroup name in a single distributed virtual switch (DVS).
         /// </summary>
         [JsonProperty(PropertyName = "destination_network", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"When migrating vmks to N-VDS/logical switches, the id is the logical switch id. When migrating out of N-VDS/logical switches, the id is the vSphere Switch portgroup name in a single vSphere Standard Switch (VSS), or distributed virtual portgroup name in a single distributed virtual switch (DVS).")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string DestinationNetwork { get; set; }
         /// <summary>
         /// The vmk interface name, e.g., vmk0, vmk1; the id assigned by vCenter.
         /// </summary>
         [JsonProperty(PropertyName = "device_name", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"The vmk interface name, e.g., vmk0, vmk1; the id assigned by vCenter.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string DeviceName { get; set; }
     }
 }

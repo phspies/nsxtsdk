@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,23 +17,11 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTALBServerAutoScalePolicyType : NSXTPolicyConfigResourceType
     {
-        public NSXTALBServerAutoScalePolicyType()
-        {
-            IntelligentScaleinMargin = test
-            IntelligentScaleoutMargin = test
-            MaxScaleinAdjustmentStep = test
-            DelayForServerGarbageCollection = test
-            MaxScaleoutAdjustmentStep = test
-            ScaleoutCooldown = test
-            ScaleinCooldown = test
-        }
         /// <summary>
         /// Use predicted load rather than current load.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as false.
         /// </summary>
-        [JsonProperty(PropertyName = "use_predicted_load")]
-        [NSXTProperty(IsRequired: false, Description: @"Use predicted load rather than current load.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
         public bool? UsePredictedLoad { get; set; }
         /// <summary>
         /// Use Avi intelligent autoscale algorithm where autoscale is
@@ -42,8 +30,6 @@ namespace nsxtsdk.PolicyModels
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as false.
         /// </summary>
-        [JsonProperty(PropertyName = "intelligent_autoscale")]
-        [NSXTProperty(IsRequired: false, Description: @"Use Avi intelligent autoscale algorithm where autoscale isperformed by comparing load on the pool against estimatedcapacity of all the servers.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
         public bool? IntelligentAutoscale { get; set; }
         /// <summary>
         /// Maximum extra capacity as percentage of load used by the
@@ -54,10 +40,6 @@ namespace nsxtsdk.PolicyModels
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 40.
         /// </summary>
-        [JsonProperty(PropertyName = "intelligent_scalein_margin")]
-        [NSXTProperty(IsRequired: false, Description: @"Maximum extra capacity as percentage of load used by theintelligent scheme.Scalein is triggered when available capacity is more thanthis margin.Allowed values are 1-99.Default value when not specified in API or module isinterpreted by ALB Controller as 40.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(99)]
         public long? IntelligentScaleinMargin { get; set; }
         /// <summary>
         /// Minimum extra capacity as percentage of load used by the
@@ -68,28 +50,18 @@ namespace nsxtsdk.PolicyModels
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 20.
         /// </summary>
-        [JsonProperty(PropertyName = "intelligent_scaleout_margin")]
-        [NSXTProperty(IsRequired: false, Description: @"Minimum extra capacity as percentage of load used by theintelligent scheme.Scaleout is triggered when available capacity is less thanthis margin.Allowed values are 1-99.Default value when not specified in API or module isinterpreted by ALB Controller as 20.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(99)]
         public long? IntelligentScaleoutMargin { get; set; }
         /// <summary>
         /// List of labels to be used for granular RBAC.
         /// Allowed in Basic edition, Essentials edition, Enterprise
         /// edition.
         /// </summary>
-        [JsonProperty(PropertyName = "markers")]
-        [NSXTProperty(IsRequired: false, Description: @"List of labels to be used for granular RBAC.Allowed in Basic edition, Essentials edition, Enterpriseedition.")]
         public IList<NSXTALBRoleFilterMatchLabelType> Markers { get; set; }
         /// <summary>
         /// No scale-in happens once number of operationally up servers
         /// reach min_servers.
         /// Allowed values are 0-400.
         /// </summary>
-        [JsonProperty(PropertyName = "min_size")]
-        [NSXTProperty(IsRequired: false, Description: @"No scale-in happens once number of operationally up serversreach min_servers.Allowed values are 0-400.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(400)]
         public long? MinSize { get; set; }
         /// <summary>
         /// Maximum number of servers to scalein simultaneously.
@@ -99,8 +71,6 @@ namespace nsxtsdk.PolicyModels
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 1.
         /// </summary>
-        [JsonProperty(PropertyName = "max_scalein_adjustment_step")]
-        [NSXTProperty(IsRequired: false, Description: @"Maximum number of servers to scalein simultaneously.The actual number of servers to scalein is chosen such thattarget number of servers is always more than or equal to themin_size.Default value when not specified in API or module isinterpreted by ALB Controller as 1.")]
         public long? MaxScaleinAdjustmentStep { get; set; }
         /// <summary>
         /// Delay in minutes after which a down server will be removed
@@ -109,8 +79,6 @@ namespace nsxtsdk.PolicyModels
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 0.
         /// </summary>
-        [JsonProperty(PropertyName = "delay_for_server_garbage_collection")]
-        [NSXTProperty(IsRequired: false, Description: @"Delay in minutes after which a down server will be removedfrom Pool.Value 0 disables this functionality.Default value when not specified in API or module isinterpreted by ALB Controller as 0.")]
         public long? DelayForServerGarbageCollection { get; set; }
         /// <summary>
         /// Maximum number of servers to scaleout simultaneously.
@@ -120,8 +88,6 @@ namespace nsxtsdk.PolicyModels
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 1.
         /// </summary>
-        [JsonProperty(PropertyName = "max_scaleout_adjustment_step")]
-        [NSXTProperty(IsRequired: false, Description: @"Maximum number of servers to scaleout simultaneously.The actual number of servers to scaleout is chosen suchthat target number of servers is always less than or equalto the max_size.Default value when not specified in API or module isinterpreted by ALB Controller as 1.")]
         public long? MaxScaleoutAdjustmentStep { get; set; }
         /// <summary>
         /// Cooldown period during which no new scaleout is triggered
@@ -130,17 +96,11 @@ namespace nsxtsdk.PolicyModels
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 300.
         /// </summary>
-        [JsonProperty(PropertyName = "scaleout_cooldown")]
-        [NSXTProperty(IsRequired: false, Description: @"Cooldown period during which no new scaleout is triggeredto allow previous scaleout to successfully complete.Unit is SEC.Default value when not specified in API or module isinterpreted by ALB Controller as 300.")]
         public long? ScaleoutCooldown { get; set; }
         /// <summary>
         /// Maximum number of servers after scaleout.
         /// Allowed values are 0-400.
         /// </summary>
-        [JsonProperty(PropertyName = "max_size")]
-        [NSXTProperty(IsRequired: false, Description: @"Maximum number of servers after scaleout.Allowed values are 0-400.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(400)]
         public long? MaxSize { get; set; }
         /// <summary>
         /// Cooldown period during which no new scalein is triggered to
@@ -149,8 +109,6 @@ namespace nsxtsdk.PolicyModels
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 300.
         /// </summary>
-        [JsonProperty(PropertyName = "scalein_cooldown")]
-        [NSXTProperty(IsRequired: false, Description: @"Cooldown period during which no new scalein is triggered toallow previous scalein to successfully complete.Unit is SEC.Default value when not specified in API or module isinterpreted by ALB Controller as 300.")]
         public long? ScaleinCooldown { get; set; }
     }
 }

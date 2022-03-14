@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public MACSet(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public MACSet(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void RemoveMacaddress(string MacSetId, string MacAddress)
+        public async Task RemoveMacaddress(string MacSetId, string MacAddress)
         {
             if (MacSetId == null) { throw new System.ArgumentNullException("MacSetId cannot be null"); }
             if (MacAddress == null) { throw new System.ArgumentNullException("MacAddress cannot be null"); }
@@ -45,7 +52,7 @@ namespace nsxtapi.ManagerModules
             RemoveMacaddressServiceURL.Replace("{mac-set-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(MacSetId, System.Globalization.CultureInfo.InvariantCulture)));
             RemoveMacaddressServiceURL.Replace("{mac-address}", System.Uri.EscapeDataString(Helpers.ConvertToString(MacAddress, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = RemoveMacaddressServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + RemoveMacaddressServiceURL.ToString() + " did not complete successfull";
@@ -57,7 +64,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTMACAddressElementType AddMacaddress(string MacSetId, NSXTMACAddressElementType MacaddressElement)
+        public async Task<NSXTMACAddressElementType> AddMacaddress(string MacSetId, NSXTMACAddressElementType MacaddressElement)
         {
             if (MacSetId == null) { throw new System.ArgumentNullException("MacSetId cannot be null"); }
             if (MacaddressElement == null) { throw new System.ArgumentNullException("MacaddressElement cannot be null"); }
@@ -72,31 +79,19 @@ namespace nsxtapi.ManagerModules
             AddMacaddressServiceURL.Replace("{mac-set-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(MacSetId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(MacaddressElement, defaultSerializationSettings));
             request.Resource = AddMacaddressServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTMACAddressElementType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTMACAddressElementType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + AddMacaddressServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTMACAddressElementType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTMACAddressElementType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTMACAddressElementListResultType GetMacaddresses(string MacSetId)
+        public async Task<NSXTMACAddressElementListResultType> GetMacaddresses(string MacSetId)
         {
             if (MacSetId == null) { throw new System.ArgumentNullException("MacSetId cannot be null"); }
             NSXTMACAddressElementListResultType returnValue = default(NSXTMACAddressElementListResultType);
@@ -109,31 +104,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             GetMacaddressesServiceURL.Replace("{mac-set-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(MacSetId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetMacaddressesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTMACAddressElementListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTMACAddressElementListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetMacaddressesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTMACAddressElementListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTMACAddressElementListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTMACSetType UpdateMacset(string MacSetId, NSXTMACSetType Macset)
+        public async Task<NSXTMACSetType> UpdateMacset(string MacSetId, NSXTMACSetType Macset)
         {
             if (MacSetId == null) { throw new System.ArgumentNullException("MacSetId cannot be null"); }
             if (Macset == null) { throw new System.ArgumentNullException("Macset cannot be null"); }
@@ -148,31 +131,19 @@ namespace nsxtapi.ManagerModules
             UpdateMacsetServiceURL.Replace("{mac-set-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(MacSetId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(Macset, defaultSerializationSettings));
             request.Resource = UpdateMacsetServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTMACSetType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTMACSetType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateMacsetServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTMACSetType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTMACSetType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteMacset(string MacSetId, bool? Force = null)
+        public async Task DeleteMacset(string MacSetId, bool? Force = null)
         {
             if (MacSetId == null) { throw new System.ArgumentNullException("MacSetId cannot be null"); }
             
@@ -186,7 +157,7 @@ namespace nsxtapi.ManagerModules
             DeleteMacsetServiceURL.Replace("{mac-set-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(MacSetId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
             request.Resource = DeleteMacsetServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteMacsetServiceURL.ToString() + " did not complete successfull";
@@ -198,7 +169,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTMACSetType ReadMacset(string MacSetId)
+        public async Task<NSXTMACSetType> ReadMacset(string MacSetId)
         {
             if (MacSetId == null) { throw new System.ArgumentNullException("MacSetId cannot be null"); }
             NSXTMACSetType returnValue = default(NSXTMACSetType);
@@ -211,31 +182,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             ReadMacsetServiceURL.Replace("{mac-set-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(MacSetId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadMacsetServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTMACSetType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTMACSetType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadMacsetServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTMACSetType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTMACSetType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTMACSetType CreateMacset(NSXTMACSetType Macset)
+        public async Task<NSXTMACSetType> CreateMacset(NSXTMACSetType Macset)
         {
             if (Macset == null) { throw new System.ArgumentNullException("Macset cannot be null"); }
             NSXTMACSetType returnValue = default(NSXTMACSetType);
@@ -248,31 +207,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(Macset, defaultSerializationSettings));
             request.Resource = CreateMacsetServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTMACSetType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTMACSetType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CreateMacsetServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTMACSetType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTMACSetType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTMACSetListResultType ListMacsets(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTMACSetListResultType> ListMacsets(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTMACSetListResultType returnValue = default(NSXTMACSetListResultType);
             StringBuilder ListMacsetsServiceURL = new StringBuilder("/mac-sets");
@@ -288,25 +235,13 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListMacsetsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTMACSetListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTMACSetListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListMacsetsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTMACSetListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTMACSetListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

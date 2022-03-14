@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -20,49 +20,28 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTFloodProtectionProfileType : NSXTPolicyConfigResourceType
     {
-        public NSXTFloodProtectionProfileType()
-        {
-        }
         /// <summary>
         /// If this field is empty, firewall will not set a limit to active ICMP connections.
         /// </summary>
-        [JsonProperty(PropertyName = "icmp_active_flow_limit")]
-        [NSXTProperty(IsRequired: false, Description: @"If this field is empty, firewall will not set a limit to active ICMP connections.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(1000000)]
         public long? IcmpActiveFlowLimit { get; set; }
         /// <summary>
         /// If this field is empty, firewall will not set a limit to half open TCP connections.
         /// </summary>
-        [JsonProperty(PropertyName = "tcp_half_open_conn_limit")]
-        [NSXTProperty(IsRequired: false, Description: @"If this field is empty, firewall will not set a limit to half open TCP connections.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(1000000)]
         public long? TcpHalfOpenConnLimit { get; set; }
         /// <summary>
         /// If this field is empty, firewall will not set a limit to active UDP connections.
         /// </summary>
-        [JsonProperty(PropertyName = "udp_active_flow_limit")]
-        [NSXTProperty(IsRequired: false, Description: @"If this field is empty, firewall will not set a limit to active UDP connections.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(1000000)]
         public long? UdpActiveFlowLimit { get; set; }
         /// <summary>
         /// GatewayFloodProtectionProfile is used for all Tier0 and Tier1 gateways.
         /// DistributedFloodProtectionProfile is used for all Transport Nodes.
         /// </summary>
         [JsonProperty(PropertyName = "resource_type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"GatewayFloodProtectionProfile is used for all Tier0 and Tier1 gateways.DistributedFloodProtectionProfile is used for all Transport Nodes.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTFloodProtectionProfileResourceTypeEnumType ResourceType { get; set; }
         /// <summary>
         /// If this field is empty, firewall will not set a limit to other active connections. besides UDP, ICMP and half open TCP
         /// connections.
         /// </summary>
-        [JsonProperty(PropertyName = "other_active_conn_limit")]
-        [NSXTProperty(IsRequired: false, Description: @"If this field is empty, firewall will not set a limit to other active connections. besides UDP, ICMP and half open TCP connections.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(1000000)]
         public long? OtherActiveConnLimit { get; set; }
     }
 }

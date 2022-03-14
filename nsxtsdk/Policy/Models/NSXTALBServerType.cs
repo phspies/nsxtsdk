@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,24 +17,15 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer Server object")]
     public class NSXTALBServerType 
     {
-        public NSXTALBServerType()
-        {
-            Enabled = test
-            Ratio = test
-        }
         /// <summary>
         /// If statically learned.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as false.
         /// </summary>
-        [JsonProperty(PropertyName = "is_static")]
-        [NSXTProperty(IsRequired: false, Description: @"If statically learned.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
         public bool? IsStatic { get; set; }
         /// <summary>
         /// UID of server in external orchestration systems.
         /// </summary>
-        [JsonProperty(PropertyName = "external_orchestration_id")]
-        [NSXTProperty(IsRequired: false, Description: @"UID of server in external orchestration systems.")]
         public string? ExternalOrchestrationId { get; set; }
         /// <summary>
         /// (internal-use) Discovered networks providing reachability
@@ -42,47 +33,33 @@ namespace nsxtsdk.PolicyModels
         /// This field is used internally by Avi, not editable by the
         /// user.
         /// </summary>
-        [JsonProperty(PropertyName = "discovered_networks")]
-        [NSXTProperty(IsRequired: false, Description: @"(internal-use) Discovered networks providing reachabilityfor server IP.This field is used internally by Avi, not editable by theuser.")]
         public IList<NSXTALBDiscoveredNetworkType> DiscoveredNetworks { get; set; }
         /// <summary>
         /// Header value for custom header persistence.
         /// </summary>
-        [JsonProperty(PropertyName = "prst_hdr_val")]
-        [NSXTProperty(IsRequired: false, Description: @"Header value for custom header persistence.")]
         public string? PrstHdrVal { get; set; }
         /// <summary>
         /// A description of the Server.
         /// </summary>
-        [JsonProperty(PropertyName = "description")]
-        [NSXTProperty(IsRequired: false, Description: @"A description of the Server.")]
         public string? Description { get; set; }
         /// <summary>
         /// Availability-zone of the server VM.
         /// </summary>
-        [JsonProperty(PropertyName = "availability_zone")]
-        [NSXTProperty(IsRequired: false, Description: @"Availability-zone of the server VM.")]
         public string? AvailabilityZone { get; set; }
         /// <summary>
         /// Name of autoscaling group this server belongs to.
         /// Allowed in Essentials edition, Enterprise edition.
         /// </summary>
-        [JsonProperty(PropertyName = "autoscaling_group_name")]
-        [NSXTProperty(IsRequired: false, Description: @"Name of autoscaling group this server belongs to.Allowed in Essentials edition, Enterprise edition.")]
         public string? AutoscalingGroupName { get; set; }
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty(PropertyName = "ip", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTALBIpAddrType Ip { get; set; }
         /// <summary>
         /// DNS resolvable name of the server.
         /// May be used in place of the IP address.
         /// </summary>
-        [JsonProperty(PropertyName = "hostname")]
-        [NSXTProperty(IsRequired: false, Description: @"DNS resolvable name of the server.May be used in place of the IP address.")]
         public string? Hostname { get; set; }
         /// <summary>
         /// Enable, Disable or Graceful Disable determine if new or
@@ -90,14 +67,10 @@ namespace nsxtsdk.PolicyModels
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as true.
         /// </summary>
-        [JsonProperty(PropertyName = "enabled")]
-        [NSXTProperty(IsRequired: false, Description: @"Enable, Disable or Graceful Disable determine if new orexisting connections to the server are allowed.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
         public bool? Enabled { get; set; }
         /// <summary>
         /// MAC address of server.
         /// </summary>
-        [JsonProperty(PropertyName = "mac_address")]
-        [NSXTProperty(IsRequired: false, Description: @"MAC address of server.")]
         public string? MacAddress { get; set; }
         /// <summary>
         /// Verify server belongs to a discovered network or reachable
@@ -107,28 +80,20 @@ namespace nsxtsdk.PolicyModels
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as false.
         /// </summary>
-        [JsonProperty(PropertyName = "verify_network")]
-        [NSXTProperty(IsRequired: false, Description: @"Verify server belongs to a discovered network or reachablevia a discovered network.Verify reachable network isn&apos;t the OpenStack managementnetwork.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
         public bool? VerifyNetwork { get; set; }
         /// <summary>
         /// Hostname of the node where the server VM or container
         /// resides.
         /// </summary>
-        [JsonProperty(PropertyName = "server_node")]
-        [NSXTProperty(IsRequired: false, Description: @"Hostname of the node where the server VM or containerresides.")]
         public string? ServerNode { get; set; }
         /// <summary>
         /// UUID identifying VM in OpenStack and other external
         /// compute.
         /// </summary>
-        [JsonProperty(PropertyName = "external_uuid")]
-        [NSXTProperty(IsRequired: false, Description: @"UUID identifying VM in OpenStack and other externalcompute.")]
         public string? ExternalUuid { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "location")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBGeoLocationType Location { get; set; }
         /// <summary>
         /// Auto resolve server's IP using DNS name.
@@ -138,8 +103,6 @@ namespace nsxtsdk.PolicyModels
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as false.
         /// </summary>
-        [JsonProperty(PropertyName = "resolve_server_by_dns")]
-        [NSXTProperty(IsRequired: false, Description: @"Auto resolve server&apos;s IP using DNS name.Allowed in Basic(Allowed values- false) edition,Essentials(Allowed values- false) edition, Enterpriseedition.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
         public bool? ResolveServerByDns { get; set; }
         /// <summary>
         /// Ratio of selecting eligible servers in the pool.
@@ -147,18 +110,12 @@ namespace nsxtsdk.PolicyModels
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 1.
         /// </summary>
-        [JsonProperty(PropertyName = "ratio")]
-        [NSXTProperty(IsRequired: false, Description: @"Ratio of selecting eligible servers in the pool.Allowed values are 1-20.Default value when not specified in API or module isinterpreted by ALB Controller as 1.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(20)]
         public long? Ratio { get; set; }
         /// <summary>
         /// Rewrite incoming Host Header to server name.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as false.
         /// </summary>
-        [JsonProperty(PropertyName = "rewrite_host_header")]
-        [NSXTProperty(IsRequired: false, Description: @"Rewrite incoming Host Header to server name.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
         public bool? RewriteHostHeader { get; set; }
         /// <summary>
         /// Optionally specify the servers port number.
@@ -167,10 +124,6 @@ namespace nsxtsdk.PolicyModels
         /// Allowed values are 1-65535.
         /// Special values are 0- 'use backend port in pool'.
         /// </summary>
-        [JsonProperty(PropertyName = "port")]
-        [NSXTProperty(IsRequired: false, Description: @"Optionally specify the servers port number.This will override the pool&apos;s default server portattribute.Allowed values are 1-65535.Special values are 0- &apos;use backend port in pool&apos;.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
         public long? Port { get; set; }
     }
 }

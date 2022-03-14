@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -20,15 +20,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Related attribute on the target resource for conditional constraints basedon related attribute value.Example - destinationGroups/service/action is related attribute of  sourceGroups in communcation entry.")]
     public class NSXTRelatedAttributeType 
     {
-        public NSXTRelatedAttributeType()
-        {
-        }
         /// <summary>
         /// Related attribute name on the target entity.
         /// </summary>
         [JsonProperty(PropertyName = "attribute", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Related attribute name on the target entity.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Attribute { get; set; }
     }
 }

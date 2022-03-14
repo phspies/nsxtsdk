@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,29 +17,20 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Allows more granular policies for application workloads")]
     public class NSXTApplicationConnectivityStrategyType 
     {
-        public NSXTApplicationConnectivityStrategyType()
-        {
-        }
         /// <summary>
         /// Flag to enable packet logging. Default is disabled.
         /// </summary>
-        [JsonProperty(PropertyName = "logging_enabled")]
-        [NSXTProperty(IsRequired: false, Description: @"Flag to enable packet logging. Default is disabled.")]
         public bool? LoggingEnabled { get; set; }
         /// <summary>
         /// Based on the value of the app connectivity strategy, a default rule is
         /// created for the security policy. The rule id is internally assigned
         /// by the system for this default rule.
         /// </summary>
-        [JsonProperty(PropertyName = "default_application_rule_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Based on the value of the app connectivity strategy, a default rule iscreated for the security policy. The rule id is internally assignedby the system for this default rule.")]
         public long? DefaultApplicationRuleId { get; set; }
         /// <summary>
         /// App connectivity strategies
         /// </summary>
         [JsonProperty(PropertyName = "application_connectivity_strategy", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"App connectivity strategies")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTApplicationConnectivityStrategyApplicationConnectivityStrategyEnumType ApplicationConnectivityStrategy { get; set; }
     }
 }

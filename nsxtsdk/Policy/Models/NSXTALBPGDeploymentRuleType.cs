@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,34 +17,23 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer PGDeploymentRule object")]
     public class NSXTALBPGDeploymentRuleType 
     {
-        public NSXTALBPGDeploymentRuleType()
-        {
-            Operator = test
-            MetricId = test
-        }
         /// <summary>
         /// Enum options - CO_EQ, CO_GT, CO_GE, CO_LT, CO_LE, CO_NE.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as CO_GE.
         /// </summary>
-        [JsonProperty(PropertyName = "operator")]
-        [NSXTProperty(IsRequired: false, Description: @"Enum options - CO_EQ, CO_GT, CO_GE, CO_LT, CO_LE, CO_NE.Default value when not specified in API or module isinterpreted by ALB Controller as CO_GE.")]
         public NSXTAlbpgdeploymentRuleOperatorEnumType? OperatorProperty { get; set; }
         /// <summary>
         /// metric threshold that is used as the pass fail.
         /// If it is not provided then it will simply compare it with
         /// current pool vs new pool.
         /// </summary>
-        [JsonProperty(PropertyName = "threshold")]
-        [NSXTProperty(IsRequired: false, Description: @"metric threshold that is used as the pass fail.If it is not provided then it will simply compare it withcurrent pool vs new pool.")]
         public double? Threshold { get; set; }
         /// <summary>
         /// metric_id of PGDeploymentRule.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as health.health_score_value.
         /// </summary>
-        [JsonProperty(PropertyName = "metric_id")]
-        [NSXTProperty(IsRequired: false, Description: @"metric_id of PGDeploymentRule.Default value when not specified in API or module isinterpreted by ALB Controller as health.health_score_value.")]
         public string? MetricId { get; set; }
     }
 }

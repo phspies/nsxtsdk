@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,45 +17,28 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLiveTraceConfigType : NSXTPolicyConfigResourceType
     {
-        public NSXTLiveTraceConfigType()
-        {
-            Timeout = test
-            IsTransient = test
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "filter")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTLiveTraceFilterDataType Filter { get; set; }
         /// <summary>
         /// The duration for observing live traffic on the specified source logical port.
         /// </summary>
-        [JsonProperty(PropertyName = "timeout")]
-        [NSXTProperty(IsRequired: false, Description: @"The duration for observing live traffic on the specified source logical port.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(5)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(300)]
         public long? Timeout { get; set; }
         /// <summary>
         /// Policy path of logical port to start a livetrace session.
         /// </summary>
         [JsonProperty(PropertyName = "src_port_path", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Policy path of logical port to start a livetrace session.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string SrcPortPath { get; set; }
         /// <summary>
         /// This field indicates whether the intent is transient. If it is set to true, intent will be
         /// cleaned up after 1 hour of inactivity.
         /// </summary>
-        [JsonProperty(PropertyName = "is_transient")]
-        [NSXTProperty(IsRequired: false, Description: @"This field indicates whether the intent is transient. If it is set to true, intent will becleaned up after 1 hour of inactivity.")]
         public bool? IsTransient { get; set; }
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty(PropertyName = "actions", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTPolicyLiveTraceActionConfigType Actions { get; set; }
     }
 }

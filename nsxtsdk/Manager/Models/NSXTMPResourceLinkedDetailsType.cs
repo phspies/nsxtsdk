@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,21 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Information about linked resource.")]
     public class NSXTMPResourceLinkedDetailsType 
     {
-        public NSXTMPResourceLinkedDetailsType()
-        {
-        }
         /// <summary>
         /// Resource id of the assocationed resource.
         /// </summary>
-        [JsonProperty(PropertyName = "value")]
-        [NSXTProperty(IsRequired: false, Description: @"Resource id of the assocationed resource.")]
         public string? Value { get; set; }
         /// <summary>
         /// Associated resource type.
         /// </summary>
         [JsonProperty(PropertyName = "key", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Associated resource type.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Key { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,28 +17,19 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIdfwEnabledComputeCollectionType : NSXTManagedResourceType
     {
-        public NSXTIdfwEnabledComputeCollectionType()
-        {
-        }
         /// <summary>
         /// Compute collection name.
         /// </summary>
-        [JsonProperty(PropertyName = "compute_collection_name")]
-        [NSXTProperty(IsRequired: false, Description: @"Compute collection name.")]
         public string? ComputeCollectionName { get; set; }
         /// <summary>
         /// Compute collection enabled status (true=Enabled / false=Disabled).
         /// </summary>
         [JsonProperty(PropertyName = "enabled", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Compute collection enabled status (true=Enabled / false=Disabled).")]
-        [System.ComponentModel.DataAnnotations.Required]
         public bool Enabled { get; set; }
         /// <summary>
         /// Compute collection ID.
         /// </summary>
         [JsonProperty(PropertyName = "compute_collection_id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Compute collection ID.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string ComputeCollectionId { get; set; }
     }
 }

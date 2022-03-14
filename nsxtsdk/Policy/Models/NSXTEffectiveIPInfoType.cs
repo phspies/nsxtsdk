@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,22 +17,15 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"List of effective ip address along with site id")]
     public class NSXTEffectiveIPInfoType 
     {
-        public NSXTEffectiveIPInfoType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty(PropertyName = "effective_ips", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<string> EffectiveIps { get; set; }
         /// <summary>
         /// Id of the site to which the effective IPs belong to
         /// </summary>
         [JsonProperty(PropertyName = "site_id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Id of the site to which the effective IPs belong to")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string SiteId { get; set; }
     }
 }

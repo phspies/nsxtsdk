@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,20 +17,13 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTTunnelStatusCountType : NSXTStatusCountType
     {
-        public NSXTTunnelStatusCountType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "bfd_diagnostic")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTBFDDiagnosticCountType BfdDiagnostic { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "bfd_status")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTBFDStatusCountType BfdStatus { get; set; }
     }
 }

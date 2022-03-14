@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"NSX-T Detailed Realized Status Per Scope.")]
     public class NSXTEnforcedStatusPerScopeNsxTType 
     {
-        public NSXTEnforcedStatusPerScopeNsxTType()
-        {
-        }
         /// <summary>
         /// Enforced Realized Status Per Scope Resource Type.
         /// </summary>
         [JsonProperty(PropertyName = "resource_type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Enforced Realized Status Per Scope Resource Type.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTEnforcedStatusPerScopeNsxTResourceTypeEnumType ResourceType { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,21 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Represents X and Y axis unit of a graph.")]
     public class NSXTAxisUnitType 
     {
-        public NSXTAxisUnitType()
-        {
-        }
         /// <summary>
         /// If the condition is met then the above unit will be displayed. to UI. If no condition is provided, then the unit will be
         /// displayed unconditionally.
         /// </summary>
-        [JsonProperty(PropertyName = "condition")]
-        [NSXTProperty(IsRequired: false, Description: @"If the condition is met then the above unit will be displayed. to UI. If no condition is provided, then the unit will be displayed unconditionally.")]
         public string? Condition { get; set; }
         /// <summary>
         /// An Axis unit.
         /// </summary>
-        [JsonProperty(PropertyName = "unit")]
-        [NSXTProperty(IsRequired: false, Description: @"An Axis unit.")]
         public NSXTAxisUnitUnitEnumType? Unit { get; set; }
     }
 }

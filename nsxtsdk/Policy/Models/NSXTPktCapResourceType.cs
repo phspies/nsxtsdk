@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,20 +17,13 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPktCapResourceType : NSXTBasePktCapResourceType
     {
-        public NSXTPktCapResourceType()
-        {
-        }
         /// <summary>
         /// Packet capture file download URL
         /// </summary>
-        [JsonProperty(PropertyName = "pktcap_file_download_url")]
-        [NSXTProperty(IsRequired: false, Description: @"Packet capture file download URL")]
         public string? PktcapFileDownloadUrl { get; set; }
         /// <summary>
         /// The ID of logical port where packet capture action is performed
         /// </summary>
-        [JsonProperty(PropertyName = "port_id")]
-        [NSXTProperty(IsRequired: false, Description: @"The ID of logical port where packet capture action is performed")]
         public string? PortId { get; set; }
     }
 }

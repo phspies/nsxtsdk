@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,34 +17,21 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTContainerClusterStatusType 
     {
-        public NSXTContainerClusterStatusType()
-        {
-        }
         /// <summary>
         /// Display the container cluster status.
         /// </summary>
-        [JsonProperty(PropertyName = "status")]
-        [NSXTProperty(IsRequired: false, Description: @"Display the container cluster status.")]
         public NSXTContainerClusterStatusStatusEnumType? Status { get; set; }
         /// <summary>
         /// Display the cluster check interval in seconds.
         /// </summary>
-        [JsonProperty(PropertyName = "interval")]
-        [NSXTProperty(IsRequired: false, Description: @"Display the cluster check interval in seconds.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(60)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(600)]
         public int? Interval { get; set; }
         /// <summary>
         /// Identifier of the container cluster.
         /// </summary>
-        [JsonProperty(PropertyName = "cluster_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Identifier of the container cluster.")]
         public string? ClusterId { get; set; }
         /// <summary>
         /// Detail information on status.
         /// </summary>
-        [JsonProperty(PropertyName = "detail")]
-        [NSXTProperty(IsRequired: false, Description: @"Detail information on status.")]
         public string? Detail { get; set; }
     }
 }

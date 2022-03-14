@@ -21,16 +21,23 @@ namespace nsxtapi.PolicyModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public PolicyStaticMimeContent(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public PolicyStaticMimeContent(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTStaticMimeContentListResultType ListPolicyStaticMimeContents(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTStaticMimeContentListResultType> ListPolicyStaticMimeContents(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTStaticMimeContentListResultType returnValue = default(NSXTStaticMimeContentListResultType);
             StringBuilder ListPolicyStaticMimeContentsServiceURL = new StringBuilder("/infra/static-mime-contents");
@@ -47,31 +54,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListPolicyStaticMimeContentsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTStaticMimeContentListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTStaticMimeContentListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListPolicyStaticMimeContentsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTStaticMimeContentListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTStaticMimeContentListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTStaticMimeContentType CreateOrUpdatePolicyStaticMimeContent(string StaticMimeContentId, NSXTStaticMimeContentType StaticMimeContent, bool? Override = null)
+        public async Task<NSXTStaticMimeContentType> CreateOrUpdatePolicyStaticMimeContent(string StaticMimeContentId, NSXTStaticMimeContentType StaticMimeContent, bool? Override = null)
         {
             if (StaticMimeContentId == null) { throw new System.ArgumentNullException("StaticMimeContentId cannot be null"); }
             if (StaticMimeContent == null) { throw new System.ArgumentNullException("StaticMimeContent cannot be null"); }
@@ -87,31 +82,19 @@ namespace nsxtapi.PolicyModules
             request.AddJsonBody(JsonConvert.SerializeObject(StaticMimeContent, defaultSerializationSettings));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = CreateOrUpdatePolicyStaticMimeContentServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTStaticMimeContentType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTStaticMimeContentType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateOrUpdatePolicyStaticMimeContentServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTStaticMimeContentType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTStaticMimeContentType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTStaticMimeContentType GetPolicyStaticMimeContent(string StaticMimeContentId)
+        public async Task<NSXTStaticMimeContentType> GetPolicyStaticMimeContent(string StaticMimeContentId)
         {
             if (StaticMimeContentId == null) { throw new System.ArgumentNullException("StaticMimeContentId cannot be null"); }
             NSXTStaticMimeContentType returnValue = default(NSXTStaticMimeContentType);
@@ -124,31 +107,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             GetPolicyStaticMimeContentServiceURL.Replace("{static-mime-content-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(StaticMimeContentId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetPolicyStaticMimeContentServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTStaticMimeContentType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTStaticMimeContentType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetPolicyStaticMimeContentServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTStaticMimeContentType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTStaticMimeContentType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTStaticMimeContentType PatchPolicyStaticMimeContent(string StaticMimeContentId, NSXTStaticMimeContentType StaticMimeContent, bool? Override = null)
+        public async Task<NSXTStaticMimeContentType> PatchPolicyStaticMimeContent(string StaticMimeContentId, NSXTStaticMimeContentType StaticMimeContent, bool? Override = null)
         {
             if (StaticMimeContentId == null) { throw new System.ArgumentNullException("StaticMimeContentId cannot be null"); }
             if (StaticMimeContent == null) { throw new System.ArgumentNullException("StaticMimeContent cannot be null"); }
@@ -164,31 +135,19 @@ namespace nsxtapi.PolicyModules
             request.AddJsonBody(JsonConvert.SerializeObject(StaticMimeContent, defaultSerializationSettings));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = PatchPolicyStaticMimeContentServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTStaticMimeContentType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTStaticMimeContentType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchPolicyStaticMimeContentServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTStaticMimeContentType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTStaticMimeContentType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeletePolicyStaticMimeContent(string StaticMimeContentId, bool? Override = null)
+        public async Task DeletePolicyStaticMimeContent(string StaticMimeContentId, bool? Override = null)
         {
             if (StaticMimeContentId == null) { throw new System.ArgumentNullException("StaticMimeContentId cannot be null"); }
             
@@ -202,7 +161,7 @@ namespace nsxtapi.PolicyModules
             DeletePolicyStaticMimeContentServiceURL.Replace("{static-mime-content-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(StaticMimeContentId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = DeletePolicyStaticMimeContentServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeletePolicyStaticMimeContentServiceURL.ToString() + " did not complete successfull";

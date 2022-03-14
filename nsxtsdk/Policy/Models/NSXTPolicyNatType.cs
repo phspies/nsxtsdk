@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyNatType : NSXTPolicyConfigResourceType
     {
-        public NSXTPolicyNatType()
-        {
-        }
         /// <summary>
         /// Represents a NAT section under tier-0/tier-1.
         /// </summary>
-        [JsonProperty(PropertyName = "nat_type")]
-        [NSXTProperty(IsRequired: false, Description: @"Represents a NAT section under tier-0/tier-1.")]
         public NSXTPolicyNatNatTypeEnumType? NatType { get; set; }
     }
 }

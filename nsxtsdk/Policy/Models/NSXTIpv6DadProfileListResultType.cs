@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIpv6DadProfileListResultType : NSXTListResultType
     {
-        public NSXTIpv6DadProfileListResultType()
-        {
-        }
         /// <summary>
         /// Paginated list of Ipv6DadProfile
         /// </summary>
         [JsonProperty(PropertyName = "results", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Paginated list of Ipv6DadProfile")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTIpv6DadProfileType> Results { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,24 +17,16 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer FailActionHTTPLocalResponse object")]
     public class NSXTALBFailActionHTTPLocalResponseType 
     {
-        public NSXTALBFailActionHTTPLocalResponseType()
-        {
-            StatusCode = test
-        }
         /// <summary>
         /// Enum options - FAIL_HTTP_STATUS_CODE_200,
         /// FAIL_HTTP_STATUS_CODE_503.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as FAIL_HTTP_STATUS_CODE_503.
         /// </summary>
-        [JsonProperty(PropertyName = "status_code")]
-        [NSXTProperty(IsRequired: false, Description: @"Enum options - FAIL_HTTP_STATUS_CODE_200,FAIL_HTTP_STATUS_CODE_503.Default value when not specified in API or module isinterpreted by ALB Controller as FAIL_HTTP_STATUS_CODE_503.")]
         public NSXTAlbfailActionHttplocalResponseStatusCodeEnumType? StatusCode { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "file")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBHTTPLocalFileType File { get; set; }
     }
 }

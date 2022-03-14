@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,22 +17,15 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer IPNetworkSubnet object")]
     public class NSXTALBIPNetworkSubnetType 
     {
-        public NSXTALBIPNetworkSubnetType()
-        {
-        }
         /// <summary>
         /// Subnet UUID or Name or Prefix for VirtualService IP
         /// allocation with AWS or OpenStack as the IPAM provider.
         /// Only one of subnet or subnet_uuid configuration is allowed.
         /// </summary>
-        [JsonProperty(PropertyName = "subnet_uuid")]
-        [NSXTProperty(IsRequired: false, Description: @"Subnet UUID or Name or Prefix for VirtualService IPallocation with AWS or OpenStack as the IPAM provider.Only one of subnet or subnet_uuid configuration is allowed.")]
         public string? SubnetUuid { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "subnet")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBIpAddrPrefixType Subnet { get; set; }
         /// <summary>
         /// Subnet UUID or Name or Prefix for VirtualService IPv6
@@ -41,14 +34,10 @@ namespace nsxtsdk.PolicyModels
         /// Allowed in Basic edition, Essentials edition, Enterprise
         /// edition.
         /// </summary>
-        [JsonProperty(PropertyName = "subnet6_uuid")]
-        [NSXTProperty(IsRequired: false, Description: @"Subnet UUID or Name or Prefix for VirtualService IPv6allocation with AWS or OpenStack as the IPAM provider.Only one of subnet or subnet_uuid configuration is allowed.Allowed in Basic edition, Essentials edition, Enterpriseedition.")]
         public string? Subnet6Uuid { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "subnet6")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBIpAddrPrefixType Subnet6 { get; set; }
         /// <summary>
         /// Network for VirtualService IP allocation with Vantage as
@@ -56,8 +45,6 @@ namespace nsxtsdk.PolicyModels
         /// Network should be created before this is configured.
         /// It is a reference to an object of type Network.
         /// </summary>
-        [JsonProperty(PropertyName = "network_name")]
-        [NSXTProperty(IsRequired: false, Description: @"Network for VirtualService IP allocation with Vantage asthe IPAM provider.Network should be created before this is configured.It is a reference to an object of type Network.")]
         public string? NetworkName { get; set; }
     }
 }

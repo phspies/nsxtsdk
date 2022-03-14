@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,54 +17,35 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTServiceEndpointType 
     {
-        public NSXTServiceEndpointType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "certificate_sha256_thumbprint")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public string? CertificateSha256Thumbprint { get; set; }
         /// <summary>
         /// Certificate or certificate chain
         /// </summary>
-        [JsonProperty(PropertyName = "certificate")]
-        [NSXTProperty(IsRequired: false, Description: @"Certificate or certificate chain")]
         public string? Certificate { get; set; }
         /// <summary>
         /// List of entities hosted on accessible through the service endpoint
         /// </summary>
-        [JsonProperty(PropertyName = "entities_hosted")]
-        [NSXTProperty(IsRequired: false, Description: @"List of entities hosted on accessible through the service endpoint")]
         public IList<NSXTHostedEntityInfoType> EntitiesHosted { get; set; }
         /// <summary>
         /// IPv4 or IPv6 address
         /// </summary>
         [JsonProperty(PropertyName = "ip_address", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"IPv4 or IPv6 address")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string IpAddress { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "fqdn")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public string? Fqdn { get; set; }
         /// <summary>
         /// Unique identifier of this service endpoint
         /// </summary>
-        [JsonProperty(PropertyName = "service_endpoint_uuid")]
-        [NSXTProperty(IsRequired: false, Description: @"Unique identifier of this service endpoint")]
         public string? ServiceEndpointUuid { get; set; }
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty(PropertyName = "port", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
-        [System.ComponentModel.DataAnnotations.Required]
         public long Port { get; set; }
     }
 }

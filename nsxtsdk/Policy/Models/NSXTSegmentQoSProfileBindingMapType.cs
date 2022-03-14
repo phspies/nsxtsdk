@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTSegmentQoSProfileBindingMapType : NSXTQoSProfileBindingMapType
     {
-        public NSXTSegmentQoSProfileBindingMapType()
-        {
-        }
         /// <summary>
         /// PolicyPath of associated  QoS Profile
         /// </summary>
-        [JsonProperty(PropertyName = "qos_profile_path")]
-        [NSXTProperty(IsRequired: false, Description: @"PolicyPath of associated  QoS Profile")]
         public string? QosProfilePath { get; set; }
     }
 }

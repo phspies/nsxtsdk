@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,23 +17,16 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLbIpHeaderConditionType : NSXTLbRuleConditionType
     {
-        public NSXTLbIpHeaderConditionType()
-        {
-        }
         /// <summary>
         /// Source IP address of HTTP message should match IP addresses which are
         /// configured in Group in order to perform actions.
         /// </summary>
-        [JsonProperty(PropertyName = "group_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Source IP address of HTTP message should match IP addresses which areconfigured in Group in order to perform actions.")]
         public string? GroupId { get; set; }
         /// <summary>
         /// Source IP address of HTTP message. IP Address can be expressed as a
         /// single IP address like 10.1.1.1, or a range of IP addresses like
         /// 10.1.1.101-10.1.1.160. Both IPv4 and IPv6 addresses are supported.
         /// </summary>
-        [JsonProperty(PropertyName = "source_address")]
-        [NSXTProperty(IsRequired: false, Description: @"Source IP address of HTTP message. IP Address can be expressed as asingle IP address like 10.1.1.1, or a range of IP addresses like10.1.1.101-10.1.1.160. Both IPv4 and IPv6 addresses are supported.")]
         public string? SourceAddress { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,30 +17,19 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTCopyRemoteFilePropertiesType 
     {
-        public NSXTCopyRemoteFilePropertiesType()
-        {
-        }
         /// <summary>
         /// URI of file to copy
         /// </summary>
         [JsonProperty(PropertyName = "uri", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"URI of file to copy")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Uri { get; set; }
         /// <summary>
         /// Server port
         /// </summary>
-        [JsonProperty(PropertyName = "port")]
-        [NSXTProperty(IsRequired: false, Description: @"Server port")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
         public long? Port { get; set; }
         /// <summary>
         /// Remote server hostname or IP address
         /// </summary>
         [JsonProperty(PropertyName = "server", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Remote server hostname or IP address")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Server { get; set; }
     }
 }

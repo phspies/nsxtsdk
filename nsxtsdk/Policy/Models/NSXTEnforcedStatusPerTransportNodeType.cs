@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,32 +17,21 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Detailed Realized Status Per Transport Node.")]
     public class NSXTEnforcedStatusPerTransportNodeType 
     {
-        public NSXTEnforcedStatusPerTransportNodeType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "enforced_status")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTEnforcedStatusNsxTType EnforcedStatus { get; set; }
         /// <summary>
         /// Policy Path referencing the transport node.
         /// </summary>
-        [JsonProperty(PropertyName = "path")]
-        [NSXTProperty(IsRequired: false, Description: @"Policy Path referencing the transport node.")]
         public string? Path { get; set; }
         /// <summary>
         /// UUID identifying uniquely the Transport Node.
         /// </summary>
-        [JsonProperty(PropertyName = "nsx_id")]
-        [NSXTProperty(IsRequired: false, Description: @"UUID identifying uniquely the Transport Node.")]
         public string? NsxId { get; set; }
         /// <summary>
         /// Display name of the transport node.
         /// </summary>
-        [JsonProperty(PropertyName = "display_name")]
-        [NSXTProperty(IsRequired: false, Description: @"Display name of the transport node.")]
         public string? DisplayName { get; set; }
     }
 }

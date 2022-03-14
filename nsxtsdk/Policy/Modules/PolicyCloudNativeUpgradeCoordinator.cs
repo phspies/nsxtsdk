@@ -21,16 +21,23 @@ namespace nsxtapi.PolicyModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public PolicyCloudNativeUpgradeCoordinator(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public PolicyCloudNativeUpgradeCoordinator(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDeploymentChecksStatusResultType GetUcdeploymentChecksStatus(string SiteId)
+        public async Task<NSXTDeploymentChecksStatusResultType> GetUcdeploymentChecksStatus(string SiteId)
         {
             if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
             NSXTDeploymentChecksStatusResultType returnValue = default(NSXTDeploymentChecksStatusResultType);
@@ -43,31 +50,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             GetUcdeploymentChecksStatusServiceURL.Replace("{site-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SiteId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetUcdeploymentChecksStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDeploymentChecksStatusResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDeploymentChecksStatusResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetUcdeploymentChecksStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDeploymentChecksStatusResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDeploymentChecksStatusResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDeploymentProgressStatusType GetUpgradeCoordinatorDeploymentProgressStatus(string SiteId)
+        public async Task<NSXTDeploymentProgressStatusType> GetUpgradeCoordinatorDeploymentProgressStatus(string SiteId)
         {
             if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
             NSXTDeploymentProgressStatusType returnValue = default(NSXTDeploymentProgressStatusType);
@@ -80,31 +75,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             GetUpgradeCoordinatorDeploymentProgressStatusServiceURL.Replace("{site-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SiteId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetUpgradeCoordinatorDeploymentProgressStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDeploymentProgressStatusType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDeploymentProgressStatusType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetUpgradeCoordinatorDeploymentProgressStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDeploymentProgressStatusType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDeploymentProgressStatusType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDeploymentVersionsType GetAvailableUcversions(string SiteId)
+        public async Task<NSXTDeploymentVersionsType> GetAvailableUcversions(string SiteId)
         {
             if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
             NSXTDeploymentVersionsType returnValue = default(NSXTDeploymentVersionsType);
@@ -117,31 +100,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             GetAvailableUcversionsServiceURL.Replace("{site-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SiteId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetAvailableUcversionsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDeploymentVersionsType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDeploymentVersionsType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetAvailableUcversionsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDeploymentVersionsType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDeploymentVersionsType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void RunUcdeploymentChecks(string SiteId, NSXTDeploymentChecksActionType DeploymentChecksAction)
+        public async Task RunUcdeploymentChecks(string SiteId, NSXTDeploymentChecksActionType DeploymentChecksAction)
         {
             if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
             if (DeploymentChecksAction == null) { throw new System.ArgumentNullException("DeploymentChecksAction cannot be null"); }
@@ -156,7 +127,7 @@ namespace nsxtapi.PolicyModules
             RunUcdeploymentChecksServiceURL.Replace("{site-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SiteId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(DeploymentChecksAction, defaultSerializationSettings));
             request.Resource = RunUcdeploymentChecksServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + RunUcdeploymentChecksServiceURL.ToString() + " did not complete successfull";
@@ -168,7 +139,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTUpgradeCoordinatorDeploymentConfigType UpdateUpgradeCoordinatorDeploymentConfig(string SiteId, NSXTUpgradeCoordinatorDeploymentConfigType UpgradeCoordinatorDeploymentConfig)
+        public async Task<NSXTUpgradeCoordinatorDeploymentConfigType> UpdateUpgradeCoordinatorDeploymentConfig(string SiteId, NSXTUpgradeCoordinatorDeploymentConfigType UpgradeCoordinatorDeploymentConfig)
         {
             if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
             if (UpgradeCoordinatorDeploymentConfig == null) { throw new System.ArgumentNullException("UpgradeCoordinatorDeploymentConfig cannot be null"); }
@@ -183,31 +154,19 @@ namespace nsxtapi.PolicyModules
             UpdateUpgradeCoordinatorDeploymentConfigServiceURL.Replace("{site-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SiteId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(UpgradeCoordinatorDeploymentConfig, defaultSerializationSettings));
             request.Resource = UpdateUpgradeCoordinatorDeploymentConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTUpgradeCoordinatorDeploymentConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTUpgradeCoordinatorDeploymentConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + UpdateUpgradeCoordinatorDeploymentConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTUpgradeCoordinatorDeploymentConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTUpgradeCoordinatorDeploymentConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTUpgradeCoordinatorDeploymentConfigType GetUpgradeCoordinatorDeploymentConfig(string SiteId)
+        public async Task<NSXTUpgradeCoordinatorDeploymentConfigType> GetUpgradeCoordinatorDeploymentConfig(string SiteId)
         {
             if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
             NSXTUpgradeCoordinatorDeploymentConfigType returnValue = default(NSXTUpgradeCoordinatorDeploymentConfigType);
@@ -220,25 +179,13 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             GetUpgradeCoordinatorDeploymentConfigServiceURL.Replace("{site-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SiteId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetUpgradeCoordinatorDeploymentConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTUpgradeCoordinatorDeploymentConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTUpgradeCoordinatorDeploymentConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetUpgradeCoordinatorDeploymentConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTUpgradeCoordinatorDeploymentConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTUpgradeCoordinatorDeploymentConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

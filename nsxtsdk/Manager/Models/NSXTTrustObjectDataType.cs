@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,39 +17,26 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTTrustObjectDataType : NSXTManagedResourceType
     {
-        public NSXTTrustObjectDataType()
-        {
-        }
         /// <summary>
         /// Key algorithm contained in this certificate.
         /// </summary>
-        [JsonProperty(PropertyName = "key_algo")]
-        [NSXTProperty(IsRequired: false, Description: @"Key algorithm contained in this certificate.")]
         public string? KeyAlgo { get; set; }
         /// <summary>
         /// Private key data.
         /// </summary>
-        [JsonProperty(PropertyName = "private_key")]
-        [NSXTProperty(IsRequired: false, Description: @"Private key data.")]
         public string? PrivateKey { get; set; }
         /// <summary>
         /// Password for private key encryption.
         /// </summary>
-        [JsonProperty(PropertyName = "passphrase")]
-        [NSXTProperty(IsRequired: false, Description: @"Password for private key encryption.")]
         public string? Passphrase { get; set; }
         /// <summary>
         /// PEM encoded certificate data.
         /// </summary>
         [JsonProperty(PropertyName = "pem_encoded", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"PEM encoded certificate data.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string PemEncoded { get; set; }
         /// <summary>
         /// Purpose of this certificate. Can be empty or set to "signing-ca".
         /// </summary>
-        [JsonProperty(PropertyName = "purpose")]
-        [NSXTProperty(IsRequired: false, Description: @"Purpose of this certificate. Can be empty or set to &quot;signing-ca&quot;.")]
         public NSXTTrustObjectDataPurposeEnumType? Purpose { get; set; }
     }
 }

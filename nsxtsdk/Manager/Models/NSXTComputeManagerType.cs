@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,69 +17,46 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTComputeManagerType : NSXTManagedResourceType
     {
-        public NSXTComputeManagerType()
-        {
-            AccessLevelForOidc = test
-            ReverseProxyHttpsPort = test
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "credential")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTLoginCredentialType Credential { get; set; }
         /// <summary>
         /// If the compute manager is VC and need to set set as OIDC provider for NSX then
         /// this flag should be set as true. This is specific to wcp feature, should be
         /// enabled when this feature is being used.
         /// </summary>
-        [JsonProperty(PropertyName = "set_as_oidc_provider")]
-        [NSXTProperty(IsRequired: false, Description: @"If the compute manager is VC and need to set set as OIDC provider for NSX thenthis flag should be set as true. This is specific to wcp feature, should beenabled when this feature is being used.")]
         public bool? SetAsOidcProvider { get; set; }
         /// <summary>
         /// Specifies the maximum access level allowed for calls from compute manager
         /// to NSX using the OIDC provider.
         /// </summary>
-        [JsonProperty(PropertyName = "access_level_for_oidc")]
-        [NSXTProperty(IsRequired: false, Description: @"Specifies the maximum access level allowed for calls from compute managerto NSX using the OIDC provider.")]
         public NSXTComputeManagerAccessLevelForOidcEnumType? AccessLevelForOidc { get; set; }
         /// <summary>
         /// Specifies https port of the reverse proxy to connect to compute manager.
         /// For e.g. In case of VC, this port can be retrieved from this config
         /// file /etc/vmware-rhttpproxy/config.xml.
         /// </summary>
-        [JsonProperty(PropertyName = "reverse_proxy_https_port")]
-        [NSXTProperty(IsRequired: false, Description: @"Specifies https port of the reverse proxy to connect to compute manager.For e.g. In case of VC, this port can be retrieved from this configfile /etc/vmware-rhttpproxy/config.xml.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
         public long? ReverseProxyHttpsPort { get; set; }
         /// <summary>
         /// Enable this flag to create service account user on compute manager. This is
         /// required by features such as vSphere Lifecycle Manager for authentication with
         /// vAPIs from nsx.
         /// </summary>
-        [JsonProperty(PropertyName = "create_service_account")]
-        [NSXTProperty(IsRequired: false, Description: @"Enable this flag to create service account user on compute manager. This isrequired by features such as vSphere Lifecycle Manager for authentication withvAPIs from nsx.")]
         public bool? CreateServiceAccount { get; set; }
         /// <summary>
         /// Key-Value map of additional specific properties of compute manager
         /// </summary>
-        [JsonProperty(PropertyName = "origin_properties")]
-        [NSXTProperty(IsRequired: false, Description: @"Key-Value map of additional specific properties of compute manager")]
         public IList<NSXTKeyValuePairType> OriginProperties { get; set; }
         /// <summary>
         /// Compute manager type like vCenter
         /// </summary>
         [JsonProperty(PropertyName = "origin_type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Compute manager type like vCenter")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string OriginType { get; set; }
         /// <summary>
         /// IP address or hostname of compute manager
         /// </summary>
         [JsonProperty(PropertyName = "server", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"IP address or hostname of compute manager")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Server { get; set; }
     }
 }

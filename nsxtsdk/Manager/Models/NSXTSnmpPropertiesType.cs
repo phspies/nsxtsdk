@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,20 +17,13 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"This object contains SNMP v2c and SNMP v3 properties.")]
     public class NSXTSnmpPropertiesType 
     {
-        public NSXTSnmpPropertiesType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "v2c")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTSnmpv2cPropertiesType V2c { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "v3")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTSnmpv3PropertiesType V3 { get; set; }
     }
 }

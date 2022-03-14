@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,50 +17,33 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTTransportProtocolHeaderType 
     {
-        public NSXTTransportProtocolHeaderType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "udp_header")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTUdpHeaderType UdpHeader { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "dhcp_header")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTDhcpHeaderType DhcpHeader { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "tcp_header")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTTcpHeaderType TcpHeader { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "icmp_echo_request_header")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTIcmpEchoRequestHeaderType IcmpEchoRequestHeader { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "dhcpv6_header")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTDhcpv6HeaderType Dhcpv6Header { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "ndp_header")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTNdpHeaderType NdpHeader { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "dns_header")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTDnsHeaderType DnsHeader { get; set; }
     }
 }

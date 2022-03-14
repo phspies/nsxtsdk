@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTAllocationIpAddressType : NSXTManagedResourceType
     {
-        public NSXTAllocationIpAddressType()
-        {
-        }
         /// <summary>
         /// Address that is allocated from pool
         /// </summary>
-        [JsonProperty(PropertyName = "allocation_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Address that is allocated from pool")]
         public string? AllocationId { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,22 +17,15 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"List of Manager Ids to migrate.")]
     public class NSXTMPResourceType 
     {
-        public NSXTMPResourceType()
-        {
-        }
         /// <summary>
         /// Manager and policy resource id array.
         /// </summary>
         [JsonProperty(PropertyName = "resource_ids", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Manager and policy resource id array.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTMPResourceDetailsType> ResourceIds { get; set; }
         /// <summary>
         /// Manager resource type to migrate.
         /// </summary>
         [JsonProperty(PropertyName = "type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Manager resource type to migrate.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Type { get; set; }
     }
 }

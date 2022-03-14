@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,32 +17,21 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTPortConnectionHypervisorType : NSXTPortConnectionEntityType
     {
-        public NSXTPortConnectionHypervisorType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "pnics")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public IList<NSXTPnicType> Pnics { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "pnics_list")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public IList<NSXTNodeInterfacePropertiesType> PnicsList { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "neighbors_list")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public IList<NSXTInterfaceNeighborPropertiesType> NeighborsList { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "profiles")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public IList<NSXTBaseHostSwitchProfileType> Profiles { get; set; }
     }
 }

@@ -21,16 +21,23 @@ namespace nsxtapi.PolicyModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public PolicyProfile(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public PolicyProfile(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDnsSecurityProfileListResultType ListDnsSecurityProfiles(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTDnsSecurityProfileListResultType> ListDnsSecurityProfiles(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTDnsSecurityProfileListResultType returnValue = default(NSXTDnsSecurityProfileListResultType);
             StringBuilder ListDnsSecurityProfilesServiceURL = new StringBuilder("/infra/dns-security-profiles");
@@ -47,31 +54,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListDnsSecurityProfilesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDnsSecurityProfileListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDnsSecurityProfileListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListDnsSecurityProfilesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDnsSecurityProfileListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDnsSecurityProfileListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyFirewallCpuMemThresholdsProfileListResultType GlobalGlobalInfraListCpumemThresholdsProfiles(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTPolicyFirewallCpuMemThresholdsProfileListResultType> GlobalGlobalInfraListCpumemThresholdsProfiles(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTPolicyFirewallCpuMemThresholdsProfileListResultType returnValue = default(NSXTPolicyFirewallCpuMemThresholdsProfileListResultType);
             StringBuilder GlobalInfraListCpumemThresholdsProfilesServiceURL = new StringBuilder("/global-infra/settings/firewall/cpu-mem-thresholds-profiles");
@@ -88,31 +83,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GlobalInfraListCpumemThresholdsProfilesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyFirewallCpuMemThresholdsProfileListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyFirewallCpuMemThresholdsProfileListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraListCpumemThresholdsProfilesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyFirewallCpuMemThresholdsProfileListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyFirewallCpuMemThresholdsProfileListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTFloodProtectionProfileListResultType GlobalGlobalInfraListFloodProtectionProfiles(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTFloodProtectionProfileListResultType> GlobalGlobalInfraListFloodProtectionProfiles(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTFloodProtectionProfileListResultType returnValue = default(NSXTFloodProtectionProfileListResultType);
             StringBuilder GlobalInfraListFloodProtectionProfilesServiceURL = new StringBuilder("/global-infra/flood-protection-profiles");
@@ -129,31 +112,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GlobalInfraListFloodProtectionProfilesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTFloodProtectionProfileListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTFloodProtectionProfileListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraListFloodProtectionProfilesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTFloodProtectionProfileListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTFloodProtectionProfileListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTFloodProtectionProfileBindingListResultType ListFloodProtectionProfileBindings(string FloodProtectionProfileId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTFloodProtectionProfileBindingListResultType> ListFloodProtectionProfileBindings(string FloodProtectionProfileId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (FloodProtectionProfileId == null) { throw new System.ArgumentNullException("FloodProtectionProfileId cannot be null"); }
             NSXTFloodProtectionProfileBindingListResultType returnValue = default(NSXTFloodProtectionProfileBindingListResultType);
@@ -172,31 +143,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListFloodProtectionProfileBindingsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTFloodProtectionProfileBindingListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTFloodProtectionProfileBindingListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListFloodProtectionProfileBindingsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTFloodProtectionProfileBindingListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTFloodProtectionProfileBindingListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyFirewallCpuMemThresholdsProfileType UpdateCpumemThresholdsProfile(string ProfileId, NSXTPolicyFirewallCpuMemThresholdsProfileType PolicyFirewallCpuMemThresholdsProfile, bool? Override = null)
+        public async Task<NSXTPolicyFirewallCpuMemThresholdsProfileType> UpdateCpumemThresholdsProfile(string ProfileId, NSXTPolicyFirewallCpuMemThresholdsProfileType PolicyFirewallCpuMemThresholdsProfile, bool? Override = null)
         {
             if (ProfileId == null) { throw new System.ArgumentNullException("ProfileId cannot be null"); }
             if (PolicyFirewallCpuMemThresholdsProfile == null) { throw new System.ArgumentNullException("PolicyFirewallCpuMemThresholdsProfile cannot be null"); }
@@ -212,31 +171,19 @@ namespace nsxtapi.PolicyModules
             request.AddJsonBody(JsonConvert.SerializeObject(PolicyFirewallCpuMemThresholdsProfile, defaultSerializationSettings));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = UpdateCpumemThresholdsProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyFirewallCpuMemThresholdsProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyFirewallCpuMemThresholdsProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateCpumemThresholdsProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyFirewallCpuMemThresholdsProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyFirewallCpuMemThresholdsProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteCpumemThresholdsProfile(string ProfileId, bool? Override = null)
+        public async Task DeleteCpumemThresholdsProfile(string ProfileId, bool? Override = null)
         {
             if (ProfileId == null) { throw new System.ArgumentNullException("ProfileId cannot be null"); }
             
@@ -250,7 +197,7 @@ namespace nsxtapi.PolicyModules
             DeleteCpumemThresholdsProfileServiceURL.Replace("{profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = DeleteCpumemThresholdsProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteCpumemThresholdsProfileServiceURL.ToString() + " did not complete successfull";
@@ -262,7 +209,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyFirewallCpuMemThresholdsProfileType ReadCpumemThresholdsProfile(string ProfileId)
+        public async Task<NSXTPolicyFirewallCpuMemThresholdsProfileType> ReadCpumemThresholdsProfile(string ProfileId)
         {
             if (ProfileId == null) { throw new System.ArgumentNullException("ProfileId cannot be null"); }
             NSXTPolicyFirewallCpuMemThresholdsProfileType returnValue = default(NSXTPolicyFirewallCpuMemThresholdsProfileType);
@@ -275,31 +222,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ReadCpumemThresholdsProfileServiceURL.Replace("{profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadCpumemThresholdsProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyFirewallCpuMemThresholdsProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyFirewallCpuMemThresholdsProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadCpumemThresholdsProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyFirewallCpuMemThresholdsProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyFirewallCpuMemThresholdsProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchCpumemThresholdsProfile(string ProfileId, NSXTPolicyFirewallCpuMemThresholdsProfileType PolicyFirewallCpuMemThresholdsProfile, bool? Override = null)
+        public async Task PatchCpumemThresholdsProfile(string ProfileId, NSXTPolicyFirewallCpuMemThresholdsProfileType PolicyFirewallCpuMemThresholdsProfile, bool? Override = null)
         {
             if (ProfileId == null) { throw new System.ArgumentNullException("ProfileId cannot be null"); }
             if (PolicyFirewallCpuMemThresholdsProfile == null) { throw new System.ArgumentNullException("PolicyFirewallCpuMemThresholdsProfile cannot be null"); }
@@ -315,7 +250,7 @@ namespace nsxtapi.PolicyModules
             request.AddJsonBody(JsonConvert.SerializeObject(PolicyFirewallCpuMemThresholdsProfile, defaultSerializationSettings));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = PatchCpumemThresholdsProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchCpumemThresholdsProfileServiceURL.ToString() + " did not complete successfull";
@@ -327,7 +262,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTFloodProtectionProfileBindingListResultType GlobalGlobalInfraListFloodProtectionProfileBindings(string FloodProtectionProfileId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTFloodProtectionProfileBindingListResultType> GlobalGlobalInfraListFloodProtectionProfileBindings(string FloodProtectionProfileId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (FloodProtectionProfileId == null) { throw new System.ArgumentNullException("FloodProtectionProfileId cannot be null"); }
             NSXTFloodProtectionProfileBindingListResultType returnValue = default(NSXTFloodProtectionProfileBindingListResultType);
@@ -346,31 +281,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GlobalInfraListFloodProtectionProfileBindingsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTFloodProtectionProfileBindingListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTFloodProtectionProfileBindingListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraListFloodProtectionProfileBindingsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTFloodProtectionProfileBindingListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTFloodProtectionProfileBindingListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDnsSecurityProfileListResultType GlobalGlobalInfraListDnsSecurityProfiles(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTDnsSecurityProfileListResultType> GlobalGlobalInfraListDnsSecurityProfiles(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTDnsSecurityProfileListResultType returnValue = default(NSXTDnsSecurityProfileListResultType);
             StringBuilder GlobalInfraListDnsSecurityProfilesServiceURL = new StringBuilder("/global-infra/dns-security-profiles");
@@ -387,31 +310,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GlobalInfraListDnsSecurityProfilesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDnsSecurityProfileListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDnsSecurityProfileListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraListDnsSecurityProfilesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDnsSecurityProfileListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDnsSecurityProfileListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSessionTimerProfileBindingListResultType ListSessionTimerProfileBindings(string SessionTimerProfileId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTSessionTimerProfileBindingListResultType> ListSessionTimerProfileBindings(string SessionTimerProfileId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (SessionTimerProfileId == null) { throw new System.ArgumentNullException("SessionTimerProfileId cannot be null"); }
             NSXTSessionTimerProfileBindingListResultType returnValue = default(NSXTSessionTimerProfileBindingListResultType);
@@ -430,31 +341,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListSessionTimerProfileBindingsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTSessionTimerProfileBindingListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTSessionTimerProfileBindingListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListSessionTimerProfileBindingsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSessionTimerProfileBindingListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSessionTimerProfileBindingListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDnsSecurityProfileType UpdateDnsSecurityProfile(string ProfileId, NSXTDnsSecurityProfileType DnsSecurityProfile, bool? Override = null)
+        public async Task<NSXTDnsSecurityProfileType> UpdateDnsSecurityProfile(string ProfileId, NSXTDnsSecurityProfileType DnsSecurityProfile, bool? Override = null)
         {
             if (ProfileId == null) { throw new System.ArgumentNullException("ProfileId cannot be null"); }
             if (DnsSecurityProfile == null) { throw new System.ArgumentNullException("DnsSecurityProfile cannot be null"); }
@@ -470,31 +369,19 @@ namespace nsxtapi.PolicyModules
             request.AddJsonBody(JsonConvert.SerializeObject(DnsSecurityProfile, defaultSerializationSettings));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = UpdateDnsSecurityProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDnsSecurityProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDnsSecurityProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateDnsSecurityProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDnsSecurityProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDnsSecurityProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDnsSecurityProfileType ReadDnsSecurityProfile(string ProfileId)
+        public async Task<NSXTDnsSecurityProfileType> ReadDnsSecurityProfile(string ProfileId)
         {
             if (ProfileId == null) { throw new System.ArgumentNullException("ProfileId cannot be null"); }
             NSXTDnsSecurityProfileType returnValue = default(NSXTDnsSecurityProfileType);
@@ -507,31 +394,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ReadDnsSecurityProfileServiceURL.Replace("{profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadDnsSecurityProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDnsSecurityProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDnsSecurityProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadDnsSecurityProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDnsSecurityProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDnsSecurityProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchDnsSecurityProfile(string ProfileId, NSXTDnsSecurityProfileType DnsSecurityProfile, bool? Override = null)
+        public async Task PatchDnsSecurityProfile(string ProfileId, NSXTDnsSecurityProfileType DnsSecurityProfile, bool? Override = null)
         {
             if (ProfileId == null) { throw new System.ArgumentNullException("ProfileId cannot be null"); }
             if (DnsSecurityProfile == null) { throw new System.ArgumentNullException("DnsSecurityProfile cannot be null"); }
@@ -547,7 +422,7 @@ namespace nsxtapi.PolicyModules
             request.AddJsonBody(JsonConvert.SerializeObject(DnsSecurityProfile, defaultSerializationSettings));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = PatchDnsSecurityProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchDnsSecurityProfileServiceURL.ToString() + " did not complete successfull";
@@ -559,7 +434,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteDnsSecurityProfile(string ProfileId, bool? Override = null)
+        public async Task DeleteDnsSecurityProfile(string ProfileId, bool? Override = null)
         {
             if (ProfileId == null) { throw new System.ArgumentNullException("ProfileId cannot be null"); }
             
@@ -573,7 +448,7 @@ namespace nsxtapi.PolicyModules
             DeleteDnsSecurityProfileServiceURL.Replace("{profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = DeleteDnsSecurityProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteDnsSecurityProfileServiceURL.ToString() + " did not complete successfull";
@@ -585,7 +460,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyFirewallCpuMemThresholdsProfileListResultType ListCpumemThresholdsProfiles(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTPolicyFirewallCpuMemThresholdsProfileListResultType> ListCpumemThresholdsProfiles(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTPolicyFirewallCpuMemThresholdsProfileListResultType returnValue = default(NSXTPolicyFirewallCpuMemThresholdsProfileListResultType);
             StringBuilder ListCpumemThresholdsProfilesServiceURL = new StringBuilder("/infra/settings/firewall/cpu-mem-thresholds-profiles");
@@ -602,31 +477,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListCpumemThresholdsProfilesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyFirewallCpuMemThresholdsProfileListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyFirewallCpuMemThresholdsProfileListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListCpumemThresholdsProfilesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyFirewallCpuMemThresholdsProfileListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyFirewallCpuMemThresholdsProfileListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTFloodProtectionProfileListResultType ListFloodProtectionProfiles(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTFloodProtectionProfileListResultType> ListFloodProtectionProfiles(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTFloodProtectionProfileListResultType returnValue = default(NSXTFloodProtectionProfileListResultType);
             StringBuilder ListFloodProtectionProfilesServiceURL = new StringBuilder("/infra/flood-protection-profiles");
@@ -643,31 +506,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListFloodProtectionProfilesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTFloodProtectionProfileListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTFloodProtectionProfileListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListFloodProtectionProfilesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTFloodProtectionProfileListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTFloodProtectionProfileListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTFloodProtectionProfileType UpdateFloodProtectionProfile(string FloodProtectionProfileId, NSXTFloodProtectionProfileType FloodProtectionProfile, bool? Override = null)
+        public async Task<NSXTFloodProtectionProfileType> UpdateFloodProtectionProfile(string FloodProtectionProfileId, NSXTFloodProtectionProfileType FloodProtectionProfile, bool? Override = null)
         {
             if (FloodProtectionProfileId == null) { throw new System.ArgumentNullException("FloodProtectionProfileId cannot be null"); }
             if (FloodProtectionProfile == null) { throw new System.ArgumentNullException("FloodProtectionProfile cannot be null"); }
@@ -683,31 +534,19 @@ namespace nsxtapi.PolicyModules
             request.AddJsonBody(JsonConvert.SerializeObject(FloodProtectionProfile, defaultSerializationSettings));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = UpdateFloodProtectionProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTFloodProtectionProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTFloodProtectionProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateFloodProtectionProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTFloodProtectionProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTFloodProtectionProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTFloodProtectionProfileType GetFloodProtectionProfile(string FloodProtectionProfileId)
+        public async Task<NSXTFloodProtectionProfileType> GetFloodProtectionProfile(string FloodProtectionProfileId)
         {
             if (FloodProtectionProfileId == null) { throw new System.ArgumentNullException("FloodProtectionProfileId cannot be null"); }
             NSXTFloodProtectionProfileType returnValue = default(NSXTFloodProtectionProfileType);
@@ -720,31 +559,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             GetFloodProtectionProfileServiceURL.Replace("{flood-protection-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FloodProtectionProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetFloodProtectionProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTFloodProtectionProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTFloodProtectionProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetFloodProtectionProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTFloodProtectionProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTFloodProtectionProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteFloodProtectionProfile(string FloodProtectionProfileId, bool? Override = null)
+        public async Task DeleteFloodProtectionProfile(string FloodProtectionProfileId, bool? Override = null)
         {
             if (FloodProtectionProfileId == null) { throw new System.ArgumentNullException("FloodProtectionProfileId cannot be null"); }
             
@@ -758,7 +585,7 @@ namespace nsxtapi.PolicyModules
             DeleteFloodProtectionProfileServiceURL.Replace("{flood-protection-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FloodProtectionProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = DeleteFloodProtectionProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteFloodProtectionProfileServiceURL.ToString() + " did not complete successfull";
@@ -770,7 +597,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchFloodProtectionProfile(string FloodProtectionProfileId, NSXTFloodProtectionProfileType FloodProtectionProfile, bool? Override = null)
+        public async Task PatchFloodProtectionProfile(string FloodProtectionProfileId, NSXTFloodProtectionProfileType FloodProtectionProfile, bool? Override = null)
         {
             if (FloodProtectionProfileId == null) { throw new System.ArgumentNullException("FloodProtectionProfileId cannot be null"); }
             if (FloodProtectionProfile == null) { throw new System.ArgumentNullException("FloodProtectionProfile cannot be null"); }
@@ -786,7 +613,7 @@ namespace nsxtapi.PolicyModules
             request.AddJsonBody(JsonConvert.SerializeObject(FloodProtectionProfile, defaultSerializationSettings));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = PatchFloodProtectionProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchFloodProtectionProfileServiceURL.ToString() + " did not complete successfull";
@@ -798,7 +625,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSessionTimerProfileBindingListResultType GlobalGlobalInfraListSessionTimerProfileBindings(string SessionTimerProfileId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTSessionTimerProfileBindingListResultType> GlobalGlobalInfraListSessionTimerProfileBindings(string SessionTimerProfileId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (SessionTimerProfileId == null) { throw new System.ArgumentNullException("SessionTimerProfileId cannot be null"); }
             NSXTSessionTimerProfileBindingListResultType returnValue = default(NSXTSessionTimerProfileBindingListResultType);
@@ -817,31 +644,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GlobalInfraListSessionTimerProfileBindingsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTSessionTimerProfileBindingListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTSessionTimerProfileBindingListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraListSessionTimerProfileBindingsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSessionTimerProfileBindingListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSessionTimerProfileBindingListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyFirewallCpuMemThresholdsProfileType GlobalGlobalInfraUpdateCpumemThresholdsProfile(string ProfileId, NSXTPolicyFirewallCpuMemThresholdsProfileType PolicyFirewallCpuMemThresholdsProfile, bool? Override = null)
+        public async Task<NSXTPolicyFirewallCpuMemThresholdsProfileType> GlobalGlobalInfraUpdateCpumemThresholdsProfile(string ProfileId, NSXTPolicyFirewallCpuMemThresholdsProfileType PolicyFirewallCpuMemThresholdsProfile, bool? Override = null)
         {
             if (ProfileId == null) { throw new System.ArgumentNullException("ProfileId cannot be null"); }
             if (PolicyFirewallCpuMemThresholdsProfile == null) { throw new System.ArgumentNullException("PolicyFirewallCpuMemThresholdsProfile cannot be null"); }
@@ -857,31 +672,19 @@ namespace nsxtapi.PolicyModules
             request.AddJsonBody(JsonConvert.SerializeObject(PolicyFirewallCpuMemThresholdsProfile, defaultSerializationSettings));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = GlobalInfraUpdateCpumemThresholdsProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyFirewallCpuMemThresholdsProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyFirewallCpuMemThresholdsProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + GlobalInfraUpdateCpumemThresholdsProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyFirewallCpuMemThresholdsProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyFirewallCpuMemThresholdsProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GlobalGlobalInfraDeleteCpumemThresholdsProfile(string ProfileId, bool? Override = null)
+        public async Task GlobalGlobalInfraDeleteCpumemThresholdsProfile(string ProfileId, bool? Override = null)
         {
             if (ProfileId == null) { throw new System.ArgumentNullException("ProfileId cannot be null"); }
             
@@ -895,7 +698,7 @@ namespace nsxtapi.PolicyModules
             GlobalInfraDeleteCpumemThresholdsProfileServiceURL.Replace("{profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = GlobalInfraDeleteCpumemThresholdsProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + GlobalInfraDeleteCpumemThresholdsProfileServiceURL.ToString() + " did not complete successfull";
@@ -907,7 +710,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyFirewallCpuMemThresholdsProfileType GlobalGlobalInfraReadCpumemThresholdsProfile(string ProfileId)
+        public async Task<NSXTPolicyFirewallCpuMemThresholdsProfileType> GlobalGlobalInfraReadCpumemThresholdsProfile(string ProfileId)
         {
             if (ProfileId == null) { throw new System.ArgumentNullException("ProfileId cannot be null"); }
             NSXTPolicyFirewallCpuMemThresholdsProfileType returnValue = default(NSXTPolicyFirewallCpuMemThresholdsProfileType);
@@ -920,31 +723,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             GlobalInfraReadCpumemThresholdsProfileServiceURL.Replace("{profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GlobalInfraReadCpumemThresholdsProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyFirewallCpuMemThresholdsProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyFirewallCpuMemThresholdsProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraReadCpumemThresholdsProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyFirewallCpuMemThresholdsProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyFirewallCpuMemThresholdsProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GlobalGlobalInfraPatchCpumemThresholdsProfile(string ProfileId, NSXTPolicyFirewallCpuMemThresholdsProfileType PolicyFirewallCpuMemThresholdsProfile, bool? Override = null)
+        public async Task GlobalGlobalInfraPatchCpumemThresholdsProfile(string ProfileId, NSXTPolicyFirewallCpuMemThresholdsProfileType PolicyFirewallCpuMemThresholdsProfile, bool? Override = null)
         {
             if (ProfileId == null) { throw new System.ArgumentNullException("ProfileId cannot be null"); }
             if (PolicyFirewallCpuMemThresholdsProfile == null) { throw new System.ArgumentNullException("PolicyFirewallCpuMemThresholdsProfile cannot be null"); }
@@ -960,7 +751,7 @@ namespace nsxtapi.PolicyModules
             request.AddJsonBody(JsonConvert.SerializeObject(PolicyFirewallCpuMemThresholdsProfile, defaultSerializationSettings));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = GlobalInfraPatchCpumemThresholdsProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + GlobalInfraPatchCpumemThresholdsProfileServiceURL.ToString() + " did not complete successfull";
@@ -972,7 +763,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDnsSecurityProfileType GlobalGlobalInfraUpdateDnsSecurityProfile(string ProfileId, NSXTDnsSecurityProfileType DnsSecurityProfile, bool? Override = null)
+        public async Task<NSXTDnsSecurityProfileType> GlobalGlobalInfraUpdateDnsSecurityProfile(string ProfileId, NSXTDnsSecurityProfileType DnsSecurityProfile, bool? Override = null)
         {
             if (ProfileId == null) { throw new System.ArgumentNullException("ProfileId cannot be null"); }
             if (DnsSecurityProfile == null) { throw new System.ArgumentNullException("DnsSecurityProfile cannot be null"); }
@@ -988,31 +779,19 @@ namespace nsxtapi.PolicyModules
             request.AddJsonBody(JsonConvert.SerializeObject(DnsSecurityProfile, defaultSerializationSettings));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = GlobalInfraUpdateDnsSecurityProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDnsSecurityProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDnsSecurityProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + GlobalInfraUpdateDnsSecurityProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDnsSecurityProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDnsSecurityProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDnsSecurityProfileType GlobalGlobalInfraReadDnsSecurityProfile(string ProfileId)
+        public async Task<NSXTDnsSecurityProfileType> GlobalGlobalInfraReadDnsSecurityProfile(string ProfileId)
         {
             if (ProfileId == null) { throw new System.ArgumentNullException("ProfileId cannot be null"); }
             NSXTDnsSecurityProfileType returnValue = default(NSXTDnsSecurityProfileType);
@@ -1025,31 +804,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             GlobalInfraReadDnsSecurityProfileServiceURL.Replace("{profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GlobalInfraReadDnsSecurityProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDnsSecurityProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDnsSecurityProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraReadDnsSecurityProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDnsSecurityProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDnsSecurityProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GlobalGlobalInfraPatchDnsSecurityProfile(string ProfileId, NSXTDnsSecurityProfileType DnsSecurityProfile, bool? Override = null)
+        public async Task GlobalGlobalInfraPatchDnsSecurityProfile(string ProfileId, NSXTDnsSecurityProfileType DnsSecurityProfile, bool? Override = null)
         {
             if (ProfileId == null) { throw new System.ArgumentNullException("ProfileId cannot be null"); }
             if (DnsSecurityProfile == null) { throw new System.ArgumentNullException("DnsSecurityProfile cannot be null"); }
@@ -1065,7 +832,7 @@ namespace nsxtapi.PolicyModules
             request.AddJsonBody(JsonConvert.SerializeObject(DnsSecurityProfile, defaultSerializationSettings));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = GlobalInfraPatchDnsSecurityProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + GlobalInfraPatchDnsSecurityProfileServiceURL.ToString() + " did not complete successfull";
@@ -1077,7 +844,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GlobalGlobalInfraDeleteDnsSecurityProfile(string ProfileId, bool? Override = null)
+        public async Task GlobalGlobalInfraDeleteDnsSecurityProfile(string ProfileId, bool? Override = null)
         {
             if (ProfileId == null) { throw new System.ArgumentNullException("ProfileId cannot be null"); }
             
@@ -1091,7 +858,7 @@ namespace nsxtapi.PolicyModules
             GlobalInfraDeleteDnsSecurityProfileServiceURL.Replace("{profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = GlobalInfraDeleteDnsSecurityProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + GlobalInfraDeleteDnsSecurityProfileServiceURL.ToString() + " did not complete successfull";
@@ -1103,7 +870,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTFloodProtectionProfileType GlobalGlobalInfraUpdateFloodProtectionProfile(string FloodProtectionProfileId, NSXTFloodProtectionProfileType FloodProtectionProfile, bool? Override = null)
+        public async Task<NSXTFloodProtectionProfileType> GlobalGlobalInfraUpdateFloodProtectionProfile(string FloodProtectionProfileId, NSXTFloodProtectionProfileType FloodProtectionProfile, bool? Override = null)
         {
             if (FloodProtectionProfileId == null) { throw new System.ArgumentNullException("FloodProtectionProfileId cannot be null"); }
             if (FloodProtectionProfile == null) { throw new System.ArgumentNullException("FloodProtectionProfile cannot be null"); }
@@ -1119,31 +886,19 @@ namespace nsxtapi.PolicyModules
             request.AddJsonBody(JsonConvert.SerializeObject(FloodProtectionProfile, defaultSerializationSettings));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = GlobalInfraUpdateFloodProtectionProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTFloodProtectionProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTFloodProtectionProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + GlobalInfraUpdateFloodProtectionProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTFloodProtectionProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTFloodProtectionProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTFloodProtectionProfileType GlobalGlobalInfraGetFloodProtectionProfile(string FloodProtectionProfileId)
+        public async Task<NSXTFloodProtectionProfileType> GlobalGlobalInfraGetFloodProtectionProfile(string FloodProtectionProfileId)
         {
             if (FloodProtectionProfileId == null) { throw new System.ArgumentNullException("FloodProtectionProfileId cannot be null"); }
             NSXTFloodProtectionProfileType returnValue = default(NSXTFloodProtectionProfileType);
@@ -1156,31 +911,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             GlobalInfraGetFloodProtectionProfileServiceURL.Replace("{flood-protection-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FloodProtectionProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GlobalInfraGetFloodProtectionProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTFloodProtectionProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTFloodProtectionProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraGetFloodProtectionProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTFloodProtectionProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTFloodProtectionProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GlobalGlobalInfraDeleteFloodProtectionProfile(string FloodProtectionProfileId, bool? Override = null)
+        public async Task GlobalGlobalInfraDeleteFloodProtectionProfile(string FloodProtectionProfileId, bool? Override = null)
         {
             if (FloodProtectionProfileId == null) { throw new System.ArgumentNullException("FloodProtectionProfileId cannot be null"); }
             
@@ -1194,7 +937,7 @@ namespace nsxtapi.PolicyModules
             GlobalInfraDeleteFloodProtectionProfileServiceURL.Replace("{flood-protection-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FloodProtectionProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = GlobalInfraDeleteFloodProtectionProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + GlobalInfraDeleteFloodProtectionProfileServiceURL.ToString() + " did not complete successfull";
@@ -1206,7 +949,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GlobalGlobalInfraPatchFloodProtectionProfile(string FloodProtectionProfileId, NSXTFloodProtectionProfileType FloodProtectionProfile, bool? Override = null)
+        public async Task GlobalGlobalInfraPatchFloodProtectionProfile(string FloodProtectionProfileId, NSXTFloodProtectionProfileType FloodProtectionProfile, bool? Override = null)
         {
             if (FloodProtectionProfileId == null) { throw new System.ArgumentNullException("FloodProtectionProfileId cannot be null"); }
             if (FloodProtectionProfile == null) { throw new System.ArgumentNullException("FloodProtectionProfile cannot be null"); }
@@ -1222,7 +965,7 @@ namespace nsxtapi.PolicyModules
             request.AddJsonBody(JsonConvert.SerializeObject(FloodProtectionProfile, defaultSerializationSettings));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = GlobalInfraPatchFloodProtectionProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + GlobalInfraPatchFloodProtectionProfileServiceURL.ToString() + " did not complete successfull";

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,9 +17,6 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyDnsForwarderZoneType : NSXTPolicyConfigResourceType
     {
-        public NSXTPolicyDnsForwarderZoneType()
-        {
-        }
         /// <summary>
         /// List of domain names on which conditional forwarding is based. This
         /// field is required if the DNS Zone is being used for a conditional
@@ -31,21 +28,15 @@ namespace nsxtsdk.PolicyModels
         /// list is "13.12.30.in-addr.arpa", reverse lookup for 30.12.13.0/24 will
         /// go to the corresponding DNS server.
         /// </summary>
-        [JsonProperty(PropertyName = "dns_domain_names")]
-        [NSXTProperty(IsRequired: false, Description: @"List of domain names on which conditional forwarding is based. Thisfield is required if the DNS Zone is being used for a conditionalforwarder. This field will also be used for conditional reverse lookup.Example 1, if for one of the zones, one of the entries in the fqdn isexample.com, all the DNS requests under the domain example.com willbe served by the corresponding upstream DNS server.Example 2, if for one of the zones, one of the entries in the fqdnlist is &quot;13.12.30.in-addr.arpa&quot;, reverse lookup for 30.12.13.0/24 willgo to the corresponding DNS server.")]
         public IList<string> DnsDomainNames { get; set; }
         /// <summary>
         /// Max of 3 DNS servers can be configured
         /// </summary>
         [JsonProperty(PropertyName = "upstream_servers", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Max of 3 DNS servers can be configured")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<string> UpstreamServers { get; set; }
         /// <summary>
         /// The source IP used by the DNS Forwarder zone.
         /// </summary>
-        [JsonProperty(PropertyName = "source_ip")]
-        [NSXTProperty(IsRequired: false, Description: @"The source IP used by the DNS Forwarder zone.")]
         public string? SourceIp { get; set; }
     }
 }

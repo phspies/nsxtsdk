@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public NSService(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public NSService(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNSServiceType UpdateNsservice(string NsServiceId, NSXTNSServiceType Nsservice)
+        public async Task<NSXTNSServiceType> UpdateNsservice(string NsServiceId, NSXTNSServiceType Nsservice)
         {
             if (NsServiceId == null) { throw new System.ArgumentNullException("NsServiceId cannot be null"); }
             if (Nsservice == null) { throw new System.ArgumentNullException("Nsservice cannot be null"); }
@@ -45,31 +52,19 @@ namespace nsxtapi.ManagerModules
             UpdateNsserviceServiceURL.Replace("{ns-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NsServiceId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(Nsservice, defaultSerializationSettings));
             request.Resource = UpdateNsserviceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNSServiceType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNSServiceType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateNsserviceServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNSServiceType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNSServiceType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteNsservice(string NsServiceId, bool? Force = null)
+        public async Task DeleteNsservice(string NsServiceId, bool? Force = null)
         {
             if (NsServiceId == null) { throw new System.ArgumentNullException("NsServiceId cannot be null"); }
             
@@ -83,7 +78,7 @@ namespace nsxtapi.ManagerModules
             DeleteNsserviceServiceURL.Replace("{ns-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NsServiceId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
             request.Resource = DeleteNsserviceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteNsserviceServiceURL.ToString() + " did not complete successfull";
@@ -95,7 +90,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNSServiceType ReadNsservice(string NsServiceId)
+        public async Task<NSXTNSServiceType> ReadNsservice(string NsServiceId)
         {
             if (NsServiceId == null) { throw new System.ArgumentNullException("NsServiceId cannot be null"); }
             NSXTNSServiceType returnValue = default(NSXTNSServiceType);
@@ -108,31 +103,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             ReadNsserviceServiceURL.Replace("{ns-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NsServiceId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadNsserviceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNSServiceType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNSServiceType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadNsserviceServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNSServiceType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNSServiceType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNSServiceType CreateNsservice(NSXTNSServiceType Nsservice)
+        public async Task<NSXTNSServiceType> CreateNsservice(NSXTNSServiceType Nsservice)
         {
             if (Nsservice == null) { throw new System.ArgumentNullException("Nsservice cannot be null"); }
             NSXTNSServiceType returnValue = default(NSXTNSServiceType);
@@ -145,31 +128,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(Nsservice, defaultSerializationSettings));
             request.Resource = CreateNsserviceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNSServiceType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNSServiceType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CreateNsserviceServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNSServiceType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNSServiceType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNSServiceListResultType ListNsservices(string? Cursor = null, bool? DefaultService = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTNSServiceListResultType> ListNsservices(string? Cursor = null, bool? DefaultService = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTNSServiceListResultType returnValue = default(NSXTNSServiceListResultType);
             StringBuilder ListNsservicesServiceURL = new StringBuilder("/ns-services");
@@ -186,25 +157,13 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListNsservicesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNSServiceListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNSServiceListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListNsservicesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNSServiceListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNSServiceListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

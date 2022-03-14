@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,60 +17,41 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTContainerIngressPolicyType : NSXTDiscoveredResourceType
     {
-        public NSXTContainerIngressPolicyType()
-        {
-        }
         /// <summary>
         /// Network status of container ingress.
         /// </summary>
-        [JsonProperty(PropertyName = "network_status")]
-        [NSXTProperty(IsRequired: false, Description: @"Network status of container ingress.")]
         public NSXTContainerIngressPolicyNetworkStatusEnumType? NetworkStatus { get; set; }
         /// <summary>
         /// Identifier of the container cluster this ingress policy belongs to.
         /// </summary>
-        [JsonProperty(PropertyName = "container_cluster_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Identifier of the container cluster this ingress policy belongs to.")]
         public string? ContainerClusterId { get; set; }
         /// <summary>
         /// List of identifiers of the container application , on which ingress policy
         /// is applied. e.g. IDs of all services on which the ingress is applied in
         /// kubernetes.
         /// </summary>
-        [JsonProperty(PropertyName = "container_application_ids")]
-        [NSXTProperty(IsRequired: false, Description: @"List of identifiers of the container application , on which ingress policyis applied. e.g. IDs of all services on which the ingress is applied inkubernetes.")]
         public IList<string> ContainerApplicationIds { get; set; }
         /// <summary>
         /// Array of additional specific properties of container ingress
         /// in key-value format.
         /// </summary>
-        [JsonProperty(PropertyName = "origin_properties")]
-        [NSXTProperty(IsRequired: false, Description: @"Array of additional specific properties of container ingressin key-value format.")]
         public IList<NSXTKeyValuePairType> OriginProperties { get; set; }
         /// <summary>
         /// Identifier of the container ingress policy.
         /// </summary>
         [JsonProperty(PropertyName = "external_id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Identifier of the container ingress policy.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string ExternalId { get; set; }
         /// <summary>
         /// Identifier of the project which this container ingress belongs to.
         /// </summary>
-        [JsonProperty(PropertyName = "container_project_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Identifier of the project which this container ingress belongs to.")]
         public string? ContainerProjectId { get; set; }
         /// <summary>
         /// List of network errors related to container ingress.
         /// </summary>
-        [JsonProperty(PropertyName = "network_errors")]
-        [NSXTProperty(IsRequired: false, Description: @"List of network errors related to container ingress.")]
         public IList<NSXTNetworkErrorType> NetworkErrors { get; set; }
         /// <summary>
         /// Container ingress policy specification.
         /// </summary>
-        [JsonProperty(PropertyName = "spec")]
-        [NSXTProperty(IsRequired: false, Description: @"Container ingress policy specification.")]
         public string? Spec { get; set; }
     }
 }

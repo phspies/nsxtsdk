@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,26 +17,17 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Error information")]
     public class NSXTErrorInfoType 
     {
-        public NSXTErrorInfoType()
-        {
-        }
         /// <summary>
         /// Timestamp when the error occurred
         /// </summary>
-        [JsonProperty(PropertyName = "timestamp")]
-        [NSXTProperty(IsRequired: false, Description: @"Timestamp when the error occurred")]
         public long? Timestamp { get; set; }
         /// <summary>
         /// Error message
         /// </summary>
-        [JsonProperty(PropertyName = "error_message")]
-        [NSXTProperty(IsRequired: false, Description: @"Error message")]
         public string? ErrorMessage { get; set; }
         /// <summary>
         /// Error code of the error.
         /// </summary>
-        [JsonProperty(PropertyName = "error_code")]
-        [NSXTProperty(IsRequired: false, Description: @"Error code of the error.")]
         public int? ErrorCode { get; set; }
     }
 }

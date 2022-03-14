@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,9 +17,6 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Contains information required to connect to enforcement point.")]
     public class NSXTEnforcementPointConnectionInfoType 
     {
-        public NSXTEnforcementPointConnectionInfoType()
-        {
-        }
         /// <summary>
         /// Value of this property could be Hostname or IP. For instance:
         /// - On an NSX-T MP running on default port, the value could be "10.192.1.1"
@@ -27,15 +24,11 @@ namespace nsxtsdk.PolicyModels
         /// - On an NSX-T MP in VMC deployments, the value could be "192.168.1.1:5480/nsxapi"
         /// </summary>
         [JsonProperty(PropertyName = "enforcement_point_address", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Value of this property could be Hostname or IP. For instance:- On an NSX-T MP running on default port, the value could be &quot;10.192.1.1&quot;- On an NSX-T MP running on custom port, the value could be &quot;192.168.1.1:32789&quot;- On an NSX-T MP in VMC deployments, the value could be &quot;192.168.1.1:5480/nsxapi&quot;")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string EnforcementPointAddress { get; set; }
         /// <summary>
         /// Resource Type of Enforcement Point Connection Info.
         /// </summary>
         [JsonProperty(PropertyName = "resource_type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Resource Type of Enforcement Point Connection Info.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTEnforcementPointConnectionInfoResourceTypeEnumType ResourceType { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,21 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTVtepLabelPoolType : NSXTManagedResourceType
     {
-        public NSXTVtepLabelPoolType()
-        {
-        }
         /// <summary>
         /// Array of ranges for virtual tunnel endpoint labels
         /// </summary>
         [JsonProperty(PropertyName = "ranges", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Array of ranges for virtual tunnel endpoint labels")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTVtepLabelRangeType> Ranges { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "pool_usage")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTVtepLabelPoolUsageType PoolUsage { get; set; }
     }
 }

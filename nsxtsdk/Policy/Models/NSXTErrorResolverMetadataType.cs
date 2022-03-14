@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,34 +17,23 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Error along with its metadata")]
     public class NSXTErrorResolverMetadataType 
     {
-        public NSXTErrorResolverMetadataType()
-        {
-        }
         /// <summary>
         /// The error id as reported by the entity where the error occurred.
         /// </summary>
         [JsonProperty(PropertyName = "error_id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"The error id as reported by the entity where the error occurred.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public long ErrorId { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "system_metadata")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTErrorResolverSystemMetadataType SystemMetadata { get; set; }
         /// <summary>
         /// The entity/node UUID where the error has occurred.
         /// </summary>
         [JsonProperty(PropertyName = "entity_id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"The entity/node UUID where the error has occurred.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string EntityId { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "user_metadata")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTErrorResolverUserMetadataType UserMetadata { get; set; }
     }
 }

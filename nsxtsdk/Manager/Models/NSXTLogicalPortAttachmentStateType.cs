@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,9 +17,6 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"VIF attachment state of a logical port")]
     public class NSXTLogicalPortAttachmentStateType 
     {
-        public NSXTLogicalPortAttachmentStateType()
-        {
-        }
         /// <summary>
         /// A logicalPort must be in one of following state.
         /// FREE - If there are no active attachers. The LogicalPort may or
@@ -37,20 +34,14 @@ namespace nsxtsdk.ManagerModels
         /// been detached. This state is applicable only to LogicalPort of
         /// ephemeral type and the LogicalPort will soon be deleted.
         /// </summary>
-        [JsonProperty(PropertyName = "state")]
-        [NSXTProperty(IsRequired: false, Description: @"A logicalPort must be in one of following state.FREE - If there are no active attachers. The LogicalPort may ormay not have an attachment ID configured on it. This state isapplicable only to LogialPort of static type.ATTACHED - LogicalPort has exactly one active attacher and nofurther configuration is pending.ATTACHED_PENDING_CONF - LogicalPort has exactly one attacher,however it may not have been configured completely. Additionalconfiguration will be provided by other nsx components.ATTACHED_IN_MOTION - LogicalPort has multiple active attachers.This state represents a scenario where VM is moving from onelocation (host or storage) to another (e.g. vmotion, vSphere HA)DETACHED - A temporary state after all LogialPort attachers havebeen detached. This state is applicable only to LogicalPort ofephemeral type and the LogicalPort will soon be deleted.")]
         public NSXTLogicalPortAttachmentStateStateEnumType? State { get; set; }
         /// <summary>
         /// VM or vmknic entities that are attached to the LogicalPort
         /// </summary>
-        [JsonProperty(PropertyName = "attachers")]
-        [NSXTProperty(IsRequired: false, Description: @"VM or vmknic entities that are attached to the LogicalPort")]
         public IList<NSXTPortAttacherType> Attachers { get; set; }
         /// <summary>
         /// VIF ID
         /// </summary>
-        [JsonProperty(PropertyName = "id")]
-        [NSXTProperty(IsRequired: false, Description: @"VIF ID")]
         public string? Id { get; set; }
     }
 }

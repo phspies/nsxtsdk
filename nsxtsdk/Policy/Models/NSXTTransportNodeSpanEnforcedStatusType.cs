@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTTransportNodeSpanEnforcedStatusType : NSXTEnforcedStatusPerScopeNsxTType
     {
-        public NSXTTransportNodeSpanEnforcedStatusType()
-        {
-        }
         /// <summary>
         /// List of Detailed Realized Status per Transport Node.
         /// </summary>
-        [JsonProperty(PropertyName = "enforced_status_per_transport_node")]
-        [NSXTProperty(IsRequired: false, Description: @"List of Detailed Realized Status per Transport Node.")]
         public IList<NSXTEnforcedStatusPerTransportNodeType> EnforcedStatusPerTransportNode { get; set; }
     }
 }

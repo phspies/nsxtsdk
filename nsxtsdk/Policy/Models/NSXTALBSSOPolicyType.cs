@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,15 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTALBSSOPolicyType : NSXTPolicyConfigResourceType
     {
-        public NSXTALBSSOPolicyType()
-        {
-            Type = test
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "authorization_policy")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBAuthorizationPolicyType AuthorizationPolicy { get; set; }
         /// <summary>
         /// SSO Policy Type.
@@ -34,23 +28,17 @@ namespace nsxtsdk.PolicyModels
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as SSO_TYPE_SAML.
         /// </summary>
-        [JsonProperty(PropertyName = "type")]
-        [NSXTProperty(IsRequired: false, Description: @"SSO Policy Type.Enum options - SSO_TYPE_SAML, SSO_TYPE_PINGACCESS,SSO_TYPE_JWT.Default value when not specified in API or module isinterpreted by ALB Controller as SSO_TYPE_SAML.")]
         public NSXTAlbssopolicyTypeEnumType? Type { get; set; }
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty(PropertyName = "authentication_policy", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTALBAuthenticationPolicyType AuthenticationPolicy { get; set; }
         /// <summary>
         /// List of labels to be used for granular RBAC.
         /// Allowed in Basic edition, Essentials edition, Enterprise
         /// edition.
         /// </summary>
-        [JsonProperty(PropertyName = "markers")]
-        [NSXTProperty(IsRequired: false, Description: @"List of labels to be used for granular RBAC.Allowed in Basic edition, Essentials edition, Enterpriseedition.")]
         public IList<NSXTALBRoleFilterMatchLabelType> Markers { get; set; }
     }
 }

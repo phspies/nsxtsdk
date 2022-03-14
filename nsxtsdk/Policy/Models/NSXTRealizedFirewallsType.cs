@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTRealizedFirewallsType : NSXTPolicyRealizedResourceType
     {
-        public NSXTRealizedFirewallsType()
-        {
-        }
         /// <summary>
         /// list of realized firewalls
         /// </summary>
-        [JsonProperty(PropertyName = "realized_firewalls")]
-        [NSXTProperty(IsRequired: false, Description: @"list of realized firewalls")]
         public IList<NSXTRealizedFirewallType> RealizedFirewalls { get; set; }
     }
 }

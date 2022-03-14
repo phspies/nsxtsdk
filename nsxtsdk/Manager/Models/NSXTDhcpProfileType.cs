@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,31 +17,22 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTDhcpProfileType : NSXTManagedResourceType
     {
-        public NSXTDhcpProfileType()
-        {
-        }
         /// <summary>
         /// The Edge nodes on which the DHCP servers run. If none is provided, the
         /// NSX will auto-select two edge-nodes from the given edge cluster. If only
         /// one edge node is provided, the DHCP servers will run without HA support.
         /// </summary>
-        [JsonProperty(PropertyName = "edge_cluster_member_indexes")]
-        [NSXTProperty(IsRequired: false, Description: @"The Edge nodes on which the DHCP servers run. If none is provided, theNSX will auto-select two edge-nodes from the given edge cluster. If onlyone edge node is provided, the DHCP servers will run without HA support.")]
         public long? EdgeClusterMemberIndexes { get; set; }
         /// <summary>
         /// Flag to enable the auto-relocation of standby DHCP Service in case
         /// of edge node failure. Only tier 1 and auto placed DHCP servers are
         /// considered for the relocation.
         /// </summary>
-        [JsonProperty(PropertyName = "enable_standby_relocation")]
-        [NSXTProperty(IsRequired: false, Description: @"Flag to enable the auto-relocation of standby DHCP Service in caseof edge node failure. Only tier 1 and auto placed DHCP servers areconsidered for the relocation.")]
         public bool? EnableStandbyRelocation { get; set; }
         /// <summary>
         /// Edge cluster uuid on which the referencing logical DHCP server runs.
         /// </summary>
         [JsonProperty(PropertyName = "edge_cluster_id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Edge cluster uuid on which the referencing logical DHCP server runs.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string EdgeClusterId { get; set; }
     }
 }

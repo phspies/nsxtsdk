@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,49 +17,28 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTBgpNeighborType : NSXTManagedResourceType
     {
-        public NSXTBgpNeighborType()
-        {
-            HoldDownTimer = test
-            MaximumHopLimit = test
-            Enabled = test
-            KeepAliveTimer = test
-        }
         /// <summary>
         /// BGP Graceful Restart mode. If specified, then it will take precedence
         /// over global Graceful Restart mode configured in logical router
         /// BgpConfig otherwise BgpConfig level Graceful Restart mode will be
         /// applicable for peer.
         /// </summary>
-        [JsonProperty(PropertyName = "graceful_restart_mode")]
-        [NSXTProperty(IsRequired: false, Description: @"BGP Graceful Restart mode. If specified, then it will take precedenceover global Graceful Restart mode configured in logical routerBgpConfig otherwise BgpConfig level Graceful Restart mode will beapplicable for peer.")]
         public NSXTBgpNeighborGracefulRestartModeEnumType? GracefulRestartMode { get; set; }
         /// <summary>
         /// This is a deprecated property, Please use 'remote_as_num' instead.
         /// </summary>
-        [JsonProperty(PropertyName = "remote_as")]
-        [NSXTProperty(IsRequired: false, Description: @"This is a deprecated property, Please use &apos;remote_as_num&apos; instead.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(4294967296)]
         public long? RemoteAs { get; set; }
         /// <summary>
         /// This is a deprecated property, Please use 'address_family' instead.
         /// </summary>
-        [JsonProperty(PropertyName = "filter_out_ipprefixlist_id")]
-        [NSXTProperty(IsRequired: false, Description: @"This is a deprecated property, Please use &apos;address_family&apos; instead.")]
         public string? FilterOutIpprefixlistId { get; set; }
         /// <summary>
         /// Wait period (seconds) before declaring peer dead
         /// </summary>
-        [JsonProperty(PropertyName = "hold_down_timer")]
-        [NSXTProperty(IsRequired: false, Description: @"Wait period (seconds) before declaring peer dead")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
         public long? HoldDownTimer { get; set; }
         /// <summary>
         /// BGP neighborship will be formed from all these source addresses to this neighbour.
         /// </summary>
-        [JsonProperty(PropertyName = "source_addresses")]
-        [NSXTProperty(IsRequired: false, Description: @"BGP neighborship will be formed from all these source addresses to this neighbour.")]
         public IList<string> SourceAddresses { get; set; }
         /// <summary>
         /// This value is set on TTL(time to live) of BGP header.
@@ -73,68 +52,44 @@ namespace nsxtsdk.ManagerModels
         /// BGP neighour. If the hop count value is greater than the maximum_hop_limit
         /// value then intermediate router discards the request when TTL becomes 0.
         /// </summary>
-        [JsonProperty(PropertyName = "maximum_hop_limit")]
-        [NSXTProperty(IsRequired: false, Description: @"This value is set on TTL(time to live) of BGP header.When router receives the BGP packet, it decrements the TTL. The defaultvalue of TTL is one when BPG request is initiated.So in the case of aBGP peer multiple hops away and and value of TTL is one, then  nextrouter in the path will decrement the TTL to 0, realize it cant forwardthe packet and will drop it. If the hop count value to reach neighboris equal to or less than the maximum_hop_limit value then intermediaterouter decrements the TTL count by one and forwards the request toBGP neighour. If the hop count value is greater than the maximum_hop_limitvalue then intermediate router discards the request when TTL becomes 0.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(255)]
         public int? MaximumHopLimit { get; set; }
         /// <summary>
         /// Flag to enable this BGP Neighbor
         /// </summary>
-        [JsonProperty(PropertyName = "enabled")]
-        [NSXTProperty(IsRequired: false, Description: @"Flag to enable this BGP Neighbor")]
         public bool? Enabled { get; set; }
         /// <summary>
         /// 4 Byte ASN of the neighbor in ASPLAIN/ASDOT Format
         /// </summary>
-        [JsonProperty(PropertyName = "remote_as_num")]
-        [NSXTProperty(IsRequired: false, Description: @"4 Byte ASN of the neighbor in ASPLAIN/ASDOT Format")]
         public string? RemoteAsNum { get; set; }
         /// <summary>
         /// User can enable the neighbor for the specific address families and also define filters per address family.
         /// When the neighbor is created, it is default enabled for IPV4_UNICAST address family for backward compatibility reasons.
         /// User can change that if required, by defining the address family configuration.
         /// </summary>
-        [JsonProperty(PropertyName = "address_families")]
-        [NSXTProperty(IsRequired: false, Description: @"User can enable the neighbor for the specific address families and also define filters per address family.When the neighbor is created, it is default enabled for IPV4_UNICAST address family for backward compatibility reasons.User can change that if required, by defining the address family configuration.")]
         public IList<NSXTBgpNeighborAddressFamilyType> AddressFamilies { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "bfd_config")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTBfdConfigParametersType BfdConfig { get; set; }
         /// <summary>
         /// Logical router id
         /// </summary>
-        [JsonProperty(PropertyName = "logical_router_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Logical router id")]
         public string? LogicalRouterId { get; set; }
         /// <summary>
         /// This is a deprecated property, Please  use 'address_family' instead.
         /// </summary>
-        [JsonProperty(PropertyName = "filter_in_ipprefixlist_id")]
-        [NSXTProperty(IsRequired: false, Description: @"This is a deprecated property, Please  use &apos;address_family&apos; instead.")]
         public string? FilterInIpprefixlistId { get; set; }
         /// <summary>
         /// This is a deprecated property, Please use 'address_family' instead.
         /// </summary>
-        [JsonProperty(PropertyName = "filter_out_routemap_id")]
-        [NSXTProperty(IsRequired: false, Description: @"This is a deprecated property, Please use &apos;address_family&apos; instead.")]
         public string? FilterOutRoutemapId { get; set; }
         /// <summary>
         /// This is a deprecated property, Please use 'address_family' instead.
         /// </summary>
-        [JsonProperty(PropertyName = "filter_in_routemap_id")]
-        [NSXTProperty(IsRequired: false, Description: @"This is a deprecated property, Please use &apos;address_family&apos; instead.")]
         public string? FilterInRoutemapId { get; set; }
         /// <summary>
         /// Frequency (seconds) with which keep alive messages are sent to peers
         /// </summary>
-        [JsonProperty(PropertyName = "keep_alive_timer")]
-        [NSXTProperty(IsRequired: false, Description: @"Frequency (seconds) with which keep alive messages are sent to peers")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
         public long? KeepAliveTimer { get; set; }
         /// <summary>
         /// User can create (POST) the neighbor with or without the password.
@@ -143,34 +98,24 @@ namespace nsxtsdk.ManagerModels
         /// On the edit neighbor (PUT), if the user does not specify the password property, the
         /// older value is retained. Maximum length of this field is 20 characters.
         /// </summary>
-        [JsonProperty(PropertyName = "password")]
-        [NSXTProperty(IsRequired: false, Description: @"User can create (POST) the neighbor with or without the password.The view (GET) on the neighbor, would never reveal if the password is set or not.The password can be set later using edit neighbor workFlow (PUT)On the edit neighbor (PUT), if the user does not specify the password property, theolder value is retained. Maximum length of this field is 20 characters.")]
         public string? Password { get; set; }
         /// <summary>
         /// Deprecated - do not provide a value for this field. Use source_addresses instead.
         /// </summary>
-        [JsonProperty(PropertyName = "source_address")]
-        [NSXTProperty(IsRequired: false, Description: @"Deprecated - do not provide a value for this field. Use source_addresses instead.")]
         public string? SourceAddress { get; set; }
         /// <summary>
         /// Flag to enable allowas_in option for BGP neighbor
         /// </summary>
-        [JsonProperty(PropertyName = "allow_as_in")]
-        [NSXTProperty(IsRequired: false, Description: @"Flag to enable allowas_in option for BGP neighbor")]
         public bool? AllowAsIn { get; set; }
         /// <summary>
         /// Flag to enable BFD for this BGP Neighbor. Enable this if the neighbor supports BFD as this will lead to faster
         /// convergence.
         /// </summary>
-        [JsonProperty(PropertyName = "enable_bfd")]
-        [NSXTProperty(IsRequired: false, Description: @"Flag to enable BFD for this BGP Neighbor. Enable this if the neighbor supports BFD as this will lead to faster convergence.")]
         public bool? EnableBfd { get; set; }
         /// <summary>
         /// Neighbor IP Address
         /// </summary>
         [JsonProperty(PropertyName = "neighbor_address", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Neighbor IP Address")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string NeighborAddress { get; set; }
     }
 }

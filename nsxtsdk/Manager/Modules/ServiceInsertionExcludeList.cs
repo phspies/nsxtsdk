@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public ServiceInsertionExcludeList(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public ServiceInsertionExcludeList(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTResourceReferenceType AddServiceInsertionExcludeListMember(NSXTResourceReferenceType ResourceReference)
+        public async Task<NSXTResourceReferenceType> AddServiceInsertionExcludeListMember(NSXTResourceReferenceType ResourceReference)
         {
             if (ResourceReference == null) { throw new System.ArgumentNullException("ResourceReference cannot be null"); }
             NSXTResourceReferenceType returnValue = default(NSXTResourceReferenceType);
@@ -43,31 +50,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(ResourceReference, defaultSerializationSettings));
             request.Resource = AddServiceInsertionExcludeListMemberServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTResourceReferenceType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTResourceReferenceType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + AddServiceInsertionExcludeListMemberServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTResourceReferenceType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTResourceReferenceType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSIExcludeListType UpdateServiceInsertionExcludeList(NSXTSIExcludeListType SiexcludeList)
+        public async Task<NSXTSIExcludeListType> UpdateServiceInsertionExcludeList(NSXTSIExcludeListType SiexcludeList)
         {
             if (SiexcludeList == null) { throw new System.ArgumentNullException("SiexcludeList cannot be null"); }
             NSXTSIExcludeListType returnValue = default(NSXTSIExcludeListType);
@@ -80,31 +75,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(SiexcludeList, defaultSerializationSettings));
             request.Resource = UpdateServiceInsertionExcludeListServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTSIExcludeListType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTSIExcludeListType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateServiceInsertionExcludeListServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSIExcludeListType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSIExcludeListType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSIExcludeListType GetServiceInsertionExcludeList()
+        public async Task<NSXTSIExcludeListType> GetServiceInsertionExcludeList()
         {
             NSXTSIExcludeListType returnValue = default(NSXTSIExcludeListType);
             StringBuilder GetServiceInsertionExcludeListServiceURL = new StringBuilder("/serviceinsertion/excludelist");
@@ -115,31 +98,19 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = GetServiceInsertionExcludeListServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTSIExcludeListType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTSIExcludeListType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetServiceInsertionExcludeListServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSIExcludeListType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSIExcludeListType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTResourceReferenceType RemoveServiceInsertionExcludeListMember(string ObjectId)
+        public async Task<NSXTResourceReferenceType> RemoveServiceInsertionExcludeListMember(string ObjectId)
         {
             if (ObjectId == null) { throw new System.ArgumentNullException("ObjectId cannot be null"); }
             NSXTResourceReferenceType returnValue = default(NSXTResourceReferenceType);
@@ -152,25 +123,13 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             if (ObjectId != null) { request.AddQueryParameter("object_id", ObjectId.ToString()); }
             request.Resource = RemoveServiceInsertionExcludeListMemberServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTResourceReferenceType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTResourceReferenceType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + RemoveServiceInsertionExcludeListMemberServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTResourceReferenceType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTResourceReferenceType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

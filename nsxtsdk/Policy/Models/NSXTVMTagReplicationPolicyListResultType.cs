@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,20 +17,13 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTVMTagReplicationPolicyListResultType : NSXTListResultType
     {
-        public NSXTVMTagReplicationPolicyListResultType()
-        {
-        }
         /// <summary>
         /// Collection of VM tag replication policies
         /// </summary>
-        [JsonProperty(PropertyName = "results")]
-        [NSXTProperty(IsRequired: false, Description: @"Collection of VM tag replication policies")]
         public IList<NSXTVMTagReplicationPolicyType> Results { get; set; }
         /// <summary>
         /// Count of the VM tag replication policies in the results array
         /// </summary>
-        [JsonProperty(PropertyName = "result_count")]
-        [NSXTProperty(IsRequired: false, Description: @"Count of the VM tag replication policies in the results array")]
         public long? ResultCount { get; set; }
     }
 }

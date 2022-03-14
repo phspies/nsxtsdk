@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,33 +17,22 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTEdgeNodeType : NSXTNodeType
     {
-        public NSXTEdgeNodeType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty(PropertyName = "node_settings", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTEdgeNodeSettingsType NodeSettings { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "deployment_config")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTEdgeNodeDeploymentConfigType DeploymentConfig { get; set; }
         /// <summary>
         /// List of logical router ids to which this edge node is allocated.
         /// </summary>
-        [JsonProperty(PropertyName = "allocation_list")]
-        [NSXTProperty(IsRequired: false, Description: @"List of logical router ids to which this edge node is allocated.")]
         public IList<string> AllocationList { get; set; }
         /// <summary>
         /// Supported edge deployment type.
         /// </summary>
-        [JsonProperty(PropertyName = "deployment_type")]
-        [NSXTProperty(IsRequired: false, Description: @"Supported edge deployment type.")]
         public NSXTEdgeNodeDeploymentTypeEnumType? DeploymentType { get; set; }
     }
 }

@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public Node(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public Node(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void RestartOrShutdownNodeRestart()
+        public async Task RestartOrShutdownNodeRestart()
         {
             
             StringBuilder RestartOrShutdownNodeRestartServiceURL = new StringBuilder("/node?action=restart");
@@ -41,7 +48,7 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = RestartOrShutdownNodeRestartServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + RestartOrShutdownNodeRestartServiceURL.ToString() + " did not complete successfull";
@@ -53,7 +60,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void RestartOrShutdownNodeShutdown()
+        public async Task RestartOrShutdownNodeShutdown()
         {
             
             StringBuilder RestartOrShutdownNodeShutdownServiceURL = new StringBuilder("/node?action=shutdown");
@@ -64,7 +71,7 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = RestartOrShutdownNodeShutdownServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + RestartOrShutdownNodeShutdownServiceURL.ToString() + " did not complete successfull";
@@ -76,7 +83,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void SetNodeTimeSetSystemTime(NSXTNodeTimeType NodeTime)
+        public async Task SetNodeTimeSetSystemTime(NSXTNodeTimeType NodeTime)
         {
             if (NodeTime == null) { throw new System.ArgumentNullException("NodeTime cannot be null"); }
             
@@ -89,7 +96,7 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(NodeTime, defaultSerializationSettings));
             request.Resource = SetNodeTimeSetSystemTimeServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + SetNodeTimeSetSystemTimeServiceURL.ToString() + " did not complete successfull";
@@ -101,7 +108,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNodePropertiesType UpdateNodeProperties(NSXTNodePropertiesType NodeProperties)
+        public async Task<NSXTNodePropertiesType> UpdateNodeProperties(NSXTNodePropertiesType NodeProperties)
         {
             if (NodeProperties == null) { throw new System.ArgumentNullException("NodeProperties cannot be null"); }
             NSXTNodePropertiesType returnValue = default(NSXTNodePropertiesType);
@@ -114,31 +121,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(NodeProperties, defaultSerializationSettings));
             request.Resource = UpdateNodePropertiesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNodePropertiesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNodePropertiesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateNodePropertiesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNodePropertiesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNodePropertiesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNodePropertiesType ReadNodeProperties()
+        public async Task<NSXTNodePropertiesType> ReadNodeProperties()
         {
             NSXTNodePropertiesType returnValue = default(NSXTNodePropertiesType);
             StringBuilder ReadNodePropertiesServiceURL = new StringBuilder("/node");
@@ -149,25 +144,13 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = ReadNodePropertiesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNodePropertiesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNodePropertiesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadNodePropertiesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNodePropertiesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNodePropertiesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

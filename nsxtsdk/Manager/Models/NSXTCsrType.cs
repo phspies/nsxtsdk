@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,41 +17,26 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTCsrType : NSXTManagedResourceType
     {
-        public NSXTCsrType()
-        {
-            KeySize = test
-            Algorithm = test
-        }
         /// <summary>
         /// Size measured in bits of the public key used in a cryptographic algorithm.
         /// </summary>
-        [JsonProperty(PropertyName = "key_size")]
-        [NSXTProperty(IsRequired: false, Description: @"Size measured in bits of the public key used in a cryptographic algorithm.")]
         public long? KeySize { get; set; }
         /// <summary>
         /// PEM encoded certificate data.
         /// </summary>
-        [JsonProperty(PropertyName = "pem_encoded")]
-        [NSXTProperty(IsRequired: false, Description: @"PEM encoded certificate data.")]
         public string? PemEncoded { get; set; }
         /// <summary>
         /// Cryptographic algorithm (asymmetric) used by the public key for data encryption.
         /// </summary>
-        [JsonProperty(PropertyName = "algorithm")]
-        [NSXTProperty(IsRequired: false, Description: @"Cryptographic algorithm (asymmetric) used by the public key for data encryption.")]
         public NSXTCsrAlgorithmEnumType? Algorithm { get; set; }
         /// <summary>
         /// Whether the CSR is for a CA certificate.
         /// </summary>
-        [JsonProperty(PropertyName = "is_ca")]
-        [NSXTProperty(IsRequired: false, Description: @"Whether the CSR is for a CA certificate.")]
         public bool? IsCa { get; set; }
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty(PropertyName = "subject", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTPrincipalType Subject { get; set; }
     }
 }

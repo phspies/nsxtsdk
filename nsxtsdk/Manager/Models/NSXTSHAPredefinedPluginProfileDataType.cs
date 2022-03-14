@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,28 +17,19 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Describes a config item for System Health profile.")]
     public class NSXTSHAPredefinedPluginProfileDataType 
     {
-        public NSXTSHAPredefinedPluginProfileDataType()
-        {
-        }
         /// <summary>
         /// The interval of plugin to report the status.
         /// </summary>
-        [JsonProperty(PropertyName = "report_interval")]
-        [NSXTProperty(IsRequired: false, Description: @"The interval of plugin to report the status.")]
         public long? ReportInterval { get; set; }
         /// <summary>
         /// The interval of plugin to check the status.
         /// </summary>
-        [JsonProperty(PropertyName = "check_interval")]
-        [NSXTProperty(IsRequired: false, Description: @"The interval of plugin to check the status.")]
         public long? CheckInterval { get; set; }
         /// <summary>
         /// The smallest report interval if the status is changed.
         /// The value of smallest_report_interval_if_change should be
         /// less than the value of report_interval
         /// </summary>
-        [JsonProperty(PropertyName = "smallest_report_interval_if_change")]
-        [NSXTProperty(IsRequired: false, Description: @"The smallest report interval if the status is changed.The value of smallest_report_interval_if_change should beless than the value of report_interval")]
         public long? SmallestReportIntervalIfChange { get; set; }
     }
 }

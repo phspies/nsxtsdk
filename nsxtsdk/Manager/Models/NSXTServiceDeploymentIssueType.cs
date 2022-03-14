@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,27 +17,18 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Type of issue and detailed description of the issue in case of deployment failure.")]
     public class NSXTServiceDeploymentIssueType 
     {
-        public NSXTServiceDeploymentIssueType()
-        {
-        }
         /// <summary>
         /// Description of issue encountered while service deployment.
         /// </summary>
-        [JsonProperty(PropertyName = "issue_description")]
-        [NSXTProperty(IsRequired: false, Description: @"Description of issue encountered while service deployment.")]
         public string? IssueDescription { get; set; }
         /// <summary>
         /// Timestamp when issue was issue encountered while service deployment.
         /// </summary>
-        [JsonProperty(PropertyName = "issue_timestamp")]
-        [NSXTProperty(IsRequired: false, Description: @"Timestamp when issue was issue encountered while service deployment.")]
         public string? IssueTimestamp { get; set; }
         /// <summary>
         /// Type of issue encountered while service deployment.
         /// </summary>
         [JsonProperty(PropertyName = "issue_type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Type of issue encountered while service deployment.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string IssueType { get; set; }
     }
 }

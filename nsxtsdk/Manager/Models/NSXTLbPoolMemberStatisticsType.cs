@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,29 +17,20 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLbPoolMemberStatisticsType 
     {
-        public NSXTLbPoolMemberStatisticsType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty(PropertyName = "statistics", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTLbStatisticsCounterType Statistics { get; set; }
         /// <summary>
         /// Pool member IP address
         /// </summary>
         [JsonProperty(PropertyName = "ip_address", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Pool member IP address")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string IpAddress { get; set; }
         /// <summary>
         /// The port is configured in pool member. For virtual server port range
         /// case, pool member port must be null.
         /// </summary>
-        [JsonProperty(PropertyName = "port")]
-        [NSXTProperty(IsRequired: false, Description: @"The port is configured in pool member. For virtual server port rangecase, pool member port must be null.")]
         public string? Port { get; set; }
     }
 }

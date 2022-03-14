@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,16 +17,11 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTMirrorStackStatusListResultType : NSXTListResultType
     {
-        public NSXTMirrorStackStatusListResultType()
-        {
-        }
         /// <summary>
         /// SUCCESS if all the TN's stack status are SUCCESS,
         /// FAILED if some of the TN's stack status are FAILED.
         /// </summary>
         [JsonProperty(PropertyName = "overall_status", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"SUCCESS if all the TN&apos;s stack status are SUCCESS,FAILED if some of the TN&apos;s stack status are FAILED.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTMirrorStackStatusListResultOverallStatusEnumType OverallStatus { get; set; }
         /// <summary>
         /// List all TN nodes which spaned in remote L3 mirror session mirror
@@ -34,8 +29,6 @@ namespace nsxtsdk.PolicyModels
         /// vmknic status, TN node ID, TN node name and last updated status timestamp.
         /// </summary>
         [JsonProperty(PropertyName = "results", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"List all TN nodes which spaned in remote L3 mirror session mirrorstack health status detailed info, including mirror stack status,vmknic status, TN node ID, TN node name and last updated status timestamp.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTTnNodeStackSpanStatusType> Results { get; set; }
     }
 }

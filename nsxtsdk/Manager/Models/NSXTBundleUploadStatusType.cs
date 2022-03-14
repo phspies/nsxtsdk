@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,38 +17,25 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Upload status of bundle uploaded from local or remote location.")]
     public class NSXTBundleUploadStatusType 
     {
-        public NSXTBundleUploadStatusType()
-        {
-        }
         /// <summary>
         /// URL for uploading bundle.
         /// </summary>
-        [JsonProperty(PropertyName = "url")]
-        [NSXTProperty(IsRequired: false, Description: @"URL for uploading bundle.")]
         public string? Url { get; set; }
         /// <summary>
         /// Name of the uploaded bundle.
         /// </summary>
-        [JsonProperty(PropertyName = "bundle_name")]
-        [NSXTProperty(IsRequired: false, Description: @"Name of the uploaded bundle.")]
         public string? BundleName { get; set; }
         /// <summary>
         /// Detailed status of bundle upload.
         /// </summary>
-        [JsonProperty(PropertyName = "detailed_status")]
-        [NSXTProperty(IsRequired: false, Description: @"Detailed status of bundle upload.")]
         public string? DetailedStatus { get; set; }
         /// <summary>
         /// Percent of bundle uploaded from remote location.
         /// </summary>
-        [JsonProperty(PropertyName = "percent")]
-        [NSXTProperty(IsRequired: false, Description: @"Percent of bundle uploaded from remote location.")]
         public double? Percent { get; set; }
         /// <summary>
         /// Current status of bundle upload.
         /// </summary>
-        [JsonProperty(PropertyName = "status")]
-        [NSXTProperty(IsRequired: false, Description: @"Current status of bundle upload.")]
         public NSXTBundleUploadStatusStatusEnumType? Status { get; set; }
     }
 }

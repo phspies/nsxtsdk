@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer NetworkFilter object")]
     public class NSXTALBNetworkFilterType 
     {
-        public NSXTALBNetworkFilterType()
-        {
-        }
         /// <summary>
         /// server_filter of NetworkFilter.
         /// </summary>
-        [JsonProperty(PropertyName = "server_filter")]
-        [NSXTProperty(IsRequired: false, Description: @"server_filter of NetworkFilter.")]
         public string? ServerFilter { get; set; }
     }
 }

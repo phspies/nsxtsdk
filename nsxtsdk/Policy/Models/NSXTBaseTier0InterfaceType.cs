@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,21 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTBaseTier0InterfaceType : NSXTPolicyConfigResourceType
     {
-        public NSXTBaseTier0InterfaceType()
-        {
-        }
         /// <summary>
         /// Specify IP address and network prefix for interface.
         /// </summary>
         [JsonProperty(PropertyName = "subnets", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Specify IP address and network prefix for interface.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTInterfaceSubnetType> Subnets { get; set; }
         /// <summary>
         /// Policy path of dhcp-relay-config to be attached to this Interface.
         /// </summary>
-        [JsonProperty(PropertyName = "dhcp_relay_path")]
-        [NSXTProperty(IsRequired: false, Description: @"Policy path of dhcp-relay-config to be attached to this Interface.")]
         public string? DhcpRelayPath { get; set; }
     }
 }

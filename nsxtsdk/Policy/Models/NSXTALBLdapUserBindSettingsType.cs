@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,22 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer LdapUserBindSettings object")]
     public class NSXTALBLdapUserBindSettingsType 
     {
-        public NSXTALBLdapUserBindSettingsType()
-        {
-            Token = test
-        }
         /// <summary>
         /// LDAP user DN pattern is used to bind LDAP user after
         /// replacing the user token with real username.
         /// </summary>
-        [JsonProperty(PropertyName = "dn_template")]
-        [NSXTProperty(IsRequired: false, Description: @"LDAP user DN pattern is used to bind LDAP user afterreplacing the user token with real username.")]
         public string? DnTemplate { get; set; }
         /// <summary>
         /// LDAP user attributes to fetch on a successful user bind.
         /// </summary>
-        [JsonProperty(PropertyName = "user_attributes")]
-        [NSXTProperty(IsRequired: false, Description: @"LDAP user attributes to fetch on a successful user bind.")]
         public IList<string> UserAttributes { get; set; }
         /// <summary>
         /// LDAP token is replaced with real user name in the user DN
@@ -40,15 +32,11 @@ namespace nsxtsdk.PolicyModels
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as <user>.
         /// </summary>
-        [JsonProperty(PropertyName = "token")]
-        [NSXTProperty(IsRequired: false, Description: @"LDAP token is replaced with real user name in the user DNpattern.Default value when not specified in API or module isinterpreted by ALB Controller as &lt;user&gt;.")]
         public string? Token { get; set; }
         /// <summary>
         /// LDAP user id attribute is the login attribute that uniquely
         /// identifies a single user record.
         /// </summary>
-        [JsonProperty(PropertyName = "user_id_attribute")]
-        [NSXTProperty(IsRequired: false, Description: @"LDAP user id attribute is the login attribute that uniquelyidentifies a single user record.")]
         public string? UserIdAttribute { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTMirrorSourceType 
     {
-        public NSXTMirrorSourceType()
-        {
-        }
         /// <summary>
         /// Resource types of mirror source
         /// </summary>
         [JsonProperty(PropertyName = "resource_type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Resource types of mirror source")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTMirrorSourceResourceTypeEnumType ResourceType { get; set; }
     }
 }

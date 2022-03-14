@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,20 +17,13 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Antrea adapter status")]
     public class NSXTAntreaAdapterStatusType 
     {
-        public NSXTAntreaAdapterStatusType()
-        {
-        }
         /// <summary>
         /// Indicate overall healthy status.
         /// </summary>
-        [JsonProperty(PropertyName = "status")]
-        [NSXTProperty(IsRequired: false, Description: @"Indicate overall healthy status.")]
         public NSXTAntreaAdapterStatusStatusEnumType? Status { get; set; }
         /// <summary>
         /// Collection of adapter conditions.
         /// </summary>
-        [JsonProperty(PropertyName = "conditions")]
-        [NSXTProperty(IsRequired: false, Description: @"Collection of adapter conditions.")]
         public IList<NSXTComponentConditionItemType> Conditions { get; set; }
     }
 }

@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public PacketCapture(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public PacketCapture(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPacketCaptureSessionType TerminatePacketCaptureSession(string SessionId)
+        public async Task<NSXTPacketCaptureSessionType> TerminatePacketCaptureSession(string SessionId)
         {
             if (SessionId == null) { throw new System.ArgumentNullException("SessionId cannot be null"); }
             NSXTPacketCaptureSessionType returnValue = default(NSXTPacketCaptureSessionType);
@@ -43,31 +50,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             TerminatePacketCaptureSessionServiceURL.Replace("{session-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SessionId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = TerminatePacketCaptureSessionServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPacketCaptureSessionType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPacketCaptureSessionType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + TerminatePacketCaptureSessionServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPacketCaptureSessionType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPacketCaptureSessionType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GetCaptureFile(string SessionId)
+        public async Task GetCaptureFile(string SessionId)
         {
             if (SessionId == null) { throw new System.ArgumentNullException("SessionId cannot be null"); }
             
@@ -80,7 +75,7 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             GetCaptureFileServiceURL.Replace("{session-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SessionId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetCaptureFileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetCaptureFileServiceURL.ToString() + " did not complete successfull";
@@ -92,7 +87,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPacketCaptureSessionType DeletePacketCaptureSession(string SessionId)
+        public async Task<NSXTPacketCaptureSessionType> DeletePacketCaptureSession(string SessionId)
         {
             if (SessionId == null) { throw new System.ArgumentNullException("SessionId cannot be null"); }
             NSXTPacketCaptureSessionType returnValue = default(NSXTPacketCaptureSessionType);
@@ -105,31 +100,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             DeletePacketCaptureSessionServiceURL.Replace("{session-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SessionId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeletePacketCaptureSessionServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPacketCaptureSessionType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPacketCaptureSessionType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + DeletePacketCaptureSessionServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPacketCaptureSessionType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPacketCaptureSessionType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPacketCaptureSessionType ReadPacketCaptureSession(string SessionId)
+        public async Task<NSXTPacketCaptureSessionType> ReadPacketCaptureSession(string SessionId)
         {
             if (SessionId == null) { throw new System.ArgumentNullException("SessionId cannot be null"); }
             NSXTPacketCaptureSessionType returnValue = default(NSXTPacketCaptureSessionType);
@@ -142,31 +125,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             ReadPacketCaptureSessionServiceURL.Replace("{session-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SessionId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadPacketCaptureSessionServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPacketCaptureSessionType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPacketCaptureSessionType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadPacketCaptureSessionServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPacketCaptureSessionType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPacketCaptureSessionType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPacketCaptureSessionListType ListPacketCaptureSessions()
+        public async Task<NSXTPacketCaptureSessionListType> ListPacketCaptureSessions()
         {
             NSXTPacketCaptureSessionListType returnValue = default(NSXTPacketCaptureSessionListType);
             StringBuilder ListPacketCaptureSessionsServiceURL = new StringBuilder("/pktcap/sessions");
@@ -177,31 +148,19 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = ListPacketCaptureSessionsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPacketCaptureSessionListType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPacketCaptureSessionListType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListPacketCaptureSessionsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPacketCaptureSessionListType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPacketCaptureSessionListType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPacketCaptureSessionType RestartPacketCaptureSession(string SessionId)
+        public async Task<NSXTPacketCaptureSessionType> RestartPacketCaptureSession(string SessionId)
         {
             if (SessionId == null) { throw new System.ArgumentNullException("SessionId cannot be null"); }
             NSXTPacketCaptureSessionType returnValue = default(NSXTPacketCaptureSessionType);
@@ -214,31 +173,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             RestartPacketCaptureSessionServiceURL.Replace("{session-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SessionId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = RestartPacketCaptureSessionServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPacketCaptureSessionType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPacketCaptureSessionType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + RestartPacketCaptureSessionServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPacketCaptureSessionType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPacketCaptureSessionType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPacketCaptureSessionListType DeleteAllCaptureSessions()
+        public async Task<NSXTPacketCaptureSessionListType> DeleteAllCaptureSessions()
         {
             NSXTPacketCaptureSessionListType returnValue = default(NSXTPacketCaptureSessionListType);
             StringBuilder DeleteAllCaptureSessionsServiceURL = new StringBuilder("/pktcap/sessions?action=delete");
@@ -249,31 +196,19 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = DeleteAllCaptureSessionsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPacketCaptureSessionListType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPacketCaptureSessionListType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + DeleteAllCaptureSessionsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPacketCaptureSessionListType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPacketCaptureSessionListType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPacketCaptureSessionType CreatePacketCaptureSession(NSXTPacketCaptureRequestType PacketCaptureRequest)
+        public async Task<NSXTPacketCaptureSessionType> CreatePacketCaptureSession(NSXTPacketCaptureRequestType PacketCaptureRequest)
         {
             if (PacketCaptureRequest == null) { throw new System.ArgumentNullException("PacketCaptureRequest cannot be null"); }
             NSXTPacketCaptureSessionType returnValue = default(NSXTPacketCaptureSessionType);
@@ -286,25 +221,13 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(PacketCaptureRequest, defaultSerializationSettings));
             request.Resource = CreatePacketCaptureSessionServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPacketCaptureSessionType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPacketCaptureSessionType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CreatePacketCaptureSessionServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPacketCaptureSessionType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPacketCaptureSessionType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

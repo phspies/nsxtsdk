@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,50 +17,33 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIDSEventsBySignatureType : NSXTResourceType
     {
-        public NSXTIDSEventsBySignatureType()
-        {
-        }
         /// <summary>
         /// Number of times this particular signature was detected.
         /// </summary>
-        [JsonProperty(PropertyName = "count")]
-        [NSXTProperty(IsRequired: false, Description: @"Number of times this particular signature was detected.")]
         public long? Count { get; set; }
         /// <summary>
         /// First occurence of the intrusion, in epoch milliseconds.
         /// </summary>
-        [JsonProperty(PropertyName = "first_occurence")]
-        [NSXTProperty(IsRequired: false, Description: @"First occurence of the intrusion, in epoch milliseconds.")]
         public long? FirstOccurence { get; set; }
         /// <summary>
         /// Severity of the threat covered by the signature, can be Critical, High, Medium, or Low.
         /// </summary>
-        [JsonProperty(PropertyName = "severity")]
-        [NSXTProperty(IsRequired: false, Description: @"Severity of the threat covered by the signature, can be Critical, High, Medium, or Low.")]
         public string? Severity { get; set; }
         /// <summary>
         /// Name of the signature pertaining to the detected intrusion.
         /// </summary>
-        [JsonProperty(PropertyName = "signature_name")]
-        [NSXTProperty(IsRequired: false, Description: @"Name of the signature pertaining to the detected intrusion.")]
         public string? SignatureName { get; set; }
         /// <summary>
         /// Flag indicating an ongoing intrusion.
         /// </summary>
-        [JsonProperty(PropertyName = "is_ongoing")]
-        [NSXTProperty(IsRequired: false, Description: @"Flag indicating an ongoing intrusion.")]
         public bool? IsOngoing { get; set; }
         /// <summary>
         /// Signature ID pertaining to the detected intrusion.
         /// </summary>
-        [JsonProperty(PropertyName = "signature_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Signature ID pertaining to the detected intrusion.")]
         public long? SignatureId { get; set; }
         /// <summary>
         /// IDSEvent resource type.
         /// </summary>
-        [JsonProperty(PropertyName = "resource_type")]
-        [NSXTProperty(IsRequired: false, Description: @"IDSEvent resource type.")]
         public string? ResourceType { get; set; }
     }
 }

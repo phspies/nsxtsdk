@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,32 +17,21 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTClusterNodeConfigType : NSXTManagedResourceType
     {
-        public NSXTClusterNodeConfigType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "manager_role")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTManagementClusterRoleConfigType ManagerRole { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "controller_role")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTControllerClusterRoleConfigType ControllerRole { get; set; }
         /// <summary>
         /// Internal identifier provided by the node
         /// </summary>
-        [JsonProperty(PropertyName = "external_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Internal identifier provided by the node")]
         public string? ExternalId { get; set; }
         /// <summary>
         /// The IP and port for the appliance management API service on this node
         /// </summary>
-        [JsonProperty(PropertyName = "appliance_mgmt_listen_addr")]
-        [NSXTProperty(IsRequired: false, Description: @"The IP and port for the appliance management API service on this node")]
         public string? ApplianceMgmtListenAddr { get; set; }
     }
 }

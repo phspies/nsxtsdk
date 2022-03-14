@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,26 +17,17 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Pool usage statistics in a pool.")]
     public class NSXTPoolUsageType 
     {
-        public NSXTPoolUsageType()
-        {
-        }
         /// <summary>
         /// Total number of IDs in a pool
         /// </summary>
-        [JsonProperty(PropertyName = "total_ids")]
-        [NSXTProperty(IsRequired: false, Description: @"Total number of IDs in a pool")]
         public long? TotalIds { get; set; }
         /// <summary>
         /// Total number of allocated IDs in a pool
         /// </summary>
-        [JsonProperty(PropertyName = "allocated_ids")]
-        [NSXTProperty(IsRequired: false, Description: @"Total number of allocated IDs in a pool")]
         public long? AllocatedIds { get; set; }
         /// <summary>
         /// Total number of free IDs in a pool
         /// </summary>
-        [JsonProperty(PropertyName = "free_ids")]
-        [NSXTProperty(IsRequired: false, Description: @"Total number of free IDs in a pool")]
         public long? FreeIds { get; set; }
     }
 }

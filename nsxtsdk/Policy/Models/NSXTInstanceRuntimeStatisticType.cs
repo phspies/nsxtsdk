@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,32 +17,21 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Statistics for data NICs on an instance runtime")]
     public class NSXTInstanceRuntimeStatisticType 
     {
-        public NSXTInstanceRuntimeStatisticType()
-        {
-        }
         /// <summary>
         /// List of statistics for all data NICs on a runtime.
         /// </summary>
-        [JsonProperty(PropertyName = "interface_statistics")]
-        [NSXTProperty(IsRequired: false, Description: @"List of statistics for all data NICs on a runtime.")]
         public IList<NSXTRuntimeInterfaceStatisticsType> InterfaceStatistics { get; set; }
         /// <summary>
         /// Name of the instance runtime
         /// </summary>
-        [JsonProperty(PropertyName = "runtime_name")]
-        [NSXTProperty(IsRequired: false, Description: @"Name of the instance runtime")]
         public string? RuntimeName { get; set; }
         /// <summary>
         /// Specifies whether statistics are for primary runtime.
         /// </summary>
-        [JsonProperty(PropertyName = "primary_runtime_stats")]
-        [NSXTProperty(IsRequired: false, Description: @"Specifies whether statistics are for primary runtime.")]
         public bool? PrimaryRuntimeStats { get; set; }
         /// <summary>
         /// Id of the instance runtime
         /// </summary>
-        [JsonProperty(PropertyName = "runtime_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Id of the instance runtime")]
         public string? RuntimeId { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Contains Setup details of nsx appliance.")]
     public class NSXTSetupDetailsType 
     {
-        public NSXTSetupDetailsType()
-        {
-        }
         /// <summary>
         /// User principal.
         /// </summary>
-        [JsonProperty(PropertyName = "principal_identity")]
-        [NSXTProperty(IsRequired: false, Description: @"User principal.")]
         public string? PrincipalIdentity { get; set; }
     }
 }

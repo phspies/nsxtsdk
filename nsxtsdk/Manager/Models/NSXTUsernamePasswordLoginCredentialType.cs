@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,26 +17,17 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTUsernamePasswordLoginCredentialType : NSXTLoginCredentialType
     {
-        public NSXTUsernamePasswordLoginCredentialType()
-        {
-        }
         /// <summary>
         /// The username for login
         /// </summary>
-        [JsonProperty(PropertyName = "username")]
-        [NSXTProperty(IsRequired: false, Description: @"The username for login")]
         public string? Username { get; set; }
         /// <summary>
         /// The authentication password for login
         /// </summary>
-        [JsonProperty(PropertyName = "password")]
-        [NSXTProperty(IsRequired: false, Description: @"The authentication password for login")]
         public string? Password { get; set; }
         /// <summary>
         /// Thumbprint of the login server
         /// </summary>
-        [JsonProperty(PropertyName = "thumbprint")]
-        [NSXTProperty(IsRequired: false, Description: @"Thumbprint of the login server")]
         public string? Thumbprint { get; set; }
     }
 }

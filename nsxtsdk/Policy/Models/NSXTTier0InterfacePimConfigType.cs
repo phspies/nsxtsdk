@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,31 +17,17 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Multicast PIM configuration.")]
     public class NSXTTier0InterfacePimConfigType 
     {
-        public NSXTTier0InterfacePimConfigType()
-        {
-            HelloInterval = test
-        }
         /// <summary>
         /// PIM hold interval(seconds) at interface level.
         /// </summary>
-        [JsonProperty(PropertyName = "hold_interval")]
-        [NSXTProperty(IsRequired: false, Description: @"PIM hold interval(seconds) at interface level.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(630)]
         public int? HoldInterval { get; set; }
         /// <summary>
         /// enable/disable PIM configuration.
         /// </summary>
-        [JsonProperty(PropertyName = "enabled")]
-        [NSXTProperty(IsRequired: false, Description: @"enable/disable PIM configuration.")]
         public bool? Enabled { get; set; }
         /// <summary>
         /// PIM hello interval(seconds) at interface level.
         /// </summary>
-        [JsonProperty(PropertyName = "hello_interval")]
-        [NSXTProperty(IsRequired: false, Description: @"PIM hello interval(seconds) at interface level.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(180)]
         public int? HelloInterval { get; set; }
     }
 }

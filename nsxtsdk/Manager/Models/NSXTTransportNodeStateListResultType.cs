@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTTransportNodeStateListResultType : NSXTListResultType
     {
-        public NSXTTransportNodeStateListResultType()
-        {
-        }
         /// <summary>
         /// Transport Node State Results
         /// </summary>
-        [JsonProperty(PropertyName = "results")]
-        [NSXTProperty(IsRequired: false, Description: @"Transport Node State Results")]
         public IList<NSXTTransportNodeStateType> Results { get; set; }
     }
 }

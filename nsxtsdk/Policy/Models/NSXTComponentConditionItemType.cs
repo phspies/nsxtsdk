@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,38 +17,25 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"This indicate component health condition and the reason why not healthy.")]
     public class NSXTComponentConditionItemType 
     {
-        public NSXTComponentConditionItemType()
-        {
-        }
         /// <summary>
         /// Time unit is millisecond.
         /// </summary>
-        [JsonProperty(PropertyName = "last_heartbeat_time")]
-        [NSXTProperty(IsRequired: false, Description: @"Time unit is millisecond.")]
         public long? LastHeartbeatTime { get; set; }
         /// <summary>
         /// Indicate healthy or unhealthy.
         /// </summary>
-        [JsonProperty(PropertyName = "status")]
-        [NSXTProperty(IsRequired: false, Description: @"Indicate healthy or unhealthy.")]
         public NSXTComponentConditionItemStatusEnumType? Status { get; set; }
         /// <summary>
         /// Indicate why not healthy.
         /// </summary>
-        [JsonProperty(PropertyName = "reason")]
-        [NSXTProperty(IsRequired: false, Description: @"Indicate why not healthy.")]
         public string? Reason { get; set; }
         /// <summary>
         /// Indicate which component condition it is.
         /// </summary>
-        [JsonProperty(PropertyName = "condition_type")]
-        [NSXTProperty(IsRequired: false, Description: @"Indicate which component condition it is.")]
         public NSXTComponentConditionItemConditionTypeEnumType? ConditionType { get; set; }
         /// <summary>
         /// Additional condition information.
         /// </summary>
-        [JsonProperty(PropertyName = "message")]
-        [NSXTProperty(IsRequired: false, Description: @"Additional condition information.")]
         public string? Message { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Bundle Id for uploaded file.")]
     public class NSXTUploadBundleIdType 
     {
-        public NSXTUploadBundleIdType()
-        {
-        }
         /// <summary>
         /// Bundle id of uploaded file.
         /// </summary>
-        [JsonProperty(PropertyName = "bundle_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Bundle id of uploaded file.")]
         public string? BundleId { get; set; }
     }
 }

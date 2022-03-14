@@ -21,16 +21,23 @@ namespace nsxtapi.PolicyModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public RegistrationTokenEndPoint(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public RegistrationTokenEndPoint(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteRegistrationToken(string Token)
+        public async Task DeleteRegistrationToken(string Token)
         {
             if (Token == null) { throw new System.ArgumentNullException("Token cannot be null"); }
             
@@ -43,7 +50,7 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             DeleteRegistrationTokenServiceURL.Replace("{token}", System.Uri.EscapeDataString(Helpers.ConvertToString(Token, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteRegistrationTokenServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteRegistrationTokenServiceURL.ToString() + " did not complete successfull";
@@ -55,7 +62,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTRegistrationTokenType GetRegistrationToken(string Token)
+        public async Task<NSXTRegistrationTokenType> GetRegistrationToken(string Token)
         {
             if (Token == null) { throw new System.ArgumentNullException("Token cannot be null"); }
             NSXTRegistrationTokenType returnValue = default(NSXTRegistrationTokenType);
@@ -68,31 +75,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             GetRegistrationTokenServiceURL.Replace("{token}", System.Uri.EscapeDataString(Helpers.ConvertToString(Token, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetRegistrationTokenServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTRegistrationTokenType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTRegistrationTokenType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetRegistrationTokenServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTRegistrationTokenType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTRegistrationTokenType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTRegistrationTokenType CreateRegistrationToken()
+        public async Task<NSXTRegistrationTokenType> CreateRegistrationToken()
         {
             NSXTRegistrationTokenType returnValue = default(NSXTRegistrationTokenType);
             StringBuilder CreateRegistrationTokenServiceURL = new StringBuilder("/aaa/registration-token");
@@ -103,25 +98,13 @@ namespace nsxtapi.PolicyModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = CreateRegistrationTokenServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTRegistrationTokenType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTRegistrationTokenType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CreateRegistrationTokenServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTRegistrationTokenType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTRegistrationTokenType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,21 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Antrea container cluster and its nodes requiring a support bundle")]
     public class NSXTAntreaContainerClusterNodeType 
     {
-        public NSXTAntreaContainerClusterNodeType()
-        {
-        }
         /// <summary>
         /// List of at most 200 container node UUIDs requiring a support bundle
         /// </summary>
-        [JsonProperty(PropertyName = "nodes")]
-        [NSXTProperty(IsRequired: false, Description: @"List of at most 200 container node UUIDs requiring a support bundle")]
         public IList<string> Nodes { get; set; }
         /// <summary>
         /// The UUID of the container cluster
         /// </summary>
         [JsonProperty(PropertyName = "cluster_id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"The UUID of the container cluster")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string ClusterId { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,21 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTPacketCaptureSessionListType : NSXTListResultType
     {
-        public NSXTPacketCaptureSessionListType()
-        {
-        }
         /// <summary>
         /// Packet capture list for all sessoins
         /// </summary>
-        [JsonProperty(PropertyName = "results")]
-        [NSXTProperty(IsRequired: false, Description: @"Packet capture list for all sessoins")]
         public IList<NSXTPacketCaptureSessionType> Results { get; set; }
         /// <summary>
         /// Total capture session count
         /// </summary>
         [JsonProperty(PropertyName = "result_count", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Total capture session count")]
-        [System.ComponentModel.DataAnnotations.Required]
         public long ResultCount { get; set; }
     }
 }

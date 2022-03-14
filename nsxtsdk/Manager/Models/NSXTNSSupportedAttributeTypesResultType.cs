@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"NSSupportedAttributes Types")]
     public class NSXTNSSupportedAttributeTypesResultType 
     {
-        public NSXTNSSupportedAttributeTypesResultType()
-        {
-        }
         /// <summary>
         /// List of NSSupportedAttributes types
         /// </summary>
-        [JsonProperty(PropertyName = "attribute_types")]
-        [NSXTProperty(IsRequired: false, Description: @"List of NSSupportedAttributes types")]
         public IList<string> AttributeTypes { get; set; }
     }
 }

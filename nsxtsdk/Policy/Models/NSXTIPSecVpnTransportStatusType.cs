@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIPSecVpnTransportStatusType : NSXTL2VPNSessionTransportTunnelStatusType
     {
-        public NSXTIPSecVpnTransportStatusType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "session_status")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTIPSecVpnSessionStatusNsxTType SessionStatus { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,20 +17,13 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyArpProxyEntryType 
     {
-        public NSXTPolicyArpProxyEntryType()
-        {
-        }
         /// <summary>
         /// Identifier of connected service on port.
         /// </summary>
-        [JsonProperty(PropertyName = "service_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Identifier of connected service on port.")]
         public string? ServiceId { get; set; }
         /// <summary>
         /// ARP proxy information for a service with ip.
         /// </summary>
-        [JsonProperty(PropertyName = "arp_proxy_ip")]
-        [NSXTProperty(IsRequired: false, Description: @"ARP proxy information for a service with ip.")]
         public IList<string> ArpProxyIp { get; set; }
     }
 }

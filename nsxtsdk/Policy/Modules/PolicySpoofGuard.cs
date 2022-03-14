@@ -21,16 +21,23 @@ namespace nsxtapi.PolicyModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public PolicySpoofGuard(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public PolicySpoofGuard(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSpoofGuardProfileListResultType GlobalGlobalInfraListSpoofGuardProfiles(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTSpoofGuardProfileListResultType> GlobalGlobalInfraListSpoofGuardProfiles(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTSpoofGuardProfileListResultType returnValue = default(NSXTSpoofGuardProfileListResultType);
             StringBuilder GlobalInfraListSpoofGuardProfilesServiceURL = new StringBuilder("/global-infra/spoofguard-profiles");
@@ -47,31 +54,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GlobalInfraListSpoofGuardProfilesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTSpoofGuardProfileListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTSpoofGuardProfileListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraListSpoofGuardProfilesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSpoofGuardProfileListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSpoofGuardProfileListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSpoofGuardProfileType CreateOrUpdateSpoofGuardProfile(string SpoofguardProfileId, NSXTSpoofGuardProfileType SpoofGuardProfile, bool? Override = null)
+        public async Task<NSXTSpoofGuardProfileType> CreateOrUpdateSpoofGuardProfile(string SpoofguardProfileId, NSXTSpoofGuardProfileType SpoofGuardProfile, bool? Override = null)
         {
             if (SpoofguardProfileId == null) { throw new System.ArgumentNullException("SpoofguardProfileId cannot be null"); }
             if (SpoofGuardProfile == null) { throw new System.ArgumentNullException("SpoofGuardProfile cannot be null"); }
@@ -87,31 +82,19 @@ namespace nsxtapi.PolicyModules
             request.AddJsonBody(JsonConvert.SerializeObject(SpoofGuardProfile, defaultSerializationSettings));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = CreateOrUpdateSpoofGuardProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTSpoofGuardProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTSpoofGuardProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateOrUpdateSpoofGuardProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSpoofGuardProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSpoofGuardProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchSpoofGuardProfile(string SpoofguardProfileId, NSXTSpoofGuardProfileType SpoofGuardProfile, bool? Override = null)
+        public async Task PatchSpoofGuardProfile(string SpoofguardProfileId, NSXTSpoofGuardProfileType SpoofGuardProfile, bool? Override = null)
         {
             if (SpoofguardProfileId == null) { throw new System.ArgumentNullException("SpoofguardProfileId cannot be null"); }
             if (SpoofGuardProfile == null) { throw new System.ArgumentNullException("SpoofGuardProfile cannot be null"); }
@@ -127,7 +110,7 @@ namespace nsxtapi.PolicyModules
             request.AddJsonBody(JsonConvert.SerializeObject(SpoofGuardProfile, defaultSerializationSettings));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = PatchSpoofGuardProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchSpoofGuardProfileServiceURL.ToString() + " did not complete successfull";
@@ -139,7 +122,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSpoofGuardProfileType GetSpoofGuardProfile(string SpoofguardProfileId)
+        public async Task<NSXTSpoofGuardProfileType> GetSpoofGuardProfile(string SpoofguardProfileId)
         {
             if (SpoofguardProfileId == null) { throw new System.ArgumentNullException("SpoofguardProfileId cannot be null"); }
             NSXTSpoofGuardProfileType returnValue = default(NSXTSpoofGuardProfileType);
@@ -152,31 +135,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             GetSpoofGuardProfileServiceURL.Replace("{spoofguard-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SpoofguardProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetSpoofGuardProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTSpoofGuardProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTSpoofGuardProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetSpoofGuardProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSpoofGuardProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSpoofGuardProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteSpoofGuardProfile(string SpoofguardProfileId, bool? Override = null)
+        public async Task DeleteSpoofGuardProfile(string SpoofguardProfileId, bool? Override = null)
         {
             if (SpoofguardProfileId == null) { throw new System.ArgumentNullException("SpoofguardProfileId cannot be null"); }
             
@@ -190,7 +161,7 @@ namespace nsxtapi.PolicyModules
             DeleteSpoofGuardProfileServiceURL.Replace("{spoofguard-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SpoofguardProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = DeleteSpoofGuardProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteSpoofGuardProfileServiceURL.ToString() + " did not complete successfull";
@@ -202,7 +173,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSpoofGuardProfileListResultType ListSpoofGuardProfiles(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTSpoofGuardProfileListResultType> ListSpoofGuardProfiles(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTSpoofGuardProfileListResultType returnValue = default(NSXTSpoofGuardProfileListResultType);
             StringBuilder ListSpoofGuardProfilesServiceURL = new StringBuilder("/infra/spoofguard-profiles");
@@ -219,31 +190,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListSpoofGuardProfilesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTSpoofGuardProfileListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTSpoofGuardProfileListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListSpoofGuardProfilesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSpoofGuardProfileListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSpoofGuardProfileListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSpoofGuardProfileType GlobalGlobalInfraCreateOrUpdateSpoofGuardProfile(string SpoofguardProfileId, NSXTSpoofGuardProfileType SpoofGuardProfile, bool? Override = null)
+        public async Task<NSXTSpoofGuardProfileType> GlobalGlobalInfraCreateOrUpdateSpoofGuardProfile(string SpoofguardProfileId, NSXTSpoofGuardProfileType SpoofGuardProfile, bool? Override = null)
         {
             if (SpoofguardProfileId == null) { throw new System.ArgumentNullException("SpoofguardProfileId cannot be null"); }
             if (SpoofGuardProfile == null) { throw new System.ArgumentNullException("SpoofGuardProfile cannot be null"); }
@@ -259,31 +218,19 @@ namespace nsxtapi.PolicyModules
             request.AddJsonBody(JsonConvert.SerializeObject(SpoofGuardProfile, defaultSerializationSettings));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = GlobalInfraCreateOrUpdateSpoofGuardProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTSpoofGuardProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTSpoofGuardProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + GlobalInfraCreateOrUpdateSpoofGuardProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSpoofGuardProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSpoofGuardProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GlobalGlobalInfraPatchSpoofGuardProfile(string SpoofguardProfileId, NSXTSpoofGuardProfileType SpoofGuardProfile, bool? Override = null)
+        public async Task GlobalGlobalInfraPatchSpoofGuardProfile(string SpoofguardProfileId, NSXTSpoofGuardProfileType SpoofGuardProfile, bool? Override = null)
         {
             if (SpoofguardProfileId == null) { throw new System.ArgumentNullException("SpoofguardProfileId cannot be null"); }
             if (SpoofGuardProfile == null) { throw new System.ArgumentNullException("SpoofGuardProfile cannot be null"); }
@@ -299,7 +246,7 @@ namespace nsxtapi.PolicyModules
             request.AddJsonBody(JsonConvert.SerializeObject(SpoofGuardProfile, defaultSerializationSettings));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = GlobalInfraPatchSpoofGuardProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + GlobalInfraPatchSpoofGuardProfileServiceURL.ToString() + " did not complete successfull";
@@ -311,7 +258,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSpoofGuardProfileType GlobalGlobalInfraGetSpoofGuardProfile(string SpoofguardProfileId)
+        public async Task<NSXTSpoofGuardProfileType> GlobalGlobalInfraGetSpoofGuardProfile(string SpoofguardProfileId)
         {
             if (SpoofguardProfileId == null) { throw new System.ArgumentNullException("SpoofguardProfileId cannot be null"); }
             NSXTSpoofGuardProfileType returnValue = default(NSXTSpoofGuardProfileType);
@@ -324,31 +271,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             GlobalInfraGetSpoofGuardProfileServiceURL.Replace("{spoofguard-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SpoofguardProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GlobalInfraGetSpoofGuardProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTSpoofGuardProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTSpoofGuardProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraGetSpoofGuardProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSpoofGuardProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSpoofGuardProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GlobalGlobalInfraDeleteSpoofGuardProfile(string SpoofguardProfileId, bool? Override = null)
+        public async Task GlobalGlobalInfraDeleteSpoofGuardProfile(string SpoofguardProfileId, bool? Override = null)
         {
             if (SpoofguardProfileId == null) { throw new System.ArgumentNullException("SpoofguardProfileId cannot be null"); }
             
@@ -362,7 +297,7 @@ namespace nsxtapi.PolicyModules
             GlobalInfraDeleteSpoofGuardProfileServiceURL.Replace("{spoofguard-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SpoofguardProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = GlobalInfraDeleteSpoofGuardProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + GlobalInfraDeleteSpoofGuardProfileServiceURL.ToString() + " did not complete successfull";

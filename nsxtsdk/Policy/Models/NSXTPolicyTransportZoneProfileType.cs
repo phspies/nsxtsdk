@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,22 +17,15 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyTransportZoneProfileType : NSXTPolicyConfigResourceType
     {
-        public NSXTPolicyTransportZoneProfileType()
-        {
-        }
         /// <summary>
         /// Policy Transport Zone Type.
         /// </summary>
         [JsonProperty(PropertyName = "tz_profile_type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Policy Transport Zone Type.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTPolicyTransportZoneProfileTzProfileTypeEnumType TzProfileType { get; set; }
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty(PropertyName = "bfd_config", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTBfdHealthMonitoringConfigType BfdConfig { get; set; }
     }
 }

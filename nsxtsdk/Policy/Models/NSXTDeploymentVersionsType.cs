@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Different NSX Application Platform deployment versions.")]
     public class NSXTDeploymentVersionsType 
     {
-        public NSXTDeploymentVersionsType()
-        {
-        }
         /// <summary>
         /// List of deployment versions.
         /// </summary>
-        [JsonProperty(PropertyName = "versions")]
-        [NSXTProperty(IsRequired: false, Description: @"List of deployment versions.")]
         public IList<NSXTDeploymentVersionSpecType> Versions { get; set; }
     }
 }

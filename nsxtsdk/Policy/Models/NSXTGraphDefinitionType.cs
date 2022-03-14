@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,39 +17,26 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Defines a graph")]
     public class NSXTGraphDefinitionType 
     {
-        public NSXTGraphDefinitionType()
-        {
-        }
         /// <summary>
         /// An expression that represents the series of the graph
         /// </summary>
-        [JsonProperty(PropertyName = "row_list_field")]
-        [NSXTProperty(IsRequired: false, Description: @"An expression that represents the series of the graph")]
         public string? RowListField { get; set; }
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty(PropertyName = "point_definition", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTPointDefinitionType PointDefinition { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "label")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTLabelType Label { get; set; }
         /// <summary>
         /// Identifier of graph. It can be used to differentiate multiple graph series present in GraphWidgetConfiguration.
         /// </summary>
-        [JsonProperty(PropertyName = "id")]
-        [NSXTProperty(IsRequired: false, Description: @"Identifier of graph. It can be used to differentiate multiple graph series present in GraphWidgetConfiguration.")]
         public string? Id { get; set; }
         /// <summary>
         /// Additional rendering or conditional evaluation of the field values to be performed, if any.
         /// </summary>
-        [JsonProperty(PropertyName = "render_configuration")]
-        [NSXTProperty(IsRequired: false, Description: @"Additional rendering or conditional evaluation of the field values to be performed, if any.")]
         public IList<NSXTRenderConfigurationType> RenderConfiguration { get; set; }
     }
 }

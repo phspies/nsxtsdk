@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,22 +17,15 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer AuthenticationPolicy object")]
     public class NSXTALBAuthenticationPolicyType 
     {
-        public NSXTALBAuthenticationPolicyType()
-        {
-        }
         /// <summary>
         /// Auth Profile to use for validating users.
         /// It is a reference to an object of type AuthProfile.
         /// </summary>
         [JsonProperty(PropertyName = "default_auth_profile_path", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Auth Profile to use for validating users.It is a reference to an object of type AuthProfile.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string DefaultAuthProfilePath { get; set; }
         /// <summary>
         /// Add rules to apply auth profile to specific targets.
         /// </summary>
-        [JsonProperty(PropertyName = "authn_rules")]
-        [NSXTProperty(IsRequired: false, Description: @"Add rules to apply auth profile to specific targets.")]
         public IList<NSXTALBAuthenticationRuleType> AuthnRules { get; set; }
     }
 }

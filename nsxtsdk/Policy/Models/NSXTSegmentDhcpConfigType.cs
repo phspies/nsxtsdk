@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,10 +17,6 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"DHCP IPv4 and IPv6 configurations are extended from this abstract class.")]
     public class NSXTSegmentDhcpConfigType 
     {
-        public NSXTSegmentDhcpConfigType()
-        {
-            LeaseTime = test
-        }
         /// <summary>
         /// IP address of the DHCP server in CIDR format.
         /// The server_address is mandatory in case this segment has provided a
@@ -32,32 +28,22 @@ namespace nsxtsdk.PolicyModels
         /// gateway address of the subnet, or the DHCP static-binding addresses
         /// of this segment.
         /// </summary>
-        [JsonProperty(PropertyName = "server_address")]
-        [NSXTProperty(IsRequired: false, Description: @"IP address of the DHCP server in CIDR format.The server_address is mandatory in case this segment has provided adhcp_config_path and it represents a DHCP server config.If this SegmentDhcpConfig is a SegmentDhcpV4Config, the address mustbe an IPv4 address. If this is a SegmentDhcpV6Config, the address mustbe an IPv6 address.This address must not overlap the ip-ranges of the subnet, or thegateway address of the subnet, or the DHCP static-binding addressesof this segment.")]
         public string? ServerAddress { get; set; }
         /// <summary>
         /// IP address of DNS servers for subnet. DNS server IP address must
         /// belong to the same address family as segment gateway_address
         /// property.
         /// </summary>
-        [JsonProperty(PropertyName = "dns_servers")]
-        [NSXTProperty(IsRequired: false, Description: @"IP address of DNS servers for subnet. DNS server IP address mustbelong to the same address family as segment gateway_addressproperty.")]
         public IList<string> DnsServers { get; set; }
         /// <summary>
         /// DHCP lease time in seconds. When specified, this property overwrites
         /// lease time configured DHCP server config.
         /// </summary>
-        [JsonProperty(PropertyName = "lease_time")]
-        [NSXTProperty(IsRequired: false, Description: @"DHCP lease time in seconds. When specified, this property overwriteslease time configured DHCP server config.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(60)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(4294967295)]
         public long? LeaseTime { get; set; }
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty(PropertyName = "resource_type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTSegmentDhcpConfigResourceTypeEnumType ResourceType { get; set; }
     }
 }

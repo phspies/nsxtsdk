@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public Traceflow(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public Traceflow(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteTraceflow(string TraceflowId)
+        public async Task DeleteTraceflow(string TraceflowId)
         {
             if (TraceflowId == null) { throw new System.ArgumentNullException("TraceflowId cannot be null"); }
             
@@ -43,7 +50,7 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             DeleteTraceflowServiceURL.Replace("{traceflow-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(TraceflowId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteTraceflowServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteTraceflowServiceURL.ToString() + " did not complete successfull";
@@ -55,7 +62,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTraceflowType GetTraceflow(string TraceflowId)
+        public async Task<NSXTTraceflowType> GetTraceflow(string TraceflowId)
         {
             if (TraceflowId == null) { throw new System.ArgumentNullException("TraceflowId cannot be null"); }
             NSXTTraceflowType returnValue = default(NSXTTraceflowType);
@@ -68,31 +75,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             GetTraceflowServiceURL.Replace("{traceflow-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(TraceflowId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetTraceflowServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTraceflowType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTraceflowType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetTraceflowServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTraceflowType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTraceflowType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTraceflowType CreateTraceflow(NSXTTraceflowRequestType TraceflowRequest)
+        public async Task<NSXTTraceflowType> CreateTraceflow(NSXTTraceflowRequestType TraceflowRequest)
         {
             if (TraceflowRequest == null) { throw new System.ArgumentNullException("TraceflowRequest cannot be null"); }
             NSXTTraceflowType returnValue = default(NSXTTraceflowType);
@@ -105,31 +100,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(TraceflowRequest, defaultSerializationSettings));
             request.Resource = CreateTraceflowServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTraceflowType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTraceflowType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CreateTraceflowServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTraceflowType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTraceflowType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTraceflowListResultType ListTraceflows(string? Cursor = null, string? IncludedFields = null, string? LportId = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTTraceflowListResultType> ListTraceflows(string? Cursor = null, string? IncludedFields = null, string? LportId = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTTraceflowListResultType returnValue = default(NSXTTraceflowListResultType);
             StringBuilder ListTraceflowsServiceURL = new StringBuilder("/traceflows");
@@ -146,31 +129,19 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListTraceflowsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTraceflowListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTraceflowListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListTraceflowsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTraceflowListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTraceflowListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTraceflowObservationListResultType GetTraceflowObservations(string TraceflowId, string? ComponentName = null, string? ComponentType = null, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, string? ResourceType = null, bool? SortAscending = null, string? SortBy = null, string? TransportNodeName = null)
+        public async Task<NSXTTraceflowObservationListResultType> GetTraceflowObservations(string TraceflowId, string? ComponentName = null, string? ComponentType = null, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, string? ResourceType = null, bool? SortAscending = null, string? SortBy = null, string? TransportNodeName = null)
         {
             if (TraceflowId == null) { throw new System.ArgumentNullException("TraceflowId cannot be null"); }
             NSXTTraceflowObservationListResultType returnValue = default(NSXTTraceflowObservationListResultType);
@@ -192,25 +163,13 @@ namespace nsxtapi.ManagerModules
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             if (TransportNodeName != null) { request.AddQueryParameter("transport_node_name", TransportNodeName.ToString()); }
             request.Resource = GetTraceflowObservationsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTraceflowObservationListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTraceflowObservationListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetTraceflowObservationsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTraceflowObservationListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTraceflowObservationListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

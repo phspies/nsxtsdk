@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,21 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"The certificate chain presented by a remote TLS service.")]
     public class NSXTPeerCertificateChainType 
     {
-        public NSXTPeerCertificateChainType()
-        {
-        }
         /// <summary>
         /// List of X509Certificates.
         /// </summary>
-        [JsonProperty(PropertyName = "details")]
-        [NSXTProperty(IsRequired: false, Description: @"List of X509Certificates.")]
         public IList<NSXTX509CertificateType> Details { get; set; }
         /// <summary>
         /// PEM encoded certificate data.
         /// </summary>
         [JsonProperty(PropertyName = "pem_encoded", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"PEM encoded certificate data.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string PemEncoded { get; set; }
     }
 }

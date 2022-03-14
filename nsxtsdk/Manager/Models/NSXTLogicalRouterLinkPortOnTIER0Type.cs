@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,26 +17,17 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLogicalRouterLinkPortOnTIER0Type : NSXTLogicalRouterPortType
     {
-        public NSXTLogicalRouterLinkPortOnTIER0Type()
-        {
-        }
         /// <summary>
         /// Logical router port subnets
         /// </summary>
-        [JsonProperty(PropertyName = "subnets")]
-        [NSXTProperty(IsRequired: false, Description: @"Logical router port subnets")]
         public IList<NSXTIPSubnetType> Subnets { get; set; }
         /// <summary>
         /// Identifier of connected LogicalRouterLinkPortOnTIER1 of TIER1 logical router
         /// </summary>
-        [JsonProperty(PropertyName = "linked_logical_router_port_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Identifier of connected LogicalRouterLinkPortOnTIER1 of TIER1 logical router")]
         public string? LinkedLogicalRouterPortId { get; set; }
         /// <summary>
         /// MAC address
         /// </summary>
-        [JsonProperty(PropertyName = "mac_address")]
-        [NSXTProperty(IsRequired: false, Description: @"MAC address")]
         public string? MacAddress { get; set; }
     }
 }

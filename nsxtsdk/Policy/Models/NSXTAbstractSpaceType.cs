@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,9 +17,6 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTAbstractSpaceType : NSXTPolicyConfigResourceType
     {
-        public NSXTAbstractSpaceType()
-        {
-        }
         /// <summary>
         /// The connectivity strategy is deprecated. Use default layer3 rule,
         /// /infra/domains/default/security-policies/default-layer3-security-policy/rules/default-layer3-rule.
@@ -33,8 +30,6 @@ namespace nsxtsdk.PolicyModels
         /// BLACKLIST_ENABLE_LOGGING - Blacklisting with logging enabled
         /// NONE - No default rules are added.
         /// </summary>
-        [JsonProperty(PropertyName = "connectivity_strategy")]
-        [NSXTProperty(IsRequired: false, Description: @"The connectivity strategy is deprecated. Use default layer3 rule,/infra/domains/default/security-policies/default-layer3-security-policy/rules/default-layer3-rule.This field indicates the default connectivity policy for the infraor tenant spaceWHITELIST - Adds a default drop rule. Administrator can then use &quot;allow&quot;rules (aka whitelist) to allow traffic between groupsBLACKLIST - Adds a default allow rule. Admin can then use &quot;drop&quot; rules(aka blacklist) to block traffic between groupsWHITELIST_ENABLE_LOGGING - Whitelising with logging enabledBLACKLIST_ENABLE_LOGGING - Blacklisting with logging enabledNONE - No default rules are added.")]
         public NSXTAbstractSpaceConnectivityStrategyEnumType? ConnectivityStrategy { get; set; }
     }
 }

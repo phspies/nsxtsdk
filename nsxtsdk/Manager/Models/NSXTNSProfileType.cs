@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,17 +17,11 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNSProfileType : NSXTManagedResourceType
     {
-        public NSXTNSProfileType()
-        {
-            IsValid = test
-        }
         /// <summary>
         /// Reference to the encapsulating object of attributes/sub-attributes for
         /// NSProfile.
         /// </summary>
         [JsonProperty(PropertyName = "nsprofile_attribute", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Reference to the encapsulating object of attributes/sub-attributes forNSProfile.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTNSAttributesType> NsprofileAttribute { get; set; }
         /// <summary>
         /// If set to false, the NSProfile has some app ids which
@@ -35,8 +29,6 @@ namespace nsxtsdk.ManagerModels
         /// previous releases but in testing in later phases
         /// found that those app ids could not be detected.
         /// </summary>
-        [JsonProperty(PropertyName = "is_valid")]
-        [NSXTProperty(IsRequired: false, Description: @"If set to false, the NSProfile has some app ids whichare unsupported. Those were allowed to be added inprevious releases but in testing in later phasesfound that those app ids could not be detected.")]
         public bool? IsValid { get; set; }
     }
 }

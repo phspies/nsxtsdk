@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,28 +17,19 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTClusterControlPlaneType : NSXTPolicyConfigResourceType
     {
-        public NSXTClusterControlPlaneType()
-        {
-        }
         /// <summary>
         /// This property is used to identify the cluster control plane in NSX-T.
         /// This id should assigned by NSX-T in create process.
         /// </summary>
-        [JsonProperty(PropertyName = "node_id")]
-        [NSXTProperty(IsRequired: false, Description: @"This property is used to identify the cluster control plane in NSX-T.This id should assigned by NSX-T in create process.")]
         public string? NodeId { get; set; }
         /// <summary>
         /// This property should be afford in create process for VHC module
         /// requirement.
         /// </summary>
-        [JsonProperty(PropertyName = "vhc_path")]
-        [NSXTProperty(IsRequired: false, Description: @"This property should be afford in create process for VHC modulerequirement.")]
         public string? VhcPath { get; set; }
         /// <summary>
         /// This property should be afford in create process.
         /// </summary>
-        [JsonProperty(PropertyName = "certificate")]
-        [NSXTProperty(IsRequired: false, Description: @"This property should be afford in create process.")]
         public string? Certificate { get; set; }
     }
 }

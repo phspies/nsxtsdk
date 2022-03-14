@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer HealthMonitorPop3 object")]
     public class NSXTALBHealthMonitorPop3Type 
     {
-        public NSXTALBHealthMonitorPop3Type()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "ssl_attributes")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBHealthMonitorSSLAttributesType SslAttributes { get; set; }
     }
 }

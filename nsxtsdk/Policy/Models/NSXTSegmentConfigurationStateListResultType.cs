@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTSegmentConfigurationStateListResultType : NSXTListResultType
     {
-        public NSXTSegmentConfigurationStateListResultType()
-        {
-        }
         /// <summary>
         /// Paged Collection of Segment State on specific Enforcement Point
         /// </summary>
-        [JsonProperty(PropertyName = "results")]
-        [NSXTProperty(IsRequired: false, Description: @"Paged Collection of Segment State on specific Enforcement Point")]
         public IList<NSXTSegmentConfigurationStateType> Results { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Collection of Login/Logout events reported to Policy")]
     public class NSXTLoginLogoutEventCollectionType 
     {
-        public NSXTLoginLogoutEventCollectionType()
-        {
-        }
         /// <summary>
         /// Set of user to IP address pair
         /// </summary>
         [JsonProperty(PropertyName = "login_logout_events", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Set of user to IP address pair")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTLoginLogoutEventMapType> LoginLogoutEvents { get; set; }
     }
 }

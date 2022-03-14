@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTMacPoolType : NSXTManagedResourceType
     {
-        public NSXTMacPoolType()
-        {
-        }
         /// <summary>
         /// Array of ranges for MAC addresses
         /// </summary>
         [JsonProperty(PropertyName = "ranges", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Array of ranges for MAC addresses")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTMacRangeType> Ranges { get; set; }
     }
 }

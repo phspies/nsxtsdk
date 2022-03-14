@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLBVariablePersistenceOnActionType : NSXTLBRuleActionType
     {
-        public NSXTLBVariablePersistenceOnActionType()
-        {
-        }
         /// <summary>
         /// The property is used to enable a hash operation for variable value
         /// when composing the persistence key.
         /// </summary>
-        [JsonProperty(PropertyName = "variable_hash_enabled")]
-        [NSXTProperty(IsRequired: false, Description: @"The property is used to enable a hash operation for variable valuewhen composing the persistence key.")]
         public bool? VariableHashEnabled { get; set; }
         /// <summary>
         /// The property is the name of variable to be used. It specifies which
@@ -38,16 +33,12 @@ namespace nsxtsdk.PolicyModels
         /// Administrator's Guide.
         /// </summary>
         [JsonProperty(PropertyName = "variable_name", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"The property is the name of variable to be used. It specifies whichvariable&apos;s value of a HTTP Request will be used in the key ofpersistence entry. The variable can be a built-in variable suchas &quot;_cookie_JSESSIONID&quot;, a customized variable defined inLBVariableAssignmentAction or a captured variable in regular expressionsuch as &quot;article&quot;.For the full list of built-in variables, please reference the NSX-TAdministrator&apos;s Guide.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string VariableName { get; set; }
         /// <summary>
         /// If the persistence profile path is not specified, a default
         /// persistence table is created per virtual server. Currently, only
         /// LBGenericPersistenceProfile is supported.
         /// </summary>
-        [JsonProperty(PropertyName = "persistence_profile_path")]
-        [NSXTProperty(IsRequired: false, Description: @"If the persistence profile path is not specified, a defaultpersistence table is created per virtual server. Currently, onlyLBGenericPersistenceProfile is supported.")]
         public string? PersistenceProfilePath { get; set; }
     }
 }

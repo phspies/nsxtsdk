@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,37 +17,24 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTSolutionConfigType : NSXTManagedResourceType
     {
-        public NSXTSolutionConfigType()
-        {
-        }
         /// <summary>
         /// The service to which the solution config belongs.
         /// </summary>
-        [JsonProperty(PropertyName = "service_id")]
-        [NSXTProperty(IsRequired: false, Description: @"The service to which the solution config belongs.")]
         public string? ServiceId { get; set; }
         /// <summary>
         /// Partner needs to specify Solution Id assigned by VMware.
         /// </summary>
         [JsonProperty(PropertyName = "solution_id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Partner needs to specify Solution Id assigned by VMware.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string SolutionId { get; set; }
         /// <summary>
         /// Partner needs to specify their port on which their solution application which consumes NXGI EPSec library listens.
         /// </summary>
         [JsonProperty(PropertyName = "listen_port", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Partner needs to specify their port on which their solution application which consumes NXGI EPSec library listens.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(48651)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(48655)]
-        [System.ComponentModel.DataAnnotations.Required]
         public int ListenPort { get; set; }
         /// <summary>
         /// Partner needs to specify their assigned control IP with which they have configured their OVFs.
         /// </summary>
         [JsonProperty(PropertyName = "control_ip", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Partner needs to specify their assigned control IP with which they have configured their OVFs.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string ControlIp { get; set; }
     }
 }

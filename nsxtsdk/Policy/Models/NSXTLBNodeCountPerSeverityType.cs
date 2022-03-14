@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,21 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"The node count for specific load balancer usage severity.")]
     public class NSXTLBNodeCountPerSeverityType 
     {
-        public NSXTLBNodeCountPerSeverityType()
-        {
-        }
         /// <summary>
         /// Node count for specific serverity.
         /// </summary>
-        [JsonProperty(PropertyName = "node_count")]
-        [NSXTProperty(IsRequired: false, Description: @"Node count for specific serverity.")]
         public long? NodeCount { get; set; }
         /// <summary>
         /// The severity calculation is based on current credit usage percentage
         /// of load balancer for one node.
         /// </summary>
-        [JsonProperty(PropertyName = "severity")]
-        [NSXTProperty(IsRequired: false, Description: @"The severity calculation is based on current credit usage percentageof load balancer for one node.")]
         public NSXTLbnodeCountPerSeveritySeverityEnumType? Severity { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -18,35 +18,22 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"This object contains list of SNMP v3 users used to poll NSX nodes over SNMP and list of SNMP v3 targets used to receive SNMP traps/notifications from NSX nodes. Users specified in a SNMP v3 target must exist in the list of SNMP v3 users.")]
     public class NSXTSnmpv3PropertiesType 
     {
-        public NSXTSnmpv3PropertiesType()
-        {
-            AuthProtocol = test
-            PrivProtocol = test
-        }
         /// <summary>
         /// Authentication protocol used for SNMP v3 communication.
         /// </summary>
-        [JsonProperty(PropertyName = "auth_protocol")]
-        [NSXTProperty(IsRequired: false, Description: @"Authentication protocol used for SNMP v3 communication.")]
         public NSXTSnmpv3PropertiesAuthProtocolEnumType? AuthProtocol { get; set; }
         /// <summary>
         /// Privacy protocol used for SNMP v3 communication.
         /// </summary>
-        [JsonProperty(PropertyName = "priv_protocol")]
-        [NSXTProperty(IsRequired: false, Description: @"Privacy protocol used for SNMP v3 communication.")]
         public NSXTSnmpv3PropertiesPrivProtocolEnumType? PrivProtocol { get; set; }
         /// <summary>
         /// List of SNMP v3 users allowed to poll NSX nodes over SNMP. Also, users specified in a SNMP v3 target must exist in this
         /// list.
         /// </summary>
-        [JsonProperty(PropertyName = "users")]
-        [NSXTProperty(IsRequired: false, Description: @"List of SNMP v3 users allowed to poll NSX nodes over SNMP. Also, users specified in a SNMP v3 target must exist in this list.")]
         public IList<NSXTSnmpV3UserType> Users { get; set; }
         /// <summary>
         /// List of SNMP v3 targets/receivers where SNMP v3 traps/notifications will be sent from NSX nodes.
         /// </summary>
-        [JsonProperty(PropertyName = "targets")]
-        [NSXTProperty(IsRequired: false, Description: @"List of SNMP v3 targets/receivers where SNMP v3 traps/notifications will be sent from NSX nodes.")]
         public IList<NSXTSnmpv3TargetType> Targets { get; set; }
     }
 }

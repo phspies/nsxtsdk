@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,68 +17,45 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTClusterNodeInfoType 
     {
-        public NSXTClusterNodeInfoType()
-        {
-        }
         /// <summary>
         /// Node clustering status
         /// </summary>
-        [JsonProperty(PropertyName = "status")]
-        [NSXTProperty(IsRequired: false, Description: @"Node clustering status")]
         public NSXTClusterNodeInfoStatusEnumType? Status { get; set; }
         /// <summary>
         /// Messaging client of all entities
         /// </summary>
-        [JsonProperty(PropertyName = "msg_clients")]
-        [NSXTProperty(IsRequired: false, Description: @"Messaging client of all entities")]
         public IList<NSXTNodeMessagingClientInfoType> MsgClients { get; set; }
         /// <summary>
         /// Unique identifier of this node
         /// </summary>
-        [JsonProperty(PropertyName = "node_uuid")]
-        [NSXTProperty(IsRequired: false, Description: @"Unique identifier of this node")]
         public string? NodeUuid { get; set; }
         /// <summary>
         /// The display name of this node
         /// </summary>
-        [JsonProperty(PropertyName = "display_name")]
-        [NSXTProperty(IsRequired: false, Description: @"The display name of this node")]
         public string? DisplayName { get; set; }
         /// <summary>
         /// Service endpoint of all entities
         /// </summary>
-        [JsonProperty(PropertyName = "entities")]
-        [NSXTProperty(IsRequired: false, Description: @"Service endpoint of all entities")]
         public IList<NSXTNodeEntityInfoType> Entities { get; set; }
         /// <summary>
         /// Certificate and thumbprint of all entities
         /// </summary>
-        [JsonProperty(PropertyName = "certificates")]
-        [NSXTProperty(IsRequired: false, Description: @"Certificate and thumbprint of all entities")]
         public IList<NSXTNodeCertificateInfoType> Certificates { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "api_listen_addr")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTServiceEndpointType ApiListenAddr { get; set; }
         /// <summary>
         /// The fqdn of this node
         /// </summary>
-        [JsonProperty(PropertyName = "fqdn")]
-        [NSXTProperty(IsRequired: false, Description: @"The fqdn of this node")]
         public string? Fqdn { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "appliance_connection_info")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTServiceEndpointType ApplianceConnectionInfo { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "control_plane_listen_addr")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTServiceEndpointType ControlPlaneListenAddr { get; set; }
     }
 }

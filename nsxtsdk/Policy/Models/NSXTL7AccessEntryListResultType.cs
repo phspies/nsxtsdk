@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTL7AccessEntryListResultType : NSXTListResultType
     {
-        public NSXTL7AccessEntryListResultType()
-        {
-        }
         /// <summary>
         /// L7 access Entry list results
         /// </summary>
         [JsonProperty(PropertyName = "results", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"L7 access Entry list results")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTL7AccessEntryType> Results { get; set; }
     }
 }

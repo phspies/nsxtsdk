@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTServicePathListResultType : NSXTListResultType
     {
-        public NSXTServicePathListResultType()
-        {
-        }
         /// <summary>
         /// List of homogenous service paths
         /// </summary>
-        [JsonProperty(PropertyName = "results")]
-        [NSXTProperty(IsRequired: false, Description: @"List of homogenous service paths")]
         public IList<NSXTServicePathType> Results { get; set; }
     }
 }

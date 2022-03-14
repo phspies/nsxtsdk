@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,23 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTTier1InterfaceType : NSXTBaseTier0InterfaceType
     {
-        public NSXTTier1InterfaceType()
-        {
-            UrpfMode = test
-        }
         /// <summary>
         /// Unicast Reverse Path Forwarding mode
         /// </summary>
-        [JsonProperty(PropertyName = "urpf_mode")]
-        [NSXTProperty(IsRequired: false, Description: @"Unicast Reverse Path Forwarding mode")]
         public NSXTTier1InterfaceUrpfModeEnumType? UrpfMode { get; set; }
         /// <summary>
         /// Maximum transmission unit (MTU) specifies the size of the largest
         /// packet that a network protocol can transmit.
         /// </summary>
-        [JsonProperty(PropertyName = "mtu")]
-        [NSXTProperty(IsRequired: false, Description: @"Maximum transmission unit (MTU) specifies the size of the largestpacket that a network protocol can transmit.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(64)]
         public int? Mtu { get; set; }
         /// <summary>
         /// This flag is used to enable/disable admin state on tier-1 service port.
@@ -43,22 +34,16 @@ namespace nsxtsdk.PolicyModels
         /// disabled and service port is down from routing perspective. This flag is
         /// experimental because it will be used in V2T BYOT migration.
         /// </summary>
-        [JsonProperty(PropertyName = "admin_state")]
-        [NSXTProperty(IsRequired: false, Description: @"This flag is used to enable/disable admin state on tier-1 service port.If admin_state flag value is not specified then default is UP. When set to UPthen traffic on service port will be enabled and service port is enabled fromrouting perspective. When set to DOWN then traffic on service port will bedisabled and service port is down from routing perspective. This flag isexperimental because it will be used in V2T BYOT migration.")]
         public NSXTTier1InterfaceAdminStateEnumType? AdminState { get; set; }
         /// <summary>
         /// Configrue IPv6 NDRA profile. Only one
         /// NDRA profile can be configured.
         /// </summary>
-        [JsonProperty(PropertyName = "ipv6_profile_paths")]
-        [NSXTProperty(IsRequired: false, Description: @"Configrue IPv6 NDRA profile. Only oneNDRA profile can be configured.")]
         public IList<string> Ipv6ProfilePaths { get; set; }
         /// <summary>
         /// Policy path of Segment to which interface is connected to.
         /// </summary>
         [JsonProperty(PropertyName = "segment_path", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Policy path of Segment to which interface is connected to.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string SegmentPath { get; set; }
     }
 }

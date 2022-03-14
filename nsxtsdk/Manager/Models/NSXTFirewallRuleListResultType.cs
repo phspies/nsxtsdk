@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTFirewallRuleListResultType : NSXTListResultType
     {
-        public NSXTFirewallRuleListResultType()
-        {
-        }
         /// <summary>
         /// Firewall rule list result with pagination support.
         /// </summary>
-        [JsonProperty(PropertyName = "results")]
-        [NSXTProperty(IsRequired: false, Description: @"Firewall rule list result with pagination support.")]
         public IList<NSXTFirewallRuleType> Results { get; set; }
     }
 }

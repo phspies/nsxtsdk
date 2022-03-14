@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Duplicate IP detection and control")]
     public class NSXTDuplicateIPDetectionType 
     {
-        public NSXTDuplicateIPDetectionType()
-        {
-        }
         /// <summary>
         /// Indicates whether duplicate IP detection should be enabled
         /// </summary>
-        [JsonProperty(PropertyName = "duplicate_ip_detection_enabled")]
-        [NSXTProperty(IsRequired: false, Description: @"Indicates whether duplicate IP detection should be enabled")]
         public bool? DuplicateIpDetectionEnabled { get; set; }
     }
 }

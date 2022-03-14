@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,20 +17,13 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTOverriddenResourceType : NSXTPolicyConfigResourceType
     {
-        public NSXTOverriddenResourceType()
-        {
-        }
         /// <summary>
         /// Site path to the specific site that has overridden the global resource.
         /// </summary>
-        [JsonProperty(PropertyName = "site_path")]
-        [NSXTProperty(IsRequired: false, Description: @"Site path to the specific site that has overridden the global resource.")]
         public string? SitePath { get; set; }
         /// <summary>
         /// Policy resource path of the overridden resource.
         /// </summary>
-        [JsonProperty(PropertyName = "intent_path")]
-        [NSXTProperty(IsRequired: false, Description: @"Policy resource path of the overridden resource.")]
         public string? IntentPath { get; set; }
     }
 }

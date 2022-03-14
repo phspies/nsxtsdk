@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,20 +17,13 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTMacManagementSwitchingProfileType : NSXTBaseSwitchingProfileType
     {
-        public NSXTMacManagementSwitchingProfileType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "mac_learning")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTMacLearningSpecType MacLearning { get; set; }
         /// <summary>
         /// Allowing source MAC address change
         /// </summary>
-        [JsonProperty(PropertyName = "mac_change_allowed")]
-        [NSXTProperty(IsRequired: false, Description: @"Allowing source MAC address change")]
         public bool? MacChangeAllowed { get; set; }
     }
 }

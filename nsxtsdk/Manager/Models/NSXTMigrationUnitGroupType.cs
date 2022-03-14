@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,47 +17,30 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTMigrationUnitGroupType : NSXTManagedResourceType
     {
-        public NSXTMigrationUnitGroupType()
-        {
-            Enabled = test
-            Parallel = test
-        }
         /// <summary>
         /// Number of migration units in the group
         /// </summary>
-        [JsonProperty(PropertyName = "migration_unit_count")]
-        [NSXTProperty(IsRequired: false, Description: @"Number of migration units in the group")]
         public int? MigrationUnitCount { get; set; }
         /// <summary>
         /// List of migration units in the group
         /// </summary>
-        [JsonProperty(PropertyName = "migration_units")]
-        [NSXTProperty(IsRequired: false, Description: @"List of migration units in the group")]
         public IList<NSXTMigrationUnitType> MigrationUnits { get; set; }
         /// <summary>
         /// Flag to indicate whether migration of this group is enabled or not
         /// </summary>
-        [JsonProperty(PropertyName = "enabled")]
-        [NSXTProperty(IsRequired: false, Description: @"Flag to indicate whether migration of this group is enabled or not")]
         public bool? Enabled { get; set; }
         /// <summary>
         /// Component type
         /// </summary>
         [JsonProperty(PropertyName = "type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Component type")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Type { get; set; }
         /// <summary>
         /// Migration method to specify whether the migration is to be performed in parallel or serially
         /// </summary>
-        [JsonProperty(PropertyName = "parallel")]
-        [NSXTProperty(IsRequired: false, Description: @"Migration method to specify whether the migration is to be performed in parallel or serially")]
         public bool? Parallel { get; set; }
         /// <summary>
         /// Extended configuration for the group
         /// </summary>
-        [JsonProperty(PropertyName = "extended_configuration")]
-        [NSXTProperty(IsRequired: false, Description: @"Extended configuration for the group")]
         public IList<NSXTKeyValuePairType> ExtendedConfiguration { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,26 +17,17 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer NetworkSecurityMatchTarget object")]
     public class NSXTALBNetworkSecurityMatchTargetType 
     {
-        public NSXTALBNetworkSecurityMatchTargetType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "microservice")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBMicroServiceMatchType Microservice { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "vs_port")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBPortMatchType VsPort { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "client_ip")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBIpAddrMatchType ClientIp { get; set; }
     }
 }

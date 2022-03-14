@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,28 +17,19 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer DiscoveredNetwork object")]
     public class NSXTALBDiscoveredNetworkType 
     {
-        public NSXTALBDiscoveredNetworkType()
-        {
-        }
         /// <summary>
         /// Discovered subnet for this IP.
         /// </summary>
-        [JsonProperty(PropertyName = "subnet")]
-        [NSXTProperty(IsRequired: false, Description: @"Discovered subnet for this IP.")]
         public IList<NSXTALBIpAddrPrefixType> Subnet { get; set; }
         /// <summary>
         /// Discovered IPv6 subnet for this IP.
         /// </summary>
-        [JsonProperty(PropertyName = "subnet6")]
-        [NSXTProperty(IsRequired: false, Description: @"Discovered IPv6 subnet for this IP.")]
         public IList<NSXTALBIpAddrPrefixType> Subnet6 { get; set; }
         /// <summary>
         /// Discovered network for this IP.
         /// It is a reference to an object of type Network.
         /// </summary>
         [JsonProperty(PropertyName = "network_name", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Discovered network for this IP.It is a reference to an object of type Network.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string NetworkName { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,21 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLbServiceInstanceDetailType 
     {
-        public NSXTLbServiceInstanceDetailType()
-        {
-        }
         /// <summary>
         /// The error message for the load balancer instance. If the instance
         /// status is NOT_READY, error message will be attached.
         /// </summary>
-        [JsonProperty(PropertyName = "error_message")]
-        [NSXTProperty(IsRequired: false, Description: @"The error message for the load balancer instance. If the instancestatus is NOT_READY, error message will be attached.")]
         public string? ErrorMessage { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "attachment")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTResourceReferenceType Attachment { get; set; }
     }
 }

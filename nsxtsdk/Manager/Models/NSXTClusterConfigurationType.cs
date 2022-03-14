@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,26 +17,17 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"The configuration of the NSX cluster. The cluster configuration consists of a list of cluster node attributes.")]
     public class NSXTClusterConfigurationType 
     {
-        public NSXTClusterConfigurationType()
-        {
-        }
         /// <summary>
         /// Cluster configuration version
         /// </summary>
-        [JsonProperty(PropertyName = "config_version")]
-        [NSXTProperty(IsRequired: false, Description: @"Cluster configuration version")]
         public long? ConfigVersion { get; set; }
         /// <summary>
         /// Nodes in the cluster configuration
         /// </summary>
-        [JsonProperty(PropertyName = "nodes")]
-        [NSXTProperty(IsRequired: false, Description: @"Nodes in the cluster configuration")]
         public IList<NSXTClusterNodeType> Nodes { get; set; }
         /// <summary>
         /// UUID of the cluster
         /// </summary>
-        [JsonProperty(PropertyName = "cluster_id")]
-        [NSXTProperty(IsRequired: false, Description: @"UUID of the cluster")]
         public string? ClusterId { get; set; }
     }
 }

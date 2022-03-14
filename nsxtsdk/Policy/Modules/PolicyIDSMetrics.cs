@@ -21,16 +21,23 @@ namespace nsxtapi.PolicyModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public PolicyIDSMetrics(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public PolicyIDSMetrics(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyIdsEventsBySignatureResultType GetPolicyAllIdsEvents(NSXTPolicyIdsEventDataRequestType PolicyIdsEventDataRequest)
+        public async Task<NSXTPolicyIdsEventsBySignatureResultType> GetPolicyAllIdsEvents(NSXTPolicyIdsEventDataRequestType PolicyIdsEventDataRequest)
         {
             if (PolicyIdsEventDataRequest == null) { throw new System.ArgumentNullException("PolicyIdsEventDataRequest cannot be null"); }
             NSXTPolicyIdsEventsBySignatureResultType returnValue = default(NSXTPolicyIdsEventsBySignatureResultType);
@@ -43,31 +50,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(PolicyIdsEventDataRequest, defaultSerializationSettings));
             request.Resource = GetPolicyAllIdsEventsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyIdsEventsBySignatureResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyIdsEventsBySignatureResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + GetPolicyAllIdsEventsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyIdsEventsBySignatureResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyIdsEventsBySignatureResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyIdsVmListType GetPolicyAffectedVms(NSXTPolicyIdsEventDataRequestType PolicyIdsEventDataRequest, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTPolicyIdsVmListType> GetPolicyAffectedVms(NSXTPolicyIdsEventDataRequestType PolicyIdsEventDataRequest, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (PolicyIdsEventDataRequest == null) { throw new System.ArgumentNullException("PolicyIdsEventDataRequest cannot be null"); }
             NSXTPolicyIdsVmListType returnValue = default(NSXTPolicyIdsVmListType);
@@ -85,31 +80,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GetPolicyAffectedVmsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyIdsVmListType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyIdsVmListType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + GetPolicyAffectedVmsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyIdsVmListType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyIdsVmListType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyIdsUserListType GetPolicyAffectedUsers(NSXTPolicyIdsEventDataRequestType PolicyIdsEventDataRequest, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTPolicyIdsUserListType> GetPolicyAffectedUsers(NSXTPolicyIdsEventDataRequestType PolicyIdsEventDataRequest, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (PolicyIdsEventDataRequest == null) { throw new System.ArgumentNullException("PolicyIdsEventDataRequest cannot be null"); }
             NSXTPolicyIdsUserListType returnValue = default(NSXTPolicyIdsUserListType);
@@ -127,31 +110,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GetPolicyAffectedUsersServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyIdsUserListType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyIdsUserListType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + GetPolicyAffectedUsersServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyIdsUserListType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyIdsUserListType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyIdsIpListType GetPolicyAffectedIps(NSXTPolicyIdsEventDataRequestType PolicyIdsEventDataRequest, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTPolicyIdsIpListType> GetPolicyAffectedIps(NSXTPolicyIdsEventDataRequestType PolicyIdsEventDataRequest, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (PolicyIdsEventDataRequest == null) { throw new System.ArgumentNullException("PolicyIdsEventDataRequest cannot be null"); }
             NSXTPolicyIdsIpListType returnValue = default(NSXTPolicyIdsIpListType);
@@ -169,31 +140,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GetPolicyAffectedIpsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyIdsIpListType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyIdsIpListType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + GetPolicyAffectedIpsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyIdsIpListType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyIdsIpListType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyIdsSummaryListResultType GetPolicyIdsDashboardSummary(NSXTPolicyIdsEventDataRequestType PolicyIdsEventDataRequest, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTPolicyIdsSummaryListResultType> GetPolicyIdsDashboardSummary(NSXTPolicyIdsEventDataRequestType PolicyIdsEventDataRequest, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (PolicyIdsEventDataRequest == null) { throw new System.ArgumentNullException("PolicyIdsEventDataRequest cannot be null"); }
             NSXTPolicyIdsSummaryListResultType returnValue = default(NSXTPolicyIdsSummaryListResultType);
@@ -211,25 +170,13 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GetPolicyIdsDashboardSummaryServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyIdsSummaryListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyIdsSummaryListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + GetPolicyIdsDashboardSummaryServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyIdsSummaryListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyIdsSummaryListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

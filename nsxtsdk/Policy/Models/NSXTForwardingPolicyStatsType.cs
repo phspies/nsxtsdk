@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,20 +17,13 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTForwardingPolicyStatsType : NSXTListResultType
     {
-        public NSXTForwardingPolicyStatsType()
-        {
-        }
         /// <summary>
         /// Forwarding policy identifier.
         /// </summary>
-        [JsonProperty(PropertyName = "section_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Forwarding policy identifier.")]
         public string? SectionId { get; set; }
         /// <summary>
         /// List of rule statistics.
         /// </summary>
-        [JsonProperty(PropertyName = "results")]
-        [NSXTProperty(IsRequired: false, Description: @"List of rule statistics.")]
         public IList<NSXTForwardingRuleStatsType> Results { get; set; }
     }
 }

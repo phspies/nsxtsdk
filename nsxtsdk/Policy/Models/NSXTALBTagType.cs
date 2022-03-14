@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,24 +17,16 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer Tag object")]
     public class NSXTALBTagType 
     {
-        public NSXTALBTagType()
-        {
-            Type = test
-        }
         /// <summary>
         /// Enum options - AVI_DEFINED, USER_DEFINED, VCENTER_DEFINED.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as USER_DEFINED.
         /// </summary>
-        [JsonProperty(PropertyName = "type")]
-        [NSXTProperty(IsRequired: false, Description: @"Enum options - AVI_DEFINED, USER_DEFINED, VCENTER_DEFINED.Default value when not specified in API or module isinterpreted by ALB Controller as USER_DEFINED.")]
         public NSXTAlbtagTypeEnumType? Type { get; set; }
         /// <summary>
         /// value of Tag.
         /// </summary>
         [JsonProperty(PropertyName = "value", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"value of Tag.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Value { get; set; }
     }
 }

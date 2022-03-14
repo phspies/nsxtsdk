@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,24 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIpfixCollectorType 
     {
-        public NSXTIpfixCollectorType()
-        {
-            CollectorPort = test
-        }
         /// <summary>
         /// IP address for the IPFIX collector
         /// </summary>
         [JsonProperty(PropertyName = "collector_ip_address", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"IP address for the IPFIX collector")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string CollectorIpAddress { get; set; }
         /// <summary>
         /// Port for the IPFIX collector
         /// </summary>
-        [JsonProperty(PropertyName = "collector_port")]
-        [NSXTProperty(IsRequired: false, Description: @"Port for the IPFIX collector")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
         public int? CollectorPort { get; set; }
     }
 }

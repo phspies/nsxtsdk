@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,17 +17,12 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Cookie time.")]
     public class NSXTLBCookieTimeType 
     {
-        public NSXTLBCookieTimeType()
-        {
-        }
         /// <summary>
         /// Both session cookie and persistence cookie are supported,
         /// Use LbSessionCookieTime for session cookie time setting,
         /// Use LbPersistenceCookieTime for persistence cookie time setting
         /// </summary>
         [JsonProperty(PropertyName = "type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Both session cookie and persistence cookie are supported,Use LbSessionCookieTime for session cookie time setting,Use LbPersistenceCookieTime for persistence cookie time setting")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTLbcookieTimeTypeEnumType Type { get; set; }
     }
 }

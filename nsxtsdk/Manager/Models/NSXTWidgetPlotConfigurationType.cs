@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,20 +17,13 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Base type for widget plot config.")]
     public class NSXTWidgetPlotConfigurationType 
     {
-        public NSXTWidgetPlotConfigurationType()
-        {
-        }
         /// <summary>
         /// Allow maximize capability for this widget
         /// </summary>
-        [JsonProperty(PropertyName = "allow_maximize")]
-        [NSXTProperty(IsRequired: false, Description: @"Allow maximize capability for this widget")]
         public bool? AllowMaximize { get; set; }
         /// <summary>
         /// If the condition is met then the given chart config is applied to the widget configuration.
         /// </summary>
-        [JsonProperty(PropertyName = "condition")]
-        [NSXTProperty(IsRequired: false, Description: @"If the condition is met then the given chart config is applied to the widget configuration.")]
         public string? Condition { get; set; }
     }
 }

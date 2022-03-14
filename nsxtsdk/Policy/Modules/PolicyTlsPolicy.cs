@@ -21,16 +21,23 @@ namespace nsxtapi.PolicyModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public PolicyTlsPolicy(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public PolicyTlsPolicy(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTlsRuleListResultType ListTlsRules(string PolicyId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTTlsRuleListResultType> ListTlsRules(string PolicyId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (PolicyId == null) { throw new System.ArgumentNullException("PolicyId cannot be null"); }
             NSXTTlsRuleListResultType returnValue = default(NSXTTlsRuleListResultType);
@@ -49,31 +56,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListTlsRulesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTlsRuleListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTlsRuleListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListTlsRulesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTlsRuleListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTlsRuleListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTlsPolicyListResultType ListTlsPolicies(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, bool? IncludeRuleCount = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTTlsPolicyListResultType> ListTlsPolicies(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, bool? IncludeRuleCount = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTTlsPolicyListResultType returnValue = default(NSXTTlsPolicyListResultType);
             StringBuilder ListTlsPoliciesServiceURL = new StringBuilder("/infra/tls-inspection-policies");
@@ -91,31 +86,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListTlsPoliciesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTlsPolicyListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTlsPolicyListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListTlsPoliciesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTlsPolicyListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTlsPolicyListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTlsPolicyType CreateOrReplaceTlsPolicy(string PolicyId, NSXTTlsPolicyType TlsPolicy)
+        public async Task<NSXTTlsPolicyType> CreateOrReplaceTlsPolicy(string PolicyId, NSXTTlsPolicyType TlsPolicy)
         {
             if (PolicyId == null) { throw new System.ArgumentNullException("PolicyId cannot be null"); }
             if (TlsPolicy == null) { throw new System.ArgumentNullException("TlsPolicy cannot be null"); }
@@ -130,31 +113,19 @@ namespace nsxtapi.PolicyModules
             CreateOrReplaceTlsPolicyServiceURL.Replace("{policy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PolicyId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(TlsPolicy, defaultSerializationSettings));
             request.Resource = CreateOrReplaceTlsPolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTlsPolicyType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTlsPolicyType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateOrReplaceTlsPolicyServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTlsPolicyType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTlsPolicyType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTlsPolicyType ReadTlsPolicy(string PolicyId)
+        public async Task<NSXTTlsPolicyType> ReadTlsPolicy(string PolicyId)
         {
             if (PolicyId == null) { throw new System.ArgumentNullException("PolicyId cannot be null"); }
             NSXTTlsPolicyType returnValue = default(NSXTTlsPolicyType);
@@ -167,31 +138,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ReadTlsPolicyServiceURL.Replace("{policy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PolicyId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadTlsPolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTlsPolicyType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTlsPolicyType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadTlsPolicyServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTlsPolicyType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTlsPolicyType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteTlsPolicy(string PolicyId)
+        public async Task DeleteTlsPolicy(string PolicyId)
         {
             if (PolicyId == null) { throw new System.ArgumentNullException("PolicyId cannot be null"); }
             
@@ -204,7 +163,7 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             DeleteTlsPolicyServiceURL.Replace("{policy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PolicyId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteTlsPolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteTlsPolicyServiceURL.ToString() + " did not complete successfull";
@@ -216,7 +175,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTlsPolicyType PatchTlsPolicy(string PolicyId, NSXTTlsPolicyType TlsPolicy)
+        public async Task<NSXTTlsPolicyType> PatchTlsPolicy(string PolicyId, NSXTTlsPolicyType TlsPolicy)
         {
             if (PolicyId == null) { throw new System.ArgumentNullException("PolicyId cannot be null"); }
             if (TlsPolicy == null) { throw new System.ArgumentNullException("TlsPolicy cannot be null"); }
@@ -231,31 +190,19 @@ namespace nsxtapi.PolicyModules
             PatchTlsPolicyServiceURL.Replace("{policy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PolicyId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(TlsPolicy, defaultSerializationSettings));
             request.Resource = PatchTlsPolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTlsPolicyType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTlsPolicyType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchTlsPolicyServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTlsPolicyType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTlsPolicyType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTlsRuleType CreateOrReplaceTlsRule(string PolicyId, string RuleId, NSXTTlsRuleType TlsRule)
+        public async Task<NSXTTlsRuleType> CreateOrReplaceTlsRule(string PolicyId, string RuleId, NSXTTlsRuleType TlsRule)
         {
             if (PolicyId == null) { throw new System.ArgumentNullException("PolicyId cannot be null"); }
             if (RuleId == null) { throw new System.ArgumentNullException("RuleId cannot be null"); }
@@ -272,31 +219,19 @@ namespace nsxtapi.PolicyModules
             CreateOrReplaceTlsRuleServiceURL.Replace("{rule-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(RuleId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(TlsRule, defaultSerializationSettings));
             request.Resource = CreateOrReplaceTlsRuleServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTlsRuleType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTlsRuleType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateOrReplaceTlsRuleServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTlsRuleType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTlsRuleType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteTlsRule(string PolicyId, string RuleId)
+        public async Task DeleteTlsRule(string PolicyId, string RuleId)
         {
             if (PolicyId == null) { throw new System.ArgumentNullException("PolicyId cannot be null"); }
             if (RuleId == null) { throw new System.ArgumentNullException("RuleId cannot be null"); }
@@ -311,7 +246,7 @@ namespace nsxtapi.PolicyModules
             DeleteTlsRuleServiceURL.Replace("{policy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PolicyId, System.Globalization.CultureInfo.InvariantCulture)));
             DeleteTlsRuleServiceURL.Replace("{rule-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(RuleId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteTlsRuleServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteTlsRuleServiceURL.ToString() + " did not complete successfull";
@@ -323,7 +258,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTlsRuleType PatchTlsRule(string PolicyId, string RuleId, NSXTTlsRuleType TlsRule)
+        public async Task<NSXTTlsRuleType> PatchTlsRule(string PolicyId, string RuleId, NSXTTlsRuleType TlsRule)
         {
             if (PolicyId == null) { throw new System.ArgumentNullException("PolicyId cannot be null"); }
             if (RuleId == null) { throw new System.ArgumentNullException("RuleId cannot be null"); }
@@ -340,31 +275,19 @@ namespace nsxtapi.PolicyModules
             PatchTlsRuleServiceURL.Replace("{rule-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(RuleId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(TlsRule, defaultSerializationSettings));
             request.Resource = PatchTlsRuleServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTlsRuleType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTlsRuleType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchTlsRuleServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTlsRuleType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTlsRuleType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTlsRuleType ReadTlsRule(string PolicyId, string RuleId)
+        public async Task<NSXTTlsRuleType> ReadTlsRule(string PolicyId, string RuleId)
         {
             if (PolicyId == null) { throw new System.ArgumentNullException("PolicyId cannot be null"); }
             if (RuleId == null) { throw new System.ArgumentNullException("RuleId cannot be null"); }
@@ -379,25 +302,13 @@ namespace nsxtapi.PolicyModules
             ReadTlsRuleServiceURL.Replace("{policy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PolicyId, System.Globalization.CultureInfo.InvariantCulture)));
             ReadTlsRuleServiceURL.Replace("{rule-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(RuleId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadTlsRuleServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTlsRuleType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTlsRuleType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadTlsRuleServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTlsRuleType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTlsRuleType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

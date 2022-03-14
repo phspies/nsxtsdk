@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -18,106 +18,71 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Represents details of the last full sync if full sync is not running,otherwise returns the status of current full sync.")]
     public class NSXTFullSyncInfoType 
     {
-        public NSXTFullSyncInfoType()
-        {
-        }
         /// <summary>
         /// Full sync status
         /// </summary>
-        [JsonProperty(PropertyName = "status")]
-        [NSXTProperty(IsRequired: false, Description: @"Full sync status")]
         public NSXTFullSyncInfoStatusEnumType? Status { get; set; }
         /// <summary>
         /// Errors if any
         /// </summary>
-        [JsonProperty(PropertyName = "errors")]
-        [NSXTProperty(IsRequired: false, Description: @"Errors if any")]
         public IList<string> Errors { get; set; }
         /// <summary>
         /// Start time of applying full state on receiver side
         /// </summary>
-        [JsonProperty(PropertyName = "receiver_start_time")]
-        [NSXTProperty(IsRequired: false, Description: @"Start time of applying full state on receiver side")]
         public long? ReceiverStartTime { get; set; }
         /// <summary>
         /// End time of completing applying full state on receiver side
         /// </summary>
-        [JsonProperty(PropertyName = "receiver_end_time")]
-        [NSXTProperty(IsRequired: false, Description: @"End time of completing applying full state on receiver side")]
         public long? ReceiverEndTime { get; set; }
         /// <summary>
         /// Errors if any
         /// </summary>
-        [JsonProperty(PropertyName = "warnings")]
-        [NSXTProperty(IsRequired: false, Description: @"Errors if any")]
         public IList<string> Warnings { get; set; }
         /// <summary>
         /// Full sync start time
         /// </summary>
-        [JsonProperty(PropertyName = "start_time")]
-        [NSXTProperty(IsRequired: false, Description: @"Full sync start time")]
         public long? StartTime { get; set; }
         /// <summary>
         /// Full sync can happen for various internal reasons, as well user can request for one. The code provides the
         /// classification of possible reasons to start a full sync.
         /// </summary>
-        [JsonProperty(PropertyName = "reason_code")]
-        [NSXTProperty(IsRequired: false, Description: @"Full sync can happen for various internal reasons, as well user can request for one. The code provides the classification of possible reasons to start a full sync.")]
         public NSXTFullSyncInfoReasonCodeEnumType? ReasonCode { get; set; }
         /// <summary>
         /// Full sync id
         /// </summary>
-        [JsonProperty(PropertyName = "fullSyncId")]
-        [NSXTProperty(IsRequired: false, Description: @"Full sync id")]
         public string? FullSyncId { get; set; }
         /// <summary>
         /// End time of streaming full state from source
         /// </summary>
-        [JsonProperty(PropertyName = "data_streaming_from_source_end_time")]
-        [NSXTProperty(IsRequired: false, Description: @"End time of streaming full state from source")]
         public long? DataStreamingFromSourceEndTime { get; set; }
         /// <summary>
         /// Description of full sync reason
         /// </summary>
-        [JsonProperty(PropertyName = "reason")]
-        [NSXTProperty(IsRequired: false, Description: @"Description of full sync reason")]
         public string? Reason { get; set; }
         /// <summary>
         /// Full sync end time
         /// </summary>
-        [JsonProperty(PropertyName = "end_time")]
-        [NSXTProperty(IsRequired: false, Description: @"Full sync end time")]
         public long? EndTime { get; set; }
         /// <summary>
         /// This is optional information, provides useful insights on receiver side
         /// once async channel hands over full state data to receiver.
         /// </summary>
-        [JsonProperty(PropertyName = "receiver_state")]
-        [NSXTProperty(IsRequired: false, Description: @"This is optional information, provides useful insights on receiver sideonce async channel hands over full state data to receiver.")]
         public string? ReceiverState { get; set; }
         /// <summary>
         /// Time taken by application receiver to apply the full state received
         /// </summary>
-        [JsonProperty(PropertyName = "receiver_time_to_apply_in_millis")]
-        [NSXTProperty(IsRequired: false, Description: @"Time taken by application receiver to apply the full state received")]
         public long? ReceiverTimeToApplyInMillis { get; set; }
         /// <summary>
         /// This provides the insights into current full sync stage if in progress.
         /// </summary>
-        [JsonProperty(PropertyName = "stage")]
-        [NSXTProperty(IsRequired: false, Description: @"This provides the insights into current full sync stage if in progress.")]
         public NSXTFullSyncInfoStageEnumType? Stage { get; set; }
         /// <summary>
         /// Start time of streaming full state from source
         /// </summary>
-        [JsonProperty(PropertyName = "data_streaming_from_source_start_time")]
-        [NSXTProperty(IsRequired: false, Description: @"Start time of streaming full state from source")]
         public long? DataStreamingFromSourceStartTime { get; set; }
         /// <summary>
         /// Details about full sync on sender side
         /// </summary>
-        [JsonProperty(PropertyName = "data_streaming_from_source_progress")]
-        [NSXTProperty(IsRequired: false, Description: @"Details about full sync on sender side")]
         public string? DataStreamingFromSourceProgress { get; set; }
     }
 }

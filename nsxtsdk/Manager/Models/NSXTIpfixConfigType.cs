@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,21 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIpfixConfigType : NSXTManagedResourceType
     {
-        public NSXTIpfixConfigType()
-        {
-        }
         /// <summary>
         /// List of objects where the IPFIX Config will be enabled.
         /// </summary>
-        [JsonProperty(PropertyName = "applied_tos")]
-        [NSXTProperty(IsRequired: false, Description: @"List of objects where the IPFIX Config will be enabled.")]
         public IList<NSXTResourceReferenceType> AppliedTos { get; set; }
         /// <summary>
         /// Supported IPFIX Config Types.
         /// </summary>
         [JsonProperty(PropertyName = "resource_type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Supported IPFIX Config Types.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTIpfixConfigResourceTypeEnumType ResourceType { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,31 +17,19 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Information about a management plane node this controller is configured to communicate with")]
     public class NSXTManagementPlaneBrokerPropertiesType 
     {
-        public NSXTManagementPlaneBrokerPropertiesType()
-        {
-            Port = test
-        }
         /// <summary>
         /// IP address or hostname of the message bus broker on the management plane node.
         /// </summary>
         [JsonProperty(PropertyName = "host", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"IP address or hostname of the message bus broker on the management plane node.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Host { get; set; }
         /// <summary>
         /// Port number of the message bus broker on the management plane node.
         /// </summary>
-        [JsonProperty(PropertyName = "port")]
-        [NSXTProperty(IsRequired: false, Description: @"Port number of the message bus broker on the management plane node.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
         public long? Port { get; set; }
         /// <summary>
         /// Certificate thumbprint of the message bus broker on the management plane node.
         /// </summary>
         [JsonProperty(PropertyName = "thumbprint", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Certificate thumbprint of the message bus broker on the management plane node.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Thumbprint { get; set; }
     }
 }

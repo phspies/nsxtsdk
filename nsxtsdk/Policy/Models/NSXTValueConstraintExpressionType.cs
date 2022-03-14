@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,27 +17,18 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTValueConstraintExpressionType : NSXTConstraintExpressionType
     {
-        public NSXTValueConstraintExpressionType()
-        {
-        }
         /// <summary>
         /// Operation to check for value list for resource attribute of constraint.
         /// </summary>
         [JsonProperty(PropertyName = "operator", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Operation to check for value list for resource attribute of constraint.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTValueConstraintExpressionOperatorEnumType OperatorProperty { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "values_with_type")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTConstraintValueType ValuesWithType { get; set; }
         /// <summary>
         /// List of values.
         /// </summary>
-        [JsonProperty(PropertyName = "values")]
-        [NSXTProperty(IsRequired: false, Description: @"List of values.")]
         public IList<string> Values { get; set; }
     }
 }

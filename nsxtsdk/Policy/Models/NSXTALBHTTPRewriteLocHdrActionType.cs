@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,46 +17,30 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer HTTPRewriteLocHdrAction object")]
     public class NSXTALBHTTPRewriteLocHdrActionType 
     {
-        public NSXTALBHTTPRewriteLocHdrActionType()
-        {
-            KeepQuery = test
-        }
         /// <summary>
         /// Keep or drop the query from the server side redirect URI.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as true.
         /// </summary>
-        [JsonProperty(PropertyName = "keep_query")]
-        [NSXTProperty(IsRequired: false, Description: @"Keep or drop the query from the server side redirect URI.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
         public bool? KeepQuery { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "path")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBURIParamType Path { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "host")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBURIParamType Host { get; set; }
         /// <summary>
         /// HTTP protocol type.
         /// Enum options - HTTP, HTTPS.
         /// </summary>
         [JsonProperty(PropertyName = "protocol", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"HTTP protocol type.Enum options - HTTP, HTTPS.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTAlbhttprewriteLocHdrActionProtocolEnumType Protocol { get; set; }
         /// <summary>
         /// Port to use in the redirected URI.
         /// Allowed values are 1-65535.
         /// </summary>
-        [JsonProperty(PropertyName = "port")]
-        [NSXTProperty(IsRequired: false, Description: @"Port to use in the redirected URI.Allowed values are 1-65535.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
         public long? Port { get; set; }
     }
 }

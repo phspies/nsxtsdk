@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,22 +17,15 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTAttachmentContextType 
     {
-        public NSXTAttachmentContextType()
-        {
-        }
         /// <summary>
         /// A flag to indicate whether to allocate addresses from allocation
         /// pools bound to the parent logical switch.
         /// </summary>
-        [JsonProperty(PropertyName = "allocate_addresses")]
-        [NSXTProperty(IsRequired: false, Description: @"A flag to indicate whether to allocate addresses from allocation    pools bound to the parent logical switch.")]
         public NSXTAttachmentContextAllocateAddressesEnumType? AllocateAddresses { get; set; }
         /// <summary>
         /// Used to identify which concrete class it is
         /// </summary>
         [JsonProperty(PropertyName = "resource_type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Used to identify which concrete class it is")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string ResourceType { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPortMirroringInstanceListResultType : NSXTListResultType
     {
-        public NSXTPortMirroringInstanceListResultType()
-        {
-        }
         /// <summary>
         /// Port Mirroring Instances list results
         /// </summary>
         [JsonProperty(PropertyName = "results", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Port Mirroring Instances list results")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTPortMirroringInstanceType> Results { get; set; }
     }
 }

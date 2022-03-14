@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,33 +17,21 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLogicalRouterCentralizedServicePortType : NSXTLogicalRouterPortType
     {
-        public NSXTLogicalRouterCentralizedServicePortType()
-        {
-            UrpfMode = test
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "linked_logical_switch_port_id")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTResourceReferenceType LinkedLogicalSwitchPortId { get; set; }
         /// <summary>
         /// Logical router port subnets
         /// </summary>
-        [JsonProperty(PropertyName = "subnets")]
-        [NSXTProperty(IsRequired: false, Description: @"Logical router port subnets")]
         public IList<NSXTIPSubnetType> Subnets { get; set; }
         /// <summary>
         /// Port is exclusively used for N-S service insertion
         /// </summary>
-        [JsonProperty(PropertyName = "enable_netx")]
-        [NSXTProperty(IsRequired: false, Description: @"Port is exclusively used for N-S service insertion")]
         public bool? EnableNetx { get; set; }
         /// <summary>
         /// Unicast Reverse Path Forwarding mode
         /// </summary>
-        [JsonProperty(PropertyName = "urpf_mode")]
-        [NSXTProperty(IsRequired: false, Description: @"Unicast Reverse Path Forwarding mode")]
         public NSXTLogicalRouterCentralizedServicePortUrpfModeEnumType? UrpfMode { get; set; }
         /// <summary>
         /// Identifier of Neighbor Discovery Router Advertisement profile
@@ -51,8 +39,6 @@ namespace nsxtsdk.ManagerModels
         /// both the port level and logical router level, the profile id
         /// specified at port level takes the precedence.
         /// </summary>
-        [JsonProperty(PropertyName = "ndra_profile_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Identifier of Neighbor Discovery Router Advertisement profileassociated with port. When NDRA profile id is associated atboth the port level and logical router level, the profile idspecified at port level takes the precedence.")]
         public string? NdraProfileId { get; set; }
         /// <summary>
         /// Maximum transmission unit specifies the size of the largest packet that
@@ -60,9 +46,6 @@ namespace nsxtsdk.ManagerModels
         /// MTU set in the /api/v1/global-configs/RoutingGlobalConfig API will be
         /// used.
         /// </summary>
-        [JsonProperty(PropertyName = "mtu")]
-        [NSXTProperty(IsRequired: false, Description: @"Maximum transmission unit specifies the size of the largest packet thata network protocol can transmit. If not specified, the global logicalMTU set in the /api/v1/global-configs/RoutingGlobalConfig API will beused.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(64)]
         public long? Mtu { get; set; }
     }
 }

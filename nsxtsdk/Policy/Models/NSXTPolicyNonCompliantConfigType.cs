@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,32 +17,21 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyNonCompliantConfigType 
     {
-        public NSXTPolicyNonCompliantConfigType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "reported_by")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTPolicyResourceReferenceType ReportedBy { get; set; }
         /// <summary>
         /// Resources/Services impacted by non compliant configuration
         /// </summary>
-        [JsonProperty(PropertyName = "affected_resources")]
-        [NSXTProperty(IsRequired: false, Description: @"Resources/Services impacted by non compliant configuration")]
         public IList<NSXTPolicyResourceReferenceType> AffectedResources { get; set; }
         /// <summary>
         /// Code for non compliant configuration
         /// </summary>
-        [JsonProperty(PropertyName = "non_compliance_code")]
-        [NSXTProperty(IsRequired: false, Description: @"Code for non compliant configuration")]
         public long? NonComplianceCode { get; set; }
         /// <summary>
         /// Detail description of non compliant configuration with suggestive action
         /// </summary>
-        [JsonProperty(PropertyName = "description")]
-        [NSXTProperty(IsRequired: false, Description: @"Detail description of non compliant configuration with suggestive action")]
         public string? Description { get; set; }
     }
 }

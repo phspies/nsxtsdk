@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,27 +17,18 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTICMPTypeNSServiceType : NSXTNSServiceElementType
     {
-        public NSXTICMPTypeNSServiceType()
-        {
-        }
         /// <summary>
         /// ICMP message code
         /// </summary>
-        [JsonProperty(PropertyName = "icmp_code")]
-        [NSXTProperty(IsRequired: false, Description: @"ICMP message code")]
         public long? IcmpCode { get; set; }
         /// <summary>
         /// ICMP message type
         /// </summary>
-        [JsonProperty(PropertyName = "icmp_type")]
-        [NSXTProperty(IsRequired: false, Description: @"ICMP message type")]
         public long? IcmpType { get; set; }
         /// <summary>
         /// ICMP protocol type
         /// </summary>
         [JsonProperty(PropertyName = "protocol", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"ICMP protocol type")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTIcmptypeNsserviceProtocolEnumType Protocol { get; set; }
     }
 }

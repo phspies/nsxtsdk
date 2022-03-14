@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,38 +17,25 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Node network interface alias")]
     public class NSXTNodeInterfaceAliasType 
     {
-        public NSXTNodeInterfaceAliasType()
-        {
-        }
         /// <summary>
         /// Interface configuration
         /// </summary>
-        [JsonProperty(PropertyName = "ip_configuration")]
-        [NSXTProperty(IsRequired: false, Description: @"Interface configuration")]
         public NSXTNodeInterfaceAliasIpConfigurationEnumType? IpConfiguration { get; set; }
         /// <summary>
         /// Interface netmask
         /// </summary>
-        [JsonProperty(PropertyName = "netmask")]
-        [NSXTProperty(IsRequired: false, Description: @"Interface netmask")]
         public string? Netmask { get; set; }
         /// <summary>
         /// Interface IP address
         /// </summary>
-        [JsonProperty(PropertyName = "ip_address")]
-        [NSXTProperty(IsRequired: false, Description: @"Interface IP address")]
         public string? IpAddress { get; set; }
         /// <summary>
         /// Interface MAC address
         /// </summary>
-        [JsonProperty(PropertyName = "physical_address")]
-        [NSXTProperty(IsRequired: false, Description: @"Interface MAC address")]
         public string? PhysicalAddress { get; set; }
         /// <summary>
         /// Interface broadcast address
         /// </summary>
-        [JsonProperty(PropertyName = "broadcast_address")]
-        [NSXTProperty(IsRequired: false, Description: @"Interface broadcast address")]
         public string? BroadcastAddress { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLbHttpResponseHeaderDeleteActionType : NSXTLbRuleActionType
     {
-        public NSXTLbHttpResponseHeaderDeleteActionType()
-        {
-        }
         /// <summary>
         /// Name of a header field of HTTP response message
         /// </summary>
         [JsonProperty(PropertyName = "header_name", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Name of a header field of HTTP response message")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string HeaderName { get; set; }
     }
 }

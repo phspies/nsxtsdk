@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,32 +17,21 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNodeInfoType : NSXTResourceType
     {
-        public NSXTNodeInfoType()
-        {
-        }
         /// <summary>
         /// Node type
         /// </summary>
-        [JsonProperty(PropertyName = "type")]
-        [NSXTProperty(IsRequired: false, Description: @"Node type")]
         public string? Type { get; set; }
         /// <summary>
         /// Name of the node
         /// </summary>
-        [JsonProperty(PropertyName = "display_name")]
-        [NSXTProperty(IsRequired: false, Description: @"Name of the node")]
         public string? DisplayName { get; set; }
         /// <summary>
         /// Identifier of the node
         /// </summary>
-        [JsonProperty(PropertyName = "id")]
-        [NSXTProperty(IsRequired: false, Description: @"Identifier of the node")]
         public string? Id { get; set; }
         /// <summary>
         /// Component version of the node
         /// </summary>
-        [JsonProperty(PropertyName = "component_version")]
-        [NSXTProperty(IsRequired: false, Description: @"Component version of the node")]
         public string? ComponentVersion { get; set; }
     }
 }

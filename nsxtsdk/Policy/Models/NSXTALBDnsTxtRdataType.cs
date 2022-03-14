@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer DnsTxtRdata object")]
     public class NSXTALBDnsTxtRdataType 
     {
-        public NSXTALBDnsTxtRdataType()
-        {
-        }
         /// <summary>
         /// Text data associated with the FQDN.
         /// </summary>
         [JsonProperty(PropertyName = "text_str", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Text data associated with the FQDN.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string TextStr { get; set; }
     }
 }

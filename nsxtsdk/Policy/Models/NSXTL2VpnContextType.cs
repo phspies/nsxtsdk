@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,16 +17,11 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTL2VpnContextType : NSXTPolicyConfigResourceType
     {
-        public NSXTL2VpnContextType()
-        {
-        }
         /// <summary>
         /// If enabled, the tier-0 acts as a Hub and replicates traffic received from
         /// peer to all other peers. If disabled, the tier-0 acts as a Spoke and
         /// replicates only the local.
         /// </summary>
-        [JsonProperty(PropertyName = "enable_hub")]
-        [NSXTProperty(IsRequired: false, Description: @"If enabled, the tier-0 acts as a Hub and replicates traffic received frompeer to all other peers. If disabled, the tier-0 acts as a Spoke andreplicates only the local.")]
         public bool? EnableHub { get; set; }
     }
 }

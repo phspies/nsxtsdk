@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public NSProfile(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public NSProfile(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNSSupportedAttributeTypesResultType ListNssupportedAttributesTypes()
+        public async Task<NSXTNSSupportedAttributeTypesResultType> ListNssupportedAttributesTypes()
         {
             NSXTNSSupportedAttributeTypesResultType returnValue = default(NSXTNSSupportedAttributeTypesResultType);
             StringBuilder ListNssupportedAttributesTypesServiceURL = new StringBuilder("/ns-profiles/attribute-types");
@@ -41,31 +48,19 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = ListNssupportedAttributesTypesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNSSupportedAttributeTypesResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNSSupportedAttributeTypesResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListNssupportedAttributesTypesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNSSupportedAttributeTypesResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNSSupportedAttributeTypesResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNSProfileType CreateNsprofile(NSXTNSProfileType Nsprofile)
+        public async Task<NSXTNSProfileType> CreateNsprofile(NSXTNSProfileType Nsprofile)
         {
             if (Nsprofile == null) { throw new System.ArgumentNullException("Nsprofile cannot be null"); }
             NSXTNSProfileType returnValue = default(NSXTNSProfileType);
@@ -78,31 +73,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(Nsprofile, defaultSerializationSettings));
             request.Resource = CreateNsprofileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNSProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNSProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CreateNsprofileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNSProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNSProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNSProfileListResultType ListNsprofiles(string? AttributeType = null, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTNSProfileListResultType> ListNsprofiles(string? AttributeType = null, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTNSProfileListResultType returnValue = default(NSXTNSProfileListResultType);
             StringBuilder ListNsprofilesServiceURL = new StringBuilder("/ns-profiles");
@@ -119,31 +102,19 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListNsprofilesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNSProfileListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNSProfileListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListNsprofilesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNSProfileListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNSProfileListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNSProfileType UpdateNsprofile(string NsProfileId, NSXTNSProfileType Nsprofile)
+        public async Task<NSXTNSProfileType> UpdateNsprofile(string NsProfileId, NSXTNSProfileType Nsprofile)
         {
             if (NsProfileId == null) { throw new System.ArgumentNullException("NsProfileId cannot be null"); }
             if (Nsprofile == null) { throw new System.ArgumentNullException("Nsprofile cannot be null"); }
@@ -158,31 +129,19 @@ namespace nsxtapi.ManagerModules
             UpdateNsprofileServiceURL.Replace("{ns-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NsProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(Nsprofile, defaultSerializationSettings));
             request.Resource = UpdateNsprofileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNSProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNSProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateNsprofileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNSProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNSProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteNsprofile(string NsProfileId, bool? Force = null)
+        public async Task DeleteNsprofile(string NsProfileId, bool? Force = null)
         {
             if (NsProfileId == null) { throw new System.ArgumentNullException("NsProfileId cannot be null"); }
             
@@ -196,7 +155,7 @@ namespace nsxtapi.ManagerModules
             DeleteNsprofileServiceURL.Replace("{ns-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NsProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
             request.Resource = DeleteNsprofileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteNsprofileServiceURL.ToString() + " did not complete successfull";
@@ -208,7 +167,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNSProfileType ReadNsprofile(string NsProfileId)
+        public async Task<NSXTNSProfileType> ReadNsprofile(string NsProfileId)
         {
             if (NsProfileId == null) { throw new System.ArgumentNullException("NsProfileId cannot be null"); }
             NSXTNSProfileType returnValue = default(NSXTNSProfileType);
@@ -221,31 +180,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             ReadNsprofileServiceURL.Replace("{ns-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NsProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadNsprofileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNSProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNSProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadNsprofileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNSProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNSProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNSSupportedAttributesListResultType ListNssupportedAttributes(string? AttributeSource = null, string? AttributeType = null, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTNSSupportedAttributesListResultType> ListNssupportedAttributes(string? AttributeSource = null, string? AttributeType = null, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTNSSupportedAttributesListResultType returnValue = default(NSXTNSSupportedAttributesListResultType);
             StringBuilder ListNssupportedAttributesServiceURL = new StringBuilder("/ns-profiles/attributes");
@@ -263,25 +210,13 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListNssupportedAttributesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNSSupportedAttributesListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNSSupportedAttributesListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListNssupportedAttributesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNSSupportedAttributesListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNSSupportedAttributesListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

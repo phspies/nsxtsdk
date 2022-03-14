@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,20 +17,13 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Layer 2 Auto assigned Route Distinguisher")]
     public class NSXTL2AutoRDType 
     {
-        public NSXTL2AutoRDType()
-        {
-        }
         /// <summary>
         /// Layer 2 Virtual Network Interface
         /// </summary>
-        [JsonProperty(PropertyName = "l2_vni")]
-        [NSXTProperty(IsRequired: false, Description: @"Layer 2 Virtual Network Interface")]
         public string? L2Vni { get; set; }
         /// <summary>
         /// Layer 2 auto assigned route distinghusher
         /// </summary>
-        [JsonProperty(PropertyName = "l2_auto_rd")]
-        [NSXTProperty(IsRequired: false, Description: @"Layer 2 auto assigned route distinghusher")]
         public string? L2AutoRd { get; set; }
     }
 }

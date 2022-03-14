@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,44 +17,29 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNSGroupTagExpressionType : NSXTNSGroupExpressionType
     {
-        public NSXTNSGroupTagExpressionType()
-        {
-            TagOp = test
-            ScopeOp = test
-        }
         /// <summary>
         /// Target_type VirtualMachine supports all specified operators for
         /// tag expression while LogicalSwitch and LogicalPort supports only
         /// EQUALS operator.
         /// All operators perform a case insensitive match.
         /// </summary>
-        [JsonProperty(PropertyName = "tag_op")]
-        [NSXTProperty(IsRequired: false, Description: @"Target_type VirtualMachine supports all specified operators fortag expression while LogicalSwitch and LogicalPort supports onlyEQUALS operator.All operators perform a case insensitive match.")]
         public NSXTNsgroupTagExpressionTagOpEnumType? TagOp { get; set; }
         /// <summary>
         /// The tag.scope attribute of the object
         /// </summary>
-        [JsonProperty(PropertyName = "scope")]
-        [NSXTProperty(IsRequired: false, Description: @"The tag.scope attribute of the object")]
         public string? Scope { get; set; }
         /// <summary>
         /// Operator of the scope expression eg- tag.scope = "S1".
         /// </summary>
-        [JsonProperty(PropertyName = "scope_op")]
-        [NSXTProperty(IsRequired: false, Description: @"Operator of the scope expression eg- tag.scope = &quot;S1&quot;.")]
         public NSXTNsgroupTagExpressionScopeOpEnumType? ScopeOp { get; set; }
         /// <summary>
         /// The tag.tag attribute of the object
         /// </summary>
-        [JsonProperty(PropertyName = "tag")]
-        [NSXTProperty(IsRequired: false, Description: @"The tag.tag attribute of the object")]
         public string? Tag { get; set; }
         /// <summary>
         /// Type of the resource on which this expression is evaluated
         /// </summary>
         [JsonProperty(PropertyName = "target_type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Type of the resource on which this expression is evaluated")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTNsgroupTagExpressionTargetTypeEnumType TargetType { get; set; }
     }
 }

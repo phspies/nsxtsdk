@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,22 +17,15 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTStaticRoutesType : NSXTPolicyConfigResourceType
     {
-        public NSXTStaticRoutesType()
-        {
-        }
         /// <summary>
         /// Specify next hop routes for network.
         /// </summary>
         [JsonProperty(PropertyName = "next_hops", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Specify next hop routes for network.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTRouterNexthopType> NextHops { get; set; }
         /// <summary>
         /// Specify network address in CIDR format.
         /// </summary>
         [JsonProperty(PropertyName = "network", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Specify network address in CIDR format.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Network { get; set; }
         /// <summary>
         /// When false or by default northbound routes are configured only on the primary
@@ -41,8 +34,6 @@ namespace nsxtsdk.PolicyModels
         /// the primary location and enabling this flag secondary location can override this.
         /// This flag is not applicable if all sites are primary.
         /// </summary>
-        [JsonProperty(PropertyName = "enabled_on_secondary")]
-        [NSXTProperty(IsRequired: false, Description: @"When false or by default northbound routes are configured only on the primarylocation and not on secondary location. When true, the static route will also beconfigured on a secondary location. Secondary location prefers route learned fromthe primary location and enabling this flag secondary location can override this.This flag is not applicable if all sites are primary.")]
         public bool? EnabledOnSecondary { get; set; }
     }
 }

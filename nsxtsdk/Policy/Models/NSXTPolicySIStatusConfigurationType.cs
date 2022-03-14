@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,20 +17,13 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicySIStatusConfigurationType : NSXTPolicyConfigResourceType
     {
-        public NSXTPolicySIStatusConfigurationType()
-        {
-        }
         /// <summary>
         /// If set to true, service insertion for east-west traffic is enabled.
         /// </summary>
-        [JsonProperty(PropertyName = "east_west_enabled")]
-        [NSXTProperty(IsRequired: false, Description: @"If set to true, service insertion for east-west traffic is enabled.")]
         public bool? EastWestEnabled { get; set; }
         /// <summary>
         /// If set to true, service insertion for north-south traffic is enabled.
         /// </summary>
-        [JsonProperty(PropertyName = "north_south_enabled")]
-        [NSXTProperty(IsRequired: false, Description: @"If set to true, service insertion for north-south traffic is enabled.")]
         public bool? NorthSouthEnabled { get; set; }
     }
 }

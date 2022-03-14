@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,20 +17,13 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTFederationNodeSummaryType : NSXTResourceType
     {
-        public NSXTFederationNodeSummaryType()
-        {
-        }
         /// <summary>
         /// Number of nodes of the type and at the component version.
         /// </summary>
-        [JsonProperty(PropertyName = "node_count")]
-        [NSXTProperty(IsRequired: false, Description: @"Number of nodes of the type and at the component version.")]
         public int? NodeCount { get; set; }
         /// <summary>
         /// Component version
         /// </summary>
-        [JsonProperty(PropertyName = "version")]
-        [NSXTProperty(IsRequired: false, Description: @"Component version")]
         public string? Version { get; set; }
     }
 }

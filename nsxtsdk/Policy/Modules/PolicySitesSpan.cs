@@ -21,16 +21,23 @@ namespace nsxtapi.PolicyModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public PolicySitesSpan(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public PolicySitesSpan(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSpanType GetSpan(string IntentPath, string? SitePath = null)
+        public async Task<NSXTSpanType> GetSpan(string IntentPath, string? SitePath = null)
         {
             if (IntentPath == null) { throw new System.ArgumentNullException("IntentPath cannot be null"); }
             NSXTSpanType returnValue = default(NSXTSpanType);
@@ -44,31 +51,19 @@ namespace nsxtapi.PolicyModules
             if (IntentPath != null) { request.AddQueryParameter("intent_path", IntentPath.ToString()); }
             if (SitePath != null) { request.AddQueryParameter("site_path", SitePath.ToString()); }
             request.Resource = GetSpanServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTSpanType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTSpanType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetSpanServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSpanType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSpanType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSpanType GlobalGlobalInfraGetSpan(string IntentPath, string? SitePath = null)
+        public async Task<NSXTSpanType> GlobalGlobalInfraGetSpan(string IntentPath, string? SitePath = null)
         {
             if (IntentPath == null) { throw new System.ArgumentNullException("IntentPath cannot be null"); }
             NSXTSpanType returnValue = default(NSXTSpanType);
@@ -82,25 +77,13 @@ namespace nsxtapi.PolicyModules
             if (IntentPath != null) { request.AddQueryParameter("intent_path", IntentPath.ToString()); }
             if (SitePath != null) { request.AddQueryParameter("site_path", SitePath.ToString()); }
             request.Resource = GlobalInfraGetSpanServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTSpanType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTSpanType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraGetSpanServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSpanType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSpanType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

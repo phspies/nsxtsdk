@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,20 +17,13 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTHostedEntityInfoType 
     {
-        public NSXTHostedEntityInfoType()
-        {
-        }
         /// <summary>
         /// Unique identifier of entity
         /// </summary>
-        [JsonProperty(PropertyName = "entity_uuid")]
-        [NSXTProperty(IsRequired: false, Description: @"Unique identifier of entity")]
         public string? EntityUuid { get; set; }
         /// <summary>
         /// The type of entity hosted could be MP, CCP, VMC App etc.
         /// </summary>
-        [JsonProperty(PropertyName = "entity_type")]
-        [NSXTProperty(IsRequired: false, Description: @"The type of entity hosted could be MP, CCP, VMC App etc.")]
         public string? EntityType { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,20 +17,13 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIssuerSerialNumberType 
     {
-        public NSXTIssuerSerialNumberType()
-        {
-        }
         /// <summary>
         /// List of Certificate Serial Numbers issued by the specified issuers.
         /// </summary>
-        [JsonProperty(PropertyName = "serial_numbers")]
-        [NSXTProperty(IsRequired: false, Description: @"List of Certificate Serial Numbers issued by the specified issuers.")]
         public IList<string> SerialNumbers { get; set; }
         /// <summary>
         /// Issuer Distinguished Name of the revoked certificates.
         /// </summary>
-        [JsonProperty(PropertyName = "issuer")]
-        [NSXTProperty(IsRequired: false, Description: @"Issuer Distinguished Name of the revoked certificates.")]
         public string? Issuer { get; set; }
     }
 }

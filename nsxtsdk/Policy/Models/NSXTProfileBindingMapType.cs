@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTProfileBindingMapType : NSXTPolicyConfigResourceType
     {
-        public NSXTProfileBindingMapType()
-        {
-        }
         /// <summary>
         /// PolicyPath of associated Profile
         /// </summary>
         [JsonProperty(PropertyName = "profile_path", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"PolicyPath of associated Profile")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string ProfilePath { get; set; }
     }
 }

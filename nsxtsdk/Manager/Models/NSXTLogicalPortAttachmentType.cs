@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,28 +17,18 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Logical port attachment")]
     public class NSXTLogicalPortAttachmentType 
     {
-        public NSXTLogicalPortAttachmentType()
-        {
-            AttachmentType = test
-        }
         /// <summary>
         /// Indicates the type of logical port attachment. By default it is Virtual Machine interface (VIF)
         /// </summary>
-        [JsonProperty(PropertyName = "attachment_type")]
-        [NSXTProperty(IsRequired: false, Description: @"Indicates the type of logical port attachment. By default it is Virtual Machine interface (VIF)")]
         public NSXTLogicalPortAttachmentAttachmentTypeEnumType? AttachmentType { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "context")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTAttachmentContextType Context { get; set; }
         /// <summary>
         /// Identifier of the interface attached to the logical port
         /// </summary>
         [JsonProperty(PropertyName = "id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Identifier of the interface attached to the logical port")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Id { get; set; }
     }
 }

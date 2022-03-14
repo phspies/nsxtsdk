@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,10 +17,6 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer IPPersistenceProfile object")]
     public class NSXTALBIPPersistenceProfileType 
     {
-        public NSXTALBIPPersistenceProfileType()
-        {
-            IpPersistentTimeout = test
-        }
         /// <summary>
         /// Mask to be applied on client IP.
         /// This may be used to persist clients from a subnet to the
@@ -30,10 +26,6 @@ namespace nsxtsdk.PolicyModels
         /// Allowed in Basic edition, Essentials edition, Enterprise
         /// edition.
         /// </summary>
-        [JsonProperty(PropertyName = "ip_mask")]
-        [NSXTProperty(IsRequired: false, Description: @"Mask to be applied on client IP.This may be used to persist clients from a subnet to thesame server.When set to 0, all requests are sent to the same server.Allowed values are 0-128.Allowed in Basic edition, Essentials edition, Enterpriseedition.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(128)]
         public long? IpMask { get; set; }
         /// <summary>
         /// The length of time after a client's connections have closed
@@ -43,10 +35,6 @@ namespace nsxtsdk.PolicyModels
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 5.
         /// </summary>
-        [JsonProperty(PropertyName = "ip_persistent_timeout")]
-        [NSXTProperty(IsRequired: false, Description: @"The length of time after a client&apos;s connections have closedbefore expiring the client&apos;s persistence to a server.Allowed values are 1-720.Unit is MIN.Default value when not specified in API or module isinterpreted by ALB Controller as 5.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(720)]
         public long? IpPersistentTimeout { get; set; }
     }
 }

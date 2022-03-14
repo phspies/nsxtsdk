@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,22 +17,15 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTServiceInsertionStatusType : NSXTManagedResourceType
     {
-        public NSXTServiceInsertionStatusType()
-        {
-        }
         /// <summary>
         /// service insertion status for a context type (e.g. east_west traffic).
         /// </summary>
         [JsonProperty(PropertyName = "global_status", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"service insertion status for a context type (e.g. east_west traffic).")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTServiceInsertionStatusGlobalStatusEnumType GlobalStatus { get; set; }
         /// <summary>
         /// Type of service insertion contexts.
         /// </summary>
         [JsonProperty(PropertyName = "context", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Type of service insertion contexts.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTServiceInsertionStatusContextEnumType Context { get; set; }
     }
 }

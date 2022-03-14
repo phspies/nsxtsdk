@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,27 +17,18 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Task properties")]
     public class NSXTUpgradeTaskPropertiesType 
     {
-        public NSXTUpgradeTaskPropertiesType()
-        {
-        }
         /// <summary>
         /// Name of Bundle
         /// </summary>
         [JsonProperty(PropertyName = "bundle_name", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Name of Bundle")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string BundleName { get; set; }
         /// <summary>
         /// Step name
         /// </summary>
-        [JsonProperty(PropertyName = "step")]
-        [NSXTProperty(IsRequired: false, Description: @"Step name")]
         public string? Step { get; set; }
         /// <summary>
         /// Bundle arguments
         /// </summary>
-        [JsonProperty(PropertyName = "parameters")]
-        [NSXTProperty(IsRequired: false, Description: @"Bundle arguments")]
         public object? Parameters { get; set; }
     }
 }

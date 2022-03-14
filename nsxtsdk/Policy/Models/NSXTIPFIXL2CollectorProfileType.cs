@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIPFIXL2CollectorProfileType : NSXTPolicyConfigResourceType
     {
-        public NSXTIPFIXL2CollectorProfileType()
-        {
-        }
         /// <summary>
         /// It accepts Multiple Collector objects.
         /// </summary>
         [JsonProperty(PropertyName = "ipfix_l2_collectors", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"It accepts Multiple Collector objects.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTIPFIXL2CollectorType> IpfixL2Collectors { get; set; }
     }
 }

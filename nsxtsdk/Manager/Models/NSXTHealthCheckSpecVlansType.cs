@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"HealthCheckSpecVlan is used for specifying VLAN ID ranges for healthcheck.")]
     public class NSXTHealthCheckSpecVlansType 
     {
-        public NSXTHealthCheckSpecVlansType()
-        {
-        }
         /// <summary>
         /// VLAN ID ranges
         /// </summary>
         [JsonProperty(PropertyName = "vlan_ranges", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"VLAN ID ranges")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTHealthCheckVlanRangeType> VlanRanges { get; set; }
     }
 }

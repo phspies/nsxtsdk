@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,68 +17,47 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNodeType 
     {
-        public NSXTNodeType()
-        {
-        }
         /// <summary>
         /// This field is deprecated. TransportNode field 'display_name' must be used instead. For HostNode, this field defaults to
         /// ID if not set. For EdgeNode and PublicCloudGatewayNode, this field is ignored if specified in request payload.
         /// </summary>
-        [JsonProperty(PropertyName = "display_name")]
-        [NSXTProperty(IsRequired: false, Description: @"This field is deprecated. TransportNode field &apos;display_name&apos; must be used instead. For HostNode, this field defaults to ID if not set. For EdgeNode and PublicCloudGatewayNode, this field is ignored if specified in request payload.")]
         public string? DisplayName { get; set; }
         /// <summary>
         /// This field is deprecated. TransportNode field 'description' must be used instead. For EdgeNode and
         /// PublicCloudGatewayNode, this field is ignored if specified in request payload.
         /// </summary>
-        [JsonProperty(PropertyName = "description")]
-        [NSXTProperty(IsRequired: false, Description: @"This field is deprecated. TransportNode field &apos;description&apos; must be used instead. For EdgeNode and PublicCloudGatewayNode, this field is ignored if specified in request payload.")]
         public string? Description { get; set; }
         /// <summary>
         /// This field is deprecated. TransportNode field 'tags' must be used instead. For EdgeNode and PublicCloudGatewayNode, this
         /// field is ignored if specified in request payload.
         /// </summary>
-        [JsonProperty(PropertyName = "tags")]
-        [NSXTProperty(IsRequired: false, Description: @"This field is deprecated. TransportNode field &apos;tags&apos; must be used instead. For EdgeNode and PublicCloudGatewayNode, this field is ignored if specified in request payload.")]
         public IList<NSXTTagType> Tags { get; set; }
         /// <summary>
         /// Discovered IP Addresses of the fabric node, version 4 or 6
         /// </summary>
-        [JsonProperty(PropertyName = "discovered_ip_addresses")]
-        [NSXTProperty(IsRequired: false, Description: @"Discovered IP Addresses of the fabric node, version 4 or 6")]
         public IList<string> DiscoveredIpAddresses { get; set; }
         /// <summary>
         /// IP Addresses of the Node, version 4 or 6. This property is mandatory for all nodes except for
         /// automatic deployment of edge virtual machine node. For automatic deployment, the ip address from
         /// management_port_subnets property will be considered.
         /// </summary>
-        [JsonProperty(PropertyName = "ip_addresses")]
-        [NSXTProperty(IsRequired: false, Description: @"IP Addresses of the Node, version 4 or 6. This property is mandatory for all nodes except forautomatic deployment of edge virtual machine node. For automatic deployment, the ip address frommanagement_port_subnets property will be considered.")]
         public IList<string> IpAddresses { get; set; }
         /// <summary>
         /// ID of the Node maintained on the Node and used to recognize the Node
         /// </summary>
-        [JsonProperty(PropertyName = "external_id")]
-        [NSXTProperty(IsRequired: false, Description: @"ID of the Node maintained on the Node and used to recognize the Node")]
         public string? ExternalId { get; set; }
         /// <summary>
         /// Fully qualified domain name of the fabric node
         /// </summary>
-        [JsonProperty(PropertyName = "fqdn")]
-        [NSXTProperty(IsRequired: false, Description: @"Fully qualified domain name of the fabric node")]
         public string? Fqdn { get; set; }
         /// <summary>
         /// Fabric node type, for example 'HostNode', 'EdgeNode' or 'PublicCloudGatewayNode'
         /// </summary>
         [JsonProperty(PropertyName = "resource_type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Fabric node type, for example &apos;HostNode&apos;, &apos;EdgeNode&apos; or &apos;PublicCloudGatewayNode&apos;")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string ResourceType { get; set; }
         /// <summary>
         /// Unique identifier of this resource.
         /// </summary>
-        [JsonProperty(PropertyName = "id")]
-        [NSXTProperty(IsRequired: false, Description: @"Unique identifier of this resource.")]
         public string? Id { get; set; }
     }
 }

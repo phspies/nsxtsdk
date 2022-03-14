@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,62 +17,41 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTAdvertisementConfigType : NSXTManagedResourceType
     {
-        public NSXTAdvertisementConfigType()
-        {
-        }
         /// <summary>
         /// Flag to advertise all connected routes
         /// </summary>
-        [JsonProperty(PropertyName = "advertise_nsx_connected_routes")]
-        [NSXTProperty(IsRequired: false, Description: @"Flag to advertise all connected routes")]
         public bool? AdvertiseNsxConnectedRoutes { get; set; }
         /// <summary>
         /// Flag to advertise lb vip ips
         /// </summary>
-        [JsonProperty(PropertyName = "advertise_lb_vip")]
-        [NSXTProperty(IsRequired: false, Description: @"Flag to advertise lb vip ips")]
         public bool? AdvertiseLbVip { get; set; }
         /// <summary>
         /// Flag to advertise all static routes
         /// </summary>
-        [JsonProperty(PropertyName = "advertise_static_routes")]
-        [NSXTProperty(IsRequired: false, Description: @"Flag to advertise all static routes")]
         public bool? AdvertiseStaticRoutes { get; set; }
         /// <summary>
         /// TIER1 logical router id on which to enable this configuration
         /// </summary>
-        [JsonProperty(PropertyName = "logical_router_id")]
-        [NSXTProperty(IsRequired: false, Description: @"TIER1 logical router id on which to enable this configuration")]
         public string? LogicalRouterId { get; set; }
         /// <summary>
         /// Flag to advertise all routes of dns forwarder listener ips and source ips
         /// </summary>
-        [JsonProperty(PropertyName = "advertise_dns_forwarder")]
-        [NSXTProperty(IsRequired: false, Description: @"Flag to advertise all routes of dns forwarder listener ips and source ips")]
         public bool? AdvertiseDnsForwarder { get; set; }
         /// <summary>
         /// Flag to advertise all routes of nat
         /// </summary>
-        [JsonProperty(PropertyName = "advertise_nat_routes")]
-        [NSXTProperty(IsRequired: false, Description: @"Flag to advertise all routes of nat")]
         public bool? AdvertiseNatRoutes { get; set; }
         /// <summary>
         /// Flag to advertise all IPSec VPN local endpoint ips to linked TIER0 logical router
         /// </summary>
-        [JsonProperty(PropertyName = "advertise_ipsec_local_ip")]
-        [NSXTProperty(IsRequired: false, Description: @"Flag to advertise all IPSec VPN local endpoint ips to linked TIER0 logical router")]
         public bool? AdvertiseIpsecLocalIp { get; set; }
         /// <summary>
         /// Flag to enable this configuration
         /// </summary>
-        [JsonProperty(PropertyName = "enabled")]
-        [NSXTProperty(IsRequired: false, Description: @"Flag to enable this configuration")]
         public bool? Enabled { get; set; }
         /// <summary>
         /// Flag to advertise all lb SNAT ips
         /// </summary>
-        [JsonProperty(PropertyName = "advertise_lb_snat_ip")]
-        [NSXTProperty(IsRequired: false, Description: @"Flag to advertise all lb SNAT ips")]
         public bool? AdvertiseLbSnatIp { get; set; }
     }
 }

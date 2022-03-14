@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNodeSnmpV3EngineIDType : NSXTNodeServicePropertiesType
     {
-        public NSXTNodeSnmpV3EngineIDType()
-        {
-        }
         /// <summary>
         /// SNMP v3 engine id
         /// </summary>
         [JsonProperty(PropertyName = "v3_engine_id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"SNMP v3 engine id")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string V3EngineId { get; set; }
     }
 }

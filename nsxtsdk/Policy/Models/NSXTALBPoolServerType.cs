@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,32 +17,21 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer PoolServer object")]
     public class NSXTALBPoolServerType 
     {
-        public NSXTALBPoolServerType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty(PropertyName = "ip", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTALBIpAddrType Ip { get; set; }
         /// <summary>
         /// DNS resolvable name of the server.
         /// May be used in place of the IP address.
         /// </summary>
-        [JsonProperty(PropertyName = "hostname")]
-        [NSXTProperty(IsRequired: false, Description: @"DNS resolvable name of the server.May be used in place of the IP address.")]
         public string? Hostname { get; set; }
         /// <summary>
         /// Port of the pool server listening for HTTP/HTTPS.
         /// Default value is the default port in the pool.
         /// Allowed values are 1-65535.
         /// </summary>
-        [JsonProperty(PropertyName = "port")]
-        [NSXTProperty(IsRequired: false, Description: @"Port of the pool server listening for HTTP/HTTPS.Default value is the default port in the pool.Allowed values are 1-65535.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
         public long? Port { get; set; }
     }
 }

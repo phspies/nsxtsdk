@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,16 +17,11 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Identity Firewall statistics data.")]
     public class NSXTIdfwSystemStatsType 
     {
-        public NSXTIdfwSystemStatsType()
-        {
-        }
         /// <summary>
         /// Number of concurrent logged on users (across VDI & RDSH).  Multiple
         /// logins by the same user is counted as 1.
         /// </summary>
         [JsonProperty(PropertyName = "num_concurrent_users", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Number of concurrent logged on users (across VDI &amp; RDSH).  Multiplelogins by the same user is counted as 1.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public int NumConcurrentUsers { get; set; }
         /// <summary>
         /// Number of active user sessions/logins in IDFW enabled compute collections
@@ -34,8 +29,6 @@ namespace nsxtsdk.ManagerModels
         /// is counted as n.
         /// </summary>
         [JsonProperty(PropertyName = "num_user_sessions", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Number of active user sessions/logins in IDFW enabled compute collections(including both UP and DOWN hosts).  N sessions/logins by the same useris counted as n.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public int NumUserSessions { get; set; }
     }
 }

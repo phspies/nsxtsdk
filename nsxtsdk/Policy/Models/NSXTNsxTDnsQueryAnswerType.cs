@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,21 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Answer of nslookup")]
     public class NSXTNsxTDnsQueryAnswerType 
     {
-        public NSXTNsxTDnsQueryAnswerType()
-        {
-        }
         /// <summary>
         /// Matched name of the given address.
         /// </summary>
-        [JsonProperty(PropertyName = "name")]
-        [NSXTProperty(IsRequired: false, Description: @"Matched name of the given address.")]
         public string? Name { get; set; }
         /// <summary>
         /// Resolved IP address matched with the nslookup address provided
         /// as a request parameter.
         /// </summary>
-        [JsonProperty(PropertyName = "address")]
-        [NSXTProperty(IsRequired: false, Description: @"Resolved IP address matched with the nslookup address providedas a request parameter.")]
         public string? Address { get; set; }
     }
 }

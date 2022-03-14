@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,38 +17,23 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTTraceflowConfigType : NSXTPolicyConfigResourceType
     {
-        public NSXTTraceflowConfigType()
-        {
-            Timeout = test
-            IsTransient = test
-        }
         /// <summary>
         /// Timeout for traceflow observation results
         /// </summary>
-        [JsonProperty(PropertyName = "timeout")]
-        [NSXTProperty(IsRequired: false, Description: @"Timeout for traceflow observation results")]
-        //[System.ComponentModel.DataAnnotations.MinLength(5)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(15)]
         public long? Timeout { get; set; }
         /// <summary>
         /// This field indicates if intent is transient and will be cleaned up by the system if set to true
         /// </summary>
-        [JsonProperty(PropertyName = "is_transient")]
-        [NSXTProperty(IsRequired: false, Description: @"This field indicates if intent is transient and will be cleaned up by the system if set to true")]
         public bool? IsTransient { get; set; }
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty(PropertyName = "packet", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTPacketDataType Packet { get; set; }
         /// <summary>
         /// Segment Port Path or UUID
         /// </summary>
         [JsonProperty(PropertyName = "segment_port_path", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Segment Port Path or UUID")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string SegmentPortPath { get; set; }
     }
 }

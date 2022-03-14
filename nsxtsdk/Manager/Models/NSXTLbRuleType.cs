@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,9 +17,6 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLbRuleType : NSXTManagedResourceType
     {
-        public NSXTLbRuleType()
-        {
-        }
         /// <summary>
         /// Each load balancer rule is used at a specific phase of load balancer
         /// processing. Currently five phases are supported, HTTP_REQUEST_REWRITE,
@@ -39,8 +36,6 @@ namespace nsxtsdk.ManagerModels
         /// or SSL passthrough using a specific load balancer server pool.
         /// </summary>
         [JsonProperty(PropertyName = "phase", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Each load balancer rule is used at a specific phase of load balancerprocessing. Currently five phases are supported, HTTP_REQUEST_REWRITE,HTTP_FORWARDING, HTTP_RESPONSE_REWRITE, HTTP_ACCESS and TRANSPORT.When an HTTP request message is received by load balancer, allHTTP_REQUEST_REWRITE rules, if present are executed in the order theyare applied to virtual server. And then if HTTP_FORWARDING rulespresent, only first matching rule&apos;s action is executed, remaining rulesare not checked. HTTP_FORWARDING rules can have only one action. If therequest is forwarded to a backend server and the response goes back toload balancer, all HTTP_RESPONSE_REWRITE rules, if present, are executedin the order they are applied to the virtual server.In HTTP_ACCESS phase, user can define action to control access usingJWT authentication.In TRANSPORT phase, user can define the condition to match SNI in TLSclient hello and define the action to do SSL end-to-end, SSL offloadingor SSL passthrough using a specific load balancer server pool.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTLbRulePhaseEnumType Phase { get; set; }
         /// <summary>
         /// A list of match conditions used to match application traffic. Multiple
@@ -52,8 +47,6 @@ namespace nsxtsdk.ManagerModels
         /// if all conditions should match or any one condition should match for the
         /// load balancer rule to considered a match.
         /// </summary>
-        [JsonProperty(PropertyName = "match_conditions")]
-        [NSXTProperty(IsRequired: false, Description: @"A list of match conditions used to match application traffic. Multiplematch conditions can be specified in one load balancer rule, each matchcondition defines a criterion to match application traffic.If no match conditions are specified, then the load balancer rule willalways match and it is used typically to define default rules. If morethan one match condition is specified, then match strategy determinesif all conditions should match or any one condition should match for theload balancer rule to considered a match.")]
         public IList<NSXTLbRuleConditionType> MatchConditions { get; set; }
         /// <summary>
         /// A list of actions to be executed at specified phase when load balancer
@@ -61,8 +54,6 @@ namespace nsxtsdk.ManagerModels
         /// such as rewrite URI of HTTP messages, redirect HTTP messages, etc.
         /// </summary>
         [JsonProperty(PropertyName = "actions", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"A list of actions to be executed at specified phase when load balancerrule matches. The actions are used to manipulate application traffic,such as rewrite URI of HTTP messages, redirect HTTP messages, etc.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTLbRuleActionType> Actions { get; set; }
         /// <summary>
         /// Strategy to define how load balancer rule is considered a match when
@@ -72,8 +63,6 @@ namespace nsxtsdk.ManagerModels
         /// balancer rule is considered a match if any one of the conditions match.
         /// </summary>
         [JsonProperty(PropertyName = "match_strategy", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Strategy to define how load balancer rule is considered a match whenmultiple match conditions are specified in one rule. If match_stragetyis set to ALL, then load balancer rule is considered a match only if allthe conditions match. If match_strategy is set to ANY, then loadbalancer rule is considered a match if any one of the conditions match.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTLbRuleMatchStrategyEnumType MatchStrategy { get; set; }
     }
 }

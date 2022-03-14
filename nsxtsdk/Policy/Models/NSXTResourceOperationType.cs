@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,9 +17,6 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTResourceOperationType : NSXTSourceType
     {
-        public NSXTResourceOperationType()
-        {
-        }
         /// <summary>
         /// Regex path representing a regex expression on resources. This regex is used
         /// to identify the object(s) that is/are the source of the Event. For instance:
@@ -29,15 +26,11 @@ namespace nsxtsdk.PolicyModels
         /// of the event in question.
         /// </summary>
         [JsonProperty(PropertyName = "resource_pointer", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Regex path representing a regex expression on resources. This regex is usedto identify the object(s) that is/are the source of the Event. For instance:specifying &quot;Lb* | /infra/tier-0s/vmc/ipsec-vpn-services/default&quot; as a sourcemeans that ANY resource starting with Lb or ANY resource with&quot;/infra/tier-0s/vmc/ipsec-vpn-services/default&quot; as path would be the sourceof the event in question.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string ResourcePointer { get; set; }
         /// <summary>
         /// Operation types.
         /// </summary>
         [JsonProperty(PropertyName = "operation_types", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Operation types.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<string> OperationTypes { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTFeaturePermissionArrayType 
     {
-        public NSXTFeaturePermissionArrayType()
-        {
-        }
         /// <summary>
         /// Array of FeaturePermission
         /// </summary>
         [JsonProperty(PropertyName = "feature_permissions", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Array of FeaturePermission")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTFeaturePermissionType> FeaturePermissions { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,65 +17,44 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTTraceflowObservationReceivedLogicalType : NSXTTraceflowObservationType
     {
-        public NSXTTraceflowObservationReceivedLogicalType()
-        {
-        }
         /// <summary>
         /// MAC address of SAN volume controller for service insertion(SI)
         /// in service VM(SVM) where the traceflow packet was received.
         /// </summary>
-        [JsonProperty(PropertyName = "svc_mac")]
-        [NSXTProperty(IsRequired: false, Description: @"MAC address of SAN volume controller for service insertion(SI)in service VM(SVM) where the traceflow packet was received.")]
         public string? SvcMac { get; set; }
         /// <summary>
         /// The id of the source component from which the traceflow packet was received.
         /// </summary>
-        [JsonProperty(PropertyName = "src_component_id")]
-        [NSXTProperty(IsRequired: false, Description: @"The id of the source component from which the traceflow packet was received.")]
         public string? SrcComponentId { get; set; }
         /// <summary>
         /// The id of the component that received the traceflow packet.
         /// </summary>
-        [JsonProperty(PropertyName = "component_id")]
-        [NSXTProperty(IsRequired: false, Description: @"The id of the component that received the traceflow packet.")]
         public string? ComponentId { get; set; }
         /// <summary>
         /// The id of the logical port at which the traceflow packet was received
         /// </summary>
-        [JsonProperty(PropertyName = "lport_id")]
-        [NSXTProperty(IsRequired: false, Description: @"The id of the logical port at which the traceflow packet was received")]
         public string? LportId { get; set; }
         /// <summary>
         /// The type of the source component from which the traceflow packet was received.
         /// </summary>
-        [JsonProperty(PropertyName = "src_component_type")]
-        [NSXTProperty(IsRequired: false, Description: @"The type of the source component from which the traceflow packet was received.")]
         public NSXTTraceflowObservationReceivedLogicalSrcComponentTypeEnumType? SrcComponentType { get; set; }
         /// <summary>
         /// The name of the logical port at which the traceflow packet was received
         /// </summary>
-        [JsonProperty(PropertyName = "lport_name")]
-        [NSXTProperty(IsRequired: false, Description: @"The name of the logical port at which the traceflow packet was received")]
         public string? LportName { get; set; }
         /// <summary>
         /// This field is specified when the traceflow packet was received by a VLAN
         /// logical network.
         /// </summary>
-        [JsonProperty(PropertyName = "vlan")]
-        [NSXTProperty(IsRequired: false, Description: @"This field is specified when the traceflow packet was received by a VLANlogical network.")]
         public long? Vlan { get; set; }
         /// <summary>
         /// The name of source component from which the traceflow packet was received.
         /// </summary>
-        [JsonProperty(PropertyName = "src_component_name")]
-        [NSXTProperty(IsRequired: false, Description: @"The name of source component from which the traceflow packet was received.")]
         public string? SrcComponentName { get; set; }
         /// <summary>
         /// This field is specified when the traceflow packet was received by an overlay
         /// logical network.
         /// </summary>
-        [JsonProperty(PropertyName = "vni")]
-        [NSXTProperty(IsRequired: false, Description: @"This field is specified when the traceflow packet was received by an overlaylogical network.")]
         public int? Vni { get; set; }
     }
 }

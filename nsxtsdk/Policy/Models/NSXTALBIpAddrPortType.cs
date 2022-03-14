@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,37 +17,24 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer IpAddrPort object")]
     public class NSXTALBIpAddrPortType 
     {
-        public NSXTALBIpAddrPortType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "ip")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBIpAddrType Ip { get; set; }
         /// <summary>
         /// Hostname of server.
         /// One of IP address or hostname should be set.
         /// </summary>
-        [JsonProperty(PropertyName = "hostname")]
-        [NSXTProperty(IsRequired: false, Description: @"Hostname of server.One of IP address or hostname should be set.")]
         public string? Hostname { get; set; }
         /// <summary>
         /// Name of the object.
         /// </summary>
-        [JsonProperty(PropertyName = "name")]
-        [NSXTProperty(IsRequired: false, Description: @"Name of the object.")]
         public string? Name { get; set; }
         /// <summary>
         /// Port number of server.
         /// Allowed values are 1-65535.
         /// </summary>
         [JsonProperty(PropertyName = "port", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Port number of server.Allowed values are 1-65535.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
-        [System.ComponentModel.DataAnnotations.Required]
         public long Port { get; set; }
     }
 }

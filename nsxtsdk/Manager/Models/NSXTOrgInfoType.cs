@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,22 +17,15 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Organization ID and role, predefined for a particular type of VMware support.")]
     public class NSXTOrgInfoType 
     {
-        public NSXTOrgInfoType()
-        {
-        }
         /// <summary>
         /// Organization ID, connected to a predefined role of a VMware support.
         /// </summary>
         [JsonProperty(PropertyName = "org_id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Organization ID, connected to a predefined role of a VMware support.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string OrgId { get; set; }
         /// <summary>
         /// Predefined role of a VMware support.
         /// </summary>
         [JsonProperty(PropertyName = "org_role", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Predefined role of a VMware support.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string OrgRole { get; set; }
     }
 }

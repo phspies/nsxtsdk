@@ -21,16 +21,23 @@ namespace nsxtapi.PolicyModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public PolicyTlsActionProfile(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public PolicyTlsActionProfile(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTlsProfileListResultType ListTlsProfiles(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTTlsProfileListResultType> ListTlsProfiles(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTTlsProfileListResultType returnValue = default(NSXTTlsProfileListResultType);
             StringBuilder ListTlsProfilesServiceURL = new StringBuilder("/infra/tls-inspection-action-profiles");
@@ -47,31 +54,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListTlsProfilesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTlsProfileListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTlsProfileListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListTlsProfilesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTlsProfileListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTlsProfileListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTlsProfileType CreateOrUpdateTlsProfile(string ActionProfileId, NSXTTlsProfileType TlsProfile)
+        public async Task<NSXTTlsProfileType> CreateOrUpdateTlsProfile(string ActionProfileId, NSXTTlsProfileType TlsProfile)
         {
             if (ActionProfileId == null) { throw new System.ArgumentNullException("ActionProfileId cannot be null"); }
             if (TlsProfile == null) { throw new System.ArgumentNullException("TlsProfile cannot be null"); }
@@ -86,31 +81,19 @@ namespace nsxtapi.PolicyModules
             CreateOrUpdateTlsProfileServiceURL.Replace("{action-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ActionProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(TlsProfile, defaultSerializationSettings));
             request.Resource = CreateOrUpdateTlsProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTlsProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTlsProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateOrUpdateTlsProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTlsProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTlsProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTlsProfileType GetTlsProfile(string ActionProfileId)
+        public async Task<NSXTTlsProfileType> GetTlsProfile(string ActionProfileId)
         {
             if (ActionProfileId == null) { throw new System.ArgumentNullException("ActionProfileId cannot be null"); }
             NSXTTlsProfileType returnValue = default(NSXTTlsProfileType);
@@ -123,31 +106,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             GetTlsProfileServiceURL.Replace("{action-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ActionProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetTlsProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTlsProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTlsProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetTlsProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTlsProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTlsProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteTlsProfile(string ActionProfileId)
+        public async Task DeleteTlsProfile(string ActionProfileId)
         {
             if (ActionProfileId == null) { throw new System.ArgumentNullException("ActionProfileId cannot be null"); }
             
@@ -160,7 +131,7 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             DeleteTlsProfileServiceURL.Replace("{action-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ActionProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteTlsProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteTlsProfileServiceURL.ToString() + " did not complete successfull";
@@ -172,7 +143,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTlsProfileType PatchTlsProfile(string ActionProfileId, NSXTTlsProfileType TlsProfile)
+        public async Task<NSXTTlsProfileType> PatchTlsProfile(string ActionProfileId, NSXTTlsProfileType TlsProfile)
         {
             if (ActionProfileId == null) { throw new System.ArgumentNullException("ActionProfileId cannot be null"); }
             if (TlsProfile == null) { throw new System.ArgumentNullException("TlsProfile cannot be null"); }
@@ -187,25 +158,13 @@ namespace nsxtapi.PolicyModules
             PatchTlsProfileServiceURL.Replace("{action-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ActionProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(TlsProfile, defaultSerializationSettings));
             request.Resource = PatchTlsProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTlsProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTlsProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchTlsProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTlsProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTlsProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

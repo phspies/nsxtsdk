@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public PhysicalServer(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public PhysicalServer(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPhysicalServerType GetPhysicalServer(string PhysicalServerId)
+        public async Task<NSXTPhysicalServerType> GetPhysicalServer(string PhysicalServerId)
         {
             if (PhysicalServerId == null) { throw new System.ArgumentNullException("PhysicalServerId cannot be null"); }
             NSXTPhysicalServerType returnValue = default(NSXTPhysicalServerType);
@@ -43,31 +50,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             GetPhysicalServerServiceURL.Replace("{physical-server-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PhysicalServerId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetPhysicalServerServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPhysicalServerType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPhysicalServerType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetPhysicalServerServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPhysicalServerType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPhysicalServerType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPhysicalServerListResultType ListPhysicalServers(string? Cursor = null, string? DisplayName = null, string? IncludedFields = null, string? OsType = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTPhysicalServerListResultType> ListPhysicalServers(string? Cursor = null, string? DisplayName = null, string? IncludedFields = null, string? OsType = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTPhysicalServerListResultType returnValue = default(NSXTPhysicalServerListResultType);
             StringBuilder ListPhysicalServersServiceURL = new StringBuilder("/fabric/physical-servers");
@@ -85,25 +80,13 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListPhysicalServersServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPhysicalServerListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPhysicalServerListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListPhysicalServersServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPhysicalServerListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPhysicalServerListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

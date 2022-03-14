@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,38 +17,25 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"This type contains the attributes and status of a group.")]
     public class NSXTClusterGroupStatusType 
     {
-        public NSXTClusterGroupStatusType()
-        {
-        }
         /// <summary>
         /// Array of group members and their statuses
         /// </summary>
-        [JsonProperty(PropertyName = "members")]
-        [NSXTProperty(IsRequired: false, Description: @"Array of group members and their statuses")]
         public IList<NSXTClusterGroupMemberStatusType> Members { get; set; }
         /// <summary>
         /// UUID of the group
         /// </summary>
-        [JsonProperty(PropertyName = "group_id")]
-        [NSXTProperty(IsRequired: false, Description: @"UUID of the group")]
         public string? GroupId { get; set; }
         /// <summary>
         /// Array of group leaders and their attributes
         /// </summary>
-        [JsonProperty(PropertyName = "leaders")]
-        [NSXTProperty(IsRequired: false, Description: @"Array of group leaders and their attributes")]
         public IList<NSXTClusterGroupServiceLeaderType> Leaders { get; set; }
         /// <summary>
         /// Group status
         /// </summary>
-        [JsonProperty(PropertyName = "group_status")]
-        [NSXTProperty(IsRequired: false, Description: @"Group status")]
         public NSXTClusterGroupStatusGroupStatusEnumType? GroupStatus { get; set; }
         /// <summary>
         /// Type of the group
         /// </summary>
-        [JsonProperty(PropertyName = "group_type")]
-        [NSXTProperty(IsRequired: false, Description: @"Type of the group")]
         public NSXTClusterGroupStatusGroupTypeEnumType? GroupType { get; set; }
     }
 }

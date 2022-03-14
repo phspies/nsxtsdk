@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,16 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer HSMThalesRFS object")]
     public class NSXTALBHSMThalesRFSType 
     {
-        public NSXTALBHSMThalesRFSType()
-        {
-            Port = test
-        }
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty(PropertyName = "ip", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTALBIpAddrType Ip { get; set; }
         /// <summary>
         /// Port at which the RFS server accepts the sync request from
@@ -35,10 +29,6 @@ namespace nsxtsdk.PolicyModels
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 9004.
         /// </summary>
-        [JsonProperty(PropertyName = "port")]
-        [NSXTProperty(IsRequired: false, Description: @"Port at which the RFS server accepts the sync request fromclients for Thales encrypted private key.Allowed values are 1-65535.Default value when not specified in API or module isinterpreted by ALB Controller as 9004.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
         public long? Port { get; set; }
     }
 }

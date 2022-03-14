@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIPFIXL2ProfileListResultType : NSXTListResultType
     {
-        public NSXTIPFIXL2ProfileListResultType()
-        {
-        }
         /// <summary>
         /// IPFIX L2 Profile list results
         /// </summary>
         [JsonProperty(PropertyName = "results", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"IPFIX L2 Profile list results")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTIPFIXL2ProfileType> Results { get; set; }
     }
 }

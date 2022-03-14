@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,20 +17,13 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Livetrace action configuration")]
     public class NSXTPolicyLiveTraceActionConfigType 
     {
-        public NSXTPolicyLiveTraceActionConfigType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "trace_config")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTLiveTracePacketGranularActionConfigType TraceConfig { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "pktcap_config")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTLiveTracePacketGranularActionConfigType PktcapConfig { get; set; }
     }
 }

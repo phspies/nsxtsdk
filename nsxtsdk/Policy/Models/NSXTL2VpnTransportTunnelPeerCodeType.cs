@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,9 +17,6 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"L2Vpn transport tunnel peer code.")]
     public class NSXTL2VpnTransportTunnelPeerCodeType 
     {
-        public NSXTL2VpnTransportTunnelPeerCodeType()
-        {
-        }
         /// <summary>
         /// Copy this code to paste on the remote end of the tunnel.
         /// This is a base64 encoded string which has all the configuration for tunnel.
@@ -27,15 +24,11 @@ namespace nsxtsdk.PolicyModels
         /// contains PSK; be careful when sharing or storing it.
         /// </summary>
         [JsonProperty(PropertyName = "peer_code", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Copy this code to paste on the remote end of the tunnel.This is a base64 encoded string which has all the configuration for tunnel.E.g local/remote ips and protocol, encryption algorithm, etc. Peer code alsocontains PSK; be careful when sharing or storing it.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string PeerCode { get; set; }
         /// <summary>
         /// Policy path referencing the transport tunnel.
         /// </summary>
         [JsonProperty(PropertyName = "transport_tunnel_path", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Policy path referencing the transport tunnel.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string TransportTunnelPath { get; set; }
     }
 }

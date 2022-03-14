@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,10 +17,6 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Community match operation")]
     public class NSXTCommunityMatchOperationType 
     {
-        public NSXTCommunityMatchOperationType()
-        {
-            MatchOperator = test
-        }
         /// <summary>
         /// Match operator for communities from provided community list id.
         /// MATCH_ANY will match any community
@@ -32,22 +28,16 @@ namespace nsxtsdk.ManagerModels
         /// MATCH_LARGE_COMMUNITY_REGEX will match large communities by evaluating
         /// regular expression
         /// </summary>
-        [JsonProperty(PropertyName = "match_operator")]
-        [NSXTProperty(IsRequired: false, Description: @"Match operator for communities from provided community list id.MATCH_ANY will match any communityMATCH_ALL will match all communitiesMATCH_EXACT will do exact match on communityMATCH_NONE [operator not supported] will not match any communityMATCH_REGEX will match normal communities by evaluating regularexpressionMATCH_LARGE_COMMUNITY_REGEX will match large communities by evaluatingregular expression")]
         public NSXTCommunityMatchOperationMatchOperatorEnumType? MatchOperator { get; set; }
         /// <summary>
         /// Regular expression to match BGP communities. If match_operator
         /// is MATCH_REGEX then this value must be specified.
         /// </summary>
-        [JsonProperty(PropertyName = "regular_expression")]
-        [NSXTProperty(IsRequired: false, Description: @"Regular expression to match BGP communities. If match_operatoris MATCH_REGEX then this value must be specified.")]
         public string? RegularExpression { get; set; }
         /// <summary>
         /// ID of BGP community list. This value is not required when
         /// match_operator is MATCH_REGEX otherwise required.
         /// </summary>
-        [JsonProperty(PropertyName = "community_list_id")]
-        [NSXTProperty(IsRequired: false, Description: @"ID of BGP community list. This value is not required whenmatch_operator is MATCH_REGEX otherwise required.")]
         public string? CommunityListId { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,34 +17,23 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLbPoolStatisticsType 
     {
-        public NSXTLbPoolStatisticsType()
-        {
-        }
         /// <summary>
         /// Timestamp when the data was last updated
         /// </summary>
-        [JsonProperty(PropertyName = "last_update_timestamp")]
-        [NSXTProperty(IsRequired: false, Description: @"Timestamp when the data was last updated")]
         public long? LastUpdateTimestamp { get; set; }
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty(PropertyName = "statistics", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTLbStatisticsCounterType Statistics { get; set; }
         /// <summary>
         /// Load balancer pool identifier
         /// </summary>
         [JsonProperty(PropertyName = "pool_id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Load balancer pool identifier")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string PoolId { get; set; }
         /// <summary>
         /// Statistics of load balancer pool members
         /// </summary>
-        [JsonProperty(PropertyName = "members")]
-        [NSXTProperty(IsRequired: false, Description: @"Statistics of load balancer pool members")]
         public IList<NSXTLbPoolMemberStatisticsType> Members { get; set; }
     }
 }

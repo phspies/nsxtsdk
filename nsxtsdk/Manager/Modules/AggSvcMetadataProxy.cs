@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public AggSvcMetadataProxy(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public AggSvcMetadataProxy(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTMetadataProxyStatusType GetMetadataProxyStatus(string ProxyId, string LogicalSwitchId)
+        public async Task<NSXTMetadataProxyStatusType> GetMetadataProxyStatus(string ProxyId, string LogicalSwitchId)
         {
             if (ProxyId == null) { throw new System.ArgumentNullException("ProxyId cannot be null"); }
             if (LogicalSwitchId == null) { throw new System.ArgumentNullException("LogicalSwitchId cannot be null"); }
@@ -45,31 +52,19 @@ namespace nsxtapi.ManagerModules
             GetMetadataProxyStatusServiceURL.Replace("{proxy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ProxyId, System.Globalization.CultureInfo.InvariantCulture)));
             GetMetadataProxyStatusServiceURL.Replace("{logical-switch-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LogicalSwitchId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetMetadataProxyStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTMetadataProxyStatusType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTMetadataProxyStatusType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetMetadataProxyStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTMetadataProxyStatusType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTMetadataProxyStatusType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTMetadataProxyStatisticsType GetMetadataProxyStatistics(string ProxyId, string? LogicalSwitchId = null, string? Source = null)
+        public async Task<NSXTMetadataProxyStatisticsType> GetMetadataProxyStatistics(string ProxyId, string? LogicalSwitchId = null, string? Source = null)
         {
             if (ProxyId == null) { throw new System.ArgumentNullException("ProxyId cannot be null"); }
             NSXTMetadataProxyStatisticsType returnValue = default(NSXTMetadataProxyStatisticsType);
@@ -84,25 +79,13 @@ namespace nsxtapi.ManagerModules
             if (LogicalSwitchId != null) { request.AddQueryParameter("logical_switch_id", LogicalSwitchId.ToString()); }
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             request.Resource = GetMetadataProxyStatisticsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTMetadataProxyStatisticsType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTMetadataProxyStatisticsType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetMetadataProxyStatisticsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTMetadataProxyStatisticsType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTMetadataProxyStatisticsType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

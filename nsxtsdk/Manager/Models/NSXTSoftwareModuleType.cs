@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,22 +17,15 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Software module details")]
     public class NSXTSoftwareModuleType 
     {
-        public NSXTSoftwareModuleType()
-        {
-        }
         /// <summary>
         /// Name of the module in the node
         /// </summary>
         [JsonProperty(PropertyName = "module_name", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Name of the module in the node")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string ModuleName { get; set; }
         /// <summary>
         /// Version of the module in the node
         /// </summary>
         [JsonProperty(PropertyName = "module_version", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Version of the module in the node")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string ModuleVersion { get; set; }
     }
 }

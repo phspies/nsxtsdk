@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,28 +17,19 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Used to specify the display name and value of the IPv4Address.")]
     public class NSXTPolicyIPAddressInfoType 
     {
-        public NSXTPolicyIPAddressInfoType()
-        {
-        }
         /// <summary>
         /// Next hop used in auto-plumbing of static route. If a value is not
         /// provided, static route will not be auto-plumbed.
         /// </summary>
-        [JsonProperty(PropertyName = "next_hop")]
-        [NSXTProperty(IsRequired: false, Description: @"Next hop used in auto-plumbing of static route. If a value is notprovided, static route will not be auto-plumbed.")]
         public string? NextHop { get; set; }
         /// <summary>
         /// Value of the IPv4Address.
         /// </summary>
         [JsonProperty(PropertyName = "address_value", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Value of the IPv4Address.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string AddressValue { get; set; }
         /// <summary>
         /// Display name used to help identify the IPv4Address.
         /// </summary>
-        [JsonProperty(PropertyName = "display_name")]
-        [NSXTProperty(IsRequired: false, Description: @"Display name used to help identify the IPv4Address.")]
         public string? DisplayName { get; set; }
     }
 }

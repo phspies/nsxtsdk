@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,24 +17,15 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTL2VpnAttachmentContextType : NSXTAttachmentContextType
     {
-        public NSXTL2VpnAttachmentContextType()
-        {
-        }
         /// <summary>
         /// List of local egress IP addresses, used for
         /// local egress optimization.
         /// </summary>
-        [JsonProperty(PropertyName = "local_egress_ip")]
-        [NSXTProperty(IsRequired: false, Description: @"List of local egress IP addresses, used forlocal egress optimization.")]
         public IList<string> LocalEgressIp { get; set; }
         /// <summary>
         /// Tunnel Id to uniquely identify the extension.
         /// </summary>
         [JsonProperty(PropertyName = "tunnel_id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Tunnel Id to uniquely identify the extension.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(4093)]
-        [System.ComponentModel.DataAnnotations.Required]
         public int TunnelId { get; set; }
     }
 }

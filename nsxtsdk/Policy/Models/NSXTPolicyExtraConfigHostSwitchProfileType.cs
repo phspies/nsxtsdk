@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyExtraConfigHostSwitchProfileType : NSXTPolicyBaseHostSwitchProfileType
     {
-        public NSXTPolicyExtraConfigHostSwitchProfileType()
-        {
-        }
         /// <summary>
         /// list of extra configs
         /// </summary>
-        [JsonProperty(PropertyName = "extra_configs")]
-        [NSXTProperty(IsRequired: false, Description: @"list of extra configs")]
         public IList<NSXTPolicyExtraConfigType> ExtraConfigs { get; set; }
     }
 }

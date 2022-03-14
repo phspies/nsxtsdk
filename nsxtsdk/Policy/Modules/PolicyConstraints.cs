@@ -21,16 +21,23 @@ namespace nsxtapi.PolicyModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public PolicyConstraints(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public PolicyConstraints(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTConstraintListResultType GlobalGlobalInfraListTenantConstraints(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTConstraintListResultType> GlobalGlobalInfraListTenantConstraints(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTConstraintListResultType returnValue = default(NSXTConstraintListResultType);
             StringBuilder GlobalInfraListTenantConstraintsServiceURL = new StringBuilder("/global-infra/constraints");
@@ -47,31 +54,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GlobalInfraListTenantConstraintsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTConstraintListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTConstraintListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraListTenantConstraintsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTConstraintListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTConstraintListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTConstraintType CreateOrReplaceTenantConstraint(string ConstraintId, NSXTConstraintType Constraint)
+        public async Task<NSXTConstraintType> CreateOrReplaceTenantConstraint(string ConstraintId, NSXTConstraintType Constraint)
         {
             if (ConstraintId == null) { throw new System.ArgumentNullException("ConstraintId cannot be null"); }
             if (Constraint == null) { throw new System.ArgumentNullException("Constraint cannot be null"); }
@@ -86,31 +81,19 @@ namespace nsxtapi.PolicyModules
             CreateOrReplaceTenantConstraintServiceURL.Replace("{constraint-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ConstraintId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(Constraint, defaultSerializationSettings));
             request.Resource = CreateOrReplaceTenantConstraintServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTConstraintType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTConstraintType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateOrReplaceTenantConstraintServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTConstraintType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTConstraintType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteTenantConstraint(string ConstraintId)
+        public async Task DeleteTenantConstraint(string ConstraintId)
         {
             if (ConstraintId == null) { throw new System.ArgumentNullException("ConstraintId cannot be null"); }
             
@@ -123,7 +106,7 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             DeleteTenantConstraintServiceURL.Replace("{constraint-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ConstraintId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteTenantConstraintServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteTenantConstraintServiceURL.ToString() + " did not complete successfull";
@@ -135,7 +118,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchTenantConstraint(string ConstraintId, NSXTConstraintType Constraint)
+        public async Task PatchTenantConstraint(string ConstraintId, NSXTConstraintType Constraint)
         {
             if (ConstraintId == null) { throw new System.ArgumentNullException("ConstraintId cannot be null"); }
             if (Constraint == null) { throw new System.ArgumentNullException("Constraint cannot be null"); }
@@ -150,7 +133,7 @@ namespace nsxtapi.PolicyModules
             PatchTenantConstraintServiceURL.Replace("{constraint-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ConstraintId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(Constraint, defaultSerializationSettings));
             request.Resource = PatchTenantConstraintServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchTenantConstraintServiceURL.ToString() + " did not complete successfull";
@@ -162,7 +145,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTConstraintType ReadTenantConstraint(string ConstraintId)
+        public async Task<NSXTConstraintType> ReadTenantConstraint(string ConstraintId)
         {
             if (ConstraintId == null) { throw new System.ArgumentNullException("ConstraintId cannot be null"); }
             NSXTConstraintType returnValue = default(NSXTConstraintType);
@@ -175,31 +158,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ReadTenantConstraintServiceURL.Replace("{constraint-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ConstraintId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadTenantConstraintServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTConstraintType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTConstraintType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadTenantConstraintServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTConstraintType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTConstraintType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTConstraintListResultType ListTenantConstraints(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTConstraintListResultType> ListTenantConstraints(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTConstraintListResultType returnValue = default(NSXTConstraintListResultType);
             StringBuilder ListTenantConstraintsServiceURL = new StringBuilder("/infra/constraints");
@@ -216,31 +187,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListTenantConstraintsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTConstraintListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTConstraintListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListTenantConstraintsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTConstraintListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTConstraintListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTConstraintType GlobalGlobalInfraReadTenantConstraint(string ConstraintId)
+        public async Task<NSXTConstraintType> GlobalGlobalInfraReadTenantConstraint(string ConstraintId)
         {
             if (ConstraintId == null) { throw new System.ArgumentNullException("ConstraintId cannot be null"); }
             NSXTConstraintType returnValue = default(NSXTConstraintType);
@@ -253,25 +212,13 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             GlobalInfraReadTenantConstraintServiceURL.Replace("{constraint-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ConstraintId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GlobalInfraReadTenantConstraintServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTConstraintType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTConstraintType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraReadTenantConstraintServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTConstraintType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTConstraintType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

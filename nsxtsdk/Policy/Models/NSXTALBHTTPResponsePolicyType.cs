@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer HTTPResponsePolicy object")]
     public class NSXTALBHTTPResponsePolicyType 
     {
-        public NSXTALBHTTPResponsePolicyType()
-        {
-        }
         /// <summary>
         /// Add rules to the HTTP response policy.
         /// </summary>
-        [JsonProperty(PropertyName = "rules")]
-        [NSXTProperty(IsRequired: false, Description: @"Add rules to the HTTP response policy.")]
         public IList<NSXTALBHTTPResponseRuleType> Rules { get; set; }
     }
 }

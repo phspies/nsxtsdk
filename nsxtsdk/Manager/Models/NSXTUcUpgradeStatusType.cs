@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,38 +17,25 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Upgrade status of upgrade-coordinator")]
     public class NSXTUcUpgradeStatusType 
     {
-        public NSXTUcUpgradeStatusType()
-        {
-        }
         /// <summary>
         /// Status of UC upgrade.
         /// </summary>
-        [JsonProperty(PropertyName = "status")]
-        [NSXTProperty(IsRequired: false, Description: @"Status of UC upgrade.")]
         public string? Status { get; set; }
         /// <summary>
         /// List of progress messages.
         /// </summary>
-        [JsonProperty(PropertyName = "progress_messages")]
-        [NSXTProperty(IsRequired: false, Description: @"List of progress messages.")]
         public IList<string> ProgressMessages { get; set; }
         /// <summary>
         /// Current state of UC upgrade
         /// </summary>
-        [JsonProperty(PropertyName = "state")]
-        [NSXTProperty(IsRequired: false, Description: @"Current state of UC upgrade")]
         public NSXTUcUpgradeStatusStateEnumType? State { get; set; }
         /// <summary>
         /// List of failure messages.
         /// </summary>
-        [JsonProperty(PropertyName = "errors")]
-        [NSXTProperty(IsRequired: false, Description: @"List of failure messages.")]
         public IList<string> Errors { get; set; }
         /// <summary>
         /// Upgrade Coordinator Upgrade Progress Percentage
         /// </summary>
-        [JsonProperty(PropertyName = "progress_percentage")]
-        [NSXTProperty(IsRequired: false, Description: @"Upgrade Coordinator Upgrade Progress Percentage")]
         public int? ProgressPercentage { get; set; }
     }
 }

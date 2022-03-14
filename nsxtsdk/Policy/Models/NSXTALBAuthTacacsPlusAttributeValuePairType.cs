@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,26 +17,17 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer AuthTacacsPlusAttributeValuePair object")]
     public class NSXTALBAuthTacacsPlusAttributeValuePairType 
     {
-        public NSXTALBAuthTacacsPlusAttributeValuePairType()
-        {
-        }
         /// <summary>
         /// mandatory.
         /// </summary>
-        [JsonProperty(PropertyName = "mandatory")]
-        [NSXTProperty(IsRequired: false, Description: @"mandatory.")]
         public bool? Mandatory { get; set; }
         /// <summary>
         /// attribute name.
         /// </summary>
-        [JsonProperty(PropertyName = "name")]
-        [NSXTProperty(IsRequired: false, Description: @"attribute name.")]
         public string? Name { get; set; }
         /// <summary>
         /// attribute value.
         /// </summary>
-        [JsonProperty(PropertyName = "value")]
-        [NSXTProperty(IsRequired: false, Description: @"attribute value.")]
         public string? Value { get; set; }
     }
 }

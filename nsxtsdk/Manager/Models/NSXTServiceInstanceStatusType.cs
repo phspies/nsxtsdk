@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,32 +17,21 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTServiceInstanceStatusType 
     {
-        public NSXTServiceInstanceStatusType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "instance_deployment_status")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTServiceDeploymentStatusType InstanceDeploymentStatus { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "configuration_issue")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTSVMConfigureIssueType ConfigurationIssue { get; set; }
         /// <summary>
         /// Id of an instantiation of a registered service.
         /// </summary>
-        [JsonProperty(PropertyName = "service_instance_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Id of an instantiation of a registered service.")]
         public string? ServiceInstanceId { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "instance_health_status")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTServiceInstanceHealthStatusType InstanceHealthStatus { get; set; }
     }
 }

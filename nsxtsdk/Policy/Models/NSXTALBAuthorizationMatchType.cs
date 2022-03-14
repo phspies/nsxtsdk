@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,34 +17,23 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer AuthorizationMatch object")]
     public class NSXTALBAuthorizationMatchType 
     {
-        public NSXTALBAuthorizationMatchType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "host_hdr")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBHostHdrMatchType HostHdr { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "path")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBPathMatchType Path { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "method")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBMethodMatchType Method { get; set; }
         /// <summary>
         /// Attributes whose values need to be matched.
         /// Allowed in Basic edition, Essentials edition, Enterprise
         /// edition.
         /// </summary>
-        [JsonProperty(PropertyName = "attr_matches")]
-        [NSXTProperty(IsRequired: false, Description: @"Attributes whose values need to be matched.Allowed in Basic edition, Essentials edition, Enterpriseedition.")]
         public IList<NSXTALBAuthAttributeMatchType> AttrMatches { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,36 +17,25 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTBackupOverviewType : NSXTClusterBackupInfoListResultType
     {
-        public NSXTBackupOverviewType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty(PropertyName = "current_backup_operation_status", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTCurrentBackupOperationStatusType CurrentBackupOperationStatus { get; set; }
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty(PropertyName = "backup_operation_history", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTBackupOperationHistoryType BackupOperationHistory { get; set; }
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty(PropertyName = "backup_config", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTBackupConfigurationType BackupConfig { get; set; }
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty(PropertyName = "restore_status", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTClusterRestoreStatusType RestoreStatus { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,22 +17,15 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLogicalRouterLoopbackPortType : NSXTLogicalRouterPortType
     {
-        public NSXTLogicalRouterLoopbackPortType()
-        {
-        }
         /// <summary>
         /// Loopback port subnets
         /// </summary>
         [JsonProperty(PropertyName = "subnets", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Loopback port subnets")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTIPSubnetType> Subnets { get; set; }
         /// <summary>
         /// Member index of the edge node on the cluster
         /// </summary>
         [JsonProperty(PropertyName = "edge_cluster_member_index", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Member index of the edge node on the cluster")]
-        [System.ComponentModel.DataAnnotations.Required]
         public long EdgeClusterMemberIndex { get; set; }
     }
 }

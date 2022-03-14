@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,51 +17,33 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTDhcpV4StaticBindingConfigType : NSXTDhcpStaticBindingConfigType
     {
-        public NSXTDhcpV4StaticBindingConfigType()
-        {
-            LeaseTime = test
-        }
         /// <summary>
         /// When not specified, gateway address is auto-assigned from segment
         /// configuration.
         /// </summary>
-        [JsonProperty(PropertyName = "gateway_address")]
-        [NSXTProperty(IsRequired: false, Description: @"When not specified, gateway address is auto-assigned from segmentconfiguration.")]
         public string? GatewayAddress { get; set; }
         /// <summary>
         /// Hostname to assign to the host.
         /// </summary>
-        [JsonProperty(PropertyName = "host_name")]
-        [NSXTProperty(IsRequired: false, Description: @"Hostname to assign to the host.")]
         public string? HostName { get; set; }
         /// <summary>
         /// MAC address of the host.
         /// </summary>
         [JsonProperty(PropertyName = "mac_address", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"MAC address of the host.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string MacAddress { get; set; }
         /// <summary>
         /// DHCP lease time in seconds.
         /// </summary>
-        [JsonProperty(PropertyName = "lease_time")]
-        [NSXTProperty(IsRequired: false, Description: @"DHCP lease time in seconds.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(60)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(4294967295)]
         public long? LeaseTime { get; set; }
         /// <summary>
         /// IP assigned to host. The IP address must belong to the subnet, if any,
         /// configured on Segment.
         /// </summary>
         [JsonProperty(PropertyName = "ip_address", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"IP assigned to host. The IP address must belong to the subnet, if any,configured on Segment.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string IpAddress { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "options")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTDhcpV4OptionsType Options { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,38 +17,21 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIpv6HeaderType 
     {
-        public NSXTIpv6HeaderType()
-        {
-            NextHeader = test
-            HopLimit = test
-        }
         /// <summary>
         /// The source ip address.
         /// </summary>
-        [JsonProperty(PropertyName = "src_ip")]
-        [NSXTProperty(IsRequired: false, Description: @"The source ip address.")]
         public string? SrcIp { get; set; }
         /// <summary>
         /// The destination ip address.
         /// </summary>
-        [JsonProperty(PropertyName = "dst_ip")]
-        [NSXTProperty(IsRequired: false, Description: @"The destination ip address.")]
         public string? DstIp { get; set; }
         /// <summary>
         /// Identifies the type of header immediately following the IPv6 header.
         /// </summary>
-        [JsonProperty(PropertyName = "next_header")]
-        [NSXTProperty(IsRequired: false, Description: @"Identifies the type of header immediately following the IPv6 header.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(255)]
         public long? NextHeader { get; set; }
         /// <summary>
         /// Decremented by 1 by each node that forwards the packets. The packet is discarded if Hop Limit is decremented to zero.
         /// </summary>
-        [JsonProperty(PropertyName = "hop_limit")]
-        [NSXTProperty(IsRequired: false, Description: @"Decremented by 1 by each node that forwards the packets. The packet is discarded if Hop Limit is decremented to zero.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(255)]
         public long? HopLimit { get; set; }
     }
 }

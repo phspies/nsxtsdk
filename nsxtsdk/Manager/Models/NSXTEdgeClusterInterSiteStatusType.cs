@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,38 +17,25 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTEdgeClusterInterSiteStatusType 
     {
-        public NSXTEdgeClusterInterSiteStatusType()
-        {
-        }
         /// <summary>
         /// Timestamp when the edge cluster inter-site status was last updated.
         /// </summary>
-        [JsonProperty(PropertyName = "last_update_timestamp")]
-        [NSXTProperty(IsRequired: false, Description: @"Timestamp when the edge cluster inter-site status was last updated.")]
         public long? LastUpdateTimestamp { get; set; }
         /// <summary>
         /// Overall status of all edge nodes IBGP status in the edge cluster.
         /// </summary>
-        [JsonProperty(PropertyName = "overall_status")]
-        [NSXTProperty(IsRequired: false, Description: @"Overall status of all edge nodes IBGP status in the edge cluster.")]
         public NSXTEdgeClusterInterSiteStatusOverallStatusEnumType? OverallStatus { get; set; }
         /// <summary>
         /// Name of the edge cluster whose status is being reported.
         /// </summary>
-        [JsonProperty(PropertyName = "edge_cluster_name")]
-        [NSXTProperty(IsRequired: false, Description: @"Name of the edge cluster whose status is being reported.")]
         public string? EdgeClusterName { get; set; }
         /// <summary>
         /// Per edge node inter-site status.
         /// </summary>
-        [JsonProperty(PropertyName = "member_status")]
-        [NSXTProperty(IsRequired: false, Description: @"Per edge node inter-site status.")]
         public IList<NSXTEdgeClusterMemberInterSiteStatusType> MemberStatus { get; set; }
         /// <summary>
         /// Id of the edge cluster whose status is being reported.
         /// </summary>
-        [JsonProperty(PropertyName = "edge_cluster_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Id of the edge cluster whose status is being reported.")]
         public string? EdgeClusterId { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,21 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTHttpsProtocolType : NSXTProtocolType
     {
-        public NSXTHttpsProtocolType()
-        {
-        }
         /// <summary>
         /// SSL thumbprint of server
         /// </summary>
         [JsonProperty(PropertyName = "sha256_thumbprint", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"SSL thumbprint of server")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Sha256Thumbprint { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "authentication_scheme")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTBasicAuthenticationSchemeType AuthenticationScheme { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,21 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Transport tunnel status.")]
     public class NSXTL2VPNSessionTransportTunnelStatusType 
     {
-        public NSXTL2VPNSessionTransportTunnelStatusType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty(PropertyName = "resource_type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTL2VpnsessionTransportTunnelStatusResourceTypeEnumType ResourceType { get; set; }
         /// <summary>
         /// Policy path referencing Transport Tunnel.
         /// </summary>
-        [JsonProperty(PropertyName = "transport_tunnel_path")]
-        [NSXTProperty(IsRequired: false, Description: @"Policy path referencing Transport Tunnel.")]
         public string? TransportTunnelPath { get; set; }
     }
 }

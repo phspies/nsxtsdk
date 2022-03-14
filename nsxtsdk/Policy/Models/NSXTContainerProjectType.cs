@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,40 +17,27 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTContainerProjectType : NSXTDiscoveredResourceType
     {
-        public NSXTContainerProjectType()
-        {
-        }
         /// <summary>
         /// Network status of container project.
         /// </summary>
-        [JsonProperty(PropertyName = "network_status")]
-        [NSXTProperty(IsRequired: false, Description: @"Network status of container project.")]
         public NSXTContainerProjectNetworkStatusEnumType? NetworkStatus { get; set; }
         /// <summary>
         /// Identifier of the container cluster to which this project/namespace belongs.
         /// </summary>
-        [JsonProperty(PropertyName = "container_cluster_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Identifier of the container cluster to which this project/namespace belongs.")]
         public string? ContainerClusterId { get; set; }
         /// <summary>
         /// Array of additional specific properties of container project
         /// in key-value format.
         /// </summary>
-        [JsonProperty(PropertyName = "origin_properties")]
-        [NSXTProperty(IsRequired: false, Description: @"Array of additional specific properties of container projectin key-value format.")]
         public IList<NSXTKeyValuePairType> OriginProperties { get; set; }
         /// <summary>
         /// External identifier of the container project.
         /// </summary>
         [JsonProperty(PropertyName = "external_id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"External identifier of the container project.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string ExternalId { get; set; }
         /// <summary>
         /// List of network errors related to container project.
         /// </summary>
-        [JsonProperty(PropertyName = "network_errors")]
-        [NSXTProperty(IsRequired: false, Description: @"List of network errors related to container project.")]
         public IList<NSXTNetworkErrorType> NetworkErrors { get; set; }
     }
 }

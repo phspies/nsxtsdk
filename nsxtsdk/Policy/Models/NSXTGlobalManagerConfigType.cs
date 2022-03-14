@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTGlobalManagerConfigType : NSXTPolicyConfigResourceType
     {
-        public NSXTGlobalManagerConfigType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "rtep_config")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTGmRtepConfigType RtepConfig { get; set; }
     }
 }

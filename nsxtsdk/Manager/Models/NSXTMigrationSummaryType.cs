@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,38 +17,25 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTMigrationSummaryType 
     {
-        public NSXTMigrationSummaryType()
-        {
-        }
         /// <summary>
         /// Target system version
         /// </summary>
-        [JsonProperty(PropertyName = "target_version")]
-        [NSXTProperty(IsRequired: false, Description: @"Target system version")]
         public string? TargetVersion { get; set; }
         /// <summary>
         /// Status of migration
         /// </summary>
-        [JsonProperty(PropertyName = "migration_status")]
-        [NSXTProperty(IsRequired: false, Description: @"Status of migration")]
         public NSXTMigrationSummaryMigrationStatusEnumType? MigrationStatus { get; set; }
         /// <summary>
         /// Current version of migration coordinator
         /// </summary>
-        [JsonProperty(PropertyName = "migration_coordinator_version")]
-        [NSXTProperty(IsRequired: false, Description: @"Current version of migration coordinator")]
         public string? MigrationCoordinatorVersion { get; set; }
         /// <summary>
         /// Current system version
         /// </summary>
-        [JsonProperty(PropertyName = "system_version")]
-        [NSXTProperty(IsRequired: false, Description: @"Current system version")]
         public string? SystemVersion { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "component_target_versions")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public IList<NSXTComponentTargetVersionType> ComponentTargetVersions { get; set; }
     }
 }

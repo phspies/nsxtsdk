@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Request Type to get a CRL&apos;s PEM file.")]
     public class NSXTCrlPemRequestTypeType 
     {
-        public NSXTCrlPemRequestTypeType()
-        {
-        }
         /// <summary>
         /// CRL Distribution Point URI where to fetch the CRL.
         /// </summary>
-        [JsonProperty(PropertyName = "cdp_uri")]
-        [NSXTProperty(IsRequired: false, Description: @"CRL Distribution Point URI where to fetch the CRL.")]
         public string? CdpUri { get; set; }
     }
 }

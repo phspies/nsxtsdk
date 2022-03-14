@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,33 +17,19 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTWeeklyTelemetryScheduleType : NSXTTelemetryScheduleType
     {
-        public NSXTWeeklyTelemetryScheduleType()
-        {
-            Minutes = test
-        }
         /// <summary>
         /// Minute at which data will be collected. Specify a value between 0 through 59.
         /// </summary>
-        [JsonProperty(PropertyName = "minutes")]
-        [NSXTProperty(IsRequired: false, Description: @"Minute at which data will be collected. Specify a value between 0 through 59.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(59)]
         public long? Minutes { get; set; }
         /// <summary>
         /// Hour at which data will be collected. Specify a value between 0 through 23.
         /// </summary>
         [JsonProperty(PropertyName = "hour_of_day", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Hour at which data will be collected. Specify a value between 0 through 23.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(23)]
-        [System.ComponentModel.DataAnnotations.Required]
         public long HourOfDay { get; set; }
         /// <summary>
         /// Day of week on which data will be collected. Specify one of SUNDAY through SATURDAY.
         /// </summary>
         [JsonProperty(PropertyName = "day_of_week", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Day of week on which data will be collected. Specify one of SUNDAY through SATURDAY.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTWeeklyTelemetryScheduleDayOfWeekEnumType DayOfWeek { get; set; }
     }
 }

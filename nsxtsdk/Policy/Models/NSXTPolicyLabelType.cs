@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,21 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyLabelType : NSXTPolicyConfigResourceType
     {
-        public NSXTPolicyLabelType()
-        {
-        }
         /// <summary>
         /// Policy entity paths referred by the label instance
         /// </summary>
-        [JsonProperty(PropertyName = "refs")]
-        [NSXTProperty(IsRequired: false, Description: @"Policy entity paths referred by the label instance")]
         public IList<string> Refs { get; set; }
         /// <summary>
         /// Policy intent entity type from PolicyResourceType
         /// </summary>
         [JsonProperty(PropertyName = "type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Policy intent entity type from PolicyResourceType")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Type { get; set; }
     }
 }

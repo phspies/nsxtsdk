@@ -21,16 +21,23 @@ namespace nsxtapi.PolicyModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public ClusterControlPlane(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public ClusterControlPlane(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTClusterControlPlaneType CreateOrUpdateClusterControlPlane(string SiteId, string EnforcementpointId, string ClusterControlPlaneId, NSXTClusterControlPlaneType ClusterControlPlane)
+        public async Task<NSXTClusterControlPlaneType> CreateOrUpdateClusterControlPlane(string SiteId, string EnforcementpointId, string ClusterControlPlaneId, NSXTClusterControlPlaneType ClusterControlPlane)
         {
             if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
             if (EnforcementpointId == null) { throw new System.ArgumentNullException("EnforcementpointId cannot be null"); }
@@ -49,31 +56,19 @@ namespace nsxtapi.PolicyModules
             CreateOrUpdateClusterControlPlaneServiceURL.Replace("{cluster-control-plane-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ClusterControlPlaneId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(ClusterControlPlane, defaultSerializationSettings));
             request.Resource = CreateOrUpdateClusterControlPlaneServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTClusterControlPlaneType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTClusterControlPlaneType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateOrUpdateClusterControlPlaneServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTClusterControlPlaneType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTClusterControlPlaneType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTClusterControlPlaneType GetClusterControlPlane(string SiteId, string EnforcementpointId, string ClusterControlPlaneId)
+        public async Task<NSXTClusterControlPlaneType> GetClusterControlPlane(string SiteId, string EnforcementpointId, string ClusterControlPlaneId)
         {
             if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
             if (EnforcementpointId == null) { throw new System.ArgumentNullException("EnforcementpointId cannot be null"); }
@@ -90,31 +85,19 @@ namespace nsxtapi.PolicyModules
             GetClusterControlPlaneServiceURL.Replace("{enforcementpoint-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EnforcementpointId, System.Globalization.CultureInfo.InvariantCulture)));
             GetClusterControlPlaneServiceURL.Replace("{cluster-control-plane-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ClusterControlPlaneId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetClusterControlPlaneServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTClusterControlPlaneType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTClusterControlPlaneType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetClusterControlPlaneServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTClusterControlPlaneType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTClusterControlPlaneType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteClusterControlPlane(string SiteId, string EnforcementpointId, string ClusterControlPlaneId, bool? Cascade = null)
+        public async Task DeleteClusterControlPlane(string SiteId, string EnforcementpointId, string ClusterControlPlaneId, bool? Cascade = null)
         {
             if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
             if (EnforcementpointId == null) { throw new System.ArgumentNullException("EnforcementpointId cannot be null"); }
@@ -132,7 +115,7 @@ namespace nsxtapi.PolicyModules
             DeleteClusterControlPlaneServiceURL.Replace("{cluster-control-plane-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ClusterControlPlaneId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Cascade != null) { request.AddQueryParameter("cascade", Cascade.ToString()); }
             request.Resource = DeleteClusterControlPlaneServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteClusterControlPlaneServiceURL.ToString() + " did not complete successfull";
@@ -144,7 +127,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTClusterControlPlaneListResultType ListClusterControlPlane(string SiteId, string EnforcementpointId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTClusterControlPlaneListResultType> ListClusterControlPlane(string SiteId, string EnforcementpointId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
             if (EnforcementpointId == null) { throw new System.ArgumentNullException("EnforcementpointId cannot be null"); }
@@ -165,25 +148,13 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListClusterControlPlaneServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTClusterControlPlaneListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTClusterControlPlaneListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListClusterControlPlaneServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTClusterControlPlaneListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTClusterControlPlaneListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

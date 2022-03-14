@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,29 +17,18 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLbHttpRequestUriConditionType : NSXTLbRuleConditionType
     {
-        public NSXTLbHttpRequestUriConditionType()
-        {
-            MatchType = test
-            CaseSensitive = test
-        }
         /// <summary>
         /// Match type of URI
         /// </summary>
-        [JsonProperty(PropertyName = "match_type")]
-        [NSXTProperty(IsRequired: false, Description: @"Match type of URI")]
         public NSXTLbHttpRequestUriConditionMatchTypeEnumType? MatchType { get; set; }
         /// <summary>
         /// A string used to identify resource
         /// </summary>
         [JsonProperty(PropertyName = "uri", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"A string used to identify resource")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Uri { get; set; }
         /// <summary>
         /// If true, case is significant when comparing URI.
         /// </summary>
-        [JsonProperty(PropertyName = "case_sensitive")]
-        [NSXTProperty(IsRequired: false, Description: @"If true, case is significant when comparing URI.")]
         public bool? CaseSensitive { get; set; }
     }
 }

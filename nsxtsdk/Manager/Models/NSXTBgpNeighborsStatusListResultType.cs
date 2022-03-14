@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,32 +17,21 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTBgpNeighborsStatusListResultType : NSXTListResultType
     {
-        public NSXTBgpNeighborsStatusListResultType()
-        {
-        }
         /// <summary>
         /// Name of the logical router
         /// </summary>
-        [JsonProperty(PropertyName = "logical_router_name")]
-        [NSXTProperty(IsRequired: false, Description: @"Name of the logical router")]
         public string? LogicalRouterName { get; set; }
         /// <summary>
         /// Timestamp when the data was last updated, unset if data source has never updated the data.
         /// </summary>
-        [JsonProperty(PropertyName = "last_update_timestamp")]
-        [NSXTProperty(IsRequired: false, Description: @"Timestamp when the data was last updated, unset if data source has never updated the data.")]
         public long? LastUpdateTimestamp { get; set; }
         /// <summary>
         /// Logical router id
         /// </summary>
-        [JsonProperty(PropertyName = "logical_router_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Logical router id")]
         public string? LogicalRouterId { get; set; }
         /// <summary>
         /// Status of BGP neighbors of the logical router
         /// </summary>
-        [JsonProperty(PropertyName = "results")]
-        [NSXTProperty(IsRequired: false, Description: @"Status of BGP neighbors of the logical router")]
         public IList<NSXTBgpNeighborStatusType> Results { get; set; }
     }
 }

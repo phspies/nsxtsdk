@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Represents a list of widget configurations.")]
     public class NSXTWidgetConfigurationListType 
     {
-        public NSXTWidgetConfigurationListType()
-        {
-        }
         /// <summary>
         /// Array of widget configurations
         /// </summary>
-        [JsonProperty(PropertyName = "widgetconfigurations")]
-        [NSXTProperty(IsRequired: false, Description: @"Array of widget configurations")]
         public IList<NSXTWidgetConfigurationType> Widgetconfigurations { get; set; }
     }
 }

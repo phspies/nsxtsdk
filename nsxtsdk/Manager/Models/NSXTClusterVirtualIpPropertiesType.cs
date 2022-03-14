@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Cluster virtual IP properties")]
     public class NSXTClusterVirtualIpPropertiesType 
     {
-        public NSXTClusterVirtualIpPropertiesType()
-        {
-        }
         /// <summary>
         /// Virtual IP address, 0.0.0.0 if not configured
         /// </summary>
         [JsonProperty(PropertyName = "ip_address", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Virtual IP address, 0.0.0.0 if not configured")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string IpAddress { get; set; }
     }
 }

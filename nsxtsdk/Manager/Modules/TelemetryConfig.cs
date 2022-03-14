@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public TelemetryConfig(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public TelemetryConfig(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTelemetryConfigType UpdateTelemetryConfig(NSXTTelemetryConfigType TelemetryConfig)
+        public async Task<NSXTTelemetryConfigType> UpdateTelemetryConfig(NSXTTelemetryConfigType TelemetryConfig)
         {
             if (TelemetryConfig == null) { throw new System.ArgumentNullException("TelemetryConfig cannot be null"); }
             NSXTTelemetryConfigType returnValue = default(NSXTTelemetryConfigType);
@@ -43,31 +50,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(TelemetryConfig, defaultSerializationSettings));
             request.Resource = UpdateTelemetryConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTelemetryConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTelemetryConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateTelemetryConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTelemetryConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTelemetryConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTelemetryConfigType GetTelemetryConfig()
+        public async Task<NSXTTelemetryConfigType> GetTelemetryConfig()
         {
             NSXTTelemetryConfigType returnValue = default(NSXTTelemetryConfigType);
             StringBuilder GetTelemetryConfigServiceURL = new StringBuilder("/telemetry/config");
@@ -78,31 +73,19 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = GetTelemetryConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTelemetryConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTelemetryConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetTelemetryConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTelemetryConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTelemetryConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTelemetryAgreementType UpdateTelemetryAgreement(NSXTTelemetryAgreementType TelemetryAgreement)
+        public async Task<NSXTTelemetryAgreementType> UpdateTelemetryAgreement(NSXTTelemetryAgreementType TelemetryAgreement)
         {
             if (TelemetryAgreement == null) { throw new System.ArgumentNullException("TelemetryAgreement cannot be null"); }
             NSXTTelemetryAgreementType returnValue = default(NSXTTelemetryAgreementType);
@@ -115,31 +98,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(TelemetryAgreement, defaultSerializationSettings));
             request.Resource = UpdateTelemetryAgreementServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTelemetryAgreementType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTelemetryAgreementType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateTelemetryAgreementServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTelemetryAgreementType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTelemetryAgreementType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTelemetryAgreementType GetTelemetryAgreement()
+        public async Task<NSXTTelemetryAgreementType> GetTelemetryAgreement()
         {
             NSXTTelemetryAgreementType returnValue = default(NSXTTelemetryAgreementType);
             StringBuilder GetTelemetryAgreementServiceURL = new StringBuilder("/telemetry/agreement");
@@ -150,25 +121,13 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = GetTelemetryAgreementServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTelemetryAgreementType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTelemetryAgreementType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetTelemetryAgreementServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTelemetryAgreementType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTelemetryAgreementType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

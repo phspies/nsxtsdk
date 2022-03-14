@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,52 +17,35 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTUpgradeCheckCsvRecordType : NSXTCsvRecordType
     {
-        public NSXTUpgradeCheckCsvRecordType()
-        {
-        }
         /// <summary>
         /// Status of the pre/post-upgrade check
         /// </summary>
-        [JsonProperty(PropertyName = "status")]
-        [NSXTProperty(IsRequired: false, Description: @"Status of the pre/post-upgrade check")]
         public NSXTUpgradeCheckCsvRecordStatusEnumType? Status { get; set; }
         /// <summary>
         /// Description of the pre/post-upgrade check
         /// </summary>
-        [JsonProperty(PropertyName = "check_description")]
-        [NSXTProperty(IsRequired: false, Description: @"Description of the pre/post-upgrade check")]
         public string? CheckDescription { get; set; }
         /// <summary>
         /// Space-separated list of failure messages
         /// </summary>
-        [JsonProperty(PropertyName = "failure_messages")]
-        [NSXTProperty(IsRequired: false, Description: @"Space-separated list of failure messages")]
         public string? FailureMessages { get; set; }
         /// <summary>
         /// Display name of the pre/post-upgrade check
         /// </summary>
         [JsonProperty(PropertyName = "check_name", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Display name of the pre/post-upgrade check")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string CheckName { get; set; }
         /// <summary>
         /// Identifier of the upgrade unit
         /// </summary>
-        [JsonProperty(PropertyName = "upgrade_unit_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Identifier of the upgrade unit")]
         public string? UpgradeUnitId { get; set; }
         /// <summary>
         /// Meta-data of the upgrade-unit
         /// </summary>
-        [JsonProperty(PropertyName = "upgrade_unit_metadata")]
-        [NSXTProperty(IsRequired: false, Description: @"Meta-data of the upgrade-unit")]
         public string? UpgradeUnitMetadata { get; set; }
         /// <summary>
         /// Component type of the upgrade unit
         /// </summary>
         [JsonProperty(PropertyName = "upgrade_unit_type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Component type of the upgrade unit")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string UpgradeUnitType { get; set; }
     }
 }

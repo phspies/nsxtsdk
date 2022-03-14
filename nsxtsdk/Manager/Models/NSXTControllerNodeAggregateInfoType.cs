@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTControllerNodeAggregateInfoType : NSXTBaseNodeAggregateInfoType
     {
-        public NSXTControllerNodeAggregateInfoType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "role_config")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTControllerClusterRoleConfigType RoleConfig { get; set; }
     }
 }

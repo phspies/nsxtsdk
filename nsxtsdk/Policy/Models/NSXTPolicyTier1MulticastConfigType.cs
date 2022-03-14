@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyTier1MulticastConfigType : NSXTPolicyConfigResourceType
     {
-        public NSXTPolicyTier1MulticastConfigType()
-        {
-        }
         /// <summary>
         /// Enable/disable Multicast Configuration. Whenever service router needs to be added/deleted from tier1, user needs to
         /// disable multicast first.
         /// </summary>
-        [JsonProperty(PropertyName = "enabled")]
-        [NSXTProperty(IsRequired: false, Description: @"Enable/disable Multicast Configuration. Whenever service router needs to be added/deleted from tier1, user needs to disable multicast first.")]
         public bool? Enabled { get; set; }
     }
 }

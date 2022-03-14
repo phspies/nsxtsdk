@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,21 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Properties of the layout of a container or widget")]
     public class NSXTLayoutPropertiesType 
     {
-        public NSXTLayoutPropertiesType()
-        {
-        }
         /// <summary>
         /// Describes the number of rows of grid layout of a container or widget. This property is applicable for grid layout only.
         /// </summary>
-        [JsonProperty(PropertyName = "num_rows")]
-        [NSXTProperty(IsRequired: false, Description: @"Describes the number of rows of grid layout of a container or widget. This property is applicable for grid layout only.")]
         public int? NumRows { get; set; }
         /// <summary>
         /// Describes the number of columns of grid layout of a container or widget. This property is applicable for grid layout
         /// only.
         /// </summary>
-        [JsonProperty(PropertyName = "num_columns")]
-        [NSXTProperty(IsRequired: false, Description: @"Describes the number of columns of grid layout of a container or widget. This property is applicable for grid layout only.")]
         public int? NumColumns { get; set; }
     }
 }

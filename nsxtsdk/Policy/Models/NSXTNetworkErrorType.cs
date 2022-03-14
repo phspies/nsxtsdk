@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,26 +17,17 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Network error related to container objects.")]
     public class NSXTNetworkErrorType 
     {
-        public NSXTNetworkErrorType()
-        {
-        }
         /// <summary>
         /// Detailed message of network related error.
         /// </summary>
-        [JsonProperty(PropertyName = "error_message")]
-        [NSXTProperty(IsRequired: false, Description: @"Detailed message of network related error.")]
         public string? ErrorMessage { get; set; }
         /// <summary>
         /// Error code of network related error.
         /// </summary>
-        [JsonProperty(PropertyName = "error_code")]
-        [NSXTProperty(IsRequired: false, Description: @"Error code of network related error.")]
         public string? ErrorCode { get; set; }
         /// <summary>
         /// Additional error information in json format.
         /// </summary>
-        [JsonProperty(PropertyName = "spec")]
-        [NSXTProperty(IsRequired: false, Description: @"Additional error information in json format.")]
         public string? Spec { get; set; }
     }
 }

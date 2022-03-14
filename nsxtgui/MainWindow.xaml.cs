@@ -22,20 +22,20 @@ namespace nsxtgui
         {
             InitializeComponent();
         }
-        private void connectNSX_Click(object sender, RoutedEventArgs e)
+        private async Task connectNSX_ClickAsync(object sender, RoutedEventArgs e)
         {
             try
             {
                 statusListControl.Items.Clear();
                 Mouse.OverrideCursor = Cursors.Wait;
                 nsxtClient = new NSXTClient(nsxtConnectionHost.Text, nsxtConnectionUsername.Text, nsxtConnectionPassword.Password, (bool)nsxtConnectionValidateCertificate.IsChecked);
-                var status = nsxtClient.ManagerEngine.ClusterManagementModule.ReadClusterNodesAggregateStatus();
-                var cluster = nsxtClient.ManagerEngine.ClusterManagementModule.ReadClusterStatus();
-                var tnnodes = nsxtClient.ManagerEngine.TransportNodeLcmModule.ListTransportNodesWithDeploymentInfo();
+                var status = (await nsxtClient.ManagerEngine.ClusterManagementModule.ReadClusterNodesAggregateStatus());
+                var cluster = (await nsxtClient.ManagerEngine.ClusterManagementModule.ReadClusterStatus());
+                var tnnodes = (await nsxtClient.ManagerEngine.TransportNodeLcmModule.ListTransportNodesWithDeploymentInfo());
 
                 //use policy engine to get Tier0's and Tier1's
-                var tier0s = nsxtClient.PolicyEngine.PolicyConnectivityModule.ListTier0s().Results;
-                var tier1s = nsxtClient.PolicyEngine.PolicyConnectivityModule.ListTier1().Results;
+                var tier0s = (await nsxtClient.PolicyEngine.PolicyConnectivityModule.ListTier0s()).Results;
+                var tier1s = (await nsxtClient.PolicyEngine.PolicyConnectivityModule.ListTier1()).Results;
                 if (status != null || cluster != null || tnnodes != null)
                 {
                     string httpsLeader = cluster.DetailedClusterStatus.Groups.FirstOrDefault(x => x.GroupType == nsxtsdk.ManagerModels.NSXTClusterGroupStatusGroupTypeEnumType.HTTPS).Leaders.First().LeaderUuid;
@@ -49,9 +49,9 @@ namespace nsxtgui
                         statusListControl.Items.Add($"\tResources: CPU: {node.NodeStatusProperties.First().CpuCores}, Memory: {node.NodeStatusProperties.First().MemTotal / 1024 / 1024}GB");
                     }
                     ConcurrentBag<Tuple<nsxtsdk.ManagerModels.NSXTTransportNodeType, nsxtsdk.ManagerModels.NSXTTransportNodeStateType>> nodeInformation = new ConcurrentBag<Tuple<nsxtsdk.ManagerModels.NSXTTransportNodeType, nsxtsdk.ManagerModels.NSXTTransportNodeStateType>>();
-                    Parallel.ForEach(tnnodes.Results, node =>
+                    Parallel.ForEach(tnnodes.Results, async node =>
                     {
-                        nodeInformation.Add(new Tuple<nsxtsdk.ManagerModels.NSXTTransportNodeType, nsxtsdk.ManagerModels.NSXTTransportNodeStateType>(node, nsxtClient.ManagerEngine.TransportNodeLcmModule.GetTransportNodeStateWithDeploymentInfo(node.Id)));
+                        nodeInformation.Add(new Tuple<nsxtsdk.ManagerModels.NSXTTransportNodeType, nsxtsdk.ManagerModels.NSXTTransportNodeStateType>(node, await nsxtClient.ManagerEngine.TransportNodeLcmModule.GetTransportNodeStateWithDeploymentInfo(node.Id)));
                     });
                     foreach (var thisnode in nodeInformation)
                     {
@@ -74,7 +74,7 @@ namespace nsxtgui
                         statusListControl.Items.Add($"\tPool Allocation: {tier1.PoolAllocation}");
                     }
                     //Load Firewall Sections and rules
-                    dfwSectionsControl.ItemsSource = nsxtClient.PolicyEngine.DfwSecurityPolicyModule.ListSecurityPoliciesForDomain("default").Results as List<NSXTSecurityPolicyType>;
+                    dfwSectionsControl.ItemsSource = (await nsxtClient.PolicyEngine.DfwSecurityPolicyModule.ListSecurityPoliciesForDomain("default")).Results as List<NSXTSecurityPolicyType>;
                 }
                 else
 
@@ -91,14 +91,14 @@ namespace nsxtgui
             Mouse.OverrideCursor = Cursors.Arrow;
         }
 
-        private void dfwSectionsControl_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        private async Task dfwSectionsControl_SelectionChangedAsync(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             Mouse.OverrideCursor = Cursors.Wait;
             try
             {
                 var selectedPolicy = e.AddedItems[0] as NSXTSecurityPolicyType;
                 var test = nsxtClient.PolicyEngine.DfwSecurityPolicyModule.ListSecurityRules("default", selectedPolicy.Id);
-                dfwRulesControl.ItemsSource = nsxtClient.PolicyEngine.DfwSecurityPolicyModule.ListSecurityRules("default", selectedPolicy.Id).Results;
+                dfwRulesControl.ItemsSource = (await nsxtClient.PolicyEngine.DfwSecurityPolicyModule.ListSecurityRules("default", selectedPolicy.Id)).Results;
             }
             catch (Exception ex)
             {
@@ -106,13 +106,13 @@ namespace nsxtgui
             }
             Mouse.OverrideCursor = Cursors.Arrow;
         }
-        private void dfwRulesControl_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        private async Task dfwRulesControl_SelectionChangedAsync(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             Mouse.OverrideCursor = Cursors.Wait;
             if (e.AddedItems != null)
             {
                 var selectedRule = e.AddedItems[0] as NSXTRuleType;
-                selectedDFWRule = nsxtClient.PolicyEngine.DfwSecurityPolicyModule.ReadSecurityRule("default", selectedRule.ParentPath.Split("/").Last(), selectedRule.Id);
+                selectedDFWRule = (await nsxtClient.PolicyEngine.DfwSecurityPolicyModule.ReadSecurityRule("default", selectedRule.ParentPath.Split("/").Last(), selectedRule.Id));
                 rawJsonView.Text = JsonConvert.SerializeObject(selectedDFWRule, Formatting.Indented);
 
 
@@ -125,12 +125,12 @@ namespace nsxtgui
 
         }
 
-        private void createDFWButton_Click(object sender, RoutedEventArgs e)
+        private async Task createDFWButton_ClickAsync(object sender, RoutedEventArgs e)
         {
             NSXTSecurityPolicyType selectedPolicy = dfwSectionsControl.SelectedItem as NSXTSecurityPolicyType;
             NSXTRuleType selectedRule = dfwRulesControl.SelectedItem as NSXTRuleType;
             var id = (new Random()).Next(10000, 20000).ToString();
-            NSXTInfraType test = nsxtClient.PolicyEngine.PolicyModule.ReadInfra("/infra/domains/default");
+            NSXTInfraType test = await nsxtClient.PolicyEngine.PolicyModule.ReadInfra("/infra/domains/default");
             //NSXTInfraType rule = new NSXTInfraType()
             //{
             //    Children = new List<NSXTChildPolicyConfigResourceType>() { new NSXTChildPolicyConfigResourceType() { Id = "default", ResourceType = "Domain"} }
@@ -153,7 +153,7 @@ namespace nsxtgui
             //        Scope = new List<string> { "ANY" }
             //    }
             //    );
-            dfwRulesControl.ItemsSource = nsxtClient.PolicyEngine.DfwSecurityPolicyModule.ListSecurityRules("default", selectedPolicy.Id).Results;
+            dfwRulesControl.ItemsSource = (await nsxtClient.PolicyEngine.DfwSecurityPolicyModule.ListSecurityRules("default", selectedPolicy.Id)).Results;
 
         }
     }

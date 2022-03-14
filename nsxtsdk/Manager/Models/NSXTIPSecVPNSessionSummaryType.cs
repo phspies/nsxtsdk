@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,32 +17,21 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Summarized view of all selected IPSec VPN sessions.")]
     public class NSXTIPSecVPNSessionSummaryType 
     {
-        public NSXTIPSecVPNSessionSummaryType()
-        {
-        }
         /// <summary>
         /// Traffic summary per session.
         /// </summary>
-        [JsonProperty(PropertyName = "traffic_summary_per_session")]
-        [NSXTProperty(IsRequired: false, Description: @"Traffic summary per session.")]
         public IList<NSXTIPSecVPNSessionTrafficSummaryType> TrafficSummaryPerSession { get; set; }
         /// <summary>
         /// Timestamp when the data was last updated.
         /// </summary>
-        [JsonProperty(PropertyName = "last_update_timestamp")]
-        [NSXTProperty(IsRequired: false, Description: @"Timestamp when the data was last updated.")]
         public long? LastUpdateTimestamp { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "session_summary")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTIPsecVPNIKESessionSummaryType SessionSummary { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "aggregate_traffic_counters")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTIPSecVPNTrafficCountersType AggregateTrafficCounters { get; set; }
     }
 }

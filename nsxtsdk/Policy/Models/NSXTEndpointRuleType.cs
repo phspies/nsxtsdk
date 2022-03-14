@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,17 +17,11 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTEndpointRuleType : NSXTPolicyConfigResourceType
     {
-        public NSXTEndpointRuleType()
-        {
-            SequenceNumber = test
-        }
         /// <summary>
         /// The policy paths of service profiles are listed here. It pecifies what
         /// services are applied on the group. Currently only one is allowed.
         /// </summary>
         [JsonProperty(PropertyName = "service_profiles", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"The policy paths of service profiles are listed here. It pecifies whatservices are applied on the group. Currently only one is allowed.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<string> ServiceProfiles { get; set; }
         /// <summary>
         /// We need paths as duplicate names may exist for groups under different
@@ -37,18 +31,12 @@ namespace nsxtsdk.PolicyModels
         /// with other values.
         /// </summary>
         [JsonProperty(PropertyName = "groups", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"We need paths as duplicate names may exist for groups under differentdomains. In order to specify all groups, use the constant &quot;ANY&quot;. Thisis case insensitive. If &quot;ANY&quot; is used, it should be the ONLY elementin the group array. Error will be thrown if ANY is used in conjunctionwith other values.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<string> Groups { get; set; }
         /// <summary>
         /// This field is used to resolve conflicts between multiple
         /// entries under EndpointPolicy. It will be system default value when not specified
         /// by user.
         /// </summary>
-        [JsonProperty(PropertyName = "sequence_number")]
-        [NSXTProperty(IsRequired: false, Description: @"This field is used to resolve conflicts between multipleentries under EndpointPolicy. It will be system default value when not specifiedby user.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(499)]
         public int? SequenceNumber { get; set; }
     }
 }

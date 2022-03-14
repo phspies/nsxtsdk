@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,33 +17,22 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLogicalDhcpServerType : NSXTManagedResourceType
     {
-        public NSXTLogicalDhcpServerType()
-        {
-        }
         /// <summary>
         /// The uuid of the attached logical port. Read only.
         /// </summary>
-        [JsonProperty(PropertyName = "attached_logical_port_id")]
-        [NSXTProperty(IsRequired: false, Description: @"The uuid of the attached logical port. Read only.")]
         public string? AttachedLogicalPortId { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "ipv6_dhcp_server")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTIPv6DhcpServerType Ipv6DhcpServer { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "ipv4_dhcp_server")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTIPv4DhcpServerType Ipv4DhcpServer { get; set; }
         /// <summary>
         /// The DHCP profile uuid the logical DHCP server references.
         /// </summary>
         [JsonProperty(PropertyName = "dhcp_profile_id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"The DHCP profile uuid the logical DHCP server references.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string DhcpProfileId { get; set; }
     }
 }

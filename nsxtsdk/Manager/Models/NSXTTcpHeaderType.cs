@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,32 +17,17 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTTcpHeaderType 
     {
-        public NSXTTcpHeaderType()
-        {
-        }
         /// <summary>
         /// TCP flags (9bits)
         /// </summary>
-        [JsonProperty(PropertyName = "tcp_flags")]
-        [NSXTProperty(IsRequired: false, Description: @"TCP flags (9bits)")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(511)]
         public long? TcpFlags { get; set; }
         /// <summary>
         /// Source port of tcp header
         /// </summary>
-        [JsonProperty(PropertyName = "src_port")]
-        [NSXTProperty(IsRequired: false, Description: @"Source port of tcp header")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
         public long? SrcPort { get; set; }
         /// <summary>
         /// Destination port of tcp header
         /// </summary>
-        [JsonProperty(PropertyName = "dst_port")]
-        [NSXTProperty(IsRequired: false, Description: @"Destination port of tcp header")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
         public long? DstPort { get; set; }
     }
 }

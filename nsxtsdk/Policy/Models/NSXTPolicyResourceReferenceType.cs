@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyResourceReferenceType : NSXTResourceReferenceType
     {
-        public NSXTPolicyResourceReferenceType()
-        {
-        }
         /// <summary>
         /// Absolute path of this object.
         /// </summary>
-        [JsonProperty(PropertyName = "path")]
-        [NSXTProperty(IsRequired: false, Description: @"Absolute path of this object.")]
         public string? Path { get; set; }
     }
 }

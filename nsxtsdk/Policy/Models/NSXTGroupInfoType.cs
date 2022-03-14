@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -18,20 +18,13 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"GroupInfo contains information about a particular Group used in Redirection Rules. It also contains information about policy path, if the group is created from Policy.")]
     public class NSXTGroupInfoType 
     {
-        public NSXTGroupInfoType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "group")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTResourceReferenceType Group { get; set; }
         /// <summary>
         /// Policy path of a particular Group.
         /// </summary>
-        [JsonProperty(PropertyName = "group_policy_path")]
-        [NSXTProperty(IsRequired: false, Description: @"Policy path of a particular Group.")]
         public string? GroupPolicyPath { get; set; }
     }
 }

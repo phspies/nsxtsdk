@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTPreconfiguredHostSwitchSpecType : NSXTHostSwitchSpecType
     {
-        public NSXTPreconfiguredHostSwitchSpecType()
-        {
-        }
         /// <summary>
         /// Preconfigured Transport Node host switches
         /// </summary>
         [JsonProperty(PropertyName = "host_switches", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Preconfigured Transport Node host switches")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTPreconfiguredHostSwitchType> HostSwitches { get; set; }
     }
 }

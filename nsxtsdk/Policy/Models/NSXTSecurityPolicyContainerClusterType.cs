@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,22 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTSecurityPolicyContainerClusterType : NSXTPolicyConfigResourceType
     {
-        public NSXTSecurityPolicyContainerClusterType()
-        {
-            ContainerClusterType = test
-        }
         /// <summary>
         /// Type of the container cluster where the security policy will be realized
         /// </summary>
-        [JsonProperty(PropertyName = "container_cluster_type")]
-        [NSXTProperty(IsRequired: false, Description: @"Type of the container cluster where the security policy will be realized")]
         public NSXTSecurityPolicyContainerClusterContainerClusterTypeEnumType? ContainerClusterType { get; set; }
         /// <summary>
         /// Path to the container cluster entity in NSX
         /// </summary>
         [JsonProperty(PropertyName = "container_cluster_path", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Path to the container cluster entity in NSX")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string ContainerClusterPath { get; set; }
     }
 }

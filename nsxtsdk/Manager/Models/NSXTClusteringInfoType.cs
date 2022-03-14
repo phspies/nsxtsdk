@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,21 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Clustering parameters for the controller cluster")]
     public class NSXTClusteringInfoType 
     {
-        public NSXTClusteringInfoType()
-        {
-        }
         /// <summary>
         /// Shared secret of the cluster.
         /// </summary>
-        [JsonProperty(PropertyName = "shared_secret")]
-        [NSXTProperty(IsRequired: false, Description: @"Shared secret of the cluster.")]
         public string? SharedSecret { get; set; }
         /// <summary>
         /// Property to indicate if the node must join an existing cluster.
         /// </summary>
         [JsonProperty(PropertyName = "join_to_existing_cluster", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Property to indicate if the node must join an existing cluster.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public bool JoinToExistingCluster { get; set; }
     }
 }

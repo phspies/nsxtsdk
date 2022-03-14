@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,28 +17,18 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTOspfAreaConfigType : NSXTPolicyConfigResourceType
     {
-        public NSXTOspfAreaConfigType()
-        {
-            AreaType = test
-        }
         /// <summary>
         /// OSPF area-id either in decimal or dotted format.
         /// </summary>
         [JsonProperty(PropertyName = "area_id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"OSPF area-id either in decimal or dotted format.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string AreaId { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "authentication")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTOspfAuthenticationConfigType Authentication { get; set; }
         /// <summary>
         /// Configures OSPF area with defined area type. If area_type field not specified, default is NSSA.
         /// </summary>
-        [JsonProperty(PropertyName = "area_type")]
-        [NSXTProperty(IsRequired: false, Description: @"Configures OSPF area with defined area type. If area_type field not specified, default is NSSA.")]
         public NSXTOspfAreaConfigAreaTypeEnumType? AreaType { get; set; }
     }
 }

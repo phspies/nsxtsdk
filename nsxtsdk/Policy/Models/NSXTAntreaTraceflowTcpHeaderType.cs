@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,26 +17,17 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Tcp header stuffs for Antrea traceflow.")]
     public class NSXTAntreaTraceflowTcpHeaderType 
     {
-        public NSXTAntreaTraceflowTcpHeaderType()
-        {
-        }
         /// <summary>
         /// Tcp flags in TcpHeader. SYN flag must be set for traceflow.
         /// </summary>
-        [JsonProperty(PropertyName = "tcpFlags")]
-        [NSXTProperty(IsRequired: false, Description: @"Tcp flags in TcpHeader. SYN flag must be set for traceflow.")]
         public long? TcpFlags { get; set; }
         /// <summary>
         /// Destination port number in TcpHeader.
         /// </summary>
-        [JsonProperty(PropertyName = "dstPort")]
-        [NSXTProperty(IsRequired: false, Description: @"Destination port number in TcpHeader.")]
         public long? DstPort { get; set; }
         /// <summary>
         /// Source port number in TcpHeader.
         /// </summary>
-        [JsonProperty(PropertyName = "srcPort")]
-        [NSXTProperty(IsRequired: false, Description: @"Source port number in TcpHeader.")]
         public long? SrcPort { get; set; }
     }
 }

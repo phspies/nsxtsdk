@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,22 +17,15 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"TLS cipher suite")]
     public class NSXTCipherSuiteType 
     {
-        public NSXTCipherSuiteType()
-        {
-        }
         /// <summary>
         /// Enable status for this cipher suite
         /// </summary>
         [JsonProperty(PropertyName = "enabled", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Enable status for this cipher suite")]
-        [System.ComponentModel.DataAnnotations.Required]
         public bool Enabled { get; set; }
         /// <summary>
         /// Name of the TLS cipher suite
         /// </summary>
         [JsonProperty(PropertyName = "name", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Name of the TLS cipher suite")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Name { get; set; }
     }
 }

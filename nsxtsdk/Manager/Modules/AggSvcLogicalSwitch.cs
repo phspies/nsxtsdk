@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public AggSvcLogicalSwitch(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public AggSvcLogicalSwitch(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTVtepListResultType GetLogicalSwitchVtepTable(string LswitchId, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? Source = null, string? TransportNodeId = null)
+        public async Task<NSXTVtepListResultType> GetLogicalSwitchVtepTable(string LswitchId, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? Source = null, string? TransportNodeId = null)
         {
             if (LswitchId == null) { throw new System.ArgumentNullException("LswitchId cannot be null"); }
             NSXTVtepListResultType returnValue = default(NSXTVtepListResultType);
@@ -50,31 +57,19 @@ namespace nsxtapi.ManagerModules
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             if (TransportNodeId != null) { request.AddQueryParameter("transport_node_id", TransportNodeId.ToString()); }
             request.Resource = GetLogicalSwitchVtepTableServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTVtepListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTVtepListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetLogicalSwitchVtepTableServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTVtepListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTVtepListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLogicalSwitchStatisticsType GetLogicalSwitchStatistics(string LswitchId, string? Source = null)
+        public async Task<NSXTLogicalSwitchStatisticsType> GetLogicalSwitchStatistics(string LswitchId, string? Source = null)
         {
             if (LswitchId == null) { throw new System.ArgumentNullException("LswitchId cannot be null"); }
             NSXTLogicalSwitchStatisticsType returnValue = default(NSXTLogicalSwitchStatisticsType);
@@ -88,31 +83,19 @@ namespace nsxtapi.ManagerModules
             GetLogicalSwitchStatisticsServiceURL.Replace("{lswitch-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LswitchId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             request.Resource = GetLogicalSwitchStatisticsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLogicalSwitchStatisticsType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLogicalSwitchStatisticsType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetLogicalSwitchStatisticsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLogicalSwitchStatisticsType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLogicalSwitchStatisticsType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTMacAddressCsvListResultType GetLogicalSwitchMacTableInCsvFormat(string LswitchId, string? Source = null, string? TransportNodeId = null)
+        public async Task<NSXTMacAddressCsvListResultType> GetLogicalSwitchMacTableInCsvFormat(string LswitchId, string? Source = null, string? TransportNodeId = null)
         {
             if (LswitchId == null) { throw new System.ArgumentNullException("LswitchId cannot be null"); }
             NSXTMacAddressCsvListResultType returnValue = default(NSXTMacAddressCsvListResultType);
@@ -127,31 +110,19 @@ namespace nsxtapi.ManagerModules
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             if (TransportNodeId != null) { request.AddQueryParameter("transport_node_id", TransportNodeId.ToString()); }
             request.Resource = GetLogicalSwitchMacTableInCsvFormatServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTMacAddressCsvListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTMacAddressCsvListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetLogicalSwitchMacTableInCsvFormatServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTMacAddressCsvListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTMacAddressCsvListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLogicalSwitchStatusSummaryType GetLogicalSwitchStatusSummary(string? Cursor = null, bool? Diagnostic = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? Source = null, string? SwitchType = null, string? SwitchingProfileId = null, string? TransportType = null, string? TransportZoneId = null, string? UplinkTeamingPolicyName = null, long? Vlan = null, int? Vni = null)
+        public async Task<NSXTLogicalSwitchStatusSummaryType> GetLogicalSwitchStatusSummary(string? Cursor = null, bool? Diagnostic = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? Source = null, string? SwitchType = null, string? SwitchingProfileId = null, string? TransportType = null, string? TransportZoneId = null, string? UplinkTeamingPolicyName = null, long? Vlan = null, int? Vni = null)
         {
             NSXTLogicalSwitchStatusSummaryType returnValue = default(NSXTLogicalSwitchStatusSummaryType);
             StringBuilder GetLogicalSwitchStatusSummaryServiceURL = new StringBuilder("/logical-switches/status");
@@ -176,31 +147,19 @@ namespace nsxtapi.ManagerModules
             if (Vlan != null) { request.AddQueryParameter("vlan", Vlan.ToString()); }
             if (Vni != null) { request.AddQueryParameter("vni", Vni.ToString()); }
             request.Resource = GetLogicalSwitchStatusSummaryServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLogicalSwitchStatusSummaryType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLogicalSwitchStatusSummaryType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetLogicalSwitchStatusSummaryServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLogicalSwitchStatusSummaryType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLogicalSwitchStatusSummaryType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTVtepCsvListResultType GetLogicalSwitchVtepTableInCsvFormat(string LswitchId, string? Source = null, string? TransportNodeId = null)
+        public async Task<NSXTVtepCsvListResultType> GetLogicalSwitchVtepTableInCsvFormat(string LswitchId, string? Source = null, string? TransportNodeId = null)
         {
             if (LswitchId == null) { throw new System.ArgumentNullException("LswitchId cannot be null"); }
             NSXTVtepCsvListResultType returnValue = default(NSXTVtepCsvListResultType);
@@ -215,31 +174,19 @@ namespace nsxtapi.ManagerModules
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             if (TransportNodeId != null) { request.AddQueryParameter("transport_node_id", TransportNodeId.ToString()); }
             request.Resource = GetLogicalSwitchVtepTableInCsvFormatServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTVtepCsvListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTVtepCsvListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetLogicalSwitchVtepTableInCsvFormatServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTVtepCsvListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTVtepCsvListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTMacAddressListResultType GetLogicalSwitchMacTable(string LswitchId, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? Source = null, string? TransportNodeId = null)
+        public async Task<NSXTMacAddressListResultType> GetLogicalSwitchMacTable(string LswitchId, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? Source = null, string? TransportNodeId = null)
         {
             if (LswitchId == null) { throw new System.ArgumentNullException("LswitchId cannot be null"); }
             NSXTMacAddressListResultType returnValue = default(NSXTMacAddressListResultType);
@@ -259,25 +206,13 @@ namespace nsxtapi.ManagerModules
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             if (TransportNodeId != null) { request.AddQueryParameter("transport_node_id", TransportNodeId.ToString()); }
             request.Resource = GetLogicalSwitchMacTableServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTMacAddressListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTMacAddressListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetLogicalSwitchMacTableServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTMacAddressListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTMacAddressListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,46 +17,31 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Information about a management plane node this transport node is configured to communicate with")]
     public class NSXTBrokerPropertiesType 
     {
-        public NSXTBrokerPropertiesType()
-        {
-        }
         /// <summary>
         /// Indicates whether this broker is the master.
         /// </summary>
-        [JsonProperty(PropertyName = "BrokerIsMaster")]
-        [NSXTProperty(IsRequired: false, Description: @"Indicates whether this broker is the master.")]
         public string? BrokerIsMaster { get; set; }
         /// <summary>
         /// IP address or hostname of the message bus broker on the management plane node.
         /// </summary>
         [JsonProperty(PropertyName = "BrokerIpAddress", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"IP address or hostname of the message bus broker on the management plane node.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string BrokerIpAddress { get; set; }
         /// <summary>
         /// Type of host running the broker.
         /// </summary>
-        [JsonProperty(PropertyName = "BrokerVirtualHost")]
-        [NSXTProperty(IsRequired: false, Description: @"Type of host running the broker.")]
         public string? BrokerVirtualHost { get; set; }
         /// <summary>
         /// Certificate thumbprint of the message bus broker on the management plane node.
         /// </summary>
         [JsonProperty(PropertyName = "BrokerSslCertThumbprint", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Certificate thumbprint of the message bus broker on the management plane node.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string BrokerSslCertThumbprint { get; set; }
         /// <summary>
         /// Port number of the message bus broker on the management plane node.
         /// </summary>
-        [JsonProperty(PropertyName = "BrokerPort")]
-        [NSXTProperty(IsRequired: false, Description: @"Port number of the message bus broker on the management plane node.")]
         public string? BrokerPort { get; set; }
         /// <summary>
         /// Fully qualified domain name of the message bus broker on the management plane node.
         /// </summary>
-        [JsonProperty(PropertyName = "BrokerFqdn")]
-        [NSXTProperty(IsRequired: false, Description: @"Fully qualified domain name of the message bus broker on the management plane node.")]
         public string? BrokerFqdn { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,21 +17,13 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTEvpnConfigType : NSXTPolicyConfigResourceType
     {
-        public NSXTEvpnConfigType()
-        {
-            Mode = test
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "encapsulation_method")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTEvpnEncapConfigType EncapsulationMethod { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "advanced_config")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTEvpnConfigAdvancedConfigType AdvancedConfig { get; set; }
         /// <summary>
         /// In INLINE mode, edge nodes participate both in the BGP EVPN control
@@ -42,8 +34,6 @@ namespace nsxtsdk.PolicyModels
         /// established between the hypervisors and the data center gateways.
         /// DISABLE mode disables EVPN service capability.
         /// </summary>
-        [JsonProperty(PropertyName = "mode")]
-        [NSXTProperty(IsRequired: false, Description: @"In INLINE mode, edge nodes participate both in the BGP EVPN controlplane route exchange and in data path tunneling between edge nodesand data center gateways. In ROUTE_SERVER mode, edge nodes participatein the BGP EVPN control plane route exchanges only and do not participatein the data forwarding, i.e., the data path tunnels are directlyestablished between the hypervisors and the data center gateways.DISABLE mode disables EVPN service capability.")]
         public NSXTEvpnConfigModeEnumType? Mode { get; set; }
     }
 }

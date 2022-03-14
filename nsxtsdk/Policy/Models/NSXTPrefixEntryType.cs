@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,38 +17,22 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Network prefix entry")]
     public class NSXTPrefixEntryType 
     {
-        public NSXTPrefixEntryType()
-        {
-            Action = test
-        }
         /// <summary>
         /// Action for the prefix list.
         /// </summary>
-        [JsonProperty(PropertyName = "action")]
-        [NSXTProperty(IsRequired: false, Description: @"Action for the prefix list.")]
         public NSXTPrefixEntryActionEnumType? Action { get; set; }
         /// <summary>
         /// Prefix length greater than or equal to.
         /// </summary>
-        [JsonProperty(PropertyName = "ge")]
-        [NSXTProperty(IsRequired: false, Description: @"Prefix length greater than or equal to.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(128)]
         public int? Ge { get; set; }
         /// <summary>
         /// Prefix length less than or equal to.
         /// </summary>
-        [JsonProperty(PropertyName = "le")]
-        [NSXTProperty(IsRequired: false, Description: @"Prefix length less than or equal to.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(128)]
         public int? Le { get; set; }
         /// <summary>
         /// Network prefix in CIDR format. "ANY" matches all networks.
         /// </summary>
         [JsonProperty(PropertyName = "network", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Network prefix in CIDR format. &quot;ANY&quot; matches all networks.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Network { get; set; }
     }
 }

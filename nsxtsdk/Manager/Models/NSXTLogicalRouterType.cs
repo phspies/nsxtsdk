@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,9 +17,6 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLogicalRouterType : NSXTManagedResourceType
     {
-        public NSXTLogicalRouterType()
-        {
-        }
         /// <summary>
         /// For stateful services, the logical router should be associated with
         /// edge cluster. For TIER 1 logical router, for manual placement of
@@ -29,26 +26,18 @@ namespace nsxtsdk.ManagerModels
         /// this property is no use and placement is derived from logical router
         /// uplink or loopback port.
         /// </summary>
-        [JsonProperty(PropertyName = "edge_cluster_member_indices")]
-        [NSXTProperty(IsRequired: false, Description: @"For stateful services, the logical router should be associated withedge cluster. For TIER 1 logical router, for manual placement ofservice router within the cluster, edge cluster member indices needsto be provided else same will be auto-allocated. You can providemaximum two indices for HA ACTIVE_STANDBY. For TIER0 logical routerthis property is no use and placement is derived from logical routeruplink or loopback port.")]
         public long? EdgeClusterMemberIndices { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "ipv6_profiles")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTIPv6ProfilesType Ipv6Profiles { get; set; }
         /// <summary>
         /// List of Firewall sections related to Logical Router.
         /// </summary>
-        [JsonProperty(PropertyName = "firewall_sections")]
-        [NSXTProperty(IsRequired: false, Description: @"List of Firewall sections related to Logical Router.")]
         public IList<NSXTResourceReferenceType> FirewallSections { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "allocation_profile")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTEdgeClusterMemberAllocationProfileType AllocationProfile { get; set; }
         /// <summary>
         /// Determines the behavior when a logical router instance restarts after
@@ -60,14 +49,10 @@ namespace nsxtsdk.ManagerModels
         /// If high_availability_mode property is set to ACTIVE_STANDBY and this property
         /// is not specified then default will be NON_PREEMPTIVE.
         /// </summary>
-        [JsonProperty(PropertyName = "failover_mode")]
-        [NSXTProperty(IsRequired: false, Description: @"Determines the behavior when a logical router instance restarts aftera failure. If set to PREEMPTIVE, the preferred node will take over,even if it causes another failure. If set to NON_PREEMPTIVE, then theinstance that restarted will remain secondary.This property must not be populated unless the high_availability_mode propertyis set to ACTIVE_STANDBY.If high_availability_mode property is set to ACTIVE_STANDBY and this propertyis not specified then default will be NON_PREEMPTIVE.")]
         public NSXTLogicalRouterFailoverModeEnumType? FailoverMode { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "advanced_config")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTLogicalRouterConfigType AdvancedConfig { get; set; }
         /// <summary>
         /// TIER0 for external connectivity.
@@ -75,28 +60,19 @@ namespace nsxtsdk.ManagerModels
         /// VRF for isolation of routing table on TIER0.
         /// </summary>
         [JsonProperty(PropertyName = "router_type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"TIER0 for external connectivity.TIER1 for two tier topology with TIER0 on top.VRF for isolation of routing table on TIER0.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTLogicalRouterRouterTypeEnumType RouterType { get; set; }
         /// <summary>
         /// Preferred edge cluster member index which is required
         /// for PREEMPTIVE failover mode. Used for Tier0 routers only.
         /// </summary>
-        [JsonProperty(PropertyName = "preferred_edge_cluster_member_index")]
-        [NSXTProperty(IsRequired: false, Description: @"Preferred edge cluster member index which is requiredfor PREEMPTIVE failover mode. Used for Tier0 routers only.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
         public long? PreferredEdgeClusterMemberIndex { get; set; }
         /// <summary>
         /// High availability mode
         /// </summary>
-        [JsonProperty(PropertyName = "high_availability_mode")]
-        [NSXTProperty(IsRequired: false, Description: @"High availability mode")]
         public NSXTLogicalRouterHighAvailabilityModeEnumType? HighAvailabilityMode { get; set; }
         /// <summary>
         /// Used for tier0 routers
         /// </summary>
-        [JsonProperty(PropertyName = "edge_cluster_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Used for tier0 routers")]
         public string? EdgeClusterId { get; set; }
     }
 }

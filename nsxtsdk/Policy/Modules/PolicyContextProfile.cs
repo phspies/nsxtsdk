@@ -21,16 +21,23 @@ namespace nsxtapi.PolicyModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public PolicyContextProfile(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public PolicyContextProfile(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyContextProfileListResultType GlobalGlobalInfraListProfileSupportedAttributes(string? AttributeKey = null, string? AttributeSource = null, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTPolicyContextProfileListResultType> GlobalGlobalInfraListProfileSupportedAttributes(string? AttributeKey = null, string? AttributeSource = null, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTPolicyContextProfileListResultType returnValue = default(NSXTPolicyContextProfileListResultType);
             StringBuilder GlobalInfraListProfileSupportedAttributesServiceURL = new StringBuilder("/global-infra/context-profiles/attributes");
@@ -49,31 +56,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GlobalInfraListProfileSupportedAttributesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyContextProfileListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyContextProfileListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraListProfileSupportedAttributesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyContextProfileListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyContextProfileListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyContextProfileListResultType GlobalGlobalInfraListPolicyContextProfiles(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTPolicyContextProfileListResultType> GlobalGlobalInfraListPolicyContextProfiles(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTPolicyContextProfileListResultType returnValue = default(NSXTPolicyContextProfileListResultType);
             StringBuilder GlobalInfraListPolicyContextProfilesServiceURL = new StringBuilder("/global-infra/context-profiles");
@@ -90,31 +85,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GlobalInfraListPolicyContextProfilesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyContextProfileListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyContextProfileListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraListPolicyContextProfilesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyContextProfileListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyContextProfileListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GlobalGlobalInfraAddRemoveCustomAttributeValues(NSXTPolicyAttributesType PolicyAttributes, string Action)
+        public async Task GlobalGlobalInfraAddRemoveCustomAttributeValues(NSXTPolicyAttributesType PolicyAttributes, string Action)
         {
             if (PolicyAttributes == null) { throw new System.ArgumentNullException("PolicyAttributes cannot be null"); }
             if (Action == null) { throw new System.ArgumentNullException("Action cannot be null"); }
@@ -129,7 +112,7 @@ namespace nsxtapi.PolicyModules
             request.AddJsonBody(JsonConvert.SerializeObject(PolicyAttributes, defaultSerializationSettings));
             if (Action != null) { request.AddQueryParameter("action", Action.ToString()); }
             request.Resource = GlobalInfraAddRemoveCustomAttributeValuesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + GlobalInfraAddRemoveCustomAttributeValuesServiceURL.ToString() + " did not complete successfull";
@@ -141,7 +124,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GlobalGlobalInfraPatchCustomAttributeList(NSXTPolicyAttributesType PolicyAttributes)
+        public async Task GlobalGlobalInfraPatchCustomAttributeList(NSXTPolicyAttributesType PolicyAttributes)
         {
             if (PolicyAttributes == null) { throw new System.ArgumentNullException("PolicyAttributes cannot be null"); }
             
@@ -154,7 +137,7 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(PolicyAttributes, defaultSerializationSettings));
             request.Resource = GlobalInfraPatchCustomAttributeListServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + GlobalInfraPatchCustomAttributeListServiceURL.ToString() + " did not complete successfull";
@@ -166,7 +149,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyContextProfileListResultType ListProfileSupportedAttributes(string? AttributeKey = null, string? AttributeSource = null, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTPolicyContextProfileListResultType> ListProfileSupportedAttributes(string? AttributeKey = null, string? AttributeSource = null, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTPolicyContextProfileListResultType returnValue = default(NSXTPolicyContextProfileListResultType);
             StringBuilder ListProfileSupportedAttributesServiceURL = new StringBuilder("/infra/context-profiles/attributes");
@@ -185,31 +168,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListProfileSupportedAttributesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyContextProfileListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyContextProfileListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListProfileSupportedAttributesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyContextProfileListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyContextProfileListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void AddRemoveCustomAttribute(NSXTPolicyCustomAttributesType PolicyCustomAttributes, string Action)
+        public async Task AddRemoveCustomAttribute(NSXTPolicyCustomAttributesType PolicyCustomAttributes, string Action)
         {
             if (PolicyCustomAttributes == null) { throw new System.ArgumentNullException("PolicyCustomAttributes cannot be null"); }
             if (Action == null) { throw new System.ArgumentNullException("Action cannot be null"); }
@@ -224,7 +195,7 @@ namespace nsxtapi.PolicyModules
             request.AddJsonBody(JsonConvert.SerializeObject(PolicyCustomAttributes, defaultSerializationSettings));
             if (Action != null) { request.AddQueryParameter("action", Action.ToString()); }
             request.Resource = AddRemoveCustomAttributeServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + AddRemoveCustomAttributeServiceURL.ToString() + " did not complete successfull";
@@ -236,7 +207,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchCustomAttribute(NSXTPolicyCustomAttributesType PolicyCustomAttributes)
+        public async Task PatchCustomAttribute(NSXTPolicyCustomAttributesType PolicyCustomAttributes)
         {
             if (PolicyCustomAttributes == null) { throw new System.ArgumentNullException("PolicyCustomAttributes cannot be null"); }
             
@@ -249,7 +220,7 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(PolicyCustomAttributes, defaultSerializationSettings));
             request.Resource = PatchCustomAttributeServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchCustomAttributeServiceURL.ToString() + " did not complete successfull";
@@ -261,7 +232,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyContextProfileListResultType GetCustomAttribute(string? AttributeKey = null, string? AttributeSource = null, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTPolicyContextProfileListResultType> GetCustomAttribute(string? AttributeKey = null, string? AttributeSource = null, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTPolicyContextProfileListResultType returnValue = default(NSXTPolicyContextProfileListResultType);
             StringBuilder GetCustomAttributeServiceURL = new StringBuilder("/infra/context-profiles/custom-attributes/default");
@@ -280,31 +251,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GetCustomAttributeServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyContextProfileListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyContextProfileListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetCustomAttributeServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyContextProfileListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyContextProfileListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyContextProfileType GlobalGlobalInfraPutCreateOrUpdatePolicyContextProfile(string ContextProfileId, NSXTPolicyContextProfileType PolicyContextProfile, bool? Override = null)
+        public async Task<NSXTPolicyContextProfileType> GlobalGlobalInfraPutCreateOrUpdatePolicyContextProfile(string ContextProfileId, NSXTPolicyContextProfileType PolicyContextProfile, bool? Override = null)
         {
             if (ContextProfileId == null) { throw new System.ArgumentNullException("ContextProfileId cannot be null"); }
             if (PolicyContextProfile == null) { throw new System.ArgumentNullException("PolicyContextProfile cannot be null"); }
@@ -320,31 +279,19 @@ namespace nsxtapi.PolicyModules
             request.AddJsonBody(JsonConvert.SerializeObject(PolicyContextProfile, defaultSerializationSettings));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = GlobalInfraPutCreateOrUpdatePolicyContextProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyContextProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyContextProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + GlobalInfraPutCreateOrUpdatePolicyContextProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyContextProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyContextProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GlobalGlobalInfraDeletePolicyContextProfile(string ContextProfileId, bool? Force = null, bool? Override = null)
+        public async Task GlobalGlobalInfraDeletePolicyContextProfile(string ContextProfileId, bool? Force = null, bool? Override = null)
         {
             if (ContextProfileId == null) { throw new System.ArgumentNullException("ContextProfileId cannot be null"); }
             
@@ -359,7 +306,7 @@ namespace nsxtapi.PolicyModules
             if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = GlobalInfraDeletePolicyContextProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + GlobalInfraDeletePolicyContextProfileServiceURL.ToString() + " did not complete successfull";
@@ -371,7 +318,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GlobalGlobalInfraPatchCreateOrUpdatePolicyContextProfile(string ContextProfileId, NSXTPolicyContextProfileType PolicyContextProfile, bool? Override = null)
+        public async Task GlobalGlobalInfraPatchCreateOrUpdatePolicyContextProfile(string ContextProfileId, NSXTPolicyContextProfileType PolicyContextProfile, bool? Override = null)
         {
             if (ContextProfileId == null) { throw new System.ArgumentNullException("ContextProfileId cannot be null"); }
             if (PolicyContextProfile == null) { throw new System.ArgumentNullException("PolicyContextProfile cannot be null"); }
@@ -387,7 +334,7 @@ namespace nsxtapi.PolicyModules
             request.AddJsonBody(JsonConvert.SerializeObject(PolicyContextProfile, defaultSerializationSettings));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = GlobalInfraPatchCreateOrUpdatePolicyContextProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + GlobalInfraPatchCreateOrUpdatePolicyContextProfileServiceURL.ToString() + " did not complete successfull";
@@ -399,7 +346,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyContextProfileType GlobalGlobalInfraGetPolicyContextProfile(string ContextProfileId)
+        public async Task<NSXTPolicyContextProfileType> GlobalGlobalInfraGetPolicyContextProfile(string ContextProfileId)
         {
             if (ContextProfileId == null) { throw new System.ArgumentNullException("ContextProfileId cannot be null"); }
             NSXTPolicyContextProfileType returnValue = default(NSXTPolicyContextProfileType);
@@ -412,31 +359,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             GlobalInfraGetPolicyContextProfileServiceURL.Replace("{context-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ContextProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GlobalInfraGetPolicyContextProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyContextProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyContextProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraGetPolicyContextProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyContextProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyContextProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyContextProfileListResultType ListPolicyContextProfiles(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTPolicyContextProfileListResultType> ListPolicyContextProfiles(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTPolicyContextProfileListResultType returnValue = default(NSXTPolicyContextProfileListResultType);
             StringBuilder ListPolicyContextProfilesServiceURL = new StringBuilder("/infra/context-profiles");
@@ -453,31 +388,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListPolicyContextProfilesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyContextProfileListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyContextProfileListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListPolicyContextProfilesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyContextProfileListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyContextProfileListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyContextProfileType PutCreateOrUpdatePolicyContextProfile(string ContextProfileId, NSXTPolicyContextProfileType PolicyContextProfile, bool? Override = null)
+        public async Task<NSXTPolicyContextProfileType> PutCreateOrUpdatePolicyContextProfile(string ContextProfileId, NSXTPolicyContextProfileType PolicyContextProfile, bool? Override = null)
         {
             if (ContextProfileId == null) { throw new System.ArgumentNullException("ContextProfileId cannot be null"); }
             if (PolicyContextProfile == null) { throw new System.ArgumentNullException("PolicyContextProfile cannot be null"); }
@@ -493,31 +416,19 @@ namespace nsxtapi.PolicyModules
             request.AddJsonBody(JsonConvert.SerializeObject(PolicyContextProfile, defaultSerializationSettings));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = PutCreateOrUpdatePolicyContextProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyContextProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyContextProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + PutCreateOrUpdatePolicyContextProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyContextProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyContextProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeletePolicyContextProfile(string ContextProfileId, bool? Force = null, bool? Override = null)
+        public async Task DeletePolicyContextProfile(string ContextProfileId, bool? Force = null, bool? Override = null)
         {
             if (ContextProfileId == null) { throw new System.ArgumentNullException("ContextProfileId cannot be null"); }
             
@@ -532,7 +443,7 @@ namespace nsxtapi.PolicyModules
             if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = DeletePolicyContextProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeletePolicyContextProfileServiceURL.ToString() + " did not complete successfull";
@@ -544,7 +455,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchCreateOrUpdatePolicyContextProfile(string ContextProfileId, NSXTPolicyContextProfileType PolicyContextProfile, bool? Override = null)
+        public async Task PatchCreateOrUpdatePolicyContextProfile(string ContextProfileId, NSXTPolicyContextProfileType PolicyContextProfile, bool? Override = null)
         {
             if (ContextProfileId == null) { throw new System.ArgumentNullException("ContextProfileId cannot be null"); }
             if (PolicyContextProfile == null) { throw new System.ArgumentNullException("PolicyContextProfile cannot be null"); }
@@ -560,7 +471,7 @@ namespace nsxtapi.PolicyModules
             request.AddJsonBody(JsonConvert.SerializeObject(PolicyContextProfile, defaultSerializationSettings));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = PatchCreateOrUpdatePolicyContextProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchCreateOrUpdatePolicyContextProfileServiceURL.ToString() + " did not complete successfull";
@@ -572,7 +483,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyContextProfileType GetPolicyContextProfile(string ContextProfileId)
+        public async Task<NSXTPolicyContextProfileType> GetPolicyContextProfile(string ContextProfileId)
         {
             if (ContextProfileId == null) { throw new System.ArgumentNullException("ContextProfileId cannot be null"); }
             NSXTPolicyContextProfileType returnValue = default(NSXTPolicyContextProfileType);
@@ -585,31 +496,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             GetPolicyContextProfileServiceURL.Replace("{context-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ContextProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetPolicyContextProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyContextProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyContextProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetPolicyContextProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyContextProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyContextProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GlobalGlobalInfraAddRemoveCustomAttribute(NSXTPolicyCustomAttributesType PolicyCustomAttributes, string Action)
+        public async Task GlobalGlobalInfraAddRemoveCustomAttribute(NSXTPolicyCustomAttributesType PolicyCustomAttributes, string Action)
         {
             if (PolicyCustomAttributes == null) { throw new System.ArgumentNullException("PolicyCustomAttributes cannot be null"); }
             if (Action == null) { throw new System.ArgumentNullException("Action cannot be null"); }
@@ -624,7 +523,7 @@ namespace nsxtapi.PolicyModules
             request.AddJsonBody(JsonConvert.SerializeObject(PolicyCustomAttributes, defaultSerializationSettings));
             if (Action != null) { request.AddQueryParameter("action", Action.ToString()); }
             request.Resource = GlobalInfraAddRemoveCustomAttributeServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + GlobalInfraAddRemoveCustomAttributeServiceURL.ToString() + " did not complete successfull";
@@ -636,7 +535,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GlobalGlobalInfraPatchCustomAttribute(NSXTPolicyCustomAttributesType PolicyCustomAttributes)
+        public async Task GlobalGlobalInfraPatchCustomAttribute(NSXTPolicyCustomAttributesType PolicyCustomAttributes)
         {
             if (PolicyCustomAttributes == null) { throw new System.ArgumentNullException("PolicyCustomAttributes cannot be null"); }
             
@@ -649,7 +548,7 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(PolicyCustomAttributes, defaultSerializationSettings));
             request.Resource = GlobalInfraPatchCustomAttributeServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + GlobalInfraPatchCustomAttributeServiceURL.ToString() + " did not complete successfull";
@@ -661,7 +560,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyContextProfileListResultType GlobalGlobalInfraGetCustomAttribute(string? AttributeKey = null, string? AttributeSource = null, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTPolicyContextProfileListResultType> GlobalGlobalInfraGetCustomAttribute(string? AttributeKey = null, string? AttributeSource = null, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTPolicyContextProfileListResultType returnValue = default(NSXTPolicyContextProfileListResultType);
             StringBuilder GlobalInfraGetCustomAttributeServiceURL = new StringBuilder("/global-infra/context-profiles/custom-attributes/default");
@@ -680,31 +579,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GlobalInfraGetCustomAttributeServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyContextProfileListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyContextProfileListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraGetCustomAttributeServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyContextProfileListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyContextProfileListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void AddRemoveCustomAttributeValues(NSXTPolicyAttributesType PolicyAttributes, string Action)
+        public async Task AddRemoveCustomAttributeValues(NSXTPolicyAttributesType PolicyAttributes, string Action)
         {
             if (PolicyAttributes == null) { throw new System.ArgumentNullException("PolicyAttributes cannot be null"); }
             if (Action == null) { throw new System.ArgumentNullException("Action cannot be null"); }
@@ -719,7 +606,7 @@ namespace nsxtapi.PolicyModules
             request.AddJsonBody(JsonConvert.SerializeObject(PolicyAttributes, defaultSerializationSettings));
             if (Action != null) { request.AddQueryParameter("action", Action.ToString()); }
             request.Resource = AddRemoveCustomAttributeValuesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + AddRemoveCustomAttributeValuesServiceURL.ToString() + " did not complete successfull";
@@ -731,7 +618,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchCustomAttributeList(NSXTPolicyAttributesType PolicyAttributes)
+        public async Task PatchCustomAttributeList(NSXTPolicyAttributesType PolicyAttributes)
         {
             if (PolicyAttributes == null) { throw new System.ArgumentNullException("PolicyAttributes cannot be null"); }
             
@@ -744,7 +631,7 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(PolicyAttributes, defaultSerializationSettings));
             request.Resource = PatchCustomAttributeListServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchCustomAttributeListServiceURL.ToString() + " did not complete successfull";

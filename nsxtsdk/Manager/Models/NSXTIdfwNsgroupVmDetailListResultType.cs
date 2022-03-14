@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,21 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIdfwNsgroupVmDetailListResultType : NSXTListResultType
     {
-        public NSXTIdfwNsgroupVmDetailListResultType()
-        {
-        }
         /// <summary>
         /// NSGroup ID
         /// </summary>
-        [JsonProperty(PropertyName = "ns_group_id")]
-        [NSXTProperty(IsRequired: false, Description: @"NSGroup ID")]
         public string? NsGroupId { get; set; }
         /// <summary>
         /// List of user login/session data for a single VM
         /// </summary>
         [JsonProperty(PropertyName = "results", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"List of user login/session data for a single VM")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTIdfwVmDetailType> Results { get; set; }
     }
 }

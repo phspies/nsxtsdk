@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,65 +17,44 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTPacketCaptureSessionType : NSXTManagedResourceType
     {
-        public NSXTPacketCaptureSessionType()
-        {
-        }
         /// <summary>
         /// Packet capture session id.
         /// </summary>
         [JsonProperty(PropertyName = "sessionid", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Packet capture session id.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Sessionid { get; set; }
         /// <summary>
         /// Packet capture file location.
         /// </summary>
-        [JsonProperty(PropertyName = "filelocation")]
-        [NSXTProperty(IsRequired: false, Description: @"Packet capture file location.")]
         public string? Filelocation { get; set; }
         /// <summary>
         /// Packet capture file Size in bytes.
         /// </summary>
-        [JsonProperty(PropertyName = "filesize")]
-        [NSXTProperty(IsRequired: false, Description: @"Packet capture file Size in bytes.")]
         public int? Filesize { get; set; }
         /// <summary>
         /// Packet capture session name.
         /// </summary>
-        [JsonProperty(PropertyName = "sessionname")]
-        [NSXTProperty(IsRequired: false, Description: @"Packet capture session name.")]
         public string? Sessionname { get; set; }
         /// <summary>
         /// Error messasge in capture.
         /// </summary>
-        [JsonProperty(PropertyName = "errormsg")]
-        [NSXTProperty(IsRequired: false, Description: @"Error messasge in capture.")]
         public string? Errormsg { get; set; }
         /// <summary>
         /// Timestamp when session was stopped in epoch millisecond.
         /// </summary>
-        [JsonProperty(PropertyName = "endtime")]
-        [NSXTProperty(IsRequired: false, Description: @"Timestamp when session was stopped in epoch millisecond.")]
         public long? Endtime { get; set; }
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty(PropertyName = "request", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTPacketCaptureRequestType Request { get; set; }
         /// <summary>
         /// Timestamp when session was created in epoch millisecond.
         /// </summary>
-        [JsonProperty(PropertyName = "starttime")]
-        [NSXTProperty(IsRequired: false, Description: @"Timestamp when session was created in epoch millisecond.")]
         public long? Starttime { get; set; }
         /// <summary>
         /// Packet capture session status.
         /// </summary>
         [JsonProperty(PropertyName = "sessionstatus", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Packet capture session status.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTPacketCaptureSessionSessionstatusEnumType Sessionstatus { get; set; }
     }
 }

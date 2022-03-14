@@ -21,16 +21,23 @@ namespace nsxtapi.PolicyModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public PolicyFirewallSessionTimerProfileBinding(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public PolicyFirewallSessionTimerProfileBinding(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyFirewallSessionTimerProfileBindingMapListResultType GlobalGlobalInfraListPolicyFirewallSessionTimerBindings(string DomainId, string GroupId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTPolicyFirewallSessionTimerProfileBindingMapListResultType> GlobalGlobalInfraListPolicyFirewallSessionTimerBindings(string DomainId, string GroupId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (GroupId == null) { throw new System.ArgumentNullException("GroupId cannot be null"); }
@@ -51,31 +58,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GlobalInfraListPolicyFirewallSessionTimerBindingsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyFirewallSessionTimerProfileBindingMapListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyFirewallSessionTimerProfileBindingMapListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraListPolicyFirewallSessionTimerBindingsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyFirewallSessionTimerProfileBindingMapListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyFirewallSessionTimerProfileBindingMapListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyFirewallSessionTimerProfileBindingMapListResultType ListPolicyFirewallSessionTimerBindings(string DomainId, string GroupId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTPolicyFirewallSessionTimerProfileBindingMapListResultType> ListPolicyFirewallSessionTimerBindings(string DomainId, string GroupId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (GroupId == null) { throw new System.ArgumentNullException("GroupId cannot be null"); }
@@ -96,31 +91,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListPolicyFirewallSessionTimerBindingsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyFirewallSessionTimerProfileBindingMapListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyFirewallSessionTimerProfileBindingMapListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListPolicyFirewallSessionTimerBindingsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyFirewallSessionTimerProfileBindingMapListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyFirewallSessionTimerProfileBindingMapListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyFirewallSessionTimerProfileBindingMapListResultType ListFirewallSessionTimerBindingsAcrossDomains(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTPolicyFirewallSessionTimerProfileBindingMapListResultType> ListFirewallSessionTimerBindingsAcrossDomains(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTPolicyFirewallSessionTimerProfileBindingMapListResultType returnValue = default(NSXTPolicyFirewallSessionTimerProfileBindingMapListResultType);
             StringBuilder ListFirewallSessionTimerBindingsAcrossDomainsServiceURL = new StringBuilder("/infra/domains/firewall-session-timer-profile-binding-maps");
@@ -137,31 +120,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListFirewallSessionTimerBindingsAcrossDomainsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyFirewallSessionTimerProfileBindingMapListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyFirewallSessionTimerProfileBindingMapListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListFirewallSessionTimerBindingsAcrossDomainsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyFirewallSessionTimerProfileBindingMapListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyFirewallSessionTimerProfileBindingMapListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyFirewallSessionTimerProfileBindingMapType GlobalGlobalInfraGetPolicyFirewallSessionTimerBinding(string DomainId, string GroupId, string FirewallSessionTimerProfileBindingMapId)
+        public async Task<NSXTPolicyFirewallSessionTimerProfileBindingMapType> GlobalGlobalInfraGetPolicyFirewallSessionTimerBinding(string DomainId, string GroupId, string FirewallSessionTimerProfileBindingMapId)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (GroupId == null) { throw new System.ArgumentNullException("GroupId cannot be null"); }
@@ -178,31 +149,19 @@ namespace nsxtapi.PolicyModules
             GlobalInfraGetPolicyFirewallSessionTimerBindingServiceURL.Replace("{group-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GroupId, System.Globalization.CultureInfo.InvariantCulture)));
             GlobalInfraGetPolicyFirewallSessionTimerBindingServiceURL.Replace("{firewall-session-timer-profile-binding-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FirewallSessionTimerProfileBindingMapId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GlobalInfraGetPolicyFirewallSessionTimerBindingServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyFirewallSessionTimerProfileBindingMapType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyFirewallSessionTimerProfileBindingMapType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraGetPolicyFirewallSessionTimerBindingServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyFirewallSessionTimerProfileBindingMapType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyFirewallSessionTimerProfileBindingMapType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyFirewallSessionTimerProfileBindingMapType UpdatePolicyFirewallSessionTimerBinding(string DomainId, string GroupId, string FirewallSessionTimerProfileBindingMapId, NSXTPolicyFirewallSessionTimerProfileBindingMapType PolicyFirewallSessionTimerProfileBindingMap)
+        public async Task<NSXTPolicyFirewallSessionTimerProfileBindingMapType> UpdatePolicyFirewallSessionTimerBinding(string DomainId, string GroupId, string FirewallSessionTimerProfileBindingMapId, NSXTPolicyFirewallSessionTimerProfileBindingMapType PolicyFirewallSessionTimerProfileBindingMap)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (GroupId == null) { throw new System.ArgumentNullException("GroupId cannot be null"); }
@@ -221,31 +180,19 @@ namespace nsxtapi.PolicyModules
             UpdatePolicyFirewallSessionTimerBindingServiceURL.Replace("{firewall-session-timer-profile-binding-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FirewallSessionTimerProfileBindingMapId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(PolicyFirewallSessionTimerProfileBindingMap, defaultSerializationSettings));
             request.Resource = UpdatePolicyFirewallSessionTimerBindingServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyFirewallSessionTimerProfileBindingMapType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyFirewallSessionTimerProfileBindingMapType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdatePolicyFirewallSessionTimerBindingServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyFirewallSessionTimerProfileBindingMapType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyFirewallSessionTimerProfileBindingMapType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeletePolicyFirewallSessionTimerBinding(string DomainId, string GroupId, string FirewallSessionTimerProfileBindingMapId)
+        public async Task DeletePolicyFirewallSessionTimerBinding(string DomainId, string GroupId, string FirewallSessionTimerProfileBindingMapId)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (GroupId == null) { throw new System.ArgumentNullException("GroupId cannot be null"); }
@@ -262,7 +209,7 @@ namespace nsxtapi.PolicyModules
             DeletePolicyFirewallSessionTimerBindingServiceURL.Replace("{group-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GroupId, System.Globalization.CultureInfo.InvariantCulture)));
             DeletePolicyFirewallSessionTimerBindingServiceURL.Replace("{firewall-session-timer-profile-binding-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FirewallSessionTimerProfileBindingMapId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeletePolicyFirewallSessionTimerBindingServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeletePolicyFirewallSessionTimerBindingServiceURL.ToString() + " did not complete successfull";
@@ -274,7 +221,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchPolicyFirewallSessionTimerProfileBindingMap(string DomainId, string GroupId, string FirewallSessionTimerProfileBindingMapId, NSXTPolicyFirewallSessionTimerProfileBindingMapType PolicyFirewallSessionTimerProfileBindingMap)
+        public async Task PatchPolicyFirewallSessionTimerProfileBindingMap(string DomainId, string GroupId, string FirewallSessionTimerProfileBindingMapId, NSXTPolicyFirewallSessionTimerProfileBindingMapType PolicyFirewallSessionTimerProfileBindingMap)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (GroupId == null) { throw new System.ArgumentNullException("GroupId cannot be null"); }
@@ -293,7 +240,7 @@ namespace nsxtapi.PolicyModules
             PatchPolicyFirewallSessionTimerProfileBindingMapServiceURL.Replace("{firewall-session-timer-profile-binding-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FirewallSessionTimerProfileBindingMapId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(PolicyFirewallSessionTimerProfileBindingMap, defaultSerializationSettings));
             request.Resource = PatchPolicyFirewallSessionTimerProfileBindingMapServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchPolicyFirewallSessionTimerProfileBindingMapServiceURL.ToString() + " did not complete successfull";
@@ -305,7 +252,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyFirewallSessionTimerProfileBindingMapType GetPolicyFirewallSessionTimerBinding(string DomainId, string GroupId, string FirewallSessionTimerProfileBindingMapId)
+        public async Task<NSXTPolicyFirewallSessionTimerProfileBindingMapType> GetPolicyFirewallSessionTimerBinding(string DomainId, string GroupId, string FirewallSessionTimerProfileBindingMapId)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (GroupId == null) { throw new System.ArgumentNullException("GroupId cannot be null"); }
@@ -322,31 +269,19 @@ namespace nsxtapi.PolicyModules
             GetPolicyFirewallSessionTimerBindingServiceURL.Replace("{group-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GroupId, System.Globalization.CultureInfo.InvariantCulture)));
             GetPolicyFirewallSessionTimerBindingServiceURL.Replace("{firewall-session-timer-profile-binding-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FirewallSessionTimerProfileBindingMapId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetPolicyFirewallSessionTimerBindingServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyFirewallSessionTimerProfileBindingMapType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyFirewallSessionTimerProfileBindingMapType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetPolicyFirewallSessionTimerBindingServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyFirewallSessionTimerProfileBindingMapType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyFirewallSessionTimerProfileBindingMapType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyFirewallSessionTimerProfileBindingMapListResultType GlobalGlobalInfraListFirewallSessionTimerBindingsAcrossDomains(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTPolicyFirewallSessionTimerProfileBindingMapListResultType> GlobalGlobalInfraListFirewallSessionTimerBindingsAcrossDomains(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTPolicyFirewallSessionTimerProfileBindingMapListResultType returnValue = default(NSXTPolicyFirewallSessionTimerProfileBindingMapListResultType);
             StringBuilder GlobalInfraListFirewallSessionTimerBindingsAcrossDomainsServiceURL = new StringBuilder("/global-infra/domains/firewall-session-timer-profile-binding-maps");
@@ -363,25 +298,13 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GlobalInfraListFirewallSessionTimerBindingsAcrossDomainsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyFirewallSessionTimerProfileBindingMapListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyFirewallSessionTimerProfileBindingMapListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraListFirewallSessionTimerBindingsAcrossDomainsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyFirewallSessionTimerProfileBindingMapListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyFirewallSessionTimerProfileBindingMapListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,32 +17,17 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTEgressRateShaperType : NSXTQosBaseRateShaperType
     {
-        public NSXTEgressRateShaperType()
-        {
-            AverageBandwidthMbps = test
-            PeakBandwidthMbps = test
-            BurstSizeBytes = test
-        }
         /// <summary>
         /// Average bandwidth in Mb/s
         /// </summary>
-        [JsonProperty(PropertyName = "average_bandwidth_mbps")]
-        [NSXTProperty(IsRequired: false, Description: @"Average bandwidth in Mb/s")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
         public int? AverageBandwidthMbps { get; set; }
         /// <summary>
         /// Peak bandwidth in Mb/s
         /// </summary>
-        [JsonProperty(PropertyName = "peak_bandwidth_mbps")]
-        [NSXTProperty(IsRequired: false, Description: @"Peak bandwidth in Mb/s")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
         public int? PeakBandwidthMbps { get; set; }
         /// <summary>
         /// Burst size in bytes
         /// </summary>
-        [JsonProperty(PropertyName = "burst_size_bytes")]
-        [NSXTProperty(IsRequired: false, Description: @"Burst size in bytes")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
         public int? BurstSizeBytes { get; set; }
     }
 }

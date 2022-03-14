@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,20 +17,13 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTPhysicalServerType : NSXTManagedResourceType
     {
-        public NSXTPhysicalServerType()
-        {
-        }
         /// <summary>
         /// OS type of the physical server.
         /// </summary>
-        [JsonProperty(PropertyName = "os_type")]
-        [NSXTProperty(IsRequired: false, Description: @"OS type of the physical server.")]
         public NSXTPhysicalServerOsTypeEnumType? OsType { get; set; }
         /// <summary>
         /// IP addresses of the physical server specified by the admin while registering as Transport node in nsx.
         /// </summary>
-        [JsonProperty(PropertyName = "ip_addresses")]
-        [NSXTProperty(IsRequired: false, Description: @"IP addresses of the physical server specified by the admin while registering as Transport node in nsx.")]
         public IList<string> IpAddresses { get; set; }
     }
 }

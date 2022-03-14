@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,53 +17,36 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTContainerApplicationType : NSXTDiscoveredResourceType
     {
-        public NSXTContainerApplicationType()
-        {
-        }
         /// <summary>
         /// Status of the container application.
         /// </summary>
-        [JsonProperty(PropertyName = "status")]
-        [NSXTProperty(IsRequired: false, Description: @"Status of the container application.")]
         public NSXTContainerApplicationStatusEnumType? Status { get; set; }
         /// <summary>
         /// Network status of container application.
         /// </summary>
-        [JsonProperty(PropertyName = "network_status")]
-        [NSXTProperty(IsRequired: false, Description: @"Network status of container application.")]
         public NSXTContainerApplicationNetworkStatusEnumType? NetworkStatus { get; set; }
         /// <summary>
         /// Identifier of the container cluster this container application belongs to.
         /// </summary>
-        [JsonProperty(PropertyName = "container_cluster_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Identifier of the container cluster this container application belongs to.")]
         public string? ContainerClusterId { get; set; }
         /// <summary>
         /// Array of additional specific properties of container application
         /// in key-value format.
         /// </summary>
-        [JsonProperty(PropertyName = "origin_properties")]
-        [NSXTProperty(IsRequired: false, Description: @"Array of additional specific properties of container applicationin key-value format.")]
         public IList<NSXTKeyValuePairType> OriginProperties { get; set; }
         /// <summary>
         /// Identifier of the container application on container cluster
         /// e.g. PCF app id, k8s service id.
         /// </summary>
         [JsonProperty(PropertyName = "external_id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Identifier of the container application on container clustere.g. PCF app id, k8s service id.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string ExternalId { get; set; }
         /// <summary>
         /// Identifier of the project which this container application belongs to.
         /// </summary>
-        [JsonProperty(PropertyName = "container_project_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Identifier of the project which this container application belongs to.")]
         public string? ContainerProjectId { get; set; }
         /// <summary>
         /// List of network errors related to container application.
         /// </summary>
-        [JsonProperty(PropertyName = "network_errors")]
-        [NSXTProperty(IsRequired: false, Description: @"List of network errors related to container application.")]
         public IList<NSXTNetworkErrorType> NetworkErrors { get; set; }
     }
 }

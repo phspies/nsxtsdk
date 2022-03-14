@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTGeneralSecuritySettingsProfileType : NSXTBaseFirewallProfileType
     {
-        public NSXTGeneralSecuritySettingsProfileType()
-        {
-        }
         /// <summary>
         /// The flag to indicate double flow check is enabled or not. This option applies only to EDGE components.
         /// </summary>
-        [JsonProperty(PropertyName = "enable_double_flow")]
-        [NSXTProperty(IsRequired: false, Description: @"The flag to indicate double flow check is enabled or not. This option applies only to EDGE components.")]
         public bool? EnableDoubleFlow { get; set; }
     }
 }

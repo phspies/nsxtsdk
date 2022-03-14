@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public AggSvcL2Forwarder(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public AggSvcL2Forwarder(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTL2ForwarderStatisticsType GetL2ForwarderStatistics(string LogicalSwitchId)
+        public async Task<NSXTL2ForwarderStatisticsType> GetL2ForwarderStatistics(string LogicalSwitchId)
         {
             if (LogicalSwitchId == null) { throw new System.ArgumentNullException("LogicalSwitchId cannot be null"); }
             NSXTL2ForwarderStatisticsType returnValue = default(NSXTL2ForwarderStatisticsType);
@@ -43,31 +50,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             GetL2ForwarderStatisticsServiceURL.Replace("{logical-switch-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LogicalSwitchId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetL2ForwarderStatisticsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTL2ForwarderStatisticsType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTL2ForwarderStatisticsType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetL2ForwarderStatisticsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTL2ForwarderStatisticsType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTL2ForwarderStatisticsType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTL2ForwarderRemoteMacsType GetL2ForwarderRemoteMacs(string LogicalSwitchId)
+        public async Task<NSXTL2ForwarderRemoteMacsType> GetL2ForwarderRemoteMacs(string LogicalSwitchId)
         {
             if (LogicalSwitchId == null) { throw new System.ArgumentNullException("LogicalSwitchId cannot be null"); }
             NSXTL2ForwarderRemoteMacsType returnValue = default(NSXTL2ForwarderRemoteMacsType);
@@ -80,31 +75,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             GetL2ForwarderRemoteMacsServiceURL.Replace("{logical-switch-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LogicalSwitchId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetL2ForwarderRemoteMacsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTL2ForwarderRemoteMacsType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTL2ForwarderRemoteMacsType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetL2ForwarderRemoteMacsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTL2ForwarderRemoteMacsType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTL2ForwarderRemoteMacsType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTL2ForwarderStatusType GetL2ForwarderStatus(string LogicalSwitchId, string? Source = null)
+        public async Task<NSXTL2ForwarderStatusType> GetL2ForwarderStatus(string LogicalSwitchId, string? Source = null)
         {
             if (LogicalSwitchId == null) { throw new System.ArgumentNullException("LogicalSwitchId cannot be null"); }
             NSXTL2ForwarderStatusType returnValue = default(NSXTL2ForwarderStatusType);
@@ -118,25 +101,13 @@ namespace nsxtapi.ManagerModules
             GetL2ForwarderStatusServiceURL.Replace("{logical-switch-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LogicalSwitchId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             request.Resource = GetL2ForwarderStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTL2ForwarderStatusType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTL2ForwarderStatusType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetL2ForwarderStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTL2ForwarderStatusType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTL2ForwarderStatusType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

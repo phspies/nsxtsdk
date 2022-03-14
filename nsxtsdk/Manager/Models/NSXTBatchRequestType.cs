@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,21 +17,13 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"A set of operations to be performed in a single batch")]
     public class NSXTBatchRequestType 
     {
-        public NSXTBatchRequestType()
-        {
-            ContinueOnError = test
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "requests")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public IList<NSXTBatchRequestItemType> Requests { get; set; }
         /// <summary>
         /// Continue even if an error is encountered.
         /// </summary>
-        [JsonProperty(PropertyName = "continue_on_error")]
-        [NSXTProperty(IsRequired: false, Description: @"Continue even if an error is encountered.")]
         public bool? ContinueOnError { get; set; }
     }
 }

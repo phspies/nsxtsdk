@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,27 +17,18 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Details of the member belonging to a Group")]
     public class NSXTClusterMemberDetailsType 
     {
-        public NSXTClusterMemberDetailsType()
-        {
-        }
         /// <summary>
         /// The Antrea cluster name of the pod
         /// </summary>
-        [JsonProperty(PropertyName = "cluster_name")]
-        [NSXTProperty(IsRequired: false, Description: @"The Antrea cluster name of the pod")]
         public string? ClusterName { get; set; }
         /// <summary>
         /// The Antrea cluster id of the pod
         /// </summary>
-        [JsonProperty(PropertyName = "cluster_id")]
-        [NSXTProperty(IsRequired: false, Description: @"The Antrea cluster id of the pod")]
         public string? ClusterId { get; set; }
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty(PropertyName = "namespaces", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTNamespaceMemberDetailsType> Namespaces { get; set; }
     }
 }

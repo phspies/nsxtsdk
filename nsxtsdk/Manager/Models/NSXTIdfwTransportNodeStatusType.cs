@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -18,23 +18,16 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"ID and status of the Identity Firewall enabled Compute collection&apos;stransport node.")]
     public class NSXTIdfwTransportNodeStatusType 
     {
-        public NSXTIdfwTransportNodeStatusType()
-        {
-        }
         /// <summary>
         /// Status of the IDFW transport node.
         /// </summary>
         [JsonProperty(PropertyName = "transport_node_status", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Status of the IDFW transport node.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTIdfwTransportNodeConditionType> TransportNodeStatus { get; set; }
         /// <summary>
         /// TransportNode ID of the Identity Firewall enabled Compute
         /// collection's transport node.
         /// </summary>
         [JsonProperty(PropertyName = "transport_node_id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"TransportNode ID of the Identity Firewall enabled Computecollection&apos;s transport node.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string TransportNodeId { get; set; }
     }
 }

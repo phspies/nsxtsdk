@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,30 +17,20 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"This object contains SNMP v2c community identifier, shared secret and access properties.")]
     public class NSXTSnmpv2cCommunityType 
     {
-        public NSXTSnmpv2cCommunityType()
-        {
-            Access = test
-        }
         /// <summary>
         /// Access permissions for polling NSX nodes over SNMP v2c.
         /// </summary>
-        [JsonProperty(PropertyName = "access")]
-        [NSXTProperty(IsRequired: false, Description: @"Access permissions for polling NSX nodes over SNMP v2c.")]
         public NSXTSnmpv2cCommunityAccessEnumType? Access { get; set; }
         /// <summary>
         /// Unique, non-sensitive community name to identify community.
         /// </summary>
         [JsonProperty(PropertyName = "community_name", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Unique, non-sensitive community name to identify community.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string CommunityName { get; set; }
         /// <summary>
         /// Community string. This is considered a shared secret and therefore sensitive information. This field is required when
         /// adding a community. When updating a community, do not include this field in the request. If this field is present in an
         /// update request, it will be considered as a new value for community string.
         /// </summary>
-        [JsonProperty(PropertyName = "community_string")]
-        [NSXTProperty(IsRequired: false, Description: @"Community string. This is considered a shared secret and therefore sensitive information. This field is required when adding a community. When updating a community, do not include this field in the request. If this field is present in an update request, it will be considered as a new value for community string.")]
         public string? CommunityString { get; set; }
     }
 }

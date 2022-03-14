@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,24 +17,17 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer L4RuleProtocolMatch object")]
     public class NSXTALBL4RuleProtocolMatchType 
     {
-        public NSXTALBL4RuleProtocolMatchType()
-        {
-        }
         /// <summary>
         /// Transport protocol to match.
         /// Enum options - PROTOCOL_ICMP, PROTOCOL_TCP, PROTOCOL_UDP.
         /// </summary>
         [JsonProperty(PropertyName = "protocol", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Transport protocol to match.Enum options - PROTOCOL_ICMP, PROTOCOL_TCP, PROTOCOL_UDP.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTALBL4RuleProtocolMatchProtocolEnumType Protocol { get; set; }
         /// <summary>
         /// Criterion to use for transport protocol matching.
         /// Enum options - IS_IN, IS_NOT_IN.
         /// </summary>
         [JsonProperty(PropertyName = "match_criteria", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Criterion to use for transport protocol matching.Enum options - IS_IN, IS_NOT_IN.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTALBL4RuleProtocolMatchMatchCriteriaEnumType MatchCriteria { get; set; }
     }
 }

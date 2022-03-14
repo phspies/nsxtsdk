@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public NodeLogs(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public NodeLogs(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNodeLogPropertiesListResultType ListNodeLogs()
+        public async Task<NSXTNodeLogPropertiesListResultType> ListNodeLogs()
         {
             NSXTNodeLogPropertiesListResultType returnValue = default(NSXTNodeLogPropertiesListResultType);
             StringBuilder ListNodeLogsServiceURL = new StringBuilder("/node/logs");
@@ -41,31 +48,19 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = ListNodeLogsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNodeLogPropertiesListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNodeLogPropertiesListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListNodeLogsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNodeLogPropertiesListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNodeLogPropertiesListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNodeLogPropertiesType ReadNodeLog(string LogName)
+        public async Task<NSXTNodeLogPropertiesType> ReadNodeLog(string LogName)
         {
             if (LogName == null) { throw new System.ArgumentNullException("LogName cannot be null"); }
             NSXTNodeLogPropertiesType returnValue = default(NSXTNodeLogPropertiesType);
@@ -78,31 +73,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             ReadNodeLogServiceURL.Replace("{log-name}", System.Uri.EscapeDataString(Helpers.ConvertToString(LogName, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadNodeLogServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNodeLogPropertiesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNodeLogPropertiesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadNodeLogServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNodeLogPropertiesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNodeLogPropertiesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void ReadNodeLogData(string LogName)
+        public async Task ReadNodeLogData(string LogName)
         {
             if (LogName == null) { throw new System.ArgumentNullException("LogName cannot be null"); }
             
@@ -115,7 +98,7 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             ReadNodeLogDataServiceURL.Replace("{log-name}", System.Uri.EscapeDataString(Helpers.ConvertToString(LogName, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadNodeLogDataServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadNodeLogDataServiceURL.ToString() + " did not complete successfull";

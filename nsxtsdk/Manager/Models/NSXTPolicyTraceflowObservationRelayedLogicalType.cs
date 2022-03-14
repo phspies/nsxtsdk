@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyTraceflowObservationRelayedLogicalType : NSXTTraceflowObservationRelayedLogicalType
     {
-        public NSXTPolicyTraceflowObservationRelayedLogicalType()
-        {
-        }
         /// <summary>
         /// This field specifies the logical component that relay service located on.
         /// </summary>
-        [JsonProperty(PropertyName = "logical_component_path")]
-        [NSXTProperty(IsRequired: false, Description: @"This field specifies the logical component that relay service located on.")]
         public string? LogicalComponentPath { get; set; }
     }
 }

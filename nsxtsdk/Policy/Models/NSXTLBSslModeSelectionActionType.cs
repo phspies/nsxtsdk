@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,9 +17,6 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLBSslModeSelectionActionType : NSXTLBRuleActionType
     {
-        public NSXTLBSslModeSelectionActionType()
-        {
-        }
         /// <summary>
         /// SSL Passthrough: LB establishes a TCP connection with client and another
         /// connection with selected backend server. LB won't inspect the stream
@@ -39,8 +36,6 @@ namespace nsxtsdk.PolicyModels
         /// configured.
         /// </summary>
         [JsonProperty(PropertyName = "ssl_mode", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"SSL Passthrough: LB establishes a TCP connection with client and anotherconnection with selected backend server. LB won&apos;t inspect the streamdata between client and backend server, but just pass it through.Backend server exchanges SSL connection with client.SSL Offloading: LB terminiates the connections from client, andestablishes SSL connection with it. After receiving the HTTP request,LB connects the selected backend server and talk with it via HTTPwithout SSL. LB estalishes new connection to selected backend serverfor each HTTP request, in case server_keep_alive or multiplexing areNOT configured.SSL End-to-End: LB terminiates the connections from client, andestablishes SSL connection with it. After receiving the HTTP request,LB connects the selected backend server and talk with it via HTTPS.LB estalishes new SSL connection to selected backend server for eachHTTP request, in case server_keep_alive or multiplexing are NOTconfigured.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTLbsslModeSelectionActionSslModeEnumType SslMode { get; set; }
     }
 }

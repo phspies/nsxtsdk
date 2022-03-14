@@ -21,16 +21,23 @@ namespace nsxtapi.PolicyModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public L7AccessProfile(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public L7AccessProfile(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTL7AccessProfileListResultType ListL7AccessProfiles(string? Cursor = null, bool? IncludeEntryCount = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTL7AccessProfileListResultType> ListL7AccessProfiles(string? Cursor = null, bool? IncludeEntryCount = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTL7AccessProfileListResultType returnValue = default(NSXTL7AccessProfileListResultType);
             StringBuilder ListL7AccessProfilesServiceURL = new StringBuilder("/infra/l7-access-profiles");
@@ -48,31 +55,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListL7AccessProfilesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTL7AccessProfileListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTL7AccessProfileListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListL7AccessProfilesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTL7AccessProfileListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTL7AccessProfileListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTL7AccessProfileType CreateOrUpdateL7AccessProfile(string L7AccessProfileId, NSXTL7AccessProfileType L7AccessProfile, bool? Override = null)
+        public async Task<NSXTL7AccessProfileType> CreateOrUpdateL7AccessProfile(string L7AccessProfileId, NSXTL7AccessProfileType L7AccessProfile, bool? Override = null)
         {
             if (L7AccessProfileId == null) { throw new System.ArgumentNullException("L7AccessProfileId cannot be null"); }
             if (L7AccessProfile == null) { throw new System.ArgumentNullException("L7AccessProfile cannot be null"); }
@@ -88,31 +83,19 @@ namespace nsxtapi.PolicyModules
             request.AddJsonBody(JsonConvert.SerializeObject(L7AccessProfile, defaultSerializationSettings));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = CreateOrUpdateL7AccessProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTL7AccessProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTL7AccessProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateOrUpdateL7AccessProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTL7AccessProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTL7AccessProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteL7AccessProfile(string L7AccessProfileId, bool? Override = null)
+        public async Task DeleteL7AccessProfile(string L7AccessProfileId, bool? Override = null)
         {
             if (L7AccessProfileId == null) { throw new System.ArgumentNullException("L7AccessProfileId cannot be null"); }
             
@@ -126,7 +109,7 @@ namespace nsxtapi.PolicyModules
             DeleteL7AccessProfileServiceURL.Replace("{l7-access-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(L7AccessProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = DeleteL7AccessProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteL7AccessProfileServiceURL.ToString() + " did not complete successfull";
@@ -138,7 +121,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTL7AccessProfileType PatchL7AccessProfile(string L7AccessProfileId, NSXTL7AccessProfileType L7AccessProfile, bool? Override = null)
+        public async Task<NSXTL7AccessProfileType> PatchL7AccessProfile(string L7AccessProfileId, NSXTL7AccessProfileType L7AccessProfile, bool? Override = null)
         {
             if (L7AccessProfileId == null) { throw new System.ArgumentNullException("L7AccessProfileId cannot be null"); }
             if (L7AccessProfile == null) { throw new System.ArgumentNullException("L7AccessProfile cannot be null"); }
@@ -154,31 +137,19 @@ namespace nsxtapi.PolicyModules
             request.AddJsonBody(JsonConvert.SerializeObject(L7AccessProfile, defaultSerializationSettings));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = PatchL7AccessProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTL7AccessProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTL7AccessProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchL7AccessProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTL7AccessProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTL7AccessProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTL7AccessProfileType GetL7AccessProfile(string L7AccessProfileId)
+        public async Task<NSXTL7AccessProfileType> GetL7AccessProfile(string L7AccessProfileId)
         {
             if (L7AccessProfileId == null) { throw new System.ArgumentNullException("L7AccessProfileId cannot be null"); }
             NSXTL7AccessProfileType returnValue = default(NSXTL7AccessProfileType);
@@ -191,31 +162,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             GetL7AccessProfileServiceURL.Replace("{l7-access-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(L7AccessProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetL7AccessProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTL7AccessProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTL7AccessProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetL7AccessProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTL7AccessProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTL7AccessProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTL7AccessEntryListResultType ListL7AccessEntries(string L7AccessProfileId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTL7AccessEntryListResultType> ListL7AccessEntries(string L7AccessProfileId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (L7AccessProfileId == null) { throw new System.ArgumentNullException("L7AccessProfileId cannot be null"); }
             NSXTL7AccessEntryListResultType returnValue = default(NSXTL7AccessEntryListResultType);
@@ -234,31 +193,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListL7AccessEntriesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTL7AccessEntryListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTL7AccessEntryListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListL7AccessEntriesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTL7AccessEntryListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTL7AccessEntryListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyContextProfileListResultType ListL7AccessProfileProfileSupportedAttributes(string? AttributeKey = null, string? AttributeSource = null, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTPolicyContextProfileListResultType> ListL7AccessProfileProfileSupportedAttributes(string? AttributeKey = null, string? AttributeSource = null, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTPolicyContextProfileListResultType returnValue = default(NSXTPolicyContextProfileListResultType);
             StringBuilder ListL7AccessProfileProfileSupportedAttributesServiceURL = new StringBuilder("/infra/l7-access-profiles/attributes");
@@ -277,31 +224,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListL7AccessProfileProfileSupportedAttributesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyContextProfileListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyContextProfileListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListL7AccessProfileProfileSupportedAttributesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyContextProfileListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyContextProfileListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTL7AccessEntryType CreateOrUpdateL7AccessEntry(string L7AccessProfileId, string L7AccessEntryId, NSXTL7AccessEntryType L7AccessEntry)
+        public async Task<NSXTL7AccessEntryType> CreateOrUpdateL7AccessEntry(string L7AccessProfileId, string L7AccessEntryId, NSXTL7AccessEntryType L7AccessEntry)
         {
             if (L7AccessProfileId == null) { throw new System.ArgumentNullException("L7AccessProfileId cannot be null"); }
             if (L7AccessEntryId == null) { throw new System.ArgumentNullException("L7AccessEntryId cannot be null"); }
@@ -318,31 +253,19 @@ namespace nsxtapi.PolicyModules
             CreateOrUpdateL7AccessEntryServiceURL.Replace("{l7-access-entry-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(L7AccessEntryId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(L7AccessEntry, defaultSerializationSettings));
             request.Resource = CreateOrUpdateL7AccessEntryServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTL7AccessEntryType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTL7AccessEntryType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateOrUpdateL7AccessEntryServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTL7AccessEntryType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTL7AccessEntryType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTL7AccessEntryType ReadL7AccessEntry(string L7AccessProfileId, string L7AccessEntryId)
+        public async Task<NSXTL7AccessEntryType> ReadL7AccessEntry(string L7AccessProfileId, string L7AccessEntryId)
         {
             if (L7AccessProfileId == null) { throw new System.ArgumentNullException("L7AccessProfileId cannot be null"); }
             if (L7AccessEntryId == null) { throw new System.ArgumentNullException("L7AccessEntryId cannot be null"); }
@@ -357,31 +280,19 @@ namespace nsxtapi.PolicyModules
             ReadL7AccessEntryServiceURL.Replace("{l7-access-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(L7AccessProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             ReadL7AccessEntryServiceURL.Replace("{l7-access-entry-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(L7AccessEntryId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadL7AccessEntryServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTL7AccessEntryType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTL7AccessEntryType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadL7AccessEntryServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTL7AccessEntryType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTL7AccessEntryType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTL7AccessEntryType PatchL7AccessEntry(string L7AccessProfileId, string L7AccessEntryId, NSXTL7AccessEntryType L7AccessEntry)
+        public async Task<NSXTL7AccessEntryType> PatchL7AccessEntry(string L7AccessProfileId, string L7AccessEntryId, NSXTL7AccessEntryType L7AccessEntry)
         {
             if (L7AccessProfileId == null) { throw new System.ArgumentNullException("L7AccessProfileId cannot be null"); }
             if (L7AccessEntryId == null) { throw new System.ArgumentNullException("L7AccessEntryId cannot be null"); }
@@ -398,31 +309,19 @@ namespace nsxtapi.PolicyModules
             PatchL7AccessEntryServiceURL.Replace("{l7-access-entry-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(L7AccessEntryId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(L7AccessEntry, defaultSerializationSettings));
             request.Resource = PatchL7AccessEntryServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTL7AccessEntryType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTL7AccessEntryType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchL7AccessEntryServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTL7AccessEntryType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTL7AccessEntryType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteL7AccessEntry(string L7AccessProfileId, string L7AccessEntryId, bool? Override = null)
+        public async Task DeleteL7AccessEntry(string L7AccessProfileId, string L7AccessEntryId, bool? Override = null)
         {
             if (L7AccessProfileId == null) { throw new System.ArgumentNullException("L7AccessProfileId cannot be null"); }
             if (L7AccessEntryId == null) { throw new System.ArgumentNullException("L7AccessEntryId cannot be null"); }
@@ -438,7 +337,7 @@ namespace nsxtapi.PolicyModules
             DeleteL7AccessEntryServiceURL.Replace("{l7-access-entry-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(L7AccessEntryId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = DeleteL7AccessEntryServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteL7AccessEntryServiceURL.ToString() + " did not complete successfull";

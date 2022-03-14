@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,44 +17,29 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Required node resources to deploy a form factor")]
     public class NSXTNodeResourcesType 
     {
-        public NSXTNodeResourcesType()
-        {
-        }
         /// <summary>
         /// Required number of worker nodes.
         /// </summary>
-        [JsonProperty(PropertyName = "number_of_worker_nodes")]
-        [NSXTProperty(IsRequired: false, Description: @"Required number of worker nodes.")]
         public long? NumberOfWorkerNodes { get; set; }
         /// <summary>
         /// Memore required to deploy a form factor.
         /// </summary>
-        [JsonProperty(PropertyName = "ram")]
-        [NSXTProperty(IsRequired: false, Description: @"Memore required to deploy a form factor.")]
         public long? Ram { get; set; }
         /// <summary>
         /// Transient storage required to deploy a form factor.
         /// </summary>
-        [JsonProperty(PropertyName = "ephemeral_storage")]
-        [NSXTProperty(IsRequired: false, Description: @"Transient storage required to deploy a form factor.")]
         public long? EphemeralStorage { get; set; }
         /// <summary>
         /// Disk required to deploy a form factor.
         /// </summary>
-        [JsonProperty(PropertyName = "disk")]
-        [NSXTProperty(IsRequired: false, Description: @"Disk required to deploy a form factor.")]
         public long? Disk { get; set; }
         /// <summary>
         /// Required number of master nodes.
         /// </summary>
-        [JsonProperty(PropertyName = "number_of_master_nodes")]
-        [NSXTProperty(IsRequired: false, Description: @"Required number of master nodes.")]
         public long? NumberOfMasterNodes { get; set; }
         /// <summary>
         /// Number of CPU cores required to deploy a form factor.
         /// </summary>
-        [JsonProperty(PropertyName = "cpu")]
-        [NSXTProperty(IsRequired: false, Description: @"Number of CPU cores required to deploy a form factor.")]
         public long? Cpu { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,20 +17,13 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTFirewallSectionsSummaryListType 
     {
-        public NSXTFirewallSectionsSummaryListType()
-        {
-        }
         /// <summary>
         /// Timestamp of the last computation, in epoch milliseconds.
         /// </summary>
-        [JsonProperty(PropertyName = "last_compute_time")]
-        [NSXTProperty(IsRequired: false, Description: @"Timestamp of the last computation, in epoch milliseconds.")]
         public long? LastComputeTime { get; set; }
         /// <summary>
         /// List of firewall sections summary.
         /// </summary>
-        [JsonProperty(PropertyName = "sections_summary")]
-        [NSXTProperty(IsRequired: false, Description: @"List of firewall sections summary.")]
         public IList<NSXTFirewallSectionsSummaryType> SectionsSummary { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTClusterBackupInfoListResultType : NSXTListResultType
     {
-        public NSXTClusterBackupInfoListResultType()
-        {
-        }
         /// <summary>
         /// List of timestamps of backed-up cluster files
         /// </summary>
-        [JsonProperty(PropertyName = "results")]
-        [NSXTProperty(IsRequired: false, Description: @"List of timestamps of backed-up cluster files")]
         public IList<NSXTClusterBackupInfoType> Results { get; set; }
     }
 }

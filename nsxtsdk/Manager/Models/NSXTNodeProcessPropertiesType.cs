@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,56 +17,37 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNodeProcessPropertiesType : NSXTResourceType
     {
-        public NSXTNodeProcessPropertiesType()
-        {
-        }
         /// <summary>
         /// Virtual memory used by process in bytes
         /// </summary>
-        [JsonProperty(PropertyName = "mem_used")]
-        [NSXTProperty(IsRequired: false, Description: @"Virtual memory used by process in bytes")]
         public long? MemUsed { get; set; }
         /// <summary>
         /// CPU time (user and system) consumed by process in milliseconds
         /// </summary>
-        [JsonProperty(PropertyName = "cpu_time")]
-        [NSXTProperty(IsRequired: false, Description: @"CPU time (user and system) consumed by process in milliseconds")]
         public long? CpuTime { get; set; }
         /// <summary>
         /// Parent process id
         /// </summary>
-        [JsonProperty(PropertyName = "ppid")]
-        [NSXTProperty(IsRequired: false, Description: @"Parent process id")]
         public long? Ppid { get; set; }
         /// <summary>
         /// Process start time expressed in milliseconds since epoch
         /// </summary>
-        [JsonProperty(PropertyName = "start_time")]
-        [NSXTProperty(IsRequired: false, Description: @"Process start time expressed in milliseconds since epoch")]
         public long? StartTime { get; set; }
         /// <summary>
         /// Process name
         /// </summary>
-        [JsonProperty(PropertyName = "process_name")]
-        [NSXTProperty(IsRequired: false, Description: @"Process name")]
         public string? ProcessName { get; set; }
         /// <summary>
         /// Process id
         /// </summary>
-        [JsonProperty(PropertyName = "pid")]
-        [NSXTProperty(IsRequired: false, Description: @"Process id")]
         public long? Pid { get; set; }
         /// <summary>
         /// Milliseconds since process started
         /// </summary>
-        [JsonProperty(PropertyName = "uptime")]
-        [NSXTProperty(IsRequired: false, Description: @"Milliseconds since process started")]
         public long? Uptime { get; set; }
         /// <summary>
         /// Resident set size of process in bytes
         /// </summary>
-        [JsonProperty(PropertyName = "mem_resident")]
-        [NSXTProperty(IsRequired: false, Description: @"Resident set size of process in bytes")]
         public long? MemResident { get; set; }
     }
 }

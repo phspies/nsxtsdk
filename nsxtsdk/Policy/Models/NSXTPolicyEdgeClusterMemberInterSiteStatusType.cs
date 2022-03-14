@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,38 +17,25 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyEdgeClusterMemberInterSiteStatusType 
     {
-        public NSXTPolicyEdgeClusterMemberInterSiteStatusType()
-        {
-        }
         /// <summary>
         /// Total number of current established inter-site IBGP sessions.
         /// </summary>
-        [JsonProperty(PropertyName = "established_bgp_sessions")]
-        [NSXTProperty(IsRequired: false, Description: @"Total number of current established inter-site IBGP sessions.")]
         public long? EstablishedBgpSessions { get; set; }
         /// <summary>
         /// Edge node IBGP status
         /// </summary>
-        [JsonProperty(PropertyName = "status")]
-        [NSXTProperty(IsRequired: false, Description: @"Edge node IBGP status")]
         public NSXTPolicyEdgeClusterMemberInterSiteStatusStatusEnumType? Status { get; set; }
         /// <summary>
         /// Inter-site BGP neighbor status.
         /// </summary>
-        [JsonProperty(PropertyName = "neighbor_status")]
-        [NSXTProperty(IsRequired: false, Description: @"Inter-site BGP neighbor status.")]
         public IList<NSXTPolicyBgpNeighborStatusType> NeighborStatus { get; set; }
         /// <summary>
         /// Total number of inter-site IBGP sessions.
         /// </summary>
-        [JsonProperty(PropertyName = "total_bgp_sessions")]
-        [NSXTProperty(IsRequired: false, Description: @"Total number of inter-site IBGP sessions.")]
         public long? TotalBgpSessions { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "edge_node_path")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTResourceReferenceType EdgeNodePath { get; set; }
     }
 }

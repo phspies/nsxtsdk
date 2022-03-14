@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,20 +17,13 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer HTTPStatusMatch object")]
     public class NSXTALBHTTPStatusMatchType 
     {
-        public NSXTALBHTTPStatusMatchType()
-        {
-        }
         /// <summary>
         /// HTTP response status code range(s).
         /// </summary>
-        [JsonProperty(PropertyName = "ranges")]
-        [NSXTProperty(IsRequired: false, Description: @"HTTP response status code range(s).")]
         public IList<NSXTALBHTTPStatusRangeType> Ranges { get; set; }
         /// <summary>
         /// HTTP response status code(s).
         /// </summary>
-        [JsonProperty(PropertyName = "status_codes")]
-        [NSXTProperty(IsRequired: false, Description: @"HTTP response status code(s).")]
         public long? StatusCodes { get; set; }
         /// <summary>
         /// Criterion to use for matching the HTTP response status
@@ -38,8 +31,6 @@ namespace nsxtsdk.PolicyModels
         /// Enum options - IS_IN, IS_NOT_IN.
         /// </summary>
         [JsonProperty(PropertyName = "match_criteria", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Criterion to use for matching the HTTP response statuscode(s).Enum options - IS_IN, IS_NOT_IN.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTAlbhttpstatusMatchMatchCriteriaEnumType MatchCriteria { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,26 +17,17 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"A link to a related resource")]
     public class NSXTResourceLinkType 
     {
-        public NSXTResourceLinkType()
-        {
-        }
         /// <summary>
         /// Optional action
         /// </summary>
-        [JsonProperty(PropertyName = "action")]
-        [NSXTProperty(IsRequired: false, Description: @"Optional action")]
         public string? Action { get; set; }
         /// <summary>
         /// Link to resource
         /// </summary>
-        [JsonProperty(PropertyName = "href")]
-        [NSXTProperty(IsRequired: false, Description: @"Link to resource")]
         public string? Href { get; set; }
         /// <summary>
         /// Custom relation type (follows RFC 5988 where appropriate definitions exist)
         /// </summary>
-        [JsonProperty(PropertyName = "rel")]
-        [NSXTProperty(IsRequired: false, Description: @"Custom relation type (follows RFC 5988 where appropriate definitions exist)")]
         public string? Rel { get; set; }
     }
 }

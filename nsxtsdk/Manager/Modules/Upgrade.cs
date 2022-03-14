@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public Upgrade(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public Upgrade(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNodeSummaryListType GetNodesSummary()
+        public async Task<NSXTNodeSummaryListType> GetNodesSummary()
         {
             NSXTNodeSummaryListType returnValue = default(NSXTNodeSummaryListType);
             StringBuilder GetNodesSummaryServiceURL = new StringBuilder("/upgrade/nodes-summary");
@@ -41,31 +48,19 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = GetNodesSummaryServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNodeSummaryListType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNodeSummaryListType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetNodesSummaryServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNodeSummaryListType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNodeSummaryListType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void StartUpgrade()
+        public async Task StartUpgrade()
         {
             
             StringBuilder StartUpgradeServiceURL = new StringBuilder("/upgrade/plan?action=start");
@@ -76,7 +71,7 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = StartUpgradeServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + StartUpgradeServiceURL.ToString() + " did not complete successfull";
@@ -88,7 +83,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PauseUpgrade()
+        public async Task PauseUpgrade()
         {
             
             StringBuilder PauseUpgradeServiceURL = new StringBuilder("/upgrade/plan?action=pause");
@@ -99,7 +94,7 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = PauseUpgradeServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + PauseUpgradeServiceURL.ToString() + " did not complete successfull";
@@ -111,7 +106,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTUpgradeBundleInfoType GetUpgradeBundleInfo(string BundleId)
+        public async Task<NSXTUpgradeBundleInfoType> GetUpgradeBundleInfo(string BundleId)
         {
             if (BundleId == null) { throw new System.ArgumentNullException("BundleId cannot be null"); }
             NSXTUpgradeBundleInfoType returnValue = default(NSXTUpgradeBundleInfoType);
@@ -124,31 +119,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             GetUpgradeBundleInfoServiceURL.Replace("{bundle-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(BundleId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetUpgradeBundleInfoServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTUpgradeBundleInfoType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTUpgradeBundleInfoType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetUpgradeBundleInfoServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTUpgradeBundleInfoType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTUpgradeBundleInfoType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTUpgradeUnitGroupType CreateUpgradeUnitGroup(NSXTUpgradeUnitGroupType UpgradeUnitGroup)
+        public async Task<NSXTUpgradeUnitGroupType> CreateUpgradeUnitGroup(NSXTUpgradeUnitGroupType UpgradeUnitGroup)
         {
             if (UpgradeUnitGroup == null) { throw new System.ArgumentNullException("UpgradeUnitGroup cannot be null"); }
             NSXTUpgradeUnitGroupType returnValue = default(NSXTUpgradeUnitGroupType);
@@ -161,31 +144,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(UpgradeUnitGroup, defaultSerializationSettings));
             request.Resource = CreateUpgradeUnitGroupServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTUpgradeUnitGroupType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTUpgradeUnitGroupType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CreateUpgradeUnitGroupServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTUpgradeUnitGroupType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTUpgradeUnitGroupType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTUpgradeUnitGroupListResultType GetUpgradeUnitGroups(string? ComponentType = null, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, bool? Summary = null, bool? Sync = null)
+        public async Task<NSXTUpgradeUnitGroupListResultType> GetUpgradeUnitGroups(string? ComponentType = null, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, bool? Summary = null, bool? Sync = null)
         {
             NSXTUpgradeUnitGroupListResultType returnValue = default(NSXTUpgradeUnitGroupListResultType);
             StringBuilder GetUpgradeUnitGroupsServiceURL = new StringBuilder("/upgrade/upgrade-unit-groups");
@@ -204,31 +175,19 @@ namespace nsxtapi.ManagerModules
             if (Summary != null) { request.AddQueryParameter("summary", Summary.ToString()); }
             if (Sync != null) { request.AddQueryParameter("sync", Sync.ToString()); }
             request.Resource = GetUpgradeUnitGroupsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTUpgradeUnitGroupListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTUpgradeUnitGroupListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetUpgradeUnitGroupsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTUpgradeUnitGroupListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTUpgradeUnitGroupListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTUpgradeUnitTypeStatsListType GetUpgradeUnitsStats(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, bool? Sync = null)
+        public async Task<NSXTUpgradeUnitTypeStatsListType> GetUpgradeUnitsStats(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, bool? Sync = null)
         {
             NSXTUpgradeUnitTypeStatsListType returnValue = default(NSXTUpgradeUnitTypeStatsListType);
             StringBuilder GetUpgradeUnitsStatsServiceURL = new StringBuilder("/upgrade/upgrade-units-stats");
@@ -245,31 +204,19 @@ namespace nsxtapi.ManagerModules
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             if (Sync != null) { request.AddQueryParameter("sync", Sync.ToString()); }
             request.Resource = GetUpgradeUnitsStatsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTUpgradeUnitTypeStatsListType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTUpgradeUnitTypeStatsListType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetUpgradeUnitsStatsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTUpgradeUnitTypeStatsListType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTUpgradeUnitTypeStatsListType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void TriggerUcUpgrade()
+        public async Task TriggerUcUpgrade()
         {
             
             StringBuilder TriggerUcUpgradeServiceURL = new StringBuilder("/upgrade?action=upgrade_uc");
@@ -280,7 +227,7 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = TriggerUcUpgradeServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + TriggerUcUpgradeServiceURL.ToString() + " did not complete successfull";
@@ -292,7 +239,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTUpgradeUnitAggregateInfoListResultType GetUpgradeUnitAggregateInfo(string? ComponentType = null, string? Cursor = null, string? GroupId = null, bool? HasErrors = null, string? IncludedFields = null, string? Metadata = null, long? PageSize = null, string? SelectionStatus = null, bool? SortAscending = null, string? SortBy = null, string? UpgradeUnitDisplayName = null)
+        public async Task<NSXTUpgradeUnitAggregateInfoListResultType> GetUpgradeUnitAggregateInfo(string? ComponentType = null, string? Cursor = null, string? GroupId = null, bool? HasErrors = null, string? IncludedFields = null, string? Metadata = null, long? PageSize = null, string? SelectionStatus = null, bool? SortAscending = null, string? SortBy = null, string? UpgradeUnitDisplayName = null)
         {
             NSXTUpgradeUnitAggregateInfoListResultType returnValue = default(NSXTUpgradeUnitAggregateInfoListResultType);
             StringBuilder GetUpgradeUnitAggregateInfoServiceURL = new StringBuilder("/upgrade/upgrade-units/aggregate-info");
@@ -314,31 +261,19 @@ namespace nsxtapi.ManagerModules
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             if (UpgradeUnitDisplayName != null) { request.AddQueryParameter("upgrade_unit_display_name", UpgradeUnitDisplayName.ToString()); }
             request.Resource = GetUpgradeUnitAggregateInfoServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTUpgradeUnitAggregateInfoListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTUpgradeUnitAggregateInfoListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetUpgradeUnitAggregateInfoServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTUpgradeUnitAggregateInfoListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTUpgradeUnitAggregateInfoListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void ExecutePreUpgradeChecks(string? ComponentType = null, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task ExecutePreUpgradeChecks(string? ComponentType = null, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             
             StringBuilder ExecutePreUpgradeChecksServiceURL = new StringBuilder("/upgrade?action=execute_pre_upgrade_checks");
@@ -355,7 +290,7 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ExecutePreUpgradeChecksServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + ExecutePreUpgradeChecksServiceURL.ToString() + " did not complete successfull";
@@ -367,7 +302,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void StageUpgrade(string? ComponentType = null)
+        public async Task StageUpgrade(string? ComponentType = null)
         {
             
             StringBuilder StageUpgradeServiceURL = new StringBuilder("/upgrade/plan?action=stage-upgrade");
@@ -379,7 +314,7 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             if (ComponentType != null) { request.AddQueryParameter("component_type", ComponentType.ToString()); }
             request.Resource = StageUpgradeServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + StageUpgradeServiceURL.ToString() + " did not complete successfull";
@@ -391,7 +326,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void ReorderUpgradeUnit(string GroupId, string UpgradeUnitId, NSXTReorderRequestType ReorderRequest)
+        public async Task ReorderUpgradeUnit(string GroupId, string UpgradeUnitId, NSXTReorderRequestType ReorderRequest)
         {
             if (GroupId == null) { throw new System.ArgumentNullException("GroupId cannot be null"); }
             if (UpgradeUnitId == null) { throw new System.ArgumentNullException("UpgradeUnitId cannot be null"); }
@@ -408,7 +343,7 @@ namespace nsxtapi.ManagerModules
             ReorderUpgradeUnitServiceURL.Replace("{upgrade-unit-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(UpgradeUnitId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(ReorderRequest, defaultSerializationSettings));
             request.Resource = ReorderUpgradeUnitServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + ReorderUpgradeUnitServiceURL.ToString() + " did not complete successfull";
@@ -420,7 +355,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTUpgradeUnitGroupStatusListResultType GetUpgradeUnitGroupsStatus(string? ComponentType = null, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTUpgradeUnitGroupStatusListResultType> GetUpgradeUnitGroupsStatus(string? ComponentType = null, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTUpgradeUnitGroupStatusListResultType returnValue = default(NSXTUpgradeUnitGroupStatusListResultType);
             StringBuilder GetUpgradeUnitGroupsStatusServiceURL = new StringBuilder("/upgrade/upgrade-unit-groups-status");
@@ -437,31 +372,19 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GetUpgradeUnitGroupsStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTUpgradeUnitGroupStatusListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTUpgradeUnitGroupStatusListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetUpgradeUnitGroupsStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTUpgradeUnitGroupStatusListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTUpgradeUnitGroupStatusListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTUcUpgradeStatusType GetUcUpgradeStatus()
+        public async Task<NSXTUcUpgradeStatusType> GetUcUpgradeStatus()
         {
             NSXTUcUpgradeStatusType returnValue = default(NSXTUcUpgradeStatusType);
             StringBuilder GetUcUpgradeStatusServiceURL = new StringBuilder("/upgrade/uc-upgrade-status");
@@ -472,31 +395,19 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = GetUcUpgradeStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTUcUpgradeStatusType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTUcUpgradeStatusType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetUcUpgradeStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTUcUpgradeStatusType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTUcUpgradeStatusType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTUpgradeUnitGroupAggregateInfoListResultType GetUpgradeUnitGroupAggregateInfo(string? ComponentType = null, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, bool? Summary = null, bool? Sync = null)
+        public async Task<NSXTUpgradeUnitGroupAggregateInfoListResultType> GetUpgradeUnitGroupAggregateInfo(string? ComponentType = null, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, bool? Summary = null, bool? Sync = null)
         {
             NSXTUpgradeUnitGroupAggregateInfoListResultType returnValue = default(NSXTUpgradeUnitGroupAggregateInfoListResultType);
             StringBuilder GetUpgradeUnitGroupAggregateInfoServiceURL = new StringBuilder("/upgrade/upgrade-unit-groups/aggregate-info");
@@ -515,31 +426,19 @@ namespace nsxtapi.ManagerModules
             if (Summary != null) { request.AddQueryParameter("summary", Summary.ToString()); }
             if (Sync != null) { request.AddQueryParameter("sync", Sync.ToString()); }
             request.Resource = GetUpgradeUnitGroupAggregateInfoServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTUpgradeUnitGroupAggregateInfoListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTUpgradeUnitGroupAggregateInfoListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetUpgradeUnitGroupAggregateInfoServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTUpgradeUnitGroupAggregateInfoListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTUpgradeUnitGroupAggregateInfoListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTUpgradeUnitType GetUpgradeUnit(string UpgradeUnitId)
+        public async Task<NSXTUpgradeUnitType> GetUpgradeUnit(string UpgradeUnitId)
         {
             if (UpgradeUnitId == null) { throw new System.ArgumentNullException("UpgradeUnitId cannot be null"); }
             NSXTUpgradeUnitType returnValue = default(NSXTUpgradeUnitType);
@@ -552,31 +451,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             GetUpgradeUnitServiceURL.Replace("{upgrade-unit-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(UpgradeUnitId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetUpgradeUnitServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTUpgradeUnitType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTUpgradeUnitType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetUpgradeUnitServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTUpgradeUnitType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTUpgradeUnitType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void ReorderUpgradeUnitGroup(string GroupId, NSXTReorderRequestType ReorderRequest)
+        public async Task ReorderUpgradeUnitGroup(string GroupId, NSXTReorderRequestType ReorderRequest)
         {
             if (GroupId == null) { throw new System.ArgumentNullException("GroupId cannot be null"); }
             if (ReorderRequest == null) { throw new System.ArgumentNullException("ReorderRequest cannot be null"); }
@@ -591,7 +478,7 @@ namespace nsxtapi.ManagerModules
             ReorderUpgradeUnitGroupServiceURL.Replace("{group-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GroupId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(ReorderRequest, defaultSerializationSettings));
             request.Resource = ReorderUpgradeUnitGroupServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + ReorderUpgradeUnitGroupServiceURL.ToString() + " did not complete successfull";
@@ -603,7 +490,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTUpgradeBundleUploadStatusType GetUpgradeBundleUploadStatus(string BundleId)
+        public async Task<NSXTUpgradeBundleUploadStatusType> GetUpgradeBundleUploadStatus(string BundleId)
         {
             if (BundleId == null) { throw new System.ArgumentNullException("BundleId cannot be null"); }
             NSXTUpgradeBundleUploadStatusType returnValue = default(NSXTUpgradeBundleUploadStatusType);
@@ -616,31 +503,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             GetUpgradeBundleUploadStatusServiceURL.Replace("{bundle-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(BundleId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetUpgradeBundleUploadStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTUpgradeBundleUploadStatusType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTUpgradeBundleUploadStatusType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetUpgradeBundleUploadStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTUpgradeBundleUploadStatusType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTUpgradeBundleUploadStatusType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void ContinueUpgrade(string? ComponentType = null, bool? Skip = null)
+        public async Task ContinueUpgrade(string? ComponentType = null, bool? Skip = null)
         {
             
             StringBuilder ContinueUpgradeServiceURL = new StringBuilder("/upgrade/plan?action=continue");
@@ -653,7 +528,7 @@ namespace nsxtapi.ManagerModules
             if (ComponentType != null) { request.AddQueryParameter("component_type", ComponentType.ToString()); }
             if (Skip != null) { request.AddQueryParameter("skip", Skip.ToString()); }
             request.Resource = ContinueUpgradeServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + ContinueUpgradeServiceURL.ToString() + " did not complete successfull";
@@ -665,7 +540,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void CancelUpgradeBundleUpload(string BundleId)
+        public async Task CancelUpgradeBundleUpload(string BundleId)
         {
             if (BundleId == null) { throw new System.ArgumentNullException("BundleId cannot be null"); }
             
@@ -678,7 +553,7 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             CancelUpgradeBundleUploadServiceURL.Replace("{bundle-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(BundleId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = CancelUpgradeBundleUploadServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CancelUpgradeBundleUploadServiceURL.ToString() + " did not complete successfull";
@@ -690,7 +565,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTUpgradeUnitListType AddUpgradeUnitsToGroup(string GroupId, NSXTUpgradeUnitListType UpgradeUnitList)
+        public async Task<NSXTUpgradeUnitListType> AddUpgradeUnitsToGroup(string GroupId, NSXTUpgradeUnitListType UpgradeUnitList)
         {
             if (GroupId == null) { throw new System.ArgumentNullException("GroupId cannot be null"); }
             if (UpgradeUnitList == null) { throw new System.ArgumentNullException("UpgradeUnitList cannot be null"); }
@@ -705,31 +580,19 @@ namespace nsxtapi.ManagerModules
             AddUpgradeUnitsToGroupServiceURL.Replace("{group-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GroupId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(UpgradeUnitList, defaultSerializationSettings));
             request.Resource = AddUpgradeUnitsToGroupServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTUpgradeUnitListType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTUpgradeUnitListType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + AddUpgradeUnitsToGroupServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTUpgradeUnitListType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTUpgradeUnitListType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void ExecutePostUpgradeChecks(string ComponentType)
+        public async Task ExecutePostUpgradeChecks(string ComponentType)
         {
             if (ComponentType == null) { throw new System.ArgumentNullException("ComponentType cannot be null"); }
             
@@ -742,7 +605,7 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             ExecutePostUpgradeChecksServiceURL.Replace("{component-type}", System.Uri.EscapeDataString(Helpers.ConvertToString(ComponentType, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ExecutePostUpgradeChecksServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + ExecutePostUpgradeChecksServiceURL.ToString() + " did not complete successfull";
@@ -754,7 +617,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void AbortPreUpgradeChecks()
+        public async Task AbortPreUpgradeChecks()
         {
             
             StringBuilder AbortPreUpgradeChecksServiceURL = new StringBuilder("/upgrade?action=abort_pre_upgrade_checks");
@@ -765,7 +628,7 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = AbortPreUpgradeChecksServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + AbortPreUpgradeChecksServiceURL.ToString() + " did not complete successfull";
@@ -777,7 +640,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTUpgradeUnitListResultType GetUpgradeUnits(string? ComponentType = null, string? CurrentVersion = null, string? Cursor = null, string? GroupId = null, bool? HasWarnings = null, string? IncludedFields = null, string? Metadata = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? UpgradeUnitType = null)
+        public async Task<NSXTUpgradeUnitListResultType> GetUpgradeUnits(string? ComponentType = null, string? CurrentVersion = null, string? Cursor = null, string? GroupId = null, bool? HasWarnings = null, string? IncludedFields = null, string? Metadata = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? UpgradeUnitType = null)
         {
             NSXTUpgradeUnitListResultType returnValue = default(NSXTUpgradeUnitListResultType);
             StringBuilder GetUpgradeUnitsServiceURL = new StringBuilder("/upgrade/upgrade-units");
@@ -799,31 +662,19 @@ namespace nsxtapi.ManagerModules
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             if (UpgradeUnitType != null) { request.AddQueryParameter("upgrade_unit_type", UpgradeUnitType.ToString()); }
             request.Resource = GetUpgradeUnitsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTUpgradeUnitListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTUpgradeUnitListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetUpgradeUnitsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTUpgradeUnitListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTUpgradeUnitListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTUpgradeBundleIdType FetchUpgradeBundleFromUrl(NSXTUpgradeBundleFetchRequestType UpgradeBundleFetchRequest)
+        public async Task<NSXTUpgradeBundleIdType> FetchUpgradeBundleFromUrl(NSXTUpgradeBundleFetchRequestType UpgradeBundleFetchRequest)
         {
             if (UpgradeBundleFetchRequest == null) { throw new System.ArgumentNullException("UpgradeBundleFetchRequest cannot be null"); }
             NSXTUpgradeBundleIdType returnValue = default(NSXTUpgradeBundleIdType);
@@ -836,31 +687,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(UpgradeBundleFetchRequest, defaultSerializationSettings));
             request.Resource = FetchUpgradeBundleFromUrlServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTUpgradeBundleIdType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTUpgradeBundleIdType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + FetchUpgradeBundleFromUrlServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTUpgradeBundleIdType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTUpgradeBundleIdType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTComponentUpgradeChecksInfoListResultType GetUpgradeChecksInfo(string? ComponentType = null, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTComponentUpgradeChecksInfoListResultType> GetUpgradeChecksInfo(string? ComponentType = null, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTComponentUpgradeChecksInfoListResultType returnValue = default(NSXTComponentUpgradeChecksInfoListResultType);
             StringBuilder GetUpgradeChecksInfoServiceURL = new StringBuilder("/upgrade/upgrade-checks-info");
@@ -877,31 +716,19 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GetUpgradeChecksInfoServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTComponentUpgradeChecksInfoListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTComponentUpgradeChecksInfoListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetUpgradeChecksInfoServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTComponentUpgradeChecksInfoListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTComponentUpgradeChecksInfoListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTUpgradeStatusType GetUpgradeStatusSummary(string? ComponentType = null, string? SelectionStatus = null, bool? ShowHistory = null)
+        public async Task<NSXTUpgradeStatusType> GetUpgradeStatusSummary(string? ComponentType = null, string? SelectionStatus = null, bool? ShowHistory = null)
         {
             NSXTUpgradeStatusType returnValue = default(NSXTUpgradeStatusType);
             StringBuilder GetUpgradeStatusSummaryServiceURL = new StringBuilder("/upgrade/status-summary");
@@ -915,31 +742,19 @@ namespace nsxtapi.ManagerModules
             if (SelectionStatus != null) { request.AddQueryParameter("selection_status", SelectionStatus.ToString()); }
             if (ShowHistory != null) { request.AddQueryParameter("show_history", ShowHistory.ToString()); }
             request.Resource = GetUpgradeStatusSummaryServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTUpgradeStatusType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTUpgradeStatusType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetUpgradeStatusSummaryServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTUpgradeStatusType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTUpgradeStatusType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTUpgradeUnitGroupType UpdateUpgradeUnitGroup(string GroupId, NSXTUpgradeUnitGroupType UpgradeUnitGroup)
+        public async Task<NSXTUpgradeUnitGroupType> UpdateUpgradeUnitGroup(string GroupId, NSXTUpgradeUnitGroupType UpgradeUnitGroup)
         {
             if (GroupId == null) { throw new System.ArgumentNullException("GroupId cannot be null"); }
             if (UpgradeUnitGroup == null) { throw new System.ArgumentNullException("UpgradeUnitGroup cannot be null"); }
@@ -954,31 +769,19 @@ namespace nsxtapi.ManagerModules
             UpdateUpgradeUnitGroupServiceURL.Replace("{group-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GroupId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(UpgradeUnitGroup, defaultSerializationSettings));
             request.Resource = UpdateUpgradeUnitGroupServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTUpgradeUnitGroupType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTUpgradeUnitGroupType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateUpgradeUnitGroupServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTUpgradeUnitGroupType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTUpgradeUnitGroupType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteUpgradeUnitGroup(string GroupId)
+        public async Task DeleteUpgradeUnitGroup(string GroupId)
         {
             if (GroupId == null) { throw new System.ArgumentNullException("GroupId cannot be null"); }
             
@@ -991,7 +794,7 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             DeleteUpgradeUnitGroupServiceURL.Replace("{group-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GroupId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteUpgradeUnitGroupServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteUpgradeUnitGroupServiceURL.ToString() + " did not complete successfull";
@@ -1003,7 +806,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTUpgradeUnitGroupType GetUpgradeUnitGroup(string GroupId, bool? Summary = null)
+        public async Task<NSXTUpgradeUnitGroupType> GetUpgradeUnitGroup(string GroupId, bool? Summary = null)
         {
             if (GroupId == null) { throw new System.ArgumentNullException("GroupId cannot be null"); }
             NSXTUpgradeUnitGroupType returnValue = default(NSXTUpgradeUnitGroupType);
@@ -1017,31 +820,19 @@ namespace nsxtapi.ManagerModules
             GetUpgradeUnitGroupServiceURL.Replace("{group-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GroupId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Summary != null) { request.AddQueryParameter("summary", Summary.ToString()); }
             request.Resource = GetUpgradeUnitGroupServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTUpgradeUnitGroupType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTUpgradeUnitGroupType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetUpgradeUnitGroupServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTUpgradeUnitGroupType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTUpgradeUnitGroupType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTUpgradeUnitStatusListResultType GetUpgradeUnitGroupStatus(string GroupId, string? Cursor = null, bool? HasErrors = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTUpgradeUnitStatusListResultType> GetUpgradeUnitGroupStatus(string GroupId, string? Cursor = null, bool? HasErrors = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (GroupId == null) { throw new System.ArgumentNullException("GroupId cannot be null"); }
             NSXTUpgradeUnitStatusListResultType returnValue = default(NSXTUpgradeUnitStatusListResultType);
@@ -1060,31 +851,19 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GetUpgradeUnitGroupStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTUpgradeUnitStatusListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTUpgradeUnitStatusListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetUpgradeUnitGroupStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTUpgradeUnitStatusListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTUpgradeUnitStatusListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTUpgradeCheckCsvListResultType GetAllPreUpgradeChecksInCsvFormat()
+        public async Task<NSXTUpgradeCheckCsvListResultType> GetAllPreUpgradeChecksInCsvFormat()
         {
             NSXTUpgradeCheckCsvListResultType returnValue = default(NSXTUpgradeCheckCsvListResultType);
             StringBuilder GetAllPreUpgradeChecksInCsvFormatServiceURL = new StringBuilder("/upgrade/pre-upgrade-checks?format=csv");
@@ -1095,31 +874,19 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = GetAllPreUpgradeChecksInCsvFormatServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTUpgradeCheckCsvListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTUpgradeCheckCsvListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetAllPreUpgradeChecksInCsvFormatServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTUpgradeCheckCsvListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTUpgradeCheckCsvListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void UpgradeSelectedUnits(NSXTUpgradeUnitListType UpgradeUnitList)
+        public async Task UpgradeSelectedUnits(NSXTUpgradeUnitListType UpgradeUnitList)
         {
             if (UpgradeUnitList == null) { throw new System.ArgumentNullException("UpgradeUnitList cannot be null"); }
             
@@ -1132,7 +899,7 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(UpgradeUnitList, defaultSerializationSettings));
             request.Resource = UpgradeSelectedUnitsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + UpgradeSelectedUnitsServiceURL.ToString() + " did not complete successfull";
@@ -1144,7 +911,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTUpgradeSummaryType GetUpgradeSummary()
+        public async Task<NSXTUpgradeSummaryType> GetUpgradeSummary()
         {
             NSXTUpgradeSummaryType returnValue = default(NSXTUpgradeSummaryType);
             StringBuilder GetUpgradeSummaryServiceURL = new StringBuilder("/upgrade/summary");
@@ -1155,31 +922,19 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = GetUpgradeSummaryServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTUpgradeSummaryType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTUpgradeSummaryType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetUpgradeSummaryServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTUpgradeSummaryType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTUpgradeSummaryType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTUpgradeCheckFailureListResultType GetPreUpgradeCheckFailures(string? ComponentType = null, string? Cursor = null, string? FilterText = null, string? IncludedFields = null, string? OriginType = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? Type = null)
+        public async Task<NSXTUpgradeCheckFailureListResultType> GetPreUpgradeCheckFailures(string? ComponentType = null, string? Cursor = null, string? FilterText = null, string? IncludedFields = null, string? OriginType = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? Type = null)
         {
             NSXTUpgradeCheckFailureListResultType returnValue = default(NSXTUpgradeCheckFailureListResultType);
             StringBuilder GetPreUpgradeCheckFailuresServiceURL = new StringBuilder("/upgrade/pre-upgrade-checks/failures");
@@ -1199,31 +954,19 @@ namespace nsxtapi.ManagerModules
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             if (Type != null) { request.AddQueryParameter("type", Type.ToString()); }
             request.Resource = GetPreUpgradeCheckFailuresServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTUpgradeCheckFailureListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTUpgradeCheckFailureListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetPreUpgradeCheckFailuresServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTUpgradeCheckFailureListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTUpgradeCheckFailureListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNodeInfoListResultType GetNodes(string? ComponentType = null, string? ComponentVersion = null, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTNodeInfoListResultType> GetNodes(string? ComponentType = null, string? ComponentVersion = null, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTNodeInfoListResultType returnValue = default(NSXTNodeInfoListResultType);
             StringBuilder GetNodesServiceURL = new StringBuilder("/upgrade/nodes");
@@ -1241,31 +984,19 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GetNodesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNodeInfoListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNodeInfoListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetNodesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNodeInfoListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNodeInfoListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTUcFunctionalStateType GetUcFunctionalState()
+        public async Task<NSXTUcFunctionalStateType> GetUcFunctionalState()
         {
             NSXTUcFunctionalStateType returnValue = default(NSXTUcFunctionalStateType);
             StringBuilder GetUcFunctionalStateServiceURL = new StringBuilder("/upgrade/functional-state");
@@ -1276,31 +1007,19 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = GetUcFunctionalStateServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTUcFunctionalStateType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTUcFunctionalStateType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetUcFunctionalStateServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTUcFunctionalStateType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTUcFunctionalStateType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTUpgradeHistoryListType GetUpgradeHistory()
+        public async Task<NSXTUpgradeHistoryListType> GetUpgradeHistory()
         {
             NSXTUpgradeHistoryListType returnValue = default(NSXTUpgradeHistoryListType);
             StringBuilder GetUpgradeHistoryServiceURL = new StringBuilder("/upgrade/history");
@@ -1311,31 +1030,19 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = GetUpgradeHistoryServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTUpgradeHistoryListType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTUpgradeHistoryListType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetUpgradeHistoryServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTUpgradeHistoryListType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTUpgradeHistoryListType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTUpgradeBundleIdType UploadUpgradeBundleAsync(string File)
+        public async Task<NSXTUpgradeBundleIdType> UploadUpgradeBundleAsync(string File)
         {
             if (File == null) { throw new System.ArgumentNullException("File cannot be null"); }
             NSXTUpgradeBundleIdType returnValue = default(NSXTUpgradeBundleIdType);
@@ -1348,31 +1055,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             
             request.Resource = UploadUpgradeBundleAsyncServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTUpgradeBundleIdType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTUpgradeBundleIdType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + UploadUpgradeBundleAsyncServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTUpgradeBundleIdType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTUpgradeBundleIdType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTUpgradePlanSettingsType UpdateUpgradePlanSettings(string ComponentType, NSXTUpgradePlanSettingsType UpgradePlanSettings)
+        public async Task<NSXTUpgradePlanSettingsType> UpdateUpgradePlanSettings(string ComponentType, NSXTUpgradePlanSettingsType UpgradePlanSettings)
         {
             if (ComponentType == null) { throw new System.ArgumentNullException("ComponentType cannot be null"); }
             if (UpgradePlanSettings == null) { throw new System.ArgumentNullException("UpgradePlanSettings cannot be null"); }
@@ -1387,31 +1082,19 @@ namespace nsxtapi.ManagerModules
             UpdateUpgradePlanSettingsServiceURL.Replace("{component_type}", System.Uri.EscapeDataString(Helpers.ConvertToString(ComponentType, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(UpgradePlanSettings, defaultSerializationSettings));
             request.Resource = UpdateUpgradePlanSettingsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTUpgradePlanSettingsType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTUpgradePlanSettingsType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateUpgradePlanSettingsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTUpgradePlanSettingsType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTUpgradePlanSettingsType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTUpgradePlanSettingsType GetUpgradePlanSettings(string ComponentType)
+        public async Task<NSXTUpgradePlanSettingsType> GetUpgradePlanSettings(string ComponentType)
         {
             if (ComponentType == null) { throw new System.ArgumentNullException("ComponentType cannot be null"); }
             NSXTUpgradePlanSettingsType returnValue = default(NSXTUpgradePlanSettingsType);
@@ -1424,31 +1107,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             GetUpgradePlanSettingsServiceURL.Replace("{component_type}", System.Uri.EscapeDataString(Helpers.ConvertToString(ComponentType, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetUpgradePlanSettingsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTUpgradePlanSettingsType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTUpgradePlanSettingsType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetUpgradePlanSettingsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTUpgradePlanSettingsType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTUpgradePlanSettingsType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void ResetUpgradePlan(string ComponentType)
+        public async Task ResetUpgradePlan(string ComponentType)
         {
             if (ComponentType == null) { throw new System.ArgumentNullException("ComponentType cannot be null"); }
             
@@ -1461,7 +1132,7 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             if (ComponentType != null) { request.AddQueryParameter("component_type", ComponentType.ToString()); }
             request.Resource = ResetUpgradePlanServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + ResetUpgradePlanServiceURL.ToString() + " did not complete successfull";

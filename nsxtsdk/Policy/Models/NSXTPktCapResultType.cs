@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,27 +17,18 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"The packet capture result for transport nodes")]
     public class NSXTPktCapResultType 
     {
-        public NSXTPktCapResultType()
-        {
-        }
         /// <summary>
         /// The packet capture resource info for ports where packet
         /// capture action is performed
         /// </summary>
-        [JsonProperty(PropertyName = "pktcap_resource_list")]
-        [NSXTProperty(IsRequired: false, Description: @"The packet capture resource info for ports where packetcapture action is performed")]
         public IList<NSXTPktCapResourceType> PktcapResourceList { get; set; }
         /// <summary>
         /// Type of the transport node
         /// </summary>
-        [JsonProperty(PropertyName = "transport_node_type")]
-        [NSXTProperty(IsRequired: false, Description: @"Type of the transport node")]
         public NSXTPktCapResultTransportNodeTypeEnumType? TransportNodeType { get; set; }
         /// <summary>
         /// The ID of transport node where packet capture action is deployed
         /// </summary>
-        [JsonProperty(PropertyName = "transport_node_id")]
-        [NSXTProperty(IsRequired: false, Description: @"The ID of transport node where packet capture action is deployed")]
         public string? TransportNodeId { get; set; }
     }
 }

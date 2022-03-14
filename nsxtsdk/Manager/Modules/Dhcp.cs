@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public Dhcp(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public Dhcp(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDhcpProfileType ReallocateDhcpProfileEdgeCluster(string ServerProfileId, NSXTDhcpProfileType DhcpProfile)
+        public async Task<NSXTDhcpProfileType> ReallocateDhcpProfileEdgeCluster(string ServerProfileId, NSXTDhcpProfileType DhcpProfile)
         {
             if (ServerProfileId == null) { throw new System.ArgumentNullException("ServerProfileId cannot be null"); }
             if (DhcpProfile == null) { throw new System.ArgumentNullException("DhcpProfile cannot be null"); }
@@ -45,31 +52,19 @@ namespace nsxtapi.ManagerModules
             ReallocateDhcpProfileEdgeClusterServiceURL.Replace("{server-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServerProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(DhcpProfile, defaultSerializationSettings));
             request.Resource = ReallocateDhcpProfileEdgeClusterServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDhcpProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDhcpProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + ReallocateDhcpProfileEdgeClusterServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDhcpProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDhcpProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDhcpIpPoolType CreateDhcpIpPool(string ServerId, NSXTDhcpIpPoolType DhcpIpPool)
+        public async Task<NSXTDhcpIpPoolType> CreateDhcpIpPool(string ServerId, NSXTDhcpIpPoolType DhcpIpPool)
         {
             if (ServerId == null) { throw new System.ArgumentNullException("ServerId cannot be null"); }
             if (DhcpIpPool == null) { throw new System.ArgumentNullException("DhcpIpPool cannot be null"); }
@@ -84,31 +79,19 @@ namespace nsxtapi.ManagerModules
             CreateDhcpIpPoolServiceURL.Replace("{server-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServerId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(DhcpIpPool, defaultSerializationSettings));
             request.Resource = CreateDhcpIpPoolServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDhcpIpPoolType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDhcpIpPoolType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CreateDhcpIpPoolServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDhcpIpPoolType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDhcpIpPoolType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDhcpIpPoolListResultType ListDhcpIpPools(string ServerId, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTDhcpIpPoolListResultType> ListDhcpIpPools(string ServerId, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (ServerId == null) { throw new System.ArgumentNullException("ServerId cannot be null"); }
             NSXTDhcpIpPoolListResultType returnValue = default(NSXTDhcpIpPoolListResultType);
@@ -126,31 +109,19 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListDhcpIpPoolsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDhcpIpPoolListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDhcpIpPoolListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListDhcpIpPoolsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDhcpIpPoolListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDhcpIpPoolListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDhcpProfileType CreateDhcpProfile(NSXTDhcpProfileType DhcpProfile)
+        public async Task<NSXTDhcpProfileType> CreateDhcpProfile(NSXTDhcpProfileType DhcpProfile)
         {
             if (DhcpProfile == null) { throw new System.ArgumentNullException("DhcpProfile cannot be null"); }
             NSXTDhcpProfileType returnValue = default(NSXTDhcpProfileType);
@@ -163,31 +134,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(DhcpProfile, defaultSerializationSettings));
             request.Resource = CreateDhcpProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDhcpProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDhcpProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CreateDhcpProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDhcpProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDhcpProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDhcpProfileListResultType ListDhcpProfiles(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTDhcpProfileListResultType> ListDhcpProfiles(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTDhcpProfileListResultType returnValue = default(NSXTDhcpProfileListResultType);
             StringBuilder ListDhcpProfilesServiceURL = new StringBuilder("/dhcp/server-profiles");
@@ -203,31 +162,19 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListDhcpProfilesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDhcpProfileListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDhcpProfileListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListDhcpProfilesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDhcpProfileListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDhcpProfileListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLogicalDhcpServerType CreateDhcpServer(NSXTLogicalDhcpServerType LogicalDhcpServer)
+        public async Task<NSXTLogicalDhcpServerType> CreateDhcpServer(NSXTLogicalDhcpServerType LogicalDhcpServer)
         {
             if (LogicalDhcpServer == null) { throw new System.ArgumentNullException("LogicalDhcpServer cannot be null"); }
             NSXTLogicalDhcpServerType returnValue = default(NSXTLogicalDhcpServerType);
@@ -240,31 +187,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(LogicalDhcpServer, defaultSerializationSettings));
             request.Resource = CreateDhcpServerServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLogicalDhcpServerType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLogicalDhcpServerType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CreateDhcpServerServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLogicalDhcpServerType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLogicalDhcpServerType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLogicalDhcpServerListResultType ListDhcpServers(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTLogicalDhcpServerListResultType> ListDhcpServers(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTLogicalDhcpServerListResultType returnValue = default(NSXTLogicalDhcpServerListResultType);
             StringBuilder ListDhcpServersServiceURL = new StringBuilder("/dhcp/servers");
@@ -280,31 +215,19 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListDhcpServersServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLogicalDhcpServerListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLogicalDhcpServerListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListDhcpServersServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLogicalDhcpServerListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLogicalDhcpServerListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDhcpIpPoolType UpdateDhcpIpPool(string ServerId, string PoolId, NSXTDhcpIpPoolType DhcpIpPool)
+        public async Task<NSXTDhcpIpPoolType> UpdateDhcpIpPool(string ServerId, string PoolId, NSXTDhcpIpPoolType DhcpIpPool)
         {
             if (ServerId == null) { throw new System.ArgumentNullException("ServerId cannot be null"); }
             if (PoolId == null) { throw new System.ArgumentNullException("PoolId cannot be null"); }
@@ -321,31 +244,19 @@ namespace nsxtapi.ManagerModules
             UpdateDhcpIpPoolServiceURL.Replace("{pool-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PoolId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(DhcpIpPool, defaultSerializationSettings));
             request.Resource = UpdateDhcpIpPoolServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDhcpIpPoolType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDhcpIpPoolType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateDhcpIpPoolServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDhcpIpPoolType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDhcpIpPoolType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDhcpIpPoolType ReadDhcpIpPool(string ServerId, string PoolId)
+        public async Task<NSXTDhcpIpPoolType> ReadDhcpIpPool(string ServerId, string PoolId)
         {
             if (ServerId == null) { throw new System.ArgumentNullException("ServerId cannot be null"); }
             if (PoolId == null) { throw new System.ArgumentNullException("PoolId cannot be null"); }
@@ -360,31 +271,19 @@ namespace nsxtapi.ManagerModules
             ReadDhcpIpPoolServiceURL.Replace("{server-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServerId, System.Globalization.CultureInfo.InvariantCulture)));
             ReadDhcpIpPoolServiceURL.Replace("{pool-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PoolId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadDhcpIpPoolServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDhcpIpPoolType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDhcpIpPoolType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadDhcpIpPoolServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDhcpIpPoolType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDhcpIpPoolType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteDhcpIpPool(string ServerId, string PoolId)
+        public async Task DeleteDhcpIpPool(string ServerId, string PoolId)
         {
             if (ServerId == null) { throw new System.ArgumentNullException("ServerId cannot be null"); }
             if (PoolId == null) { throw new System.ArgumentNullException("PoolId cannot be null"); }
@@ -399,7 +298,7 @@ namespace nsxtapi.ManagerModules
             DeleteDhcpIpPoolServiceURL.Replace("{server-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServerId, System.Globalization.CultureInfo.InvariantCulture)));
             DeleteDhcpIpPoolServiceURL.Replace("{pool-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PoolId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteDhcpIpPoolServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteDhcpIpPoolServiceURL.ToString() + " did not complete successfull";
@@ -411,7 +310,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDhcpStaticBindingType CreateDhcpStaticBinding(string ServerId, NSXTDhcpStaticBindingType DhcpStaticBinding)
+        public async Task<NSXTDhcpStaticBindingType> CreateDhcpStaticBinding(string ServerId, NSXTDhcpStaticBindingType DhcpStaticBinding)
         {
             if (ServerId == null) { throw new System.ArgumentNullException("ServerId cannot be null"); }
             if (DhcpStaticBinding == null) { throw new System.ArgumentNullException("DhcpStaticBinding cannot be null"); }
@@ -426,31 +325,19 @@ namespace nsxtapi.ManagerModules
             CreateDhcpStaticBindingServiceURL.Replace("{server-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServerId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(DhcpStaticBinding, defaultSerializationSettings));
             request.Resource = CreateDhcpStaticBindingServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDhcpStaticBindingType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDhcpStaticBindingType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CreateDhcpStaticBindingServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDhcpStaticBindingType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDhcpStaticBindingType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDhcpStaticBindingListResultType ListDhcpStaticBindings(string ServerId, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTDhcpStaticBindingListResultType> ListDhcpStaticBindings(string ServerId, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (ServerId == null) { throw new System.ArgumentNullException("ServerId cannot be null"); }
             NSXTDhcpStaticBindingListResultType returnValue = default(NSXTDhcpStaticBindingListResultType);
@@ -468,31 +355,19 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListDhcpStaticBindingsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDhcpStaticBindingListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDhcpStaticBindingListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListDhcpStaticBindingsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDhcpStaticBindingListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDhcpStaticBindingListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTConfigurationStateType GetDhcpServerState(string ServerId, long? BarrierId = null, string? RequestId = null)
+        public async Task<NSXTConfigurationStateType> GetDhcpServerState(string ServerId, long? BarrierId = null, string? RequestId = null)
         {
             if (ServerId == null) { throw new System.ArgumentNullException("ServerId cannot be null"); }
             NSXTConfigurationStateType returnValue = default(NSXTConfigurationStateType);
@@ -507,31 +382,19 @@ namespace nsxtapi.ManagerModules
             if (BarrierId != null) { request.AddQueryParameter("barrier_id", BarrierId.ToString()); }
             if (RequestId != null) { request.AddQueryParameter("request_id", RequestId.ToString()); }
             request.Resource = GetDhcpServerStateServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTConfigurationStateType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTConfigurationStateType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetDhcpServerStateServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTConfigurationStateType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTConfigurationStateType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLogicalDhcpServerType UpdateDhcpServer(string ServerId, NSXTLogicalDhcpServerType LogicalDhcpServer)
+        public async Task<NSXTLogicalDhcpServerType> UpdateDhcpServer(string ServerId, NSXTLogicalDhcpServerType LogicalDhcpServer)
         {
             if (ServerId == null) { throw new System.ArgumentNullException("ServerId cannot be null"); }
             if (LogicalDhcpServer == null) { throw new System.ArgumentNullException("LogicalDhcpServer cannot be null"); }
@@ -546,31 +409,19 @@ namespace nsxtapi.ManagerModules
             UpdateDhcpServerServiceURL.Replace("{server-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServerId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(LogicalDhcpServer, defaultSerializationSettings));
             request.Resource = UpdateDhcpServerServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLogicalDhcpServerType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLogicalDhcpServerType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateDhcpServerServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLogicalDhcpServerType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLogicalDhcpServerType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteDhcpServer(string ServerId)
+        public async Task DeleteDhcpServer(string ServerId)
         {
             if (ServerId == null) { throw new System.ArgumentNullException("ServerId cannot be null"); }
             
@@ -583,7 +434,7 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             DeleteDhcpServerServiceURL.Replace("{server-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServerId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteDhcpServerServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteDhcpServerServiceURL.ToString() + " did not complete successfull";
@@ -595,7 +446,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLogicalDhcpServerType ReadDhcpServer(string ServerId)
+        public async Task<NSXTLogicalDhcpServerType> ReadDhcpServer(string ServerId)
         {
             if (ServerId == null) { throw new System.ArgumentNullException("ServerId cannot be null"); }
             NSXTLogicalDhcpServerType returnValue = default(NSXTLogicalDhcpServerType);
@@ -608,31 +459,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             ReadDhcpServerServiceURL.Replace("{server-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServerId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadDhcpServerServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLogicalDhcpServerType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLogicalDhcpServerType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadDhcpServerServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLogicalDhcpServerType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLogicalDhcpServerType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDhcpV6IpPoolType UpdateDhcpV6IpPool(string ServerId, string PoolId, NSXTDhcpV6IpPoolType DhcpV6IpPool)
+        public async Task<NSXTDhcpV6IpPoolType> UpdateDhcpV6IpPool(string ServerId, string PoolId, NSXTDhcpV6IpPoolType DhcpV6IpPool)
         {
             if (ServerId == null) { throw new System.ArgumentNullException("ServerId cannot be null"); }
             if (PoolId == null) { throw new System.ArgumentNullException("PoolId cannot be null"); }
@@ -649,31 +488,19 @@ namespace nsxtapi.ManagerModules
             UpdateDhcpV6IpPoolServiceURL.Replace("{pool-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PoolId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(DhcpV6IpPool, defaultSerializationSettings));
             request.Resource = UpdateDhcpV6IpPoolServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDhcpV6IpPoolType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDhcpV6IpPoolType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateDhcpV6IpPoolServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDhcpV6IpPoolType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDhcpV6IpPoolType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteDhcpV6IpPool(string ServerId, string PoolId)
+        public async Task DeleteDhcpV6IpPool(string ServerId, string PoolId)
         {
             if (ServerId == null) { throw new System.ArgumentNullException("ServerId cannot be null"); }
             if (PoolId == null) { throw new System.ArgumentNullException("PoolId cannot be null"); }
@@ -688,7 +515,7 @@ namespace nsxtapi.ManagerModules
             DeleteDhcpV6IpPoolServiceURL.Replace("{server-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServerId, System.Globalization.CultureInfo.InvariantCulture)));
             DeleteDhcpV6IpPoolServiceURL.Replace("{pool-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PoolId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteDhcpV6IpPoolServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteDhcpV6IpPoolServiceURL.ToString() + " did not complete successfull";
@@ -700,7 +527,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDhcpV6IpPoolType ReadDhcpV6IpPool(string ServerId, string PoolId)
+        public async Task<NSXTDhcpV6IpPoolType> ReadDhcpV6IpPool(string ServerId, string PoolId)
         {
             if (ServerId == null) { throw new System.ArgumentNullException("ServerId cannot be null"); }
             if (PoolId == null) { throw new System.ArgumentNullException("PoolId cannot be null"); }
@@ -715,31 +542,19 @@ namespace nsxtapi.ManagerModules
             ReadDhcpV6IpPoolServiceURL.Replace("{server-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServerId, System.Globalization.CultureInfo.InvariantCulture)));
             ReadDhcpV6IpPoolServiceURL.Replace("{pool-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PoolId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadDhcpV6IpPoolServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDhcpV6IpPoolType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDhcpV6IpPoolType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadDhcpV6IpPoolServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDhcpV6IpPoolType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDhcpV6IpPoolType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDhcpStaticBindingType UpdateDhcpStaticBinding(string ServerId, string BindingId, NSXTDhcpStaticBindingType DhcpStaticBinding)
+        public async Task<NSXTDhcpStaticBindingType> UpdateDhcpStaticBinding(string ServerId, string BindingId, NSXTDhcpStaticBindingType DhcpStaticBinding)
         {
             if (ServerId == null) { throw new System.ArgumentNullException("ServerId cannot be null"); }
             if (BindingId == null) { throw new System.ArgumentNullException("BindingId cannot be null"); }
@@ -756,31 +571,19 @@ namespace nsxtapi.ManagerModules
             UpdateDhcpStaticBindingServiceURL.Replace("{binding-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(BindingId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(DhcpStaticBinding, defaultSerializationSettings));
             request.Resource = UpdateDhcpStaticBindingServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDhcpStaticBindingType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDhcpStaticBindingType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateDhcpStaticBindingServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDhcpStaticBindingType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDhcpStaticBindingType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteDhcpStaticBinding(string ServerId, string BindingId)
+        public async Task DeleteDhcpStaticBinding(string ServerId, string BindingId)
         {
             if (ServerId == null) { throw new System.ArgumentNullException("ServerId cannot be null"); }
             if (BindingId == null) { throw new System.ArgumentNullException("BindingId cannot be null"); }
@@ -795,7 +598,7 @@ namespace nsxtapi.ManagerModules
             DeleteDhcpStaticBindingServiceURL.Replace("{server-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServerId, System.Globalization.CultureInfo.InvariantCulture)));
             DeleteDhcpStaticBindingServiceURL.Replace("{binding-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(BindingId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteDhcpStaticBindingServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteDhcpStaticBindingServiceURL.ToString() + " did not complete successfull";
@@ -807,7 +610,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDhcpStaticBindingType ReadDhcpStaticBinding(string ServerId, string BindingId)
+        public async Task<NSXTDhcpStaticBindingType> ReadDhcpStaticBinding(string ServerId, string BindingId)
         {
             if (ServerId == null) { throw new System.ArgumentNullException("ServerId cannot be null"); }
             if (BindingId == null) { throw new System.ArgumentNullException("BindingId cannot be null"); }
@@ -822,31 +625,19 @@ namespace nsxtapi.ManagerModules
             ReadDhcpStaticBindingServiceURL.Replace("{server-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServerId, System.Globalization.CultureInfo.InvariantCulture)));
             ReadDhcpStaticBindingServiceURL.Replace("{binding-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(BindingId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadDhcpStaticBindingServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDhcpStaticBindingType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDhcpStaticBindingType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadDhcpStaticBindingServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDhcpStaticBindingType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDhcpStaticBindingType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDhcpProfileType UpdateDhcpProfile(string ProfileId, NSXTDhcpProfileType DhcpProfile)
+        public async Task<NSXTDhcpProfileType> UpdateDhcpProfile(string ProfileId, NSXTDhcpProfileType DhcpProfile)
         {
             if (ProfileId == null) { throw new System.ArgumentNullException("ProfileId cannot be null"); }
             if (DhcpProfile == null) { throw new System.ArgumentNullException("DhcpProfile cannot be null"); }
@@ -861,31 +652,19 @@ namespace nsxtapi.ManagerModules
             UpdateDhcpProfileServiceURL.Replace("{profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(DhcpProfile, defaultSerializationSettings));
             request.Resource = UpdateDhcpProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDhcpProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDhcpProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateDhcpProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDhcpProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDhcpProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDhcpProfileType ReadDhcpProfile(string ProfileId)
+        public async Task<NSXTDhcpProfileType> ReadDhcpProfile(string ProfileId)
         {
             if (ProfileId == null) { throw new System.ArgumentNullException("ProfileId cannot be null"); }
             NSXTDhcpProfileType returnValue = default(NSXTDhcpProfileType);
@@ -898,31 +677,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             ReadDhcpProfileServiceURL.Replace("{profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadDhcpProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDhcpProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDhcpProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadDhcpProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDhcpProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDhcpProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteDhcpProfile(string ProfileId)
+        public async Task DeleteDhcpProfile(string ProfileId)
         {
             if (ProfileId == null) { throw new System.ArgumentNullException("ProfileId cannot be null"); }
             
@@ -935,7 +702,7 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             DeleteDhcpProfileServiceURL.Replace("{profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteDhcpProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteDhcpProfileServiceURL.ToString() + " did not complete successfull";
@@ -947,7 +714,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDhcpV6IpPoolType CreateDhcpV6IpPool(string ServerId, NSXTDhcpV6IpPoolType DhcpV6IpPool)
+        public async Task<NSXTDhcpV6IpPoolType> CreateDhcpV6IpPool(string ServerId, NSXTDhcpV6IpPoolType DhcpV6IpPool)
         {
             if (ServerId == null) { throw new System.ArgumentNullException("ServerId cannot be null"); }
             if (DhcpV6IpPool == null) { throw new System.ArgumentNullException("DhcpV6IpPool cannot be null"); }
@@ -962,31 +729,19 @@ namespace nsxtapi.ManagerModules
             CreateDhcpV6IpPoolServiceURL.Replace("{server-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServerId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(DhcpV6IpPool, defaultSerializationSettings));
             request.Resource = CreateDhcpV6IpPoolServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDhcpV6IpPoolType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDhcpV6IpPoolType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CreateDhcpV6IpPoolServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDhcpV6IpPoolType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDhcpV6IpPoolType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDhcpV6IpPoolListResultType ListDhcpV6IpPools(string ServerId, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTDhcpV6IpPoolListResultType> ListDhcpV6IpPools(string ServerId, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (ServerId == null) { throw new System.ArgumentNullException("ServerId cannot be null"); }
             NSXTDhcpV6IpPoolListResultType returnValue = default(NSXTDhcpV6IpPoolListResultType);
@@ -1004,31 +759,19 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListDhcpV6IpPoolsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDhcpV6IpPoolListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDhcpV6IpPoolListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListDhcpV6IpPoolsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDhcpV6IpPoolListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDhcpV6IpPoolListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTConfigurationStateType GetDhcpStaticBindingState(string ServerId, string BindingId, long? BarrierId = null, string? RequestId = null)
+        public async Task<NSXTConfigurationStateType> GetDhcpStaticBindingState(string ServerId, string BindingId, long? BarrierId = null, string? RequestId = null)
         {
             if (ServerId == null) { throw new System.ArgumentNullException("ServerId cannot be null"); }
             if (BindingId == null) { throw new System.ArgumentNullException("BindingId cannot be null"); }
@@ -1045,31 +788,19 @@ namespace nsxtapi.ManagerModules
             if (BarrierId != null) { request.AddQueryParameter("barrier_id", BarrierId.ToString()); }
             if (RequestId != null) { request.AddQueryParameter("request_id", RequestId.ToString()); }
             request.Resource = GetDhcpStaticBindingStateServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTConfigurationStateType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTConfigurationStateType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetDhcpStaticBindingStateServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTConfigurationStateType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTConfigurationStateType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTConfigurationStateType GetDhcpIpPoolState(string ServerId, string PoolId, long? BarrierId = null, string? RequestId = null)
+        public async Task<NSXTConfigurationStateType> GetDhcpIpPoolState(string ServerId, string PoolId, long? BarrierId = null, string? RequestId = null)
         {
             if (ServerId == null) { throw new System.ArgumentNullException("ServerId cannot be null"); }
             if (PoolId == null) { throw new System.ArgumentNullException("PoolId cannot be null"); }
@@ -1086,31 +817,19 @@ namespace nsxtapi.ManagerModules
             if (BarrierId != null) { request.AddQueryParameter("barrier_id", BarrierId.ToString()); }
             if (RequestId != null) { request.AddQueryParameter("request_id", RequestId.ToString()); }
             request.Resource = GetDhcpIpPoolStateServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTConfigurationStateType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTConfigurationStateType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetDhcpIpPoolStateServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTConfigurationStateType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTConfigurationStateType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDhcpV6StaticBindingType CreateDhcpV6StaticBinding(string ServerId, NSXTDhcpV6StaticBindingType DhcpV6StaticBinding)
+        public async Task<NSXTDhcpV6StaticBindingType> CreateDhcpV6StaticBinding(string ServerId, NSXTDhcpV6StaticBindingType DhcpV6StaticBinding)
         {
             if (ServerId == null) { throw new System.ArgumentNullException("ServerId cannot be null"); }
             if (DhcpV6StaticBinding == null) { throw new System.ArgumentNullException("DhcpV6StaticBinding cannot be null"); }
@@ -1125,31 +844,19 @@ namespace nsxtapi.ManagerModules
             CreateDhcpV6StaticBindingServiceURL.Replace("{server-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServerId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(DhcpV6StaticBinding, defaultSerializationSettings));
             request.Resource = CreateDhcpV6StaticBindingServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDhcpV6StaticBindingType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDhcpV6StaticBindingType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CreateDhcpV6StaticBindingServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDhcpV6StaticBindingType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDhcpV6StaticBindingType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDhcpV6StaticBindingListResultType ListDhcpV6StaticBindings(string ServerId, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTDhcpV6StaticBindingListResultType> ListDhcpV6StaticBindings(string ServerId, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (ServerId == null) { throw new System.ArgumentNullException("ServerId cannot be null"); }
             NSXTDhcpV6StaticBindingListResultType returnValue = default(NSXTDhcpV6StaticBindingListResultType);
@@ -1167,31 +874,19 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListDhcpV6StaticBindingsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDhcpV6StaticBindingListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDhcpV6StaticBindingListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListDhcpV6StaticBindingsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDhcpV6StaticBindingListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDhcpV6StaticBindingListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDhcpLeasesType GetDhcpLeaseInfo(string ServerId, string? Address = null, string? PoolId = null, string? Source = null)
+        public async Task<NSXTDhcpLeasesType> GetDhcpLeaseInfo(string ServerId, string? Address = null, string? PoolId = null, string? Source = null)
         {
             if (ServerId == null) { throw new System.ArgumentNullException("ServerId cannot be null"); }
             NSXTDhcpLeasesType returnValue = default(NSXTDhcpLeasesType);
@@ -1207,31 +902,19 @@ namespace nsxtapi.ManagerModules
             if (PoolId != null) { request.AddQueryParameter("pool_id", PoolId.ToString()); }
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             request.Resource = GetDhcpLeaseInfoServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDhcpLeasesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDhcpLeasesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetDhcpLeaseInfoServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDhcpLeasesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDhcpLeasesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteAdhcpLease(string ServerId, string Ip, string Mac)
+        public async Task DeleteAdhcpLease(string ServerId, string Ip, string Mac)
         {
             if (ServerId == null) { throw new System.ArgumentNullException("ServerId cannot be null"); }
             if (Ip == null) { throw new System.ArgumentNullException("Ip cannot be null"); }
@@ -1248,7 +931,7 @@ namespace nsxtapi.ManagerModules
             if (Ip != null) { request.AddQueryParameter("ip", Ip.ToString()); }
             if (Mac != null) { request.AddQueryParameter("mac", Mac.ToString()); }
             request.Resource = DeleteAdhcpLeaseServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteAdhcpLeaseServiceURL.ToString() + " did not complete successfull";
@@ -1260,7 +943,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDhcpV6StaticBindingType UpdateDhcpV6StaticBinding(string ServerId, string BindingId, NSXTDhcpV6StaticBindingType DhcpV6StaticBinding)
+        public async Task<NSXTDhcpV6StaticBindingType> UpdateDhcpV6StaticBinding(string ServerId, string BindingId, NSXTDhcpV6StaticBindingType DhcpV6StaticBinding)
         {
             if (ServerId == null) { throw new System.ArgumentNullException("ServerId cannot be null"); }
             if (BindingId == null) { throw new System.ArgumentNullException("BindingId cannot be null"); }
@@ -1277,31 +960,19 @@ namespace nsxtapi.ManagerModules
             UpdateDhcpV6StaticBindingServiceURL.Replace("{binding-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(BindingId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(DhcpV6StaticBinding, defaultSerializationSettings));
             request.Resource = UpdateDhcpV6StaticBindingServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDhcpV6StaticBindingType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDhcpV6StaticBindingType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateDhcpV6StaticBindingServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDhcpV6StaticBindingType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDhcpV6StaticBindingType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDhcpV6StaticBindingType ReadDhcpV6StaticBinding(string ServerId, string BindingId)
+        public async Task<NSXTDhcpV6StaticBindingType> ReadDhcpV6StaticBinding(string ServerId, string BindingId)
         {
             if (ServerId == null) { throw new System.ArgumentNullException("ServerId cannot be null"); }
             if (BindingId == null) { throw new System.ArgumentNullException("BindingId cannot be null"); }
@@ -1316,31 +987,19 @@ namespace nsxtapi.ManagerModules
             ReadDhcpV6StaticBindingServiceURL.Replace("{server-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServerId, System.Globalization.CultureInfo.InvariantCulture)));
             ReadDhcpV6StaticBindingServiceURL.Replace("{binding-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(BindingId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadDhcpV6StaticBindingServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDhcpV6StaticBindingType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDhcpV6StaticBindingType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadDhcpV6StaticBindingServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDhcpV6StaticBindingType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDhcpV6StaticBindingType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteDhcpV6StaticBinding(string ServerId, string BindingId)
+        public async Task DeleteDhcpV6StaticBinding(string ServerId, string BindingId)
         {
             if (ServerId == null) { throw new System.ArgumentNullException("ServerId cannot be null"); }
             if (BindingId == null) { throw new System.ArgumentNullException("BindingId cannot be null"); }
@@ -1355,7 +1014,7 @@ namespace nsxtapi.ManagerModules
             DeleteDhcpV6StaticBindingServiceURL.Replace("{server-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServerId, System.Globalization.CultureInfo.InvariantCulture)));
             DeleteDhcpV6StaticBindingServiceURL.Replace("{binding-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(BindingId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteDhcpV6StaticBindingServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteDhcpV6StaticBindingServiceURL.ToString() + " did not complete successfull";

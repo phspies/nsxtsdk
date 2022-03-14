@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,68 +17,45 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTOspfRouteDetailsInCsvRecordType : NSXTCsvRecordType
     {
-        public NSXTOspfRouteDetailsInCsvRecordType()
-        {
-        }
         /// <summary>
         /// Type to cost of the route.
         /// </summary>
-        [JsonProperty(PropertyName = "type_to_cost")]
-        [NSXTProperty(IsRequired: false, Description: @"Type to cost of the route.")]
         public long? TypeToCost { get; set; }
         /// <summary>
         /// route next hop result.
         /// </summary>
-        [JsonProperty(PropertyName = "next_hop_neighbor_address")]
-        [NSXTProperty(IsRequired: false, Description: @"route next hop result.")]
         public string? NextHopNeighborAddress { get; set; }
         /// <summary>
         /// Learned route prefix.
         /// </summary>
-        [JsonProperty(PropertyName = "route_prefix")]
-        [NSXTProperty(IsRequired: false, Description: @"Learned route prefix.")]
         public string? RoutePrefix { get; set; }
         /// <summary>
         /// Cost of the route.
         /// </summary>
-        [JsonProperty(PropertyName = "cost")]
-        [NSXTProperty(IsRequired: false, Description: @"Cost of the route.")]
         public long? Cost { get; set; }
         /// <summary>
         /// OSPF area.
         /// </summary>
-        [JsonProperty(PropertyName = "area")]
-        [NSXTProperty(IsRequired: false, Description: @"OSPF area.")]
         public string? Area { get; set; }
         /// <summary>
         /// Type of route.
         /// </summary>
-        [JsonProperty(PropertyName = "route_type")]
-        [NSXTProperty(IsRequired: false, Description: @"Type of route.")]
         public string? RouteType { get; set; }
         /// <summary>
         /// Type of router.
         /// </summary>
-        [JsonProperty(PropertyName = "router_type")]
-        [NSXTProperty(IsRequired: false, Description: @"Type of router.")]
         public string? RouterType { get; set; }
         /// <summary>
         /// OSPF policy interface name.
         /// </summary>
-        [JsonProperty(PropertyName = "next_hop_interface_name")]
-        [NSXTProperty(IsRequired: false, Description: @"OSPF policy interface name.")]
         public string? NextHopInterfaceName { get; set; }
         /// <summary>
         /// Check whether OSPF route is directly connected.
         /// </summary>
-        [JsonProperty(PropertyName = "next_hop_directly_attached")]
-        [NSXTProperty(IsRequired: false, Description: @"Check whether OSPF route is directly connected.")]
         public bool? NextHopDirectlyAttached { get; set; }
         /// <summary>
         /// Policy edge path.
         /// </summary>
-        [JsonProperty(PropertyName = "edge_path")]
-        [NSXTProperty(IsRequired: false, Description: @"Policy edge path.")]
         public string? EdgePath { get; set; }
     }
 }

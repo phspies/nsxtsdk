@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,36 +17,25 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer WafRuleOverrides object")]
     public class NSXTALBWafRuleOverridesType 
     {
-        public NSXTALBWafRuleOverridesType()
-        {
-        }
         /// <summary>
         /// Replace the exclude list for this rule.
         /// Maximum of 64 items allowed.
         /// </summary>
-        [JsonProperty(PropertyName = "exclude_list")]
-        [NSXTProperty(IsRequired: false, Description: @"Replace the exclude list for this rule.Maximum of 64 items allowed.")]
         public IList<NSXTALBWafExcludeListEntryType> ExcludeList { get; set; }
         /// <summary>
         /// Override the enable flag for this rule.
         /// </summary>
-        [JsonProperty(PropertyName = "enable")]
-        [NSXTProperty(IsRequired: false, Description: @"Override the enable flag for this rule.")]
         public bool? Enable { get; set; }
         /// <summary>
         /// Override the waf mode for this rule.
         /// Enum options - WAF_MODE_DETECTION_ONLY,
         /// WAF_MODE_ENFORCEMENT.
         /// </summary>
-        [JsonProperty(PropertyName = "mode")]
-        [NSXTProperty(IsRequired: false, Description: @"Override the waf mode for this rule.Enum options - WAF_MODE_DETECTION_ONLY,WAF_MODE_ENFORCEMENT.")]
         public NSXTAlbwafRuleOverridesModeEnumType? Mode { get; set; }
         /// <summary>
         /// The rule_id of the rule where attributes are overridden.
         /// </summary>
         [JsonProperty(PropertyName = "rule_id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"The rule_id of the rule where attributes are overridden.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string RuleId { get; set; }
     }
 }

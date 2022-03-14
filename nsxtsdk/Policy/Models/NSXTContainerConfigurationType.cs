@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,38 +17,25 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTContainerConfigurationType : NSXTWidgetConfigurationType
     {
-        public NSXTContainerConfigurationType()
-        {
-        }
         /// <summary>
         /// If not specified, creates an empty container.
         /// </summary>
-        [JsonProperty(PropertyName = "widgets")]
-        [NSXTProperty(IsRequired: false, Description: @"If not specified, creates an empty container.")]
         public IList<NSXTWidgetItemType> Widgets { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "layout")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTLayoutType Layout { get; set; }
         /// <summary>
         /// Labels for the container.
         /// </summary>
-        [JsonProperty(PropertyName = "labels")]
-        [NSXTProperty(IsRequired: false, Description: @"Labels for the container.")]
         public IList<NSXTLabelType> Labels { get; set; }
         /// <summary>
         /// Hyperlink of the specified UI page that provides details.
         /// </summary>
-        [JsonProperty(PropertyName = "navigation")]
-        [NSXTProperty(IsRequired: false, Description: @"Hyperlink of the specified UI page that provides details.")]
         public string? Navigation { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "header")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTHeaderType Header { get; set; }
     }
 }

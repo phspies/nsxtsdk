@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLogicalPortType : NSXTManagedResourceType
     {
-        public NSXTLogicalPortType()
-        {
-        }
         /// <summary>
         /// Id of the Logical switch that this port belongs to.
         /// </summary>
         [JsonProperty(PropertyName = "logical_switch_id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Id of the Logical switch that this port belongs to.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string LogicalSwitchId { get; set; }
         /// <summary>
         /// Set initial state when a new logical port is created. 'UNBLOCKED_VLAN'
@@ -34,20 +29,14 @@ namespace nsxtsdk.ManagerModels
         /// can only be configured at port creation (POST), and cannot be modified.
         /// 'RESTORE_VIF' fetches and restores VIF attachment from ESX host.
         /// </summary>
-        [JsonProperty(PropertyName = "init_state")]
-        [NSXTProperty(IsRequired: false, Description: @"Set initial state when a new logical port is created. &apos;UNBLOCKED_VLAN&apos;means new port will be unblocked on traffic in creation, also VLAN willbe set with corresponding logical switch setting. This port settingcan only be configured at port creation (POST), and cannot be modified.&apos;RESTORE_VIF&apos; fetches and restores VIF attachment from ESX host.")]
         public NSXTLogicalPortInitStateEnumType? InitState { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "switching_profile_ids")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public IList<NSXTSwitchingProfileTypeIdEntryType> SwitchingProfileIds { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "attachment")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTLogicalPortAttachmentType Attachment { get; set; }
         /// <summary>
         /// The internal_id of the logical port may or may not be identical to it's
@@ -56,16 +45,12 @@ namespace nsxtsdk.ManagerModels
         /// will be connected to different logical port managed resource. However,
         /// the internal_id field will be persisted across vmotion.
         /// </summary>
-        [JsonProperty(PropertyName = "internal_id")]
-        [NSXTProperty(IsRequired: false, Description: @"The internal_id of the logical port may or may not be identical to it&apos;smanaged resource ID. If a VirtualMachine connected to logical portmigrates from one site to another, then on the destination site, itwill be connected to different logical port managed resource. However,the internal_id field will be persisted across vmotion.")]
         public string? InternalId { get; set; }
         /// <summary>
         /// This property could be used for vendor specific configuration in key value
         /// string pairs. Logical port setting will override logical switch setting if
         /// the same key was set on both logical switch and logical port.
         /// </summary>
-        [JsonProperty(PropertyName = "extra_configs")]
-        [NSXTProperty(IsRequired: false, Description: @"This property could be used for vendor specific configuration in key valuestring pairs. Logical port setting will override logical switch setting ifthe same key was set on both logical switch and logical port.")]
         public IList<NSXTExtraConfigType> ExtraConfigs { get; set; }
         /// <summary>
         /// IP Discovery module uses various mechanisms to discover address
@@ -75,8 +60,6 @@ namespace nsxtsdk.ManagerModels
         /// bindings can be provided here. Currently IP range in CIDR format
         /// is not supported.
         /// </summary>
-        [JsonProperty(PropertyName = "ignore_address_bindings")]
-        [NSXTProperty(IsRequired: false, Description: @"IP Discovery module uses various mechanisms to discover addressbindings being used on each port. If a user would like to ignoreany specific discovered address bindings or prevent the discoveryof a particular set of discovered bindings, then those addressbindings can be provided here. Currently IP range in CIDR formatis not supported.")]
         public IList<NSXTPacketAddressClassifierType> IgnoreAddressBindings { get; set; }
         /// <summary>
         /// Each address binding must contain both an IPElement and MAC address.
@@ -87,22 +70,16 @@ namespace nsxtsdk.ManagerModels
         /// address cannot have host bits set. A maximum of 128 unique address
         /// bindings is allowed per port.
         /// </summary>
-        [JsonProperty(PropertyName = "address_bindings")]
-        [NSXTProperty(IsRequired: false, Description: @"Each address binding must contain both an IPElement and MAC address.VLAN ID is optional. This binding configuration can be used byfeatures such as spoof-guard and overrides any discovered bindings.Any non unique entries are deduplicated to generate a unique setof address bindings and then stored. For IP addresses, a subnetaddress cannot have host bits set. A maximum of 128 unique addressbindings is allowed per port.")]
         public IList<NSXTPacketAddressClassifierType> AddressBindings { get; set; }
         /// <summary>
         /// ID populated by NSX when NSX on DVPG is used to indicate the source distributed virtual port and the corresponding
         /// distributed virtual switch. This ID is populated only for logical ports that belong to a logical switch of type DVPG.
         /// </summary>
-        [JsonProperty(PropertyName = "origin_id")]
-        [NSXTProperty(IsRequired: false, Description: @"ID populated by NSX when NSX on DVPG is used to indicate the source distributed virtual port and the corresponding distributed virtual switch. This ID is populated only for logical ports that belong to a logical switch of type DVPG.")]
         public string? OriginId { get; set; }
         /// <summary>
         /// Represents Desired state of the logical port
         /// </summary>
         [JsonProperty(PropertyName = "admin_state", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Represents Desired state of the logical port")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTLogicalPortAdminStateEnumType AdminState { get; set; }
     }
 }

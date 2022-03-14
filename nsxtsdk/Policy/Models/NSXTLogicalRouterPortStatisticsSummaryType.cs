@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLogicalRouterPortStatisticsSummaryType : NSXTAggregatedLogicalRouterPortCountersType
     {
-        public NSXTLogicalRouterPortStatisticsSummaryType()
-        {
-        }
         /// <summary>
         /// The ID of the logical router port
         /// </summary>
         [JsonProperty(PropertyName = "logical_router_port_id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"The ID of the logical router port")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string LogicalRouterPortId { get; set; }
     }
 }

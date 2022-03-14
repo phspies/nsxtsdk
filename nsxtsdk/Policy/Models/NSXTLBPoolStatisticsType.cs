@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,32 +17,21 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLBPoolStatisticsType : NSXTLBPoolStatisticsPerEPType
     {
-        public NSXTLBPoolStatisticsType()
-        {
-        }
         /// <summary>
         /// Timestamp when the data was last updated.
         /// </summary>
-        [JsonProperty(PropertyName = "last_update_timestamp")]
-        [NSXTProperty(IsRequired: false, Description: @"Timestamp when the data was last updated.")]
         public long? LastUpdateTimestamp { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "statistics")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTLBStatisticsCounterType Statistics { get; set; }
         /// <summary>
         /// Load balancer pool object path.
         /// </summary>
-        [JsonProperty(PropertyName = "pool_path")]
-        [NSXTProperty(IsRequired: false, Description: @"Load balancer pool object path.")]
         public string? PoolPath { get; set; }
         /// <summary>
         /// Statistics of load balancer pool members.
         /// </summary>
-        [JsonProperty(PropertyName = "members")]
-        [NSXTProperty(IsRequired: false, Description: @"Statistics of load balancer pool members.")]
         public IList<NSXTLBPoolMemberStatisticsType> Members { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,21 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTServiceSegmentType : NSXTPolicyConfigResourceType
     {
-        public NSXTServiceSegmentType()
-        {
-        }
         /// <summary>
         /// Policy path to transport zone. Only overlay transport zone is supported.
         /// </summary>
         [JsonProperty(PropertyName = "transport_zone_path", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Policy path to transport zone. Only overlay transport zone is supported.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string TransportZonePath { get; set; }
         /// <summary>
         /// Policy paths of logical routers or ports | to which this Service Segment can be connected.
         /// </summary>
-        [JsonProperty(PropertyName = "lr_paths")]
-        [NSXTProperty(IsRequired: false, Description: @"Policy paths of logical routers or ports | to which this Service Segment can be connected.")]
         public IList<string> LrPaths { get; set; }
     }
 }

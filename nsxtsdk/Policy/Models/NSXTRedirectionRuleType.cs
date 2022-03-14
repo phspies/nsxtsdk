@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTRedirectionRuleType : NSXTBaseRuleType
     {
-        public NSXTRedirectionRuleType()
-        {
-        }
         /// <summary>
         /// The action to be applied to all the services
         /// </summary>
-        [JsonProperty(PropertyName = "action")]
-        [NSXTProperty(IsRequired: false, Description: @"The action to be applied to all the services")]
         public NSXTRedirectionRuleActionEnumType? Action { get; set; }
     }
 }

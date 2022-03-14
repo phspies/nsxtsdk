@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,38 +17,25 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTSuccessNodeSupportBundleResultType 
     {
-        public NSXTSuccessNodeSupportBundleResultType()
-        {
-        }
         /// <summary>
         /// Name of support bundle, e.g. nsx_NODETYPE_UUID_YYYYMMDD_HHMMSS.tgz
         /// </summary>
-        [JsonProperty(PropertyName = "bundle_name")]
-        [NSXTProperty(IsRequired: false, Description: @"Name of support bundle, e.g. nsx_NODETYPE_UUID_YYYYMMDD_HHMMSS.tgz")]
         public string? BundleName { get; set; }
         /// <summary>
         /// Display name of node
         /// </summary>
-        [JsonProperty(PropertyName = "node_display_name")]
-        [NSXTProperty(IsRequired: false, Description: @"Display name of node")]
         public string? NodeDisplayName { get; set; }
         /// <summary>
         /// UUID of node
         /// </summary>
-        [JsonProperty(PropertyName = "node_id")]
-        [NSXTProperty(IsRequired: false, Description: @"UUID of node")]
         public string? NodeId { get; set; }
         /// <summary>
         /// File's SHA256 thumbprint
         /// </summary>
-        [JsonProperty(PropertyName = "sha256_thumbprint")]
-        [NSXTProperty(IsRequired: false, Description: @"File&apos;s SHA256 thumbprint")]
         public string? Sha256Thumbprint { get; set; }
         /// <summary>
         /// Size of support bundle in bytes
         /// </summary>
-        [JsonProperty(PropertyName = "bundle_size")]
-        [NSXTProperty(IsRequired: false, Description: @"Size of support bundle in bytes")]
         public long? BundleSize { get; set; }
     }
 }

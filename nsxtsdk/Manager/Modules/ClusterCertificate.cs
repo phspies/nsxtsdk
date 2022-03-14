@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public ClusterCertificate(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public ClusterCertificate(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTClusterCertificateIdType SetClusterCertificateSetClusterCertificate(string CertificateId)
+        public async Task<NSXTClusterCertificateIdType> SetClusterCertificateSetClusterCertificate(string CertificateId)
         {
             if (CertificateId == null) { throw new System.ArgumentNullException("CertificateId cannot be null"); }
             NSXTClusterCertificateIdType returnValue = default(NSXTClusterCertificateIdType);
@@ -43,31 +50,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             if (CertificateId != null) { request.AddQueryParameter("certificate_id", CertificateId.ToString()); }
             request.Resource = SetClusterCertificateSetClusterCertificateServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTClusterCertificateIdType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTClusterCertificateIdType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + SetClusterCertificateSetClusterCertificateServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTClusterCertificateIdType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTClusterCertificateIdType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTClusterCertificateIdType ClearClusterCertificateClearClusterCertificate(string CertificateId)
+        public async Task<NSXTClusterCertificateIdType> ClearClusterCertificateClearClusterCertificate(string CertificateId)
         {
             if (CertificateId == null) { throw new System.ArgumentNullException("CertificateId cannot be null"); }
             NSXTClusterCertificateIdType returnValue = default(NSXTClusterCertificateIdType);
@@ -80,31 +75,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             if (CertificateId != null) { request.AddQueryParameter("certificate_id", CertificateId.ToString()); }
             request.Resource = ClearClusterCertificateClearClusterCertificateServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTClusterCertificateIdType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTClusterCertificateIdType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + ClearClusterCertificateClearClusterCertificateServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTClusterCertificateIdType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTClusterCertificateIdType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTClusterCertificateIdType GetClusterCertificateId()
+        public async Task<NSXTClusterCertificateIdType> GetClusterCertificateId()
         {
             NSXTClusterCertificateIdType returnValue = default(NSXTClusterCertificateIdType);
             StringBuilder GetClusterCertificateIdServiceURL = new StringBuilder("/cluster/api-certificate");
@@ -115,25 +98,13 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = GetClusterCertificateIdServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTClusterCertificateIdType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTClusterCertificateIdType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetClusterCertificateIdServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTClusterCertificateIdType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTClusterCertificateIdType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

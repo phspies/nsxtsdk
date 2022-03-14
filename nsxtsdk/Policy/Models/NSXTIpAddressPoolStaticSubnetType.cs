@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,40 +17,27 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIpAddressPoolStaticSubnetType : NSXTIpAddressPoolSubnetType
     {
-        public NSXTIpAddressPoolStaticSubnetType()
-        {
-        }
         /// <summary>
         /// The collection of upto 3 DNS servers for the subnet.
         /// </summary>
-        [JsonProperty(PropertyName = "dns_nameservers")]
-        [NSXTProperty(IsRequired: false, Description: @"The collection of upto 3 DNS servers for the subnet.")]
         public IList<string> DnsNameservers { get; set; }
         /// <summary>
         /// Subnet representation is a network address and prefix length
         /// </summary>
         [JsonProperty(PropertyName = "cidr", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Subnet representation is a network address and prefix length")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Cidr { get; set; }
         /// <summary>
         /// The default gateway address on a layer-3 router.
         /// </summary>
-        [JsonProperty(PropertyName = "gateway_ip")]
-        [NSXTProperty(IsRequired: false, Description: @"The default gateway address on a layer-3 router.")]
         public string? GatewayIp { get; set; }
         /// <summary>
         /// A collection of IPv4 or IPv6 IP Pool Ranges.
         /// </summary>
         [JsonProperty(PropertyName = "allocation_ranges", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"A collection of IPv4 or IPv6 IP Pool Ranges.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTIpPoolRangeType> AllocationRanges { get; set; }
         /// <summary>
         /// The DNS suffix for the DNS server.
         /// </summary>
-        [JsonProperty(PropertyName = "dns_suffix")]
-        [NSXTProperty(IsRequired: false, Description: @"The DNS suffix for the DNS server.")]
         public string? DnsSuffix { get; set; }
     }
 }

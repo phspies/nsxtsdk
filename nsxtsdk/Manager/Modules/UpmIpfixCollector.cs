@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public UpmIpfixCollector(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public UpmIpfixCollector(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIpfixCollectorUpmProfileType UpdateIpfixCollectorUpmProfile(string IpfixCollectorProfileId, NSXTIpfixCollectorUpmProfileType IpfixCollectorUpmProfile)
+        public async Task<NSXTIpfixCollectorUpmProfileType> UpdateIpfixCollectorUpmProfile(string IpfixCollectorProfileId, NSXTIpfixCollectorUpmProfileType IpfixCollectorUpmProfile)
         {
             if (IpfixCollectorProfileId == null) { throw new System.ArgumentNullException("IpfixCollectorProfileId cannot be null"); }
             if (IpfixCollectorUpmProfile == null) { throw new System.ArgumentNullException("IpfixCollectorUpmProfile cannot be null"); }
@@ -45,31 +52,19 @@ namespace nsxtapi.ManagerModules
             UpdateIpfixCollectorUpmProfileServiceURL.Replace("{ipfix-collector-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(IpfixCollectorProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(IpfixCollectorUpmProfile, defaultSerializationSettings));
             request.Resource = UpdateIpfixCollectorUpmProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIpfixCollectorUpmProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIpfixCollectorUpmProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateIpfixCollectorUpmProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIpfixCollectorUpmProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIpfixCollectorUpmProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIpfixCollectorUpmProfileType GetIpfixCollectorUpmProfile(string IpfixCollectorProfileId)
+        public async Task<NSXTIpfixCollectorUpmProfileType> GetIpfixCollectorUpmProfile(string IpfixCollectorProfileId)
         {
             if (IpfixCollectorProfileId == null) { throw new System.ArgumentNullException("IpfixCollectorProfileId cannot be null"); }
             NSXTIpfixCollectorUpmProfileType returnValue = default(NSXTIpfixCollectorUpmProfileType);
@@ -82,31 +77,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             GetIpfixCollectorUpmProfileServiceURL.Replace("{ipfix-collector-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(IpfixCollectorProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetIpfixCollectorUpmProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIpfixCollectorUpmProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIpfixCollectorUpmProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetIpfixCollectorUpmProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIpfixCollectorUpmProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIpfixCollectorUpmProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteIpfixCollectorUpmProfile(string IpfixCollectorProfileId)
+        public async Task DeleteIpfixCollectorUpmProfile(string IpfixCollectorProfileId)
         {
             if (IpfixCollectorProfileId == null) { throw new System.ArgumentNullException("IpfixCollectorProfileId cannot be null"); }
             
@@ -119,7 +102,7 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             DeleteIpfixCollectorUpmProfileServiceURL.Replace("{ipfix-collector-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(IpfixCollectorProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteIpfixCollectorUpmProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteIpfixCollectorUpmProfileServiceURL.ToString() + " did not complete successfull";
@@ -131,7 +114,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIpfixCollectorUpmProfileType CreateIpfixCollectorUpmProfile(NSXTIpfixCollectorUpmProfileType IpfixCollectorUpmProfile)
+        public async Task<NSXTIpfixCollectorUpmProfileType> CreateIpfixCollectorUpmProfile(NSXTIpfixCollectorUpmProfileType IpfixCollectorUpmProfile)
         {
             if (IpfixCollectorUpmProfile == null) { throw new System.ArgumentNullException("IpfixCollectorUpmProfile cannot be null"); }
             NSXTIpfixCollectorUpmProfileType returnValue = default(NSXTIpfixCollectorUpmProfileType);
@@ -144,31 +127,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(IpfixCollectorUpmProfile, defaultSerializationSettings));
             request.Resource = CreateIpfixCollectorUpmProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIpfixCollectorUpmProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIpfixCollectorUpmProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CreateIpfixCollectorUpmProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIpfixCollectorUpmProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIpfixCollectorUpmProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIpfixCollectorUpmProfileListResultType ListIpfixCollectorUpmProfiles(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, string? ProfileTypes = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTIpfixCollectorUpmProfileListResultType> ListIpfixCollectorUpmProfiles(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, string? ProfileTypes = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTIpfixCollectorUpmProfileListResultType returnValue = default(NSXTIpfixCollectorUpmProfileListResultType);
             StringBuilder ListIpfixCollectorUpmProfilesServiceURL = new StringBuilder("/ipfix-collector-profiles");
@@ -185,25 +156,13 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListIpfixCollectorUpmProfilesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIpfixCollectorUpmProfileListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIpfixCollectorUpmProfileListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListIpfixCollectorUpmProfilesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIpfixCollectorUpmProfileListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIpfixCollectorUpmProfileListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

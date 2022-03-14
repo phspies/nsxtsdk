@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,9 +17,6 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyType : NSXTPolicyConfigResourceType
     {
-        public NSXTPolicyType()
-        {
-        }
         /// <summary>
         /// - Distributed Firewall -
         /// Policy framework provides five pre-defined categories for classifying
@@ -47,14 +44,10 @@ namespace nsxtsdk.PolicyModels
         /// NSX verticals to autoplumb data path rules. Finally, "Default" category
         /// is the placeholder default rules with lowest in the order of priority.
         /// </summary>
-        [JsonProperty(PropertyName = "category")]
-        [NSXTProperty(IsRequired: false, Description: @"- Distributed Firewall -Policy framework provides five pre-defined categories for classifyinga security policy. They are &quot;Ethernet&quot;,&quot;Emergency&quot;, &quot;Infrastructure&quot;&quot;Environment&quot; and &quot;Application&quot;. There is a pre-determined order inwhich the policy framework manages the priority of these securitypolicies. Ethernet category is for supporting layer 2 firewall rules.The other four categories are applicable for layer 3 rules. Amongstthem, the Emergency category has the highest priority followed byInfrastructure, Environment and then Application rules. Administratorcan choose to categorize a security policy into the above categoriesor can choose to leave it empty. If empty it will have the leastprecedence w.r.t the above four categories.- Edge Firewall -Policy Framework for Edge Firewall provides six pre-defined categories&quot;Emergency&quot;, &quot;SystemRules&quot;, &quot;SharedPreRules&quot;, &quot;LocalGatewayRules&quot;,&quot;AutoServiceRules&quot; and &quot;Default&quot;, in order of priority of rules.All categories are allowed for Gatetway Policies that belongto &apos;default&apos; Domain. However, for user created domains, category isrestricted to &quot;SharedPreRules&quot; or &quot;LocalGatewayRules&quot; only. Also, theusers can add/modify/delete rules from only the &quot;SharedPreRules&quot; and&quot;LocalGatewayRules&quot; categories. If user doesn&apos;t specify the categorythen defaulted to &quot;Rules&quot;. System generated category is used by NSXcreated rules, for example BFD rules. Autoplumbed category used byNSX verticals to autoplumb data path rules. Finally, &quot;Default&quot; categoryis the placeholder default rules with lowest in the order of priority.")]
         public string? Category { get; set; }
         /// <summary>
         /// A flag to indicate whether policy is a default policy.
         /// </summary>
-        [JsonProperty(PropertyName = "is_default")]
-        [NSXTProperty(IsRequired: false, Description: @"A flag to indicate whether policy is a default policy.")]
         public bool? IsDefault { get; set; }
         /// <summary>
         /// Indicates whether a security policy should be locked. If the
@@ -62,39 +55,27 @@ namespace nsxtsdk.PolicyModels
         /// be able to modify this security policy. Once the user releases
         /// the lock, other users can update this security policy.
         /// </summary>
-        [JsonProperty(PropertyName = "locked")]
-        [NSXTProperty(IsRequired: false, Description: @"Indicates whether a security policy should be locked. If thesecurity policy is locked by a user, then no other user wouldbe able to modify this security policy. Once the user releasesthe lock, other users can update this security policy.")]
         public bool? Locked { get; set; }
         /// <summary>
         /// ID of the user who last modified the lock for the secruity policy.
         /// </summary>
-        [JsonProperty(PropertyName = "lock_modified_by")]
-        [NSXTProperty(IsRequired: false, Description: @"ID of the user who last modified the lock for the secruity policy.")]
         public string? LockModifiedBy { get; set; }
         /// <summary>
         /// SecurityPolicy locked/unlocked time in epoch milliseconds.
         /// </summary>
-        [JsonProperty(PropertyName = "lock_modified_time")]
-        [NSXTProperty(IsRequired: false, Description: @"SecurityPolicy locked/unlocked time in epoch milliseconds.")]
         public long? LockModifiedTime { get; set; }
         /// <summary>
         /// The count of rules in the policy.
         /// </summary>
-        [JsonProperty(PropertyName = "rule_count")]
-        [NSXTProperty(IsRequired: false, Description: @"The count of rules in the policy.")]
         public int? RuleCount { get; set; }
         /// <summary>
         /// Comments for security policy lock/unlock.
         /// </summary>
-        [JsonProperty(PropertyName = "comments")]
-        [NSXTProperty(IsRequired: false, Description: @"Comments for security policy lock/unlock.")]
         public string? Comments { get; set; }
         /// <summary>
         /// This field is to indicate the internal sequence number of a policy
         /// with respect to the policies across categories.
         /// </summary>
-        [JsonProperty(PropertyName = "internal_sequence_number")]
-        [NSXTProperty(IsRequired: false, Description: @"This field is to indicate the internal sequence number of a policywith respect to the policies across categories.")]
         public int? InternalSequenceNumber { get; set; }
         /// <summary>
         /// Stateful or Stateless nature of security policy is enforced on all
@@ -104,15 +85,11 @@ namespace nsxtsdk.PolicyModels
         /// Layer3 security policies can be stateful or stateless. By default, they are stateful.
         /// Layer2 security policies can only be stateless.
         /// </summary>
-        [JsonProperty(PropertyName = "stateful")]
-        [NSXTProperty(IsRequired: false, Description: @"Stateful or Stateless nature of security policy is enforced on allrules in this security policy. When it is stateful, the state ofthe network connects are tracked and a stateful packet inspection isperformed.Layer3 security policies can be stateful or stateless. By default, they are stateful.Layer2 security policies can only be stateless.")]
         public bool? Stateful { get; set; }
         /// <summary>
         /// Provides a mechanism to apply the rules in this policy for a specified
         /// time duration.
         /// </summary>
-        [JsonProperty(PropertyName = "scheduler_path")]
-        [NSXTProperty(IsRequired: false, Description: @"Provides a mechanism to apply the rules in this policy for a specifiedtime duration.")]
         public string? SchedulerPath { get; set; }
         /// <summary>
         /// Ensures that a 3 way TCP handshake is done before the data packets
@@ -121,8 +98,6 @@ namespace nsxtsdk.PolicyModels
         /// If the tcp_strict flag is not specified and the security policy
         /// is stateful, then tcp_strict will be set to true.
         /// </summary>
-        [JsonProperty(PropertyName = "tcp_strict")]
-        [NSXTProperty(IsRequired: false, Description: @"Ensures that a 3 way TCP handshake is done before the data packetsare sent.tcp_strict=true is supported only for stateful security policies.If the tcp_strict flag is not specified and the security policyis stateful, then tcp_strict will be set to true.")]
         public bool? TcpStrict { get; set; }
         /// <summary>
         /// The list of group paths where the rules in this policy will get
@@ -131,8 +106,6 @@ namespace nsxtsdk.PolicyModels
         /// RedirectionPolicy, it is expected only when the policy is NS and
         /// redirecting to service chain.
         /// </summary>
-        [JsonProperty(PropertyName = "scope")]
-        [NSXTProperty(IsRequired: false, Description: @"The list of group paths where the rules in this policy will getapplied. This scope will take precedence over rule level scope.Supported only for security and redirection policies. In case ofRedirectionPolicy, it is expected only when the policy is NS andredirecting to service chain.")]
         public IList<string> Scope { get; set; }
         /// <summary>
         /// This field is used to resolve conflicts between security policies
@@ -153,9 +126,6 @@ namespace nsxtsdk.PolicyModels
         /// sequence number.
         /// The value of sequence number must be between 0 and 999,999.
         /// </summary>
-        [JsonProperty(PropertyName = "sequence_number")]
-        [NSXTProperty(IsRequired: false, Description: @"This field is used to resolve conflicts between security policiesacross domains. In order to change the sequence number of a policyone can fire a POST request on the policy entity witha query parameter action=reviseThe sequence number field will reflect the value of the computedsequence number upon execution of the above mentioned POST request.For scenarios where the administrator is using a template to updateseveral security policies, the only way to set the sequence number isto explicitly specify the sequence number for each security policy.If no sequence number is specified in the payload, a value of 0 isassigned by default. If there are multiple policies with the samesequence number then their order is not deterministic. If a specificorder of policies is desired, then one has to specify unique sequencenumbers or use the POST request on the policy entity witha query parameter action=revise to let the framework assign asequence number.The value of sequence number must be between 0 and 999,999.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
         public int? SequenceNumber { get; set; }
     }
 }

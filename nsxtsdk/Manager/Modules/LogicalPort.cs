@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public LogicalPort(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public LogicalPort(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLogicalPortType CreateLogicalPort(NSXTLogicalPortType LogicalPort)
+        public async Task<NSXTLogicalPortType> CreateLogicalPort(NSXTLogicalPortType LogicalPort)
         {
             if (LogicalPort == null) { throw new System.ArgumentNullException("LogicalPort cannot be null"); }
             NSXTLogicalPortType returnValue = default(NSXTLogicalPortType);
@@ -43,31 +50,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(LogicalPort, defaultSerializationSettings));
             request.Resource = CreateLogicalPortServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLogicalPortType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLogicalPortType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CreateLogicalPortServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLogicalPortType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLogicalPortType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLogicalPortListResultType ListLogicalPorts(string? AttachmentId = null, string? AttachmentType = null, string? BridgeClusterId = null, bool? ContainerPortsOnly = null, string? Cursor = null, bool? Diagnostic = null, string? IncludedFields = null, string? LogicalSwitchId = null, long? PageSize = null, string? ParentVifId = null, bool? SortAscending = null, string? SortBy = null, string? SwitchingProfileId = null, string? TransportNodeId = null, string? TransportZoneId = null)
+        public async Task<NSXTLogicalPortListResultType> ListLogicalPorts(string? AttachmentId = null, string? AttachmentType = null, string? BridgeClusterId = null, bool? ContainerPortsOnly = null, string? Cursor = null, bool? Diagnostic = null, string? IncludedFields = null, string? LogicalSwitchId = null, long? PageSize = null, string? ParentVifId = null, bool? SortAscending = null, string? SortBy = null, string? SwitchingProfileId = null, string? TransportNodeId = null, string? TransportZoneId = null)
         {
             NSXTLogicalPortListResultType returnValue = default(NSXTLogicalPortListResultType);
             StringBuilder ListLogicalPortsServiceURL = new StringBuilder("/logical-ports");
@@ -93,31 +88,19 @@ namespace nsxtapi.ManagerModules
             if (TransportNodeId != null) { request.AddQueryParameter("transport_node_id", TransportNodeId.ToString()); }
             if (TransportZoneId != null) { request.AddQueryParameter("transport_zone_id", TransportZoneId.ToString()); }
             request.Resource = ListLogicalPortsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLogicalPortListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLogicalPortListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListLogicalPortsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLogicalPortListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLogicalPortListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLogicalPortStateType GetLogicalPortState(string LportId)
+        public async Task<NSXTLogicalPortStateType> GetLogicalPortState(string LportId)
         {
             if (LportId == null) { throw new System.ArgumentNullException("LportId cannot be null"); }
             NSXTLogicalPortStateType returnValue = default(NSXTLogicalPortStateType);
@@ -130,31 +113,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             GetLogicalPortStateServiceURL.Replace("{lport-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LportId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetLogicalPortStateServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLogicalPortStateType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLogicalPortStateType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetLogicalPortStateServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLogicalPortStateType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLogicalPortStateType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLogicalPortType UpdateLogicalPort(string LportId, NSXTLogicalPortType LogicalPort)
+        public async Task<NSXTLogicalPortType> UpdateLogicalPort(string LportId, NSXTLogicalPortType LogicalPort)
         {
             if (LportId == null) { throw new System.ArgumentNullException("LportId cannot be null"); }
             if (LogicalPort == null) { throw new System.ArgumentNullException("LogicalPort cannot be null"); }
@@ -169,31 +140,19 @@ namespace nsxtapi.ManagerModules
             UpdateLogicalPortServiceURL.Replace("{lport-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LportId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(LogicalPort, defaultSerializationSettings));
             request.Resource = UpdateLogicalPortServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLogicalPortType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLogicalPortType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateLogicalPortServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLogicalPortType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLogicalPortType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLogicalPortType GetLogicalPort(string LportId)
+        public async Task<NSXTLogicalPortType> GetLogicalPort(string LportId)
         {
             if (LportId == null) { throw new System.ArgumentNullException("LportId cannot be null"); }
             NSXTLogicalPortType returnValue = default(NSXTLogicalPortType);
@@ -206,31 +165,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             GetLogicalPortServiceURL.Replace("{lport-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LportId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetLogicalPortServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLogicalPortType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLogicalPortType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetLogicalPortServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLogicalPortType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLogicalPortType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteLogicalPort(string LportId, bool? Detach = null)
+        public async Task DeleteLogicalPort(string LportId, bool? Detach = null)
         {
             if (LportId == null) { throw new System.ArgumentNullException("LportId cannot be null"); }
             
@@ -244,7 +191,7 @@ namespace nsxtapi.ManagerModules
             DeleteLogicalPortServiceURL.Replace("{lport-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LportId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Detach != null) { request.AddQueryParameter("detach", Detach.ToString()); }
             request.Resource = DeleteLogicalPortServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteLogicalPortServiceURL.ToString() + " did not complete successfull";

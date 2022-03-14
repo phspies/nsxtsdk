@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,26 +17,17 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTL2ForwarderStatusType 
     {
-        public NSXTL2ForwarderStatusType()
-        {
-        }
         /// <summary>
         /// Timestamp when the service router status was last updated.
         /// </summary>
-        [JsonProperty(PropertyName = "last_update_timestamp")]
-        [NSXTProperty(IsRequired: false, Description: @"Timestamp when the service router status was last updated.")]
         public long? LastUpdateTimestamp { get; set; }
         /// <summary>
         /// Logical switch id on which the L2 forwarder is created.
         /// </summary>
-        [JsonProperty(PropertyName = "logical_switch_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Logical switch id on which the L2 forwarder is created.")]
         public string? LogicalSwitchId { get; set; }
         /// <summary>
         /// L2 forwarder status per node.
         /// </summary>
-        [JsonProperty(PropertyName = "status_per_node")]
-        [NSXTProperty(IsRequired: false, Description: @"L2 forwarder status per node.")]
         public IList<NSXTL2ForwarderStatusPerNodeType> StatusPerNode { get; set; }
     }
 }

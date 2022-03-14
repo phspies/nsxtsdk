@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,20 +17,13 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Gateway QoS profile configuration")]
     public class NSXTGatewayQosProfileConfigType 
     {
-        public NSXTGatewayQosProfileConfigType()
-        {
-        }
         /// <summary>
         /// Policy path to gateway QoS profile in ingress direction.
         /// </summary>
-        [JsonProperty(PropertyName = "ingress_qos_profile_path")]
-        [NSXTProperty(IsRequired: false, Description: @"Policy path to gateway QoS profile in ingress direction.")]
         public string? IngressQosProfilePath { get; set; }
         /// <summary>
         /// Policy path to gateway QoS profile in egress direction.
         /// </summary>
-        [JsonProperty(PropertyName = "egress_qos_profile_path")]
-        [NSXTProperty(IsRequired: false, Description: @"Policy path to gateway QoS profile in egress direction.")]
         public string? EgressQosProfilePath { get; set; }
     }
 }

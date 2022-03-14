@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,27 +17,18 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"IPv6 DAD status")]
     public class NSXTIPv6DADStatusType 
     {
-        public NSXTIPv6DADStatusType()
-        {
-        }
         /// <summary>
         /// DAD status for IP address on the port.
         /// </summary>
-        [JsonProperty(PropertyName = "status")]
-        [NSXTProperty(IsRequired: false, Description: @"DAD status for IP address on the port.")]
         public NSXTIpv6DadstatusStatusEnumType? Status { get; set; }
         /// <summary>
         /// Array of transport node id on which DAD status is reported for
         /// given IP address.
         /// </summary>
-        [JsonProperty(PropertyName = "transport_node")]
-        [NSXTProperty(IsRequired: false, Description: @"Array of transport node id on which DAD status is reported forgiven IP address.")]
         public IList<NSXTResourceReferenceType> TransportNode { get; set; }
         /// <summary>
         /// IP address on the port for which DAD status is reported.
         /// </summary>
-        [JsonProperty(PropertyName = "ip_address")]
-        [NSXTProperty(IsRequired: false, Description: @"IP address on the port for which DAD status is reported.")]
         public string? IpAddress { get; set; }
     }
 }

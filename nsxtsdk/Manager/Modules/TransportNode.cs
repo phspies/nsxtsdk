@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public TransportNode(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public TransportNode(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void UpdateTransportNodeMaintenanceMode(string TransportnodeId, string? Action = null)
+        public async Task UpdateTransportNodeMaintenanceMode(string TransportnodeId, string? Action = null)
         {
             if (TransportnodeId == null) { throw new System.ArgumentNullException("TransportnodeId cannot be null"); }
             
@@ -44,7 +51,7 @@ namespace nsxtapi.ManagerModules
             UpdateTransportNodeMaintenanceModeServiceURL.Replace("{transportnode-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(TransportnodeId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Action != null) { request.AddQueryParameter("action", Action.ToString()); }
             request.Resource = UpdateTransportNodeMaintenanceModeServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + UpdateTransportNodeMaintenanceModeServiceURL.ToString() + " did not complete successfull";

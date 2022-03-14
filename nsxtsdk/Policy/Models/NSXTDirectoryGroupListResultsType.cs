@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTDirectoryGroupListResultsType : NSXTListResultType
     {
-        public NSXTDirectoryGroupListResultsType()
-        {
-        }
         /// <summary>
         /// Directory group list
         /// </summary>
         [JsonProperty(PropertyName = "results", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Directory group list")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTDirectoryGroupType> Results { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,21 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTBaseHostSwitchProfileType : NSXTManagedResourceType
     {
-        public NSXTBaseHostSwitchProfileType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "required_capabilities")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public IList<string> RequiredCapabilities { get; set; }
         /// <summary>
         /// Supported HostSwitch profiles.
         /// </summary>
         [JsonProperty(PropertyName = "resource_type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Supported HostSwitch profiles.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTBaseHostSwitchProfileResourceTypeEnumType ResourceType { get; set; }
     }
 }

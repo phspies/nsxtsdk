@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -18,15 +18,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"LbJwtKey specifies the symmetric key or asymmetric public key used todecrypt the data in JWT.")]
     public class NSXTLbJwtKeyType 
     {
-        public NSXTLbJwtKeyType()
-        {
-        }
         /// <summary>
         /// The property is used to identify JWT key type.
         /// </summary>
         [JsonProperty(PropertyName = "type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"The property is used to identify JWT key type.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTLbJwtKeyTypeEnumType Type { get; set; }
     }
 }

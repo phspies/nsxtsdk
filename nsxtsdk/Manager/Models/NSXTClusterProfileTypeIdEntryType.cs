@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,21 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTClusterProfileTypeIdEntryType 
     {
-        public NSXTClusterProfileTypeIdEntryType()
-        {
-        }
         /// <summary>
         /// key value
         /// </summary>
         [JsonProperty(PropertyName = "profile_id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"key value")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string ProfileId { get; set; }
         /// <summary>
         /// Supported cluster profiles.
         /// </summary>
-        [JsonProperty(PropertyName = "resource_type")]
-        [NSXTProperty(IsRequired: false, Description: @"Supported cluster profiles.")]
         public NSXTClusterProfileTypeIdEntryResourceTypeEnumType? ResourceType { get; set; }
     }
 }

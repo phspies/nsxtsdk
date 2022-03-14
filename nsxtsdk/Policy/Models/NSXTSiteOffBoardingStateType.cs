@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTSiteOffBoardingStateType : NSXTPolicyConfigResourceType
     {
-        public NSXTSiteOffBoardingStateType()
-        {
-        }
         /// <summary>
         /// Represents site offboarding status.
         /// </summary>
-        [JsonProperty(PropertyName = "status")]
-        [NSXTProperty(IsRequired: false, Description: @"Represents site offboarding status.")]
         public NSXTSiteOffBoardingStateStatusEnumType? Status { get; set; }
         /// <summary>
         /// Captures message associated with status.
@@ -32,15 +27,11 @@ namespace nsxtsdk.PolicyModels
         /// local site configuration is null
         /// internal server error with detail
         /// </summary>
-        [JsonProperty(PropertyName = "message")]
-        [NSXTProperty(IsRequired: false, Description: @"Captures message associated with status.If FAILED, can contain folowing errorslocal site configuration is nullinternal server error with detail")]
         public string? Message { get; set; }
         /// <summary>
         /// Contains previus failed message in case,
         /// state machine is stuck in a state
         /// </summary>
-        [JsonProperty(PropertyName = "previousErrorMessage")]
-        [NSXTProperty(IsRequired: false, Description: @"Contains previus failed message in case,state machine is stuck in a state")]
         public string? PreviousErrorMessage { get; set; }
     }
 }

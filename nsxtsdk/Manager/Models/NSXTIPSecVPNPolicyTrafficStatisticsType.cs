@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,32 +17,21 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"IPSec VPN policy traffic statistics")]
     public class NSXTIPSecVPNPolicyTrafficStatisticsType 
     {
-        public NSXTIPSecVPNPolicyTrafficStatisticsType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "aggregate_traffic_counters")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTIPSecVPNTrafficCountersType AggregateTrafficCounters { get; set; }
         /// <summary>
         /// Tunnel statistics.
         /// </summary>
-        [JsonProperty(PropertyName = "tunnel_statistics")]
-        [NSXTProperty(IsRequired: false, Description: @"Tunnel statistics.")]
         public IList<NSXTIPSecVPNTunnelTrafficStatisticsType> TunnelStatistics { get; set; }
         /// <summary>
         /// Tunnel port identifier.
         /// </summary>
-        [JsonProperty(PropertyName = "tunnel_port_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Tunnel port identifier.")]
         public string? TunnelPortId { get; set; }
         /// <summary>
         /// Policy Identifier.
         /// </summary>
-        [JsonProperty(PropertyName = "policy_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Policy Identifier.")]
         public string? PolicyId { get; set; }
     }
 }

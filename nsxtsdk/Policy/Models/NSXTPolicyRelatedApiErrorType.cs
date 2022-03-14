@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,38 +17,25 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Detailed information about errors from API call to an enforcement point")]
     public class NSXTPolicyRelatedApiErrorType 
     {
-        public NSXTPolicyRelatedApiErrorType()
-        {
-        }
         /// <summary>
         /// The module name where the error occurred
         /// </summary>
-        [JsonProperty(PropertyName = "module_name")]
-        [NSXTProperty(IsRequired: false, Description: @"The module name where the error occurred")]
         public string? ModuleName { get; set; }
         /// <summary>
         /// A description of the error
         /// </summary>
-        [JsonProperty(PropertyName = "error_message")]
-        [NSXTProperty(IsRequired: false, Description: @"A description of the error")]
         public string? ErrorMessage { get; set; }
         /// <summary>
         /// A numeric error code
         /// </summary>
-        [JsonProperty(PropertyName = "error_code")]
-        [NSXTProperty(IsRequired: false, Description: @"A numeric error code")]
         public long? ErrorCode { get; set; }
         /// <summary>
         /// Further details about the error
         /// </summary>
-        [JsonProperty(PropertyName = "details")]
-        [NSXTProperty(IsRequired: false, Description: @"Further details about the error")]
         public string? Details { get; set; }
         /// <summary>
         /// Additional data about the error
         /// </summary>
-        [JsonProperty(PropertyName = "error_data")]
-        [NSXTProperty(IsRequired: false, Description: @"Additional data about the error")]
         public object? ErrorData { get; set; }
     }
 }

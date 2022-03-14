@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTServiceInsertionSectionType : NSXTDSSectionType
     {
-        public NSXTServiceInsertionSectionType()
-        {
-        }
         /// <summary>
         /// Ensures that a three way TCP handshake is done before the data packets are sent if the value is set to be true.
         /// tcp_strict=true is supported only for stateful sections.
         /// </summary>
-        [JsonProperty(PropertyName = "tcp_strict")]
-        [NSXTProperty(IsRequired: false, Description: @"Ensures that a three way TCP handshake is done before the data packets are sent if the value is set to be true. tcp_strict=true is supported only for stateful sections.")]
         public bool? TcpStrict { get; set; }
     }
 }

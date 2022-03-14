@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,20 +17,13 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTTraceActionConfigType 
     {
-        public NSXTTraceActionConfigType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "sampling_argument")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTSamplingArgumentType SamplingArgument { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "action_argument")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTTraceActionArgumentType ActionArgument { get; set; }
     }
 }

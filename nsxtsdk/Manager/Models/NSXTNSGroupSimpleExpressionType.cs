@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,42 +17,29 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNSGroupSimpleExpressionType : NSXTNSGroupExpressionType
     {
-        public NSXTNSGroupSimpleExpressionType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "target_resource")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTResourceReferenceType TargetResource { get; set; }
         /// <summary>
         /// Field of the resource on which this expression is evaluated
         /// </summary>
         [JsonProperty(PropertyName = "target_property", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Field of the resource on which this expression is evaluated")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string TargetProperty { get; set; }
         /// <summary>
         /// Type of the resource on which this expression is evaluated
         /// </summary>
         [JsonProperty(PropertyName = "target_type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Type of the resource on which this expression is evaluated")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTNsgroupSimpleExpressionTargetTypeEnumType TargetType { get; set; }
         /// <summary>
         /// Value that satisfies this expression
         /// </summary>
         [JsonProperty(PropertyName = "value", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Value that satisfies this expression")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Value { get; set; }
         /// <summary>
         /// All operators perform a case insensitive match.
         /// </summary>
         [JsonProperty(PropertyName = "op", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"All operators perform a case insensitive match.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTNsgroupSimpleExpressionOpEnumType Op { get; set; }
     }
 }

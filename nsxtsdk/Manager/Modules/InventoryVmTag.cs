@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public InventoryVmTag(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public InventoryVmTag(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void UpdateVirtualMachineTags(NSXTVirtualMachineTagUpdateType VirtualMachineTagUpdate)
+        public async Task UpdateVirtualMachineTags(NSXTVirtualMachineTagUpdateType VirtualMachineTagUpdate)
         {
             if (VirtualMachineTagUpdate == null) { throw new System.ArgumentNullException("VirtualMachineTagUpdate cannot be null"); }
             
@@ -43,7 +50,7 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(VirtualMachineTagUpdate, defaultSerializationSettings));
             request.Resource = UpdateVirtualMachineTagsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + UpdateVirtualMachineTagsServiceURL.ToString() + " did not complete successfull";
@@ -55,7 +62,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void RemoveVirtualMachineTags(NSXTVirtualMachineTagUpdateType VirtualMachineTagUpdate)
+        public async Task RemoveVirtualMachineTags(NSXTVirtualMachineTagUpdateType VirtualMachineTagUpdate)
         {
             if (VirtualMachineTagUpdate == null) { throw new System.ArgumentNullException("VirtualMachineTagUpdate cannot be null"); }
             
@@ -68,7 +75,7 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(VirtualMachineTagUpdate, defaultSerializationSettings));
             request.Resource = RemoveVirtualMachineTagsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + RemoveVirtualMachineTagsServiceURL.ToString() + " did not complete successfull";
@@ -80,7 +87,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void AddVirtualMachineTags(NSXTVirtualMachineTagUpdateType VirtualMachineTagUpdate)
+        public async Task AddVirtualMachineTags(NSXTVirtualMachineTagUpdateType VirtualMachineTagUpdate)
         {
             if (VirtualMachineTagUpdate == null) { throw new System.ArgumentNullException("VirtualMachineTagUpdate cannot be null"); }
             
@@ -93,7 +100,7 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(VirtualMachineTagUpdate, defaultSerializationSettings));
             request.Resource = AddVirtualMachineTagsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + AddVirtualMachineTagsServiceURL.ToString() + " did not complete successfull";

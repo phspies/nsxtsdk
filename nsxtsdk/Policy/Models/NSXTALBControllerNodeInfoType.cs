@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,51 +17,34 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced Load Balancer controller node information like node IP and node name.")]
     public class NSXTALBControllerNodeInfoType 
     {
-        public NSXTALBControllerNodeInfoType()
-        {
-        }
         /// <summary>
         /// Advanced Load Balancer controller node start time in its local timezone.
         /// </summary>
-        [JsonProperty(PropertyName = "node_start_time")]
-        [NSXTProperty(IsRequired: false, Description: @"Advanced Load Balancer controller node start time in its local timezone.")]
         public long? NodeStartTime { get; set; }
         /// <summary>
         /// Advanced Load Balancer controller node IP configuration is static or DHCP.
         /// </summary>
-        [JsonProperty(PropertyName = "is_dhcp")]
-        [NSXTProperty(IsRequired: false, Description: @"Advanced Load Balancer controller node IP configuration is static or DHCP.")]
         public bool? IsDhcp { get; set; }
         /// <summary>
         /// Advanced Load Balancer controller node current state in the cluster.
         /// </summary>
-        [JsonProperty(PropertyName = "node_state")]
-        [NSXTProperty(IsRequired: false, Description: @"Advanced Load Balancer controller node current state in the cluster.")]
         public string? NodeState { get; set; }
         /// <summary>
         /// Advanced Load Balancer controller node IP.
         /// </summary>
-        [JsonProperty(PropertyName = "node_ip")]
-        [NSXTProperty(IsRequired: false, Description: @"Advanced Load Balancer controller node IP.")]
         public string? NodeIp { get; set; }
         /// <summary>
         /// ID of the VM maintained internally.
         /// Note: This is automatically generated and cannot be modified.
         /// </summary>
-        [JsonProperty(PropertyName = "vm_id")]
-        [NSXTProperty(IsRequired: false, Description: @"ID of the VM maintained internally.Note: This is automatically generated and cannot be modified.")]
         public string? VmId { get; set; }
         /// <summary>
         /// Advanced Load Balancer controller node role in cluster.
         /// </summary>
-        [JsonProperty(PropertyName = "node_role")]
-        [NSXTProperty(IsRequired: false, Description: @"Advanced Load Balancer controller node role in cluster.")]
         public string? NodeRole { get; set; }
         /// <summary>
         /// Advanced Load Balancer controller node name.
         /// </summary>
-        [JsonProperty(PropertyName = "node_name")]
-        [NSXTProperty(IsRequired: false, Description: @"Advanced Load Balancer controller node name.")]
         public string? NodeName { get; set; }
     }
 }

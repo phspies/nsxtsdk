@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,22 +17,15 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer IpAddrPrefix object")]
     public class NSXTALBIpAddrPrefixType 
     {
-        public NSXTALBIpAddrPrefixType()
-        {
-        }
         /// <summary>
         /// Number of mask.
         /// </summary>
         [JsonProperty(PropertyName = "mask", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Number of mask.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public long Mask { get; set; }
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty(PropertyName = "ip_addr", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTALBIpAddrType IpAddr { get; set; }
     }
 }

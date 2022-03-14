@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,21 +17,13 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"BGP Graceful Restart configuration parameters")]
     public class NSXTGracefulRestartConfigType 
     {
-        public NSXTGracefulRestartConfigType()
-        {
-            GracefulRestartMode = test
-        }
         /// <summary>
         /// BGP Graceful Restart mode
         /// </summary>
-        [JsonProperty(PropertyName = "graceful_restart_mode")]
-        [NSXTProperty(IsRequired: false, Description: @"BGP Graceful Restart mode")]
         public NSXTGracefulRestartConfigGracefulRestartModeEnumType? GracefulRestartMode { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "graceful_restart_timer")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTGracefulRestartTimerType GracefulRestartTimer { get; set; }
     }
 }

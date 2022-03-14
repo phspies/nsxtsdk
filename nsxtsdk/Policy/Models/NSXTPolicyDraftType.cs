@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,23 +17,16 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyDraftType : NSXTPolicyConfigResourceType
     {
-        public NSXTPolicyDraftType()
-        {
-        }
         /// <summary>
         /// When specified, a manual draft will be created w.r.t. the specified
         /// draft. If not specified, manual draft will be created w.r.t. the
         /// current published configuration.
         /// For an auto draft, this will always be null.
         /// </summary>
-        [JsonProperty(PropertyName = "ref_draft_path")]
-        [NSXTProperty(IsRequired: false, Description: @"When specified, a manual draft will be created w.r.t. the specifieddraft. If not specified, manual draft will be created w.r.t. thecurrent published configuration.For an auto draft, this will always be null.")]
         public string? RefDraftPath { get; set; }
         /// <summary>
         /// Comments for a policy draft lock/unlock.
         /// </summary>
-        [JsonProperty(PropertyName = "lock_comments")]
-        [NSXTProperty(IsRequired: false, Description: @"Comments for a policy draft lock/unlock.")]
         public string? LockComments { get; set; }
         /// <summary>
         /// Indicates whether a draft should be locked. If the draft is locked by
@@ -41,20 +34,14 @@ namespace nsxtsdk.PolicyModels
         /// draft. Once the user releases the lock, other users can then modify
         /// or publish this draft.
         /// </summary>
-        [JsonProperty(PropertyName = "locked")]
-        [NSXTProperty(IsRequired: false, Description: @"Indicates whether a draft should be locked. If the draft is locked byan user, then no other user would be able to modify or publish thisdraft. Once the user releases the lock, other users can then modifyor publish this draft.")]
         public bool? Locked { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "user_area")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTInfraType UserArea { get; set; }
         /// <summary>
         /// ID of the user who last modified the lock for a policy draft.
         /// </summary>
-        [JsonProperty(PropertyName = "lock_modified_by")]
-        [NSXTProperty(IsRequired: false, Description: @"ID of the user who last modified the lock for a policy draft.")]
         public string? LockModifiedBy { get; set; }
         /// <summary>
         /// In case of a large draft, wherein the size of user_area is so big
@@ -62,8 +49,6 @@ namespace nsxtsdk.PolicyModels
         /// stored into multiple chunks in a draft data store.
         /// This value represents the ID of that data store.
         /// </summary>
-        [JsonProperty(PropertyName = "user_area_store_id")]
-        [NSXTProperty(IsRequired: false, Description: @"In case of a large draft, wherein the size of user_area is so bigthat it can not be stored into one draft object, the data is then getsstored into multiple chunks in a draft data store.This value represents the ID of that data store.")]
         public string? UserAreaStoreId { get; set; }
         /// <summary>
         /// In case of a large draft, wherein the size of system_area is so big
@@ -71,28 +56,20 @@ namespace nsxtsdk.PolicyModels
         /// stored into multiple chunks in a draft data store.
         /// This value represents the ID of that data store.
         /// </summary>
-        [JsonProperty(PropertyName = "system_area_store_id")]
-        [NSXTProperty(IsRequired: false, Description: @"In case of a large draft, wherein the size of system_area is so bigthat it can not be stored into one draft object, the data is then getsstored into multiple chunks in a draft data store.This value represents the ID of that data store.")]
         public string? SystemAreaStoreId { get; set; }
         /// <summary>
         /// Policy draft locked/unlocked time in epoch milliseconds.
         /// </summary>
-        [JsonProperty(PropertyName = "lock_modified_time")]
-        [NSXTProperty(IsRequired: false, Description: @"Policy draft locked/unlocked time in epoch milliseconds.")]
         public long? LockModifiedTime { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "system_area")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTInfraType SystemArea { get; set; }
         /// <summary>
         /// Flag to indicate whether draft is auto created.
         /// True indicates that the draft is an auto draft.
         /// False indicates that the draft is a manual draft.
         /// </summary>
-        [JsonProperty(PropertyName = "is_auto_draft")]
-        [NSXTProperty(IsRequired: false, Description: @"Flag to indicate whether draft is auto created.True indicates that the draft is an auto draft.False indicates that the draft is a manual draft.")]
         public bool? IsAutoDraft { get; set; }
     }
 }

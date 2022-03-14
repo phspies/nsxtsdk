@@ -21,16 +21,23 @@ namespace nsxtapi.PolicyModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public PolicySiteGM(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public PolicySiteGM(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTFederationConfigType ReadFederationConfig()
+        public async Task<NSXTFederationConfigType> ReadFederationConfig()
         {
             NSXTFederationConfigType returnValue = default(NSXTFederationConfigType);
             StringBuilder ReadFederationConfigServiceURL = new StringBuilder("/infra/federation-config");
@@ -41,31 +48,19 @@ namespace nsxtapi.PolicyModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = ReadFederationConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTFederationConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTFederationConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadFederationConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTFederationConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTFederationConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTGlobalManagerListResultType GlobalGlobalInfraListInfraGlobalManagers(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTGlobalManagerListResultType> GlobalGlobalInfraListInfraGlobalManagers(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTGlobalManagerListResultType returnValue = default(NSXTGlobalManagerListResultType);
             StringBuilder GlobalInfraListInfraGlobalManagersServiceURL = new StringBuilder("/global-infra/global-managers");
@@ -82,31 +77,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GlobalInfraListInfraGlobalManagersServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTGlobalManagerListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTGlobalManagerListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraListInfraGlobalManagersServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTGlobalManagerListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTGlobalManagerListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTlsListenerCertificateType GetInfraSiteListenerCertificate(string Address, int Port)
+        public async Task<NSXTTlsListenerCertificateType> GetInfraSiteListenerCertificate(string Address, int Port)
         {
             if (Address == null) { throw new System.ArgumentNullException("Address cannot be null"); }
             if (Port == null) { throw new System.ArgumentNullException("Port cannot be null"); }
@@ -121,31 +104,19 @@ namespace nsxtapi.PolicyModules
             if (Address != null) { request.AddQueryParameter("address", Address.ToString()); }
             if (Port != null) { request.AddQueryParameter("port", Port.ToString()); }
             request.Resource = GetInfraSiteListenerCertificateServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTlsListenerCertificateType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTlsListenerCertificateType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetInfraSiteListenerCertificateServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTlsListenerCertificateType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTlsListenerCertificateType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTFederationConfigType GlobalGlobalInfraReadFederationConfig()
+        public async Task<NSXTFederationConfigType> GlobalGlobalInfraReadFederationConfig()
         {
             NSXTFederationConfigType returnValue = default(NSXTFederationConfigType);
             StringBuilder GlobalInfraReadFederationConfigServiceURL = new StringBuilder("/global-infra/federation-config");
@@ -156,31 +127,19 @@ namespace nsxtapi.PolicyModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = GlobalInfraReadFederationConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTFederationConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTFederationConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraReadFederationConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTFederationConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTFederationConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSiteType CreateOrUpdateInfraSite(string SiteId, NSXTSiteType Site)
+        public async Task<NSXTSiteType> CreateOrUpdateInfraSite(string SiteId, NSXTSiteType Site)
         {
             if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
             if (Site == null) { throw new System.ArgumentNullException("Site cannot be null"); }
@@ -195,31 +154,19 @@ namespace nsxtapi.PolicyModules
             CreateOrUpdateInfraSiteServiceURL.Replace("{site-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SiteId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(Site, defaultSerializationSettings));
             request.Resource = CreateOrUpdateInfraSiteServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTSiteType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTSiteType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateOrUpdateInfraSiteServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSiteType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSiteType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSiteType ReadSite(string SiteId)
+        public async Task<NSXTSiteType> ReadSite(string SiteId)
         {
             if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
             NSXTSiteType returnValue = default(NSXTSiteType);
@@ -232,31 +179,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ReadSiteServiceURL.Replace("{site-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SiteId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadSiteServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTSiteType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTSiteType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadSiteServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSiteType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSiteType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchInfraSite(string SiteId, NSXTSiteType Site)
+        public async Task PatchInfraSite(string SiteId, NSXTSiteType Site)
         {
             if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
             if (Site == null) { throw new System.ArgumentNullException("Site cannot be null"); }
@@ -271,7 +206,7 @@ namespace nsxtapi.PolicyModules
             PatchInfraSiteServiceURL.Replace("{site-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SiteId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(Site, defaultSerializationSettings));
             request.Resource = PatchInfraSiteServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchInfraSiteServiceURL.ToString() + " did not complete successfull";
@@ -283,7 +218,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteInfraSite(string SiteId, bool? Force = null)
+        public async Task DeleteInfraSite(string SiteId, bool? Force = null)
         {
             if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
             
@@ -297,7 +232,7 @@ namespace nsxtapi.PolicyModules
             DeleteInfraSiteServiceURL.Replace("{site-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SiteId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
             request.Resource = DeleteInfraSiteServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteInfraSiteServiceURL.ToString() + " did not complete successfull";
@@ -309,7 +244,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTGlobalManagerType GlobalGlobalInfraReadInfraGlobalManager(string GlobalManagerId)
+        public async Task<NSXTGlobalManagerType> GlobalGlobalInfraReadInfraGlobalManager(string GlobalManagerId)
         {
             if (GlobalManagerId == null) { throw new System.ArgumentNullException("GlobalManagerId cannot be null"); }
             NSXTGlobalManagerType returnValue = default(NSXTGlobalManagerType);
@@ -322,31 +257,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             GlobalInfraReadInfraGlobalManagerServiceURL.Replace("{global-manager-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GlobalManagerId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GlobalInfraReadInfraGlobalManagerServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTGlobalManagerType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTGlobalManagerType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraReadInfraGlobalManagerServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTGlobalManagerType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTGlobalManagerType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTGlobalManagerConfigType GlobalGlobalInfraReadGlobalManagerConfigWithSensitiveData()
+        public async Task<NSXTGlobalManagerConfigType> GlobalGlobalInfraReadGlobalManagerConfigWithSensitiveData()
         {
             NSXTGlobalManagerConfigType returnValue = default(NSXTGlobalManagerConfigType);
             StringBuilder GlobalInfraReadGlobalManagerConfigWithSensitiveDataServiceURL = new StringBuilder("/global-infra/global-manager-config?action=show-sensitive-data");
@@ -357,31 +280,19 @@ namespace nsxtapi.PolicyModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = GlobalInfraReadGlobalManagerConfigWithSensitiveDataServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTGlobalManagerConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTGlobalManagerConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraReadGlobalManagerConfigWithSensitiveDataServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTGlobalManagerConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTGlobalManagerConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTlsListenerCertificateType GlobalGlobalInfraGetInfraSiteListenerCertificate(string Address, int Port)
+        public async Task<NSXTTlsListenerCertificateType> GlobalGlobalInfraGetInfraSiteListenerCertificate(string Address, int Port)
         {
             if (Address == null) { throw new System.ArgumentNullException("Address cannot be null"); }
             if (Port == null) { throw new System.ArgumentNullException("Port cannot be null"); }
@@ -396,25 +307,13 @@ namespace nsxtapi.PolicyModules
             if (Address != null) { request.AddQueryParameter("address", Address.ToString()); }
             if (Port != null) { request.AddQueryParameter("port", Port.ToString()); }
             request.Resource = GlobalInfraGetInfraSiteListenerCertificateServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTlsListenerCertificateType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTlsListenerCertificateType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraGetInfraSiteListenerCertificateServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTlsListenerCertificateType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTlsListenerCertificateType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

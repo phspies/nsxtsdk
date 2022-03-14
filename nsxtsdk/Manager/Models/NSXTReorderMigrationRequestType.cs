@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,23 +17,15 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTReorderMigrationRequestType 
     {
-        public NSXTReorderMigrationRequestType()
-        {
-            IsBefore = test
-        }
         /// <summary>
         /// flag indicating whether the migration unit group/migration unit is to be placed before or after the specified migration
         /// unit group/migration unit
         /// </summary>
-        [JsonProperty(PropertyName = "is_before")]
-        [NSXTProperty(IsRequired: false, Description: @"flag indicating whether the migration unit group/migration unit is to be placed before or after the specified migration unit group/migration unit")]
         public bool? IsBefore { get; set; }
         /// <summary>
         /// id of the migration unit group/migration unit before/after which the migration unit group/migration unit is to be placed
         /// </summary>
         [JsonProperty(PropertyName = "id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"id of the migration unit group/migration unit before/after which the migration unit group/migration unit is to be placed")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Id { get; set; }
     }
 }

@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public InventoryCloudObj(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public InventoryCloudObj(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTCloudNativeServiceInstanceType GetCloudNativeServiceInstance(string ExternalId)
+        public async Task<NSXTCloudNativeServiceInstanceType> GetCloudNativeServiceInstance(string ExternalId)
         {
             if (ExternalId == null) { throw new System.ArgumentNullException("ExternalId cannot be null"); }
             NSXTCloudNativeServiceInstanceType returnValue = default(NSXTCloudNativeServiceInstanceType);
@@ -43,31 +50,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             GetCloudNativeServiceInstanceServiceURL.Replace("{external-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ExternalId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetCloudNativeServiceInstanceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTCloudNativeServiceInstanceType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTCloudNativeServiceInstanceType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetCloudNativeServiceInstanceServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTCloudNativeServiceInstanceType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTCloudNativeServiceInstanceType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTCloudNativeServiceInstanceListResultType ListAllCloudNativeServiceInstances(string? Cursor = null, string? DisplayName = null, string? IncludedFields = null, long? PageSize = null, string? ServiceType = null, bool? SortAscending = null, string? SortBy = null, string? Source = null)
+        public async Task<NSXTCloudNativeServiceInstanceListResultType> ListAllCloudNativeServiceInstances(string? Cursor = null, string? DisplayName = null, string? IncludedFields = null, long? PageSize = null, string? ServiceType = null, bool? SortAscending = null, string? SortBy = null, string? Source = null)
         {
             NSXTCloudNativeServiceInstanceListResultType returnValue = default(NSXTCloudNativeServiceInstanceListResultType);
             StringBuilder ListAllCloudNativeServiceInstancesServiceURL = new StringBuilder("/fabric/cloud-native-service-instances");
@@ -86,25 +81,13 @@ namespace nsxtapi.ManagerModules
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             request.Resource = ListAllCloudNativeServiceInstancesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTCloudNativeServiceInstanceListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTCloudNativeServiceInstanceListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListAllCloudNativeServiceInstancesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTCloudNativeServiceInstanceListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTCloudNativeServiceInstanceListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

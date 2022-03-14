@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,21 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"install-upgrade service properties")]
     public class NSXTInstallUpgradeServicePropertiesType 
     {
-        public NSXTInstallUpgradeServicePropertiesType()
-        {
-        }
         /// <summary>
         /// IP of manager on which install-upgrade is enabled
         /// </summary>
-        [JsonProperty(PropertyName = "enabled_on")]
-        [NSXTProperty(IsRequired: false, Description: @"IP of manager on which install-upgrade is enabled")]
         public string? EnabledOn { get; set; }
         /// <summary>
         /// True if service enabled; otherwise, false
         /// </summary>
         [JsonProperty(PropertyName = "enabled", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"True if service enabled; otherwise, false")]
-        [System.ComponentModel.DataAnnotations.Required]
         public bool Enabled { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,32 +17,21 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Details about NSX-T site.")]
     public class NSXTNsxtSiteType 
     {
-        public NSXTNsxtSiteType()
-        {
-        }
         /// <summary>
         /// Display name for the federation site.
         /// </summary>
-        [JsonProperty(PropertyName = "federation_site_display_name")]
-        [NSXTProperty(IsRequired: false, Description: @"Display name for the federation site.")]
         public string? FederationSiteDisplayName { get; set; }
         /// <summary>
         /// Federation site id.
         /// </summary>
-        [JsonProperty(PropertyName = "federation_site_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Federation site id.")]
         public string? FederationSiteId { get; set; }
         /// <summary>
         /// IP address of NSX-T appliance at the site.
         /// </summary>
-        [JsonProperty(PropertyName = "nsxt_ip")]
-        [NSXTProperty(IsRequired: false, Description: @"IP address of NSX-T appliance at the site.")]
         public string? NsxtIp { get; set; }
         /// <summary>
         /// Type of federation site. It can be GlobalManager or Site.
         /// </summary>
-        [JsonProperty(PropertyName = "federation_site_type")]
-        [NSXTProperty(IsRequired: false, Description: @"Type of federation site. It can be GlobalManager or Site.")]
         public NSXTNsxtSiteFederationSiteTypeEnumType? FederationSiteType { get; set; }
     }
 }

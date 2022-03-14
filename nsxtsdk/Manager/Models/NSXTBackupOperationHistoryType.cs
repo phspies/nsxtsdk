@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,26 +17,17 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Past backup operation details")]
     public class NSXTBackupOperationHistoryType 
     {
-        public NSXTBackupOperationHistoryType()
-        {
-        }
         /// <summary>
         /// Statuses of previous inventory backups
         /// </summary>
-        [JsonProperty(PropertyName = "inventory_backup_statuses")]
-        [NSXTProperty(IsRequired: false, Description: @"Statuses of previous inventory backups")]
         public IList<NSXTBackupOperationStatusType> InventoryBackupStatuses { get; set; }
         /// <summary>
         /// Statuses of previous cluser backups
         /// </summary>
-        [JsonProperty(PropertyName = "cluster_backup_statuses")]
-        [NSXTProperty(IsRequired: false, Description: @"Statuses of previous cluser backups")]
         public IList<NSXTBackupOperationStatusType> ClusterBackupStatuses { get; set; }
         /// <summary>
         /// Statuses of previous node backups
         /// </summary>
-        [JsonProperty(PropertyName = "node_backup_statuses")]
-        [NSXTProperty(IsRequired: false, Description: @"Statuses of previous node backups")]
         public IList<NSXTBackupOperationStatusType> NodeBackupStatuses { get; set; }
     }
 }

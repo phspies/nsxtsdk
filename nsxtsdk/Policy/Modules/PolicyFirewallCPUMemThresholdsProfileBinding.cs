@@ -21,16 +21,23 @@ namespace nsxtapi.PolicyModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public PolicyFirewallCPUMemThresholdsProfileBinding(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public PolicyFirewallCPUMemThresholdsProfileBinding(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyFirewallCPUMemThresholdsProfileBindingMapListResultType GlobalGlobalInfraListPolicyFirewallCpumemThresholdsProfileBindingMaps(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTPolicyFirewallCPUMemThresholdsProfileBindingMapListResultType> GlobalGlobalInfraListPolicyFirewallCpumemThresholdsProfileBindingMaps(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTPolicyFirewallCPUMemThresholdsProfileBindingMapListResultType returnValue = default(NSXTPolicyFirewallCPUMemThresholdsProfileBindingMapListResultType);
             StringBuilder GlobalInfraListPolicyFirewallCpumemThresholdsProfileBindingMapsServiceURL = new StringBuilder("/global-infra/settings/firewall/cpu-mem-thresholds-profile-binding-maps");
@@ -47,31 +54,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GlobalInfraListPolicyFirewallCpumemThresholdsProfileBindingMapsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyFirewallCPUMemThresholdsProfileBindingMapListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyFirewallCPUMemThresholdsProfileBindingMapListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraListPolicyFirewallCpumemThresholdsProfileBindingMapsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyFirewallCPUMemThresholdsProfileBindingMapListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyFirewallCPUMemThresholdsProfileBindingMapListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyFirewallCPUMemThresholdsProfileBindingMapType UpdatePolicyFirewallCpumemThresholdsProfileBindingMap(string CpuMemThresholdsProfileBindingMapId, NSXTPolicyFirewallCPUMemThresholdsProfileBindingMapType PolicyFirewallCpumemThresholdsProfileBindingMap)
+        public async Task<NSXTPolicyFirewallCPUMemThresholdsProfileBindingMapType> UpdatePolicyFirewallCpumemThresholdsProfileBindingMap(string CpuMemThresholdsProfileBindingMapId, NSXTPolicyFirewallCPUMemThresholdsProfileBindingMapType PolicyFirewallCpumemThresholdsProfileBindingMap)
         {
             if (CpuMemThresholdsProfileBindingMapId == null) { throw new System.ArgumentNullException("CpuMemThresholdsProfileBindingMapId cannot be null"); }
             if (PolicyFirewallCpumemThresholdsProfileBindingMap == null) { throw new System.ArgumentNullException("PolicyFirewallCpumemThresholdsProfileBindingMap cannot be null"); }
@@ -86,31 +81,19 @@ namespace nsxtapi.PolicyModules
             UpdatePolicyFirewallCpumemThresholdsProfileBindingMapServiceURL.Replace("{cpu-mem-thresholds-profile-binding-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CpuMemThresholdsProfileBindingMapId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(PolicyFirewallCpumemThresholdsProfileBindingMap, defaultSerializationSettings));
             request.Resource = UpdatePolicyFirewallCpumemThresholdsProfileBindingMapServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyFirewallCPUMemThresholdsProfileBindingMapType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyFirewallCPUMemThresholdsProfileBindingMapType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdatePolicyFirewallCpumemThresholdsProfileBindingMapServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyFirewallCPUMemThresholdsProfileBindingMapType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyFirewallCPUMemThresholdsProfileBindingMapType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyFirewallCPUMemThresholdsProfileBindingMapType GetPolicyFirewallCpumemThresholdsProfileBindingMap(string CpuMemThresholdsProfileBindingMapId)
+        public async Task<NSXTPolicyFirewallCPUMemThresholdsProfileBindingMapType> GetPolicyFirewallCpumemThresholdsProfileBindingMap(string CpuMemThresholdsProfileBindingMapId)
         {
             if (CpuMemThresholdsProfileBindingMapId == null) { throw new System.ArgumentNullException("CpuMemThresholdsProfileBindingMapId cannot be null"); }
             NSXTPolicyFirewallCPUMemThresholdsProfileBindingMapType returnValue = default(NSXTPolicyFirewallCPUMemThresholdsProfileBindingMapType);
@@ -123,31 +106,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             GetPolicyFirewallCpumemThresholdsProfileBindingMapServiceURL.Replace("{cpu-mem-thresholds-profile-binding-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CpuMemThresholdsProfileBindingMapId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetPolicyFirewallCpumemThresholdsProfileBindingMapServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyFirewallCPUMemThresholdsProfileBindingMapType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyFirewallCPUMemThresholdsProfileBindingMapType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetPolicyFirewallCpumemThresholdsProfileBindingMapServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyFirewallCPUMemThresholdsProfileBindingMapType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyFirewallCPUMemThresholdsProfileBindingMapType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeletePolicyFirewallCpumemThresholdsProfileBindingMap(string CpuMemThresholdsProfileBindingMapId)
+        public async Task DeletePolicyFirewallCpumemThresholdsProfileBindingMap(string CpuMemThresholdsProfileBindingMapId)
         {
             if (CpuMemThresholdsProfileBindingMapId == null) { throw new System.ArgumentNullException("CpuMemThresholdsProfileBindingMapId cannot be null"); }
             
@@ -160,7 +131,7 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             DeletePolicyFirewallCpumemThresholdsProfileBindingMapServiceURL.Replace("{cpu-mem-thresholds-profile-binding-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CpuMemThresholdsProfileBindingMapId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeletePolicyFirewallCpumemThresholdsProfileBindingMapServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeletePolicyFirewallCpumemThresholdsProfileBindingMapServiceURL.ToString() + " did not complete successfull";
@@ -172,7 +143,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchPolicyFirewallCpumemThresholdsProfileBindingMap(string CpuMemThresholdsProfileBindingMapId, NSXTPolicyFirewallCPUMemThresholdsProfileBindingMapType PolicyFirewallCpumemThresholdsProfileBindingMap)
+        public async Task PatchPolicyFirewallCpumemThresholdsProfileBindingMap(string CpuMemThresholdsProfileBindingMapId, NSXTPolicyFirewallCPUMemThresholdsProfileBindingMapType PolicyFirewallCpumemThresholdsProfileBindingMap)
         {
             if (CpuMemThresholdsProfileBindingMapId == null) { throw new System.ArgumentNullException("CpuMemThresholdsProfileBindingMapId cannot be null"); }
             if (PolicyFirewallCpumemThresholdsProfileBindingMap == null) { throw new System.ArgumentNullException("PolicyFirewallCpumemThresholdsProfileBindingMap cannot be null"); }
@@ -187,7 +158,7 @@ namespace nsxtapi.PolicyModules
             PatchPolicyFirewallCpumemThresholdsProfileBindingMapServiceURL.Replace("{cpu-mem-thresholds-profile-binding-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CpuMemThresholdsProfileBindingMapId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(PolicyFirewallCpumemThresholdsProfileBindingMap, defaultSerializationSettings));
             request.Resource = PatchPolicyFirewallCpumemThresholdsProfileBindingMapServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchPolicyFirewallCpumemThresholdsProfileBindingMapServiceURL.ToString() + " did not complete successfull";
@@ -199,7 +170,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyFirewallCPUMemThresholdsProfileBindingMapListResultType ListPolicyFirewallCpumemThresholdsProfileBindingMaps(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTPolicyFirewallCPUMemThresholdsProfileBindingMapListResultType> ListPolicyFirewallCpumemThresholdsProfileBindingMaps(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTPolicyFirewallCPUMemThresholdsProfileBindingMapListResultType returnValue = default(NSXTPolicyFirewallCPUMemThresholdsProfileBindingMapListResultType);
             StringBuilder ListPolicyFirewallCpumemThresholdsProfileBindingMapsServiceURL = new StringBuilder("/infra/settings/firewall/cpu-mem-thresholds-profile-binding-maps");
@@ -216,25 +187,13 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListPolicyFirewallCpumemThresholdsProfileBindingMapsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyFirewallCPUMemThresholdsProfileBindingMapListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyFirewallCPUMemThresholdsProfileBindingMapListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListPolicyFirewallCpumemThresholdsProfileBindingMapsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyFirewallCPUMemThresholdsProfileBindingMapListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyFirewallCPUMemThresholdsProfileBindingMapListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

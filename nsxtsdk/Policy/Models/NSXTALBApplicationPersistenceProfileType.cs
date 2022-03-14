@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,34 +17,21 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTALBApplicationPersistenceProfileType : NSXTPolicyConfigResourceType
     {
-        public NSXTALBApplicationPersistenceProfileType()
-        {
-            PersistenceType = test
-            ServerHmDownRecovery = test
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "http_cookie_persistence_profile")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBHttpCookiePersistenceProfileType HttpCookiePersistenceProfile { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "ip_persistence_profile")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBIPPersistenceProfileType IpPersistenceProfile { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "app_cookie_persistence_profile")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBAppCookiePersistenceProfileType AppCookiePersistenceProfile { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "hdr_persistence_profile")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBHdrPersistenceProfileType HdrPersistenceProfile { get; set; }
         /// <summary>
         /// Method used to persist clients to the same server for a
@@ -64,8 +51,6 @@ namespace nsxtsdk.PolicyModels
         /// PERSISTENCE_TYPE_CLIENT_IP_ADDRESS.
         /// </summary>
         [JsonProperty(PropertyName = "persistence_type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Method used to persist clients to the same server for aduration of time or a session.Enum options - PERSISTENCE_TYPE_CLIENT_IP_ADDRESS,PERSISTENCE_TYPE_HTTP_COOKIE, PERSISTENCE_TYPE_TLS,PERSISTENCE_TYPE_CLIENT_IPV6_ADDRESS,PERSISTENCE_TYPE_CUSTOM_HTTP_HEADER,PERSISTENCE_TYPE_APP_COOKIE, PERSISTENCE_TYPE_GSLB_SITE.Allowed in Basic(Allowed values-PERSISTENCE_TYPE_CLIENT_IP_ADDRESS,PERSISTENCE_TYPE_HTTP_COOKIE)edition, Essentials(Allowed values-PERSISTENCE_TYPE_CLIENT_IP_ADDRESS,PERSISTENCE_TYPE_HTTP_COOKIE)edition, Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller asPERSISTENCE_TYPE_CLIENT_IP_ADDRESS.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTAlbapplicationPersistenceProfilePersistenceTypeEnumType PersistenceType { get; set; }
         /// <summary>
         /// Specifies behavior when a persistent server has been marked
@@ -79,16 +64,12 @@ namespace nsxtsdk.PolicyModels
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as HM_DOWN_PICK_NEW_SERVER.
         /// </summary>
-        [JsonProperty(PropertyName = "server_hm_down_recovery")]
-        [NSXTProperty(IsRequired: false, Description: @"Specifies behavior when a persistent server has been markeddown by a health monitor.Enum options - HM_DOWN_PICK_NEW_SERVER,HM_DOWN_ABORT_CONNECTION,HM_DOWN_CONTINUE_PERSISTENT_SERVER.Allowed in Basic(Allowed values- HM_DOWN_PICK_NEW_SERVER)edition, Essentials(Allowed values- HM_DOWN_PICK_NEW_SERVER)edition, Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller as HM_DOWN_PICK_NEW_SERVER.")]
         public NSXTAlbapplicationPersistenceProfileServerHmDownRecoveryEnumType? ServerHmDownRecovery { get; set; }
         /// <summary>
         /// List of labels to be used for granular RBAC.
         /// Allowed in Basic edition, Essentials edition, Enterprise
         /// edition.
         /// </summary>
-        [JsonProperty(PropertyName = "markers")]
-        [NSXTProperty(IsRequired: false, Description: @"List of labels to be used for granular RBAC.Allowed in Basic edition, Essentials edition, Enterpriseedition.")]
         public IList<NSXTALBRoleFilterMatchLabelType> Markers { get; set; }
         /// <summary>
         /// This field describes the object's replication scope.
@@ -100,8 +81,6 @@ namespace nsxtsdk.PolicyModels
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as false.
         /// </summary>
-        [JsonProperty(PropertyName = "is_federated")]
-        [NSXTProperty(IsRequired: false, Description: @"This field describes the object&apos;s replication scope.If the field is set to false, then the object is visiblewithin the controller-cluster and its associatedservice-engines.If the field is set to true, then the object is replicatedacross the federation.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
         public bool? IsFederated { get; set; }
     }
 }

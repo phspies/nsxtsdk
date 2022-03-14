@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public MPPolicyMigration(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public MPPolicyMigration(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void MigrateMpdataToPolicy(NSXTMpMigrationDataType MpMigrationData)
+        public async Task MigrateMpdataToPolicy(NSXTMpMigrationDataType MpMigrationData)
         {
             if (MpMigrationData == null) { throw new System.ArgumentNullException("MpMigrationData cannot be null"); }
             
@@ -43,7 +50,7 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(MpMigrationData, defaultSerializationSettings));
             request.Resource = MigrateMpdataToPolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + MigrateMpdataToPolicyServiceURL.ToString() + " did not complete successfull";
@@ -55,7 +62,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTMPPolicyPromotionHistoryListType GetMppolicyPromotionHistory()
+        public async Task<NSXTMPPolicyPromotionHistoryListType> GetMppolicyPromotionHistory()
         {
             NSXTMPPolicyPromotionHistoryListType returnValue = default(NSXTMPPolicyPromotionHistoryListType);
             StringBuilder GetMppolicyPromotionHistoryServiceURL = new StringBuilder("/migration/mp-policy-promotion/history");
@@ -66,31 +73,19 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = GetMppolicyPromotionHistoryServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTMPPolicyPromotionHistoryListType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTMPPolicyPromotionHistoryListType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetMppolicyPromotionHistoryServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTMPPolicyPromotionHistoryListType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTMPPolicyPromotionHistoryListType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTMigratedObjectListResultType ListMigratedResources(string ResourceType, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, string? ResourceId = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTMigratedObjectListResultType> ListMigratedResources(string ResourceType, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, string? ResourceId = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (ResourceType == null) { throw new System.ArgumentNullException("ResourceType cannot be null"); }
             NSXTMigratedObjectListResultType returnValue = default(NSXTMigratedObjectListResultType);
@@ -109,31 +104,19 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListMigratedResourcesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTMigratedObjectListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTMigratedObjectListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListMigratedResourcesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTMigratedObjectListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTMigratedObjectListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTMPPolicyPromotionStateType GetMppolicyPromotionState()
+        public async Task<NSXTMPPolicyPromotionStateType> GetMppolicyPromotionState()
         {
             NSXTMPPolicyPromotionStateType returnValue = default(NSXTMPPolicyPromotionStateType);
             StringBuilder GetMppolicyPromotionStateServiceURL = new StringBuilder("/migration/mp-policy-promotion/state");
@@ -144,31 +127,19 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = GetMppolicyPromotionStateServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTMPPolicyPromotionStateType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTMPPolicyPromotionStateType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetMppolicyPromotionStateServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTMPPolicyPromotionStateType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTMPPolicyPromotionStateType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTMigrationStatsResultType Mp2PolicyMigrationStats(string? Location = null, bool? PrePromotion = null)
+        public async Task<NSXTMigrationStatsResultType> Mp2PolicyMigrationStats(string? Location = null, bool? PrePromotion = null)
         {
             NSXTMigrationStatsResultType returnValue = default(NSXTMigrationStatsResultType);
             StringBuilder Mp2PolicyMigrationStatsServiceURL = new StringBuilder("/migration/mp-to-policy/stats");
@@ -181,31 +152,19 @@ namespace nsxtapi.ManagerModules
             if (Location != null) { request.AddQueryParameter("location", Location.ToString()); }
             if (PrePromotion != null) { request.AddQueryParameter("pre_promotion", PrePromotion.ToString()); }
             request.Resource = Mp2PolicyMigrationStatsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTMigrationStatsResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTMigrationStatsResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + Mp2PolicyMigrationStatsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTMigrationStatsResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTMigrationStatsResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTFeedBackListResultType Mp2PolicyMigrationFeedback(string? Cursor = null, string? IncludedFields = null, string? Location = null, string? MpDisplayName = null, string? MpId = null, long? PageSize = null, string? ResourceType = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTFeedBackListResultType> Mp2PolicyMigrationFeedback(string? Cursor = null, string? IncludedFields = null, string? Location = null, string? MpDisplayName = null, string? MpId = null, long? PageSize = null, string? ResourceType = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTFeedBackListResultType returnValue = default(NSXTFeedBackListResultType);
             StringBuilder Mp2PolicyMigrationFeedbackServiceURL = new StringBuilder("/migration/mp-to-policy/feedback");
@@ -225,31 +184,19 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = Mp2PolicyMigrationFeedbackServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTFeedBackListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTFeedBackListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + Mp2PolicyMigrationFeedbackServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTFeedBackListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTFeedBackListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void CancelPromotion()
+        public async Task CancelPromotion()
         {
             
             StringBuilder CancelPromotionServiceURL = new StringBuilder("/migration/mp-to-policy/cancel");
@@ -260,7 +207,7 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = CancelPromotionServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CancelPromotionServiceURL.ToString() + " did not complete successfull";

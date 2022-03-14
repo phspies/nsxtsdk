@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTConstantFieldValueType : NSXTFieldSettingValueType
     {
-        public NSXTConstantFieldValueType()
-        {
-        }
         /// <summary>
         /// Constant Value that the field must be set to.
         /// </summary>
-        [JsonProperty(PropertyName = "constant")]
-        [NSXTProperty(IsRequired: false, Description: @"Constant Value that the field must be set to.")]
         public object? Constant { get; set; }
     }
 }

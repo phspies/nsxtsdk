@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,29 +17,18 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTL2BridgeEndpointProfileType : NSXTPolicyConfigResourceType
     {
-        public NSXTL2BridgeEndpointProfileType()
-        {
-            FailoverMode = test
-            HaMode = test
-        }
         /// <summary>
         /// Failover mode for the edge bridge cluster
         /// </summary>
-        [JsonProperty(PropertyName = "failover_mode")]
-        [NSXTProperty(IsRequired: false, Description: @"Failover mode for the edge bridge cluster")]
         public NSXTL2BridgeEndpointProfileFailoverModeEnumType? FailoverMode { get; set; }
         /// <summary>
         /// High avaialability mode can be active-active or active-standby. High availability mode cannot be modified after
         /// realization.
         /// </summary>
-        [JsonProperty(PropertyName = "ha_mode")]
-        [NSXTProperty(IsRequired: false, Description: @"High avaialability mode can be active-active or active-standby. High availability mode cannot be modified after realization.")]
         public NSXTL2BridgeEndpointProfileHaModeEnumType? HaMode { get; set; }
         /// <summary>
         /// List of policy paths to edge nodes. Edge allocation for L2 bridging.
         /// </summary>
-        [JsonProperty(PropertyName = "edge_paths")]
-        [NSXTProperty(IsRequired: false, Description: @"List of policy paths to edge nodes. Edge allocation for L2 bridging.")]
         public IList<string> EdgePaths { get; set; }
     }
 }

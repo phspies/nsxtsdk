@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,29 +17,18 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLbSslSniConditionType : NSXTLbRuleConditionType
     {
-        public NSXTLbSslSniConditionType()
-        {
-            CaseSensitive = test
-            MatchType = test
-        }
         /// <summary>
         /// If true, case is significant when comparing SNI value.
         /// </summary>
-        [JsonProperty(PropertyName = "case_sensitive")]
-        [NSXTProperty(IsRequired: false, Description: @"If true, case is significant when comparing SNI value.")]
         public bool? CaseSensitive { get; set; }
         /// <summary>
         /// Determine how a specified string value is used to match SNI.
         /// </summary>
-        [JsonProperty(PropertyName = "match_type")]
-        [NSXTProperty(IsRequired: false, Description: @"Determine how a specified string value is used to match SNI.")]
         public NSXTLbSslSniConditionMatchTypeEnumType? MatchType { get; set; }
         /// <summary>
         /// The SNI(Server Name indication) in client hello message.
         /// </summary>
         [JsonProperty(PropertyName = "sni", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"The SNI(Server Name indication) in client hello message.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Sni { get; set; }
     }
 }

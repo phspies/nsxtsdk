@@ -11,6 +11,7 @@ using System.Net;
 using System.Web;
 using System.Text;
 using NSwag.Collections;
+using System.Collections;
 
 namespace nsxtapi
 {
@@ -57,8 +58,8 @@ namespace nsxtapi
             Directory.CreateDirectory(Path.Combine(projectDirectory, "Policy", "Models"));
             Directory.CreateDirectory(Path.Combine(projectDirectory, "Policy", "Models", "Enums"));
             Directory.CreateDirectory(Path.Combine(projectDirectory, "Policy", "Modules"));
-            Directory.CreateDirectory(Path.Combine(projectDirectory, "Powershell", "Manager"));
-            Directory.CreateDirectory(Path.Combine(projectDirectory, "Powershell", "Policy"));
+            //Directory.CreateDirectory(Path.Combine(projectDirectory, "Powershell", "Manager"));
+            //Directory.CreateDirectory(Path.Combine(projectDirectory, "Powershell", "Policy"));
             Directory.CreateDirectory(Path.Combine(projectDirectory, "Models"));
 
             JsonSchemaReferenceUtilities.UpdateSchemaReferencePaths(managerApiDocument);
@@ -422,7 +423,10 @@ namespace nsxtapi
 
         private static void GetOperationPathParams(RenderContext context, IList<object> arguments, IDictionary<string, object> options, RenderBlock fn, RenderBlock inverse)
         {
-            var (method, operation) = ((KeyValuePair<string, OpenApiOperation>)arguments[0]);
+            var (_method, _operation) = ((DictionaryEntry)arguments[0]);
+            var method = (string)_method;
+            var operation = (OpenApiOperation)_operation;
+
             List<string> returnList = new();
             foreach (var parameter in operation.Parameters.OrderByDescending(x => x.IsRequired))
             {
@@ -433,7 +437,9 @@ namespace nsxtapi
 
         private static void GetOperationReturnType(RenderContext context, IList<object> arguments, IDictionary<string, object> options, RenderBlock fn, RenderBlock inverse)
         {
-            var (method, operation) = ((KeyValuePair<string, OpenApiOperation>)arguments[0]);
+            var (_method, _operation) = ((DictionaryEntry)arguments[0]);
+            var method = (string)_method;
+            var operation = (OpenApiOperation)_operation;
             var response = operation.Responses.FirstOrDefault(x => x.Key.StartsWith("20"));
             if (response.Value.Schema != null)
             {
@@ -442,11 +448,11 @@ namespace nsxtapi
                     string className = $"NSXT{((IJsonReferenceBase)response.Value.Schema).ReferencePath.Split("/")[3]}Type";
                     if (arguments[1] as string == "full")
                     {
-                        context.Write($"{className}");
+                        context.Write($"Task<{className}>");
                     }
                     else if (arguments[1] as string == "bare")
                     {
-                        context.Write(className);
+                        context.Write($"<{className}>");
                     }
                     else if (arguments[1] as string == "init")
                     {
@@ -461,19 +467,7 @@ namespace nsxtapi
                         var okResponse = operation.Responses.FirstOrDefault(x => x.Key.StartsWith("20"));
                         if (okResponse.Value.Schema != null)
                         {
-                            context.Write("else");
-                            context.Write("\r\n\t\t\t{");
-                            context.Write("\r\n\t\t\t\ttry");
-                            context.Write("\r\n\t\t\t\t{");
-                            context.Write($"\r\n\t\t\t\t\treturnValue = JsonConvert.DeserializeObject<NSXT{((IJsonReferenceBase)okResponse.Value.Schema).ReferencePath.Split("/")[3]}Type>(response.Content, defaultSerializationSettings);");
-                            context.Write("\r\n\t\t\t\t}");
-                            context.Write("\r\n\t\t\t\tcatch (Exception ex)");
-                            context.Write("\r\n\t\t\t\t{");
-                            context.Write("\r\n\t\t\t\t\t" + @"var message = ""Could not deserialize the response body string as "" + typeof(" + className + @").FullName + ""."";");
-                            context.Write("\r\n\t\t\t\t\t" + @"throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);");
-                            context.Write("\r\n\t\t\t\t}");
-                            context.Write("\r\n\t\t\t}");
-                            context.Write("\r\n\t\t\treturn returnValue;");
+                             context.Write("return response.Data;");
                         }
                     }
                     else if (arguments[1] as string == "cmdlet")
@@ -497,11 +491,11 @@ namespace nsxtapi
                     string className = response.Value.Schema.Type.ToString().ToLower();
                     if (arguments[1] as string == "full")
                     {
-                        context.Write($"{className}");
+                        context.Write($"Task<{className}>");
                     }
                     else if (arguments[1] as string == "bare")
                     {
-                        context.Write($"{className}");
+                        context.Write($"<{className}>");
                     }
                     else if (arguments[1] as string == "init")
                     {
@@ -516,19 +510,7 @@ namespace nsxtapi
                         var okResponse = operation.Responses.FirstOrDefault(x => x.Key.StartsWith("20"));
                         if (okResponse.Value.Schema != null)
                         {
-                            context.Write("else");
-                            context.Write("\r\n\t\t\t{");
-                            context.Write("\r\n\t\t\t\ttry");
-                            context.Write("\r\n\t\t\t\t{");
-                            context.Write($"\r\n\t\t\t\t\treturnValue = JsonConvert.DeserializeObject<" + okResponse.Value.Schema.Type.ToString().ToLower() + @">(response.Content, defaultSerializationSettings);");
-                            context.Write("\r\n\t\t\t\t}");
-                            context.Write("\r\n\t\t\t\tcatch (Exception ex)");
-                            context.Write("\r\n\t\t\t\t{");
-                            context.Write("\r\n\t\t\t\t\t" + @"var message = ""Could not deserialize the response body string as "" + typeof(" + className + @").FullName + ""."";");
-                            context.Write("\r\n\t\t\t\t\t" + @"throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);");
-                            context.Write("\r\n\t\t\t\t}");
-                            context.Write("\r\n\t\t\t}");
-                            context.Write("\r\n\t\t\treturn returnValue;");
+                            context.Write("return response.Data;");
                         }
                     }
                     else if (arguments[1] as string == "cmdlet")
@@ -552,7 +534,7 @@ namespace nsxtapi
             {
                 if (arguments[1] as string == "full")
                 {
-                    context.Write("void");
+                    context.Write("Task");
                 }
                 else if (arguments[1] as string == "bare")
                 {
@@ -647,10 +629,14 @@ namespace nsxtapi
 
         private static void GetMethodName(RenderContext context, IList<object> arguments, IDictionary<string, object> options, RenderBlock fn, RenderBlock inverse)
         {
-            var (method, operation) = ((KeyValuePair<string, OpenApiOperation>)arguments[0]);
+            var (_method, _operation) = ((DictionaryEntry)arguments[0]);
+            var method = (string)_method;
+            var operation = (OpenApiOperation)_operation;
+  
             if (arguments.Count == 2)
             {
                 var (path, pathItem) = ((KeyValuePair<string, OpenApiPathItem>)arguments[1]);
+  
                 if (path.Contains("global-infra"))
                 {
                     context.Write($"Global{PascalCase(operation.OperationId)}");
@@ -668,7 +654,10 @@ namespace nsxtapi
         }
         private static void GetResponseName(RenderContext context, IList<object> arguments, IDictionary<string, object> options, RenderBlock fn, RenderBlock inverse)
         {
-            var (response, operation) = ((KeyValuePair<string, OpenApiResponse>)arguments[0]);
+  
+            var (_response, _operation) = ((DictionaryEntry)arguments[0]);
+            var response = (string)_response;
+            var operation = (OpenApiResponse)_operation;
             context.Write(PascalCase(response));
         }
 

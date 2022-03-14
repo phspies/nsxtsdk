@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTSelectableResourceReferenceType : NSXTResourceReferenceType
     {
-        public NSXTSelectableResourceReferenceType()
-        {
-        }
         /// <summary>
         /// Set to true if this resource has been selected to be acted upon
         /// </summary>
         [JsonProperty(PropertyName = "selected", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Set to true if this resource has been selected to be acted upon")]
-        [System.ComponentModel.DataAnnotations.Required]
         public bool Selected { get; set; }
     }
 }

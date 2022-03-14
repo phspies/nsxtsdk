@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,14 +17,6 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTALBPoolGroupDeploymentPolicyType : NSXTPolicyConfigResourceType
     {
-        public NSXTALBPoolGroupDeploymentPolicyType()
-        {
-            TargetTestTrafficRatio = test
-            EvaluationDuration = test
-            TestTrafficRatioRampup = test
-            AutoDisableOldProdPools = test
-            Scheme = test
-        }
         /// <summary>
         /// Target traffic ratio before pool is made production.
         /// Allowed values are 1-100.
@@ -32,10 +24,6 @@ namespace nsxtsdk.PolicyModels
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 100.
         /// </summary>
-        [JsonProperty(PropertyName = "target_test_traffic_ratio")]
-        [NSXTProperty(IsRequired: false, Description: @"Target traffic ratio before pool is made production.Allowed values are 1-100.Unit is RATIO.Default value when not specified in API or module isinterpreted by ALB Controller as 100.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(100)]
         public long? TargetTestTrafficRatio { get; set; }
         /// <summary>
         /// Duration of evaluation period for automatic deployment.
@@ -44,10 +32,6 @@ namespace nsxtsdk.PolicyModels
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 300.
         /// </summary>
-        [JsonProperty(PropertyName = "evaluation_duration")]
-        [NSXTProperty(IsRequired: false, Description: @"Duration of evaluation period for automatic deployment.Allowed values are 60-86400.Unit is SEC.Default value when not specified in API or module isinterpreted by ALB Controller as 300.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(60)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(86400)]
         public long? EvaluationDuration { get; set; }
         /// <summary>
         /// Ratio of the traffic that is sent to the pool under test.
@@ -56,17 +40,11 @@ namespace nsxtsdk.PolicyModels
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 100.
         /// </summary>
-        [JsonProperty(PropertyName = "test_traffic_ratio_rampup")]
-        [NSXTProperty(IsRequired: false, Description: @"Ratio of the traffic that is sent to the pool under test.test ratio of 100 means blue green.Allowed values are 1-100.Default value when not specified in API or module isinterpreted by ALB Controller as 100.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(100)]
         public long? TestTrafficRatioRampup { get; set; }
         /// <summary>
         /// Placeholder for description of property rules of obj type
         /// PoolGroupDeploymentPolicy field type str  type array.
         /// </summary>
-        [JsonProperty(PropertyName = "rules")]
-        [NSXTProperty(IsRequired: false, Description: @"Placeholder for description of property rules of obj typePoolGroupDeploymentPolicy field type str  type array.")]
         public IList<NSXTALBPGDeploymentRuleType> Rules { get; set; }
         /// <summary>
         /// It will automatically disable old production pools once
@@ -74,8 +52,6 @@ namespace nsxtsdk.PolicyModels
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as true.
         /// </summary>
-        [JsonProperty(PropertyName = "auto_disable_old_prod_pools")]
-        [NSXTProperty(IsRequired: false, Description: @"It will automatically disable old production pools oncethere is a new production candidate.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
         public bool? AutoDisableOldProdPools { get; set; }
         /// <summary>
         /// deployment scheme.
@@ -83,16 +59,12 @@ namespace nsxtsdk.PolicyModels
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as BLUE_GREEN.
         /// </summary>
-        [JsonProperty(PropertyName = "scheme")]
-        [NSXTProperty(IsRequired: false, Description: @"deployment scheme.Enum options - BLUE_GREEN, CANARY.Default value when not specified in API or module isinterpreted by ALB Controller as BLUE_GREEN.")]
         public NSXTAlbpoolGroupDeploymentPolicySchemeEnumType? Scheme { get; set; }
         /// <summary>
         /// List of labels to be used for granular RBAC.
         /// Allowed in Basic edition, Essentials edition, Enterprise
         /// edition.
         /// </summary>
-        [JsonProperty(PropertyName = "markers")]
-        [NSXTProperty(IsRequired: false, Description: @"List of labels to be used for granular RBAC.Allowed in Basic edition, Essentials edition, Enterpriseedition.")]
         public IList<NSXTALBRoleFilterMatchLabelType> Markers { get; set; }
         /// <summary>
         /// Webhook configured with URL that Avi controller will pass
@@ -100,8 +72,6 @@ namespace nsxtsdk.PolicyModels
         /// information and current deployment rule results.
         /// It is a reference to an object of type Webhook.
         /// </summary>
-        [JsonProperty(PropertyName = "webhook_path")]
-        [NSXTProperty(IsRequired: false, Description: @"Webhook configured with URL that Avi controller will passback information about pool group, old and new poolinformation and current deployment rule results.It is a reference to an object of type Webhook.")]
         public string? WebhookPath { get; set; }
     }
 }

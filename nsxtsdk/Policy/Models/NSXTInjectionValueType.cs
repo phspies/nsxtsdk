@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Injection Value.")]
     public class NSXTInjectionValueType 
     {
-        public NSXTInjectionValueType()
-        {
-        }
         /// <summary>
         /// Injection Value resource type.
         /// </summary>
         [JsonProperty(PropertyName = "resource_type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Injection Value resource type.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTInjectionValueResourceTypeEnumType ResourceType { get; set; }
     }
 }

@@ -21,10 +21,17 @@ namespace nsxtapi.{{rootmodule}}Modules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public {{module}}(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public {{module}}(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         {{#operations}}
         {{#each value}}
@@ -32,7 +39,7 @@ namespace nsxtapi.{{rootmodule}}Modules
         /// {{ToXmlDoc description "wrap"}}
         /// </summary>
         [NSXTProperty(Description: @"{{ToXmlDoc description}}")]
-        public {{GetOperationReturnType . "full"}} {{GetMethodName . operations.Current}}({{GetOperationPathParams .}})
+        public async {{GetOperationReturnType . "full"}} {{GetMethodName . operations.Current}}({{GetOperationPathParams .}})
         {
             {{#value.parameters}}
             {{#isRequired}}
@@ -51,7 +58,7 @@ namespace nsxtapi.{{rootmodule}}Modules
             {{GetOperationPathInjectionCode .  }}
             {{/value.parameters}}
             request.Resource = {{GetMethodName .}}ServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse{{GetOperationReturnType . "bare"}} response = await restClient.ExecuteTaskAsyncWithPolicy{{GetOperationReturnType . "bare"}}(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP {{GetOperationHttpMethod key}} operation to " + {{GetMethodName .}}ServiceURL.ToString() + " did not complete successfull";

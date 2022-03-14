@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,11 +17,6 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIpfixDfwConfigType : NSXTIpfixConfigType
     {
-        public NSXTIpfixDfwConfigType()
-        {
-            Priority = test
-            ActiveFlowExportTimeout = test
-        }
         /// <summary>
         /// This priority field is used to resolve conflicts in Logical Ports
         /// which are covered by more than one IPFIX profiles. The IPFIX
@@ -29,41 +24,25 @@ namespace nsxtsdk.ManagerModels
         /// profile (lowest number) only.
         /// </summary>
         [JsonProperty(PropertyName = "priority", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"This priority field is used to resolve conflicts in Logical Portswhich are covered by more than one IPFIX profiles. The IPFIXexporter will send records to Collectors in highest priorityprofile (lowest number) only.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(65536)]
-        [System.ComponentModel.DataAnnotations.Required]
         public long Priority { get; set; }
         /// <summary>
         /// Each IPFIX DFW config can have its own collector config.
         /// </summary>
         [JsonProperty(PropertyName = "collector", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Each IPFIX DFW config can have its own collector config.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Collector { get; set; }
         /// <summary>
         /// For long standing active flows, IPFIX records will be sent per timeout period
         /// </summary>
-        [JsonProperty(PropertyName = "active_flow_export_timeout")]
-        [NSXTProperty(IsRequired: false, Description: @"For long standing active flows, IPFIX records will be sent per timeout period")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(60)]
         public long? ActiveFlowExportTimeout { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "template_parameters")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTIpfixDfwTemplateParametersType TemplateParameters { get; set; }
         /// <summary>
         /// An identifier that is unique to the exporting process and used to
         /// meter the Flows.
         /// </summary>
         [JsonProperty(PropertyName = "observation_domain_id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"An identifier that is unique to the exporting process and used tometer the Flows.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(4294967295)]
-        [System.ComponentModel.DataAnnotations.Required]
         public long ObservationDomainId { get; set; }
     }
 }

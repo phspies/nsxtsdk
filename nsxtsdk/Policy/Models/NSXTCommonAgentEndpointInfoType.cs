@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -18,23 +18,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"An endpoint to connect to Kafka/ingress of the NSX Application Platform.Either FQDN or IP address can be used in the endpoint info.")]
     public class NSXTCommonAgentEndpointInfoType 
     {
-        public NSXTCommonAgentEndpointInfoType()
-        {
-        }
         /// <summary>
         /// The port number where the broker is listening to.
         /// </summary>
-        [JsonProperty(PropertyName = "port")]
-        [NSXTProperty(IsRequired: false, Description: @"The port number where the broker is listening to.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
         public long? Port { get; set; }
         /// <summary>
         /// The IP address or the full qualified domain name of Kafka broker/ingress.
         /// </summary>
         [JsonProperty(PropertyName = "address", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"The IP address or the full qualified domain name of Kafka broker/ingress.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Address { get; set; }
     }
 }

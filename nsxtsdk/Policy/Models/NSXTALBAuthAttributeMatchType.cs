@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,23 +17,16 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer AuthAttributeMatch object")]
     public class NSXTALBAuthAttributeMatchType 
     {
-        public NSXTALBAuthAttributeMatchType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty(PropertyName = "attribute_value_list", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTALBStringMatchType AttributeValueList { get; set; }
         /// <summary>
         /// Attribute name whose values will be looked up in the access
         /// lists.
         /// </summary>
         [JsonProperty(PropertyName = "attribute_name", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Attribute name whose values will be looked up in the accesslists.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string AttributeName { get; set; }
     }
 }

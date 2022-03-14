@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,48 +17,32 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTServiceAttachmentType : NSXTManagedResourceType
     {
-        public NSXTServiceAttachmentType()
-        {
-            AttachmentStatus = test
-        }
         /// <summary>
         /// List of LogicalRouters to be connected to the ServicePlane logical switch via a ServiceLink.
         /// </summary>
-        [JsonProperty(PropertyName = "logical_routers")]
-        [NSXTProperty(IsRequired: false, Description: @"List of LogicalRouters to be connected to the ServicePlane logical switch via a ServiceLink.")]
         public IList<NSXTResourceReferenceType> LogicalRouters { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "logical_switch")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTResourceReferenceType LogicalSwitch { get; set; }
         /// <summary>
         /// Local IPs associated with this Service Attachment.
         /// </summary>
-        [JsonProperty(PropertyName = "local_ips")]
-        [NSXTProperty(IsRequired: false, Description: @"Local IPs associated with this Service Attachment.")]
         public IList<NSXTIPInfoType> LocalIps { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "service_port")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTResourceReferenceType ServicePort { get; set; }
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty(PropertyName = "deployed_to", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTResourceReferenceType DeployedTo { get; set; }
         /// <summary>
         /// UP - A Service Attachment will have its Service Port - UP and with a configured IP address. DOWN - An Inactive
         /// ServiceAttachment has its Service Port - DOWN. It can be used to connect set of appliances that do not need to exchange
         /// traffic to/from/through the Edge node.
         /// </summary>
-        [JsonProperty(PropertyName = "attachment_status")]
-        [NSXTProperty(IsRequired: false, Description: @"UP - A Service Attachment will have its Service Port - UP and with a configured IP address. DOWN - An Inactive ServiceAttachment has its Service Port - DOWN. It can be used to connect set of appliances that do not need to exchange traffic to/from/through the Edge node.")]
         public NSXTServiceAttachmentAttachmentStatusEnumType? AttachmentStatus { get; set; }
     }
 }

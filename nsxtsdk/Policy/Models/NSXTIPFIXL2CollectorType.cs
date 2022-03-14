@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,25 +17,15 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIPFIXL2CollectorType : NSXTPolicyConfigResourceType
     {
-        public NSXTIPFIXL2CollectorType()
-        {
-            CollectorPort = test
-        }
         /// <summary>
         /// IP address for the IPFIX L2 collector.
         /// IP addresses such as 0.0.0.0, 127.0.0.1, 255.255.255.255 are invalid.
         /// </summary>
         [JsonProperty(PropertyName = "collector_ip_address", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"IP address for the IPFIX L2 collector.IP addresses such as 0.0.0.0, 127.0.0.1, 255.255.255.255 are invalid.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string CollectorIpAddress { get; set; }
         /// <summary>
         /// Port number for the IPFIX L2 collector.
         /// </summary>
-        [JsonProperty(PropertyName = "collector_port")]
-        [NSXTProperty(IsRequired: false, Description: @"Port number for the IPFIX L2 collector.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
         public int? CollectorPort { get; set; }
     }
 }

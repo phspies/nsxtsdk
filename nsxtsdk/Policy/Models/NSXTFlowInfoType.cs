@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -22,32 +22,21 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Provides details of config flow in federationFederation has the following flows- Global Manager to Local Manager (GM -&gt; LM)- Local Manager to Glocal Manager (LM -&gt; GM)- Global Manager Active to Glocal Manager Standby (GM -&gt; GM)- Local Manager to Local Manager (LM -&gt; LM)")]
     public class NSXTFlowInfoType 
     {
-        public NSXTFlowInfoType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "cross_site_flow_info")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTCrossSiteFlowInfoType CrossSiteFlowInfo { get; set; }
         /// <summary>
         /// Every flow will have transmitter and receiver queues.
         /// </summary>
-        [JsonProperty(PropertyName = "queue_infos")]
-        [NSXTProperty(IsRequired: false, Description: @"Every flow will have transmitter and receiver queues.")]
         public IList<NSXTFederationQueueInfoType> QueueInfos { get; set; }
         /// <summary>
         /// System identifier for the flow
         /// </summary>
-        [JsonProperty(PropertyName = "id")]
-        [NSXTProperty(IsRequired: false, Description: @"System identifier for the flow")]
         public string? Id { get; set; }
         /// <summary>
         /// Flow identifier
         /// </summary>
-        [JsonProperty(PropertyName = "flow_type")]
-        [NSXTProperty(IsRequired: false, Description: @"Flow identifier")]
         public NSXTFlowInfoFlowTypeEnumType? FlowType { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,24 +17,17 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer ProtocolMatch object")]
     public class NSXTALBProtocolMatchType 
     {
-        public NSXTALBProtocolMatchType()
-        {
-        }
         /// <summary>
         /// HTTP or HTTPS protocol.
         /// Enum options - HTTP, HTTPS.
         /// </summary>
         [JsonProperty(PropertyName = "protocols", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"HTTP or HTTPS protocol.Enum options - HTTP, HTTPS.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTAlbprotocolMatchProtocolsEnumType Protocols { get; set; }
         /// <summary>
         /// Criterion to use for protocol matching the HTTP request.
         /// Enum options - IS_IN, IS_NOT_IN.
         /// </summary>
         [JsonProperty(PropertyName = "match_criteria", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Criterion to use for protocol matching the HTTP request.Enum options - IS_IN, IS_NOT_IN.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTAlbprotocolMatchMatchCriteriaEnumType MatchCriteria { get; set; }
     }
 }

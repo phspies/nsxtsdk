@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,22 +17,15 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIpfixCollectorUpmProfileType : NSXTManagedResourceType
     {
-        public NSXTIpfixCollectorUpmProfileType()
-        {
-        }
         /// <summary>
         /// All IPFIX collector profile types.
         /// </summary>
         [JsonProperty(PropertyName = "resource_type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"All IPFIX collector profile types.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTIpfixCollectorUpmProfileResourceTypeEnumType ResourceType { get; set; }
         /// <summary>
         /// IPFIX Collector Set
         /// </summary>
         [JsonProperty(PropertyName = "collectors", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"IPFIX Collector Set")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTIpfixCollectorType> Collectors { get; set; }
     }
 }

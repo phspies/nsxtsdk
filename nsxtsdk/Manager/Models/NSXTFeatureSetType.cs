@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,21 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Represents list of features required to view the widget.")]
     public class NSXTFeatureSetType 
     {
-        public NSXTFeatureSetType()
-        {
-        }
         /// <summary>
         /// List of features required for to view widget.
         /// </summary>
-        [JsonProperty(PropertyName = "feature_list")]
-        [NSXTProperty(IsRequired: false, Description: @"List of features required for to view widget.")]
         public IList<string> FeatureList { get; set; }
         /// <summary>
         /// Flag for specifying if permission to all features is required If set to false, then if there is permission for any of
         /// the feature from feature list, widget will be available.
         /// </summary>
-        [JsonProperty(PropertyName = "require_all_permissions")]
-        [NSXTProperty(IsRequired: false, Description: @"Flag for specifying if permission to all features is required If set to false, then if there is permission for any of the feature from feature list, widget will be available.")]
         public bool? RequireAllPermissions { get; set; }
     }
 }

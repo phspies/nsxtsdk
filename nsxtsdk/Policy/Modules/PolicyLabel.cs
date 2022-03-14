@@ -21,16 +21,23 @@ namespace nsxtapi.PolicyModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public PolicyLabel(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public PolicyLabel(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyLabelType CreateOrReplacePolicyLabelForInfra(string LabelId, NSXTPolicyLabelType PolicyLabel)
+        public async Task<NSXTPolicyLabelType> CreateOrReplacePolicyLabelForInfra(string LabelId, NSXTPolicyLabelType PolicyLabel)
         {
             if (LabelId == null) { throw new System.ArgumentNullException("LabelId cannot be null"); }
             if (PolicyLabel == null) { throw new System.ArgumentNullException("PolicyLabel cannot be null"); }
@@ -45,31 +52,19 @@ namespace nsxtapi.PolicyModules
             CreateOrReplacePolicyLabelForInfraServiceURL.Replace("{label-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LabelId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(PolicyLabel, defaultSerializationSettings));
             request.Resource = CreateOrReplacePolicyLabelForInfraServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyLabelType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyLabelType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateOrReplacePolicyLabelForInfraServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyLabelType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyLabelType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void UpdatePolicyLabelForInfra(string LabelId, NSXTPolicyLabelType PolicyLabel)
+        public async Task UpdatePolicyLabelForInfra(string LabelId, NSXTPolicyLabelType PolicyLabel)
         {
             if (LabelId == null) { throw new System.ArgumentNullException("LabelId cannot be null"); }
             if (PolicyLabel == null) { throw new System.ArgumentNullException("PolicyLabel cannot be null"); }
@@ -84,7 +79,7 @@ namespace nsxtapi.PolicyModules
             UpdatePolicyLabelForInfraServiceURL.Replace("{label-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LabelId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(PolicyLabel, defaultSerializationSettings));
             request.Resource = UpdatePolicyLabelForInfraServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + UpdatePolicyLabelForInfraServiceURL.ToString() + " did not complete successfull";
@@ -96,7 +91,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyLabelType ReadPolicyLabelForInfra(string LabelId)
+        public async Task<NSXTPolicyLabelType> ReadPolicyLabelForInfra(string LabelId)
         {
             if (LabelId == null) { throw new System.ArgumentNullException("LabelId cannot be null"); }
             NSXTPolicyLabelType returnValue = default(NSXTPolicyLabelType);
@@ -109,31 +104,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ReadPolicyLabelForInfraServiceURL.Replace("{label-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LabelId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadPolicyLabelForInfraServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyLabelType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyLabelType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadPolicyLabelForInfraServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyLabelType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyLabelType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeletePolicyLabelForInfra(string LabelId)
+        public async Task DeletePolicyLabelForInfra(string LabelId)
         {
             if (LabelId == null) { throw new System.ArgumentNullException("LabelId cannot be null"); }
             
@@ -146,7 +129,7 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             DeletePolicyLabelForInfraServiceURL.Replace("{label-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LabelId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeletePolicyLabelForInfraServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeletePolicyLabelForInfraServiceURL.ToString() + " did not complete successfull";
@@ -158,7 +141,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyLabelType GlobalGlobalInfraReadPolicyLabelForInfra(string LabelId)
+        public async Task<NSXTPolicyLabelType> GlobalGlobalInfraReadPolicyLabelForInfra(string LabelId)
         {
             if (LabelId == null) { throw new System.ArgumentNullException("LabelId cannot be null"); }
             NSXTPolicyLabelType returnValue = default(NSXTPolicyLabelType);
@@ -171,31 +154,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             GlobalInfraReadPolicyLabelForInfraServiceURL.Replace("{label-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LabelId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GlobalInfraReadPolicyLabelForInfraServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyLabelType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyLabelType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraReadPolicyLabelForInfraServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyLabelType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyLabelType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyLabelListResultType ListPolicyLabelForInfra(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTPolicyLabelListResultType> ListPolicyLabelForInfra(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTPolicyLabelListResultType returnValue = default(NSXTPolicyLabelListResultType);
             StringBuilder ListPolicyLabelForInfraServiceURL = new StringBuilder("/infra/labels");
@@ -212,31 +183,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListPolicyLabelForInfraServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyLabelListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyLabelListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListPolicyLabelForInfraServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyLabelListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyLabelListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyLabelListResultType GlobalGlobalInfraListPolicyLabelForInfra(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTPolicyLabelListResultType> GlobalGlobalInfraListPolicyLabelForInfra(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTPolicyLabelListResultType returnValue = default(NSXTPolicyLabelListResultType);
             StringBuilder GlobalInfraListPolicyLabelForInfraServiceURL = new StringBuilder("/global-infra/labels");
@@ -253,25 +212,13 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GlobalInfraListPolicyLabelForInfraServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyLabelListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyLabelListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraListPolicyLabelForInfraServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyLabelListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyLabelListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

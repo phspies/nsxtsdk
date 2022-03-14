@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTL2VpnPeerCodesType : NSXTL2VpnPeerConfigPerEnforcementPointType
     {
-        public NSXTL2VpnPeerCodesType()
-        {
-        }
         /// <summary>
         /// List of peer codes per transport tunnel.
         /// </summary>
         [JsonProperty(PropertyName = "peer_codes", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"List of peer codes per transport tunnel.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTL2VpnTransportTunnelPeerCodeType> PeerCodes { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,16 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer WafRuleGroup object")]
     public class NSXTALBWafRuleGroupType 
     {
-        public NSXTALBWafRuleGroupType()
-        {
-            Enable = test
-        }
         /// <summary>
         /// Rules as per Modsec language.
         /// Maximum of 1024 items allowed.
         /// </summary>
-        [JsonProperty(PropertyName = "rules")]
-        [NSXTProperty(IsRequired: false, Description: @"Rules as per Modsec language.Maximum of 1024 items allowed.")]
         public IList<NSXTALBWafRuleType> Rules { get; set; }
         /// <summary>
         /// Exclude list for the WAF rule group.
@@ -36,30 +30,22 @@ namespace nsxtsdk.PolicyModels
         /// 'logical or' of them.
         /// Maximum of 64 items allowed.
         /// </summary>
-        [JsonProperty(PropertyName = "exclude_list")]
-        [NSXTProperty(IsRequired: false, Description: @"Exclude list for the WAF rule group.The fields in the exclude list entry are logically and&apos;edto deduce the exclusion criteria.If there are multiple excludelist entries, it will be&apos;logical or&apos; of them.Maximum of 64 items allowed.")]
         public IList<NSXTALBWafExcludeListEntryType> ExcludeList { get; set; }
         /// <summary>
         /// Enable or disable WAF Rule Group.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as true.
         /// </summary>
-        [JsonProperty(PropertyName = "enable")]
-        [NSXTProperty(IsRequired: false, Description: @"Enable or disable WAF Rule Group.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
         public bool? Enable { get; set; }
         /// <summary>
         /// Name of the object.
         /// </summary>
         [JsonProperty(PropertyName = "name", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Name of the object.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Name { get; set; }
         /// <summary>
         /// Number of index.
         /// </summary>
         [JsonProperty(PropertyName = "index", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Number of index.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public long Index { get; set; }
     }
 }

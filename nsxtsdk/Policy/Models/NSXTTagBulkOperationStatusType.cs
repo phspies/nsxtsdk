@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,41 +17,28 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Status of tag bulk operation.")]
     public class NSXTTagBulkOperationStatusType 
     {
-        public NSXTTagBulkOperationStatusType()
-        {
-        }
         /// <summary>
         /// Overall status
         /// </summary>
         [JsonProperty(PropertyName = "status", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Overall status")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTTagBulkOperationStatusStatusEnumType Status { get; set; }
         /// <summary>
         /// Intent path corresponding to tag operation
         /// </summary>
         [JsonProperty(PropertyName = "path", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Intent path corresponding to tag operation")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Path { get; set; }
         /// <summary>
         /// Tag apply operation status per resource type.
         /// </summary>
-        [JsonProperty(PropertyName = "apply_to")]
-        [NSXTProperty(IsRequired: false, Description: @"Tag apply operation status per resource type.")]
         public IList<NSXTResourceTypeTagStatusType> ApplyTo { get; set; }
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty(PropertyName = "tag", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTTagType Tag { get; set; }
         /// <summary>
         /// Tag remove operation status per resource type.
         /// </summary>
-        [JsonProperty(PropertyName = "remove_from")]
-        [NSXTProperty(IsRequired: false, Description: @"Tag remove operation status per resource type.")]
         public IList<NSXTResourceTypeTagStatusType> RemoveFrom { get; set; }
     }
 }

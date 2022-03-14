@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,27 +17,18 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"A single respose in a list of batched responses")]
     public class NSXTBatchResponseItemType 
     {
-        public NSXTBatchResponseItemType()
-        {
-        }
         /// <summary>
         /// object returned by api
         /// </summary>
-        [JsonProperty(PropertyName = "body")]
-        [NSXTProperty(IsRequired: false, Description: @"object returned by api")]
         public object? Body { get; set; }
         /// <summary>
         /// The headers returned by the API call
         /// </summary>
-        [JsonProperty(PropertyName = "headers")]
-        [NSXTProperty(IsRequired: false, Description: @"The headers returned by the API call")]
         public object? Headers { get; set; }
         /// <summary>
         /// http status code
         /// </summary>
         [JsonProperty(PropertyName = "code", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"http status code")]
-        [System.ComponentModel.DataAnnotations.Required]
         public long Code { get; set; }
     }
 }

@@ -21,16 +21,23 @@ namespace nsxtapi.PolicyModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public PolicySha(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public PolicySha(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTShaPluginProfileListResultType ListShaPluginProfiles(string? AppliedToGroupPath = null, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, string? PluginPath = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTShaPluginProfileListResultType> ListShaPluginProfiles(string? AppliedToGroupPath = null, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, string? PluginPath = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTShaPluginProfileListResultType returnValue = default(NSXTShaPluginProfileListResultType);
             StringBuilder ListShaPluginProfilesServiceURL = new StringBuilder("/infra/sha/plugin-profiles");
@@ -49,31 +56,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListShaPluginProfilesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTShaPluginProfileListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTShaPluginProfileListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListShaPluginProfilesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTShaPluginProfileListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTShaPluginProfileListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTShaPreDefinedPluginListResultType ListShaPredefinedPlugins(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTShaPreDefinedPluginListResultType> ListShaPredefinedPlugins(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTShaPreDefinedPluginListResultType returnValue = default(NSXTShaPreDefinedPluginListResultType);
             StringBuilder ListShaPredefinedPluginsServiceURL = new StringBuilder("/infra/sha/pre-defined-plugins");
@@ -90,31 +85,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListShaPredefinedPluginsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTShaPreDefinedPluginListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTShaPreDefinedPluginListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListShaPredefinedPluginsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTShaPreDefinedPluginListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTShaPreDefinedPluginListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPerNodeShaPluginStatusListResultType GlobalGlobalInfraShowPluginStatusOnNode(string NodeId)
+        public async Task<NSXTPerNodeShaPluginStatusListResultType> GlobalGlobalInfraShowPluginStatusOnNode(string NodeId)
         {
             if (NodeId == null) { throw new System.ArgumentNullException("NodeId cannot be null"); }
             NSXTPerNodeShaPluginStatusListResultType returnValue = default(NSXTPerNodeShaPluginStatusListResultType);
@@ -127,31 +110,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             GlobalInfraShowPluginStatusOnNodeServiceURL.Replace("{node-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NodeId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GlobalInfraShowPluginStatusOnNodeServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPerNodeShaPluginStatusListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPerNodeShaPluginStatusListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraShowPluginStatusOnNodeServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPerNodeShaPluginStatusListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPerNodeShaPluginStatusListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTShaPluginProfileType CreateOrReplaceShaPluginProfile(string ShaProfileId, NSXTShaPluginProfileType ShaPluginProfile)
+        public async Task<NSXTShaPluginProfileType> CreateOrReplaceShaPluginProfile(string ShaProfileId, NSXTShaPluginProfileType ShaPluginProfile)
         {
             if (ShaProfileId == null) { throw new System.ArgumentNullException("ShaProfileId cannot be null"); }
             if (ShaPluginProfile == null) { throw new System.ArgumentNullException("ShaPluginProfile cannot be null"); }
@@ -166,31 +137,19 @@ namespace nsxtapi.PolicyModules
             CreateOrReplaceShaPluginProfileServiceURL.Replace("{sha-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ShaProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(ShaPluginProfile, defaultSerializationSettings));
             request.Resource = CreateOrReplaceShaPluginProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTShaPluginProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTShaPluginProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateOrReplaceShaPluginProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTShaPluginProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTShaPluginProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteShaPluginProfile(string ShaProfileId)
+        public async Task DeleteShaPluginProfile(string ShaProfileId)
         {
             if (ShaProfileId == null) { throw new System.ArgumentNullException("ShaProfileId cannot be null"); }
             
@@ -203,7 +162,7 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             DeleteShaPluginProfileServiceURL.Replace("{sha-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ShaProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteShaPluginProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteShaPluginProfileServiceURL.ToString() + " did not complete successfull";
@@ -215,7 +174,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTShaPluginProfileType PatchShaPluginProfile(string ShaProfileId, NSXTShaPluginProfileType ShaPluginProfile)
+        public async Task<NSXTShaPluginProfileType> PatchShaPluginProfile(string ShaProfileId, NSXTShaPluginProfileType ShaPluginProfile)
         {
             if (ShaProfileId == null) { throw new System.ArgumentNullException("ShaProfileId cannot be null"); }
             if (ShaPluginProfile == null) { throw new System.ArgumentNullException("ShaPluginProfile cannot be null"); }
@@ -230,31 +189,19 @@ namespace nsxtapi.PolicyModules
             PatchShaPluginProfileServiceURL.Replace("{sha-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ShaProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(ShaPluginProfile, defaultSerializationSettings));
             request.Resource = PatchShaPluginProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTShaPluginProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTShaPluginProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchShaPluginProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTShaPluginProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTShaPluginProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTShaPluginProfileType ReadShaPluginProfile(string ShaProfileId)
+        public async Task<NSXTShaPluginProfileType> ReadShaPluginProfile(string ShaProfileId)
         {
             if (ShaProfileId == null) { throw new System.ArgumentNullException("ShaProfileId cannot be null"); }
             NSXTShaPluginProfileType returnValue = default(NSXTShaPluginProfileType);
@@ -267,31 +214,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ReadShaPluginProfileServiceURL.Replace("{sha-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ShaProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadShaPluginProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTShaPluginProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTShaPluginProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadShaPluginProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTShaPluginProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTShaPluginProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTShaPredefinedPluginType GlobalGlobalInfraReadShaPredefinedPlugin(string PluginId)
+        public async Task<NSXTShaPredefinedPluginType> GlobalGlobalInfraReadShaPredefinedPlugin(string PluginId)
         {
             if (PluginId == null) { throw new System.ArgumentNullException("PluginId cannot be null"); }
             NSXTShaPredefinedPluginType returnValue = default(NSXTShaPredefinedPluginType);
@@ -304,31 +239,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             GlobalInfraReadShaPredefinedPluginServiceURL.Replace("{plugin-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PluginId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GlobalInfraReadShaPredefinedPluginServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTShaPredefinedPluginType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTShaPredefinedPluginType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraReadShaPredefinedPluginServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTShaPredefinedPluginType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTShaPredefinedPluginType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTShaDynamicPluginType CreateOrReplaceShaDynamicPlugin(string PluginId, NSXTShaDynamicPluginType ShaDynamicPlugin)
+        public async Task<NSXTShaDynamicPluginType> CreateOrReplaceShaDynamicPlugin(string PluginId, NSXTShaDynamicPluginType ShaDynamicPlugin)
         {
             if (PluginId == null) { throw new System.ArgumentNullException("PluginId cannot be null"); }
             if (ShaDynamicPlugin == null) { throw new System.ArgumentNullException("ShaDynamicPlugin cannot be null"); }
@@ -343,31 +266,19 @@ namespace nsxtapi.PolicyModules
             CreateOrReplaceShaDynamicPluginServiceURL.Replace("{plugin-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PluginId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(ShaDynamicPlugin, defaultSerializationSettings));
             request.Resource = CreateOrReplaceShaDynamicPluginServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTShaDynamicPluginType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTShaDynamicPluginType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateOrReplaceShaDynamicPluginServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTShaDynamicPluginType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTShaDynamicPluginType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteShaDynamicPlugin(string PluginId)
+        public async Task DeleteShaDynamicPlugin(string PluginId)
         {
             if (PluginId == null) { throw new System.ArgumentNullException("PluginId cannot be null"); }
             
@@ -380,7 +291,7 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             DeleteShaDynamicPluginServiceURL.Replace("{plugin-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PluginId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteShaDynamicPluginServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteShaDynamicPluginServiceURL.ToString() + " did not complete successfull";
@@ -392,7 +303,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTShaDynamicPluginType PatchShaDynamicPlugin(string PluginId, NSXTShaDynamicPluginType ShaDynamicPlugin)
+        public async Task<NSXTShaDynamicPluginType> PatchShaDynamicPlugin(string PluginId, NSXTShaDynamicPluginType ShaDynamicPlugin)
         {
             if (PluginId == null) { throw new System.ArgumentNullException("PluginId cannot be null"); }
             if (ShaDynamicPlugin == null) { throw new System.ArgumentNullException("ShaDynamicPlugin cannot be null"); }
@@ -407,31 +318,19 @@ namespace nsxtapi.PolicyModules
             PatchShaDynamicPluginServiceURL.Replace("{plugin-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PluginId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(ShaDynamicPlugin, defaultSerializationSettings));
             request.Resource = PatchShaDynamicPluginServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTShaDynamicPluginType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTShaDynamicPluginType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchShaDynamicPluginServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTShaDynamicPluginType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTShaDynamicPluginType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTShaDynamicPluginType ReadShaDynamicPlugin(string PluginId)
+        public async Task<NSXTShaDynamicPluginType> ReadShaDynamicPlugin(string PluginId)
         {
             if (PluginId == null) { throw new System.ArgumentNullException("PluginId cannot be null"); }
             NSXTShaDynamicPluginType returnValue = default(NSXTShaDynamicPluginType);
@@ -444,31 +343,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ReadShaDynamicPluginServiceURL.Replace("{plugin-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PluginId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadShaDynamicPluginServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTShaDynamicPluginType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTShaDynamicPluginType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadShaDynamicPluginServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTShaDynamicPluginType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTShaDynamicPluginType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTShaPluginProfileType GlobalGlobalInfraReadShaPluginProfile(string ShaProfileId)
+        public async Task<NSXTShaPluginProfileType> GlobalGlobalInfraReadShaPluginProfile(string ShaProfileId)
         {
             if (ShaProfileId == null) { throw new System.ArgumentNullException("ShaProfileId cannot be null"); }
             NSXTShaPluginProfileType returnValue = default(NSXTShaPluginProfileType);
@@ -481,31 +368,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             GlobalInfraReadShaPluginProfileServiceURL.Replace("{sha-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ShaProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GlobalInfraReadShaPluginProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTShaPluginProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTShaPluginProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraReadShaPluginProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTShaPluginProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTShaPluginProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDynamicPluginFilePropertiesType UploadShaDynamicPlugin(string PluginId, string FileName)
+        public async Task<NSXTDynamicPluginFilePropertiesType> UploadShaDynamicPlugin(string PluginId, string FileName)
         {
             if (PluginId == null) { throw new System.ArgumentNullException("PluginId cannot be null"); }
             if (FileName == null) { throw new System.ArgumentNullException("FileName cannot be null"); }
@@ -520,31 +395,19 @@ namespace nsxtapi.PolicyModules
             UploadShaDynamicPluginServiceURL.Replace("{plugin-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PluginId, System.Globalization.CultureInfo.InvariantCulture)));
             UploadShaDynamicPluginServiceURL.Replace("{file-name}", System.Uri.EscapeDataString(Helpers.ConvertToString(FileName, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = UploadShaDynamicPluginServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDynamicPluginFilePropertiesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDynamicPluginFilePropertiesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + UploadShaDynamicPluginServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDynamicPluginFilePropertiesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDynamicPluginFilePropertiesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTShaPredefinedPluginType ReadShaPredefinedPlugin(string PluginId)
+        public async Task<NSXTShaPredefinedPluginType> ReadShaPredefinedPlugin(string PluginId)
         {
             if (PluginId == null) { throw new System.ArgumentNullException("PluginId cannot be null"); }
             NSXTShaPredefinedPluginType returnValue = default(NSXTShaPredefinedPluginType);
@@ -557,31 +420,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ReadShaPredefinedPluginServiceURL.Replace("{plugin-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PluginId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadShaPredefinedPluginServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTShaPredefinedPluginType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTShaPredefinedPluginType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadShaPredefinedPluginServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTShaPredefinedPluginType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTShaPredefinedPluginType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPerNodeShaPluginStatusListResultType ShowPluginStatusOnNode(string NodeId)
+        public async Task<NSXTPerNodeShaPluginStatusListResultType> ShowPluginStatusOnNode(string NodeId)
         {
             if (NodeId == null) { throw new System.ArgumentNullException("NodeId cannot be null"); }
             NSXTPerNodeShaPluginStatusListResultType returnValue = default(NSXTPerNodeShaPluginStatusListResultType);
@@ -594,31 +445,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ShowPluginStatusOnNodeServiceURL.Replace("{node-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NodeId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ShowPluginStatusOnNodeServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPerNodeShaPluginStatusListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPerNodeShaPluginStatusListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ShowPluginStatusOnNodeServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPerNodeShaPluginStatusListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPerNodeShaPluginStatusListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTShaDynamicPluginListResultType GlobalGlobalInfraListShaDynamicPlugins(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTShaDynamicPluginListResultType> GlobalGlobalInfraListShaDynamicPlugins(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTShaDynamicPluginListResultType returnValue = default(NSXTShaDynamicPluginListResultType);
             StringBuilder GlobalInfraListShaDynamicPluginsServiceURL = new StringBuilder("/global-infra/sha/dynamic-plugins");
@@ -635,31 +474,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GlobalInfraListShaDynamicPluginsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTShaDynamicPluginListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTShaDynamicPluginListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraListShaDynamicPluginsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTShaDynamicPluginListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTShaDynamicPluginListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTShaDynamicPluginListResultType ListShaDynamicPlugins(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTShaDynamicPluginListResultType> ListShaDynamicPlugins(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTShaDynamicPluginListResultType returnValue = default(NSXTShaDynamicPluginListResultType);
             StringBuilder ListShaDynamicPluginsServiceURL = new StringBuilder("/infra/sha/dynamic-plugins");
@@ -676,31 +503,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListShaDynamicPluginsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTShaDynamicPluginListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTShaDynamicPluginListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListShaDynamicPluginsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTShaDynamicPluginListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTShaDynamicPluginListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTShaDynamicPluginType GlobalGlobalInfraReadShaDynamicPlugin(string PluginId)
+        public async Task<NSXTShaDynamicPluginType> GlobalGlobalInfraReadShaDynamicPlugin(string PluginId)
         {
             if (PluginId == null) { throw new System.ArgumentNullException("PluginId cannot be null"); }
             NSXTShaDynamicPluginType returnValue = default(NSXTShaDynamicPluginType);
@@ -713,31 +528,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             GlobalInfraReadShaDynamicPluginServiceURL.Replace("{plugin-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PluginId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GlobalInfraReadShaDynamicPluginServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTShaDynamicPluginType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTShaDynamicPluginType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraReadShaDynamicPluginServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTShaDynamicPluginType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTShaDynamicPluginType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTShaPluginProfileListResultType GlobalGlobalInfraListShaPluginProfiles(string? AppliedToGroupPath = null, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, string? PluginPath = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTShaPluginProfileListResultType> GlobalGlobalInfraListShaPluginProfiles(string? AppliedToGroupPath = null, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, string? PluginPath = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTShaPluginProfileListResultType returnValue = default(NSXTShaPluginProfileListResultType);
             StringBuilder GlobalInfraListShaPluginProfilesServiceURL = new StringBuilder("/global-infra/sha/plugin-profiles");
@@ -756,31 +559,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GlobalInfraListShaPluginProfilesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTShaPluginProfileListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTShaPluginProfileListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraListShaPluginProfilesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTShaPluginProfileListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTShaPluginProfileListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTShaPreDefinedPluginListResultType GlobalGlobalInfraListShaPredefinedPlugins(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTShaPreDefinedPluginListResultType> GlobalGlobalInfraListShaPredefinedPlugins(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTShaPreDefinedPluginListResultType returnValue = default(NSXTShaPreDefinedPluginListResultType);
             StringBuilder GlobalInfraListShaPredefinedPluginsServiceURL = new StringBuilder("/global-infra/sha/pre-defined-plugins");
@@ -797,25 +588,13 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GlobalInfraListShaPredefinedPluginsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTShaPreDefinedPluginListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTShaPreDefinedPluginListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraListShaPredefinedPluginsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTShaPreDefinedPluginListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTShaPreDefinedPluginListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

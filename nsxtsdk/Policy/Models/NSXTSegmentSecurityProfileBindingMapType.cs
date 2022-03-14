@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,20 +17,13 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTSegmentSecurityProfileBindingMapType : NSXTSecurityProfileBindingMapType
     {
-        public NSXTSegmentSecurityProfileBindingMapType()
-        {
-        }
         /// <summary>
         /// The policy path of the asscociated SpoofGuard profile
         /// </summary>
-        [JsonProperty(PropertyName = "spoofguard_profile_path")]
-        [NSXTProperty(IsRequired: false, Description: @"The policy path of the asscociated SpoofGuard profile")]
         public string? SpoofguardProfilePath { get; set; }
         /// <summary>
         /// The policy path of the asscociated Segment Security profile
         /// </summary>
-        [JsonProperty(PropertyName = "segment_security_profile_path")]
-        [NSXTProperty(IsRequired: false, Description: @"The policy path of the asscociated Segment Security profile")]
         public string? SegmentSecurityProfilePath { get; set; }
     }
 }

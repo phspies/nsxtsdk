@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTGenericPolicyRealizedResourceListResultType : NSXTListResultType
     {
-        public NSXTGenericPolicyRealizedResourceListResultType()
-        {
-        }
         /// <summary>
         /// List of realized resources
         /// </summary>
-        [JsonProperty(PropertyName = "results")]
-        [NSXTProperty(IsRequired: false, Description: @"List of realized resources")]
         public IList<NSXTGenericPolicyRealizedResourceType> Results { get; set; }
     }
 }

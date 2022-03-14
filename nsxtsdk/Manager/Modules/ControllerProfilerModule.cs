@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public ControllerProfilerModule(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public ControllerProfilerModule(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void SetControllerProfiler(NSXTControllerProfilerPropertiesType ControllerProfilerProperties)
+        public async Task SetControllerProfiler(NSXTControllerProfilerPropertiesType ControllerProfilerProperties)
         {
             if (ControllerProfilerProperties == null) { throw new System.ArgumentNullException("ControllerProfilerProperties cannot be null"); }
             
@@ -43,7 +50,7 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(ControllerProfilerProperties, defaultSerializationSettings));
             request.Resource = SetControllerProfilerServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + SetControllerProfilerServiceURL.ToString() + " did not complete successfull";
@@ -55,7 +62,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTControllerProfilerPropertiesType GetControllerProfilerStatus()
+        public async Task<NSXTControllerProfilerPropertiesType> GetControllerProfilerStatus()
         {
             NSXTControllerProfilerPropertiesType returnValue = default(NSXTControllerProfilerPropertiesType);
             StringBuilder GetControllerProfilerStatusServiceURL = new StringBuilder("/node/services/controller/profiler");
@@ -66,25 +73,13 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = GetControllerProfilerStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTControllerProfilerPropertiesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTControllerProfilerPropertiesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetControllerProfilerStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTControllerProfilerPropertiesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTControllerProfilerPropertiesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

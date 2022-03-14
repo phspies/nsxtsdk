@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public Tunnel(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public Tunnel(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTunnelListType QueryTunnels(string NodeId, string? BfdDiagnosticCode = null, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, string? RemoteNodeId = null, bool? SortAscending = null, string? SortBy = null, string? Source = null, string? Status = null)
+        public async Task<NSXTTunnelListType> QueryTunnels(string NodeId, string? BfdDiagnosticCode = null, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, string? RemoteNodeId = null, bool? SortAscending = null, string? SortBy = null, string? Source = null, string? Status = null)
         {
             if (NodeId == null) { throw new System.ArgumentNullException("NodeId cannot be null"); }
             NSXTTunnelListType returnValue = default(NSXTTunnelListType);
@@ -52,31 +59,19 @@ namespace nsxtapi.ManagerModules
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             if (Status != null) { request.AddQueryParameter("status", Status.ToString()); }
             request.Resource = QueryTunnelsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTunnelListType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTunnelListType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + QueryTunnelsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTunnelListType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTunnelListType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTunnelPropertiesType GetTunnel(string NodeId, string TunnelName, string? Source = null)
+        public async Task<NSXTTunnelPropertiesType> GetTunnel(string NodeId, string TunnelName, string? Source = null)
         {
             if (NodeId == null) { throw new System.ArgumentNullException("NodeId cannot be null"); }
             if (TunnelName == null) { throw new System.ArgumentNullException("TunnelName cannot be null"); }
@@ -92,25 +87,13 @@ namespace nsxtapi.ManagerModules
             GetTunnelServiceURL.Replace("{tunnel-name}", System.Uri.EscapeDataString(Helpers.ConvertToString(TunnelName, System.Globalization.CultureInfo.InvariantCulture)));
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             request.Resource = GetTunnelServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTunnelPropertiesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTunnelPropertiesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetTunnelServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTunnelPropertiesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTunnelPropertiesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

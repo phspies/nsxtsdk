@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,20 +17,13 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTFeatureUsageType : NSXTResourceType
     {
-        public NSXTFeatureUsageType()
-        {
-        }
         /// <summary>
         /// Capacity Usage List
         /// </summary>
-        [JsonProperty(PropertyName = "capacity_usage")]
-        [NSXTProperty(IsRequired: false, Description: @"Capacity Usage List")]
         public IList<NSXTCapacityUsageType> CapacityUsage { get; set; }
         /// <summary>
         /// name of the feature
         /// </summary>
-        [JsonProperty(PropertyName = "feature")]
-        [NSXTProperty(IsRequired: false, Description: @"name of the feature")]
         public string? Feature { get; set; }
     }
 }

@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public FirewallStatus(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public FirewallStatus(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTargetResourceStatusType GetFirewallStatusOnTargetResource(string ContextType, string Id)
+        public async Task<NSXTTargetResourceStatusType> GetFirewallStatusOnTargetResource(string ContextType, string Id)
         {
             if (ContextType == null) { throw new System.ArgumentNullException("ContextType cannot be null"); }
             if (Id == null) { throw new System.ArgumentNullException("Id cannot be null"); }
@@ -45,31 +52,19 @@ namespace nsxtapi.ManagerModules
             GetFirewallStatusOnTargetResourceServiceURL.Replace("{context-type}", System.Uri.EscapeDataString(Helpers.ConvertToString(ContextType, System.Globalization.CultureInfo.InvariantCulture)));
             GetFirewallStatusOnTargetResourceServiceURL.Replace("{id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Id, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetFirewallStatusOnTargetResourceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTargetResourceStatusType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTargetResourceStatusType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetFirewallStatusOnTargetResourceServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTargetResourceStatusType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTargetResourceStatusType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTFirewallStatusType UpdateFirewallStatus(string ContextType, NSXTFirewallStatusType FirewallStatus)
+        public async Task<NSXTFirewallStatusType> UpdateFirewallStatus(string ContextType, NSXTFirewallStatusType FirewallStatus)
         {
             if (ContextType == null) { throw new System.ArgumentNullException("ContextType cannot be null"); }
             if (FirewallStatus == null) { throw new System.ArgumentNullException("FirewallStatus cannot be null"); }
@@ -84,31 +79,19 @@ namespace nsxtapi.ManagerModules
             UpdateFirewallStatusServiceURL.Replace("{context-type}", System.Uri.EscapeDataString(Helpers.ConvertToString(ContextType, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(FirewallStatus, defaultSerializationSettings));
             request.Resource = UpdateFirewallStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTFirewallStatusType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTFirewallStatusType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateFirewallStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTFirewallStatusType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTFirewallStatusType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTFirewallStatusType GetFirewallStatus(string ContextType)
+        public async Task<NSXTFirewallStatusType> GetFirewallStatus(string ContextType)
         {
             if (ContextType == null) { throw new System.ArgumentNullException("ContextType cannot be null"); }
             NSXTFirewallStatusType returnValue = default(NSXTFirewallStatusType);
@@ -121,31 +104,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             GetFirewallStatusServiceURL.Replace("{context-type}", System.Uri.EscapeDataString(Helpers.ConvertToString(ContextType, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetFirewallStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTFirewallStatusType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTFirewallStatusType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetFirewallStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTFirewallStatusType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTFirewallStatusType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTargetResourceStatusType EnableFirewallOnTargetResource(string ContextType, string Id)
+        public async Task<NSXTTargetResourceStatusType> EnableFirewallOnTargetResource(string ContextType, string Id)
         {
             if (ContextType == null) { throw new System.ArgumentNullException("ContextType cannot be null"); }
             if (Id == null) { throw new System.ArgumentNullException("Id cannot be null"); }
@@ -160,31 +131,19 @@ namespace nsxtapi.ManagerModules
             EnableFirewallOnTargetResourceServiceURL.Replace("{context-type}", System.Uri.EscapeDataString(Helpers.ConvertToString(ContextType, System.Globalization.CultureInfo.InvariantCulture)));
             EnableFirewallOnTargetResourceServiceURL.Replace("{id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Id, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = EnableFirewallOnTargetResourceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTargetResourceStatusType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTargetResourceStatusType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + EnableFirewallOnTargetResourceServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTargetResourceStatusType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTargetResourceStatusType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTargetResourceStatusType DisableFirewallOnTargetResource(string ContextType, string Id)
+        public async Task<NSXTTargetResourceStatusType> DisableFirewallOnTargetResource(string ContextType, string Id)
         {
             if (ContextType == null) { throw new System.ArgumentNullException("ContextType cannot be null"); }
             if (Id == null) { throw new System.ArgumentNullException("Id cannot be null"); }
@@ -199,31 +158,19 @@ namespace nsxtapi.ManagerModules
             DisableFirewallOnTargetResourceServiceURL.Replace("{context-type}", System.Uri.EscapeDataString(Helpers.ConvertToString(ContextType, System.Globalization.CultureInfo.InvariantCulture)));
             DisableFirewallOnTargetResourceServiceURL.Replace("{id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Id, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DisableFirewallOnTargetResourceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTargetResourceStatusType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTargetResourceStatusType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + DisableFirewallOnTargetResourceServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTargetResourceStatusType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTargetResourceStatusType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTFirewallStatusListResultType ListFirewallStatus()
+        public async Task<NSXTFirewallStatusListResultType> ListFirewallStatus()
         {
             NSXTFirewallStatusListResultType returnValue = default(NSXTFirewallStatusListResultType);
             StringBuilder ListFirewallStatusServiceURL = new StringBuilder("/firewall/status");
@@ -234,25 +181,13 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = ListFirewallStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTFirewallStatusListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTFirewallStatusListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListFirewallStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTFirewallStatusListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTFirewallStatusListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

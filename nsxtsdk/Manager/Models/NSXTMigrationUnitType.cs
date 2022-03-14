@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,50 +17,33 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTMigrationUnitType : NSXTResourceType
     {
-        public NSXTMigrationUnitType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "group")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTResourceReferenceType Group { get; set; }
         /// <summary>
         /// List of warnings indicating issues with the migration unit that may result in migration failure
         /// </summary>
-        [JsonProperty(PropertyName = "warnings")]
-        [NSXTProperty(IsRequired: false, Description: @"List of warnings indicating issues with the migration unit that may result in migration failure")]
         public IList<string> Warnings { get; set; }
         /// <summary>
         /// This is component version e.g. if migration unit is of type HOST, then this is host version.
         /// </summary>
-        [JsonProperty(PropertyName = "current_version")]
-        [NSXTProperty(IsRequired: false, Description: @"This is component version e.g. if migration unit is of type HOST, then this is host version.")]
         public string? CurrentVersion { get; set; }
         /// <summary>
         /// Metadata about migration unit
         /// </summary>
-        [JsonProperty(PropertyName = "metadata")]
-        [NSXTProperty(IsRequired: false, Description: @"Metadata about migration unit")]
         public IList<NSXTKeyValuePairType> Metadata { get; set; }
         /// <summary>
         /// Migration unit type
         /// </summary>
-        [JsonProperty(PropertyName = "type")]
-        [NSXTProperty(IsRequired: false, Description: @"Migration unit type")]
         public string? Type { get; set; }
         /// <summary>
         /// Identifier of the migration unit
         /// </summary>
-        [JsonProperty(PropertyName = "id")]
-        [NSXTProperty(IsRequired: false, Description: @"Identifier of the migration unit")]
         public string? Id { get; set; }
         /// <summary>
         /// Name of the migration unit
         /// </summary>
-        [JsonProperty(PropertyName = "display_name")]
-        [NSXTProperty(IsRequired: false, Description: @"Name of the migration unit")]
         public string? DisplayName { get; set; }
     }
 }

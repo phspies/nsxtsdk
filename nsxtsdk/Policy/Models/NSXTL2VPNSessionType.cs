@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,34 +17,22 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTL2VPNSessionType : NSXTPolicyConfigResourceType
     {
-        public NSXTL2VPNSessionType()
-        {
-            Enabled = test
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "tcp_mss_clamping")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTL2TcpMaxSegmentSizeClampingType TcpMssClamping { get; set; }
         /// <summary>
         /// List of transport tunnels for redundancy.
         /// </summary>
         [JsonProperty(PropertyName = "transport_tunnels", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"List of transport tunnels for redundancy.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<string> TransportTunnels { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "tunnel_encapsulation")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTL2VPNTunnelEncapsulationType TunnelEncapsulation { get; set; }
         /// <summary>
         /// Enable to extend all the associated segments.
         /// </summary>
-        [JsonProperty(PropertyName = "enabled")]
-        [NSXTProperty(IsRequired: false, Description: @"Enable to extend all the associated segments.")]
         public bool? Enabled { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,16 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIPSecVPNPolicyRuleType : NSXTEmbeddedResourceType
     {
-        public NSXTIPSecVPNPolicyRuleType()
-        {
-            Action = test
-            Enabled = test
-        }
         /// <summary>
         /// List of local subnets.
         /// </summary>
-        [JsonProperty(PropertyName = "sources")]
-        [NSXTProperty(IsRequired: false, Description: @"List of local subnets.")]
         public IList<NSXTIPSecVPNPolicySubnetType> Sources { get; set; }
         /// <summary>
         /// PROTECT - Protect rules are defined per policy based
@@ -35,32 +28,22 @@ namespace nsxtsdk.ManagerModels
         /// service and affects all policy based IPSec VPN sessions.
         /// Bypass rules are prioritized over protect rules.
         /// </summary>
-        [JsonProperty(PropertyName = "action")]
-        [NSXTProperty(IsRequired: false, Description: @"PROTECT - Protect rules are defined per policy basedIPSec VPN session.BYPASS - Bypass rules are defined per IPSec VPNservice and affects all policy based IPSec VPN sessions.Bypass rules are prioritized over protect rules.")]
         public NSXTIpsecVpnpolicyRuleActionEnumType? Action { get; set; }
         /// <summary>
         /// A flag to enable/disable the policy rule.
         /// </summary>
-        [JsonProperty(PropertyName = "enabled")]
-        [NSXTProperty(IsRequired: false, Description: @"A flag to enable/disable the policy rule.")]
         public bool? Enabled { get; set; }
         /// <summary>
         /// A flag to enable/disable the logging for the policy rule.
         /// </summary>
-        [JsonProperty(PropertyName = "logged")]
-        [NSXTProperty(IsRequired: false, Description: @"A flag to enable/disable the logging for the policy rule.")]
         public bool? Logged { get; set; }
         /// <summary>
         /// Unique policy id.
         /// </summary>
-        [JsonProperty(PropertyName = "id")]
-        [NSXTProperty(IsRequired: false, Description: @"Unique policy id.")]
         public string? Id { get; set; }
         /// <summary>
         /// List of peer subnets.
         /// </summary>
-        [JsonProperty(PropertyName = "destinations")]
-        [NSXTProperty(IsRequired: false, Description: @"List of peer subnets.")]
         public IList<NSXTIPSecVPNPolicySubnetType> Destinations { get; set; }
     }
 }

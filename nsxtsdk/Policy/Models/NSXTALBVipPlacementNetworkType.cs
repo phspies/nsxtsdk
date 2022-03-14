@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,27 +17,18 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer VipPlacementNetwork object")]
     public class NSXTALBVipPlacementNetworkType 
     {
-        public NSXTALBVipPlacementNetworkType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "subnet")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBIpAddrPrefixType Subnet { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "subnet6")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBIpAddrPrefixType Subnet6 { get; set; }
         /// <summary>
         /// Network to use for vip placement.
         /// It is a reference to an object of type Network.
         /// </summary>
-        [JsonProperty(PropertyName = "network_name")]
-        [NSXTProperty(IsRequired: false, Description: @"Network to use for vip placement.It is a reference to an object of type Network.")]
         public string? NetworkName { get; set; }
     }
 }

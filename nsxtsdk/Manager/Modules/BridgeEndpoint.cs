@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public BridgeEndpoint(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public BridgeEndpoint(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTBridgeEndpointType CreateBridgeEndpoint(NSXTBridgeEndpointType BridgeEndpoint)
+        public async Task<NSXTBridgeEndpointType> CreateBridgeEndpoint(NSXTBridgeEndpointType BridgeEndpoint)
         {
             if (BridgeEndpoint == null) { throw new System.ArgumentNullException("BridgeEndpoint cannot be null"); }
             NSXTBridgeEndpointType returnValue = default(NSXTBridgeEndpointType);
@@ -43,31 +50,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(BridgeEndpoint, defaultSerializationSettings));
             request.Resource = CreateBridgeEndpointServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTBridgeEndpointType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTBridgeEndpointType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CreateBridgeEndpointServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTBridgeEndpointType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTBridgeEndpointType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTBridgeEndpointListResultType ListBridgeEndpoints(string? BridgeClusterId = null, string? BridgeEndpointProfileId = null, string? Cursor = null, string? IncludedFields = null, string? LogicalSwitchId = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? VlanTransportZoneId = null)
+        public async Task<NSXTBridgeEndpointListResultType> ListBridgeEndpoints(string? BridgeClusterId = null, string? BridgeEndpointProfileId = null, string? Cursor = null, string? IncludedFields = null, string? LogicalSwitchId = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? VlanTransportZoneId = null)
         {
             NSXTBridgeEndpointListResultType returnValue = default(NSXTBridgeEndpointListResultType);
             StringBuilder ListBridgeEndpointsServiceURL = new StringBuilder("/bridge-endpoints");
@@ -87,31 +82,19 @@ namespace nsxtapi.ManagerModules
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             if (VlanTransportZoneId != null) { request.AddQueryParameter("vlan_transport_zone_id", VlanTransportZoneId.ToString()); }
             request.Resource = ListBridgeEndpointsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTBridgeEndpointListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTBridgeEndpointListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListBridgeEndpointsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTBridgeEndpointListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTBridgeEndpointListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTBridgeEndpointType UpdateBridgeEndpoint(string BridgeendpointId, NSXTBridgeEndpointType BridgeEndpoint)
+        public async Task<NSXTBridgeEndpointType> UpdateBridgeEndpoint(string BridgeendpointId, NSXTBridgeEndpointType BridgeEndpoint)
         {
             if (BridgeendpointId == null) { throw new System.ArgumentNullException("BridgeendpointId cannot be null"); }
             if (BridgeEndpoint == null) { throw new System.ArgumentNullException("BridgeEndpoint cannot be null"); }
@@ -126,31 +109,19 @@ namespace nsxtapi.ManagerModules
             UpdateBridgeEndpointServiceURL.Replace("{bridgeendpoint-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(BridgeendpointId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(BridgeEndpoint, defaultSerializationSettings));
             request.Resource = UpdateBridgeEndpointServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTBridgeEndpointType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTBridgeEndpointType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateBridgeEndpointServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTBridgeEndpointType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTBridgeEndpointType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTBridgeEndpointType GetBridgeEndpoint(string BridgeendpointId)
+        public async Task<NSXTBridgeEndpointType> GetBridgeEndpoint(string BridgeendpointId)
         {
             if (BridgeendpointId == null) { throw new System.ArgumentNullException("BridgeendpointId cannot be null"); }
             NSXTBridgeEndpointType returnValue = default(NSXTBridgeEndpointType);
@@ -163,31 +134,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             GetBridgeEndpointServiceURL.Replace("{bridgeendpoint-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(BridgeendpointId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetBridgeEndpointServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTBridgeEndpointType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTBridgeEndpointType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetBridgeEndpointServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTBridgeEndpointType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTBridgeEndpointType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteBridgeEndpoint(string BridgeendpointId)
+        public async Task DeleteBridgeEndpoint(string BridgeendpointId)
         {
             if (BridgeendpointId == null) { throw new System.ArgumentNullException("BridgeendpointId cannot be null"); }
             
@@ -200,7 +159,7 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             DeleteBridgeEndpointServiceURL.Replace("{bridgeendpoint-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(BridgeendpointId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteBridgeEndpointServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteBridgeEndpointServiceURL.ToString() + " did not complete successfull";

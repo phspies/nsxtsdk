@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,32 +17,21 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Site fedeation configuration.")]
     public class NSXTSiteFederationConfigType 
     {
-        public NSXTSiteFederationConfigType()
-        {
-        }
         /// <summary>
         /// Site path
         /// </summary>
-        [JsonProperty(PropertyName = "site_path")]
-        [NSXTProperty(IsRequired: false, Description: @"Site path")]
         public string? SitePath { get; set; }
         /// <summary>
         /// Unique site index allocated (from range 0-4095)
         /// </summary>
-        [JsonProperty(PropertyName = "site_index")]
-        [NSXTProperty(IsRequired: false, Description: @"Unique site index allocated (from range 0-4095)")]
         public long? SiteIndex { get; set; }
         /// <summary>
         /// Site UUID
         /// </summary>
-        [JsonProperty(PropertyName = "site_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Site UUID")]
         public string? SiteId { get; set; }
         /// <summary>
         /// Remote tunnel endpoint IP addresses
         /// </summary>
-        [JsonProperty(PropertyName = "rtep_ips")]
-        [NSXTProperty(IsRequired: false, Description: @"Remote tunnel endpoint IP addresses")]
         public IList<string> RtepIps { get; set; }
     }
 }

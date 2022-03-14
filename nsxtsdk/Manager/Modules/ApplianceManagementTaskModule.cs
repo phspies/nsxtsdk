@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public ApplianceManagementTaskModule(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public ApplianceManagementTaskModule(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteApplianceManagementTask(string TaskId)
+        public async Task DeleteApplianceManagementTask(string TaskId)
         {
             if (TaskId == null) { throw new System.ArgumentNullException("TaskId cannot be null"); }
             
@@ -43,7 +50,7 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             DeleteApplianceManagementTaskServiceURL.Replace("{task-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(TaskId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteApplianceManagementTaskServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteApplianceManagementTaskServiceURL.ToString() + " did not complete successfull";
@@ -55,7 +62,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTApplianceManagementTaskPropertiesType ReadApplianceManagementTaskProperties(string TaskId, bool? SuppressRedirect = null)
+        public async Task<NSXTApplianceManagementTaskPropertiesType> ReadApplianceManagementTaskProperties(string TaskId, bool? SuppressRedirect = null)
         {
             if (TaskId == null) { throw new System.ArgumentNullException("TaskId cannot be null"); }
             NSXTApplianceManagementTaskPropertiesType returnValue = default(NSXTApplianceManagementTaskPropertiesType);
@@ -69,31 +76,19 @@ namespace nsxtapi.ManagerModules
             ReadApplianceManagementTaskPropertiesServiceURL.Replace("{task-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(TaskId, System.Globalization.CultureInfo.InvariantCulture)));
             if (SuppressRedirect != null) { request.AddQueryParameter("suppress_redirect", SuppressRedirect.ToString()); }
             request.Resource = ReadApplianceManagementTaskPropertiesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTApplianceManagementTaskPropertiesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTApplianceManagementTaskPropertiesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadApplianceManagementTaskPropertiesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTApplianceManagementTaskPropertiesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTApplianceManagementTaskPropertiesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void ReadAsyncApplianceManagementTaskResponse(string TaskId)
+        public async Task ReadAsyncApplianceManagementTaskResponse(string TaskId)
         {
             if (TaskId == null) { throw new System.ArgumentNullException("TaskId cannot be null"); }
             
@@ -106,7 +101,7 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             ReadAsyncApplianceManagementTaskResponseServiceURL.Replace("{task-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(TaskId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadAsyncApplianceManagementTaskResponseServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadAsyncApplianceManagementTaskResponseServiceURL.ToString() + " did not complete successfull";
@@ -118,7 +113,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void CancelApplianceManagementTaskCancel(string TaskId)
+        public async Task CancelApplianceManagementTaskCancel(string TaskId)
         {
             if (TaskId == null) { throw new System.ArgumentNullException("TaskId cannot be null"); }
             
@@ -131,7 +126,7 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             CancelApplianceManagementTaskCancelServiceURL.Replace("{task-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(TaskId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = CancelApplianceManagementTaskCancelServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CancelApplianceManagementTaskCancelServiceURL.ToString() + " did not complete successfull";
@@ -143,7 +138,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTApplianceManagementTaskListResultType ListApplianceManagementTasks(string? Fields = null, string? RequestMethod = null, string? RequestPath = null, string? RequestUri = null, string? Status = null, string? User = null)
+        public async Task<NSXTApplianceManagementTaskListResultType> ListApplianceManagementTasks(string? Fields = null, string? RequestMethod = null, string? RequestPath = null, string? RequestUri = null, string? Status = null, string? User = null)
         {
             NSXTApplianceManagementTaskListResultType returnValue = default(NSXTApplianceManagementTaskListResultType);
             StringBuilder ListApplianceManagementTasksServiceURL = new StringBuilder("/node/tasks");
@@ -160,25 +155,13 @@ namespace nsxtapi.ManagerModules
             if (Status != null) { request.AddQueryParameter("status", Status.ToString()); }
             if (User != null) { request.AddQueryParameter("user", User.ToString()); }
             request.Resource = ListApplianceManagementTasksServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTApplianceManagementTaskListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTApplianceManagementTaskListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListApplianceManagementTasksServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTApplianceManagementTaskListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTApplianceManagementTaskListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

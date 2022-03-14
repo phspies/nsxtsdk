@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,24 +17,15 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTTier1Type : NSXTPolicyConfigResourceType
     {
-        public NSXTTier1Type()
-        {
-            PoolAllocation = test
-            FailoverMode = test
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "federation_config")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTFederationGatewayConfigType FederationConfig { get; set; }
         /// <summary>
         /// Indicates if logging should be enabled for the default whitelisting rule. This field is
         /// deprecated and recommended to change Rule logging field. Note that this
         /// field is not synchronized with default logging field.
         /// </summary>
-        [JsonProperty(PropertyName = "default_rule_logging")]
-        [NSXTProperty(IsRequired: false, Description: @"Indicates if logging should be enabled for the default whitelisting rule. This field isdeprecated and recommended to change Rule logging field. Note that thisfield is not synchronized with default logging field.")]
         public bool? DefaultRuleLogging { get; set; }
         /// <summary>
         /// Supports edge node allocation at different sizes for routing and
@@ -43,28 +34,20 @@ namespace nsxtsdk.PolicyModels
         /// LB_SMALL, LB_MEDIUM, LB_LARGE, LB_XLARGE: Specify size of load balancer
         /// service that will be configured on TIER1 gateway.
         /// </summary>
-        [JsonProperty(PropertyName = "pool_allocation")]
-        [NSXTProperty(IsRequired: false, Description: @"Supports edge node allocation at different sizes for routing andload balancer service to meet performance and scalability requirements.  ROUTING: Allocate edge node to provide routing services.  LB_SMALL, LB_MEDIUM, LB_LARGE, LB_XLARGE: Specify size of load balancerservice that will be configured on TIER1 gateway.")]
         public NSXTTier1PoolAllocationEnumType? PoolAllocation { get; set; }
         /// <summary>
         /// Specify Tier-1 connectivity to Tier-0 instance.
         /// </summary>
-        [JsonProperty(PropertyName = "tier0_path")]
-        [NSXTProperty(IsRequired: false, Description: @"Specify Tier-1 connectivity to Tier-0 instance.")]
         public string? Tier0Path { get; set; }
         /// <summary>
         /// Specify high-availability mode for Tier-1.
         /// </summary>
-        [JsonProperty(PropertyName = "ha_mode")]
-        [NSXTProperty(IsRequired: false, Description: @"Specify high-availability mode for Tier-1.")]
         public NSXTTier1HaModeEnumType? HaMode { get; set; }
         /// <summary>
         /// Flag to enable standby service router relocation.
         /// Standby relocation is not enabled until edge cluster is configured
         /// for Tier1.
         /// </summary>
-        [JsonProperty(PropertyName = "enable_standby_relocation")]
-        [NSXTProperty(IsRequired: false, Description: @"Flag to enable standby service router relocation.Standby relocation is not enabled until edge cluster is configuredfor Tier1.")]
         public bool? EnableStandbyRelocation { get; set; }
         /// <summary>
         /// Determines the behavior when a Tier-1 instance restarts after a
@@ -74,61 +57,41 @@ namespace nsxtsdk.PolicyModels
         /// Only applicable when edge cluster is configured in Tier1
         /// locale-service.
         /// </summary>
-        [JsonProperty(PropertyName = "failover_mode")]
-        [NSXTProperty(IsRequired: false, Description: @"Determines the behavior when a Tier-1 instance restarts after afailure. If set to PREEMPTIVE, the preferred node will take over,even if it causes another failure. If set to NON_PREEMPTIVE,then the instance that restarted will remain secondary.Only applicable when edge cluster is configured in Tier1locale-service.")]
         public NSXTTier1FailoverModeEnumType? FailoverMode { get; set; }
         /// <summary>
         /// Maximum number of ARP entries per transport node.
         /// </summary>
-        [JsonProperty(PropertyName = "arp_limit")]
-        [NSXTProperty(IsRequired: false, Description: @"Maximum number of ARP entries per transport node.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(5000)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(50000)]
         public int? ArpLimit { get; set; }
         /// <summary>
         /// This field is deprecated and recommended to change Rule action field.
         /// Note that this field is not synchornied with default rule field.
         /// </summary>
-        [JsonProperty(PropertyName = "force_whitelisting")]
-        [NSXTProperty(IsRequired: false, Description: @"This field is deprecated and recommended to change Rule action field.Note that this field is not synchornied with default rule field.")]
         public bool? ForceWhitelisting { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "intersite_config")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTIntersiteGatewayConfigType IntersiteConfig { get; set; }
         /// <summary>
         /// DHCP configuration for Segments connected to Tier-1. DHCP service is
         /// enabled in relay mode.
         /// </summary>
-        [JsonProperty(PropertyName = "dhcp_config_paths")]
-        [NSXTProperty(IsRequired: false, Description: @"DHCP configuration for Segments connected to Tier-1. DHCP service isenabled in relay mode.")]
         public IList<string> DhcpConfigPaths { get; set; }
         /// <summary>
         /// Configuration IPv6 NDRA and DAD profiles. Either or both
         /// NDRA and/or DAD profiles can be configured.
         /// </summary>
-        [JsonProperty(PropertyName = "ipv6_profile_paths")]
-        [NSXTProperty(IsRequired: false, Description: @"Configuration IPv6 NDRA and DAD profiles. Either or bothNDRA and/or DAD profiles can be configured.")]
         public IList<string> Ipv6ProfilePaths { get; set; }
         /// <summary>
         /// Route advertisement rules and filtering
         /// </summary>
-        [JsonProperty(PropertyName = "route_advertisement_rules")]
-        [NSXTProperty(IsRequired: false, Description: @"Route advertisement rules and filtering")]
         public IList<NSXTRouteAdvertisementRuleType> RouteAdvertisementRules { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "qos_profile")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTGatewayQosProfileConfigType QosProfile { get; set; }
         /// <summary>
         /// Disable or enable gateway fiewall.
         /// </summary>
-        [JsonProperty(PropertyName = "disable_firewall")]
-        [NSXTProperty(IsRequired: false, Description: @"Disable or enable gateway fiewall.")]
         public bool? DisableFirewall { get; set; }
         /// <summary>
         /// Tier1 connectivity type for reference. Property value is not validated
@@ -137,16 +100,12 @@ namespace nsxtsdk.PolicyModels
         /// ISOLATED: Tier1 is not connected to any Tier0 gateway.
         /// NATTED: Tier1 is in ROUTED type with NAT configured locally.
         /// </summary>
-        [JsonProperty(PropertyName = "type")]
-        [NSXTProperty(IsRequired: false, Description: @"Tier1 connectivity type for reference. Property value is not validatedwith Tier1 configuration.  ROUTED: Tier1 is connected to Tier0 gateway and routing is enabled.  ISOLATED: Tier1 is not connected to any Tier0 gateway.  NATTED: Tier1 is in ROUTED type with NAT configured locally.")]
         public NSXTTier1TypeEnumType? Type { get; set; }
         /// <summary>
         /// Enable different types of route advertisements.
         /// When not specified, routes to IPSec VPN local-endpoint subnets
         /// (TIER1_IPSEC_LOCAL_ENDPOINT) are automatically advertised.
         /// </summary>
-        [JsonProperty(PropertyName = "route_advertisement_types")]
-        [NSXTProperty(IsRequired: false, Description: @"Enable different types of route advertisements.When not specified, routes to IPSec VPN local-endpoint subnets(TIER1_IPSEC_LOCAL_ENDPOINT) are automatically advertised.")]
         public IList<string> RouteAdvertisementTypes { get; set; }
     }
 }

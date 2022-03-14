@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,23 +17,15 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIdsGlobalEventConfigType : NSXTPolicyConfigResourceType
     {
-        public NSXTIdsGlobalEventConfigType()
-        {
-            IdsDataTopicName = test
-        }
         /// <summary>
         /// When this flag is set to true, IDS events will
         /// be sent to kafka, for consumption by components such as
         /// NSX-I and NDR.
         /// </summary>
-        [JsonProperty(PropertyName = "publish_ids_events")]
-        [NSXTProperty(IsRequired: false, Description: @"When this flag is set to true, IDS events willbe sent to kafka, for consumption by components such asNSX-I and NDR.")]
         public bool? PublishIdsEvents { get; set; }
         /// <summary>
         /// kafka topic into which to publish IDS events.
         /// </summary>
-        [JsonProperty(PropertyName = "ids_data_topic_name")]
-        [NSXTProperty(IsRequired: false, Description: @"kafka topic into which to publish IDS events.")]
         public string? IdsDataTopicName { get; set; }
     }
 }

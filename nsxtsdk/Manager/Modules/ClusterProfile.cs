@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public ClusterProfile(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public ClusterProfile(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTClusterProfileType UpdateClusterProfile(string ClusterProfileId, NSXTClusterProfileType ClusterProfile)
+        public async Task<NSXTClusterProfileType> UpdateClusterProfile(string ClusterProfileId, NSXTClusterProfileType ClusterProfile)
         {
             if (ClusterProfileId == null) { throw new System.ArgumentNullException("ClusterProfileId cannot be null"); }
             if (ClusterProfile == null) { throw new System.ArgumentNullException("ClusterProfile cannot be null"); }
@@ -45,31 +52,19 @@ namespace nsxtapi.ManagerModules
             UpdateClusterProfileServiceURL.Replace("{cluster-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ClusterProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(ClusterProfile, defaultSerializationSettings));
             request.Resource = UpdateClusterProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTClusterProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTClusterProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateClusterProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTClusterProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTClusterProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteClusterProfile(string ClusterProfileId)
+        public async Task DeleteClusterProfile(string ClusterProfileId)
         {
             if (ClusterProfileId == null) { throw new System.ArgumentNullException("ClusterProfileId cannot be null"); }
             
@@ -82,7 +77,7 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             DeleteClusterProfileServiceURL.Replace("{cluster-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ClusterProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteClusterProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteClusterProfileServiceURL.ToString() + " did not complete successfull";
@@ -94,7 +89,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTClusterProfileType GetClusterProfile(string ClusterProfileId)
+        public async Task<NSXTClusterProfileType> GetClusterProfile(string ClusterProfileId)
         {
             if (ClusterProfileId == null) { throw new System.ArgumentNullException("ClusterProfileId cannot be null"); }
             NSXTClusterProfileType returnValue = default(NSXTClusterProfileType);
@@ -107,31 +102,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             GetClusterProfileServiceURL.Replace("{cluster-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ClusterProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetClusterProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTClusterProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTClusterProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetClusterProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTClusterProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTClusterProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTClusterProfileType CreateClusterProfile(NSXTClusterProfileType ClusterProfile)
+        public async Task<NSXTClusterProfileType> CreateClusterProfile(NSXTClusterProfileType ClusterProfile)
         {
             if (ClusterProfile == null) { throw new System.ArgumentNullException("ClusterProfile cannot be null"); }
             NSXTClusterProfileType returnValue = default(NSXTClusterProfileType);
@@ -144,31 +127,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(ClusterProfile, defaultSerializationSettings));
             request.Resource = CreateClusterProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTClusterProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTClusterProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CreateClusterProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTClusterProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTClusterProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTClusterProfileListResultType ListClusterProfiles(string? Cursor = null, bool? IncludeSystemOwned = null, string? IncludedFields = null, long? PageSize = null, string? ResourceType = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTClusterProfileListResultType> ListClusterProfiles(string? Cursor = null, bool? IncludeSystemOwned = null, string? IncludedFields = null, long? PageSize = null, string? ResourceType = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTClusterProfileListResultType returnValue = default(NSXTClusterProfileListResultType);
             StringBuilder ListClusterProfilesServiceURL = new StringBuilder("/cluster-profiles");
@@ -186,25 +157,13 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListClusterProfilesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTClusterProfileListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTClusterProfileListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListClusterProfilesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTClusterProfileListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTClusterProfileListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

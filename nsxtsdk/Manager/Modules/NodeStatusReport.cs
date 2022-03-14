@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public NodeStatusReport(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public NodeStatusReport(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void ReadNodeSupportBundle(bool? All = null)
+        public async Task ReadNodeSupportBundle(bool? All = null)
         {
             
             StringBuilder ReadNodeSupportBundleServiceURL = new StringBuilder("/node/support-bundle");
@@ -42,7 +49,7 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             if (All != null) { request.AddQueryParameter("all", All.ToString()); }
             request.Resource = ReadNodeSupportBundleServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadNodeSupportBundleServiceURL.ToString() + " did not complete successfull";

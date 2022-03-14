@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,24 +17,16 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTViewType : NSXTManagedResourceType
     {
-        public NSXTViewType()
-        {
-            Weight = test
-        }
         /// <summary>
         /// Comma separated list of roles to which the shared view is visible. Allows user to specify the visibility of a shared
         /// view to the specified roles. User defined roles can also be specified in the list. The roles can be obtained via GET
         /// /api/v1/aaa/roles. Please visit API documentation for details about roles.
         /// </summary>
-        [JsonProperty(PropertyName = "include_roles")]
-        [NSXTProperty(IsRequired: false, Description: @"Comma separated list of roles to which the shared view is visible. Allows user to specify the visibility of a shared view to the specified roles. User defined roles can also be specified in the list. The roles can be obtained via GET /api/v1/aaa/roles. Please visit API documentation for details about roles.")]
         public string? IncludeRoles { get; set; }
         /// <summary>
         /// Title of the widget.
         /// </summary>
         [JsonProperty(PropertyName = "display_name", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Title of the widget.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string DisplayName { get; set; }
         /// <summary>
         /// Comma separated list of roles to which the shared view is not visible. Allows user to prevent the visibility of a shared
@@ -42,28 +34,20 @@ namespace nsxtsdk.ManagerModels
         /// /api/v1/aaa/roles. Please visit API documentation for details about roles. If include_roles is specified then
         /// exclude_roles cannot be specified.
         /// </summary>
-        [JsonProperty(PropertyName = "exclude_roles")]
-        [NSXTProperty(IsRequired: false, Description: @"Comma separated list of roles to which the shared view is not visible. Allows user to prevent the visibility of a shared view to the specified roles. User defined roles can also be specified in the list. The roles can be obtained via GET /api/v1/aaa/roles. Please visit API documentation for details about roles. If include_roles is specified then exclude_roles cannot be specified.")]
         public string? ExcludeRoles { get; set; }
         /// <summary>
         /// Determines placement of view relative to other views. The lower the weight, the higher it is in the placement order.
         /// </summary>
-        [JsonProperty(PropertyName = "weight")]
-        [NSXTProperty(IsRequired: false, Description: @"Determines placement of view relative to other views. The lower the weight, the higher it is in the placement order.")]
         public int? Weight { get; set; }
         /// <summary>
         /// Array of widgets that are part of the view.
         /// </summary>
         [JsonProperty(PropertyName = "widgets", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Array of widgets that are part of the view.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTWidgetItemType> Widgets { get; set; }
         /// <summary>
         /// Defaults to false. Set to true to publish the view to other users. The widgets of a shared view are visible to other
         /// users.
         /// </summary>
-        [JsonProperty(PropertyName = "shared")]
-        [NSXTProperty(IsRequired: false, Description: @"Defaults to false. Set to true to publish the view to other users. The widgets of a shared view are visible to other users.")]
         public bool? Shared { get; set; }
     }
 }

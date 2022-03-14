@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -32,34 +32,23 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Represents the leaf level expression to restrict the target attribute valuebased on the set of existing values. Generally, used in combination withRelatedAttributeConditionalExpression to constraint the values related toanother attribute on the same resource. This object is always used inconjunction with some exression.Example -{  &quot;condition&quot; : {      &quot;operator&quot;:&quot;INCLUDES&quot;,      &quot;rhs_value&quot;: [&quot;/infra/domains/mgw/groups/VCENTER&quot;, &quot;/infra/domains/mgw/groups/SRM&quot;, &quot;/infra/domains/mgw/groups/NSX&quot;],      &quot;value_constraint&quot;: {          &quot;resource_type&quot;: &quot;ValueConstraintExpression&quot;,          &quot;operator&quot;:&quot;EXCLUDES&quot;,          &quot;values&quot;:[&quot;/infra/domains/mgw/groups/VCENTER&quot;, &quot;/infra/domains/mgw/groups/SRM&quot;, &quot;/infra/domains/mgw/groups/NSX&quot;]  }}")]
     public class NSXTConditionalValueConstraintExpressionType 
     {
-        public NSXTConditionalValueConstraintExpressionType()
-        {
-        }
         /// <summary>
         /// Set operation to constraint values.
         /// </summary>
         [JsonProperty(PropertyName = "operator", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Set operation to constraint values.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTConditionalValueConstraintExpressionOperatorEnumType OperatorProperty { get; set; }
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty(PropertyName = "value_constraint", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTValueConstraintExpressionType ValueConstraint { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "rhs_value_with_type")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTConstraintValueType RhsValueWithType { get; set; }
         /// <summary>
         /// List of values.
         /// </summary>
-        [JsonProperty(PropertyName = "rhs_value")]
-        [NSXTProperty(IsRequired: false, Description: @"List of values.")]
         public IList<string> RhsValue { get; set; }
     }
 }

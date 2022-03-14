@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public LogicalRouter(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public LogicalRouter(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLogicalRouterType CreateLogicalRouter(NSXTLogicalRouterType LogicalRouter)
+        public async Task<NSXTLogicalRouterType> CreateLogicalRouter(NSXTLogicalRouterType LogicalRouter)
         {
             if (LogicalRouter == null) { throw new System.ArgumentNullException("LogicalRouter cannot be null"); }
             NSXTLogicalRouterType returnValue = default(NSXTLogicalRouterType);
@@ -43,31 +50,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(LogicalRouter, defaultSerializationSettings));
             request.Resource = CreateLogicalRouterServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLogicalRouterType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLogicalRouterType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CreateLogicalRouterServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLogicalRouterType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLogicalRouterType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLogicalRouterListResultType ListLogicalRouters(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, string? RouterType = null, bool? SortAscending = null, string? SortBy = null, string? VrfsOnLogicalRouterId = null)
+        public async Task<NSXTLogicalRouterListResultType> ListLogicalRouters(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, string? RouterType = null, bool? SortAscending = null, string? SortBy = null, string? VrfsOnLogicalRouterId = null)
         {
             NSXTLogicalRouterListResultType returnValue = default(NSXTLogicalRouterListResultType);
             StringBuilder ListLogicalRoutersServiceURL = new StringBuilder("/logical-routers");
@@ -85,31 +80,19 @@ namespace nsxtapi.ManagerModules
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             if (VrfsOnLogicalRouterId != null) { request.AddQueryParameter("vrfs_on_logical_router_id", VrfsOnLogicalRouterId.ToString()); }
             request.Resource = ListLogicalRoutersServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLogicalRouterListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLogicalRouterListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListLogicalRoutersServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLogicalRouterListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLogicalRouterListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void ReProcessLogicalRouter(string LogicalRouterId)
+        public async Task ReProcessLogicalRouter(string LogicalRouterId)
         {
             if (LogicalRouterId == null) { throw new System.ArgumentNullException("LogicalRouterId cannot be null"); }
             
@@ -122,7 +105,7 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             ReProcessLogicalRouterServiceURL.Replace("{logical-router-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LogicalRouterId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReProcessLogicalRouterServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + ReProcessLogicalRouterServiceURL.ToString() + " did not complete successfull";
@@ -134,7 +117,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public string ReadDebugInfo(string LogicalRouterId)
+        public async Task<string> ReadDebugInfo(string LogicalRouterId)
         {
             if (LogicalRouterId == null) { throw new System.ArgumentNullException("LogicalRouterId cannot be null"); }
             string returnValue  = default(string);
@@ -147,31 +130,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             ReadDebugInfoServiceURL.Replace("{logical-router-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LogicalRouterId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadDebugInfoServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<string> response = await restClient.ExecuteTaskAsyncWithPolicy<string>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadDebugInfoServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<string>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(string).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLogicalRouterStateType GetLogicalRouterState(string LogicalRouterId, long? BarrierId = null, string? RequestId = null)
+        public async Task<NSXTLogicalRouterStateType> GetLogicalRouterState(string LogicalRouterId, long? BarrierId = null, string? RequestId = null)
         {
             if (LogicalRouterId == null) { throw new System.ArgumentNullException("LogicalRouterId cannot be null"); }
             NSXTLogicalRouterStateType returnValue = default(NSXTLogicalRouterStateType);
@@ -186,31 +157,19 @@ namespace nsxtapi.ManagerModules
             if (BarrierId != null) { request.AddQueryParameter("barrier_id", BarrierId.ToString()); }
             if (RequestId != null) { request.AddQueryParameter("request_id", RequestId.ToString()); }
             request.Resource = GetLogicalRouterStateServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLogicalRouterStateType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLogicalRouterStateType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetLogicalRouterStateServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLogicalRouterStateType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLogicalRouterStateType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLogicalRouterType ReAllocateServiceRouters(string LogicalRouterId, NSXTServiceRouterAllocationConfigType ServiceRouterAllocationConfig)
+        public async Task<NSXTLogicalRouterType> ReAllocateServiceRouters(string LogicalRouterId, NSXTServiceRouterAllocationConfigType ServiceRouterAllocationConfig)
         {
             if (LogicalRouterId == null) { throw new System.ArgumentNullException("LogicalRouterId cannot be null"); }
             if (ServiceRouterAllocationConfig == null) { throw new System.ArgumentNullException("ServiceRouterAllocationConfig cannot be null"); }
@@ -225,31 +184,19 @@ namespace nsxtapi.ManagerModules
             ReAllocateServiceRoutersServiceURL.Replace("{logical-router-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LogicalRouterId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(ServiceRouterAllocationConfig, defaultSerializationSettings));
             request.Resource = ReAllocateServiceRoutersServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLogicalRouterType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLogicalRouterType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + ReAllocateServiceRoutersServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLogicalRouterType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLogicalRouterType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLogicalRouterType UpdateLogicalRouter(string LogicalRouterId, NSXTLogicalRouterType LogicalRouter)
+        public async Task<NSXTLogicalRouterType> UpdateLogicalRouter(string LogicalRouterId, NSXTLogicalRouterType LogicalRouter)
         {
             if (LogicalRouterId == null) { throw new System.ArgumentNullException("LogicalRouterId cannot be null"); }
             if (LogicalRouter == null) { throw new System.ArgumentNullException("LogicalRouter cannot be null"); }
@@ -264,31 +211,19 @@ namespace nsxtapi.ManagerModules
             UpdateLogicalRouterServiceURL.Replace("{logical-router-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LogicalRouterId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(LogicalRouter, defaultSerializationSettings));
             request.Resource = UpdateLogicalRouterServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLogicalRouterType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLogicalRouterType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateLogicalRouterServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLogicalRouterType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLogicalRouterType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLogicalRouterType ReadLogicalRouter(string LogicalRouterId)
+        public async Task<NSXTLogicalRouterType> ReadLogicalRouter(string LogicalRouterId)
         {
             if (LogicalRouterId == null) { throw new System.ArgumentNullException("LogicalRouterId cannot be null"); }
             NSXTLogicalRouterType returnValue = default(NSXTLogicalRouterType);
@@ -301,31 +236,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             ReadLogicalRouterServiceURL.Replace("{logical-router-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LogicalRouterId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadLogicalRouterServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLogicalRouterType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLogicalRouterType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadLogicalRouterServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLogicalRouterType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLogicalRouterType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteLogicalRouter(string LogicalRouterId, bool? CascadeDeleteLinkedPorts = null, bool? Force = null)
+        public async Task DeleteLogicalRouter(string LogicalRouterId, bool? CascadeDeleteLinkedPorts = null, bool? Force = null)
         {
             if (LogicalRouterId == null) { throw new System.ArgumentNullException("LogicalRouterId cannot be null"); }
             
@@ -340,7 +263,7 @@ namespace nsxtapi.ManagerModules
             if (CascadeDeleteLinkedPorts != null) { request.AddQueryParameter("cascade_delete_linked_ports", CascadeDeleteLinkedPorts.ToString()); }
             if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
             request.Resource = DeleteLogicalRouterServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteLogicalRouterServiceURL.ToString() + " did not complete successfull";
@@ -352,7 +275,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLogicalServiceRouterClusterStateType GetLogicalServiceRouterClusterState(string LogicalRouterId, long? BarrierId = null, string? RequestId = null)
+        public async Task<NSXTLogicalServiceRouterClusterStateType> GetLogicalServiceRouterClusterState(string LogicalRouterId, long? BarrierId = null, string? RequestId = null)
         {
             if (LogicalRouterId == null) { throw new System.ArgumentNullException("LogicalRouterId cannot be null"); }
             NSXTLogicalServiceRouterClusterStateType returnValue = default(NSXTLogicalServiceRouterClusterStateType);
@@ -367,25 +290,13 @@ namespace nsxtapi.ManagerModules
             if (BarrierId != null) { request.AddQueryParameter("barrier_id", BarrierId.ToString()); }
             if (RequestId != null) { request.AddQueryParameter("request_id", RequestId.ToString()); }
             request.Resource = GetLogicalServiceRouterClusterStateServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLogicalServiceRouterClusterStateType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLogicalServiceRouterClusterStateType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetLogicalServiceRouterClusterStateServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLogicalServiceRouterClusterStateType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLogicalServiceRouterClusterStateType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

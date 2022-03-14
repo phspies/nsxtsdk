@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTVlanMirrorSourceType : NSXTMirrorSourceType
     {
-        public NSXTVlanMirrorSourceType()
-        {
-        }
         /// <summary>
         /// Source VLAN ID list
         /// </summary>
         [JsonProperty(PropertyName = "vlan_ids", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Source VLAN ID list")]
-        [System.ComponentModel.DataAnnotations.Required]
         public long VlanIds { get; set; }
     }
 }

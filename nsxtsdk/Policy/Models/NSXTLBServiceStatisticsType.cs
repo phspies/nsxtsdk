@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,38 +17,25 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLBServiceStatisticsType : NSXTLBServiceStatisticsPerEPType
     {
-        public NSXTLBServiceStatisticsType()
-        {
-        }
         /// <summary>
         /// Statistics of load balancer pools
         /// </summary>
-        [JsonProperty(PropertyName = "pools")]
-        [NSXTProperty(IsRequired: false, Description: @"Statistics of load balancer pools")]
         public IList<NSXTLBPoolStatisticsType> Pools { get; set; }
         /// <summary>
         /// Timestamp when the data was last updated.
         /// </summary>
-        [JsonProperty(PropertyName = "last_update_timestamp")]
-        [NSXTProperty(IsRequired: false, Description: @"Timestamp when the data was last updated.")]
         public long? LastUpdateTimestamp { get; set; }
         /// <summary>
         /// Statistics of load balancer virtual servers.
         /// </summary>
-        [JsonProperty(PropertyName = "virtual_servers")]
-        [NSXTProperty(IsRequired: false, Description: @"Statistics of load balancer virtual servers.")]
         public IList<NSXTLBVirtualServerStatisticsType> VirtualServers { get; set; }
         /// <summary>
         /// load balancer service identifier.
         /// </summary>
-        [JsonProperty(PropertyName = "service_path")]
-        [NSXTProperty(IsRequired: false, Description: @"load balancer service identifier.")]
         public string? ServicePath { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "statistics")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTLBServiceStatisticsCounterType Statistics { get; set; }
     }
 }

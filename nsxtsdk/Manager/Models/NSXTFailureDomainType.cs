@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,9 +17,6 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTFailureDomainType : NSXTManagedResourceType
     {
-        public NSXTFailureDomainType()
-        {
-        }
         /// <summary>
         /// Set preference for edge transport node failure domain which will be
         /// considered while doing auto placement of logical router, DHCP and
@@ -30,8 +27,6 @@ namespace nsxtsdk.ManagerModels
         /// allocation preferes this failure domain.
         /// Default will be unset. It means no explicit preference.
         /// </summary>
-        [JsonProperty(PropertyName = "preferred_active_edge_services")]
-        [NSXTProperty(IsRequired: false, Description: @"Set preference for edge transport node failure domain which will beconsidered while doing auto placement of logical router, DHCP andMDProxy on edge node.true: For preemptive failover mode, active edge cluster member      allocation preferes this failure domain.false: For preemptive failover mode, standby edge cluster member      allocation preferes this failure domain.Default will be unset. It means no explicit preference.")]
         public bool? PreferredActiveEdgeServices { get; set; }
     }
 }

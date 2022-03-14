@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,34 +17,22 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTTlsStateObjectType : NSXTPolicyConfigResourceType
     {
-        public NSXTTlsStateObjectType()
-        {
-            InspectionAction = test
-        }
         /// <summary>
         /// Tier-0/Tier-1 Logical Router policy path
         /// </summary>
-        [JsonProperty(PropertyName = "scope")]
-        [NSXTProperty(IsRequired: false, Description: @"Tier-0/Tier-1 Logical Router policy path")]
         public string? Scope { get; set; }
         /// <summary>
         /// Fully Qualified Domain Name.
         /// </summary>
         [JsonProperty(PropertyName = "fqdn", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Fully Qualified Domain Name.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Fqdn { get; set; }
         /// <summary>
         /// TLS inspection bypass action.
         /// </summary>
-        [JsonProperty(PropertyName = "inspection_action")]
-        [NSXTProperty(IsRequired: false, Description: @"TLS inspection bypass action.")]
         public NSXTTlsStateObjectInspectionActionEnumType? InspectionAction { get; set; }
         /// <summary>
         /// TLS inspection failure reasons.
         /// </summary>
-        [JsonProperty(PropertyName = "failure_reasons")]
-        [NSXTProperty(IsRequired: false, Description: @"TLS inspection failure reasons.")]
         public IList<string> FailureReasons { get; set; }
     }
 }

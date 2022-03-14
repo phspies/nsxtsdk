@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,36 +17,25 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTFilePropertiesType : NSXTResourceType
     {
-        public NSXTFilePropertiesType()
-        {
-        }
         /// <summary>
         /// File creation time in epoch milliseconds
         /// </summary>
         [JsonProperty(PropertyName = "created_epoch_ms", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"File creation time in epoch milliseconds")]
-        [System.ComponentModel.DataAnnotations.Required]
         public long CreatedEpochMs { get; set; }
         /// <summary>
         /// File modification time in epoch milliseconds
         /// </summary>
         [JsonProperty(PropertyName = "modified_epoch_ms", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"File modification time in epoch milliseconds")]
-        [System.ComponentModel.DataAnnotations.Required]
         public long ModifiedEpochMs { get; set; }
         /// <summary>
         /// File name
         /// </summary>
         [JsonProperty(PropertyName = "name", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"File name")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Name { get; set; }
         /// <summary>
         /// Size of the file in bytes
         /// </summary>
         [JsonProperty(PropertyName = "size", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Size of the file in bytes")]
-        [System.ComponentModel.DataAnnotations.Required]
         public long Size { get; set; }
     }
 }

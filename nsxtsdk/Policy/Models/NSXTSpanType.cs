@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,32 +17,21 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTSpanType : NSXTPolicyConfigResourceType
     {
-        public NSXTSpanType()
-        {
-        }
         /// <summary>
         /// Policy resource type of the streached entity.
         /// </summary>
-        [JsonProperty(PropertyName = "span_resource_type")]
-        [NSXTProperty(IsRequired: false, Description: @"Policy resource type of the streached entity.")]
         public string? SpanResourceType { get; set; }
         /// <summary>
         /// Represents Policy resource path of streached entity.
         /// </summary>
-        [JsonProperty(PropertyName = "span_resource")]
-        [NSXTProperty(IsRequired: false, Description: @"Represents Policy resource path of streached entity.")]
         public string? SpanResource { get; set; }
         /// <summary>
         /// List of SpanSiteInfos representing the strech of the entity.
         /// </summary>
-        [JsonProperty(PropertyName = "sites")]
-        [NSXTProperty(IsRequired: false, Description: @"List of SpanSiteInfos representing the strech of the entity.")]
         public IList<NSXTSpanSiteInfoType> Sites { get; set; }
         /// <summary>
         /// Represents Policy resource type streached entity's span leader.
         /// </summary>
-        [JsonProperty(PropertyName = "span_leader")]
-        [NSXTProperty(IsRequired: false, Description: @"Represents Policy resource type streached entity&apos;s span leader.")]
         public string? SpanLeader { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,26 +17,17 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLiveTraceResultType 
     {
-        public NSXTLiveTraceResultType()
-        {
-        }
         /// <summary>
         /// PktCap action results
         /// </summary>
-        [JsonProperty(PropertyName = "pktcap_results")]
-        [NSXTProperty(IsRequired: false, Description: @"PktCap action results")]
         public IList<NSXTPktCapResultType> PktcapResults { get; set; }
         /// <summary>
         /// Trace action observation list results
         /// </summary>
-        [JsonProperty(PropertyName = "trace_results")]
-        [NSXTProperty(IsRequired: false, Description: @"Trace action observation list results")]
         public IList<NSXTTraceResultType> TraceResults { get; set; }
         /// <summary>
         /// The id is assigned by Livetrace and cannot be specified by user.
         /// </summary>
-        [JsonProperty(PropertyName = "id")]
-        [NSXTProperty(IsRequired: false, Description: @"The id is assigned by Livetrace and cannot be specified by user.")]
         public string? Id { get; set; }
     }
 }

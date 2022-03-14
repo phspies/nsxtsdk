@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,33 +17,22 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLogicalRouterStatusType 
     {
-        public NSXTLogicalRouterStatusType()
-        {
-        }
         /// <summary>
         /// Timestamp when the data was last updated; unset if data source has never updated the data.
         /// </summary>
-        [JsonProperty(PropertyName = "last_update_timestamp")]
-        [NSXTProperty(IsRequired: false, Description: @"Timestamp when the data was last updated; unset if data source has never updated the data.")]
         public long? LastUpdateTimestamp { get; set; }
         /// <summary>
         /// The id of the logical router
         /// </summary>
         [JsonProperty(PropertyName = "logical_router_id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"The id of the logical router")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string LogicalRouterId { get; set; }
         /// <summary>
         /// Per Node Status
         /// </summary>
-        [JsonProperty(PropertyName = "per_node_status")]
-        [NSXTProperty(IsRequired: false, Description: @"Per Node Status")]
         public IList<NSXTLogicalRouterStatusPerNodeType> PerNodeStatus { get; set; }
         /// <summary>
         /// Egress mode for the logical router at given mode
         /// </summary>
-        [JsonProperty(PropertyName = "locale_operation_mode")]
-        [NSXTProperty(IsRequired: false, Description: @"Egress mode for the logical router at given mode")]
         public NSXTLogicalRouterStatusLocaleOperationModeEnumType? LocaleOperationMode { get; set; }
     }
 }

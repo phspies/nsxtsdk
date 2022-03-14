@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTTransportNodeProfileType : NSXTManagedResourceType
     {
-        public NSXTTransportNodeProfileType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "host_switch_spec")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTHostSwitchSpecType HostSwitchSpec { get; set; }
         /// <summary>
         /// Transport Node Profiles specify the configuration that is applied to all
@@ -46,8 +41,6 @@ namespace nsxtsdk.ManagerModels
         /// Note, Transport Node Profiles can be applied on multiple clusters. This field will
         /// dictate the behavior followed by all clusters using this Transport Node Profile.
         /// </summary>
-        [JsonProperty(PropertyName = "ignore_overridden_hosts")]
-        [NSXTProperty(IsRequired: false, Description: @"Transport Node Profiles specify the configuration that is applied to allhosts in a cluster. The user has the ability to update the configurationon individual hosts within a cluster which will cause the host configurationto differ from the Transport Node Profile and results in the host to bemarked as overridden. If a Transport Node Profile is edited or a newTransport Node Profile is applied on a Transport Node Collection, by default,the host configuration will be overwritten with the Transport Node Profileconfiguration and the overridden flag will be reset to false. This flagshould be used when hosts that are set as overridden should not adopt theTransport Node Profile configuration when it is being updated or a new oneis applied to the Transport Node Collection. In other words, when this flag isset to the default value of false and configuration is applied at the clusterlevel, the configuration will be applied on all hosts regardless if overriddenor not. When this flag is set to true, all hosts that are set as overridden, i.e.,have been updated invidivually, will be ignored and the cluster-level configurationwill not be applied.Note, Transport Node Profiles can be applied on multiple clusters. This field willdictate the behavior followed by all clusters using this Transport Node Profile.")]
         public bool? IgnoreOverriddenHosts { get; set; }
     }
 }

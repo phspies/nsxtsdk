@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,27 +17,18 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"OSPF Routes Per Edge.")]
     public class NSXTOspfRoutesType 
     {
-        public NSXTOspfRoutesType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "route_details")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public IList<NSXTOspfRouteType> RouteDetails { get; set; }
         /// <summary>
         /// Policy path to edge node.
         /// </summary>
         [JsonProperty(PropertyName = "edge_path", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Policy path to edge node.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string EdgePath { get; set; }
         /// <summary>
         /// Display name to edge node.
         /// </summary>
-        [JsonProperty(PropertyName = "edge_display_name")]
-        [NSXTProperty(IsRequired: false, Description: @"Display name to edge node.")]
         public string? EdgeDisplayName { get; set; }
     }
 }

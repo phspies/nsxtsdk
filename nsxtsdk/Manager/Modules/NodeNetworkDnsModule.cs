@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public NodeNetworkDnsModule(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public NodeNetworkDnsModule(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNodeNameServersPropertiesType UpdateNodeNameServers(NSXTNodeNameServersPropertiesType NodeNameServersProperties)
+        public async Task<NSXTNodeNameServersPropertiesType> UpdateNodeNameServers(NSXTNodeNameServersPropertiesType NodeNameServersProperties)
         {
             if (NodeNameServersProperties == null) { throw new System.ArgumentNullException("NodeNameServersProperties cannot be null"); }
             NSXTNodeNameServersPropertiesType returnValue = default(NSXTNodeNameServersPropertiesType);
@@ -43,31 +50,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(NodeNameServersProperties, defaultSerializationSettings));
             request.Resource = UpdateNodeNameServersServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNodeNameServersPropertiesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNodeNameServersPropertiesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateNodeNameServersServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNodeNameServersPropertiesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNodeNameServersPropertiesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNodeNameServersPropertiesType ReadNodeNameServers()
+        public async Task<NSXTNodeNameServersPropertiesType> ReadNodeNameServers()
         {
             NSXTNodeNameServersPropertiesType returnValue = default(NSXTNodeNameServersPropertiesType);
             StringBuilder ReadNodeNameServersServiceURL = new StringBuilder("/node/network/name-servers");
@@ -78,31 +73,19 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = ReadNodeNameServersServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNodeNameServersPropertiesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNodeNameServersPropertiesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadNodeNameServersServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNodeNameServersPropertiesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNodeNameServersPropertiesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNodeSearchDomainsPropertiesType UpdateNodeSearchDomains(NSXTNodeSearchDomainsPropertiesType NodeSearchDomainsProperties)
+        public async Task<NSXTNodeSearchDomainsPropertiesType> UpdateNodeSearchDomains(NSXTNodeSearchDomainsPropertiesType NodeSearchDomainsProperties)
         {
             if (NodeSearchDomainsProperties == null) { throw new System.ArgumentNullException("NodeSearchDomainsProperties cannot be null"); }
             NSXTNodeSearchDomainsPropertiesType returnValue = default(NSXTNodeSearchDomainsPropertiesType);
@@ -115,31 +98,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(NodeSearchDomainsProperties, defaultSerializationSettings));
             request.Resource = UpdateNodeSearchDomainsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNodeSearchDomainsPropertiesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNodeSearchDomainsPropertiesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateNodeSearchDomainsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNodeSearchDomainsPropertiesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNodeSearchDomainsPropertiesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNodeSearchDomainsPropertiesType ReadNodeSearchDomains()
+        public async Task<NSXTNodeSearchDomainsPropertiesType> ReadNodeSearchDomains()
         {
             NSXTNodeSearchDomainsPropertiesType returnValue = default(NSXTNodeSearchDomainsPropertiesType);
             StringBuilder ReadNodeSearchDomainsServiceURL = new StringBuilder("/node/network/search-domains");
@@ -150,25 +121,13 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = ReadNodeSearchDomainsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNodeSearchDomainsPropertiesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNodeSearchDomainsPropertiesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadNodeSearchDomainsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNodeSearchDomainsPropertiesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNodeSearchDomainsPropertiesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

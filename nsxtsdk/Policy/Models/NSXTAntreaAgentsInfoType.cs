@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,26 +17,17 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Antrea agents information")]
     public class NSXTAntreaAgentsInfoType 
     {
-        public NSXTAntreaAgentsInfoType()
-        {
-        }
         /// <summary>
         /// The number of degraded agents
         /// </summary>
-        [JsonProperty(PropertyName = "degraded_agent_num")]
-        [NSXTProperty(IsRequired: false, Description: @"The number of degraded agents")]
         public int? DegradedAgentNum { get; set; }
         /// <summary>
         /// The number of failed agents
         /// </summary>
-        [JsonProperty(PropertyName = "failed_agent_num")]
-        [NSXTProperty(IsRequired: false, Description: @"The number of failed agents")]
         public int? FailedAgentNum { get; set; }
         /// <summary>
         /// The number of healthy agents
         /// </summary>
-        [JsonProperty(PropertyName = "healthy_agent_num")]
-        [NSXTProperty(IsRequired: false, Description: @"The number of healthy agents")]
         public int? HealthyAgentNum { get; set; }
     }
 }

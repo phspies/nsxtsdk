@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTCapacityThresholdListType : NSXTManagedResourceType
     {
-        public NSXTCapacityThresholdListType()
-        {
-        }
         /// <summary>
         /// List of capacity thresholds for NSX Objects
         /// </summary>
         [JsonProperty(PropertyName = "capacity_thresholds", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"List of capacity thresholds for NSX Objects")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTCapacityThresholdType> CapacityThresholds { get; set; }
     }
 }

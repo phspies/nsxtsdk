@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,26 +17,17 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyEdgeClusterType : NSXTPolicyConfigResourceType
     {
-        public NSXTPolicyEdgeClusterType()
-        {
-        }
         /// <summary>
         /// Flag to indicate status of inter site l2 and l3 forwarding in federation.
         /// </summary>
-        [JsonProperty(PropertyName = "inter_site_forwarding_enabled")]
-        [NSXTProperty(IsRequired: false, Description: @"Flag to indicate status of inter site l2 and l3 forwarding in federation.")]
         public bool? InterSiteForwardingEnabled { get; set; }
         /// <summary>
         /// UUID of Edge Cluster on NSX-T enforcement point.
         /// </summary>
-        [JsonProperty(PropertyName = "nsx_id")]
-        [NSXTProperty(IsRequired: false, Description: @"UUID of Edge Cluster on NSX-T enforcement point.")]
         public string? NsxId { get; set; }
         /// <summary>
         /// List of remote tunnel endpoint ipaddress configured on edge cluster.
         /// </summary>
-        [JsonProperty(PropertyName = "rtep_ips")]
-        [NSXTProperty(IsRequired: false, Description: @"List of remote tunnel endpoint ipaddress configured on edge cluster.")]
         public IList<string> RtepIps { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,35 +17,24 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTRouteBasedL3VpnSessionType : NSXTL3VpnSessionType
     {
-        public NSXTRouteBasedL3VpnSessionType()
-        {
-        }
         /// <summary>
         /// This is a deprecated field. Any specified value is not saved and will be ignored.
         /// </summary>
-        [JsonProperty(PropertyName = "routing_config_path")]
-        [NSXTProperty(IsRequired: false, Description: @"This is a deprecated field. Any specified value is not saved and will be ignored.")]
         public string? RoutingConfigPath { get; set; }
         /// <summary>
         /// Virtual tunnel interface (VTI) port IP subnets to be used to configure
         /// route-based L3Vpn session. A max of one tunnel subnet is allowed.
         /// </summary>
         [JsonProperty(PropertyName = "tunnel_subnets", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Virtual tunnel interface (VTI) port IP subnets to be used to configureroute-based L3Vpn session. A max of one tunnel subnet is allowed.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTTunnelSubnetType> TunnelSubnets { get; set; }
         /// <summary>
         /// Indicates if logging should be enabled for the default whitelisting
         /// rule for the VTI interface.
         /// </summary>
-        [JsonProperty(PropertyName = "default_rule_logging")]
-        [NSXTProperty(IsRequired: false, Description: @"Indicates if logging should be enabled for the default whitelistingrule for the VTI interface.")]
         public bool? DefaultRuleLogging { get; set; }
         /// <summary>
         /// The default firewall rule Action is set to DROP if true otherwise set to ALLOW.
         /// </summary>
-        [JsonProperty(PropertyName = "force_whitelisting")]
-        [NSXTProperty(IsRequired: false, Description: @"The default firewall rule Action is set to DROP if true otherwise set to ALLOW.")]
         public bool? ForceWhitelisting { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,28 +17,19 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTProgressItemType 
     {
-        public NSXTProgressItemType()
-        {
-        }
         /// <summary>
         /// Finer details, usually there is only one part
         /// </summary>
-        [JsonProperty(PropertyName = "parts")]
-        [NSXTProperty(IsRequired: false, Description: @"Finer details, usually there is only one part")]
         public IList<NSXTProgressItemPartType> Parts { get; set; }
         /// <summary>
         /// Name of the item
         /// </summary>
         [JsonProperty(PropertyName = "name", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Name of the item")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Name { get; set; }
         /// <summary>
         /// Item description
         /// </summary>
         [JsonProperty(PropertyName = "description", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Item description")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Description { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,28 +17,19 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer WafApplicationSignatures object")]
     public class NSXTALBWafApplicationSignaturesType 
     {
-        public NSXTALBWafApplicationSignaturesType()
-        {
-        }
         /// <summary>
         /// The version in use of the provided ruleset.
         /// </summary>
-        [JsonProperty(PropertyName = "ruleset_version")]
-        [NSXTProperty(IsRequired: false, Description: @"The version in use of the provided ruleset.")]
         public string? RulesetVersion { get; set; }
         /// <summary>
         /// List of applications for which we use the rules from the
         /// WafApplicationSignatureProvider.
         /// Maximum of 8 items allowed.
         /// </summary>
-        [JsonProperty(PropertyName = "selected_applications")]
-        [NSXTProperty(IsRequired: false, Description: @"List of applications for which we use the rules from theWafApplicationSignatureProvider.Maximum of 8 items allowed.")]
         public IList<string> SelectedApplications { get; set; }
         /// <summary>
         /// Override attributes of application signature rules.
         /// </summary>
-        [JsonProperty(PropertyName = "rule_overrides")]
-        [NSXTProperty(IsRequired: false, Description: @"Override attributes of application signature rules.")]
         public IList<NSXTALBWafRuleOverridesType> RuleOverrides { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,63 +17,44 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTActiveStandbySyncStatusType 
     {
-        public NSXTActiveStandbySyncStatusType()
-        {
-        }
         /// <summary>
         /// Status of synchronization between active and standby Global Manager nodes.
         /// </summary>
         [JsonProperty(PropertyName = "status", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Status of synchronization between active and standby Global Manager nodes.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTActiveStandbySyncStatusStatusEnumType Status { get; set; }
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty(PropertyName = "full_sync_status", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTFullSyncStatusType FullSyncStatus { get; set; }
         /// <summary>
         /// Description of the status.
         /// </summary>
         [JsonProperty(PropertyName = "description", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Description of the status.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Description { get; set; }
         /// <summary>
         /// Indicates whether the data is consistent. Always returned as true when queried on an active Global Manager node.
         /// </summary>
         [JsonProperty(PropertyName = "is_data_consistent", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Indicates whether the data is consistent. Always returned as true when queried on an active Global Manager node.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public bool IsDataConsistent { get; set; }
         /// <summary>
         /// Number of entries pending synchronization. This value is only returned when queried on an active Global Manager node.
         /// </summary>
-        [JsonProperty(PropertyName = "remaining_entries_to_send")]
-        [NSXTProperty(IsRequired: false, Description: @"Number of entries pending synchronization. This value is only returned when queried on an active Global Manager node.")]
         public long? RemainingEntriesToSend { get; set; }
         /// <summary>
         /// Percentage estimate of synchronization progress. Ranges from 0 to 100. This value is only returned when queried on an
         /// active Global Manager node.
         /// </summary>
-        [JsonProperty(PropertyName = "percentage_completed")]
-        [NSXTProperty(IsRequired: false, Description: @"Percentage estimate of synchronization progress. Ranges from 0 to 100. This value is only returned when queried on an active Global Manager node.")]
         public long? PercentageCompleted { get; set; }
         /// <summary>
         /// Name of standby site.
         /// </summary>
         [JsonProperty(PropertyName = "standby_site", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Name of standby site.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string StandbySite { get; set; }
         /// <summary>
         /// Type of synchronization currently in effect between active and standby Global Manager nodes.
         /// </summary>
         [JsonProperty(PropertyName = "sync_type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Type of synchronization currently in effect between active and standby Global Manager nodes.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTActiveStandbySyncStatusSyncTypeEnumType SyncType { get; set; }
     }
 }

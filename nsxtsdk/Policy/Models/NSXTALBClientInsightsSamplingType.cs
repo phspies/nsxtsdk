@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,26 +17,17 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer ClientInsightsSampling object")]
     public class NSXTALBClientInsightsSamplingType 
     {
-        public NSXTALBClientInsightsSamplingType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "skip_uris")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBStringMatchType SkipUris { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "client_ip")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBIpAddrMatchType ClientIp { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "sample_uris")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBStringMatchType SampleUris { get; set; }
     }
 }

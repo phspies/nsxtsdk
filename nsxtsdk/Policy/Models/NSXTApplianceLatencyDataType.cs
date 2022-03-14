@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,32 +17,21 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTApplianceLatencyDataType : NSXTResourceType
     {
-        public NSXTApplianceLatencyDataType()
-        {
-        }
         /// <summary>
         /// Latency Data list.
         /// </summary>
-        [JsonProperty(PropertyName = "latency_data")]
-        [NSXTProperty(IsRequired: false, Description: @"Latency Data list.")]
         public IList<NSXTApplianceLatencyDataItemType> LatencyData { get; set; }
         /// <summary>
         /// Display the Appliance id.
         /// </summary>
-        [JsonProperty(PropertyName = "id")]
-        [NSXTProperty(IsRequired: false, Description: @"Display the Appliance id.")]
         public string? Id { get; set; }
         /// <summary>
         /// Timestamp of last modification.
         /// </summary>
-        [JsonProperty(PropertyName = "timestamp")]
-        [NSXTProperty(IsRequired: false, Description: @"Timestamp of last modification.")]
         public long? Timestamp { get; set; }
         /// <summary>
         /// Display the appliance name.
         /// </summary>
-        [JsonProperty(PropertyName = "name")]
-        [NSXTProperty(IsRequired: false, Description: @"Display the appliance name.")]
         public string? Name { get; set; }
     }
 }

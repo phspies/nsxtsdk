@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -19,26 +19,17 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Monitoring information is gathered from multiple sub-systems/components, usingREST or RPC calls internally. It is quite possible for a component or sub-systemfail, in which case it is captured as an error and reported.")]
     public class NSXTMonitoringErrorType 
     {
-        public NSXTMonitoringErrorType()
-        {
-        }
         /// <summary>
         /// Parameters for construcing error details
         /// </summary>
-        [JsonProperty(PropertyName = "params")]
-        [NSXTProperty(IsRequired: false, Description: @"Parameters for construcing error details")]
         public IList<object> Params { get; set; }
         /// <summary>
         /// Error mesage
         /// </summary>
-        [JsonProperty(PropertyName = "error_message")]
-        [NSXTProperty(IsRequired: false, Description: @"Error mesage")]
         public string? ErrorMessage { get; set; }
         /// <summary>
         /// NSX error code if available
         /// </summary>
-        [JsonProperty(PropertyName = "error_code")]
-        [NSXTProperty(IsRequired: false, Description: @"NSX error code if available")]
         public long? ErrorCode { get; set; }
     }
 }

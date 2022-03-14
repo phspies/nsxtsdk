@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,22 +17,15 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer HealthMonitorTcp object")]
     public class NSXTALBHealthMonitorTcpType 
     {
-        public NSXTALBHealthMonitorTcpType()
-        {
-        }
         /// <summary>
         /// Request data to send after completing the TCP handshake.
         /// </summary>
-        [JsonProperty(PropertyName = "tcp_request")]
-        [NSXTProperty(IsRequired: false, Description: @"Request data to send after completing the TCP handshake.")]
         public string? TcpRequest { get; set; }
         /// <summary>
         /// Match or look for this keyword in the first 2KB of server's
         /// response indicating server maintenance.
         /// A successful match results in the server being marked down.
         /// </summary>
-        [JsonProperty(PropertyName = "maintenance_response")]
-        [NSXTProperty(IsRequired: false, Description: @"Match or look for this keyword in the first 2KB of server&apos;sresponse indicating server maintenance.A successful match results in the server being marked down.")]
         public string? MaintenanceResponse { get; set; }
         /// <summary>
         /// Configure TCP health monitor to use half-open TCP
@@ -48,8 +41,6 @@ namespace nsxtsdk.PolicyModels
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as false.
         /// </summary>
-        [JsonProperty(PropertyName = "tcp_half_open")]
-        [NSXTProperty(IsRequired: false, Description: @"Configure TCP health monitor to use half-open TCPconnections to monitor the health of backend servers therebyavoiding consumption of a full fledged server sideconnection and the overhead and logs associated with it.This method is light-weight as it makes use of listener inserver&apos;s kernel layer to measure the health and a childsocket or user thread is not created on the server side.Allowed in Basic(Allowed values- false) edition,Essentials(Allowed values- false) edition, Enterpriseedition.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
         public bool? TcpHalfOpen { get; set; }
         /// <summary>
         /// Match for the desired keyword in the first 2Kb of the
@@ -57,8 +48,6 @@ namespace nsxtsdk.PolicyModels
         /// If this field is left blank, no server response is
         /// required.
         /// </summary>
-        [JsonProperty(PropertyName = "tcp_response")]
-        [NSXTProperty(IsRequired: false, Description: @"Match for the desired keyword in the first 2Kb of theserver&apos;s TCP response.If this field is left blank, no server response isrequired.")]
         public string? TcpResponse { get; set; }
     }
 }

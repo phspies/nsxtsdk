@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,53 +17,28 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLbActiveMonitorType : NSXTLbMonitorType
     {
-        public NSXTLbActiveMonitorType()
-        {
-            FallCount = test
-            Interval = test
-            RiseCount = test
-            Timeout = test
-        }
         /// <summary>
         /// If the monitor port is specified, it would override pool member port
         /// setting for healthcheck. A port range is not supported.
         /// For ICMP monitor, monitor_port is not required.
         /// </summary>
-        [JsonProperty(PropertyName = "monitor_port")]
-        [NSXTProperty(IsRequired: false, Description: @"If the monitor port is specified, it would override pool member portsetting for healthcheck. A port range is not supported.For ICMP monitor, monitor_port is not required.")]
         public string? MonitorPort { get; set; }
         /// <summary>
         /// num of consecutive checks must fail before marking it down
         /// </summary>
-        [JsonProperty(PropertyName = "fall_count")]
-        [NSXTProperty(IsRequired: false, Description: @"num of consecutive checks must fail before marking it down")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(2147483647)]
         public long? FallCount { get; set; }
         /// <summary>
         /// the frequency at which the system issues the monitor check (in second)
         /// </summary>
-        [JsonProperty(PropertyName = "interval")]
-        [NSXTProperty(IsRequired: false, Description: @"the frequency at which the system issues the monitor check (in second)")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(2147483647)]
         public long? Interval { get; set; }
         /// <summary>
         /// num of consecutive checks must pass before marking it up
         /// </summary>
-        [JsonProperty(PropertyName = "rise_count")]
-        [NSXTProperty(IsRequired: false, Description: @"num of consecutive checks must pass before marking it up")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(2147483647)]
         public long? RiseCount { get; set; }
         /// <summary>
         /// the number of seconds the target has in which to respond to the monitor
         /// request
         /// </summary>
-        [JsonProperty(PropertyName = "timeout")]
-        [NSXTProperty(IsRequired: false, Description: @"the number of seconds the target has in which to respond to the monitorrequest")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(2147483647)]
         public long? Timeout { get; set; }
     }
 }

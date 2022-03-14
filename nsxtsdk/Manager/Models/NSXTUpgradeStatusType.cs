@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,38 +17,25 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTUpgradeStatusType 
     {
-        public NSXTUpgradeStatusType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "host_status")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTHostUpgradeStatusType HostStatus { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "ccp_status")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTCCPUpgradeStatusType CcpStatus { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "edge_status")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTEdgeUpgradeStatusType EdgeStatus { get; set; }
         /// <summary>
         /// Status of upgrade
         /// </summary>
-        [JsonProperty(PropertyName = "overall_upgrade_status")]
-        [NSXTProperty(IsRequired: false, Description: @"Status of upgrade")]
         public NSXTUpgradeStatusOverallUpgradeStatusEnumType? OverallUpgradeStatus { get; set; }
         /// <summary>
         /// List of component statuses
         /// </summary>
-        [JsonProperty(PropertyName = "component_status")]
-        [NSXTProperty(IsRequired: false, Description: @"List of component statuses")]
         public IList<NSXTComponentUpgradeStatusType> ComponentStatus { get; set; }
     }
 }

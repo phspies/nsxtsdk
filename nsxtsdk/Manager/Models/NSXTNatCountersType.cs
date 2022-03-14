@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,26 +17,17 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNatCountersType 
     {
-        public NSXTNatCountersType()
-        {
-        }
         /// <summary>
         /// The number of packets
         /// </summary>
-        [JsonProperty(PropertyName = "total_packets")]
-        [NSXTProperty(IsRequired: false, Description: @"The number of packets")]
         public long? TotalPackets { get; set; }
         /// <summary>
         /// The number of bytes
         /// </summary>
-        [JsonProperty(PropertyName = "total_bytes")]
-        [NSXTProperty(IsRequired: false, Description: @"The number of bytes")]
         public long? TotalBytes { get; set; }
         /// <summary>
         /// The number of active sessions
         /// </summary>
-        [JsonProperty(PropertyName = "active_sessions")]
-        [NSXTProperty(IsRequired: false, Description: @"The number of active sessions")]
         public long? ActiveSessions { get; set; }
     }
 }

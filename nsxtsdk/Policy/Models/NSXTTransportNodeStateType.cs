@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,44 +17,29 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTTransportNodeStateType : NSXTConfigurationStateType
     {
-        public NSXTTransportNodeStateType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "deployment_progress_state")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTTransportNodeDeploymentProgressStateType DeploymentProgressState { get; set; }
         /// <summary>
         /// Unique Id of the TransportNode
         /// </summary>
-        [JsonProperty(PropertyName = "transport_node_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Unique Id of the TransportNode")]
         public string? TransportNodeId { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "remote_tunnel_endpoint_state")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTRemoteTunnelEndpointConfigStateType RemoteTunnelEndpointState { get; set; }
         /// <summary>
         /// States of HostSwitches on the host
         /// </summary>
-        [JsonProperty(PropertyName = "host_switch_states")]
-        [NSXTProperty(IsRequired: false, Description: @"States of HostSwitches on the host")]
         public IList<NSXTHostSwitchStateType> HostSwitchStates { get; set; }
         /// <summary>
         /// the present realized maintenance mode state
         /// </summary>
-        [JsonProperty(PropertyName = "maintenance_mode_state")]
-        [NSXTProperty(IsRequired: false, Description: @"the present realized maintenance mode state")]
         public NSXTTransportNodeStateMaintenanceModeStateEnumType? MaintenanceModeState { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "node_deployment_state")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTConfigurationStateType NodeDeploymentState { get; set; }
     }
 }

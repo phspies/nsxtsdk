@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,48 +17,31 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Icon to be applied at dashboard for widgets and UI elements.")]
     public class NSXTIconType 
     {
-        public NSXTIconType()
-        {
-            Placement = test
-        }
         /// <summary>
         /// If specified as PRE, the icon appears before the UI element. If set as POST, the icon appears after the UI element.
         /// </summary>
-        [JsonProperty(PropertyName = "placement")]
-        [NSXTProperty(IsRequired: false, Description: @"If specified as PRE, the icon appears before the UI element. If set as POST, the icon appears after the UI element.")]
         public NSXTIconPlacementEnumType? Placement { get; set; }
         /// <summary>
         /// Icon color applied to icon in hex format.
         /// </summary>
-        [JsonProperty(PropertyName = "color")]
-        [NSXTProperty(IsRequired: false, Description: @"Icon color applied to icon in hex format.")]
         public string? Color { get; set; }
         /// <summary>
         /// Icon will be rendered based on its type. For example, if ERROR is chosen, then icon representing error will be rendered.
         /// or else custom svg icon name can be given.
         /// </summary>
-        [JsonProperty(PropertyName = "type")]
-        [NSXTProperty(IsRequired: false, Description: @"Icon will be rendered based on its type. For example, if ERROR is chosen, then icon representing error will be rendered. or else custom svg icon name can be given.")]
         public string? Type { get; set; }
         /// <summary>
         /// Icon size unit applied to icon along with size. if 'size' property value is provided and no value is provided for this
         /// property then default value for this proerty is set to 'px'.
         /// </summary>
-        [JsonProperty(PropertyName = "size_unit")]
-        [NSXTProperty(IsRequired: false, Description: @"Icon size unit applied to icon along with size. if &apos;size&apos; property value is provided and no value is provided for this property then default value for this proerty is set to &apos;px&apos;.")]
         public NSXTIconSizeUnitEnumType? SizeUnit { get; set; }
         /// <summary>
         /// Multi-line text to be shown on tooltip while hovering over the icon.
         /// </summary>
-        [JsonProperty(PropertyName = "tooltip")]
-        [NSXTProperty(IsRequired: false, Description: @"Multi-line text to be shown on tooltip while hovering over the icon.")]
         public IList<NSXTTooltipType> Tooltip { get; set; }
         /// <summary>
         /// Icon size in unit applied to icon.A unit can be specified by the 'size_unit' property.
         /// </summary>
-        [JsonProperty(PropertyName = "size")]
-        [NSXTProperty(IsRequired: false, Description: @"Icon size in unit applied to icon.A unit can be specified by the &apos;size_unit&apos; property.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
         public double? Size { get; set; }
     }
 }

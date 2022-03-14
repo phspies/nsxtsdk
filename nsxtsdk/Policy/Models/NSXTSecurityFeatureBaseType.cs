@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Security Feature feature entity")]
     public class NSXTSecurityFeatureBaseType 
     {
-        public NSXTSecurityFeatureBaseType()
-        {
-        }
         /// <summary>
         /// true - enable the feature, false - disable the feture
         /// </summary>
         [JsonProperty(PropertyName = "enable", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"true - enable the feature, false - disable the feture")]
-        [System.ComponentModel.DataAnnotations.Required]
         public bool Enable { get; set; }
     }
 }

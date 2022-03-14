@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -18,26 +18,17 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Query statistics counters to an upstream server including successfullyforwarded queries and failed queries.")]
     public class NSXTNsxTUpstreamServerStatisticsType 
     {
-        public NSXTNsxTUpstreamServerStatisticsType()
-        {
-        }
         /// <summary>
         /// Queries failed to forward.
         /// </summary>
-        [JsonProperty(PropertyName = "queries_failed")]
-        [NSXTProperty(IsRequired: false, Description: @"Queries failed to forward.")]
         public long? QueriesFailed { get; set; }
         /// <summary>
         /// Upstream server ip
         /// </summary>
-        [JsonProperty(PropertyName = "upstream_server")]
-        [NSXTProperty(IsRequired: false, Description: @"Upstream server ip")]
         public string? UpstreamServer { get; set; }
         /// <summary>
         /// Queries forwarded successfully
         /// </summary>
-        [JsonProperty(PropertyName = "queries_succeeded")]
-        [NSXTProperty(IsRequired: false, Description: @"Queries forwarded successfully")]
         public long? QueriesSucceeded { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -19,26 +19,17 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Returns the certificate and thumbprint of a remote TLS listener, if thelistener is running and accepting requests. If the certificate cannot beretrieved, the result property describes the problem.")]
     public class NSXTTlsListenerCertificateType 
     {
-        public NSXTTlsListenerCertificateType()
-        {
-        }
         /// <summary>
         /// Result of get certificate operation.
         /// </summary>
-        [JsonProperty(PropertyName = "result")]
-        [NSXTProperty(IsRequired: false, Description: @"Result of get certificate operation.")]
         public NSXTTlsListenerCertificateResultEnumType? Result { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "certificate")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTX509CertificateType Certificate { get; set; }
         /// <summary>
         /// The SHA-256 thumbprint of the TLS listener.
         /// </summary>
-        [JsonProperty(PropertyName = "thumbprint")]
-        [NSXTProperty(IsRequired: false, Description: @"The SHA-256 thumbprint of the TLS listener.")]
         public string? Thumbprint { get; set; }
     }
 }

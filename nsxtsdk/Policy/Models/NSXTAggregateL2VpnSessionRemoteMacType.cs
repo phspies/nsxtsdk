@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTAggregateL2VpnSessionRemoteMacType : NSXTAggregatePolicyRuntimeInfoType
     {
-        public NSXTAggregateL2VpnSessionRemoteMacType()
-        {
-        }
         /// <summary>
         /// List of L2Vpn Session remote mac
         /// </summary>
-        [JsonProperty(PropertyName = "l2vpn_session_remote_macs")]
-        [NSXTProperty(IsRequired: false, Description: @"List of L2Vpn Session remote mac")]
         public IList<NSXTL2VpnSessionRemoteMacPerEPType> L2vpnSessionRemoteMacs { get; set; }
     }
 }

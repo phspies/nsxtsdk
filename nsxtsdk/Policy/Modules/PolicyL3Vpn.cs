@@ -21,16 +21,23 @@ namespace nsxtapi.PolicyModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public PolicyL3Vpn(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public PolicyL3Vpn(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public string ReadL3VpnPeerConfig(string Tier0Id, string LocaleServiceId, string L3vpnId, string? EnforcementPointPath = null)
+        public async Task<string> ReadL3VpnPeerConfig(string Tier0Id, string LocaleServiceId, string L3vpnId, string? EnforcementPointPath = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -48,31 +55,19 @@ namespace nsxtapi.PolicyModules
             ReadL3VpnPeerConfigServiceURL.Replace("{l3vpn-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(L3vpnId, System.Globalization.CultureInfo.InvariantCulture)));
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             request.Resource = ReadL3VpnPeerConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<string> response = await restClient.ExecuteTaskAsyncWithPolicy<string>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadL3VpnPeerConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<string>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(string).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTL3VpnType ReadL3VpnWithSensitiveData(string Tier0Id, string LocaleServiceId, string L3vpnId)
+        public async Task<NSXTL3VpnType> ReadL3VpnWithSensitiveData(string Tier0Id, string LocaleServiceId, string L3vpnId)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -89,31 +84,19 @@ namespace nsxtapi.PolicyModules
             ReadL3VpnWithSensitiveDataServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
             ReadL3VpnWithSensitiveDataServiceURL.Replace("{l3vpn-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(L3vpnId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadL3VpnWithSensitiveDataServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTL3VpnType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTL3VpnType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadL3VpnWithSensitiveDataServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTL3VpnType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTL3VpnType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTL3VpnListResultType ListL3Vpns(string Tier0Id, string LocaleServiceId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, string? L3vpnSession = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTL3VpnListResultType> ListL3Vpns(string Tier0Id, string LocaleServiceId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, string? L3vpnSession = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -135,31 +118,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListL3VpnsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTL3VpnListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTL3VpnListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListL3VpnsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTL3VpnListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTL3VpnListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTL3VpnType CreateOrReplaceL3Vpn(string Tier0Id, string LocaleServiceId, string L3vpnId, NSXTL3VpnType L3Vpn)
+        public async Task<NSXTL3VpnType> CreateOrReplaceL3Vpn(string Tier0Id, string LocaleServiceId, string L3vpnId, NSXTL3VpnType L3Vpn)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -178,31 +149,19 @@ namespace nsxtapi.PolicyModules
             CreateOrReplaceL3VpnServiceURL.Replace("{l3vpn-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(L3vpnId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(L3Vpn, defaultSerializationSettings));
             request.Resource = CreateOrReplaceL3VpnServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTL3VpnType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTL3VpnType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateOrReplaceL3VpnServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTL3VpnType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTL3VpnType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteL3Vpn(string Tier0Id, string LocaleServiceId, string L3vpnId)
+        public async Task DeleteL3Vpn(string Tier0Id, string LocaleServiceId, string L3vpnId)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -219,7 +178,7 @@ namespace nsxtapi.PolicyModules
             DeleteL3VpnServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
             DeleteL3VpnServiceURL.Replace("{l3vpn-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(L3vpnId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteL3VpnServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteL3VpnServiceURL.ToString() + " did not complete successfull";
@@ -231,7 +190,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTL3VpnType ReadL3Vpn(string Tier0Id, string LocaleServiceId, string L3vpnId)
+        public async Task<NSXTL3VpnType> ReadL3Vpn(string Tier0Id, string LocaleServiceId, string L3vpnId)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -248,31 +207,19 @@ namespace nsxtapi.PolicyModules
             ReadL3VpnServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
             ReadL3VpnServiceURL.Replace("{l3vpn-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(L3vpnId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadL3VpnServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTL3VpnType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTL3VpnType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadL3VpnServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTL3VpnType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTL3VpnType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void CreateOrPatchL3Vpn(string Tier0Id, string LocaleServiceId, string L3vpnId, NSXTL3VpnType L3Vpn)
+        public async Task CreateOrPatchL3Vpn(string Tier0Id, string LocaleServiceId, string L3vpnId, NSXTL3VpnType L3Vpn)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -291,7 +238,7 @@ namespace nsxtapi.PolicyModules
             CreateOrPatchL3VpnServiceURL.Replace("{l3vpn-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(L3vpnId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(L3Vpn, defaultSerializationSettings));
             request.Resource = CreateOrPatchL3VpnServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + CreateOrPatchL3VpnServiceURL.ToString() + " did not complete successfull";
@@ -303,7 +250,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTL3VpnContextType ReadL3VpnContext(string Tier0Id, string LocaleServiceId)
+        public async Task<NSXTL3VpnContextType> ReadL3VpnContext(string Tier0Id, string LocaleServiceId)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -318,25 +265,13 @@ namespace nsxtapi.PolicyModules
             ReadL3VpnContextServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
             ReadL3VpnContextServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadL3VpnContextServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTL3VpnContextType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTL3VpnContextType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadL3VpnContextServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTL3VpnContextType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTL3VpnContextType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

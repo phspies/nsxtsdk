@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,22 +17,15 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTTnHyperbusStatusType 
     {
-        public NSXTTnHyperbusStatusType()
-        {
-        }
         /// <summary>
         /// Display the hyperbus status
         /// </summary>
         [JsonProperty(PropertyName = "hyperbus_status", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Display the hyperbus status")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTTnHyperbusStatusHyperbusStatusEnumType HyperbusStatus { get; set; }
         /// <summary>
         /// Transport node id.
         /// </summary>
         [JsonProperty(PropertyName = "transport_node_id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Transport node id.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string TransportNodeId { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,17 +17,12 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer CustomParams object")]
     public class NSXTALBCustomParamsType 
     {
-        public NSXTALBCustomParamsType()
-        {
-        }
         /// <summary>
         /// Placeholder for description of property is_dynamic of obj
         /// type CustomParams field type str  type boolean.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as false.
         /// </summary>
-        [JsonProperty(PropertyName = "is_dynamic")]
-        [NSXTProperty(IsRequired: false, Description: @"Placeholder for description of property is_dynamic of objtype CustomParams field type str  type boolean.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
         public bool? IsDynamic { get; set; }
         /// <summary>
         /// Placeholder for description of property is_sensitive of obj
@@ -35,21 +30,15 @@ namespace nsxtsdk.PolicyModels
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as false.
         /// </summary>
-        [JsonProperty(PropertyName = "is_sensitive")]
-        [NSXTProperty(IsRequired: false, Description: @"Placeholder for description of property is_sensitive of objtype CustomParams field type str  type boolean.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
         public bool? IsSensitive { get; set; }
         /// <summary>
         /// Name of the object.
         /// </summary>
         [JsonProperty(PropertyName = "name", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Name of the object.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Name { get; set; }
         /// <summary>
         /// value of CustomParams.
         /// </summary>
-        [JsonProperty(PropertyName = "value")]
-        [NSXTProperty(IsRequired: false, Description: @"value of CustomParams.")]
         public string? Value { get; set; }
     }
 }

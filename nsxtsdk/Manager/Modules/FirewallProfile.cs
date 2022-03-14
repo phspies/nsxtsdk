@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public FirewallProfile(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public FirewallProfile(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTBaseFirewallProfileType CreateFirewallProfile(NSXTBaseFirewallProfileType BaseFirewallProfile)
+        public async Task<NSXTBaseFirewallProfileType> CreateFirewallProfile(NSXTBaseFirewallProfileType BaseFirewallProfile)
         {
             if (BaseFirewallProfile == null) { throw new System.ArgumentNullException("BaseFirewallProfile cannot be null"); }
             NSXTBaseFirewallProfileType returnValue = default(NSXTBaseFirewallProfileType);
@@ -43,31 +50,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(BaseFirewallProfile, defaultSerializationSettings));
             request.Resource = CreateFirewallProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTBaseFirewallProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTBaseFirewallProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CreateFirewallProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTBaseFirewallProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTBaseFirewallProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTFirewallProfileListResultType ListFirewallProfiles(string ResourceType, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTFirewallProfileListResultType> ListFirewallProfiles(string ResourceType, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (ResourceType == null) { throw new System.ArgumentNullException("ResourceType cannot be null"); }
             NSXTFirewallProfileListResultType returnValue = default(NSXTFirewallProfileListResultType);
@@ -85,31 +80,19 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListFirewallProfilesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTFirewallProfileListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTFirewallProfileListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListFirewallProfilesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTFirewallProfileListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTFirewallProfileListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTBaseFirewallProfileType UpdateFirewallProfile(string ProfileId, NSXTBaseFirewallProfileType BaseFirewallProfile)
+        public async Task<NSXTBaseFirewallProfileType> UpdateFirewallProfile(string ProfileId, NSXTBaseFirewallProfileType BaseFirewallProfile)
         {
             if (ProfileId == null) { throw new System.ArgumentNullException("ProfileId cannot be null"); }
             if (BaseFirewallProfile == null) { throw new System.ArgumentNullException("BaseFirewallProfile cannot be null"); }
@@ -124,31 +107,19 @@ namespace nsxtapi.ManagerModules
             UpdateFirewallProfileServiceURL.Replace("{profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(BaseFirewallProfile, defaultSerializationSettings));
             request.Resource = UpdateFirewallProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTBaseFirewallProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTBaseFirewallProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateFirewallProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTBaseFirewallProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTBaseFirewallProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteFirewallProfile(string ProfileId)
+        public async Task DeleteFirewallProfile(string ProfileId)
         {
             if (ProfileId == null) { throw new System.ArgumentNullException("ProfileId cannot be null"); }
             
@@ -161,7 +132,7 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             DeleteFirewallProfileServiceURL.Replace("{profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteFirewallProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteFirewallProfileServiceURL.ToString() + " did not complete successfull";
@@ -173,7 +144,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTBaseFirewallProfileType GetFirewallProfile(string ProfileId)
+        public async Task<NSXTBaseFirewallProfileType> GetFirewallProfile(string ProfileId)
         {
             if (ProfileId == null) { throw new System.ArgumentNullException("ProfileId cannot be null"); }
             NSXTBaseFirewallProfileType returnValue = default(NSXTBaseFirewallProfileType);
@@ -186,25 +157,13 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             GetFirewallProfileServiceURL.Replace("{profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetFirewallProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTBaseFirewallProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTBaseFirewallProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetFirewallProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTBaseFirewallProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTBaseFirewallProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

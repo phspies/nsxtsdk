@@ -21,16 +21,23 @@ namespace nsxtapi.PolicyModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public PolicyConnectivity(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public PolicyConnectivity(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDhcpStaticBindingConfigListResultType GlobalGlobalInfraListSegmentDhcpStaticBinding(string Tier1Id, string SegmentId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTDhcpStaticBindingConfigListResultType> GlobalGlobalInfraListSegmentDhcpStaticBinding(string Tier1Id, string SegmentId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
@@ -51,31 +58,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GlobalInfraListSegmentDhcpStaticBindingServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDhcpStaticBindingConfigListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDhcpStaticBindingConfigListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraListSegmentDhcpStaticBindingServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDhcpStaticBindingConfigListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDhcpStaticBindingConfigListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDhcpRelayConfigListResultType GlobalGlobalInfraListDhcpRelayConfig(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTDhcpRelayConfigListResultType> GlobalGlobalInfraListDhcpRelayConfig(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTDhcpRelayConfigListResultType returnValue = default(NSXTDhcpRelayConfigListResultType);
             StringBuilder GlobalInfraListDhcpRelayConfigServiceURL = new StringBuilder("/global-infra/dhcp-relay-configs");
@@ -92,31 +87,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GlobalInfraListDhcpRelayConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDhcpRelayConfigListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDhcpRelayConfigListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraListDhcpRelayConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDhcpRelayConfigListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDhcpRelayConfigListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDhcpRelayConfigListResultType ListDhcpRelayConfig(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTDhcpRelayConfigListResultType> ListDhcpRelayConfig(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTDhcpRelayConfigListResultType returnValue = default(NSXTDhcpRelayConfigListResultType);
             StringBuilder ListDhcpRelayConfigServiceURL = new StringBuilder("/infra/dhcp-relay-configs");
@@ -133,31 +116,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListDhcpRelayConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDhcpRelayConfigListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDhcpRelayConfigListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListDhcpRelayConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDhcpRelayConfigListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDhcpRelayConfigListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDhcpServerConfigType GlobalGlobalInfraReadDhcpServerConfig(string DhcpServerConfigId)
+        public async Task<NSXTDhcpServerConfigType> GlobalGlobalInfraReadDhcpServerConfig(string DhcpServerConfigId)
         {
             if (DhcpServerConfigId == null) { throw new System.ArgumentNullException("DhcpServerConfigId cannot be null"); }
             NSXTDhcpServerConfigType returnValue = default(NSXTDhcpServerConfigType);
@@ -170,31 +141,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             GlobalInfraReadDhcpServerConfigServiceURL.Replace("{dhcp-server-config-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DhcpServerConfigId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GlobalInfraReadDhcpServerConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDhcpServerConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDhcpServerConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraReadDhcpServerConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDhcpServerConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDhcpServerConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTAntreaTraceflowConfigType UpdateAntreaTraceflowConfig(string TraceflowId, NSXTAntreaTraceflowConfigType AntreaTraceflowConfig)
+        public async Task<NSXTAntreaTraceflowConfigType> UpdateAntreaTraceflowConfig(string TraceflowId, NSXTAntreaTraceflowConfigType AntreaTraceflowConfig)
         {
             if (TraceflowId == null) { throw new System.ArgumentNullException("TraceflowId cannot be null"); }
             if (AntreaTraceflowConfig == null) { throw new System.ArgumentNullException("AntreaTraceflowConfig cannot be null"); }
@@ -209,31 +168,19 @@ namespace nsxtapi.PolicyModules
             UpdateAntreaTraceflowConfigServiceURL.Replace("{traceflow-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(TraceflowId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(AntreaTraceflowConfig, defaultSerializationSettings));
             request.Resource = UpdateAntreaTraceflowConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTAntreaTraceflowConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTAntreaTraceflowConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateAntreaTraceflowConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTAntreaTraceflowConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTAntreaTraceflowConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTAntreaTraceflowConfigType ReadAntreaTraceflowConfig(string TraceflowId)
+        public async Task<NSXTAntreaTraceflowConfigType> ReadAntreaTraceflowConfig(string TraceflowId)
         {
             if (TraceflowId == null) { throw new System.ArgumentNullException("TraceflowId cannot be null"); }
             NSXTAntreaTraceflowConfigType returnValue = default(NSXTAntreaTraceflowConfigType);
@@ -246,31 +193,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ReadAntreaTraceflowConfigServiceURL.Replace("{traceflow-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(TraceflowId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadAntreaTraceflowConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTAntreaTraceflowConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTAntreaTraceflowConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadAntreaTraceflowConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTAntreaTraceflowConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTAntreaTraceflowConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchAntreaTraceflowConfig(string TraceflowId, NSXTAntreaTraceflowConfigType AntreaTraceflowConfig)
+        public async Task PatchAntreaTraceflowConfig(string TraceflowId, NSXTAntreaTraceflowConfigType AntreaTraceflowConfig)
         {
             if (TraceflowId == null) { throw new System.ArgumentNullException("TraceflowId cannot be null"); }
             if (AntreaTraceflowConfig == null) { throw new System.ArgumentNullException("AntreaTraceflowConfig cannot be null"); }
@@ -285,7 +220,7 @@ namespace nsxtapi.PolicyModules
             PatchAntreaTraceflowConfigServiceURL.Replace("{traceflow-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(TraceflowId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(AntreaTraceflowConfig, defaultSerializationSettings));
             request.Resource = PatchAntreaTraceflowConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchAntreaTraceflowConfigServiceURL.ToString() + " did not complete successfull";
@@ -297,7 +232,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTAntreaTraceflowConfigType RestartAntreaTraceflow(string TraceflowId, string? Action = null)
+        public async Task<NSXTAntreaTraceflowConfigType> RestartAntreaTraceflow(string TraceflowId, string? Action = null)
         {
             if (TraceflowId == null) { throw new System.ArgumentNullException("TraceflowId cannot be null"); }
             NSXTAntreaTraceflowConfigType returnValue = default(NSXTAntreaTraceflowConfigType);
@@ -311,31 +246,19 @@ namespace nsxtapi.PolicyModules
             RestartAntreaTraceflowServiceURL.Replace("{traceflow-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(TraceflowId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Action != null) { request.AddQueryParameter("action", Action.ToString()); }
             request.Resource = RestartAntreaTraceflowServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTAntreaTraceflowConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTAntreaTraceflowConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + RestartAntreaTraceflowServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTAntreaTraceflowConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTAntreaTraceflowConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteAntreaTraceflowConfig(string TraceflowId)
+        public async Task DeleteAntreaTraceflowConfig(string TraceflowId)
         {
             if (TraceflowId == null) { throw new System.ArgumentNullException("TraceflowId cannot be null"); }
             
@@ -348,7 +271,7 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             DeleteAntreaTraceflowConfigServiceURL.Replace("{traceflow-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(TraceflowId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteAntreaTraceflowConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteAntreaTraceflowConfigServiceURL.ToString() + " did not complete successfull";
@@ -360,7 +283,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSegmentType CreateOrReplaceInfraSegment(string SegmentId, NSXTSegmentType Segment)
+        public async Task<NSXTSegmentType> CreateOrReplaceInfraSegment(string SegmentId, NSXTSegmentType Segment)
         {
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
             if (Segment == null) { throw new System.ArgumentNullException("Segment cannot be null"); }
@@ -375,31 +298,19 @@ namespace nsxtapi.PolicyModules
             CreateOrReplaceInfraSegmentServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(Segment, defaultSerializationSettings));
             request.Resource = CreateOrReplaceInfraSegmentServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTSegmentType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTSegmentType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateOrReplaceInfraSegmentServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSegmentType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSegmentType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSegmentType ReadInfraSegment(string SegmentId)
+        public async Task<NSXTSegmentType> ReadInfraSegment(string SegmentId)
         {
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
             NSXTSegmentType returnValue = default(NSXTSegmentType);
@@ -412,31 +323,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ReadInfraSegmentServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadInfraSegmentServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTSegmentType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTSegmentType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadInfraSegmentServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSegmentType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSegmentType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchInfraSegment(string SegmentId, NSXTSegmentType Segment)
+        public async Task PatchInfraSegment(string SegmentId, NSXTSegmentType Segment)
         {
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
             if (Segment == null) { throw new System.ArgumentNullException("Segment cannot be null"); }
@@ -451,7 +350,7 @@ namespace nsxtapi.PolicyModules
             PatchInfraSegmentServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(Segment, defaultSerializationSettings));
             request.Resource = PatchInfraSegmentServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchInfraSegmentServiceURL.ToString() + " did not complete successfull";
@@ -463,7 +362,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteInfraSegment(string SegmentId)
+        public async Task DeleteInfraSegment(string SegmentId)
         {
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
             
@@ -476,7 +375,7 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             DeleteInfraSegmentServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteInfraSegmentServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteInfraSegmentServiceURL.ToString() + " did not complete successfull";
@@ -488,7 +387,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDhcpStaticBindingConfigType GlobalGlobalInfraReadSegmentDhcpStaticBinding(string Tier1Id, string SegmentId, string BindingId)
+        public async Task<NSXTDhcpStaticBindingConfigType> GlobalGlobalInfraReadSegmentDhcpStaticBinding(string Tier1Id, string SegmentId, string BindingId)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
@@ -505,31 +404,19 @@ namespace nsxtapi.PolicyModules
             GlobalInfraReadSegmentDhcpStaticBindingServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
             GlobalInfraReadSegmentDhcpStaticBindingServiceURL.Replace("{binding-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(BindingId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GlobalInfraReadSegmentDhcpStaticBindingServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDhcpStaticBindingConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDhcpStaticBindingConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraReadSegmentDhcpStaticBindingServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDhcpStaticBindingConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDhcpStaticBindingConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTGatewayQosProfileType GlobalGlobalInfraCreateOrReplaceGatewayQosProfile(string QosProfileId, NSXTGatewayQosProfileType GatewayQosProfile, bool? Override = null)
+        public async Task<NSXTGatewayQosProfileType> GlobalGlobalInfraCreateOrReplaceGatewayQosProfile(string QosProfileId, NSXTGatewayQosProfileType GatewayQosProfile, bool? Override = null)
         {
             if (QosProfileId == null) { throw new System.ArgumentNullException("QosProfileId cannot be null"); }
             if (GatewayQosProfile == null) { throw new System.ArgumentNullException("GatewayQosProfile cannot be null"); }
@@ -545,31 +432,19 @@ namespace nsxtapi.PolicyModules
             request.AddJsonBody(JsonConvert.SerializeObject(GatewayQosProfile, defaultSerializationSettings));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = GlobalInfraCreateOrReplaceGatewayQosProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTGatewayQosProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTGatewayQosProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + GlobalInfraCreateOrReplaceGatewayQosProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTGatewayQosProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTGatewayQosProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GlobalGlobalInfraPatchGatewayQosProfile(string QosProfileId, NSXTGatewayQosProfileType GatewayQosProfile, bool? Override = null)
+        public async Task GlobalGlobalInfraPatchGatewayQosProfile(string QosProfileId, NSXTGatewayQosProfileType GatewayQosProfile, bool? Override = null)
         {
             if (QosProfileId == null) { throw new System.ArgumentNullException("QosProfileId cannot be null"); }
             if (GatewayQosProfile == null) { throw new System.ArgumentNullException("GatewayQosProfile cannot be null"); }
@@ -585,7 +460,7 @@ namespace nsxtapi.PolicyModules
             request.AddJsonBody(JsonConvert.SerializeObject(GatewayQosProfile, defaultSerializationSettings));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = GlobalInfraPatchGatewayQosProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + GlobalInfraPatchGatewayQosProfileServiceURL.ToString() + " did not complete successfull";
@@ -597,7 +472,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GlobalGlobalInfraDeleteGatewayQosProfile(string QosProfileId, bool? Override = null)
+        public async Task GlobalGlobalInfraDeleteGatewayQosProfile(string QosProfileId, bool? Override = null)
         {
             if (QosProfileId == null) { throw new System.ArgumentNullException("QosProfileId cannot be null"); }
             
@@ -611,7 +486,7 @@ namespace nsxtapi.PolicyModules
             GlobalInfraDeleteGatewayQosProfileServiceURL.Replace("{qos-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(QosProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = GlobalInfraDeleteGatewayQosProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + GlobalInfraDeleteGatewayQosProfileServiceURL.ToString() + " did not complete successfull";
@@ -623,7 +498,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTGatewayQosProfileType GlobalGlobalInfraReadGatewayQosProfile(string QosProfileId)
+        public async Task<NSXTGatewayQosProfileType> GlobalGlobalInfraReadGatewayQosProfile(string QosProfileId)
         {
             if (QosProfileId == null) { throw new System.ArgumentNullException("QosProfileId cannot be null"); }
             NSXTGatewayQosProfileType returnValue = default(NSXTGatewayQosProfileType);
@@ -636,31 +511,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             GlobalInfraReadGatewayQosProfileServiceURL.Replace("{qos-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(QosProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GlobalInfraReadGatewayQosProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTGatewayQosProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTGatewayQosProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraReadGatewayQosProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTGatewayQosProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTGatewayQosProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTStaticRoutesType GlobalGlobalInfraCreateOrReplaceTier0StaticRoutes(string Tier0Id, string RouteId, NSXTStaticRoutesType StaticRoutes)
+        public async Task<NSXTStaticRoutesType> GlobalGlobalInfraCreateOrReplaceTier0StaticRoutes(string Tier0Id, string RouteId, NSXTStaticRoutesType StaticRoutes)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (RouteId == null) { throw new System.ArgumentNullException("RouteId cannot be null"); }
@@ -677,31 +540,19 @@ namespace nsxtapi.PolicyModules
             GlobalInfraCreateOrReplaceTier0StaticRoutesServiceURL.Replace("{route-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(RouteId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(StaticRoutes, defaultSerializationSettings));
             request.Resource = GlobalInfraCreateOrReplaceTier0StaticRoutesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTStaticRoutesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTStaticRoutesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + GlobalInfraCreateOrReplaceTier0StaticRoutesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTStaticRoutesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTStaticRoutesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTStaticRoutesType GlobalGlobalInfraReadTier0StaticRoutes(string Tier0Id, string RouteId)
+        public async Task<NSXTStaticRoutesType> GlobalGlobalInfraReadTier0StaticRoutes(string Tier0Id, string RouteId)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (RouteId == null) { throw new System.ArgumentNullException("RouteId cannot be null"); }
@@ -716,31 +567,19 @@ namespace nsxtapi.PolicyModules
             GlobalInfraReadTier0StaticRoutesServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
             GlobalInfraReadTier0StaticRoutesServiceURL.Replace("{route-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(RouteId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GlobalInfraReadTier0StaticRoutesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTStaticRoutesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTStaticRoutesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraReadTier0StaticRoutesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTStaticRoutesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTStaticRoutesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTier0RouteMapType CreateOrReplaceRouteMap(string Tier0Id, string RouteMapId, NSXTTier0RouteMapType Tier0RouteMap)
+        public async Task<NSXTTier0RouteMapType> CreateOrReplaceRouteMap(string Tier0Id, string RouteMapId, NSXTTier0RouteMapType Tier0RouteMap)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (RouteMapId == null) { throw new System.ArgumentNullException("RouteMapId cannot be null"); }
@@ -757,31 +596,19 @@ namespace nsxtapi.PolicyModules
             CreateOrReplaceRouteMapServiceURL.Replace("{route-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(RouteMapId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(Tier0RouteMap, defaultSerializationSettings));
             request.Resource = CreateOrReplaceRouteMapServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTier0RouteMapType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTier0RouteMapType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateOrReplaceRouteMapServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTier0RouteMapType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTier0RouteMapType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void RemoveRouteMap(string Tier0Id, string RouteMapId)
+        public async Task RemoveRouteMap(string Tier0Id, string RouteMapId)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (RouteMapId == null) { throw new System.ArgumentNullException("RouteMapId cannot be null"); }
@@ -796,7 +623,7 @@ namespace nsxtapi.PolicyModules
             RemoveRouteMapServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
             RemoveRouteMapServiceURL.Replace("{route-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(RouteMapId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = RemoveRouteMapServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + RemoveRouteMapServiceURL.ToString() + " did not complete successfull";
@@ -808,7 +635,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchRouteMap(string Tier0Id, string RouteMapId, NSXTTier0RouteMapType Tier0RouteMap)
+        public async Task PatchRouteMap(string Tier0Id, string RouteMapId, NSXTTier0RouteMapType Tier0RouteMap)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (RouteMapId == null) { throw new System.ArgumentNullException("RouteMapId cannot be null"); }
@@ -825,7 +652,7 @@ namespace nsxtapi.PolicyModules
             PatchRouteMapServiceURL.Replace("{route-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(RouteMapId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(Tier0RouteMap, defaultSerializationSettings));
             request.Resource = PatchRouteMapServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchRouteMapServiceURL.ToString() + " did not complete successfull";
@@ -837,7 +664,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTier0RouteMapType GetRouteMap(string Tier0Id, string RouteMapId)
+        public async Task<NSXTTier0RouteMapType> GetRouteMap(string Tier0Id, string RouteMapId)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (RouteMapId == null) { throw new System.ArgumentNullException("RouteMapId cannot be null"); }
@@ -852,31 +679,19 @@ namespace nsxtapi.PolicyModules
             GetRouteMapServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
             GetRouteMapServiceURL.Replace("{route-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(RouteMapId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetRouteMapServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTier0RouteMapType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTier0RouteMapType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetRouteMapServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTier0RouteMapType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTier0RouteMapType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSegmentPortListResultType ListInfraSegmentPorts(string SegmentId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTSegmentPortListResultType> ListInfraSegmentPorts(string SegmentId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
             NSXTSegmentPortListResultType returnValue = default(NSXTSegmentPortListResultType);
@@ -895,31 +710,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListInfraSegmentPortsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTSegmentPortListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTSegmentPortListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListInfraSegmentPortsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSegmentPortListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSegmentPortListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDhcpStaticBindingConfigListResultType ListInfraSegmentDhcpStaticBinding(string SegmentId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTDhcpStaticBindingConfigListResultType> ListInfraSegmentDhcpStaticBinding(string SegmentId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
             NSXTDhcpStaticBindingConfigListResultType returnValue = default(NSXTDhcpStaticBindingConfigListResultType);
@@ -938,31 +741,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListInfraSegmentDhcpStaticBindingServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDhcpStaticBindingConfigListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDhcpStaticBindingConfigListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListInfraSegmentDhcpStaticBindingServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDhcpStaticBindingConfigListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDhcpStaticBindingConfigListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSegmentType CreateOrReplaceInfraSegmentWithForce(string SegmentId, NSXTSegmentType Segment)
+        public async Task<NSXTSegmentType> CreateOrReplaceInfraSegmentWithForce(string SegmentId, NSXTSegmentType Segment)
         {
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
             if (Segment == null) { throw new System.ArgumentNullException("Segment cannot be null"); }
@@ -977,31 +768,19 @@ namespace nsxtapi.PolicyModules
             CreateOrReplaceInfraSegmentWithForceServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(Segment, defaultSerializationSettings));
             request.Resource = CreateOrReplaceInfraSegmentWithForceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTSegmentType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTSegmentType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateOrReplaceInfraSegmentWithForceServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSegmentType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSegmentType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void ForceDeleteInfraSegment(string SegmentId, bool? Cascade = null)
+        public async Task ForceDeleteInfraSegment(string SegmentId, bool? Cascade = null)
         {
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
             
@@ -1015,7 +794,7 @@ namespace nsxtapi.PolicyModules
             ForceDeleteInfraSegmentServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Cascade != null) { request.AddQueryParameter("cascade", Cascade.ToString()); }
             request.Resource = ForceDeleteInfraSegmentServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + ForceDeleteInfraSegmentServiceURL.ToString() + " did not complete successfull";
@@ -1027,7 +806,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchInfraSegmentWithForce(string SegmentId, NSXTSegmentType Segment)
+        public async Task PatchInfraSegmentWithForce(string SegmentId, NSXTSegmentType Segment)
         {
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
             if (Segment == null) { throw new System.ArgumentNullException("Segment cannot be null"); }
@@ -1042,7 +821,7 @@ namespace nsxtapi.PolicyModules
             PatchInfraSegmentWithForceServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(Segment, defaultSerializationSettings));
             request.Resource = PatchInfraSegmentWithForceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchInfraSegmentWithForceServiceURL.ToString() + " did not complete successfull";
@@ -1054,7 +833,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSegmentPortListResultType GlobalGlobalInfraListInfraSegmentPorts(string SegmentId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTSegmentPortListResultType> GlobalGlobalInfraListInfraSegmentPorts(string SegmentId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
             NSXTSegmentPortListResultType returnValue = default(NSXTSegmentPortListResultType);
@@ -1073,31 +852,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GlobalInfraListInfraSegmentPortsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTSegmentPortListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTSegmentPortListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraListInfraSegmentPortsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSegmentPortListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSegmentPortListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPrefixListResultType ListPrefixLists(string Tier0Id, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTPrefixListResultType> ListPrefixLists(string Tier0Id, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             NSXTPrefixListResultType returnValue = default(NSXTPrefixListResultType);
@@ -1116,31 +883,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListPrefixListsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPrefixListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPrefixListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListPrefixListsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPrefixListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPrefixListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteDhcpLease(string SegmentId, NSXTDhcpDeleteLeasesType DhcpDeleteLeases, string? EnforcementPointPath = null)
+        public async Task DeleteDhcpLease(string SegmentId, NSXTDhcpDeleteLeasesType DhcpDeleteLeases, string? EnforcementPointPath = null)
         {
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
             if (DhcpDeleteLeases == null) { throw new System.ArgumentNullException("DhcpDeleteLeases cannot be null"); }
@@ -1156,7 +911,7 @@ namespace nsxtapi.PolicyModules
             request.AddJsonBody(JsonConvert.SerializeObject(DhcpDeleteLeases, defaultSerializationSettings));
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             request.Resource = DeleteDhcpLeaseServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + DeleteDhcpLeaseServiceURL.ToString() + " did not complete successfull";
@@ -1168,7 +923,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTStaticRouteBfdPeerType GlobalGlobalInfraReadStaticRouteBfdPeer(string Tier0Id, string BfdPeerId)
+        public async Task<NSXTStaticRouteBfdPeerType> GlobalGlobalInfraReadStaticRouteBfdPeer(string Tier0Id, string BfdPeerId)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (BfdPeerId == null) { throw new System.ArgumentNullException("BfdPeerId cannot be null"); }
@@ -1183,31 +938,19 @@ namespace nsxtapi.PolicyModules
             GlobalInfraReadStaticRouteBfdPeerServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
             GlobalInfraReadStaticRouteBfdPeerServiceURL.Replace("{bfd-peer-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(BfdPeerId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GlobalInfraReadStaticRouteBfdPeerServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTStaticRouteBfdPeerType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTStaticRouteBfdPeerType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraReadStaticRouteBfdPeerServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTStaticRouteBfdPeerType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTStaticRouteBfdPeerType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTEvpnTenantConfigType CreateOrUpdateEvpnTenantConfig(string ConfigId, NSXTEvpnTenantConfigType EvpnTenantConfig)
+        public async Task<NSXTEvpnTenantConfigType> CreateOrUpdateEvpnTenantConfig(string ConfigId, NSXTEvpnTenantConfigType EvpnTenantConfig)
         {
             if (ConfigId == null) { throw new System.ArgumentNullException("ConfigId cannot be null"); }
             if (EvpnTenantConfig == null) { throw new System.ArgumentNullException("EvpnTenantConfig cannot be null"); }
@@ -1222,31 +965,19 @@ namespace nsxtapi.PolicyModules
             CreateOrUpdateEvpnTenantConfigServiceURL.Replace("{config-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ConfigId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(EvpnTenantConfig, defaultSerializationSettings));
             request.Resource = CreateOrUpdateEvpnTenantConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTEvpnTenantConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTEvpnTenantConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateOrUpdateEvpnTenantConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTEvpnTenantConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTEvpnTenantConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteEvpnTenantConfig(string ConfigId)
+        public async Task DeleteEvpnTenantConfig(string ConfigId)
         {
             if (ConfigId == null) { throw new System.ArgumentNullException("ConfigId cannot be null"); }
             
@@ -1259,7 +990,7 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             DeleteEvpnTenantConfigServiceURL.Replace("{config-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ConfigId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteEvpnTenantConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteEvpnTenantConfigServiceURL.ToString() + " did not complete successfull";
@@ -1271,7 +1002,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTEvpnTenantConfigType ReadEvpnTenantConfig(string ConfigId)
+        public async Task<NSXTEvpnTenantConfigType> ReadEvpnTenantConfig(string ConfigId)
         {
             if (ConfigId == null) { throw new System.ArgumentNullException("ConfigId cannot be null"); }
             NSXTEvpnTenantConfigType returnValue = default(NSXTEvpnTenantConfigType);
@@ -1284,31 +1015,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ReadEvpnTenantConfigServiceURL.Replace("{config-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ConfigId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadEvpnTenantConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTEvpnTenantConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTEvpnTenantConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadEvpnTenantConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTEvpnTenantConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTEvpnTenantConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchEvpnTenantConfig(string ConfigId, NSXTEvpnTenantConfigType EvpnTenantConfig)
+        public async Task PatchEvpnTenantConfig(string ConfigId, NSXTEvpnTenantConfigType EvpnTenantConfig)
         {
             if (ConfigId == null) { throw new System.ArgumentNullException("ConfigId cannot be null"); }
             if (EvpnTenantConfig == null) { throw new System.ArgumentNullException("EvpnTenantConfig cannot be null"); }
@@ -1323,7 +1042,7 @@ namespace nsxtapi.PolicyModules
             PatchEvpnTenantConfigServiceURL.Replace("{config-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ConfigId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(EvpnTenantConfig, defaultSerializationSettings));
             request.Resource = PatchEvpnTenantConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchEvpnTenantConfigServiceURL.ToString() + " did not complete successfull";
@@ -1335,7 +1054,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTEvpnTunnelEndpointConfigType CreateOrUpdateEvpnTunnelEndpointConfig(string Tier0Id, string LocaleServicesId, string TunnelEndpointId, NSXTEvpnTunnelEndpointConfigType EvpnTunnelEndpointConfig)
+        public async Task<NSXTEvpnTunnelEndpointConfigType> CreateOrUpdateEvpnTunnelEndpointConfig(string Tier0Id, string LocaleServicesId, string TunnelEndpointId, NSXTEvpnTunnelEndpointConfigType EvpnTunnelEndpointConfig)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServicesId == null) { throw new System.ArgumentNullException("LocaleServicesId cannot be null"); }
@@ -1354,31 +1073,19 @@ namespace nsxtapi.PolicyModules
             CreateOrUpdateEvpnTunnelEndpointConfigServiceURL.Replace("{tunnel-endpoint-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(TunnelEndpointId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(EvpnTunnelEndpointConfig, defaultSerializationSettings));
             request.Resource = CreateOrUpdateEvpnTunnelEndpointConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTEvpnTunnelEndpointConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTEvpnTunnelEndpointConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateOrUpdateEvpnTunnelEndpointConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTEvpnTunnelEndpointConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTEvpnTunnelEndpointConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchEvpnTunnelEndpointConfig(string Tier0Id, string LocaleServicesId, string TunnelEndpointId, NSXTEvpnTunnelEndpointConfigType EvpnTunnelEndpointConfig)
+        public async Task PatchEvpnTunnelEndpointConfig(string Tier0Id, string LocaleServicesId, string TunnelEndpointId, NSXTEvpnTunnelEndpointConfigType EvpnTunnelEndpointConfig)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServicesId == null) { throw new System.ArgumentNullException("LocaleServicesId cannot be null"); }
@@ -1397,7 +1104,7 @@ namespace nsxtapi.PolicyModules
             PatchEvpnTunnelEndpointConfigServiceURL.Replace("{tunnel-endpoint-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(TunnelEndpointId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(EvpnTunnelEndpointConfig, defaultSerializationSettings));
             request.Resource = PatchEvpnTunnelEndpointConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchEvpnTunnelEndpointConfigServiceURL.ToString() + " did not complete successfull";
@@ -1409,7 +1116,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteEvpnTunnelEndpointConfig(string Tier0Id, string LocaleServicesId, string TunnelEndpointId)
+        public async Task DeleteEvpnTunnelEndpointConfig(string Tier0Id, string LocaleServicesId, string TunnelEndpointId)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServicesId == null) { throw new System.ArgumentNullException("LocaleServicesId cannot be null"); }
@@ -1426,7 +1133,7 @@ namespace nsxtapi.PolicyModules
             DeleteEvpnTunnelEndpointConfigServiceURL.Replace("{locale-services-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServicesId, System.Globalization.CultureInfo.InvariantCulture)));
             DeleteEvpnTunnelEndpointConfigServiceURL.Replace("{tunnel-endpoint-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(TunnelEndpointId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteEvpnTunnelEndpointConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteEvpnTunnelEndpointConfigServiceURL.ToString() + " did not complete successfull";
@@ -1438,7 +1145,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTEvpnTunnelEndpointConfigType ReadEvpnTunnelEndpointConfig(string Tier0Id, string LocaleServicesId, string TunnelEndpointId)
+        public async Task<NSXTEvpnTunnelEndpointConfigType> ReadEvpnTunnelEndpointConfig(string Tier0Id, string LocaleServicesId, string TunnelEndpointId)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServicesId == null) { throw new System.ArgumentNullException("LocaleServicesId cannot be null"); }
@@ -1455,31 +1162,19 @@ namespace nsxtapi.PolicyModules
             ReadEvpnTunnelEndpointConfigServiceURL.Replace("{locale-services-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServicesId, System.Globalization.CultureInfo.InvariantCulture)));
             ReadEvpnTunnelEndpointConfigServiceURL.Replace("{tunnel-endpoint-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(TunnelEndpointId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadEvpnTunnelEndpointConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTEvpnTunnelEndpointConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTEvpnTunnelEndpointConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadEvpnTunnelEndpointConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTEvpnTunnelEndpointConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTEvpnTunnelEndpointConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTier0InterfaceListResultType ListTier0Interfaces(string Tier0Id, string LocaleServiceId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTTier0InterfaceListResultType> ListTier0Interfaces(string Tier0Id, string LocaleServiceId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -1500,31 +1195,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListTier0InterfacesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTier0InterfaceListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTier0InterfaceListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListTier0InterfacesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTier0InterfaceListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTier0InterfaceListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIpv6DadProfileListResultType ListIpv6DadProfiles(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTIpv6DadProfileListResultType> ListIpv6DadProfiles(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTIpv6DadProfileListResultType returnValue = default(NSXTIpv6DadProfileListResultType);
             StringBuilder ListIpv6DadProfilesServiceURL = new StringBuilder("/infra/ipv6-dad-profiles");
@@ -1541,31 +1224,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListIpv6DadProfilesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIpv6DadProfileListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIpv6DadProfileListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListIpv6DadProfilesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIpv6DadProfileListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIpv6DadProfileListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTEvpnTunnelEndpointConfigListResultType ListEvpnTunnelEndpointConfig(string Tier0Id, string LocaleServicesId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTEvpnTunnelEndpointConfigListResultType> ListEvpnTunnelEndpointConfig(string Tier0Id, string LocaleServicesId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServicesId == null) { throw new System.ArgumentNullException("LocaleServicesId cannot be null"); }
@@ -1586,31 +1257,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListEvpnTunnelEndpointConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTEvpnTunnelEndpointConfigListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTEvpnTunnelEndpointConfigListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListEvpnTunnelEndpointConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTEvpnTunnelEndpointConfigListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTEvpnTunnelEndpointConfigListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLocaleServicesListResultType GlobalGlobalInfraListTier0LocaleServices(string Tier0Id, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTLocaleServicesListResultType> GlobalGlobalInfraListTier0LocaleServices(string Tier0Id, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             NSXTLocaleServicesListResultType returnValue = default(NSXTLocaleServicesListResultType);
@@ -1629,31 +1288,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GlobalInfraListTier0LocaleServicesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLocaleServicesListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLocaleServicesListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraListTier0LocaleServicesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLocaleServicesListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLocaleServicesListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTier1ListResultType GlobalGlobalInfraListTier1(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTTier1ListResultType> GlobalGlobalInfraListTier1(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTTier1ListResultType returnValue = default(NSXTTier1ListResultType);
             StringBuilder GlobalInfraListTier1ServiceURL = new StringBuilder("/global-infra/tier-1s");
@@ -1670,31 +1317,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GlobalInfraListTier1ServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTier1ListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTier1ListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraListTier1ServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTier1ListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTier1ListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPrefixListResultType GlobalGlobalInfraListPrefixLists(string Tier0Id, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTPrefixListResultType> GlobalGlobalInfraListPrefixLists(string Tier0Id, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             NSXTPrefixListResultType returnValue = default(NSXTPrefixListResultType);
@@ -1713,31 +1348,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GlobalInfraListPrefixListsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPrefixListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPrefixListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraListPrefixListsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPrefixListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPrefixListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTier0RouteMapListResultType ListAllRouteMaps(string Tier0Id, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTTier0RouteMapListResultType> ListAllRouteMaps(string Tier0Id, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             NSXTTier0RouteMapListResultType returnValue = default(NSXTTier0RouteMapListResultType);
@@ -1756,31 +1379,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListAllRouteMapsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTier0RouteMapListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTier0RouteMapListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListAllRouteMapsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTier0RouteMapListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTier0RouteMapListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTServiceInterfaceListResultType ListServiceInterfaces(string Tier0Id, string LocaleServiceId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTServiceInterfaceListResultType> ListServiceInterfaces(string Tier0Id, string LocaleServiceId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -1801,31 +1412,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListServiceInterfacesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTServiceInterfaceListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTServiceInterfaceListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListServiceInterfacesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTServiceInterfaceListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTServiceInterfaceListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIpv6DadProfileListResultType GlobalGlobalInfraListIpv6DadProfiles(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTIpv6DadProfileListResultType> GlobalGlobalInfraListIpv6DadProfiles(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTIpv6DadProfileListResultType returnValue = default(NSXTIpv6DadProfileListResultType);
             StringBuilder GlobalInfraListIpv6DadProfilesServiceURL = new StringBuilder("/global-infra/ipv6-dad-profiles");
@@ -1842,31 +1441,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GlobalInfraListIpv6DadProfilesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIpv6DadProfileListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIpv6DadProfileListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraListIpv6DadProfilesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIpv6DadProfileListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIpv6DadProfileListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTraceflowObservationListResultType ListTraceflowObservations(string TraceflowId, string? EnforcementPointPath = null)
+        public async Task<NSXTTraceflowObservationListResultType> ListTraceflowObservations(string TraceflowId, string? EnforcementPointPath = null)
         {
             if (TraceflowId == null) { throw new System.ArgumentNullException("TraceflowId cannot be null"); }
             NSXTTraceflowObservationListResultType returnValue = default(NSXTTraceflowObservationListResultType);
@@ -1880,31 +1467,19 @@ namespace nsxtapi.PolicyModules
             ListTraceflowObservationsServiceURL.Replace("{traceflow-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(TraceflowId, System.Globalization.CultureInfo.InvariantCulture)));
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             request.Resource = ListTraceflowObservationsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTraceflowObservationListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTraceflowObservationListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListTraceflowObservationsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTraceflowObservationListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTraceflowObservationListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTier0Type CreateOrReplaceTier0(string Tier0Id, NSXTTier0Type Tier0)
+        public async Task<NSXTTier0Type> CreateOrReplaceTier0(string Tier0Id, NSXTTier0Type Tier0)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (Tier0 == null) { throw new System.ArgumentNullException("Tier0 cannot be null"); }
@@ -1919,31 +1494,19 @@ namespace nsxtapi.PolicyModules
             CreateOrReplaceTier0ServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(Tier0, defaultSerializationSettings));
             request.Resource = CreateOrReplaceTier0ServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTier0Type> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTier0Type>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateOrReplaceTier0ServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTier0Type>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTier0Type).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteTier0(string Tier0Id)
+        public async Task DeleteTier0(string Tier0Id)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             
@@ -1956,7 +1519,7 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             DeleteTier0ServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteTier0ServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteTier0ServiceURL.ToString() + " did not complete successfull";
@@ -1968,7 +1531,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchTier0(string Tier0Id, NSXTTier0Type Tier0)
+        public async Task PatchTier0(string Tier0Id, NSXTTier0Type Tier0)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (Tier0 == null) { throw new System.ArgumentNullException("Tier0 cannot be null"); }
@@ -1983,7 +1546,7 @@ namespace nsxtapi.PolicyModules
             PatchTier0ServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(Tier0, defaultSerializationSettings));
             request.Resource = PatchTier0ServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchTier0ServiceURL.ToString() + " did not complete successfull";
@@ -1995,7 +1558,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTier0Type ReadTier0(string Tier0Id)
+        public async Task<NSXTTier0Type> ReadTier0(string Tier0Id)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             NSXTTier0Type returnValue = default(NSXTTier0Type);
@@ -2008,31 +1571,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ReadTier0ServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadTier0ServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTier0Type> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTier0Type>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadTier0ServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTier0Type>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTier0Type).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLocaleServicesType CreateOrReplaceTier0LocaleServices(string Tier0Id, string LocaleServicesId, NSXTLocaleServicesType LocaleServices)
+        public async Task<NSXTLocaleServicesType> CreateOrReplaceTier0LocaleServices(string Tier0Id, string LocaleServicesId, NSXTLocaleServicesType LocaleServices)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServicesId == null) { throw new System.ArgumentNullException("LocaleServicesId cannot be null"); }
@@ -2049,31 +1600,19 @@ namespace nsxtapi.PolicyModules
             CreateOrReplaceTier0LocaleServicesServiceURL.Replace("{locale-services-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServicesId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(LocaleServices, defaultSerializationSettings));
             request.Resource = CreateOrReplaceTier0LocaleServicesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLocaleServicesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLocaleServicesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateOrReplaceTier0LocaleServicesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLocaleServicesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLocaleServicesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLocaleServicesType ReadTier0LocaleServices(string Tier0Id, string LocaleServicesId)
+        public async Task<NSXTLocaleServicesType> ReadTier0LocaleServices(string Tier0Id, string LocaleServicesId)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServicesId == null) { throw new System.ArgumentNullException("LocaleServicesId cannot be null"); }
@@ -2088,31 +1627,19 @@ namespace nsxtapi.PolicyModules
             ReadTier0LocaleServicesServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
             ReadTier0LocaleServicesServiceURL.Replace("{locale-services-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServicesId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadTier0LocaleServicesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLocaleServicesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLocaleServicesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadTier0LocaleServicesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLocaleServicesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLocaleServicesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteTier0LocaleServices(string Tier0Id, string LocaleServicesId)
+        public async Task DeleteTier0LocaleServices(string Tier0Id, string LocaleServicesId)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServicesId == null) { throw new System.ArgumentNullException("LocaleServicesId cannot be null"); }
@@ -2127,7 +1654,7 @@ namespace nsxtapi.PolicyModules
             DeleteTier0LocaleServicesServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
             DeleteTier0LocaleServicesServiceURL.Replace("{locale-services-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServicesId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteTier0LocaleServicesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteTier0LocaleServicesServiceURL.ToString() + " did not complete successfull";
@@ -2139,7 +1666,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchTier0LocaleServices(string Tier0Id, string LocaleServicesId, NSXTLocaleServicesType LocaleServices)
+        public async Task PatchTier0LocaleServices(string Tier0Id, string LocaleServicesId, NSXTLocaleServicesType LocaleServices)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServicesId == null) { throw new System.ArgumentNullException("LocaleServicesId cannot be null"); }
@@ -2156,7 +1683,7 @@ namespace nsxtapi.PolicyModules
             PatchTier0LocaleServicesServiceURL.Replace("{locale-services-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServicesId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(LocaleServices, defaultSerializationSettings));
             request.Resource = PatchTier0LocaleServicesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchTier0LocaleServicesServiceURL.ToString() + " did not complete successfull";
@@ -2168,7 +1695,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDhcpStaticBindingConfigType CreateOrReplaceSegmentDhcpStaticBinding(string Tier1Id, string SegmentId, string BindingId, NSXTDhcpStaticBindingConfigType DhcpStaticBindingConfig)
+        public async Task<NSXTDhcpStaticBindingConfigType> CreateOrReplaceSegmentDhcpStaticBinding(string Tier1Id, string SegmentId, string BindingId, NSXTDhcpStaticBindingConfigType DhcpStaticBindingConfig)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
@@ -2187,31 +1714,19 @@ namespace nsxtapi.PolicyModules
             CreateOrReplaceSegmentDhcpStaticBindingServiceURL.Replace("{binding-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(BindingId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(DhcpStaticBindingConfig, defaultSerializationSettings));
             request.Resource = CreateOrReplaceSegmentDhcpStaticBindingServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDhcpStaticBindingConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDhcpStaticBindingConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateOrReplaceSegmentDhcpStaticBindingServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDhcpStaticBindingConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDhcpStaticBindingConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchSegmentDhcpStaticBinding(string Tier1Id, string SegmentId, string BindingId, NSXTDhcpStaticBindingConfigType DhcpStaticBindingConfig)
+        public async Task PatchSegmentDhcpStaticBinding(string Tier1Id, string SegmentId, string BindingId, NSXTDhcpStaticBindingConfigType DhcpStaticBindingConfig)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
@@ -2230,7 +1745,7 @@ namespace nsxtapi.PolicyModules
             PatchSegmentDhcpStaticBindingServiceURL.Replace("{binding-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(BindingId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(DhcpStaticBindingConfig, defaultSerializationSettings));
             request.Resource = PatchSegmentDhcpStaticBindingServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchSegmentDhcpStaticBindingServiceURL.ToString() + " did not complete successfull";
@@ -2242,7 +1757,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDhcpStaticBindingConfigType ReadSegmentDhcpStaticBinding(string Tier1Id, string SegmentId, string BindingId)
+        public async Task<NSXTDhcpStaticBindingConfigType> ReadSegmentDhcpStaticBinding(string Tier1Id, string SegmentId, string BindingId)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
@@ -2259,31 +1774,19 @@ namespace nsxtapi.PolicyModules
             ReadSegmentDhcpStaticBindingServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
             ReadSegmentDhcpStaticBindingServiceURL.Replace("{binding-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(BindingId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadSegmentDhcpStaticBindingServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDhcpStaticBindingConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDhcpStaticBindingConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadSegmentDhcpStaticBindingServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDhcpStaticBindingConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDhcpStaticBindingConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteSegmentDhcpStaticBinding(string Tier1Id, string SegmentId, string BindingId)
+        public async Task DeleteSegmentDhcpStaticBinding(string Tier1Id, string SegmentId, string BindingId)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
@@ -2300,7 +1803,7 @@ namespace nsxtapi.PolicyModules
             DeleteSegmentDhcpStaticBindingServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
             DeleteSegmentDhcpStaticBindingServiceURL.Replace("{binding-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(BindingId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteSegmentDhcpStaticBindingServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteSegmentDhcpStaticBindingServiceURL.ToString() + " did not complete successfull";
@@ -2312,7 +1815,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTraceflowConfigListResultType ListTraceflowConfig(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTTraceflowConfigListResultType> ListTraceflowConfig(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTTraceflowConfigListResultType returnValue = default(NSXTTraceflowConfigListResultType);
             StringBuilder ListTraceflowConfigServiceURL = new StringBuilder("/infra/traceflows");
@@ -2329,31 +1832,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListTraceflowConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTraceflowConfigListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTraceflowConfigListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListTraceflowConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTraceflowConfigListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTraceflowConfigListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTServiceInterfaceType GlobalGlobalInfraReadServiceInterface(string Tier0Id, string LocaleServiceId, string InterfaceId)
+        public async Task<NSXTServiceInterfaceType> GlobalGlobalInfraReadServiceInterface(string Tier0Id, string LocaleServiceId, string InterfaceId)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -2370,31 +1861,19 @@ namespace nsxtapi.PolicyModules
             GlobalInfraReadServiceInterfaceServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
             GlobalInfraReadServiceInterfaceServiceURL.Replace("{interface-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(InterfaceId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GlobalInfraReadServiceInterfaceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTServiceInterfaceType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTServiceInterfaceType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraReadServiceInterfaceServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTServiceInterfaceType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTServiceInterfaceType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTStaticRouteBfdPeerListResultType GlobalGlobalInfraListStaticRouteBfdPeer(string Tier0Id, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTStaticRouteBfdPeerListResultType> GlobalGlobalInfraListStaticRouteBfdPeer(string Tier0Id, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             NSXTStaticRouteBfdPeerListResultType returnValue = default(NSXTStaticRouteBfdPeerListResultType);
@@ -2413,31 +1892,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GlobalInfraListStaticRouteBfdPeerServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTStaticRouteBfdPeerListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTStaticRouteBfdPeerListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraListStaticRouteBfdPeerServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTStaticRouteBfdPeerListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTStaticRouteBfdPeerListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDhcpStaticBindingConfigListResultType GlobalGlobalInfraListInfraSegmentDhcpStaticBinding(string SegmentId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTDhcpStaticBindingConfigListResultType> GlobalGlobalInfraListInfraSegmentDhcpStaticBinding(string SegmentId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
             NSXTDhcpStaticBindingConfigListResultType returnValue = default(NSXTDhcpStaticBindingConfigListResultType);
@@ -2456,31 +1923,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GlobalInfraListInfraSegmentDhcpStaticBindingServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDhcpStaticBindingConfigListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDhcpStaticBindingConfigListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraListInfraSegmentDhcpStaticBindingServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDhcpStaticBindingConfigListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDhcpStaticBindingConfigListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTier0ListResultType GlobalGlobalInfraListTier0s(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTTier0ListResultType> GlobalGlobalInfraListTier0s(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTTier0ListResultType returnValue = default(NSXTTier0ListResultType);
             StringBuilder GlobalInfraListTier0sServiceURL = new StringBuilder("/global-infra/tier-0s");
@@ -2497,31 +1952,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GlobalInfraListTier0sServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTier0ListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTier0ListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraListTier0sServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTier0ListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTier0ListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTraceflowConfigType UpdateTraceflowConfig(string TraceflowId, NSXTTraceflowConfigType TraceflowConfig)
+        public async Task<NSXTTraceflowConfigType> UpdateTraceflowConfig(string TraceflowId, NSXTTraceflowConfigType TraceflowConfig)
         {
             if (TraceflowId == null) { throw new System.ArgumentNullException("TraceflowId cannot be null"); }
             if (TraceflowConfig == null) { throw new System.ArgumentNullException("TraceflowConfig cannot be null"); }
@@ -2536,31 +1979,19 @@ namespace nsxtapi.PolicyModules
             UpdateTraceflowConfigServiceURL.Replace("{traceflow-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(TraceflowId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(TraceflowConfig, defaultSerializationSettings));
             request.Resource = UpdateTraceflowConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTraceflowConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTraceflowConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateTraceflowConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTraceflowConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTraceflowConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTraceflowConfigType RestartTraceflow(string TraceflowId, string? Action = null)
+        public async Task<NSXTTraceflowConfigType> RestartTraceflow(string TraceflowId, string? Action = null)
         {
             if (TraceflowId == null) { throw new System.ArgumentNullException("TraceflowId cannot be null"); }
             NSXTTraceflowConfigType returnValue = default(NSXTTraceflowConfigType);
@@ -2574,31 +2005,19 @@ namespace nsxtapi.PolicyModules
             RestartTraceflowServiceURL.Replace("{traceflow-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(TraceflowId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Action != null) { request.AddQueryParameter("action", Action.ToString()); }
             request.Resource = RestartTraceflowServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTraceflowConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTraceflowConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + RestartTraceflowServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTraceflowConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTraceflowConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchTraceflowConfig(string TraceflowId, NSXTTraceflowConfigType TraceflowConfig)
+        public async Task PatchTraceflowConfig(string TraceflowId, NSXTTraceflowConfigType TraceflowConfig)
         {
             if (TraceflowId == null) { throw new System.ArgumentNullException("TraceflowId cannot be null"); }
             if (TraceflowConfig == null) { throw new System.ArgumentNullException("TraceflowConfig cannot be null"); }
@@ -2613,7 +2032,7 @@ namespace nsxtapi.PolicyModules
             PatchTraceflowConfigServiceURL.Replace("{traceflow-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(TraceflowId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(TraceflowConfig, defaultSerializationSettings));
             request.Resource = PatchTraceflowConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchTraceflowConfigServiceURL.ToString() + " did not complete successfull";
@@ -2625,7 +2044,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTraceflowConfigType ReadTraceflowConfig(string TraceflowId)
+        public async Task<NSXTTraceflowConfigType> ReadTraceflowConfig(string TraceflowId)
         {
             if (TraceflowId == null) { throw new System.ArgumentNullException("TraceflowId cannot be null"); }
             NSXTTraceflowConfigType returnValue = default(NSXTTraceflowConfigType);
@@ -2638,31 +2057,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ReadTraceflowConfigServiceURL.Replace("{traceflow-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(TraceflowId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadTraceflowConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTraceflowConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTraceflowConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadTraceflowConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTraceflowConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTraceflowConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteTraceflowConfig(string TraceflowId)
+        public async Task DeleteTraceflowConfig(string TraceflowId)
         {
             if (TraceflowId == null) { throw new System.ArgumentNullException("TraceflowId cannot be null"); }
             
@@ -2675,7 +2082,7 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             DeleteTraceflowConfigServiceURL.Replace("{traceflow-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(TraceflowId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteTraceflowConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteTraceflowConfigServiceURL.ToString() + " did not complete successfull";
@@ -2687,7 +2094,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTVniPoolConfigListResultType ListVniPoolConfig(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTVniPoolConfigListResultType> ListVniPoolConfig(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTVniPoolConfigListResultType returnValue = default(NSXTVniPoolConfigListResultType);
             StringBuilder ListVniPoolConfigServiceURL = new StringBuilder("/infra/vni-pools");
@@ -2704,31 +2111,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListVniPoolConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTVniPoolConfigListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTVniPoolConfigListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListVniPoolConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTVniPoolConfigListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTVniPoolConfigListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTStaticRoutesListResultType ListTier0StaticRoutes(string Tier0Id, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTStaticRoutesListResultType> ListTier0StaticRoutes(string Tier0Id, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             NSXTStaticRoutesListResultType returnValue = default(NSXTStaticRoutesListResultType);
@@ -2747,31 +2142,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListTier0StaticRoutesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTStaticRoutesListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTStaticRoutesListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListTier0StaticRoutesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTStaticRoutesListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTStaticRoutesListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTier0InterfaceListResultType GlobalGlobalInfraListTier0Interfaces(string Tier0Id, string LocaleServiceId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTTier0InterfaceListResultType> GlobalGlobalInfraListTier0Interfaces(string Tier0Id, string LocaleServiceId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -2792,31 +2175,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GlobalInfraListTier0InterfacesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTier0InterfaceListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTier0InterfaceListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraListTier0InterfacesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTier0InterfaceListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTier0InterfaceListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTL2BridgeEndpointProfileType UpdateL2BridgeProfile(string SiteId, string EnforcementPointId, string ProfileId, NSXTL2BridgeEndpointProfileType L2BridgeEndpointProfile)
+        public async Task<NSXTL2BridgeEndpointProfileType> UpdateL2BridgeProfile(string SiteId, string EnforcementPointId, string ProfileId, NSXTL2BridgeEndpointProfileType L2BridgeEndpointProfile)
         {
             if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
             if (EnforcementPointId == null) { throw new System.ArgumentNullException("EnforcementPointId cannot be null"); }
@@ -2835,31 +2206,19 @@ namespace nsxtapi.PolicyModules
             UpdateL2BridgeProfileServiceURL.Replace("{profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(L2BridgeEndpointProfile, defaultSerializationSettings));
             request.Resource = UpdateL2BridgeProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTL2BridgeEndpointProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTL2BridgeEndpointProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateL2BridgeProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTL2BridgeEndpointProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTL2BridgeEndpointProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTL2BridgeEndpointProfileType ReadL2BridgeProfile(string SiteId, string EnforcementPointId, string ProfileId)
+        public async Task<NSXTL2BridgeEndpointProfileType> ReadL2BridgeProfile(string SiteId, string EnforcementPointId, string ProfileId)
         {
             if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
             if (EnforcementPointId == null) { throw new System.ArgumentNullException("EnforcementPointId cannot be null"); }
@@ -2876,31 +2235,19 @@ namespace nsxtapi.PolicyModules
             ReadL2BridgeProfileServiceURL.Replace("{enforcement-point-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EnforcementPointId, System.Globalization.CultureInfo.InvariantCulture)));
             ReadL2BridgeProfileServiceURL.Replace("{profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadL2BridgeProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTL2BridgeEndpointProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTL2BridgeEndpointProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadL2BridgeProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTL2BridgeEndpointProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTL2BridgeEndpointProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteL2BridgeProfile(string SiteId, string EnforcementPointId, string ProfileId)
+        public async Task DeleteL2BridgeProfile(string SiteId, string EnforcementPointId, string ProfileId)
         {
             if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
             if (EnforcementPointId == null) { throw new System.ArgumentNullException("EnforcementPointId cannot be null"); }
@@ -2917,7 +2264,7 @@ namespace nsxtapi.PolicyModules
             DeleteL2BridgeProfileServiceURL.Replace("{enforcement-point-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EnforcementPointId, System.Globalization.CultureInfo.InvariantCulture)));
             DeleteL2BridgeProfileServiceURL.Replace("{profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteL2BridgeProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteL2BridgeProfileServiceURL.ToString() + " did not complete successfull";
@@ -2929,7 +2276,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchL2BridgeProfile(string SiteId, string EnforcementPointId, string ProfileId, NSXTL2BridgeEndpointProfileType L2BridgeEndpointProfile)
+        public async Task PatchL2BridgeProfile(string SiteId, string EnforcementPointId, string ProfileId, NSXTL2BridgeEndpointProfileType L2BridgeEndpointProfile)
         {
             if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
             if (EnforcementPointId == null) { throw new System.ArgumentNullException("EnforcementPointId cannot be null"); }
@@ -2948,7 +2295,7 @@ namespace nsxtapi.PolicyModules
             PatchL2BridgeProfileServiceURL.Replace("{profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(L2BridgeEndpointProfile, defaultSerializationSettings));
             request.Resource = PatchL2BridgeProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchL2BridgeProfileServiceURL.ToString() + " did not complete successfull";
@@ -2960,7 +2307,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSegmentPortType CreateOrReplaceInfraSegmentPort(string SegmentId, string PortId, NSXTSegmentPortType SegmentPort)
+        public async Task<NSXTSegmentPortType> CreateOrReplaceInfraSegmentPort(string SegmentId, string PortId, NSXTSegmentPortType SegmentPort)
         {
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
             if (PortId == null) { throw new System.ArgumentNullException("PortId cannot be null"); }
@@ -2977,31 +2324,19 @@ namespace nsxtapi.PolicyModules
             CreateOrReplaceInfraSegmentPortServiceURL.Replace("{port-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(SegmentPort, defaultSerializationSettings));
             request.Resource = CreateOrReplaceInfraSegmentPortServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTSegmentPortType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTSegmentPortType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateOrReplaceInfraSegmentPortServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSegmentPortType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSegmentPortType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchInfraSegmentPort(string SegmentId, string PortId, NSXTSegmentPortType SegmentPort)
+        public async Task PatchInfraSegmentPort(string SegmentId, string PortId, NSXTSegmentPortType SegmentPort)
         {
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
             if (PortId == null) { throw new System.ArgumentNullException("PortId cannot be null"); }
@@ -3018,7 +2353,7 @@ namespace nsxtapi.PolicyModules
             PatchInfraSegmentPortServiceURL.Replace("{port-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(SegmentPort, defaultSerializationSettings));
             request.Resource = PatchInfraSegmentPortServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchInfraSegmentPortServiceURL.ToString() + " did not complete successfull";
@@ -3030,7 +2365,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteInfraSegmentPort(string SegmentId, string PortId)
+        public async Task DeleteInfraSegmentPort(string SegmentId, string PortId)
         {
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
             if (PortId == null) { throw new System.ArgumentNullException("PortId cannot be null"); }
@@ -3045,7 +2380,7 @@ namespace nsxtapi.PolicyModules
             DeleteInfraSegmentPortServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
             DeleteInfraSegmentPortServiceURL.Replace("{port-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteInfraSegmentPortServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteInfraSegmentPortServiceURL.ToString() + " did not complete successfull";
@@ -3057,7 +2392,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSegmentPortType GetInfraSegmentPort(string SegmentId, string PortId)
+        public async Task<NSXTSegmentPortType> GetInfraSegmentPort(string SegmentId, string PortId)
         {
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
             if (PortId == null) { throw new System.ArgumentNullException("PortId cannot be null"); }
@@ -3072,31 +2407,19 @@ namespace nsxtapi.PolicyModules
             GetInfraSegmentPortServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
             GetInfraSegmentPortServiceURL.Replace("{port-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetInfraSegmentPortServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTSegmentPortType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTSegmentPortType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetInfraSegmentPortServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSegmentPortType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSegmentPortType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSegmentListResultType GlobalGlobalInfraListSegments(string Tier1Id, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, string? SegmentType = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTSegmentListResultType> GlobalGlobalInfraListSegments(string Tier1Id, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, string? SegmentType = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             NSXTSegmentListResultType returnValue = default(NSXTSegmentListResultType);
@@ -3116,31 +2439,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GlobalInfraListSegmentsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTSegmentListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTSegmentListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraListSegmentsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSegmentListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSegmentListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLocaleServicesType GlobalGlobalInfraReadTier1LocaleServices(string Tier1Id, string LocaleServicesId)
+        public async Task<NSXTLocaleServicesType> GlobalGlobalInfraReadTier1LocaleServices(string Tier1Id, string LocaleServicesId)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (LocaleServicesId == null) { throw new System.ArgumentNullException("LocaleServicesId cannot be null"); }
@@ -3155,31 +2466,19 @@ namespace nsxtapi.PolicyModules
             GlobalInfraReadTier1LocaleServicesServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
             GlobalInfraReadTier1LocaleServicesServiceURL.Replace("{locale-services-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServicesId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GlobalInfraReadTier1LocaleServicesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLocaleServicesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLocaleServicesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraReadTier1LocaleServicesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLocaleServicesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLocaleServicesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLiveTraceConfigListResultType ListLiveTraceConfig(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTLiveTraceConfigListResultType> ListLiveTraceConfig(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTLiveTraceConfigListResultType returnValue = default(NSXTLiveTraceConfigListResultType);
             StringBuilder ListLiveTraceConfigServiceURL = new StringBuilder("/infra/livetraces");
@@ -3196,31 +2495,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListLiveTraceConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLiveTraceConfigListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLiveTraceConfigListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListLiveTraceConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLiveTraceConfigListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLiveTraceConfigListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTServiceInterfaceListResultType GlobalGlobalInfraListTier1ServiceInterfaces(string Tier1Id, string LocaleServiceId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTServiceInterfaceListResultType> GlobalGlobalInfraListTier1ServiceInterfaces(string Tier1Id, string LocaleServiceId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -3241,31 +2528,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GlobalInfraListTier1ServiceInterfacesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTServiceInterfaceListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTServiceInterfaceListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraListTier1ServiceInterfacesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTServiceInterfaceListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTServiceInterfaceListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIpv6NdraProfileType GlobalGlobalInfraCreateOrReplaceIpv6NdraProfile(string NdraProfileId, NSXTIpv6NdraProfileType Ipv6NdraProfile, bool? Override = null)
+        public async Task<NSXTIpv6NdraProfileType> GlobalGlobalInfraCreateOrReplaceIpv6NdraProfile(string NdraProfileId, NSXTIpv6NdraProfileType Ipv6NdraProfile, bool? Override = null)
         {
             if (NdraProfileId == null) { throw new System.ArgumentNullException("NdraProfileId cannot be null"); }
             if (Ipv6NdraProfile == null) { throw new System.ArgumentNullException("Ipv6NdraProfile cannot be null"); }
@@ -3281,31 +2556,19 @@ namespace nsxtapi.PolicyModules
             request.AddJsonBody(JsonConvert.SerializeObject(Ipv6NdraProfile, defaultSerializationSettings));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = GlobalInfraCreateOrReplaceIpv6NdraProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIpv6NdraProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIpv6NdraProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + GlobalInfraCreateOrReplaceIpv6NdraProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIpv6NdraProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIpv6NdraProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GlobalGlobalInfraDeleteIpv6NdraProfile(string NdraProfileId, bool? Override = null)
+        public async Task GlobalGlobalInfraDeleteIpv6NdraProfile(string NdraProfileId, bool? Override = null)
         {
             if (NdraProfileId == null) { throw new System.ArgumentNullException("NdraProfileId cannot be null"); }
             
@@ -3319,7 +2582,7 @@ namespace nsxtapi.PolicyModules
             GlobalInfraDeleteIpv6NdraProfileServiceURL.Replace("{ndra-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NdraProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = GlobalInfraDeleteIpv6NdraProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + GlobalInfraDeleteIpv6NdraProfileServiceURL.ToString() + " did not complete successfull";
@@ -3331,7 +2594,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GlobalGlobalInfraPatchIpv6NdraProfile(string NdraProfileId, NSXTIpv6NdraProfileType Ipv6NdraProfile, bool? Override = null)
+        public async Task GlobalGlobalInfraPatchIpv6NdraProfile(string NdraProfileId, NSXTIpv6NdraProfileType Ipv6NdraProfile, bool? Override = null)
         {
             if (NdraProfileId == null) { throw new System.ArgumentNullException("NdraProfileId cannot be null"); }
             if (Ipv6NdraProfile == null) { throw new System.ArgumentNullException("Ipv6NdraProfile cannot be null"); }
@@ -3347,7 +2610,7 @@ namespace nsxtapi.PolicyModules
             request.AddJsonBody(JsonConvert.SerializeObject(Ipv6NdraProfile, defaultSerializationSettings));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = GlobalInfraPatchIpv6NdraProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + GlobalInfraPatchIpv6NdraProfileServiceURL.ToString() + " did not complete successfull";
@@ -3359,7 +2622,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIpv6NdraProfileType GlobalGlobalInfraReadIpv6NdraProfile(string NdraProfileId)
+        public async Task<NSXTIpv6NdraProfileType> GlobalGlobalInfraReadIpv6NdraProfile(string NdraProfileId)
         {
             if (NdraProfileId == null) { throw new System.ArgumentNullException("NdraProfileId cannot be null"); }
             NSXTIpv6NdraProfileType returnValue = default(NSXTIpv6NdraProfileType);
@@ -3372,31 +2635,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             GlobalInfraReadIpv6NdraProfileServiceURL.Replace("{ndra-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NdraProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GlobalInfraReadIpv6NdraProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIpv6NdraProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIpv6NdraProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraReadIpv6NdraProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIpv6NdraProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIpv6NdraProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSegmentType GlobalGlobalInfraReadInfraSegment(string SegmentId)
+        public async Task<NSXTSegmentType> GlobalGlobalInfraReadInfraSegment(string SegmentId)
         {
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
             NSXTSegmentType returnValue = default(NSXTSegmentType);
@@ -3409,31 +2660,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             GlobalInfraReadInfraSegmentServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GlobalInfraReadInfraSegmentServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTSegmentType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTSegmentType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraReadInfraSegmentServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSegmentType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSegmentType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTier0RouteMapType GlobalGlobalInfraGetRouteMap(string Tier0Id, string RouteMapId)
+        public async Task<NSXTTier0RouteMapType> GlobalGlobalInfraGetRouteMap(string Tier0Id, string RouteMapId)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (RouteMapId == null) { throw new System.ArgumentNullException("RouteMapId cannot be null"); }
@@ -3448,31 +2687,19 @@ namespace nsxtapi.PolicyModules
             GlobalInfraGetRouteMapServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
             GlobalInfraGetRouteMapServiceURL.Replace("{route-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(RouteMapId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GlobalInfraGetRouteMapServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTier0RouteMapType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTier0RouteMapType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraGetRouteMapServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTier0RouteMapType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTier0RouteMapType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSegmentListResultType ListAllInfraSegments(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, string? SegmentType = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTSegmentListResultType> ListAllInfraSegments(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, string? SegmentType = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTSegmentListResultType returnValue = default(NSXTSegmentListResultType);
             StringBuilder ListAllInfraSegmentsServiceURL = new StringBuilder("/infra/segments");
@@ -3490,31 +2717,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListAllInfraSegmentsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTSegmentListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTSegmentListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListAllInfraSegmentsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSegmentListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSegmentListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLiveTraceStatusType ReadLiveTraceStatus(string LivetraceId, string? EnforcementPointPath = null)
+        public async Task<NSXTLiveTraceStatusType> ReadLiveTraceStatus(string LivetraceId, string? EnforcementPointPath = null)
         {
             if (LivetraceId == null) { throw new System.ArgumentNullException("LivetraceId cannot be null"); }
             NSXTLiveTraceStatusType returnValue = default(NSXTLiveTraceStatusType);
@@ -3528,31 +2743,19 @@ namespace nsxtapi.PolicyModules
             ReadLiveTraceStatusServiceURL.Replace("{livetrace-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LivetraceId, System.Globalization.CultureInfo.InvariantCulture)));
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             request.Resource = ReadLiveTraceStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLiveTraceStatusType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLiveTraceStatusType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadLiveTraceStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLiveTraceStatusType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLiveTraceStatusType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTier0RouteMapListResultType GlobalGlobalInfraListAllRouteMaps(string Tier0Id, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTTier0RouteMapListResultType> GlobalGlobalInfraListAllRouteMaps(string Tier0Id, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             NSXTTier0RouteMapListResultType returnValue = default(NSXTTier0RouteMapListResultType);
@@ -3571,31 +2774,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GlobalInfraListAllRouteMapsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTier0RouteMapListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTier0RouteMapListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraListAllRouteMapsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTier0RouteMapListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTier0RouteMapListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTServiceSegmentType CreateServiceSegment(string ServiceSegmentId, NSXTServiceSegmentType ServiceSegment)
+        public async Task<NSXTServiceSegmentType> CreateServiceSegment(string ServiceSegmentId, NSXTServiceSegmentType ServiceSegment)
         {
             if (ServiceSegmentId == null) { throw new System.ArgumentNullException("ServiceSegmentId cannot be null"); }
             if (ServiceSegment == null) { throw new System.ArgumentNullException("ServiceSegment cannot be null"); }
@@ -3610,31 +2801,19 @@ namespace nsxtapi.PolicyModules
             CreateServiceSegmentServiceURL.Replace("{service-segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServiceSegmentId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(ServiceSegment, defaultSerializationSettings));
             request.Resource = CreateServiceSegmentServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTServiceSegmentType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTServiceSegmentType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateServiceSegmentServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTServiceSegmentType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTServiceSegmentType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTServiceSegmentType ReadServiceSegment(string ServiceSegmentId)
+        public async Task<NSXTServiceSegmentType> ReadServiceSegment(string ServiceSegmentId)
         {
             if (ServiceSegmentId == null) { throw new System.ArgumentNullException("ServiceSegmentId cannot be null"); }
             NSXTServiceSegmentType returnValue = default(NSXTServiceSegmentType);
@@ -3647,31 +2826,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ReadServiceSegmentServiceURL.Replace("{service-segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServiceSegmentId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadServiceSegmentServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTServiceSegmentType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTServiceSegmentType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadServiceSegmentServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTServiceSegmentType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTServiceSegmentType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteServiceSegment(string ServiceSegmentId)
+        public async Task DeleteServiceSegment(string ServiceSegmentId)
         {
             if (ServiceSegmentId == null) { throw new System.ArgumentNullException("ServiceSegmentId cannot be null"); }
             
@@ -3684,7 +2851,7 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             DeleteServiceSegmentServiceURL.Replace("{service-segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServiceSegmentId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteServiceSegmentServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteServiceSegmentServiceURL.ToString() + " did not complete successfull";
@@ -3696,7 +2863,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchServiceSegment(string ServiceSegmentId, NSXTServiceSegmentType ServiceSegment)
+        public async Task PatchServiceSegment(string ServiceSegmentId, NSXTServiceSegmentType ServiceSegment)
         {
             if (ServiceSegmentId == null) { throw new System.ArgumentNullException("ServiceSegmentId cannot be null"); }
             if (ServiceSegment == null) { throw new System.ArgumentNullException("ServiceSegment cannot be null"); }
@@ -3711,7 +2878,7 @@ namespace nsxtapi.PolicyModules
             PatchServiceSegmentServiceURL.Replace("{service-segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServiceSegmentId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(ServiceSegment, defaultSerializationSettings));
             request.Resource = PatchServiceSegmentServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchServiceSegmentServiceURL.ToString() + " did not complete successfull";
@@ -3723,7 +2890,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDhcpStaticBindingConfigListResultType ListSegmentDhcpStaticBinding(string Tier1Id, string SegmentId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTDhcpStaticBindingConfigListResultType> ListSegmentDhcpStaticBinding(string Tier1Id, string SegmentId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
@@ -3744,31 +2911,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListSegmentDhcpStaticBindingServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDhcpStaticBindingConfigListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDhcpStaticBindingConfigListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListSegmentDhcpStaticBindingServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDhcpStaticBindingConfigListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDhcpStaticBindingConfigListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTL2BridgeEndpointProfileListResultType ListL2BridgeProfiles(string SiteId, string EnforcementPointId, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTL2BridgeEndpointProfileListResultType> ListL2BridgeProfiles(string SiteId, string EnforcementPointId, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
             if (EnforcementPointId == null) { throw new System.ArgumentNullException("EnforcementPointId cannot be null"); }
@@ -3788,31 +2943,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListL2BridgeProfilesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTL2BridgeEndpointProfileListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTL2BridgeEndpointProfileListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListL2BridgeProfilesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTL2BridgeEndpointProfileListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTL2BridgeEndpointProfileListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDhcpRelayConfigType GlobalGlobalInfraReadDhcpRelayConfig(string DhcpRelayConfigId)
+        public async Task<NSXTDhcpRelayConfigType> GlobalGlobalInfraReadDhcpRelayConfig(string DhcpRelayConfigId)
         {
             if (DhcpRelayConfigId == null) { throw new System.ArgumentNullException("DhcpRelayConfigId cannot be null"); }
             NSXTDhcpRelayConfigType returnValue = default(NSXTDhcpRelayConfigType);
@@ -3825,31 +2968,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             GlobalInfraReadDhcpRelayConfigServiceURL.Replace("{dhcp-relay-config-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DhcpRelayConfigId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GlobalInfraReadDhcpRelayConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDhcpRelayConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDhcpRelayConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraReadDhcpRelayConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDhcpRelayConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDhcpRelayConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteDhcpLeaseUnderTier1(string Tier1Id, string SegmentId, NSXTDhcpDeleteLeasesType DhcpDeleteLeases, string? EnforcementPointPath = null)
+        public async Task DeleteDhcpLeaseUnderTier1(string Tier1Id, string SegmentId, NSXTDhcpDeleteLeasesType DhcpDeleteLeases, string? EnforcementPointPath = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
@@ -3867,7 +2998,7 @@ namespace nsxtapi.PolicyModules
             request.AddJsonBody(JsonConvert.SerializeObject(DhcpDeleteLeases, defaultSerializationSettings));
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             request.Resource = DeleteDhcpLeaseUnderTier1ServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + DeleteDhcpLeaseUnderTier1ServiceURL.ToString() + " did not complete successfull";
@@ -3879,7 +3010,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSegmentPortType GlobalGlobalInfraCreateOrReplaceInfraSegmentPort(string SegmentId, string PortId, NSXTSegmentPortType SegmentPort)
+        public async Task<NSXTSegmentPortType> GlobalGlobalInfraCreateOrReplaceInfraSegmentPort(string SegmentId, string PortId, NSXTSegmentPortType SegmentPort)
         {
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
             if (PortId == null) { throw new System.ArgumentNullException("PortId cannot be null"); }
@@ -3896,31 +3027,19 @@ namespace nsxtapi.PolicyModules
             GlobalInfraCreateOrReplaceInfraSegmentPortServiceURL.Replace("{port-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(SegmentPort, defaultSerializationSettings));
             request.Resource = GlobalInfraCreateOrReplaceInfraSegmentPortServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTSegmentPortType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTSegmentPortType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + GlobalInfraCreateOrReplaceInfraSegmentPortServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSegmentPortType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSegmentPortType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GlobalGlobalInfraPatchInfraSegmentPort(string SegmentId, string PortId, NSXTSegmentPortType SegmentPort)
+        public async Task GlobalGlobalInfraPatchInfraSegmentPort(string SegmentId, string PortId, NSXTSegmentPortType SegmentPort)
         {
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
             if (PortId == null) { throw new System.ArgumentNullException("PortId cannot be null"); }
@@ -3937,7 +3056,7 @@ namespace nsxtapi.PolicyModules
             GlobalInfraPatchInfraSegmentPortServiceURL.Replace("{port-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(SegmentPort, defaultSerializationSettings));
             request.Resource = GlobalInfraPatchInfraSegmentPortServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + GlobalInfraPatchInfraSegmentPortServiceURL.ToString() + " did not complete successfull";
@@ -3949,7 +3068,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GlobalGlobalInfraDeleteInfraSegmentPort(string SegmentId, string PortId)
+        public async Task GlobalGlobalInfraDeleteInfraSegmentPort(string SegmentId, string PortId)
         {
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
             if (PortId == null) { throw new System.ArgumentNullException("PortId cannot be null"); }
@@ -3964,7 +3083,7 @@ namespace nsxtapi.PolicyModules
             GlobalInfraDeleteInfraSegmentPortServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
             GlobalInfraDeleteInfraSegmentPortServiceURL.Replace("{port-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GlobalInfraDeleteInfraSegmentPortServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + GlobalInfraDeleteInfraSegmentPortServiceURL.ToString() + " did not complete successfull";
@@ -3976,7 +3095,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSegmentPortType GlobalGlobalInfraGetInfraSegmentPort(string SegmentId, string PortId)
+        public async Task<NSXTSegmentPortType> GlobalGlobalInfraGetInfraSegmentPort(string SegmentId, string PortId)
         {
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
             if (PortId == null) { throw new System.ArgumentNullException("PortId cannot be null"); }
@@ -3991,31 +3110,19 @@ namespace nsxtapi.PolicyModules
             GlobalInfraGetInfraSegmentPortServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
             GlobalInfraGetInfraSegmentPortServiceURL.Replace("{port-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GlobalInfraGetInfraSegmentPortServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTSegmentPortType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTSegmentPortType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraGetInfraSegmentPortServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSegmentPortType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSegmentPortType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDhcpServerConfigListResultType GlobalGlobalInfraListDhcpServerConfig(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTDhcpServerConfigListResultType> GlobalGlobalInfraListDhcpServerConfig(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTDhcpServerConfigListResultType returnValue = default(NSXTDhcpServerConfigListResultType);
             StringBuilder GlobalInfraListDhcpServerConfigServiceURL = new StringBuilder("/global-infra/dhcp-server-configs");
@@ -4032,31 +3139,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GlobalInfraListDhcpServerConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDhcpServerConfigListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDhcpServerConfigListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraListDhcpServerConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDhcpServerConfigListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDhcpServerConfigListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTBgpRoutingConfigType GlobalGlobalInfraCreateOrReplaceBgpRoutingConfig(string Tier0Id, string LocaleServiceId, NSXTBgpRoutingConfigType BgpRoutingConfig, bool? Override = null)
+        public async Task<NSXTBgpRoutingConfigType> GlobalGlobalInfraCreateOrReplaceBgpRoutingConfig(string Tier0Id, string LocaleServiceId, NSXTBgpRoutingConfigType BgpRoutingConfig, bool? Override = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -4074,31 +3169,19 @@ namespace nsxtapi.PolicyModules
             request.AddJsonBody(JsonConvert.SerializeObject(BgpRoutingConfig, defaultSerializationSettings));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = GlobalInfraCreateOrReplaceBgpRoutingConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTBgpRoutingConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTBgpRoutingConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + GlobalInfraCreateOrReplaceBgpRoutingConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTBgpRoutingConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTBgpRoutingConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTBgpRoutingConfigType GlobalGlobalInfraReadBgpRoutingConfig(string Tier0Id, string LocaleServiceId)
+        public async Task<NSXTBgpRoutingConfigType> GlobalGlobalInfraReadBgpRoutingConfig(string Tier0Id, string LocaleServiceId)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -4113,31 +3196,19 @@ namespace nsxtapi.PolicyModules
             GlobalInfraReadBgpRoutingConfigServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
             GlobalInfraReadBgpRoutingConfigServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GlobalInfraReadBgpRoutingConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTBgpRoutingConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTBgpRoutingConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraReadBgpRoutingConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTBgpRoutingConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTBgpRoutingConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GlobalGlobalInfraPatchBgpRoutingConfig(string Tier0Id, string LocaleServiceId, NSXTBgpRoutingConfigType BgpRoutingConfig, bool? Override = null)
+        public async Task GlobalGlobalInfraPatchBgpRoutingConfig(string Tier0Id, string LocaleServiceId, NSXTBgpRoutingConfigType BgpRoutingConfig, bool? Override = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -4155,7 +3226,7 @@ namespace nsxtapi.PolicyModules
             request.AddJsonBody(JsonConvert.SerializeObject(BgpRoutingConfig, defaultSerializationSettings));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = GlobalInfraPatchBgpRoutingConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + GlobalInfraPatchBgpRoutingConfigServiceURL.ToString() + " did not complete successfull";
@@ -4167,7 +3238,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GlobalGlobalInfraDeleteOverriddenBgpRoutingConfig(string Tier0Id, string LocaleServiceId, bool? Override = null)
+        public async Task GlobalGlobalInfraDeleteOverriddenBgpRoutingConfig(string Tier0Id, string LocaleServiceId, bool? Override = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -4183,7 +3254,7 @@ namespace nsxtapi.PolicyModules
             GlobalInfraDeleteOverriddenBgpRoutingConfigServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = GlobalInfraDeleteOverriddenBgpRoutingConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + GlobalInfraDeleteOverriddenBgpRoutingConfigServiceURL.ToString() + " did not complete successfull";
@@ -4195,7 +3266,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void ForceDeleteSegment(string Tier1Id, string SegmentId)
+        public async Task ForceDeleteSegment(string Tier1Id, string SegmentId)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
@@ -4210,7 +3281,7 @@ namespace nsxtapi.PolicyModules
             ForceDeleteSegmentServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
             ForceDeleteSegmentServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ForceDeleteSegmentServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + ForceDeleteSegmentServiceURL.ToString() + " did not complete successfull";
@@ -4222,7 +3293,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTBgpNeighborConfigType GlobalGlobalInfraCreateOrReplaceBgpNeighborConfig(string Tier0Id, string LocaleServiceId, string NeighborId, NSXTBgpNeighborConfigType BgpNeighborConfig, bool? Override = null)
+        public async Task<NSXTBgpNeighborConfigType> GlobalGlobalInfraCreateOrReplaceBgpNeighborConfig(string Tier0Id, string LocaleServiceId, string NeighborId, NSXTBgpNeighborConfigType BgpNeighborConfig, bool? Override = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -4242,31 +3313,19 @@ namespace nsxtapi.PolicyModules
             request.AddJsonBody(JsonConvert.SerializeObject(BgpNeighborConfig, defaultSerializationSettings));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = GlobalInfraCreateOrReplaceBgpNeighborConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTBgpNeighborConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTBgpNeighborConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + GlobalInfraCreateOrReplaceBgpNeighborConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTBgpNeighborConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTBgpNeighborConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTBgpNeighborConfigType GlobalGlobalInfraReadBgpNeighborConfig(string Tier0Id, string LocaleServiceId, string NeighborId)
+        public async Task<NSXTBgpNeighborConfigType> GlobalGlobalInfraReadBgpNeighborConfig(string Tier0Id, string LocaleServiceId, string NeighborId)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -4283,31 +3342,19 @@ namespace nsxtapi.PolicyModules
             GlobalInfraReadBgpNeighborConfigServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
             GlobalInfraReadBgpNeighborConfigServiceURL.Replace("{neighbor-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NeighborId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GlobalInfraReadBgpNeighborConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTBgpNeighborConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTBgpNeighborConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraReadBgpNeighborConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTBgpNeighborConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTBgpNeighborConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GlobalGlobalInfraPatchBgpNeighborConfig(string Tier0Id, string LocaleServiceId, string NeighborId, NSXTBgpNeighborConfigType BgpNeighborConfig, bool? Override = null)
+        public async Task GlobalGlobalInfraPatchBgpNeighborConfig(string Tier0Id, string LocaleServiceId, string NeighborId, NSXTBgpNeighborConfigType BgpNeighborConfig, bool? Override = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -4327,7 +3374,7 @@ namespace nsxtapi.PolicyModules
             request.AddJsonBody(JsonConvert.SerializeObject(BgpNeighborConfig, defaultSerializationSettings));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = GlobalInfraPatchBgpNeighborConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + GlobalInfraPatchBgpNeighborConfigServiceURL.ToString() + " did not complete successfull";
@@ -4339,7 +3386,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GlobalGlobalInfraDeleteBgpNeighborConfig(string Tier0Id, string LocaleServiceId, string NeighborId, bool? Override = null)
+        public async Task GlobalGlobalInfraDeleteBgpNeighborConfig(string Tier0Id, string LocaleServiceId, string NeighborId, bool? Override = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -4357,7 +3404,7 @@ namespace nsxtapi.PolicyModules
             GlobalInfraDeleteBgpNeighborConfigServiceURL.Replace("{neighbor-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NeighborId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = GlobalInfraDeleteBgpNeighborConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + GlobalInfraDeleteBgpNeighborConfigServiceURL.ToString() + " did not complete successfull";
@@ -4369,7 +3416,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTAntreaTraceflowObservationListResultType ListAntreaTraceflowObservations(string TraceflowId, string? EnforcementPointPath = null)
+        public async Task<NSXTAntreaTraceflowObservationListResultType> ListAntreaTraceflowObservations(string TraceflowId, string? EnforcementPointPath = null)
         {
             if (TraceflowId == null) { throw new System.ArgumentNullException("TraceflowId cannot be null"); }
             NSXTAntreaTraceflowObservationListResultType returnValue = default(NSXTAntreaTraceflowObservationListResultType);
@@ -4383,31 +3430,19 @@ namespace nsxtapi.PolicyModules
             ListAntreaTraceflowObservationsServiceURL.Replace("{traceflow-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(TraceflowId, System.Globalization.CultureInfo.InvariantCulture)));
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             request.Resource = ListAntreaTraceflowObservationsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTAntreaTraceflowObservationListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTAntreaTraceflowObservationListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListAntreaTraceflowObservationsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTAntreaTraceflowObservationListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTAntreaTraceflowObservationListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTStaticRoutesListResultType ListTier1StaticRoutes(string Tier1Id, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTStaticRoutesListResultType> ListTier1StaticRoutes(string Tier1Id, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             NSXTStaticRoutesListResultType returnValue = default(NSXTStaticRoutesListResultType);
@@ -4426,31 +3461,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListTier1StaticRoutesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTStaticRoutesListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTStaticRoutesListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListTier1StaticRoutesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTStaticRoutesListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTStaticRoutesListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPrefixListType GlobalGlobalInfraReadPrefixList(string Tier0Id, string PrefixListId)
+        public async Task<NSXTPrefixListType> GlobalGlobalInfraReadPrefixList(string Tier0Id, string PrefixListId)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (PrefixListId == null) { throw new System.ArgumentNullException("PrefixListId cannot be null"); }
@@ -4465,31 +3488,19 @@ namespace nsxtapi.PolicyModules
             GlobalInfraReadPrefixListServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
             GlobalInfraReadPrefixListServiceURL.Replace("{prefix-list-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PrefixListId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GlobalInfraReadPrefixListServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPrefixListType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPrefixListType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraReadPrefixListServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPrefixListType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPrefixListType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTBgpNeighborConfigType CreateOrReplaceBgpNeighborConfig(string Tier0Id, string LocaleServiceId, string NeighborId, NSXTBgpNeighborConfigType BgpNeighborConfig, bool? Override = null)
+        public async Task<NSXTBgpNeighborConfigType> CreateOrReplaceBgpNeighborConfig(string Tier0Id, string LocaleServiceId, string NeighborId, NSXTBgpNeighborConfigType BgpNeighborConfig, bool? Override = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -4509,31 +3520,19 @@ namespace nsxtapi.PolicyModules
             request.AddJsonBody(JsonConvert.SerializeObject(BgpNeighborConfig, defaultSerializationSettings));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = CreateOrReplaceBgpNeighborConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTBgpNeighborConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTBgpNeighborConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateOrReplaceBgpNeighborConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTBgpNeighborConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTBgpNeighborConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTBgpNeighborConfigType ReadBgpNeighborConfig(string Tier0Id, string LocaleServiceId, string NeighborId)
+        public async Task<NSXTBgpNeighborConfigType> ReadBgpNeighborConfig(string Tier0Id, string LocaleServiceId, string NeighborId)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -4550,31 +3549,19 @@ namespace nsxtapi.PolicyModules
             ReadBgpNeighborConfigServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
             ReadBgpNeighborConfigServiceURL.Replace("{neighbor-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NeighborId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadBgpNeighborConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTBgpNeighborConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTBgpNeighborConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadBgpNeighborConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTBgpNeighborConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTBgpNeighborConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchBgpNeighborConfig(string Tier0Id, string LocaleServiceId, string NeighborId, NSXTBgpNeighborConfigType BgpNeighborConfig, bool? Override = null)
+        public async Task PatchBgpNeighborConfig(string Tier0Id, string LocaleServiceId, string NeighborId, NSXTBgpNeighborConfigType BgpNeighborConfig, bool? Override = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -4594,7 +3581,7 @@ namespace nsxtapi.PolicyModules
             request.AddJsonBody(JsonConvert.SerializeObject(BgpNeighborConfig, defaultSerializationSettings));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = PatchBgpNeighborConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchBgpNeighborConfigServiceURL.ToString() + " did not complete successfull";
@@ -4606,7 +3593,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteBgpNeighborConfig(string Tier0Id, string LocaleServiceId, string NeighborId, bool? Override = null)
+        public async Task DeleteBgpNeighborConfig(string Tier0Id, string LocaleServiceId, string NeighborId, bool? Override = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -4624,7 +3611,7 @@ namespace nsxtapi.PolicyModules
             DeleteBgpNeighborConfigServiceURL.Replace("{neighbor-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NeighborId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = DeleteBgpNeighborConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteBgpNeighborConfigServiceURL.ToString() + " did not complete successfull";
@@ -4636,7 +3623,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTBfdProfileListResultType ListBfdProfile(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTBfdProfileListResultType> ListBfdProfile(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTBfdProfileListResultType returnValue = default(NSXTBfdProfileListResultType);
             StringBuilder ListBfdProfileServiceURL = new StringBuilder("/infra/bfd-profiles");
@@ -4653,31 +3640,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListBfdProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTBfdProfileListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTBfdProfileListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListBfdProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTBfdProfileListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTBfdProfileListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTCommunityListListResultType ListCommunityList(string Tier0Id, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTCommunityListListResultType> ListCommunityList(string Tier0Id, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             NSXTCommunityListListResultType returnValue = default(NSXTCommunityListListResultType);
@@ -4696,31 +3671,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListCommunityListServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTCommunityListListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTCommunityListListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListCommunityListServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTCommunityListListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTCommunityListListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTier1Type CreateOrReplaceTier1(string Tier1Id, NSXTTier1Type Tier1)
+        public async Task<NSXTTier1Type> CreateOrReplaceTier1(string Tier1Id, NSXTTier1Type Tier1)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (Tier1 == null) { throw new System.ArgumentNullException("Tier1 cannot be null"); }
@@ -4735,31 +3698,19 @@ namespace nsxtapi.PolicyModules
             CreateOrReplaceTier1ServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(Tier1, defaultSerializationSettings));
             request.Resource = CreateOrReplaceTier1ServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTier1Type> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTier1Type>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateOrReplaceTier1ServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTier1Type>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTier1Type).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteTier1(string Tier1Id)
+        public async Task DeleteTier1(string Tier1Id)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             
@@ -4772,7 +3723,7 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             DeleteTier1ServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteTier1ServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteTier1ServiceURL.ToString() + " did not complete successfull";
@@ -4784,7 +3735,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchTier1(string Tier1Id, NSXTTier1Type Tier1)
+        public async Task PatchTier1(string Tier1Id, NSXTTier1Type Tier1)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (Tier1 == null) { throw new System.ArgumentNullException("Tier1 cannot be null"); }
@@ -4799,7 +3750,7 @@ namespace nsxtapi.PolicyModules
             PatchTier1ServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(Tier1, defaultSerializationSettings));
             request.Resource = PatchTier1ServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchTier1ServiceURL.ToString() + " did not complete successfull";
@@ -4811,7 +3762,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTier1Type ReadTier1(string Tier1Id)
+        public async Task<NSXTTier1Type> ReadTier1(string Tier1Id)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             NSXTTier1Type returnValue = default(NSXTTier1Type);
@@ -4824,31 +3775,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ReadTier1ServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadTier1ServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTier1Type> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTier1Type>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadTier1ServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTier1Type>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTier1Type).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSegmentType CreateOrReplaceSegment(string Tier1Id, string SegmentId, NSXTSegmentType Segment)
+        public async Task<NSXTSegmentType> CreateOrReplaceSegment(string Tier1Id, string SegmentId, NSXTSegmentType Segment)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
@@ -4865,31 +3804,19 @@ namespace nsxtapi.PolicyModules
             CreateOrReplaceSegmentServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(Segment, defaultSerializationSettings));
             request.Resource = CreateOrReplaceSegmentServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTSegmentType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTSegmentType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateOrReplaceSegmentServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSegmentType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSegmentType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSegmentType ReadSegment(string Tier1Id, string SegmentId)
+        public async Task<NSXTSegmentType> ReadSegment(string Tier1Id, string SegmentId)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
@@ -4904,31 +3831,19 @@ namespace nsxtapi.PolicyModules
             ReadSegmentServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
             ReadSegmentServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadSegmentServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTSegmentType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTSegmentType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadSegmentServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSegmentType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSegmentType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchSegment(string Tier1Id, string SegmentId, NSXTSegmentType Segment)
+        public async Task PatchSegment(string Tier1Id, string SegmentId, NSXTSegmentType Segment)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
@@ -4945,7 +3860,7 @@ namespace nsxtapi.PolicyModules
             PatchSegmentServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(Segment, defaultSerializationSettings));
             request.Resource = PatchSegmentServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchSegmentServiceURL.ToString() + " did not complete successfull";
@@ -4957,7 +3872,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteSegment(string Tier1Id, string SegmentId)
+        public async Task DeleteSegment(string Tier1Id, string SegmentId)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
@@ -4972,7 +3887,7 @@ namespace nsxtapi.PolicyModules
             DeleteSegmentServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
             DeleteSegmentServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteSegmentServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteSegmentServiceURL.ToString() + " did not complete successfull";
@@ -4984,7 +3899,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIpv6DadProfileType GlobalGlobalInfraCreateOrReplaceIpv6DadProfile(string DadProfileId, NSXTIpv6DadProfileType Ipv6DadProfile, bool? Override = null)
+        public async Task<NSXTIpv6DadProfileType> GlobalGlobalInfraCreateOrReplaceIpv6DadProfile(string DadProfileId, NSXTIpv6DadProfileType Ipv6DadProfile, bool? Override = null)
         {
             if (DadProfileId == null) { throw new System.ArgumentNullException("DadProfileId cannot be null"); }
             if (Ipv6DadProfile == null) { throw new System.ArgumentNullException("Ipv6DadProfile cannot be null"); }
@@ -5000,31 +3915,19 @@ namespace nsxtapi.PolicyModules
             request.AddJsonBody(JsonConvert.SerializeObject(Ipv6DadProfile, defaultSerializationSettings));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = GlobalInfraCreateOrReplaceIpv6DadProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIpv6DadProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIpv6DadProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + GlobalInfraCreateOrReplaceIpv6DadProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIpv6DadProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIpv6DadProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIpv6DadProfileType GlobalGlobalInfraReadIpv6DadProfile(string DadProfileId)
+        public async Task<NSXTIpv6DadProfileType> GlobalGlobalInfraReadIpv6DadProfile(string DadProfileId)
         {
             if (DadProfileId == null) { throw new System.ArgumentNullException("DadProfileId cannot be null"); }
             NSXTIpv6DadProfileType returnValue = default(NSXTIpv6DadProfileType);
@@ -5037,31 +3940,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             GlobalInfraReadIpv6DadProfileServiceURL.Replace("{dad-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DadProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GlobalInfraReadIpv6DadProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIpv6DadProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIpv6DadProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraReadIpv6DadProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIpv6DadProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIpv6DadProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GlobalGlobalInfraPatchIpv6DadProfile(string DadProfileId, NSXTIpv6DadProfileType Ipv6DadProfile, bool? Override = null)
+        public async Task GlobalGlobalInfraPatchIpv6DadProfile(string DadProfileId, NSXTIpv6DadProfileType Ipv6DadProfile, bool? Override = null)
         {
             if (DadProfileId == null) { throw new System.ArgumentNullException("DadProfileId cannot be null"); }
             if (Ipv6DadProfile == null) { throw new System.ArgumentNullException("Ipv6DadProfile cannot be null"); }
@@ -5077,7 +3968,7 @@ namespace nsxtapi.PolicyModules
             request.AddJsonBody(JsonConvert.SerializeObject(Ipv6DadProfile, defaultSerializationSettings));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = GlobalInfraPatchIpv6DadProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + GlobalInfraPatchIpv6DadProfileServiceURL.ToString() + " did not complete successfull";
@@ -5089,7 +3980,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GlobalGlobalInfraDeleteIpv6DadProfile(string DadProfileId, bool? Override = null)
+        public async Task GlobalGlobalInfraDeleteIpv6DadProfile(string DadProfileId, bool? Override = null)
         {
             if (DadProfileId == null) { throw new System.ArgumentNullException("DadProfileId cannot be null"); }
             
@@ -5103,7 +3994,7 @@ namespace nsxtapi.PolicyModules
             GlobalInfraDeleteIpv6DadProfileServiceURL.Replace("{dad-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DadProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = GlobalInfraDeleteIpv6DadProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + GlobalInfraDeleteIpv6DadProfileServiceURL.ToString() + " did not complete successfull";
@@ -5115,7 +4006,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSegmentPortType GlobalGlobalInfraCreateOrReplaceTier1SegmentPort(string Tier1Id, string SegmentId, string PortId, NSXTSegmentPortType SegmentPort)
+        public async Task<NSXTSegmentPortType> GlobalGlobalInfraCreateOrReplaceTier1SegmentPort(string Tier1Id, string SegmentId, string PortId, NSXTSegmentPortType SegmentPort)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
@@ -5134,31 +4025,19 @@ namespace nsxtapi.PolicyModules
             GlobalInfraCreateOrReplaceTier1SegmentPortServiceURL.Replace("{port-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(SegmentPort, defaultSerializationSettings));
             request.Resource = GlobalInfraCreateOrReplaceTier1SegmentPortServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTSegmentPortType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTSegmentPortType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + GlobalInfraCreateOrReplaceTier1SegmentPortServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSegmentPortType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSegmentPortType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GlobalGlobalInfraDeleteTier1SegmentPort(string Tier1Id, string SegmentId, string PortId)
+        public async Task GlobalGlobalInfraDeleteTier1SegmentPort(string Tier1Id, string SegmentId, string PortId)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
@@ -5175,7 +4054,7 @@ namespace nsxtapi.PolicyModules
             GlobalInfraDeleteTier1SegmentPortServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
             GlobalInfraDeleteTier1SegmentPortServiceURL.Replace("{port-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GlobalInfraDeleteTier1SegmentPortServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + GlobalInfraDeleteTier1SegmentPortServiceURL.ToString() + " did not complete successfull";
@@ -5187,7 +4066,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GlobalGlobalInfraPatchTier1SegmentPort(string Tier1Id, string SegmentId, string PortId, NSXTSegmentPortType SegmentPort)
+        public async Task GlobalGlobalInfraPatchTier1SegmentPort(string Tier1Id, string SegmentId, string PortId, NSXTSegmentPortType SegmentPort)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
@@ -5206,7 +4085,7 @@ namespace nsxtapi.PolicyModules
             GlobalInfraPatchTier1SegmentPortServiceURL.Replace("{port-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(SegmentPort, defaultSerializationSettings));
             request.Resource = GlobalInfraPatchTier1SegmentPortServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + GlobalInfraPatchTier1SegmentPortServiceURL.ToString() + " did not complete successfull";
@@ -5218,7 +4097,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSegmentPortType GlobalGlobalInfraGetTier1SegmentPort(string Tier1Id, string SegmentId, string PortId)
+        public async Task<NSXTSegmentPortType> GlobalGlobalInfraGetTier1SegmentPort(string Tier1Id, string SegmentId, string PortId)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
@@ -5235,31 +4114,19 @@ namespace nsxtapi.PolicyModules
             GlobalInfraGetTier1SegmentPortServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
             GlobalInfraGetTier1SegmentPortServiceURL.Replace("{port-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GlobalInfraGetTier1SegmentPortServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTSegmentPortType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTSegmentPortType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraGetTier1SegmentPortServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSegmentPortType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSegmentPortType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLiveTraceListResultType ListLiveTraceStatus(string? EnforcementPointPath = null)
+        public async Task<NSXTLiveTraceListResultType> ListLiveTraceStatus(string? EnforcementPointPath = null)
         {
             NSXTLiveTraceListResultType returnValue = default(NSXTLiveTraceListResultType);
             StringBuilder ListLiveTraceStatusServiceURL = new StringBuilder("/infra/livetraces/statuses");
@@ -5271,31 +4138,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             request.Resource = ListLiveTraceStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLiveTraceListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLiveTraceListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListLiveTraceStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLiveTraceListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLiveTraceListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTStaticRoutesListResultType GlobalGlobalInfraListTier1StaticRoutes(string Tier1Id, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTStaticRoutesListResultType> GlobalGlobalInfraListTier1StaticRoutes(string Tier1Id, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             NSXTStaticRoutesListResultType returnValue = default(NSXTStaticRoutesListResultType);
@@ -5314,31 +4169,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GlobalInfraListTier1StaticRoutesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTStaticRoutesListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTStaticRoutesListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraListTier1StaticRoutesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTStaticRoutesListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTStaticRoutesListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTServiceInterfaceType CreateServiceInterface(string Tier0Id, string LocaleServiceId, string InterfaceId, NSXTServiceInterfaceType ServiceInterface)
+        public async Task<NSXTServiceInterfaceType> CreateServiceInterface(string Tier0Id, string LocaleServiceId, string InterfaceId, NSXTServiceInterfaceType ServiceInterface)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -5357,31 +4200,19 @@ namespace nsxtapi.PolicyModules
             CreateServiceInterfaceServiceURL.Replace("{interface-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(InterfaceId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(ServiceInterface, defaultSerializationSettings));
             request.Resource = CreateServiceInterfaceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTServiceInterfaceType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTServiceInterfaceType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateServiceInterfaceServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTServiceInterfaceType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTServiceInterfaceType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchServiceInterface(string Tier0Id, string LocaleServiceId, string InterfaceId, NSXTServiceInterfaceType ServiceInterface)
+        public async Task PatchServiceInterface(string Tier0Id, string LocaleServiceId, string InterfaceId, NSXTServiceInterfaceType ServiceInterface)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -5400,7 +4231,7 @@ namespace nsxtapi.PolicyModules
             PatchServiceInterfaceServiceURL.Replace("{interface-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(InterfaceId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(ServiceInterface, defaultSerializationSettings));
             request.Resource = PatchServiceInterfaceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchServiceInterfaceServiceURL.ToString() + " did not complete successfull";
@@ -5412,7 +4243,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteServiceInterface(string Tier0Id, string LocaleServiceId, string InterfaceId)
+        public async Task DeleteServiceInterface(string Tier0Id, string LocaleServiceId, string InterfaceId)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -5429,7 +4260,7 @@ namespace nsxtapi.PolicyModules
             DeleteServiceInterfaceServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
             DeleteServiceInterfaceServiceURL.Replace("{interface-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(InterfaceId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteServiceInterfaceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteServiceInterfaceServiceURL.ToString() + " did not complete successfull";
@@ -5441,7 +4272,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTServiceInterfaceType ReadServiceInterface(string Tier0Id, string LocaleServiceId, string InterfaceId)
+        public async Task<NSXTServiceInterfaceType> ReadServiceInterface(string Tier0Id, string LocaleServiceId, string InterfaceId)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -5458,31 +4289,19 @@ namespace nsxtapi.PolicyModules
             ReadServiceInterfaceServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
             ReadServiceInterfaceServiceURL.Replace("{interface-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(InterfaceId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadServiceInterfaceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTServiceInterfaceType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTServiceInterfaceType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadServiceInterfaceServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTServiceInterfaceType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTServiceInterfaceType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIpv6NdraProfileListResultType GlobalGlobalInfraListIpv6NdraProfiles(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTIpv6NdraProfileListResultType> GlobalGlobalInfraListIpv6NdraProfiles(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTIpv6NdraProfileListResultType returnValue = default(NSXTIpv6NdraProfileListResultType);
             StringBuilder GlobalInfraListIpv6NdraProfilesServiceURL = new StringBuilder("/global-infra/ipv6-ndra-profiles");
@@ -5499,31 +4318,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GlobalInfraListIpv6NdraProfilesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIpv6NdraProfileListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIpv6NdraProfileListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraListIpv6NdraProfilesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIpv6NdraProfileListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIpv6NdraProfileListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTier1InterfaceType CreateOrReplaceTier1Interface(string Tier1Id, string LocaleServicesId, string InterfaceId, NSXTTier1InterfaceType Tier1Interface)
+        public async Task<NSXTTier1InterfaceType> CreateOrReplaceTier1Interface(string Tier1Id, string LocaleServicesId, string InterfaceId, NSXTTier1InterfaceType Tier1Interface)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (LocaleServicesId == null) { throw new System.ArgumentNullException("LocaleServicesId cannot be null"); }
@@ -5542,31 +4349,19 @@ namespace nsxtapi.PolicyModules
             CreateOrReplaceTier1InterfaceServiceURL.Replace("{interface-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(InterfaceId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(Tier1Interface, defaultSerializationSettings));
             request.Resource = CreateOrReplaceTier1InterfaceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTier1InterfaceType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTier1InterfaceType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateOrReplaceTier1InterfaceServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTier1InterfaceType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTier1InterfaceType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteTier1Interface(string Tier1Id, string LocaleServicesId, string InterfaceId)
+        public async Task DeleteTier1Interface(string Tier1Id, string LocaleServicesId, string InterfaceId)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (LocaleServicesId == null) { throw new System.ArgumentNullException("LocaleServicesId cannot be null"); }
@@ -5583,7 +4378,7 @@ namespace nsxtapi.PolicyModules
             DeleteTier1InterfaceServiceURL.Replace("{locale-services-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServicesId, System.Globalization.CultureInfo.InvariantCulture)));
             DeleteTier1InterfaceServiceURL.Replace("{interface-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(InterfaceId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteTier1InterfaceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteTier1InterfaceServiceURL.ToString() + " did not complete successfull";
@@ -5595,7 +4390,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTier1InterfaceType ReadTier1Interface(string Tier1Id, string LocaleServicesId, string InterfaceId)
+        public async Task<NSXTTier1InterfaceType> ReadTier1Interface(string Tier1Id, string LocaleServicesId, string InterfaceId)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (LocaleServicesId == null) { throw new System.ArgumentNullException("LocaleServicesId cannot be null"); }
@@ -5612,31 +4407,19 @@ namespace nsxtapi.PolicyModules
             ReadTier1InterfaceServiceURL.Replace("{locale-services-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServicesId, System.Globalization.CultureInfo.InvariantCulture)));
             ReadTier1InterfaceServiceURL.Replace("{interface-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(InterfaceId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadTier1InterfaceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTier1InterfaceType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTier1InterfaceType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadTier1InterfaceServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTier1InterfaceType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTier1InterfaceType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchTier1Interface(string Tier1Id, string LocaleServicesId, string InterfaceId, NSXTTier1InterfaceType Tier1Interface)
+        public async Task PatchTier1Interface(string Tier1Id, string LocaleServicesId, string InterfaceId, NSXTTier1InterfaceType Tier1Interface)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (LocaleServicesId == null) { throw new System.ArgumentNullException("LocaleServicesId cannot be null"); }
@@ -5655,7 +4438,7 @@ namespace nsxtapi.PolicyModules
             PatchTier1InterfaceServiceURL.Replace("{interface-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(InterfaceId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(Tier1Interface, defaultSerializationSettings));
             request.Resource = PatchTier1InterfaceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchTier1InterfaceServiceURL.ToString() + " did not complete successfull";
@@ -5667,7 +4450,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTServiceInterfaceListResultType GlobalGlobalInfraListServiceInterfaces(string Tier0Id, string LocaleServiceId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTServiceInterfaceListResultType> GlobalGlobalInfraListServiceInterfaces(string Tier0Id, string LocaleServiceId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -5688,31 +4471,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GlobalInfraListServiceInterfacesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTServiceInterfaceListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTServiceInterfaceListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraListServiceInterfacesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTServiceInterfaceListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTServiceInterfaceListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSegmentListResultType ListSegments(string Tier1Id, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, string? SegmentType = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTSegmentListResultType> ListSegments(string Tier1Id, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, string? SegmentType = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             NSXTSegmentListResultType returnValue = default(NSXTSegmentListResultType);
@@ -5732,31 +4503,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListSegmentsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTSegmentListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTSegmentListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListSegmentsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSegmentListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSegmentListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTStaticARPConfigType GlobalGlobalInfraReadStaticArpconfig(string Tier1Id, string SegmentId)
+        public async Task<NSXTStaticARPConfigType> GlobalGlobalInfraReadStaticArpconfig(string Tier1Id, string SegmentId)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
@@ -5771,31 +4530,19 @@ namespace nsxtapi.PolicyModules
             GlobalInfraReadStaticArpconfigServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
             GlobalInfraReadStaticArpconfigServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GlobalInfraReadStaticArpconfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTStaticARPConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTStaticARPConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraReadStaticArpconfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTStaticARPConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTStaticARPConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPrefixListType CreateOrReplacePrefixList(string Tier0Id, string PrefixListId, NSXTPrefixListType PrefixList)
+        public async Task<NSXTPrefixListType> CreateOrReplacePrefixList(string Tier0Id, string PrefixListId, NSXTPrefixListType PrefixList)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (PrefixListId == null) { throw new System.ArgumentNullException("PrefixListId cannot be null"); }
@@ -5812,31 +4559,19 @@ namespace nsxtapi.PolicyModules
             CreateOrReplacePrefixListServiceURL.Replace("{prefix-list-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PrefixListId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(PrefixList, defaultSerializationSettings));
             request.Resource = CreateOrReplacePrefixListServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPrefixListType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPrefixListType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateOrReplacePrefixListServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPrefixListType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPrefixListType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPrefixListType ReadPrefixList(string Tier0Id, string PrefixListId)
+        public async Task<NSXTPrefixListType> ReadPrefixList(string Tier0Id, string PrefixListId)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (PrefixListId == null) { throw new System.ArgumentNullException("PrefixListId cannot be null"); }
@@ -5851,31 +4586,19 @@ namespace nsxtapi.PolicyModules
             ReadPrefixListServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
             ReadPrefixListServiceURL.Replace("{prefix-list-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PrefixListId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadPrefixListServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPrefixListType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPrefixListType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadPrefixListServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPrefixListType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPrefixListType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchPrefixList(string Tier0Id, string PrefixListId, NSXTPrefixListType PrefixList)
+        public async Task PatchPrefixList(string Tier0Id, string PrefixListId, NSXTPrefixListType PrefixList)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (PrefixListId == null) { throw new System.ArgumentNullException("PrefixListId cannot be null"); }
@@ -5892,7 +4615,7 @@ namespace nsxtapi.PolicyModules
             PatchPrefixListServiceURL.Replace("{prefix-list-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PrefixListId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(PrefixList, defaultSerializationSettings));
             request.Resource = PatchPrefixListServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchPrefixListServiceURL.ToString() + " did not complete successfull";
@@ -5904,7 +4627,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeletePrefixList(string Tier0Id, string PrefixListId)
+        public async Task DeletePrefixList(string Tier0Id, string PrefixListId)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (PrefixListId == null) { throw new System.ArgumentNullException("PrefixListId cannot be null"); }
@@ -5919,7 +4642,7 @@ namespace nsxtapi.PolicyModules
             DeletePrefixListServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
             DeletePrefixListServiceURL.Replace("{prefix-list-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PrefixListId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeletePrefixListServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeletePrefixListServiceURL.ToString() + " did not complete successfull";
@@ -5931,7 +4654,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTier1ListResultType ListTier1(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTTier1ListResultType> ListTier1(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTTier1ListResultType returnValue = default(NSXTTier1ListResultType);
             StringBuilder ListTier1ServiceURL = new StringBuilder("/infra/tier-1s");
@@ -5948,31 +4671,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListTier1ServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTier1ListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTier1ListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListTier1ServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTier1ListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTier1ListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIpv6NdraProfileListResultType ListIpv6NdraProfiles(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTIpv6NdraProfileListResultType> ListIpv6NdraProfiles(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTIpv6NdraProfileListResultType returnValue = default(NSXTIpv6NdraProfileListResultType);
             StringBuilder ListIpv6NdraProfilesServiceURL = new StringBuilder("/infra/ipv6-ndra-profiles");
@@ -5989,31 +4700,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListIpv6NdraProfilesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIpv6NdraProfileListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIpv6NdraProfileListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListIpv6NdraProfilesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIpv6NdraProfileListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIpv6NdraProfileListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTServiceInterfaceListResultType ListTier1ServiceInterfaces(string Tier1Id, string LocaleServiceId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTServiceInterfaceListResultType> ListTier1ServiceInterfaces(string Tier1Id, string LocaleServiceId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -6034,31 +4733,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListTier1ServiceInterfacesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTServiceInterfaceListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTServiceInterfaceListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListTier1ServiceInterfacesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTServiceInterfaceListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTServiceInterfaceListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTEvpnConfigType CreateOrUpdateEvpnConfig(string Tier0Id, NSXTEvpnConfigType EvpnConfig)
+        public async Task<NSXTEvpnConfigType> CreateOrUpdateEvpnConfig(string Tier0Id, NSXTEvpnConfigType EvpnConfig)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (EvpnConfig == null) { throw new System.ArgumentNullException("EvpnConfig cannot be null"); }
@@ -6073,31 +4760,19 @@ namespace nsxtapi.PolicyModules
             CreateOrUpdateEvpnConfigServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(EvpnConfig, defaultSerializationSettings));
             request.Resource = CreateOrUpdateEvpnConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTEvpnConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTEvpnConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateOrUpdateEvpnConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTEvpnConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTEvpnConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchEvpnConfig(string Tier0Id, NSXTEvpnConfigType EvpnConfig)
+        public async Task PatchEvpnConfig(string Tier0Id, NSXTEvpnConfigType EvpnConfig)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (EvpnConfig == null) { throw new System.ArgumentNullException("EvpnConfig cannot be null"); }
@@ -6112,7 +4787,7 @@ namespace nsxtapi.PolicyModules
             PatchEvpnConfigServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(EvpnConfig, defaultSerializationSettings));
             request.Resource = PatchEvpnConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchEvpnConfigServiceURL.ToString() + " did not complete successfull";
@@ -6124,7 +4799,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTEvpnConfigType ReadEvpnConfig(string Tier0Id)
+        public async Task<NSXTEvpnConfigType> ReadEvpnConfig(string Tier0Id)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             NSXTEvpnConfigType returnValue = default(NSXTEvpnConfigType);
@@ -6137,31 +4812,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ReadEvpnConfigServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadEvpnConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTEvpnConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTEvpnConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadEvpnConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTEvpnConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTEvpnConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTBfdProfileListResultType GlobalGlobalInfraListBfdProfile(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTBfdProfileListResultType> GlobalGlobalInfraListBfdProfile(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTBfdProfileListResultType returnValue = default(NSXTBfdProfileListResultType);
             StringBuilder GlobalInfraListBfdProfileServiceURL = new StringBuilder("/global-infra/bfd-profiles");
@@ -6178,31 +4841,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GlobalInfraListBfdProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTBfdProfileListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTBfdProfileListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraListBfdProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTBfdProfileListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTBfdProfileListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDhcpRelayConfigType CreateOrReplaceDhcpRelayConfig(string DhcpRelayConfigId, NSXTDhcpRelayConfigType DhcpRelayConfig)
+        public async Task<NSXTDhcpRelayConfigType> CreateOrReplaceDhcpRelayConfig(string DhcpRelayConfigId, NSXTDhcpRelayConfigType DhcpRelayConfig)
         {
             if (DhcpRelayConfigId == null) { throw new System.ArgumentNullException("DhcpRelayConfigId cannot be null"); }
             if (DhcpRelayConfig == null) { throw new System.ArgumentNullException("DhcpRelayConfig cannot be null"); }
@@ -6217,31 +4868,19 @@ namespace nsxtapi.PolicyModules
             CreateOrReplaceDhcpRelayConfigServiceURL.Replace("{dhcp-relay-config-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DhcpRelayConfigId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(DhcpRelayConfig, defaultSerializationSettings));
             request.Resource = CreateOrReplaceDhcpRelayConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDhcpRelayConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDhcpRelayConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateOrReplaceDhcpRelayConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDhcpRelayConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDhcpRelayConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteDhcpRelayConfig(string DhcpRelayConfigId)
+        public async Task DeleteDhcpRelayConfig(string DhcpRelayConfigId)
         {
             if (DhcpRelayConfigId == null) { throw new System.ArgumentNullException("DhcpRelayConfigId cannot be null"); }
             
@@ -6254,7 +4893,7 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             DeleteDhcpRelayConfigServiceURL.Replace("{dhcp-relay-config-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DhcpRelayConfigId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteDhcpRelayConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteDhcpRelayConfigServiceURL.ToString() + " did not complete successfull";
@@ -6266,7 +4905,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDhcpRelayConfigType ReadDhcpRelayConfig(string DhcpRelayConfigId)
+        public async Task<NSXTDhcpRelayConfigType> ReadDhcpRelayConfig(string DhcpRelayConfigId)
         {
             if (DhcpRelayConfigId == null) { throw new System.ArgumentNullException("DhcpRelayConfigId cannot be null"); }
             NSXTDhcpRelayConfigType returnValue = default(NSXTDhcpRelayConfigType);
@@ -6279,31 +4918,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ReadDhcpRelayConfigServiceURL.Replace("{dhcp-relay-config-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DhcpRelayConfigId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadDhcpRelayConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDhcpRelayConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDhcpRelayConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadDhcpRelayConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDhcpRelayConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDhcpRelayConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchDhcpRelayConfig(string DhcpRelayConfigId, NSXTDhcpRelayConfigType DhcpRelayConfig)
+        public async Task PatchDhcpRelayConfig(string DhcpRelayConfigId, NSXTDhcpRelayConfigType DhcpRelayConfig)
         {
             if (DhcpRelayConfigId == null) { throw new System.ArgumentNullException("DhcpRelayConfigId cannot be null"); }
             if (DhcpRelayConfig == null) { throw new System.ArgumentNullException("DhcpRelayConfig cannot be null"); }
@@ -6318,7 +4945,7 @@ namespace nsxtapi.PolicyModules
             PatchDhcpRelayConfigServiceURL.Replace("{dhcp-relay-config-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DhcpRelayConfigId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(DhcpRelayConfig, defaultSerializationSettings));
             request.Resource = PatchDhcpRelayConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchDhcpRelayConfigServiceURL.ToString() + " did not complete successfull";
@@ -6330,7 +4957,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTBfdProfileType UpdateBfdProfile(string BfdProfileId, NSXTBfdProfileType BfdProfile, bool? Override = null)
+        public async Task<NSXTBfdProfileType> UpdateBfdProfile(string BfdProfileId, NSXTBfdProfileType BfdProfile, bool? Override = null)
         {
             if (BfdProfileId == null) { throw new System.ArgumentNullException("BfdProfileId cannot be null"); }
             if (BfdProfile == null) { throw new System.ArgumentNullException("BfdProfile cannot be null"); }
@@ -6346,31 +4973,19 @@ namespace nsxtapi.PolicyModules
             request.AddJsonBody(JsonConvert.SerializeObject(BfdProfile, defaultSerializationSettings));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = UpdateBfdProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTBfdProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTBfdProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateBfdProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTBfdProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTBfdProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchBfdProfile(string BfdProfileId, NSXTBfdProfileType BfdProfile, bool? Override = null)
+        public async Task PatchBfdProfile(string BfdProfileId, NSXTBfdProfileType BfdProfile, bool? Override = null)
         {
             if (BfdProfileId == null) { throw new System.ArgumentNullException("BfdProfileId cannot be null"); }
             if (BfdProfile == null) { throw new System.ArgumentNullException("BfdProfile cannot be null"); }
@@ -6386,7 +5001,7 @@ namespace nsxtapi.PolicyModules
             request.AddJsonBody(JsonConvert.SerializeObject(BfdProfile, defaultSerializationSettings));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = PatchBfdProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchBfdProfileServiceURL.ToString() + " did not complete successfull";
@@ -6398,7 +5013,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTBfdProfileType ReadBfdProfile(string BfdProfileId)
+        public async Task<NSXTBfdProfileType> ReadBfdProfile(string BfdProfileId)
         {
             if (BfdProfileId == null) { throw new System.ArgumentNullException("BfdProfileId cannot be null"); }
             NSXTBfdProfileType returnValue = default(NSXTBfdProfileType);
@@ -6411,31 +5026,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ReadBfdProfileServiceURL.Replace("{bfd-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(BfdProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadBfdProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTBfdProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTBfdProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadBfdProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTBfdProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTBfdProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteBfdProfile(string BfdProfileId, bool? Override = null)
+        public async Task DeleteBfdProfile(string BfdProfileId, bool? Override = null)
         {
             if (BfdProfileId == null) { throw new System.ArgumentNullException("BfdProfileId cannot be null"); }
             
@@ -6449,7 +5052,7 @@ namespace nsxtapi.PolicyModules
             DeleteBfdProfileServiceURL.Replace("{bfd-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(BfdProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = DeleteBfdProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteBfdProfileServiceURL.ToString() + " did not complete successfull";
@@ -6461,7 +5064,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTier1InterfaceListResultType GlobalGlobalInfraListTier1Interfaces(string Tier1Id, string LocaleServicesId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTTier1InterfaceListResultType> GlobalGlobalInfraListTier1Interfaces(string Tier1Id, string LocaleServicesId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (LocaleServicesId == null) { throw new System.ArgumentNullException("LocaleServicesId cannot be null"); }
@@ -6482,31 +5085,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GlobalInfraListTier1InterfacesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTier1InterfaceListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTier1InterfaceListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraListTier1InterfacesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTier1InterfaceListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTier1InterfaceListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLocaleServicesType GlobalGlobalInfraReadTier0LocaleServices(string Tier0Id, string LocaleServicesId)
+        public async Task<NSXTLocaleServicesType> GlobalGlobalInfraReadTier0LocaleServices(string Tier0Id, string LocaleServicesId)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServicesId == null) { throw new System.ArgumentNullException("LocaleServicesId cannot be null"); }
@@ -6521,31 +5112,19 @@ namespace nsxtapi.PolicyModules
             GlobalInfraReadTier0LocaleServicesServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
             GlobalInfraReadTier0LocaleServicesServiceURL.Replace("{locale-services-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServicesId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GlobalInfraReadTier0LocaleServicesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLocaleServicesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLocaleServicesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraReadTier0LocaleServicesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLocaleServicesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLocaleServicesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSegmentPortType CreateOrReplaceTier1SegmentPort(string Tier1Id, string SegmentId, string PortId, NSXTSegmentPortType SegmentPort)
+        public async Task<NSXTSegmentPortType> CreateOrReplaceTier1SegmentPort(string Tier1Id, string SegmentId, string PortId, NSXTSegmentPortType SegmentPort)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
@@ -6564,31 +5143,19 @@ namespace nsxtapi.PolicyModules
             CreateOrReplaceTier1SegmentPortServiceURL.Replace("{port-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(SegmentPort, defaultSerializationSettings));
             request.Resource = CreateOrReplaceTier1SegmentPortServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTSegmentPortType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTSegmentPortType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateOrReplaceTier1SegmentPortServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSegmentPortType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSegmentPortType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteTier1SegmentPort(string Tier1Id, string SegmentId, string PortId)
+        public async Task DeleteTier1SegmentPort(string Tier1Id, string SegmentId, string PortId)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
@@ -6605,7 +5172,7 @@ namespace nsxtapi.PolicyModules
             DeleteTier1SegmentPortServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
             DeleteTier1SegmentPortServiceURL.Replace("{port-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteTier1SegmentPortServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteTier1SegmentPortServiceURL.ToString() + " did not complete successfull";
@@ -6617,7 +5184,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchTier1SegmentPort(string Tier1Id, string SegmentId, string PortId, NSXTSegmentPortType SegmentPort)
+        public async Task PatchTier1SegmentPort(string Tier1Id, string SegmentId, string PortId, NSXTSegmentPortType SegmentPort)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
@@ -6636,7 +5203,7 @@ namespace nsxtapi.PolicyModules
             PatchTier1SegmentPortServiceURL.Replace("{port-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(SegmentPort, defaultSerializationSettings));
             request.Resource = PatchTier1SegmentPortServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchTier1SegmentPortServiceURL.ToString() + " did not complete successfull";
@@ -6648,7 +5215,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSegmentPortType GetTier1SegmentPort(string Tier1Id, string SegmentId, string PortId)
+        public async Task<NSXTSegmentPortType> GetTier1SegmentPort(string Tier1Id, string SegmentId, string PortId)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
@@ -6665,31 +5232,19 @@ namespace nsxtapi.PolicyModules
             GetTier1SegmentPortServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
             GetTier1SegmentPortServiceURL.Replace("{port-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetTier1SegmentPortServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTSegmentPortType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTSegmentPortType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetTier1SegmentPortServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSegmentPortType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSegmentPortType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTGatewayQosProfileListResultType ListGatewayQosProfiles(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTGatewayQosProfileListResultType> ListGatewayQosProfiles(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTGatewayQosProfileListResultType returnValue = default(NSXTGatewayQosProfileListResultType);
             StringBuilder ListGatewayQosProfilesServiceURL = new StringBuilder("/infra/gateway-qos-profiles");
@@ -6706,31 +5261,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListGatewayQosProfilesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTGatewayQosProfileListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTGatewayQosProfileListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListGatewayQosProfilesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTGatewayQosProfileListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTGatewayQosProfileListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTier0ListResultType ListTier0s(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTTier0ListResultType> ListTier0s(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTTier0ListResultType returnValue = default(NSXTTier0ListResultType);
             StringBuilder ListTier0sServiceURL = new StringBuilder("/infra/tier-0s");
@@ -6747,31 +5290,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListTier0sServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTier0ListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTier0ListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListTier0sServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTier0ListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTier0ListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTBgpRoutingConfigType CreateOrReplaceBgpRoutingConfig(string Tier0Id, string LocaleServiceId, NSXTBgpRoutingConfigType BgpRoutingConfig, bool? Override = null)
+        public async Task<NSXTBgpRoutingConfigType> CreateOrReplaceBgpRoutingConfig(string Tier0Id, string LocaleServiceId, NSXTBgpRoutingConfigType BgpRoutingConfig, bool? Override = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -6789,31 +5320,19 @@ namespace nsxtapi.PolicyModules
             request.AddJsonBody(JsonConvert.SerializeObject(BgpRoutingConfig, defaultSerializationSettings));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = CreateOrReplaceBgpRoutingConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTBgpRoutingConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTBgpRoutingConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateOrReplaceBgpRoutingConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTBgpRoutingConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTBgpRoutingConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTBgpRoutingConfigType ReadBgpRoutingConfig(string Tier0Id, string LocaleServiceId)
+        public async Task<NSXTBgpRoutingConfigType> ReadBgpRoutingConfig(string Tier0Id, string LocaleServiceId)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -6828,31 +5347,19 @@ namespace nsxtapi.PolicyModules
             ReadBgpRoutingConfigServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
             ReadBgpRoutingConfigServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadBgpRoutingConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTBgpRoutingConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTBgpRoutingConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadBgpRoutingConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTBgpRoutingConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTBgpRoutingConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchBgpRoutingConfig(string Tier0Id, string LocaleServiceId, NSXTBgpRoutingConfigType BgpRoutingConfig, bool? Override = null)
+        public async Task PatchBgpRoutingConfig(string Tier0Id, string LocaleServiceId, NSXTBgpRoutingConfigType BgpRoutingConfig, bool? Override = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -6870,7 +5377,7 @@ namespace nsxtapi.PolicyModules
             request.AddJsonBody(JsonConvert.SerializeObject(BgpRoutingConfig, defaultSerializationSettings));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = PatchBgpRoutingConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchBgpRoutingConfigServiceURL.ToString() + " did not complete successfull";
@@ -6882,7 +5389,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTAntreaTraceflowStatusType ReadAntreaTraceflowStatus(string TraceflowId, string? EnforcementPointPath = null)
+        public async Task<NSXTAntreaTraceflowStatusType> ReadAntreaTraceflowStatus(string TraceflowId, string? EnforcementPointPath = null)
         {
             if (TraceflowId == null) { throw new System.ArgumentNullException("TraceflowId cannot be null"); }
             NSXTAntreaTraceflowStatusType returnValue = default(NSXTAntreaTraceflowStatusType);
@@ -6896,31 +5403,19 @@ namespace nsxtapi.PolicyModules
             ReadAntreaTraceflowStatusServiceURL.Replace("{traceflow-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(TraceflowId, System.Globalization.CultureInfo.InvariantCulture)));
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             request.Resource = ReadAntreaTraceflowStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTAntreaTraceflowStatusType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTAntreaTraceflowStatusType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadAntreaTraceflowStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTAntreaTraceflowStatusType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTAntreaTraceflowStatusType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTStaticRoutesListResultType GlobalGlobalInfraListTier0StaticRoutes(string Tier0Id, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTStaticRoutesListResultType> GlobalGlobalInfraListTier0StaticRoutes(string Tier0Id, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             NSXTStaticRoutesListResultType returnValue = default(NSXTStaticRoutesListResultType);
@@ -6939,31 +5434,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GlobalInfraListTier0StaticRoutesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTStaticRoutesListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTStaticRoutesListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraListTier0StaticRoutesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTStaticRoutesListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTStaticRoutesListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTStaticRouteBfdPeerListResultType ListStaticRouteBfdPeer(string Tier0Id, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTStaticRouteBfdPeerListResultType> ListStaticRouteBfdPeer(string Tier0Id, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             NSXTStaticRouteBfdPeerListResultType returnValue = default(NSXTStaticRouteBfdPeerListResultType);
@@ -6982,31 +5465,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListStaticRouteBfdPeerServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTStaticRouteBfdPeerListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTStaticRouteBfdPeerListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListStaticRouteBfdPeerServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTStaticRouteBfdPeerListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTStaticRouteBfdPeerListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSegmentPortListResultType GlobalGlobalInfraListTier1SegmentPorts(string Tier1Id, string SegmentId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTSegmentPortListResultType> GlobalGlobalInfraListTier1SegmentPorts(string Tier1Id, string SegmentId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
@@ -7027,31 +5498,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GlobalInfraListTier1SegmentPortsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTSegmentPortListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTSegmentPortListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraListTier1SegmentPortsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSegmentPortListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSegmentPortListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTServiceInterfaceType GlobalGlobalInfraReadTier1ServiceInterface(string Tier1Id, string LocaleServiceId, string InterfaceId)
+        public async Task<NSXTServiceInterfaceType> GlobalGlobalInfraReadTier1ServiceInterface(string Tier1Id, string LocaleServiceId, string InterfaceId)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -7068,31 +5527,19 @@ namespace nsxtapi.PolicyModules
             GlobalInfraReadTier1ServiceInterfaceServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
             GlobalInfraReadTier1ServiceInterfaceServiceURL.Replace("{interface-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(InterfaceId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GlobalInfraReadTier1ServiceInterfaceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTServiceInterfaceType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTServiceInterfaceType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraReadTier1ServiceInterfaceServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTServiceInterfaceType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTServiceInterfaceType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTEvpnTenantConfigListResultType ListEvpnTenantConfig(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTEvpnTenantConfigListResultType> ListEvpnTenantConfig(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTEvpnTenantConfigListResultType returnValue = default(NSXTEvpnTenantConfigListResultType);
             StringBuilder ListEvpnTenantConfigServiceURL = new StringBuilder("/infra/evpn-tenant-configs");
@@ -7109,31 +5556,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListEvpnTenantConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTEvpnTenantConfigListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTEvpnTenantConfigListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListEvpnTenantConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTEvpnTenantConfigListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTEvpnTenantConfigListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTBgpNeighborConfigListResultType GlobalGlobalInfraListBgpNeighborConfigs(string Tier0Id, string LocaleServiceId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTBgpNeighborConfigListResultType> GlobalGlobalInfraListBgpNeighborConfigs(string Tier0Id, string LocaleServiceId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -7154,31 +5589,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GlobalInfraListBgpNeighborConfigsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTBgpNeighborConfigListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTBgpNeighborConfigListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraListBgpNeighborConfigsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTBgpNeighborConfigListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTBgpNeighborConfigListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLocaleServicesType CreateOrReplaceTier1LocaleServices(string Tier1Id, string LocaleServicesId, NSXTLocaleServicesType LocaleServices)
+        public async Task<NSXTLocaleServicesType> CreateOrReplaceTier1LocaleServices(string Tier1Id, string LocaleServicesId, NSXTLocaleServicesType LocaleServices)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (LocaleServicesId == null) { throw new System.ArgumentNullException("LocaleServicesId cannot be null"); }
@@ -7195,31 +5618,19 @@ namespace nsxtapi.PolicyModules
             CreateOrReplaceTier1LocaleServicesServiceURL.Replace("{locale-services-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServicesId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(LocaleServices, defaultSerializationSettings));
             request.Resource = CreateOrReplaceTier1LocaleServicesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLocaleServicesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLocaleServicesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateOrReplaceTier1LocaleServicesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLocaleServicesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLocaleServicesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLocaleServicesType ReadTier1LocaleServices(string Tier1Id, string LocaleServicesId)
+        public async Task<NSXTLocaleServicesType> ReadTier1LocaleServices(string Tier1Id, string LocaleServicesId)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (LocaleServicesId == null) { throw new System.ArgumentNullException("LocaleServicesId cannot be null"); }
@@ -7234,31 +5645,19 @@ namespace nsxtapi.PolicyModules
             ReadTier1LocaleServicesServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
             ReadTier1LocaleServicesServiceURL.Replace("{locale-services-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServicesId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadTier1LocaleServicesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLocaleServicesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLocaleServicesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadTier1LocaleServicesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLocaleServicesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLocaleServicesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteTier1LocaleServices(string Tier1Id, string LocaleServicesId)
+        public async Task DeleteTier1LocaleServices(string Tier1Id, string LocaleServicesId)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (LocaleServicesId == null) { throw new System.ArgumentNullException("LocaleServicesId cannot be null"); }
@@ -7273,7 +5672,7 @@ namespace nsxtapi.PolicyModules
             DeleteTier1LocaleServicesServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
             DeleteTier1LocaleServicesServiceURL.Replace("{locale-services-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServicesId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteTier1LocaleServicesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteTier1LocaleServicesServiceURL.ToString() + " did not complete successfull";
@@ -7285,7 +5684,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchTier1LocaleServices(string Tier1Id, string LocaleServicesId, NSXTLocaleServicesType LocaleServices)
+        public async Task PatchTier1LocaleServices(string Tier1Id, string LocaleServicesId, NSXTLocaleServicesType LocaleServices)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (LocaleServicesId == null) { throw new System.ArgumentNullException("LocaleServicesId cannot be null"); }
@@ -7302,7 +5701,7 @@ namespace nsxtapi.PolicyModules
             PatchTier1LocaleServicesServiceURL.Replace("{locale-services-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServicesId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(LocaleServices, defaultSerializationSettings));
             request.Resource = PatchTier1LocaleServicesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchTier1LocaleServicesServiceURL.ToString() + " did not complete successfull";
@@ -7314,7 +5713,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTraceflowType ReadTraceflowStatus(string TraceflowId, string? EnforcementPointPath = null)
+        public async Task<NSXTTraceflowType> ReadTraceflowStatus(string TraceflowId, string? EnforcementPointPath = null)
         {
             if (TraceflowId == null) { throw new System.ArgumentNullException("TraceflowId cannot be null"); }
             NSXTTraceflowType returnValue = default(NSXTTraceflowType);
@@ -7328,31 +5727,19 @@ namespace nsxtapi.PolicyModules
             ReadTraceflowStatusServiceURL.Replace("{traceflow-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(TraceflowId, System.Globalization.CultureInfo.InvariantCulture)));
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             request.Resource = ReadTraceflowStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTraceflowType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTraceflowType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadTraceflowStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTraceflowType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTraceflowType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTier1InterfaceType GlobalGlobalInfraReadTier1Interface(string Tier1Id, string LocaleServicesId, string InterfaceId)
+        public async Task<NSXTTier1InterfaceType> GlobalGlobalInfraReadTier1Interface(string Tier1Id, string LocaleServicesId, string InterfaceId)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (LocaleServicesId == null) { throw new System.ArgumentNullException("LocaleServicesId cannot be null"); }
@@ -7369,31 +5756,19 @@ namespace nsxtapi.PolicyModules
             GlobalInfraReadTier1InterfaceServiceURL.Replace("{locale-services-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServicesId, System.Globalization.CultureInfo.InvariantCulture)));
             GlobalInfraReadTier1InterfaceServiceURL.Replace("{interface-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(InterfaceId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GlobalInfraReadTier1InterfaceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTier1InterfaceType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTier1InterfaceType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraReadTier1InterfaceServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTier1InterfaceType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTier1InterfaceType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void Tier0GatewayReprocess(string Tier0Id, string? EnforcementPointPath = null)
+        public async Task Tier0GatewayReprocess(string Tier0Id, string? EnforcementPointPath = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             
@@ -7407,7 +5782,7 @@ namespace nsxtapi.PolicyModules
             Tier0GatewayReprocessServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             request.Resource = Tier0GatewayReprocessServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + Tier0GatewayReprocessServiceURL.ToString() + " did not complete successfull";
@@ -7419,7 +5794,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSegmentListResultType GlobalGlobalInfraListAllInfraSegments(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, string? SegmentType = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTSegmentListResultType> GlobalGlobalInfraListAllInfraSegments(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, string? SegmentType = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTSegmentListResultType returnValue = default(NSXTSegmentListResultType);
             StringBuilder GlobalInfraListAllInfraSegmentsServiceURL = new StringBuilder("/global-infra/segments");
@@ -7437,31 +5812,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GlobalInfraListAllInfraSegmentsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTSegmentListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTSegmentListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraListAllInfraSegmentsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSegmentListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSegmentListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTBgpNeighborConfigListResultType ListBgpNeighborConfigs(string Tier0Id, string LocaleServiceId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTBgpNeighborConfigListResultType> ListBgpNeighborConfigs(string Tier0Id, string LocaleServiceId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -7482,31 +5845,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListBgpNeighborConfigsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTBgpNeighborConfigListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTBgpNeighborConfigListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListBgpNeighborConfigsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTBgpNeighborConfigListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTBgpNeighborConfigListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTier0InterfaceType CreateOrReplaceTier0Interface(string Tier0Id, string LocaleServiceId, string InterfaceId, NSXTTier0InterfaceType Tier0Interface, bool? Override = null)
+        public async Task<NSXTTier0InterfaceType> CreateOrReplaceTier0Interface(string Tier0Id, string LocaleServiceId, string InterfaceId, NSXTTier0InterfaceType Tier0Interface, bool? Override = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -7526,31 +5877,19 @@ namespace nsxtapi.PolicyModules
             request.AddJsonBody(JsonConvert.SerializeObject(Tier0Interface, defaultSerializationSettings));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = CreateOrReplaceTier0InterfaceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTier0InterfaceType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTier0InterfaceType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateOrReplaceTier0InterfaceServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTier0InterfaceType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTier0InterfaceType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteTier0Interface(string Tier0Id, string LocaleServiceId, string InterfaceId, bool? Override = null)
+        public async Task DeleteTier0Interface(string Tier0Id, string LocaleServiceId, string InterfaceId, bool? Override = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -7568,7 +5907,7 @@ namespace nsxtapi.PolicyModules
             DeleteTier0InterfaceServiceURL.Replace("{interface-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(InterfaceId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = DeleteTier0InterfaceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteTier0InterfaceServiceURL.ToString() + " did not complete successfull";
@@ -7580,7 +5919,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTier0InterfaceType ReadTier0Interface(string Tier0Id, string LocaleServiceId, string InterfaceId)
+        public async Task<NSXTTier0InterfaceType> ReadTier0Interface(string Tier0Id, string LocaleServiceId, string InterfaceId)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -7597,31 +5936,19 @@ namespace nsxtapi.PolicyModules
             ReadTier0InterfaceServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
             ReadTier0InterfaceServiceURL.Replace("{interface-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(InterfaceId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadTier0InterfaceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTier0InterfaceType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTier0InterfaceType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadTier0InterfaceServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTier0InterfaceType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTier0InterfaceType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchTier0Interface(string Tier0Id, string LocaleServiceId, string InterfaceId, NSXTTier0InterfaceType Tier0Interface, bool? Override = null)
+        public async Task PatchTier0Interface(string Tier0Id, string LocaleServiceId, string InterfaceId, NSXTTier0InterfaceType Tier0Interface, bool? Override = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -7641,7 +5968,7 @@ namespace nsxtapi.PolicyModules
             request.AddJsonBody(JsonConvert.SerializeObject(Tier0Interface, defaultSerializationSettings));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = PatchTier0InterfaceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchTier0InterfaceServiceURL.ToString() + " did not complete successfull";
@@ -7653,7 +5980,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLocaleServicesListResultType ListTier0LocaleServices(string Tier0Id, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTLocaleServicesListResultType> ListTier0LocaleServices(string Tier0Id, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             NSXTLocaleServicesListResultType returnValue = default(NSXTLocaleServicesListResultType);
@@ -7672,31 +5999,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListTier0LocaleServicesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLocaleServicesListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLocaleServicesListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListTier0LocaleServicesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLocaleServicesListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLocaleServicesListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTStaticRoutesType GlobalGlobalInfraReadTier1StaticRoutes(string Tier1Id, string RouteId)
+        public async Task<NSXTStaticRoutesType> GlobalGlobalInfraReadTier1StaticRoutes(string Tier1Id, string RouteId)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (RouteId == null) { throw new System.ArgumentNullException("RouteId cannot be null"); }
@@ -7711,31 +6026,19 @@ namespace nsxtapi.PolicyModules
             GlobalInfraReadTier1StaticRoutesServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
             GlobalInfraReadTier1StaticRoutesServiceURL.Replace("{route-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(RouteId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GlobalInfraReadTier1StaticRoutesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTStaticRoutesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTStaticRoutesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraReadTier1StaticRoutesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTStaticRoutesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTStaticRoutesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTier0Type GlobalGlobalInfraReadTier0(string Tier0Id)
+        public async Task<NSXTTier0Type> GlobalGlobalInfraReadTier0(string Tier0Id)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             NSXTTier0Type returnValue = default(NSXTTier0Type);
@@ -7748,31 +6051,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             GlobalInfraReadTier0ServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GlobalInfraReadTier0ServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTier0Type> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTier0Type>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraReadTier0ServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTier0Type>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTier0Type).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTGatewayQosProfileType CreateOrReplaceGatewayQosProfile(string QosProfileId, NSXTGatewayQosProfileType GatewayQosProfile, bool? Override = null)
+        public async Task<NSXTGatewayQosProfileType> CreateOrReplaceGatewayQosProfile(string QosProfileId, NSXTGatewayQosProfileType GatewayQosProfile, bool? Override = null)
         {
             if (QosProfileId == null) { throw new System.ArgumentNullException("QosProfileId cannot be null"); }
             if (GatewayQosProfile == null) { throw new System.ArgumentNullException("GatewayQosProfile cannot be null"); }
@@ -7788,31 +6079,19 @@ namespace nsxtapi.PolicyModules
             request.AddJsonBody(JsonConvert.SerializeObject(GatewayQosProfile, defaultSerializationSettings));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = CreateOrReplaceGatewayQosProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTGatewayQosProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTGatewayQosProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateOrReplaceGatewayQosProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTGatewayQosProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTGatewayQosProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchGatewayQosProfile(string QosProfileId, NSXTGatewayQosProfileType GatewayQosProfile, bool? Override = null)
+        public async Task PatchGatewayQosProfile(string QosProfileId, NSXTGatewayQosProfileType GatewayQosProfile, bool? Override = null)
         {
             if (QosProfileId == null) { throw new System.ArgumentNullException("QosProfileId cannot be null"); }
             if (GatewayQosProfile == null) { throw new System.ArgumentNullException("GatewayQosProfile cannot be null"); }
@@ -7828,7 +6107,7 @@ namespace nsxtapi.PolicyModules
             request.AddJsonBody(JsonConvert.SerializeObject(GatewayQosProfile, defaultSerializationSettings));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = PatchGatewayQosProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchGatewayQosProfileServiceURL.ToString() + " did not complete successfull";
@@ -7840,7 +6119,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteGatewayQosProfile(string QosProfileId, bool? Override = null)
+        public async Task DeleteGatewayQosProfile(string QosProfileId, bool? Override = null)
         {
             if (QosProfileId == null) { throw new System.ArgumentNullException("QosProfileId cannot be null"); }
             
@@ -7854,7 +6133,7 @@ namespace nsxtapi.PolicyModules
             DeleteGatewayQosProfileServiceURL.Replace("{qos-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(QosProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = DeleteGatewayQosProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteGatewayQosProfileServiceURL.ToString() + " did not complete successfull";
@@ -7866,7 +6145,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTGatewayQosProfileType ReadGatewayQosProfile(string QosProfileId)
+        public async Task<NSXTGatewayQosProfileType> ReadGatewayQosProfile(string QosProfileId)
         {
             if (QosProfileId == null) { throw new System.ArgumentNullException("QosProfileId cannot be null"); }
             NSXTGatewayQosProfileType returnValue = default(NSXTGatewayQosProfileType);
@@ -7879,31 +6158,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ReadGatewayQosProfileServiceURL.Replace("{qos-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(QosProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadGatewayQosProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTGatewayQosProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTGatewayQosProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadGatewayQosProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTGatewayQosProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTGatewayQosProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTier1InterfaceListResultType ListTier1Interfaces(string Tier1Id, string LocaleServicesId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTTier1InterfaceListResultType> ListTier1Interfaces(string Tier1Id, string LocaleServicesId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (LocaleServicesId == null) { throw new System.ArgumentNullException("LocaleServicesId cannot be null"); }
@@ -7924,31 +6191,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListTier1InterfacesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTier1InterfaceListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTier1InterfaceListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListTier1InterfacesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTier1InterfaceListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTier1InterfaceListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDhcpStaticBindingConfigType CreateOrReplaceInfraSegmentDhcpStaticBinding(string SegmentId, string BindingId, NSXTDhcpStaticBindingConfigType DhcpStaticBindingConfig)
+        public async Task<NSXTDhcpStaticBindingConfigType> CreateOrReplaceInfraSegmentDhcpStaticBinding(string SegmentId, string BindingId, NSXTDhcpStaticBindingConfigType DhcpStaticBindingConfig)
         {
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
             if (BindingId == null) { throw new System.ArgumentNullException("BindingId cannot be null"); }
@@ -7965,31 +6220,19 @@ namespace nsxtapi.PolicyModules
             CreateOrReplaceInfraSegmentDhcpStaticBindingServiceURL.Replace("{binding-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(BindingId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(DhcpStaticBindingConfig, defaultSerializationSettings));
             request.Resource = CreateOrReplaceInfraSegmentDhcpStaticBindingServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDhcpStaticBindingConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDhcpStaticBindingConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateOrReplaceInfraSegmentDhcpStaticBindingServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDhcpStaticBindingConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDhcpStaticBindingConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDhcpStaticBindingConfigType ReadInfraSegmentDhcpStaticBinding(string SegmentId, string BindingId)
+        public async Task<NSXTDhcpStaticBindingConfigType> ReadInfraSegmentDhcpStaticBinding(string SegmentId, string BindingId)
         {
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
             if (BindingId == null) { throw new System.ArgumentNullException("BindingId cannot be null"); }
@@ -8004,31 +6247,19 @@ namespace nsxtapi.PolicyModules
             ReadInfraSegmentDhcpStaticBindingServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
             ReadInfraSegmentDhcpStaticBindingServiceURL.Replace("{binding-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(BindingId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadInfraSegmentDhcpStaticBindingServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDhcpStaticBindingConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDhcpStaticBindingConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadInfraSegmentDhcpStaticBindingServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDhcpStaticBindingConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDhcpStaticBindingConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteInfraSegmentDhcpStaticBinding(string SegmentId, string BindingId)
+        public async Task DeleteInfraSegmentDhcpStaticBinding(string SegmentId, string BindingId)
         {
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
             if (BindingId == null) { throw new System.ArgumentNullException("BindingId cannot be null"); }
@@ -8043,7 +6274,7 @@ namespace nsxtapi.PolicyModules
             DeleteInfraSegmentDhcpStaticBindingServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
             DeleteInfraSegmentDhcpStaticBindingServiceURL.Replace("{binding-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(BindingId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteInfraSegmentDhcpStaticBindingServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteInfraSegmentDhcpStaticBindingServiceURL.ToString() + " did not complete successfull";
@@ -8055,7 +6286,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchInfraSegmentDhcpStaticBinding(string SegmentId, string BindingId, NSXTDhcpStaticBindingConfigType DhcpStaticBindingConfig)
+        public async Task PatchInfraSegmentDhcpStaticBinding(string SegmentId, string BindingId, NSXTDhcpStaticBindingConfigType DhcpStaticBindingConfig)
         {
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
             if (BindingId == null) { throw new System.ArgumentNullException("BindingId cannot be null"); }
@@ -8072,7 +6303,7 @@ namespace nsxtapi.PolicyModules
             PatchInfraSegmentDhcpStaticBindingServiceURL.Replace("{binding-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(BindingId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(DhcpStaticBindingConfig, defaultSerializationSettings));
             request.Resource = PatchInfraSegmentDhcpStaticBindingServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchInfraSegmentDhcpStaticBindingServiceURL.ToString() + " did not complete successfull";
@@ -8084,7 +6315,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTCommunityListType CreateOrReplaceCommunityList(string Tier0Id, string CommunityListId, NSXTCommunityListType CommunityList)
+        public async Task<NSXTCommunityListType> CreateOrReplaceCommunityList(string Tier0Id, string CommunityListId, NSXTCommunityListType CommunityList)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (CommunityListId == null) { throw new System.ArgumentNullException("CommunityListId cannot be null"); }
@@ -8101,31 +6332,19 @@ namespace nsxtapi.PolicyModules
             CreateOrReplaceCommunityListServiceURL.Replace("{community-list-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CommunityListId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(CommunityList, defaultSerializationSettings));
             request.Resource = CreateOrReplaceCommunityListServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTCommunityListType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTCommunityListType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateOrReplaceCommunityListServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTCommunityListType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTCommunityListType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteCommunityList(string Tier0Id, string CommunityListId)
+        public async Task DeleteCommunityList(string Tier0Id, string CommunityListId)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (CommunityListId == null) { throw new System.ArgumentNullException("CommunityListId cannot be null"); }
@@ -8140,7 +6359,7 @@ namespace nsxtapi.PolicyModules
             DeleteCommunityListServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
             DeleteCommunityListServiceURL.Replace("{community-list-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CommunityListId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteCommunityListServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteCommunityListServiceURL.ToString() + " did not complete successfull";
@@ -8152,7 +6371,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchCommunityList(string Tier0Id, string CommunityListId, NSXTCommunityListType CommunityList)
+        public async Task PatchCommunityList(string Tier0Id, string CommunityListId, NSXTCommunityListType CommunityList)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (CommunityListId == null) { throw new System.ArgumentNullException("CommunityListId cannot be null"); }
@@ -8169,7 +6388,7 @@ namespace nsxtapi.PolicyModules
             PatchCommunityListServiceURL.Replace("{community-list-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CommunityListId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(CommunityList, defaultSerializationSettings));
             request.Resource = PatchCommunityListServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchCommunityListServiceURL.ToString() + " did not complete successfull";
@@ -8181,7 +6400,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTCommunityListType ReadCommunityList(string Tier0Id, string CommunityListId)
+        public async Task<NSXTCommunityListType> ReadCommunityList(string Tier0Id, string CommunityListId)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (CommunityListId == null) { throw new System.ArgumentNullException("CommunityListId cannot be null"); }
@@ -8196,31 +6415,19 @@ namespace nsxtapi.PolicyModules
             ReadCommunityListServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
             ReadCommunityListServiceURL.Replace("{community-list-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CommunityListId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadCommunityListServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTCommunityListType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTCommunityListType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadCommunityListServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTCommunityListType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTCommunityListType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTStaticRoutesType CreateOrReplaceTier1StaticRoutes(string Tier1Id, string RouteId, NSXTStaticRoutesType StaticRoutes)
+        public async Task<NSXTStaticRoutesType> CreateOrReplaceTier1StaticRoutes(string Tier1Id, string RouteId, NSXTStaticRoutesType StaticRoutes)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (RouteId == null) { throw new System.ArgumentNullException("RouteId cannot be null"); }
@@ -8237,31 +6444,19 @@ namespace nsxtapi.PolicyModules
             CreateOrReplaceTier1StaticRoutesServiceURL.Replace("{route-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(RouteId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(StaticRoutes, defaultSerializationSettings));
             request.Resource = CreateOrReplaceTier1StaticRoutesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTStaticRoutesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTStaticRoutesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateOrReplaceTier1StaticRoutesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTStaticRoutesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTStaticRoutesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTStaticRoutesType ReadTier1StaticRoutes(string Tier1Id, string RouteId)
+        public async Task<NSXTStaticRoutesType> ReadTier1StaticRoutes(string Tier1Id, string RouteId)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (RouteId == null) { throw new System.ArgumentNullException("RouteId cannot be null"); }
@@ -8276,31 +6471,19 @@ namespace nsxtapi.PolicyModules
             ReadTier1StaticRoutesServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
             ReadTier1StaticRoutesServiceURL.Replace("{route-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(RouteId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadTier1StaticRoutesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTStaticRoutesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTStaticRoutesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadTier1StaticRoutesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTStaticRoutesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTStaticRoutesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchTier1StaticRoutes(string Tier1Id, string RouteId, NSXTStaticRoutesType StaticRoutes)
+        public async Task PatchTier1StaticRoutes(string Tier1Id, string RouteId, NSXTStaticRoutesType StaticRoutes)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (RouteId == null) { throw new System.ArgumentNullException("RouteId cannot be null"); }
@@ -8317,7 +6500,7 @@ namespace nsxtapi.PolicyModules
             PatchTier1StaticRoutesServiceURL.Replace("{route-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(RouteId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(StaticRoutes, defaultSerializationSettings));
             request.Resource = PatchTier1StaticRoutesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchTier1StaticRoutesServiceURL.ToString() + " did not complete successfull";
@@ -8329,7 +6512,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteTier1StaticRoutes(string Tier1Id, string RouteId)
+        public async Task DeleteTier1StaticRoutes(string Tier1Id, string RouteId)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (RouteId == null) { throw new System.ArgumentNullException("RouteId cannot be null"); }
@@ -8344,7 +6527,7 @@ namespace nsxtapi.PolicyModules
             DeleteTier1StaticRoutesServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
             DeleteTier1StaticRoutesServiceURL.Replace("{route-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(RouteId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteTier1StaticRoutesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteTier1StaticRoutesServiceURL.ToString() + " did not complete successfull";
@@ -8356,7 +6539,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTStaticARPConfigType CreateOrReplaceStaticArpconfig(string Tier1Id, string SegmentId, NSXTStaticARPConfigType StaticArpconfig)
+        public async Task<NSXTStaticARPConfigType> CreateOrReplaceStaticArpconfig(string Tier1Id, string SegmentId, NSXTStaticARPConfigType StaticArpconfig)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
@@ -8373,31 +6556,19 @@ namespace nsxtapi.PolicyModules
             CreateOrReplaceStaticArpconfigServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(StaticArpconfig, defaultSerializationSettings));
             request.Resource = CreateOrReplaceStaticArpconfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTStaticARPConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTStaticARPConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateOrReplaceStaticArpconfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTStaticARPConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTStaticARPConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteStaticArpconfig(string Tier1Id, string SegmentId)
+        public async Task DeleteStaticArpconfig(string Tier1Id, string SegmentId)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
@@ -8412,7 +6583,7 @@ namespace nsxtapi.PolicyModules
             DeleteStaticArpconfigServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
             DeleteStaticArpconfigServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteStaticArpconfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteStaticArpconfigServiceURL.ToString() + " did not complete successfull";
@@ -8424,7 +6595,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTStaticARPConfigType ReadStaticArpconfig(string Tier1Id, string SegmentId)
+        public async Task<NSXTStaticARPConfigType> ReadStaticArpconfig(string Tier1Id, string SegmentId)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
@@ -8439,31 +6610,19 @@ namespace nsxtapi.PolicyModules
             ReadStaticArpconfigServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
             ReadStaticArpconfigServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadStaticArpconfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTStaticARPConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTStaticARPConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadStaticArpconfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTStaticARPConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTStaticARPConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchStaticArpconfig(string Tier1Id, string SegmentId, NSXTStaticARPConfigType StaticArpconfig)
+        public async Task PatchStaticArpconfig(string Tier1Id, string SegmentId, NSXTStaticARPConfigType StaticArpconfig)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
@@ -8480,7 +6639,7 @@ namespace nsxtapi.PolicyModules
             PatchStaticArpconfigServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(StaticArpconfig, defaultSerializationSettings));
             request.Resource = PatchStaticArpconfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchStaticArpconfigServiceURL.ToString() + " did not complete successfull";
@@ -8492,7 +6651,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTServiceSegmentListResultType ListServiceSegments(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTServiceSegmentListResultType> ListServiceSegments(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTServiceSegmentListResultType returnValue = default(NSXTServiceSegmentListResultType);
             StringBuilder ListServiceSegmentsServiceURL = new StringBuilder("/infra/segments/service-segments");
@@ -8508,31 +6667,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListServiceSegmentsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTServiceSegmentListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTServiceSegmentListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListServiceSegmentsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTServiceSegmentListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTServiceSegmentListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLocaleServicesListResultType GlobalGlobalInfraListTier1LocaleServices(string Tier1Id, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTLocaleServicesListResultType> GlobalGlobalInfraListTier1LocaleServices(string Tier1Id, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             NSXTLocaleServicesListResultType returnValue = default(NSXTLocaleServicesListResultType);
@@ -8551,31 +6698,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GlobalInfraListTier1LocaleServicesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLocaleServicesListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLocaleServicesListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraListTier1LocaleServicesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLocaleServicesListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLocaleServicesListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTStaticRouteBfdPeerType UpdateStaticRouteBfdPeer(string Tier0Id, string BfdPeerId, NSXTStaticRouteBfdPeerType StaticRouteBfdPeer)
+        public async Task<NSXTStaticRouteBfdPeerType> UpdateStaticRouteBfdPeer(string Tier0Id, string BfdPeerId, NSXTStaticRouteBfdPeerType StaticRouteBfdPeer)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (BfdPeerId == null) { throw new System.ArgumentNullException("BfdPeerId cannot be null"); }
@@ -8592,31 +6727,19 @@ namespace nsxtapi.PolicyModules
             UpdateStaticRouteBfdPeerServiceURL.Replace("{bfd-peer-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(BfdPeerId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(StaticRouteBfdPeer, defaultSerializationSettings));
             request.Resource = UpdateStaticRouteBfdPeerServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTStaticRouteBfdPeerType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTStaticRouteBfdPeerType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateStaticRouteBfdPeerServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTStaticRouteBfdPeerType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTStaticRouteBfdPeerType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchStaticRouteBfdPeer(string Tier0Id, string BfdPeerId, NSXTStaticRouteBfdPeerType StaticRouteBfdPeer)
+        public async Task PatchStaticRouteBfdPeer(string Tier0Id, string BfdPeerId, NSXTStaticRouteBfdPeerType StaticRouteBfdPeer)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (BfdPeerId == null) { throw new System.ArgumentNullException("BfdPeerId cannot be null"); }
@@ -8633,7 +6756,7 @@ namespace nsxtapi.PolicyModules
             PatchStaticRouteBfdPeerServiceURL.Replace("{bfd-peer-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(BfdPeerId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(StaticRouteBfdPeer, defaultSerializationSettings));
             request.Resource = PatchStaticRouteBfdPeerServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchStaticRouteBfdPeerServiceURL.ToString() + " did not complete successfull";
@@ -8645,7 +6768,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteStaticRouteBfdPeer(string Tier0Id, string BfdPeerId)
+        public async Task DeleteStaticRouteBfdPeer(string Tier0Id, string BfdPeerId)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (BfdPeerId == null) { throw new System.ArgumentNullException("BfdPeerId cannot be null"); }
@@ -8660,7 +6783,7 @@ namespace nsxtapi.PolicyModules
             DeleteStaticRouteBfdPeerServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
             DeleteStaticRouteBfdPeerServiceURL.Replace("{bfd-peer-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(BfdPeerId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteStaticRouteBfdPeerServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteStaticRouteBfdPeerServiceURL.ToString() + " did not complete successfull";
@@ -8672,7 +6795,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTStaticRouteBfdPeerType ReadStaticRouteBfdPeer(string Tier0Id, string BfdPeerId)
+        public async Task<NSXTStaticRouteBfdPeerType> ReadStaticRouteBfdPeer(string Tier0Id, string BfdPeerId)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (BfdPeerId == null) { throw new System.ArgumentNullException("BfdPeerId cannot be null"); }
@@ -8687,31 +6810,19 @@ namespace nsxtapi.PolicyModules
             ReadStaticRouteBfdPeerServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
             ReadStaticRouteBfdPeerServiceURL.Replace("{bfd-peer-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(BfdPeerId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadStaticRouteBfdPeerServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTStaticRouteBfdPeerType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTStaticRouteBfdPeerType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadStaticRouteBfdPeerServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTStaticRouteBfdPeerType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTStaticRouteBfdPeerType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDhcpStaticBindingConfigType GlobalGlobalInfraReadInfraSegmentDhcpStaticBinding(string SegmentId, string BindingId)
+        public async Task<NSXTDhcpStaticBindingConfigType> GlobalGlobalInfraReadInfraSegmentDhcpStaticBinding(string SegmentId, string BindingId)
         {
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
             if (BindingId == null) { throw new System.ArgumentNullException("BindingId cannot be null"); }
@@ -8726,31 +6837,19 @@ namespace nsxtapi.PolicyModules
             GlobalInfraReadInfraSegmentDhcpStaticBindingServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
             GlobalInfraReadInfraSegmentDhcpStaticBindingServiceURL.Replace("{binding-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(BindingId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GlobalInfraReadInfraSegmentDhcpStaticBindingServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDhcpStaticBindingConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDhcpStaticBindingConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraReadInfraSegmentDhcpStaticBindingServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDhcpStaticBindingConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDhcpStaticBindingConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTVniPoolConfigType CreateOrUpdateVniPoolConfig(string VniPoolId, NSXTVniPoolConfigType VniPoolConfig)
+        public async Task<NSXTVniPoolConfigType> CreateOrUpdateVniPoolConfig(string VniPoolId, NSXTVniPoolConfigType VniPoolConfig)
         {
             if (VniPoolId == null) { throw new System.ArgumentNullException("VniPoolId cannot be null"); }
             if (VniPoolConfig == null) { throw new System.ArgumentNullException("VniPoolConfig cannot be null"); }
@@ -8765,31 +6864,19 @@ namespace nsxtapi.PolicyModules
             CreateOrUpdateVniPoolConfigServiceURL.Replace("{vni-pool-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(VniPoolId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(VniPoolConfig, defaultSerializationSettings));
             request.Resource = CreateOrUpdateVniPoolConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTVniPoolConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTVniPoolConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateOrUpdateVniPoolConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTVniPoolConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTVniPoolConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchVniPoolConfig(string VniPoolId, NSXTVniPoolConfigType VniPoolConfig)
+        public async Task PatchVniPoolConfig(string VniPoolId, NSXTVniPoolConfigType VniPoolConfig)
         {
             if (VniPoolId == null) { throw new System.ArgumentNullException("VniPoolId cannot be null"); }
             if (VniPoolConfig == null) { throw new System.ArgumentNullException("VniPoolConfig cannot be null"); }
@@ -8804,7 +6891,7 @@ namespace nsxtapi.PolicyModules
             PatchVniPoolConfigServiceURL.Replace("{vni-pool-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(VniPoolId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(VniPoolConfig, defaultSerializationSettings));
             request.Resource = PatchVniPoolConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchVniPoolConfigServiceURL.ToString() + " did not complete successfull";
@@ -8816,7 +6903,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteVniPoolConfig(string VniPoolId)
+        public async Task DeleteVniPoolConfig(string VniPoolId)
         {
             if (VniPoolId == null) { throw new System.ArgumentNullException("VniPoolId cannot be null"); }
             
@@ -8829,7 +6916,7 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             DeleteVniPoolConfigServiceURL.Replace("{vni-pool-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(VniPoolId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteVniPoolConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteVniPoolConfigServiceURL.ToString() + " did not complete successfull";
@@ -8841,7 +6928,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTVniPoolConfigType ReadVniPoolConfig(string VniPoolId)
+        public async Task<NSXTVniPoolConfigType> ReadVniPoolConfig(string VniPoolId)
         {
             if (VniPoolId == null) { throw new System.ArgumentNullException("VniPoolId cannot be null"); }
             NSXTVniPoolConfigType returnValue = default(NSXTVniPoolConfigType);
@@ -8854,31 +6941,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ReadVniPoolConfigServiceURL.Replace("{vni-pool-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(VniPoolId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadVniPoolConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTVniPoolConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTVniPoolConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadVniPoolConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTVniPoolConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTVniPoolConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTier0InterfaceType GlobalGlobalInfraCreateOrReplaceTier0Interface(string Tier0Id, string LocaleServiceId, string InterfaceId, NSXTTier0InterfaceType Tier0Interface, bool? Override = null)
+        public async Task<NSXTTier0InterfaceType> GlobalGlobalInfraCreateOrReplaceTier0Interface(string Tier0Id, string LocaleServiceId, string InterfaceId, NSXTTier0InterfaceType Tier0Interface, bool? Override = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -8898,31 +6973,19 @@ namespace nsxtapi.PolicyModules
             request.AddJsonBody(JsonConvert.SerializeObject(Tier0Interface, defaultSerializationSettings));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = GlobalInfraCreateOrReplaceTier0InterfaceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTier0InterfaceType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTier0InterfaceType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + GlobalInfraCreateOrReplaceTier0InterfaceServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTier0InterfaceType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTier0InterfaceType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GlobalGlobalInfraDeleteTier0Interface(string Tier0Id, string LocaleServiceId, string InterfaceId, bool? Override = null)
+        public async Task GlobalGlobalInfraDeleteTier0Interface(string Tier0Id, string LocaleServiceId, string InterfaceId, bool? Override = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -8940,7 +7003,7 @@ namespace nsxtapi.PolicyModules
             GlobalInfraDeleteTier0InterfaceServiceURL.Replace("{interface-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(InterfaceId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = GlobalInfraDeleteTier0InterfaceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + GlobalInfraDeleteTier0InterfaceServiceURL.ToString() + " did not complete successfull";
@@ -8952,7 +7015,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTier0InterfaceType GlobalGlobalInfraReadTier0Interface(string Tier0Id, string LocaleServiceId, string InterfaceId)
+        public async Task<NSXTTier0InterfaceType> GlobalGlobalInfraReadTier0Interface(string Tier0Id, string LocaleServiceId, string InterfaceId)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -8969,31 +7032,19 @@ namespace nsxtapi.PolicyModules
             GlobalInfraReadTier0InterfaceServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
             GlobalInfraReadTier0InterfaceServiceURL.Replace("{interface-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(InterfaceId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GlobalInfraReadTier0InterfaceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTier0InterfaceType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTier0InterfaceType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraReadTier0InterfaceServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTier0InterfaceType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTier0InterfaceType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GlobalGlobalInfraPatchTier0Interface(string Tier0Id, string LocaleServiceId, string InterfaceId, NSXTTier0InterfaceType Tier0Interface, bool? Override = null)
+        public async Task GlobalGlobalInfraPatchTier0Interface(string Tier0Id, string LocaleServiceId, string InterfaceId, NSXTTier0InterfaceType Tier0Interface, bool? Override = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -9013,7 +7064,7 @@ namespace nsxtapi.PolicyModules
             request.AddJsonBody(JsonConvert.SerializeObject(Tier0Interface, defaultSerializationSettings));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = GlobalInfraPatchTier0InterfaceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + GlobalInfraPatchTier0InterfaceServiceURL.ToString() + " did not complete successfull";
@@ -9025,7 +7076,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTStaticRoutesType CreateOrReplaceTier0StaticRoutes(string Tier0Id, string RouteId, NSXTStaticRoutesType StaticRoutes)
+        public async Task<NSXTStaticRoutesType> CreateOrReplaceTier0StaticRoutes(string Tier0Id, string RouteId, NSXTStaticRoutesType StaticRoutes)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (RouteId == null) { throw new System.ArgumentNullException("RouteId cannot be null"); }
@@ -9042,31 +7093,19 @@ namespace nsxtapi.PolicyModules
             CreateOrReplaceTier0StaticRoutesServiceURL.Replace("{route-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(RouteId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(StaticRoutes, defaultSerializationSettings));
             request.Resource = CreateOrReplaceTier0StaticRoutesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTStaticRoutesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTStaticRoutesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateOrReplaceTier0StaticRoutesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTStaticRoutesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTStaticRoutesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteTier0StaticRoutes(string Tier0Id, string RouteId)
+        public async Task DeleteTier0StaticRoutes(string Tier0Id, string RouteId)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (RouteId == null) { throw new System.ArgumentNullException("RouteId cannot be null"); }
@@ -9081,7 +7120,7 @@ namespace nsxtapi.PolicyModules
             DeleteTier0StaticRoutesServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
             DeleteTier0StaticRoutesServiceURL.Replace("{route-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(RouteId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteTier0StaticRoutesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteTier0StaticRoutesServiceURL.ToString() + " did not complete successfull";
@@ -9093,7 +7132,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTStaticRoutesType ReadTier0StaticRoutes(string Tier0Id, string RouteId)
+        public async Task<NSXTStaticRoutesType> ReadTier0StaticRoutes(string Tier0Id, string RouteId)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (RouteId == null) { throw new System.ArgumentNullException("RouteId cannot be null"); }
@@ -9108,31 +7147,19 @@ namespace nsxtapi.PolicyModules
             ReadTier0StaticRoutesServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
             ReadTier0StaticRoutesServiceURL.Replace("{route-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(RouteId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadTier0StaticRoutesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTStaticRoutesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTStaticRoutesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadTier0StaticRoutesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTStaticRoutesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTStaticRoutesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchTier0StaticRoutes(string Tier0Id, string RouteId, NSXTStaticRoutesType StaticRoutes)
+        public async Task PatchTier0StaticRoutes(string Tier0Id, string RouteId, NSXTStaticRoutesType StaticRoutes)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (RouteId == null) { throw new System.ArgumentNullException("RouteId cannot be null"); }
@@ -9149,7 +7176,7 @@ namespace nsxtapi.PolicyModules
             PatchTier0StaticRoutesServiceURL.Replace("{route-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(RouteId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(StaticRoutes, defaultSerializationSettings));
             request.Resource = PatchTier0StaticRoutesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchTier0StaticRoutesServiceURL.ToString() + " did not complete successfull";
@@ -9161,7 +7188,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIpv6NdraProfileType CreateOrReplaceIpv6NdraProfile(string NdraProfileId, NSXTIpv6NdraProfileType Ipv6NdraProfile, bool? Override = null)
+        public async Task<NSXTIpv6NdraProfileType> CreateOrReplaceIpv6NdraProfile(string NdraProfileId, NSXTIpv6NdraProfileType Ipv6NdraProfile, bool? Override = null)
         {
             if (NdraProfileId == null) { throw new System.ArgumentNullException("NdraProfileId cannot be null"); }
             if (Ipv6NdraProfile == null) { throw new System.ArgumentNullException("Ipv6NdraProfile cannot be null"); }
@@ -9177,31 +7204,19 @@ namespace nsxtapi.PolicyModules
             request.AddJsonBody(JsonConvert.SerializeObject(Ipv6NdraProfile, defaultSerializationSettings));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = CreateOrReplaceIpv6NdraProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIpv6NdraProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIpv6NdraProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateOrReplaceIpv6NdraProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIpv6NdraProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIpv6NdraProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteIpv6NdraProfile(string NdraProfileId, bool? Override = null)
+        public async Task DeleteIpv6NdraProfile(string NdraProfileId, bool? Override = null)
         {
             if (NdraProfileId == null) { throw new System.ArgumentNullException("NdraProfileId cannot be null"); }
             
@@ -9215,7 +7230,7 @@ namespace nsxtapi.PolicyModules
             DeleteIpv6NdraProfileServiceURL.Replace("{ndra-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NdraProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = DeleteIpv6NdraProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteIpv6NdraProfileServiceURL.ToString() + " did not complete successfull";
@@ -9227,7 +7242,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchIpv6NdraProfile(string NdraProfileId, NSXTIpv6NdraProfileType Ipv6NdraProfile, bool? Override = null)
+        public async Task PatchIpv6NdraProfile(string NdraProfileId, NSXTIpv6NdraProfileType Ipv6NdraProfile, bool? Override = null)
         {
             if (NdraProfileId == null) { throw new System.ArgumentNullException("NdraProfileId cannot be null"); }
             if (Ipv6NdraProfile == null) { throw new System.ArgumentNullException("Ipv6NdraProfile cannot be null"); }
@@ -9243,7 +7258,7 @@ namespace nsxtapi.PolicyModules
             request.AddJsonBody(JsonConvert.SerializeObject(Ipv6NdraProfile, defaultSerializationSettings));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = PatchIpv6NdraProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchIpv6NdraProfileServiceURL.ToString() + " did not complete successfull";
@@ -9255,7 +7270,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIpv6NdraProfileType ReadIpv6NdraProfile(string NdraProfileId)
+        public async Task<NSXTIpv6NdraProfileType> ReadIpv6NdraProfile(string NdraProfileId)
         {
             if (NdraProfileId == null) { throw new System.ArgumentNullException("NdraProfileId cannot be null"); }
             NSXTIpv6NdraProfileType returnValue = default(NSXTIpv6NdraProfileType);
@@ -9268,31 +7283,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ReadIpv6NdraProfileServiceURL.Replace("{ndra-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NdraProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadIpv6NdraProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIpv6NdraProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIpv6NdraProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadIpv6NdraProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIpv6NdraProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIpv6NdraProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTier1Type GlobalGlobalInfraReadTier1(string Tier1Id)
+        public async Task<NSXTTier1Type> GlobalGlobalInfraReadTier1(string Tier1Id)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             NSXTTier1Type returnValue = default(NSXTTier1Type);
@@ -9305,31 +7308,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             GlobalInfraReadTier1ServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GlobalInfraReadTier1ServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTier1Type> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTier1Type>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraReadTier1ServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTier1Type>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTier1Type).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDhcpServerConfigListResultType ListDhcpServerConfig(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTDhcpServerConfigListResultType> ListDhcpServerConfig(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTDhcpServerConfigListResultType returnValue = default(NSXTDhcpServerConfigListResultType);
             StringBuilder ListDhcpServerConfigServiceURL = new StringBuilder("/infra/dhcp-server-configs");
@@ -9346,31 +7337,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListDhcpServerConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDhcpServerConfigListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDhcpServerConfigListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListDhcpServerConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDhcpServerConfigListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDhcpServerConfigListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTServiceInterfaceType CreateTier1ServiceInterface(string Tier1Id, string LocaleServiceId, string InterfaceId, NSXTServiceInterfaceType ServiceInterface)
+        public async Task<NSXTServiceInterfaceType> CreateTier1ServiceInterface(string Tier1Id, string LocaleServiceId, string InterfaceId, NSXTServiceInterfaceType ServiceInterface)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -9389,31 +7368,19 @@ namespace nsxtapi.PolicyModules
             CreateTier1ServiceInterfaceServiceURL.Replace("{interface-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(InterfaceId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(ServiceInterface, defaultSerializationSettings));
             request.Resource = CreateTier1ServiceInterfaceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTServiceInterfaceType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTServiceInterfaceType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateTier1ServiceInterfaceServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTServiceInterfaceType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTServiceInterfaceType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteTier1ServiceInterface(string Tier1Id, string LocaleServiceId, string InterfaceId)
+        public async Task DeleteTier1ServiceInterface(string Tier1Id, string LocaleServiceId, string InterfaceId)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -9430,7 +7397,7 @@ namespace nsxtapi.PolicyModules
             DeleteTier1ServiceInterfaceServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
             DeleteTier1ServiceInterfaceServiceURL.Replace("{interface-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(InterfaceId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteTier1ServiceInterfaceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteTier1ServiceInterfaceServiceURL.ToString() + " did not complete successfull";
@@ -9442,7 +7409,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchTier1ServiceInterface(string Tier1Id, string LocaleServiceId, string InterfaceId, NSXTServiceInterfaceType ServiceInterface)
+        public async Task PatchTier1ServiceInterface(string Tier1Id, string LocaleServiceId, string InterfaceId, NSXTServiceInterfaceType ServiceInterface)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -9461,7 +7428,7 @@ namespace nsxtapi.PolicyModules
             PatchTier1ServiceInterfaceServiceURL.Replace("{interface-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(InterfaceId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(ServiceInterface, defaultSerializationSettings));
             request.Resource = PatchTier1ServiceInterfaceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchTier1ServiceInterfaceServiceURL.ToString() + " did not complete successfull";
@@ -9473,7 +7440,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTServiceInterfaceType ReadTier1ServiceInterface(string Tier1Id, string LocaleServiceId, string InterfaceId)
+        public async Task<NSXTServiceInterfaceType> ReadTier1ServiceInterface(string Tier1Id, string LocaleServiceId, string InterfaceId)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -9490,31 +7457,19 @@ namespace nsxtapi.PolicyModules
             ReadTier1ServiceInterfaceServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
             ReadTier1ServiceInterfaceServiceURL.Replace("{interface-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(InterfaceId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadTier1ServiceInterfaceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTServiceInterfaceType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTServiceInterfaceType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadTier1ServiceInterfaceServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTServiceInterfaceType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTServiceInterfaceType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void Tier1GatewayReprocess(string Tier1Id, string? EnforcementPointPath = null)
+        public async Task Tier1GatewayReprocess(string Tier1Id, string? EnforcementPointPath = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             
@@ -9528,7 +7483,7 @@ namespace nsxtapi.PolicyModules
             Tier1GatewayReprocessServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             request.Resource = Tier1GatewayReprocessServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + Tier1GatewayReprocessServiceURL.ToString() + " did not complete successfull";
@@ -9540,7 +7495,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTBfdProfileType GlobalGlobalInfraUpdateBfdProfile(string BfdProfileId, NSXTBfdProfileType BfdProfile, bool? Override = null)
+        public async Task<NSXTBfdProfileType> GlobalGlobalInfraUpdateBfdProfile(string BfdProfileId, NSXTBfdProfileType BfdProfile, bool? Override = null)
         {
             if (BfdProfileId == null) { throw new System.ArgumentNullException("BfdProfileId cannot be null"); }
             if (BfdProfile == null) { throw new System.ArgumentNullException("BfdProfile cannot be null"); }
@@ -9556,31 +7511,19 @@ namespace nsxtapi.PolicyModules
             request.AddJsonBody(JsonConvert.SerializeObject(BfdProfile, defaultSerializationSettings));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = GlobalInfraUpdateBfdProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTBfdProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTBfdProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + GlobalInfraUpdateBfdProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTBfdProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTBfdProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GlobalGlobalInfraPatchBfdProfile(string BfdProfileId, NSXTBfdProfileType BfdProfile, bool? Override = null)
+        public async Task GlobalGlobalInfraPatchBfdProfile(string BfdProfileId, NSXTBfdProfileType BfdProfile, bool? Override = null)
         {
             if (BfdProfileId == null) { throw new System.ArgumentNullException("BfdProfileId cannot be null"); }
             if (BfdProfile == null) { throw new System.ArgumentNullException("BfdProfile cannot be null"); }
@@ -9596,7 +7539,7 @@ namespace nsxtapi.PolicyModules
             request.AddJsonBody(JsonConvert.SerializeObject(BfdProfile, defaultSerializationSettings));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = GlobalInfraPatchBfdProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + GlobalInfraPatchBfdProfileServiceURL.ToString() + " did not complete successfull";
@@ -9608,7 +7551,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTBfdProfileType GlobalGlobalInfraReadBfdProfile(string BfdProfileId)
+        public async Task<NSXTBfdProfileType> GlobalGlobalInfraReadBfdProfile(string BfdProfileId)
         {
             if (BfdProfileId == null) { throw new System.ArgumentNullException("BfdProfileId cannot be null"); }
             NSXTBfdProfileType returnValue = default(NSXTBfdProfileType);
@@ -9621,31 +7564,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             GlobalInfraReadBfdProfileServiceURL.Replace("{bfd-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(BfdProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GlobalInfraReadBfdProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTBfdProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTBfdProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraReadBfdProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTBfdProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTBfdProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GlobalGlobalInfraDeleteBfdProfile(string BfdProfileId, bool? Override = null)
+        public async Task GlobalGlobalInfraDeleteBfdProfile(string BfdProfileId, bool? Override = null)
         {
             if (BfdProfileId == null) { throw new System.ArgumentNullException("BfdProfileId cannot be null"); }
             
@@ -9659,7 +7590,7 @@ namespace nsxtapi.PolicyModules
             GlobalInfraDeleteBfdProfileServiceURL.Replace("{bfd-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(BfdProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = GlobalInfraDeleteBfdProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + GlobalInfraDeleteBfdProfileServiceURL.ToString() + " did not complete successfull";
@@ -9671,7 +7602,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSegmentPortListResultType ListTier1SegmentPorts(string Tier1Id, string SegmentId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTSegmentPortListResultType> ListTier1SegmentPorts(string Tier1Id, string SegmentId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
@@ -9692,31 +7623,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListTier1SegmentPortsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTSegmentPortListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTSegmentPortListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListTier1SegmentPortsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSegmentPortListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSegmentPortListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTAntreaTraceflowConfigListResultType ListAntreaTraceflowConfig(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTAntreaTraceflowConfigListResultType> ListAntreaTraceflowConfig(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTAntreaTraceflowConfigListResultType returnValue = default(NSXTAntreaTraceflowConfigListResultType);
             StringBuilder ListAntreaTraceflowConfigServiceURL = new StringBuilder("/infra/antrea/traceflows");
@@ -9733,31 +7652,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListAntreaTraceflowConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTAntreaTraceflowConfigListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTAntreaTraceflowConfigListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListAntreaTraceflowConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTAntreaTraceflowConfigListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTAntreaTraceflowConfigListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDhcpServerConfigType CreateOrReplaceDhcpServerConfig(string DhcpServerConfigId, NSXTDhcpServerConfigType DhcpServerConfig)
+        public async Task<NSXTDhcpServerConfigType> CreateOrReplaceDhcpServerConfig(string DhcpServerConfigId, NSXTDhcpServerConfigType DhcpServerConfig)
         {
             if (DhcpServerConfigId == null) { throw new System.ArgumentNullException("DhcpServerConfigId cannot be null"); }
             if (DhcpServerConfig == null) { throw new System.ArgumentNullException("DhcpServerConfig cannot be null"); }
@@ -9772,31 +7679,19 @@ namespace nsxtapi.PolicyModules
             CreateOrReplaceDhcpServerConfigServiceURL.Replace("{dhcp-server-config-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DhcpServerConfigId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(DhcpServerConfig, defaultSerializationSettings));
             request.Resource = CreateOrReplaceDhcpServerConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDhcpServerConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDhcpServerConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateOrReplaceDhcpServerConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDhcpServerConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDhcpServerConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDhcpServerConfigType ReadDhcpServerConfig(string DhcpServerConfigId)
+        public async Task<NSXTDhcpServerConfigType> ReadDhcpServerConfig(string DhcpServerConfigId)
         {
             if (DhcpServerConfigId == null) { throw new System.ArgumentNullException("DhcpServerConfigId cannot be null"); }
             NSXTDhcpServerConfigType returnValue = default(NSXTDhcpServerConfigType);
@@ -9809,31 +7704,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ReadDhcpServerConfigServiceURL.Replace("{dhcp-server-config-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DhcpServerConfigId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadDhcpServerConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDhcpServerConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDhcpServerConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadDhcpServerConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDhcpServerConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDhcpServerConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchDhcpServerConfig(string DhcpServerConfigId, NSXTDhcpServerConfigType DhcpServerConfig)
+        public async Task PatchDhcpServerConfig(string DhcpServerConfigId, NSXTDhcpServerConfigType DhcpServerConfig)
         {
             if (DhcpServerConfigId == null) { throw new System.ArgumentNullException("DhcpServerConfigId cannot be null"); }
             if (DhcpServerConfig == null) { throw new System.ArgumentNullException("DhcpServerConfig cannot be null"); }
@@ -9848,7 +7731,7 @@ namespace nsxtapi.PolicyModules
             PatchDhcpServerConfigServiceURL.Replace("{dhcp-server-config-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DhcpServerConfigId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(DhcpServerConfig, defaultSerializationSettings));
             request.Resource = PatchDhcpServerConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchDhcpServerConfigServiceURL.ToString() + " did not complete successfull";
@@ -9860,7 +7743,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteDhcpServerConfig(string DhcpServerConfigId)
+        public async Task DeleteDhcpServerConfig(string DhcpServerConfigId)
         {
             if (DhcpServerConfigId == null) { throw new System.ArgumentNullException("DhcpServerConfigId cannot be null"); }
             
@@ -9873,7 +7756,7 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             DeleteDhcpServerConfigServiceURL.Replace("{dhcp-server-config-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DhcpServerConfigId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteDhcpServerConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteDhcpServerConfigServiceURL.ToString() + " did not complete successfull";
@@ -9885,7 +7768,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLiveTraceResultType ReadLiveTraceResult(string LivetraceId, string? EnforcementPointPath = null)
+        public async Task<NSXTLiveTraceResultType> ReadLiveTraceResult(string LivetraceId, string? EnforcementPointPath = null)
         {
             if (LivetraceId == null) { throw new System.ArgumentNullException("LivetraceId cannot be null"); }
             NSXTLiveTraceResultType returnValue = default(NSXTLiveTraceResultType);
@@ -9899,31 +7782,19 @@ namespace nsxtapi.PolicyModules
             ReadLiveTraceResultServiceURL.Replace("{livetrace-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LivetraceId, System.Globalization.CultureInfo.InvariantCulture)));
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             request.Resource = ReadLiveTraceResultServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLiveTraceResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLiveTraceResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadLiveTraceResultServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLiveTraceResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLiveTraceResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSegmentType GlobalGlobalInfraReadSegment(string Tier1Id, string SegmentId)
+        public async Task<NSXTSegmentType> GlobalGlobalInfraReadSegment(string Tier1Id, string SegmentId)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (SegmentId == null) { throw new System.ArgumentNullException("SegmentId cannot be null"); }
@@ -9938,31 +7809,19 @@ namespace nsxtapi.PolicyModules
             GlobalInfraReadSegmentServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
             GlobalInfraReadSegmentServiceURL.Replace("{segment-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GlobalInfraReadSegmentServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTSegmentType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTSegmentType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraReadSegmentServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSegmentType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSegmentType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTCommunityListListResultType GlobalGlobalInfraListCommunityList(string Tier0Id, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTCommunityListListResultType> GlobalGlobalInfraListCommunityList(string Tier0Id, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             NSXTCommunityListListResultType returnValue = default(NSXTCommunityListListResultType);
@@ -9981,31 +7840,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GlobalInfraListCommunityListServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTCommunityListListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTCommunityListListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraListCommunityListServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTCommunityListListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTCommunityListListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLocaleServicesListResultType ListTier1LocaleServices(string Tier1Id, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTLocaleServicesListResultType> ListTier1LocaleServices(string Tier1Id, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             NSXTLocaleServicesListResultType returnValue = default(NSXTLocaleServicesListResultType);
@@ -10024,31 +7871,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListTier1LocaleServicesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLocaleServicesListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLocaleServicesListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListTier1LocaleServicesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLocaleServicesListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLocaleServicesListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIpv6DadProfileType CreateOrReplaceIpv6DadProfile(string DadProfileId, NSXTIpv6DadProfileType Ipv6DadProfile, bool? Override = null)
+        public async Task<NSXTIpv6DadProfileType> CreateOrReplaceIpv6DadProfile(string DadProfileId, NSXTIpv6DadProfileType Ipv6DadProfile, bool? Override = null)
         {
             if (DadProfileId == null) { throw new System.ArgumentNullException("DadProfileId cannot be null"); }
             if (Ipv6DadProfile == null) { throw new System.ArgumentNullException("Ipv6DadProfile cannot be null"); }
@@ -10064,31 +7899,19 @@ namespace nsxtapi.PolicyModules
             request.AddJsonBody(JsonConvert.SerializeObject(Ipv6DadProfile, defaultSerializationSettings));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = CreateOrReplaceIpv6DadProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIpv6DadProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIpv6DadProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateOrReplaceIpv6DadProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIpv6DadProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIpv6DadProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIpv6DadProfileType ReadIpv6DadProfile(string DadProfileId)
+        public async Task<NSXTIpv6DadProfileType> ReadIpv6DadProfile(string DadProfileId)
         {
             if (DadProfileId == null) { throw new System.ArgumentNullException("DadProfileId cannot be null"); }
             NSXTIpv6DadProfileType returnValue = default(NSXTIpv6DadProfileType);
@@ -10101,31 +7924,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ReadIpv6DadProfileServiceURL.Replace("{dad-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DadProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadIpv6DadProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIpv6DadProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIpv6DadProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadIpv6DadProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIpv6DadProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIpv6DadProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchIpv6DadProfile(string DadProfileId, NSXTIpv6DadProfileType Ipv6DadProfile, bool? Override = null)
+        public async Task PatchIpv6DadProfile(string DadProfileId, NSXTIpv6DadProfileType Ipv6DadProfile, bool? Override = null)
         {
             if (DadProfileId == null) { throw new System.ArgumentNullException("DadProfileId cannot be null"); }
             if (Ipv6DadProfile == null) { throw new System.ArgumentNullException("Ipv6DadProfile cannot be null"); }
@@ -10141,7 +7952,7 @@ namespace nsxtapi.PolicyModules
             request.AddJsonBody(JsonConvert.SerializeObject(Ipv6DadProfile, defaultSerializationSettings));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = PatchIpv6DadProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchIpv6DadProfileServiceURL.ToString() + " did not complete successfull";
@@ -10153,7 +7964,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteIpv6DadProfile(string DadProfileId, bool? Override = null)
+        public async Task DeleteIpv6DadProfile(string DadProfileId, bool? Override = null)
         {
             if (DadProfileId == null) { throw new System.ArgumentNullException("DadProfileId cannot be null"); }
             
@@ -10167,7 +7978,7 @@ namespace nsxtapi.PolicyModules
             DeleteIpv6DadProfileServiceURL.Replace("{dad-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DadProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = DeleteIpv6DadProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteIpv6DadProfileServiceURL.ToString() + " did not complete successfull";
@@ -10179,7 +7990,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLiveTraceConfigType UpdateLiveTraceConfig(string LivetraceId, NSXTLiveTraceConfigType LiveTraceConfig)
+        public async Task<NSXTLiveTraceConfigType> UpdateLiveTraceConfig(string LivetraceId, NSXTLiveTraceConfigType LiveTraceConfig)
         {
             if (LivetraceId == null) { throw new System.ArgumentNullException("LivetraceId cannot be null"); }
             if (LiveTraceConfig == null) { throw new System.ArgumentNullException("LiveTraceConfig cannot be null"); }
@@ -10194,31 +8005,19 @@ namespace nsxtapi.PolicyModules
             UpdateLiveTraceConfigServiceURL.Replace("{livetrace-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LivetraceId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(LiveTraceConfig, defaultSerializationSettings));
             request.Resource = UpdateLiveTraceConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLiveTraceConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLiveTraceConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateLiveTraceConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLiveTraceConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLiveTraceConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLiveTraceConfigType RestartLivetrace(string LivetraceId, string? Action = null)
+        public async Task<NSXTLiveTraceConfigType> RestartLivetrace(string LivetraceId, string? Action = null)
         {
             if (LivetraceId == null) { throw new System.ArgumentNullException("LivetraceId cannot be null"); }
             NSXTLiveTraceConfigType returnValue = default(NSXTLiveTraceConfigType);
@@ -10232,31 +8031,19 @@ namespace nsxtapi.PolicyModules
             RestartLivetraceServiceURL.Replace("{livetrace-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LivetraceId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Action != null) { request.AddQueryParameter("action", Action.ToString()); }
             request.Resource = RestartLivetraceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLiveTraceConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLiveTraceConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + RestartLivetraceServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLiveTraceConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLiveTraceConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchLiveTraceConfig(string LivetraceId, NSXTLiveTraceConfigType LiveTraceConfig)
+        public async Task PatchLiveTraceConfig(string LivetraceId, NSXTLiveTraceConfigType LiveTraceConfig)
         {
             if (LivetraceId == null) { throw new System.ArgumentNullException("LivetraceId cannot be null"); }
             if (LiveTraceConfig == null) { throw new System.ArgumentNullException("LiveTraceConfig cannot be null"); }
@@ -10271,7 +8058,7 @@ namespace nsxtapi.PolicyModules
             PatchLiveTraceConfigServiceURL.Replace("{livetrace-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LivetraceId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(LiveTraceConfig, defaultSerializationSettings));
             request.Resource = PatchLiveTraceConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchLiveTraceConfigServiceURL.ToString() + " did not complete successfull";
@@ -10283,7 +8070,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLiveTraceConfigType ReadLiveTraceConfig(string LivetraceId)
+        public async Task<NSXTLiveTraceConfigType> ReadLiveTraceConfig(string LivetraceId)
         {
             if (LivetraceId == null) { throw new System.ArgumentNullException("LivetraceId cannot be null"); }
             NSXTLiveTraceConfigType returnValue = default(NSXTLiveTraceConfigType);
@@ -10296,31 +8083,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ReadLiveTraceConfigServiceURL.Replace("{livetrace-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LivetraceId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadLiveTraceConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLiveTraceConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLiveTraceConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadLiveTraceConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLiveTraceConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLiveTraceConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteLiveTraceConfig(string LivetraceId)
+        public async Task DeleteLiveTraceConfig(string LivetraceId)
         {
             if (LivetraceId == null) { throw new System.ArgumentNullException("LivetraceId cannot be null"); }
             
@@ -10333,7 +8108,7 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             DeleteLiveTraceConfigServiceURL.Replace("{livetrace-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LivetraceId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteLiveTraceConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteLiveTraceConfigServiceURL.ToString() + " did not complete successfull";
@@ -10345,7 +8120,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTCommunityListType GlobalGlobalInfraReadCommunityList(string Tier0Id, string CommunityListId)
+        public async Task<NSXTCommunityListType> GlobalGlobalInfraReadCommunityList(string Tier0Id, string CommunityListId)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (CommunityListId == null) { throw new System.ArgumentNullException("CommunityListId cannot be null"); }
@@ -10360,31 +8135,19 @@ namespace nsxtapi.PolicyModules
             GlobalInfraReadCommunityListServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
             GlobalInfraReadCommunityListServiceURL.Replace("{community-list-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CommunityListId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GlobalInfraReadCommunityListServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTCommunityListType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTCommunityListType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraReadCommunityListServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTCommunityListType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTCommunityListType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTGatewayQosProfileListResultType GlobalGlobalInfraListGatewayQosProfiles(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTGatewayQosProfileListResultType> GlobalGlobalInfraListGatewayQosProfiles(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTGatewayQosProfileListResultType returnValue = default(NSXTGatewayQosProfileListResultType);
             StringBuilder GlobalInfraListGatewayQosProfilesServiceURL = new StringBuilder("/global-infra/gateway-qos-profiles");
@@ -10401,25 +8164,13 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GlobalInfraListGatewayQosProfilesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTGatewayQosProfileListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTGatewayQosProfileListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraListGatewayQosProfilesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTGatewayQosProfileListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTGatewayQosProfileListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

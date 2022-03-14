@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,20 +17,13 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced Load Balancer controller cluster runtime error.")]
     public class NSXTAlbControllerClusterRuntimeErrorType 
     {
-        public NSXTAlbControllerClusterRuntimeErrorType()
-        {
-        }
         /// <summary>
         /// Advanced Load Balancer cluster runtime error msg.
         /// </summary>
-        [JsonProperty(PropertyName = "error_message")]
-        [NSXTProperty(IsRequired: false, Description: @"Advanced Load Balancer cluster runtime error msg.")]
         public string? ErrorMessage { get; set; }
         /// <summary>
         /// Advanced Load Balancer cluster runtime error code.
         /// </summary>
-        [JsonProperty(PropertyName = "error_code")]
-        [NSXTProperty(IsRequired: false, Description: @"Advanced Load Balancer cluster runtime error code.")]
         public int? ErrorCode { get; set; }
     }
 }

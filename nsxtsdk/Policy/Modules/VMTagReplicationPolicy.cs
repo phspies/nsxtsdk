@@ -21,16 +21,23 @@ namespace nsxtapi.PolicyModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public VMTagReplicationPolicy(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public VMTagReplicationPolicy(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTVMTagReplicationPolicyListResultType GlobalGlobalInfraListVmtagReplicationPolicies(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTVMTagReplicationPolicyListResultType> GlobalGlobalInfraListVmtagReplicationPolicies(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTVMTagReplicationPolicyListResultType returnValue = default(NSXTVMTagReplicationPolicyListResultType);
             StringBuilder GlobalInfraListVmtagReplicationPoliciesServiceURL = new StringBuilder("/global-infra/vm-tag-replication-policies");
@@ -47,31 +54,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GlobalInfraListVmtagReplicationPoliciesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTVMTagReplicationPolicyListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTVMTagReplicationPolicyListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraListVmtagReplicationPoliciesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTVMTagReplicationPolicyListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTVMTagReplicationPolicyListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTVMTagReplicationPolicyType GlobalGlobalInfraGetVmtagReplicationPolicy(string Id)
+        public async Task<NSXTVMTagReplicationPolicyType> GlobalGlobalInfraGetVmtagReplicationPolicy(string Id)
         {
             if (Id == null) { throw new System.ArgumentNullException("Id cannot be null"); }
             NSXTVMTagReplicationPolicyType returnValue = default(NSXTVMTagReplicationPolicyType);
@@ -84,25 +79,13 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             GlobalInfraGetVmtagReplicationPolicyServiceURL.Replace("{id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Id, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GlobalInfraGetVmtagReplicationPolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTVMTagReplicationPolicyType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTVMTagReplicationPolicyType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraGetVmtagReplicationPolicyServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTVMTagReplicationPolicyType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTVMTagReplicationPolicyType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

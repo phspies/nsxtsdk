@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public GlobalConfigs(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public GlobalConfigs(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTGlobalConfigsType ResyncGlobalConfigs(string ConfigType, NSXTGlobalConfigsType GlobalConfigs)
+        public async Task<NSXTGlobalConfigsType> ResyncGlobalConfigs(string ConfigType, NSXTGlobalConfigsType GlobalConfigs)
         {
             if (ConfigType == null) { throw new System.ArgumentNullException("ConfigType cannot be null"); }
             if (GlobalConfigs == null) { throw new System.ArgumentNullException("GlobalConfigs cannot be null"); }
@@ -45,31 +52,19 @@ namespace nsxtapi.ManagerModules
             ResyncGlobalConfigsServiceURL.Replace("{config-type}", System.Uri.EscapeDataString(Helpers.ConvertToString(ConfigType, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(GlobalConfigs, defaultSerializationSettings));
             request.Resource = ResyncGlobalConfigsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTGlobalConfigsType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTGlobalConfigsType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + ResyncGlobalConfigsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTGlobalConfigsType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTGlobalConfigsType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTGlobalConfigsType UpdateGlobalConfigs(string ConfigType, NSXTGlobalConfigsType GlobalConfigs)
+        public async Task<NSXTGlobalConfigsType> UpdateGlobalConfigs(string ConfigType, NSXTGlobalConfigsType GlobalConfigs)
         {
             if (ConfigType == null) { throw new System.ArgumentNullException("ConfigType cannot be null"); }
             if (GlobalConfigs == null) { throw new System.ArgumentNullException("GlobalConfigs cannot be null"); }
@@ -84,31 +79,19 @@ namespace nsxtapi.ManagerModules
             UpdateGlobalConfigsServiceURL.Replace("{config-type}", System.Uri.EscapeDataString(Helpers.ConvertToString(ConfigType, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(GlobalConfigs, defaultSerializationSettings));
             request.Resource = UpdateGlobalConfigsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTGlobalConfigsType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTGlobalConfigsType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateGlobalConfigsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTGlobalConfigsType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTGlobalConfigsType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTGlobalConfigsType GetGlobalConfigs(string ConfigType)
+        public async Task<NSXTGlobalConfigsType> GetGlobalConfigs(string ConfigType)
         {
             if (ConfigType == null) { throw new System.ArgumentNullException("ConfigType cannot be null"); }
             NSXTGlobalConfigsType returnValue = default(NSXTGlobalConfigsType);
@@ -121,31 +104,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             GetGlobalConfigsServiceURL.Replace("{config-type}", System.Uri.EscapeDataString(Helpers.ConvertToString(ConfigType, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetGlobalConfigsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTGlobalConfigsType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTGlobalConfigsType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetGlobalConfigsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTGlobalConfigsType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTGlobalConfigsType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTGlobalConfigsListResultType ListGlobalConfigs()
+        public async Task<NSXTGlobalConfigsListResultType> ListGlobalConfigs()
         {
             NSXTGlobalConfigsListResultType returnValue = default(NSXTGlobalConfigsListResultType);
             StringBuilder ListGlobalConfigsServiceURL = new StringBuilder("/global-configs");
@@ -156,25 +127,13 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = ListGlobalConfigsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTGlobalConfigsListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTGlobalConfigsListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListGlobalConfigsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTGlobalConfigsListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTGlobalConfigsListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

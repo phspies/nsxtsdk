@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTAggregateL2VPNSessionPeerConfigType : NSXTAggregatePolicyRuntimeInfoType
     {
-        public NSXTAggregateL2VPNSessionPeerConfigType()
-        {
-        }
         /// <summary>
         /// List of L2VPN Session peer config per Enforcement Point.
         /// </summary>
-        [JsonProperty(PropertyName = "results")]
-        [NSXTProperty(IsRequired: false, Description: @"List of L2VPN Session peer config per Enforcement Point.")]
         public IList<NSXTL2VPNSessionPeerConfigPerEPType> Results { get; set; }
     }
 }

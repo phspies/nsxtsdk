@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIdsGlobalConfigType : NSXTGlobalConfigsType
     {
-        public NSXTIdsGlobalConfigType()
-        {
-        }
         /// <summary>
         /// When this flag is set to true, IDS events would be sent to syslog.
         /// </summary>
-        [JsonProperty(PropertyName = "global_idsevents_to_syslog_enabled")]
-        [NSXTProperty(IsRequired: false, Description: @"When this flag is set to true, IDS events would be sent to syslog.")]
         public bool? GlobalIdseventsToSyslogEnabled { get; set; }
     }
 }

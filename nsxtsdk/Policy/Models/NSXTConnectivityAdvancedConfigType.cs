@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,18 +17,12 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced configuration for Policy connectivity")]
     public class NSXTConnectivityAdvancedConfigType 
     {
-        public NSXTConnectivityAdvancedConfigType()
-        {
-            Connectivity = test
-        }
         /// <summary>
         /// Connectivity configuration to manually connect (ON) or disconnect (OFF)
         /// Tier-0/Tier1 segment from corresponding gateway.
         /// This property does not apply to VLAN backed segments. VLAN backed segments
         /// with connectivity OFF does not affect its layer-2 connectivity.
         /// </summary>
-        [JsonProperty(PropertyName = "connectivity")]
-        [NSXTProperty(IsRequired: false, Description: @"Connectivity configuration to manually connect (ON) or disconnect (OFF)Tier-0/Tier1 segment from corresponding gateway.This property does not apply to VLAN backed segments. VLAN backed segmentswith connectivity OFF does not affect its layer-2 connectivity.")]
         public NSXTConnectivityAdvancedConfigConnectivityEnumType? Connectivity { get; set; }
     }
 }

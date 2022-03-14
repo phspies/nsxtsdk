@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,20 +17,13 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer DosRateLimitProfile object")]
     public class NSXTALBDosRateLimitProfileType 
     {
-        public NSXTALBDosRateLimitProfileType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "rl_profile")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBRateLimiterProfileType RlProfile { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "dos_profile")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBDosThresholdProfileType DosProfile { get; set; }
     }
 }

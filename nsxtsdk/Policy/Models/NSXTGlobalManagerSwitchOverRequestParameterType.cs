@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,17 +17,12 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Parameter to force switch over from Standby to Active.")]
     public class NSXTGlobalManagerSwitchOverRequestParameterType 
     {
-        public NSXTGlobalManagerSwitchOverRequestParameterType()
-        {
-        }
         /// <summary>
         /// If true indicates that user requested make standby Global Manager
         /// as active ignoring the state of current active Global Manager.
         /// Typically, recommended to use when active Global Manager is failed
         /// or not reachable.
         /// </summary>
-        [JsonProperty(PropertyName = "force")]
-        [NSXTProperty(IsRequired: false, Description: @"If true indicates that user requested make standby Global Manageras active ignoring the state of current active Global Manager.Typically, recommended to use when active Global Manager is failedor not reachable.")]
         public bool? Force { get; set; }
     }
 }

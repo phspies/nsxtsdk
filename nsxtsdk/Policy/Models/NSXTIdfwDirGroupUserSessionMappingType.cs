@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,20 +17,13 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Identity Firewall NSGorup to user mapping to link DirGroup to user session data.")]
     public class NSXTIdfwDirGroupUserSessionMappingType 
     {
-        public NSXTIdfwDirGroupUserSessionMappingType()
-        {
-        }
         /// <summary>
         /// User ID.
         /// </summary>
-        [JsonProperty(PropertyName = "user_id")]
-        [NSXTProperty(IsRequired: false, Description: @"User ID.")]
         public string? UserId { get; set; }
         /// <summary>
         /// Directory Group ID.
         /// </summary>
-        [JsonProperty(PropertyName = "dir_group_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Directory Group ID.")]
         public string? DirGroupId { get; set; }
     }
 }

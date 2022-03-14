@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -19,28 +19,18 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"An address binding entry is a combination of the IP-MAC-VLAN binding fora logical port. The address bindings can be obtained via various methodslike ARP snooping, DHCP snooping etc. or by user configuration.")]
     public class NSXTAddressBindingEntryType 
     {
-        public NSXTAddressBindingEntryType()
-        {
-            Source = test
-        }
         /// <summary>
         /// Source from which the address binding entry was obtained
         /// </summary>
-        [JsonProperty(PropertyName = "source")]
-        [NSXTProperty(IsRequired: false, Description: @"Source from which the address binding entry was obtained")]
         public NSXTAddressBindingEntrySourceEnumType? Source { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "binding")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTPacketAddressClassifierType Binding { get; set; }
         /// <summary>
         /// Timestamp at which the binding was discovered via snooping or manually
         /// specified by the user
         /// </summary>
-        [JsonProperty(PropertyName = "binding_timestamp")]
-        [NSXTProperty(IsRequired: false, Description: @"Timestamp at which the binding was discovered via snooping or manuallyspecified by the user")]
         public long? BindingTimestamp { get; set; }
     }
 }

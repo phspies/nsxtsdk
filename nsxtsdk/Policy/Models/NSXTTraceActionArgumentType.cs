@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,27 +17,18 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTTraceActionArgumentType 
     {
-        public NSXTTraceActionArgumentType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "reverse_filter")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTLiveTraceFilterDataType ReverseFilter { get; set; }
         /// <summary>
         /// It is required only when the type of trace is bidirectional. Please keep this field aligned with the
         /// destination logical port of packet capture action config when the type of packet capture action is bidirectional.
         /// </summary>
-        [JsonProperty(PropertyName = "dest_lport")]
-        [NSXTProperty(IsRequired: false, Description: @"It is required only when the type of trace is bidirectional. Please keep this field aligned with thedestination logical port of packet capture action config when the type of packet capture action is bidirectional.")]
         public string? DestLport { get; set; }
         /// <summary>
         /// Type of trace
         /// </summary>
-        [JsonProperty(PropertyName = "trace_type")]
-        [NSXTProperty(IsRequired: false, Description: @"Type of trace")]
         public NSXTTraceActionArgumentTraceTypeEnumType? TraceType { get; set; }
     }
 }

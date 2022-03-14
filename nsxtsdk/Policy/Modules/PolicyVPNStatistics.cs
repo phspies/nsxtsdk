@@ -21,16 +21,23 @@ namespace nsxtapi.PolicyModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public PolicyVPNStatistics(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public PolicyVPNStatistics(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTAggregateIPSecVpnSessionStatusType GetTier0VpnIpsecVpnSessionStatus(string Tier0Id, string ServiceId, string SessionId, string? EnforcementPointPath = null, string? Source = null)
+        public async Task<NSXTAggregateIPSecVpnSessionStatusType> GetTier0VpnIpsecVpnSessionStatus(string Tier0Id, string ServiceId, string SessionId, string? EnforcementPointPath = null, string? Source = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (ServiceId == null) { throw new System.ArgumentNullException("ServiceId cannot be null"); }
@@ -49,31 +56,19 @@ namespace nsxtapi.PolicyModules
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             request.Resource = GetTier0VpnIpsecVpnSessionStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTAggregateIPSecVpnSessionStatusType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTAggregateIPSecVpnSessionStatusType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetTier0VpnIpsecVpnSessionStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTAggregateIPSecVpnSessionStatusType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTAggregateIPSecVpnSessionStatusType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTAggregateL2VPNSessionStatusType GetL2VpnSessionStatus(string Tier0Id, string LocaleServiceId, string ServiceId, string SessionId, string? EnforcementPointPath = null, string? Source = null)
+        public async Task<NSXTAggregateL2VPNSessionStatusType> GetL2VpnSessionStatus(string Tier0Id, string LocaleServiceId, string ServiceId, string SessionId, string? EnforcementPointPath = null, string? Source = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -94,31 +89,19 @@ namespace nsxtapi.PolicyModules
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             request.Resource = GetL2VpnSessionStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTAggregateL2VPNSessionStatusType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTAggregateL2VPNSessionStatusType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetL2VpnSessionStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTAggregateL2VPNSessionStatusType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTAggregateL2VPNSessionStatusType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTAggregateL2VPNSessionStatusType GetTier1VpnL2VpnSessionStatus(string Tier1Id, string ServiceId, string SessionId, string? EnforcementPointPath = null, string? Source = null)
+        public async Task<NSXTAggregateL2VPNSessionStatusType> GetTier1VpnL2VpnSessionStatus(string Tier1Id, string ServiceId, string SessionId, string? EnforcementPointPath = null, string? Source = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (ServiceId == null) { throw new System.ArgumentNullException("ServiceId cannot be null"); }
@@ -137,31 +120,19 @@ namespace nsxtapi.PolicyModules
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             request.Resource = GetTier1VpnL2VpnSessionStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTAggregateL2VPNSessionStatusType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTAggregateL2VPNSessionStatusType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetTier1VpnL2VpnSessionStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTAggregateL2VPNSessionStatusType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTAggregateL2VPNSessionStatusType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTAggregateL2VPNSessionStatisticsType GetTier1VpnL2VpnSessionStatistics(string Tier1Id, string ServiceId, string SessionId, string? EnforcementPointPath = null, string? Source = null)
+        public async Task<NSXTAggregateL2VPNSessionStatisticsType> GetTier1VpnL2VpnSessionStatistics(string Tier1Id, string ServiceId, string SessionId, string? EnforcementPointPath = null, string? Source = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (ServiceId == null) { throw new System.ArgumentNullException("ServiceId cannot be null"); }
@@ -180,31 +151,19 @@ namespace nsxtapi.PolicyModules
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             request.Resource = GetTier1VpnL2VpnSessionStatisticsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTAggregateL2VPNSessionStatisticsType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTAggregateL2VPNSessionStatisticsType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetTier1VpnL2VpnSessionStatisticsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTAggregateL2VPNSessionStatisticsType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTAggregateL2VPNSessionStatisticsType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTAggregateL2VpnSessionRemoteMacType GetTier0L2VpnSessionRemoteMacsForLS(string Tier0Id, string LocaleServiceId, string ServiceId, string SessionId, string? EnforcementPointPath = null, string? SegmentPath = null)
+        public async Task<NSXTAggregateL2VpnSessionRemoteMacType> GetTier0L2VpnSessionRemoteMacsForLS(string Tier0Id, string LocaleServiceId, string ServiceId, string SessionId, string? EnforcementPointPath = null, string? SegmentPath = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -225,31 +184,19 @@ namespace nsxtapi.PolicyModules
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             if (SegmentPath != null) { request.AddQueryParameter("segment_path", SegmentPath.ToString()); }
             request.Resource = GetTier0L2VpnSessionRemoteMacsForLSServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTAggregateL2VpnSessionRemoteMacType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTAggregateL2VpnSessionRemoteMacType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetTier0L2VpnSessionRemoteMacsForLSServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTAggregateL2VpnSessionRemoteMacType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTAggregateL2VpnSessionRemoteMacType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTAggregateL2VPNSessionStatusType GetTier0VpnL2VpnSessionStatus(string Tier0Id, string ServiceId, string SessionId, string? EnforcementPointPath = null, string? Source = null)
+        public async Task<NSXTAggregateL2VPNSessionStatusType> GetTier0VpnL2VpnSessionStatus(string Tier0Id, string ServiceId, string SessionId, string? EnforcementPointPath = null, string? Source = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (ServiceId == null) { throw new System.ArgumentNullException("ServiceId cannot be null"); }
@@ -268,31 +215,19 @@ namespace nsxtapi.PolicyModules
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             request.Resource = GetTier0VpnL2VpnSessionStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTAggregateL2VPNSessionStatusType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTAggregateL2VPNSessionStatusType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetTier0VpnL2VpnSessionStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTAggregateL2VPNSessionStatusType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTAggregateL2VPNSessionStatusType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTAggregateL2VPNSessionStatisticsType GetTier0VpnL2VpnSessionStatistics(string Tier0Id, string ServiceId, string SessionId, string? EnforcementPointPath = null, string? Source = null)
+        public async Task<NSXTAggregateL2VPNSessionStatisticsType> GetTier0VpnL2VpnSessionStatistics(string Tier0Id, string ServiceId, string SessionId, string? EnforcementPointPath = null, string? Source = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (ServiceId == null) { throw new System.ArgumentNullException("ServiceId cannot be null"); }
@@ -311,31 +246,19 @@ namespace nsxtapi.PolicyModules
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             request.Resource = GetTier0VpnL2VpnSessionStatisticsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTAggregateL2VPNSessionStatisticsType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTAggregateL2VPNSessionStatisticsType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetTier0VpnL2VpnSessionStatisticsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTAggregateL2VPNSessionStatisticsType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTAggregateL2VPNSessionStatisticsType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyIpsecVpnIkeServiceSummaryType GetTier1VpnIpsecVpnSessionSummary(string Tier1Id, string ServiceId, string? EnforcementPointPath = null, string? Source = null)
+        public async Task<NSXTPolicyIpsecVpnIkeServiceSummaryType> GetTier1VpnIpsecVpnSessionSummary(string Tier1Id, string ServiceId, string? EnforcementPointPath = null, string? Source = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (ServiceId == null) { throw new System.ArgumentNullException("ServiceId cannot be null"); }
@@ -352,31 +275,19 @@ namespace nsxtapi.PolicyModules
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             request.Resource = GetTier1VpnIpsecVpnSessionSummaryServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyIpsecVpnIkeServiceSummaryType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyIpsecVpnIkeServiceSummaryType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetTier1VpnIpsecVpnSessionSummaryServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyIpsecVpnIkeServiceSummaryType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyIpsecVpnIkeServiceSummaryType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyIpsecVpnIkeServiceSummaryType GetTier1IpsecVpnSessionSummary(string Tier1Id, string LocaleServiceId, string ServiceId, string? EnforcementPointPath = null, string? Source = null)
+        public async Task<NSXTPolicyIpsecVpnIkeServiceSummaryType> GetTier1IpsecVpnSessionSummary(string Tier1Id, string LocaleServiceId, string ServiceId, string? EnforcementPointPath = null, string? Source = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -395,31 +306,19 @@ namespace nsxtapi.PolicyModules
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             request.Resource = GetTier1IpsecVpnSessionSummaryServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyIpsecVpnIkeServiceSummaryType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyIpsecVpnIkeServiceSummaryType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetTier1IpsecVpnSessionSummaryServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyIpsecVpnIkeServiceSummaryType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyIpsecVpnIkeServiceSummaryType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyIpsecVpnIkeServiceSummaryType GetTier0VpnIpsecVpnSessionSummary(string Tier0Id, string ServiceId, string? EnforcementPointPath = null, string? Source = null)
+        public async Task<NSXTPolicyIpsecVpnIkeServiceSummaryType> GetTier0VpnIpsecVpnSessionSummary(string Tier0Id, string ServiceId, string? EnforcementPointPath = null, string? Source = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (ServiceId == null) { throw new System.ArgumentNullException("ServiceId cannot be null"); }
@@ -436,31 +335,19 @@ namespace nsxtapi.PolicyModules
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             request.Resource = GetTier0VpnIpsecVpnSessionSummaryServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyIpsecVpnIkeServiceSummaryType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyIpsecVpnIkeServiceSummaryType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetTier0VpnIpsecVpnSessionSummaryServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyIpsecVpnIkeServiceSummaryType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyIpsecVpnIkeServiceSummaryType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTAggregateL2VpnSessionRemoteMacType GetTier0VpnL2VpnSessionRemoteMacsForLS(string Tier0Id, string ServiceId, string SessionId, string? EnforcementPointPath = null, string? SegmentPath = null)
+        public async Task<NSXTAggregateL2VpnSessionRemoteMacType> GetTier0VpnL2VpnSessionRemoteMacsForLS(string Tier0Id, string ServiceId, string SessionId, string? EnforcementPointPath = null, string? SegmentPath = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (ServiceId == null) { throw new System.ArgumentNullException("ServiceId cannot be null"); }
@@ -479,31 +366,19 @@ namespace nsxtapi.PolicyModules
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             if (SegmentPath != null) { request.AddQueryParameter("segment_path", SegmentPath.ToString()); }
             request.Resource = GetTier0VpnL2VpnSessionRemoteMacsForLSServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTAggregateL2VpnSessionRemoteMacType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTAggregateL2VpnSessionRemoteMacType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetTier0VpnL2VpnSessionRemoteMacsForLSServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTAggregateL2VpnSessionRemoteMacType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTAggregateL2VpnSessionRemoteMacType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTAggregateL2VpnSessionRemoteMacType GetTier1L2VpnSessionRemoteMacsForLS(string Tier1Id, string LocaleServiceId, string ServiceId, string SessionId, string? EnforcementPointPath = null, string? SegmentPath = null)
+        public async Task<NSXTAggregateL2VpnSessionRemoteMacType> GetTier1L2VpnSessionRemoteMacsForLS(string Tier1Id, string LocaleServiceId, string ServiceId, string SessionId, string? EnforcementPointPath = null, string? SegmentPath = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -524,31 +399,19 @@ namespace nsxtapi.PolicyModules
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             if (SegmentPath != null) { request.AddQueryParameter("segment_path", SegmentPath.ToString()); }
             request.Resource = GetTier1L2VpnSessionRemoteMacsForLSServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTAggregateL2VpnSessionRemoteMacType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTAggregateL2VpnSessionRemoteMacType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetTier1L2VpnSessionRemoteMacsForLSServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTAggregateL2VpnSessionRemoteMacType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTAggregateL2VpnSessionRemoteMacType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTAggregateL3VpnStatisticsType GetL3VpnStatistics(string Tier0Id, string LocaleServiceId, string L3vpnId, string? ContainerClusterPath = null, string? EnforcementPointPath = null)
+        public async Task<NSXTAggregateL3VpnStatisticsType> GetL3VpnStatistics(string Tier0Id, string LocaleServiceId, string L3vpnId, string? ContainerClusterPath = null, string? EnforcementPointPath = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -567,31 +430,19 @@ namespace nsxtapi.PolicyModules
             if (ContainerClusterPath != null) { request.AddQueryParameter("container_cluster_path", ContainerClusterPath.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             request.Resource = GetL3VpnStatisticsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTAggregateL3VpnStatisticsType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTAggregateL3VpnStatisticsType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetL3VpnStatisticsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTAggregateL3VpnStatisticsType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTAggregateL3VpnStatisticsType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GlobalGlobalInfraResetTier1VpnIpsecVpnSessionStatistics(string Tier1Id, string ServiceId, string SessionId, string Action, string? EnforcementPointPath = null)
+        public async Task GlobalGlobalInfraResetTier1VpnIpsecVpnSessionStatistics(string Tier1Id, string ServiceId, string SessionId, string Action, string? EnforcementPointPath = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (ServiceId == null) { throw new System.ArgumentNullException("ServiceId cannot be null"); }
@@ -611,7 +462,7 @@ namespace nsxtapi.PolicyModules
             if (Action != null) { request.AddQueryParameter("action", Action.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             request.Resource = GlobalInfraResetTier1VpnIpsecVpnSessionStatisticsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + GlobalInfraResetTier1VpnIpsecVpnSessionStatisticsServiceURL.ToString() + " did not complete successfull";
@@ -623,7 +474,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTAggregateIPSecVpnSessionStatusType GetTier1IpsecVpnSessionStatus(string Tier1Id, string LocaleServiceId, string ServiceId, string SessionId, string? EnforcementPointPath = null, string? Source = null)
+        public async Task<NSXTAggregateIPSecVpnSessionStatusType> GetTier1IpsecVpnSessionStatus(string Tier1Id, string LocaleServiceId, string ServiceId, string SessionId, string? EnforcementPointPath = null, string? Source = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -644,31 +495,19 @@ namespace nsxtapi.PolicyModules
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             request.Resource = GetTier1IpsecVpnSessionStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTAggregateIPSecVpnSessionStatusType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTAggregateIPSecVpnSessionStatusType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetTier1IpsecVpnSessionStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTAggregateIPSecVpnSessionStatusType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTAggregateIPSecVpnSessionStatusType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void ResetTier0IpsecVpnSessionStatistics(string Tier0Id, string LocaleServiceId, string ServiceId, string SessionId, string Action, string? EnforcementPointPath = null)
+        public async Task ResetTier0IpsecVpnSessionStatistics(string Tier0Id, string LocaleServiceId, string ServiceId, string SessionId, string Action, string? EnforcementPointPath = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -690,7 +529,7 @@ namespace nsxtapi.PolicyModules
             if (Action != null) { request.AddQueryParameter("action", Action.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             request.Resource = ResetTier0IpsecVpnSessionStatisticsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + ResetTier0IpsecVpnSessionStatisticsServiceURL.ToString() + " did not complete successfull";
@@ -702,7 +541,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTAggregateIPSecVpnSessionStatisticsType GetTier0IpsecVpnSessionStatistics(string Tier0Id, string LocaleServiceId, string ServiceId, string SessionId, string? EnforcementPointPath = null, string? Source = null)
+        public async Task<NSXTAggregateIPSecVpnSessionStatisticsType> GetTier0IpsecVpnSessionStatistics(string Tier0Id, string LocaleServiceId, string ServiceId, string SessionId, string? EnforcementPointPath = null, string? Source = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -723,31 +562,19 @@ namespace nsxtapi.PolicyModules
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             request.Resource = GetTier0IpsecVpnSessionStatisticsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTAggregateIPSecVpnSessionStatisticsType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTAggregateIPSecVpnSessionStatisticsType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetTier0IpsecVpnSessionStatisticsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTAggregateIPSecVpnSessionStatisticsType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTAggregateIPSecVpnSessionStatisticsType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyIpsecVpnIkeServiceSummaryType GetTier0IpsecVpnSessionSummary(string Tier0Id, string LocaleServiceId, string ServiceId, string? EnforcementPointPath = null, string? Source = null)
+        public async Task<NSXTPolicyIpsecVpnIkeServiceSummaryType> GetTier0IpsecVpnSessionSummary(string Tier0Id, string LocaleServiceId, string ServiceId, string? EnforcementPointPath = null, string? Source = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -766,31 +593,19 @@ namespace nsxtapi.PolicyModules
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             request.Resource = GetTier0IpsecVpnSessionSummaryServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyIpsecVpnIkeServiceSummaryType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyIpsecVpnIkeServiceSummaryType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetTier0IpsecVpnSessionSummaryServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyIpsecVpnIkeServiceSummaryType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyIpsecVpnIkeServiceSummaryType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTAggregateL2VPNSessionStatisticsType GetL2VpnSessionStatistics(string Tier0Id, string LocaleServiceId, string ServiceId, string SessionId, string? EnforcementPointPath = null, string? Source = null)
+        public async Task<NSXTAggregateL2VPNSessionStatisticsType> GetL2VpnSessionStatistics(string Tier0Id, string LocaleServiceId, string ServiceId, string SessionId, string? EnforcementPointPath = null, string? Source = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -811,31 +626,19 @@ namespace nsxtapi.PolicyModules
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             request.Resource = GetL2VpnSessionStatisticsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTAggregateL2VPNSessionStatisticsType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTAggregateL2VPNSessionStatisticsType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetL2VpnSessionStatisticsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTAggregateL2VPNSessionStatisticsType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTAggregateL2VPNSessionStatisticsType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void ResetTier1VpnIpsecVpnSessionStatistics(string Tier1Id, string ServiceId, string SessionId, string Action, string? EnforcementPointPath = null)
+        public async Task ResetTier1VpnIpsecVpnSessionStatistics(string Tier1Id, string ServiceId, string SessionId, string Action, string? EnforcementPointPath = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (ServiceId == null) { throw new System.ArgumentNullException("ServiceId cannot be null"); }
@@ -855,7 +658,7 @@ namespace nsxtapi.PolicyModules
             if (Action != null) { request.AddQueryParameter("action", Action.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             request.Resource = ResetTier1VpnIpsecVpnSessionStatisticsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + ResetTier1VpnIpsecVpnSessionStatisticsServiceURL.ToString() + " did not complete successfull";
@@ -867,7 +670,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTAggregateIPSecVpnSessionStatisticsType GetTier1VpnIpsecVpnSessionStatistics(string Tier1Id, string ServiceId, string SessionId, string? EnforcementPointPath = null, string? Source = null)
+        public async Task<NSXTAggregateIPSecVpnSessionStatisticsType> GetTier1VpnIpsecVpnSessionStatistics(string Tier1Id, string ServiceId, string SessionId, string? EnforcementPointPath = null, string? Source = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (ServiceId == null) { throw new System.ArgumentNullException("ServiceId cannot be null"); }
@@ -886,31 +689,19 @@ namespace nsxtapi.PolicyModules
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             request.Resource = GetTier1VpnIpsecVpnSessionStatisticsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTAggregateIPSecVpnSessionStatisticsType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTAggregateIPSecVpnSessionStatisticsType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetTier1VpnIpsecVpnSessionStatisticsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTAggregateIPSecVpnSessionStatisticsType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTAggregateIPSecVpnSessionStatisticsType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTAggregateL2VPNSessionStatisticsType GetTier1L2VpnSessionStatistics(string Tier1Id, string LocaleServiceId, string ServiceId, string SessionId, string? EnforcementPointPath = null, string? Source = null)
+        public async Task<NSXTAggregateL2VPNSessionStatisticsType> GetTier1L2VpnSessionStatistics(string Tier1Id, string LocaleServiceId, string ServiceId, string SessionId, string? EnforcementPointPath = null, string? Source = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -931,31 +722,19 @@ namespace nsxtapi.PolicyModules
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             request.Resource = GetTier1L2VpnSessionStatisticsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTAggregateL2VPNSessionStatisticsType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTAggregateL2VPNSessionStatisticsType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetTier1L2VpnSessionStatisticsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTAggregateL2VPNSessionStatisticsType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTAggregateL2VPNSessionStatisticsType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTAggregateL2VPNSessionStatusType GetTier1L2VpnSessionStatus(string Tier1Id, string LocaleServiceId, string ServiceId, string SessionId, string? EnforcementPointPath = null, string? Source = null)
+        public async Task<NSXTAggregateL2VPNSessionStatusType> GetTier1L2VpnSessionStatus(string Tier1Id, string LocaleServiceId, string ServiceId, string SessionId, string? EnforcementPointPath = null, string? Source = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -976,31 +755,19 @@ namespace nsxtapi.PolicyModules
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             request.Resource = GetTier1L2VpnSessionStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTAggregateL2VPNSessionStatusType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTAggregateL2VPNSessionStatusType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetTier1L2VpnSessionStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTAggregateL2VPNSessionStatusType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTAggregateL2VPNSessionStatusType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTAggregateL2VpnSessionRemoteMacType GetTier1VpnL2VpnSessionRemoteMacsForLS(string Tier1Id, string ServiceId, string SessionId, string? EnforcementPointPath = null, string? SegmentPath = null)
+        public async Task<NSXTAggregateL2VpnSessionRemoteMacType> GetTier1VpnL2VpnSessionRemoteMacsForLS(string Tier1Id, string ServiceId, string SessionId, string? EnforcementPointPath = null, string? SegmentPath = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (ServiceId == null) { throw new System.ArgumentNullException("ServiceId cannot be null"); }
@@ -1019,31 +786,19 @@ namespace nsxtapi.PolicyModules
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             if (SegmentPath != null) { request.AddQueryParameter("segment_path", SegmentPath.ToString()); }
             request.Resource = GetTier1VpnL2VpnSessionRemoteMacsForLSServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTAggregateL2VpnSessionRemoteMacType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTAggregateL2VpnSessionRemoteMacType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetTier1VpnL2VpnSessionRemoteMacsForLSServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTAggregateL2VpnSessionRemoteMacType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTAggregateL2VpnSessionRemoteMacType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTAggregateIPSecVpnSessionStatusType GetTier1VpnIpsecVpnSessionStatus(string Tier1Id, string ServiceId, string SessionId, string? EnforcementPointPath = null, string? Source = null)
+        public async Task<NSXTAggregateIPSecVpnSessionStatusType> GetTier1VpnIpsecVpnSessionStatus(string Tier1Id, string ServiceId, string SessionId, string? EnforcementPointPath = null, string? Source = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (ServiceId == null) { throw new System.ArgumentNullException("ServiceId cannot be null"); }
@@ -1062,31 +817,19 @@ namespace nsxtapi.PolicyModules
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             request.Resource = GetTier1VpnIpsecVpnSessionStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTAggregateIPSecVpnSessionStatusType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTAggregateIPSecVpnSessionStatusType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetTier1VpnIpsecVpnSessionStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTAggregateIPSecVpnSessionStatusType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTAggregateIPSecVpnSessionStatusType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GlobalGlobalInfraResetTier0VpnIpsecVpnSessionStatistics(string Tier0Id, string ServiceId, string SessionId, string Action, string? EnforcementPointPath = null)
+        public async Task GlobalGlobalInfraResetTier0VpnIpsecVpnSessionStatistics(string Tier0Id, string ServiceId, string SessionId, string Action, string? EnforcementPointPath = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (ServiceId == null) { throw new System.ArgumentNullException("ServiceId cannot be null"); }
@@ -1106,7 +849,7 @@ namespace nsxtapi.PolicyModules
             if (Action != null) { request.AddQueryParameter("action", Action.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             request.Resource = GlobalInfraResetTier0VpnIpsecVpnSessionStatisticsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + GlobalInfraResetTier0VpnIpsecVpnSessionStatisticsServiceURL.ToString() + " did not complete successfull";
@@ -1118,7 +861,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTAggregateIPSecVpnSessionStatusType GetTier0IpsecVpnSessionStatus(string Tier0Id, string LocaleServiceId, string ServiceId, string SessionId, string? EnforcementPointPath = null, string? Source = null)
+        public async Task<NSXTAggregateIPSecVpnSessionStatusType> GetTier0IpsecVpnSessionStatus(string Tier0Id, string LocaleServiceId, string ServiceId, string SessionId, string? EnforcementPointPath = null, string? Source = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -1139,31 +882,19 @@ namespace nsxtapi.PolicyModules
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             request.Resource = GetTier0IpsecVpnSessionStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTAggregateIPSecVpnSessionStatusType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTAggregateIPSecVpnSessionStatusType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetTier0IpsecVpnSessionStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTAggregateIPSecVpnSessionStatusType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTAggregateIPSecVpnSessionStatusType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTAggregateL2VpnStatisticsType GetL2VpnStatistics(string Tier0Id, string LocaleServiceId, string L2vpnId, string? ContainerClusterPath = null, string? EnforcementPointPath = null)
+        public async Task<NSXTAggregateL2VpnStatisticsType> GetL2VpnStatistics(string Tier0Id, string LocaleServiceId, string L2vpnId, string? ContainerClusterPath = null, string? EnforcementPointPath = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -1182,31 +913,19 @@ namespace nsxtapi.PolicyModules
             if (ContainerClusterPath != null) { request.AddQueryParameter("container_cluster_path", ContainerClusterPath.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             request.Resource = GetL2VpnStatisticsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTAggregateL2VpnStatisticsType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTAggregateL2VpnStatisticsType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetL2VpnStatisticsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTAggregateL2VpnStatisticsType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTAggregateL2VpnStatisticsType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void ResetTier1IpsecVpnSessionStatistics(string Tier1Id, string LocaleServiceId, string ServiceId, string SessionId, string Action, string? EnforcementPointPath = null)
+        public async Task ResetTier1IpsecVpnSessionStatistics(string Tier1Id, string LocaleServiceId, string ServiceId, string SessionId, string Action, string? EnforcementPointPath = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -1228,7 +947,7 @@ namespace nsxtapi.PolicyModules
             if (Action != null) { request.AddQueryParameter("action", Action.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             request.Resource = ResetTier1IpsecVpnSessionStatisticsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + ResetTier1IpsecVpnSessionStatisticsServiceURL.ToString() + " did not complete successfull";
@@ -1240,7 +959,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTAggregateIPSecVpnSessionStatisticsType GetTier1IpsecVpnSessionStatistics(string Tier1Id, string LocaleServiceId, string ServiceId, string SessionId, string? EnforcementPointPath = null, string? Source = null)
+        public async Task<NSXTAggregateIPSecVpnSessionStatisticsType> GetTier1IpsecVpnSessionStatistics(string Tier1Id, string LocaleServiceId, string ServiceId, string SessionId, string? EnforcementPointPath = null, string? Source = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -1261,31 +980,19 @@ namespace nsxtapi.PolicyModules
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             request.Resource = GetTier1IpsecVpnSessionStatisticsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTAggregateIPSecVpnSessionStatisticsType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTAggregateIPSecVpnSessionStatisticsType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetTier1IpsecVpnSessionStatisticsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTAggregateIPSecVpnSessionStatisticsType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTAggregateIPSecVpnSessionStatisticsType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void ResetTier0VpnIpsecVpnSessionStatistics(string Tier0Id, string ServiceId, string SessionId, string Action, string? EnforcementPointPath = null)
+        public async Task ResetTier0VpnIpsecVpnSessionStatistics(string Tier0Id, string ServiceId, string SessionId, string Action, string? EnforcementPointPath = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (ServiceId == null) { throw new System.ArgumentNullException("ServiceId cannot be null"); }
@@ -1305,7 +1012,7 @@ namespace nsxtapi.PolicyModules
             if (Action != null) { request.AddQueryParameter("action", Action.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             request.Resource = ResetTier0VpnIpsecVpnSessionStatisticsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + ResetTier0VpnIpsecVpnSessionStatisticsServiceURL.ToString() + " did not complete successfull";
@@ -1317,7 +1024,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTAggregateIPSecVpnSessionStatisticsType GetTier0VpnIpsecVpnSessionStatistics(string Tier0Id, string ServiceId, string SessionId, string? EnforcementPointPath = null, string? Source = null)
+        public async Task<NSXTAggregateIPSecVpnSessionStatisticsType> GetTier0VpnIpsecVpnSessionStatistics(string Tier0Id, string ServiceId, string SessionId, string? EnforcementPointPath = null, string? Source = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (ServiceId == null) { throw new System.ArgumentNullException("ServiceId cannot be null"); }
@@ -1336,25 +1043,13 @@ namespace nsxtapi.PolicyModules
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             request.Resource = GetTier0VpnIpsecVpnSessionStatisticsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTAggregateIPSecVpnSessionStatisticsType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTAggregateIPSecVpnSessionStatisticsType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetTier0VpnIpsecVpnSessionStatisticsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTAggregateIPSecVpnSessionStatisticsType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTAggregateIPSecVpnSessionStatisticsType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

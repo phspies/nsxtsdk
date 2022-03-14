@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIPSecVpnSessionListResultType : NSXTListResultType
     {
-        public NSXTIPSecVpnSessionListResultType()
-        {
-        }
         /// <summary>
         /// IPSecVpnSession list results.
         /// </summary>
         [JsonProperty(PropertyName = "results", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"IPSecVpnSession list results.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTIPSecVpnSessionType> Results { get; set; }
     }
 }

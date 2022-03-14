@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer AuthorizationPolicy object")]
     public class NSXTALBAuthorizationPolicyType 
     {
-        public NSXTALBAuthorizationPolicyType()
-        {
-        }
         /// <summary>
         /// Authorization Policy Rules.
         /// </summary>
-        [JsonProperty(PropertyName = "authz_rules")]
-        [NSXTProperty(IsRequired: false, Description: @"Authorization Policy Rules.")]
         public IList<NSXTALBAuthorizationRuleType> AuthzRules { get; set; }
     }
 }

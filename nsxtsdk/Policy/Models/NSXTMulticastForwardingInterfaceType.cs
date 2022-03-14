@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Multicast forwarding interface details.")]
     public class NSXTMulticastForwardingInterfaceType 
     {
-        public NSXTMulticastForwardingInterfaceType()
-        {
-        }
         /// <summary>
         /// Interface id.
         /// </summary>
-        [JsonProperty(PropertyName = "ifuid")]
-        [NSXTProperty(IsRequired: false, Description: @"Interface id.")]
         public string? Ifuid { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,49 +17,31 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLBClientSslProfileType : NSXTLBSslProfileType
     {
-        public NSXTLBClientSslProfileType()
-        {
-            SessionCacheEnabled = test
-            SessionCacheTimeout = test
-            PreferServerCiphers = test
-        }
         /// <summary>
         /// SSL session caching allows SSL client and server to reuse previously
         /// negotiated security parameters avoiding the expensive public key
         /// operation during handshake.
         /// </summary>
-        [JsonProperty(PropertyName = "session_cache_enabled")]
-        [NSXTProperty(IsRequired: false, Description: @"SSL session caching allows SSL client and server to reuse previouslynegotiated security parameters avoiding the expensive public keyoperation during handshake.")]
         public bool? SessionCacheEnabled { get; set; }
         /// <summary>
         /// Session cache timeout specifies how long the SSL session parameters
         /// are held on to and can be reused.
         /// </summary>
-        [JsonProperty(PropertyName = "session_cache_timeout")]
-        [NSXTProperty(IsRequired: false, Description: @"Session cache timeout specifies how long the SSL session parametersare held on to and can be reused.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(86400)]
         public long? SessionCacheTimeout { get; set; }
         /// <summary>
         /// It is a label of cipher group which is mostly consumed by GUI.
         /// </summary>
-        [JsonProperty(PropertyName = "cipher_group_label")]
-        [NSXTProperty(IsRequired: false, Description: @"It is a label of cipher group which is mostly consumed by GUI.")]
         public NSXTLbclientSslProfileCipherGroupLabelEnumType? CipherGroupLabel { get; set; }
         /// <summary>
         /// This flag is set to true when all the ciphers and protocols are FIPS
         /// compliant. It is set to false when one of the ciphers or protocols are
         /// not FIPS compliant..
         /// </summary>
-        [JsonProperty(PropertyName = "is_fips")]
-        [NSXTProperty(IsRequired: false, Description: @"This flag is set to true when all the ciphers and protocols are FIPScompliant. It is set to false when one of the ciphers or protocols arenot FIPS compliant..")]
         public bool? IsFips { get; set; }
         /// <summary>
         /// This flag is set to true when all the ciphers and protocols are secure.
         /// It is set to false when one of the ciphers or protocols is insecure.
         /// </summary>
-        [JsonProperty(PropertyName = "is_secure")]
-        [NSXTProperty(IsRequired: false, Description: @"This flag is set to true when all the ciphers and protocols are secure.It is set to false when one of the ciphers or protocols is insecure.")]
         public bool? IsSecure { get; set; }
         /// <summary>
         /// During SSL handshake as part of the SSL client Hello client sends an
@@ -68,21 +50,15 @@ namespace nsxtsdk.PolicyModels
         /// support. For Perfect Forward Secrecy(PFS), server could override the
         /// client's preference.
         /// </summary>
-        [JsonProperty(PropertyName = "prefer_server_ciphers")]
-        [NSXTProperty(IsRequired: false, Description: @"During SSL handshake as part of the SSL client Hello client sends anordered list of ciphers that it can support (or prefers) and typicallyserver selects the first one from the top of that list it can alsosupport. For Perfect Forward Secrecy(PFS), server could override theclient&apos;s preference.")]
         public bool? PreferServerCiphers { get; set; }
         /// <summary>
         /// Supported SSL cipher list to client side.
         /// </summary>
-        [JsonProperty(PropertyName = "ciphers")]
-        [NSXTProperty(IsRequired: false, Description: @"Supported SSL cipher list to client side.")]
         public IList<string> Ciphers { get; set; }
         /// <summary>
         /// SSL versions TLS1.1 and TLS1.2 are supported and enabled by default.
         /// SSLv2, SSLv3, and TLS1.0 are supported, but disabled by default.
         /// </summary>
-        [JsonProperty(PropertyName = "protocols")]
-        [NSXTProperty(IsRequired: false, Description: @"SSL versions TLS1.1 and TLS1.2 are supported and enabled by default.SSLv2, SSLv3, and TLS1.0 are supported, but disabled by default.")]
         public IList<string> Protocols { get; set; }
     }
 }

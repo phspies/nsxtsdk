@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIdentityGroupExpressionType : NSXTExpressionType
     {
-        public NSXTIdentityGroupExpressionType()
-        {
-        }
         /// <summary>
         /// This array consists of set of identity group object. All members within this array are implicitly OR'ed together.
         /// </summary>
         [JsonProperty(PropertyName = "identity_groups", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"This array consists of set of identity group object. All members within this array are implicitly OR&apos;ed together.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTIdentityGroupInfoType> IdentityGroups { get; set; }
     }
 }

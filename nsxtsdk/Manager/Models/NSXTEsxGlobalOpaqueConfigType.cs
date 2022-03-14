@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTEsxGlobalOpaqueConfigType : NSXTGlobalConfigsType
     {
-        public NSXTEsxGlobalOpaqueConfigType()
-        {
-        }
         /// <summary>
         /// A list of global opaque configuration for ESX hosts.
         /// </summary>
         [JsonProperty(PropertyName = "opaque_config", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"A list of global opaque configuration for ESX hosts.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTKeyValuePairType> OpaqueConfig { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,17 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyServiceChainType : NSXTPolicyConfigResourceType
     {
-        public NSXTPolicyServiceChainType()
-        {
-            PathSelectionPolicy = test
-            FailurePolicy = test
-        }
         /// <summary>
         /// Reverse path service profiles are applied to egress traffic and is optional. 2 different set of profiles can be defined
         /// for forward and reverse path. If not defined, the reverse of the forward path service profile is applied.
         /// </summary>
-        [JsonProperty(PropertyName = "reverse_path_service_profiles")]
-        [NSXTProperty(IsRequired: false, Description: @"Reverse path service profiles are applied to egress traffic and is optional. 2 different set of profiles can be defined for forward and reverse path. If not defined, the reverse of the forward path service profile is applied.")]
         public IList<string> ReversePathServiceProfiles { get; set; }
         /// <summary>
         /// Path selection policy can be - ANY - Service Insertion is free to redirect to any service path regardless of any load
@@ -35,29 +28,21 @@ namespace nsxtsdk.PolicyModels
         /// to be given to the SVM co-located on the same host. ROUND_ROBIN - All active service paths are hit with equal
         /// probability.
         /// </summary>
-        [JsonProperty(PropertyName = "path_selection_policy")]
-        [NSXTProperty(IsRequired: false, Description: @"Path selection policy can be - ANY - Service Insertion is free to redirect to any service path regardless of any load balancing considerations or flow pinning. LOCAL - Preference to be given to local service insances. REMOTE - Preference to be given to the SVM co-located on the same host. ROUND_ROBIN - All active service paths are hit with equal probability.")]
         public NSXTPolicyServiceChainPathSelectionPolicyEnumType? PathSelectionPolicy { get; set; }
         /// <summary>
         /// Path to service segment using which the traffic needs to be redirected.
         /// </summary>
         [JsonProperty(PropertyName = "service_segment_path", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Path to service segment using which the traffic needs to be redirected.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<string> ServiceSegmentPath { get; set; }
         /// <summary>
         /// Forward path service profiles are applied to ingress traffic.
         /// </summary>
         [JsonProperty(PropertyName = "forward_path_service_profiles", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Forward path service profiles are applied to ingress traffic.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<string> ForwardPathServiceProfiles { get; set; }
         /// <summary>
         /// Failure policy for the service defines the action to be taken i.e to allow or to block the traffic during failure
         /// scenarios.
         /// </summary>
-        [JsonProperty(PropertyName = "failure_policy")]
-        [NSXTProperty(IsRequired: false, Description: @"Failure policy for the service defines the action to be taken i.e to allow or to block the traffic during failure scenarios.")]
         public NSXTPolicyServiceChainFailurePolicyEnumType? FailurePolicy { get; set; }
     }
 }

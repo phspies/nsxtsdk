@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,21 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Transport tunnel status.")]
     public class NSXTL2VPNTransportTunnelStatusType 
     {
-        public NSXTL2VPNTransportTunnelStatusType()
-        {
-        }
         /// <summary>
         /// Resource types of L2VPN Transport tunnels
         /// </summary>
         [JsonProperty(PropertyName = "resource_type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Resource types of L2VPN Transport tunnels")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTL2VpntransportTunnelStatusResourceTypeEnumType ResourceType { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "tunnel_id")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTResourceReferenceType TunnelId { get; set; }
     }
 }

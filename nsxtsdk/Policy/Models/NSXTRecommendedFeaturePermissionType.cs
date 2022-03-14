@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,29 +17,20 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Recommended Feature Permission")]
     public class NSXTRecommendedFeaturePermissionType 
     {
-        public NSXTRecommendedFeaturePermissionType()
-        {
-        }
         /// <summary>
         /// List of source features
         /// </summary>
         [JsonProperty(PropertyName = "src_features", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"List of source features")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<string> SrcFeatures { get; set; }
         /// <summary>
         /// Feature
         /// </summary>
         [JsonProperty(PropertyName = "target_feature", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Feature")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string TargetFeature { get; set; }
         /// <summary>
         /// Permission
         /// </summary>
         [JsonProperty(PropertyName = "recommended_permissions", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Permission")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<string> RecommendedPermissions { get; set; }
     }
 }

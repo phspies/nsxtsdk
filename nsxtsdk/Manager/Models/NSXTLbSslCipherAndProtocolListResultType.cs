@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,22 +17,15 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLbSslCipherAndProtocolListResultType : NSXTListResultType
     {
-        public NSXTLbSslCipherAndProtocolListResultType()
-        {
-        }
         /// <summary>
         /// List of SSL ciphers
         /// </summary>
         [JsonProperty(PropertyName = "ciphers", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"List of SSL ciphers")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTLbSslCipherInfoType> Ciphers { get; set; }
         /// <summary>
         /// List of SSL protocols
         /// </summary>
         [JsonProperty(PropertyName = "protocols", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"List of SSL protocols")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTLbSslProtocolInfoType> Protocols { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,22 +17,15 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"A range of MAC addresses with a start and end value")]
     public class NSXTMacRangeType 
     {
-        public NSXTMacRangeType()
-        {
-        }
         /// <summary>
         /// Start value for MAC address range
         /// </summary>
         [JsonProperty(PropertyName = "start", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Start value for MAC address range")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Start { get; set; }
         /// <summary>
         /// End value for MAC address range
         /// </summary>
         [JsonProperty(PropertyName = "end", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"End value for MAC address range")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string End { get; set; }
     }
 }

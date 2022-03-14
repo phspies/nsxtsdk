@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,39 +17,17 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTFirewallSessionTimerProfileType : NSXTBaseFirewallProfileType
     {
-        public NSXTFirewallSessionTimerProfileType()
-        {
-            TcpClosed = test
-            TcpOpening = test
-            UdpSingle = test
-            TcpFinwait = test
-            TcpFirstPacket = test
-            TcpClosing = test
-            TcpEstablished = test
-            UdpMultiple = test
-            IcmpErrorReply = test
-            UdpFirstPacket = test
-            IcmpFirstPacket = test
-        }
         /// <summary>
         /// The timeout value of connection in seconds after one endpoint sends an RST. The default value for Edges (i.e, Gateway,
         /// or Logical Router) may be different than Distributed Firewall hosts.
         /// </summary>
         [JsonProperty(PropertyName = "tcp_closed", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"The timeout value of connection in seconds after one endpoint sends an RST. The default value for Edges (i.e, Gateway, or Logical Router) may be different than Distributed Firewall hosts.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(10)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(4320000)]
-        [System.ComponentModel.DataAnnotations.Required]
         public long TcpClosed { get; set; }
         /// <summary>
         /// The timeout value of connection in seconds after a second packet has been transferred. The default value for Edges (i.e,
         /// Gateway, or Logical Router) may be different than Distributed Firewall hosts.
         /// </summary>
         [JsonProperty(PropertyName = "tcp_opening", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"The timeout value of connection in seconds after a second packet has been transferred. The default value for Edges (i.e, Gateway, or Logical Router) may be different than Distributed Firewall hosts.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(10)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(4320000)]
-        [System.ComponentModel.DataAnnotations.Required]
         public long TcpOpening { get; set; }
         /// <summary>
         /// The timeout value of connection in seconds if the source host sends more than one packet but the destination host has
@@ -57,90 +35,54 @@ namespace nsxtsdk.ManagerModels
         /// Firewall hosts.
         /// </summary>
         [JsonProperty(PropertyName = "udp_single", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"The timeout value of connection in seconds if the source host sends more than one packet but the destination host has never sent one back. The default value for Edges (i.e, Gateway, or Logical Router) may be different than Distributed Firewall hosts.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(10)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(4320000)]
-        [System.ComponentModel.DataAnnotations.Required]
         public long UdpSingle { get; set; }
         /// <summary>
         /// The timeout value of connection in seconds after both FINs have been exchanged and connection is closed. The default
         /// value for Edges (i.e, Gateway, or Logical Router) may be different than Distributed Firewall hosts.
         /// </summary>
         [JsonProperty(PropertyName = "tcp_finwait", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"The timeout value of connection in seconds after both FINs have been exchanged and connection is closed. The default value for Edges (i.e, Gateway, or Logical Router) may be different than Distributed Firewall hosts.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(10)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(4320000)]
-        [System.ComponentModel.DataAnnotations.Required]
         public long TcpFinwait { get; set; }
         /// <summary>
         /// The timeout value of connection in seconds after the first packet has been sent. The default value for Edges (i.e,
         /// Gateway, or Logical Router) may be different than Distributed Firewall hosts.
         /// </summary>
         [JsonProperty(PropertyName = "tcp_first_packet", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"The timeout value of connection in seconds after the first packet has been sent. The default value for Edges (i.e, Gateway, or Logical Router) may be different than Distributed Firewall hosts.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(10)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(4320000)]
-        [System.ComponentModel.DataAnnotations.Required]
         public long TcpFirstPacket { get; set; }
         /// <summary>
         /// The timeout value of connection in seconds after the first FIN has been sent. The default value for Edges (i.e, Gateway,
         /// or Logical Router) may be different than Distributed Firewall hosts.
         /// </summary>
         [JsonProperty(PropertyName = "tcp_closing", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"The timeout value of connection in seconds after the first FIN has been sent. The default value for Edges (i.e, Gateway, or Logical Router) may be different than Distributed Firewall hosts.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(10)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(4320000)]
-        [System.ComponentModel.DataAnnotations.Required]
         public long TcpClosing { get; set; }
         /// <summary>
         /// The timeout value of connection in seconds once the connection has become fully established. The default value for Edges
         /// (i.e, Gateway, or Logical Router) may be different than Distributed Firewall hosts.
         /// </summary>
         [JsonProperty(PropertyName = "tcp_established", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"The timeout value of connection in seconds once the connection has become fully established. The default value for Edges (i.e, Gateway, or Logical Router) may be different than Distributed Firewall hosts.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(120)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(4320000)]
-        [System.ComponentModel.DataAnnotations.Required]
         public long TcpEstablished { get; set; }
         /// <summary>
         /// The timeout value of connection in seconds if both hosts have sent packets. The default value for Edges (i.e, Gateway,
         /// or Logical Router) may be different than Distributed Firewall hosts.
         /// </summary>
         [JsonProperty(PropertyName = "udp_multiple", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"The timeout value of connection in seconds if both hosts have sent packets. The default value for Edges (i.e, Gateway, or Logical Router) may be different than Distributed Firewall hosts.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(10)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(4320000)]
-        [System.ComponentModel.DataAnnotations.Required]
         public long UdpMultiple { get; set; }
         /// <summary>
         /// The timeout value for the connection after an ICMP error came back in response to an ICMP packet. The default value for
         /// Edges (i.e, Gateway, or Logical Router) may be different than Distributed Firewall hosts.
         /// </summary>
         [JsonProperty(PropertyName = "icmp_error_reply", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"The timeout value for the connection after an ICMP error came back in response to an ICMP packet. The default value for Edges (i.e, Gateway, or Logical Router) may be different than Distributed Firewall hosts.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(10)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(4320000)]
-        [System.ComponentModel.DataAnnotations.Required]
         public long IcmpErrorReply { get; set; }
         /// <summary>
         /// The timeout value of connection in seconds after the first packet. This will be the initial timeout for the new UDP
         /// flow. The default value for Edges (i.e, Gateway, or Logical Router) may be different than Distributed Firewall hosts.
         /// </summary>
         [JsonProperty(PropertyName = "udp_first_packet", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"The timeout value of connection in seconds after the first packet. This will be the initial timeout for the new UDP flow. The default value for Edges (i.e, Gateway, or Logical Router) may be different than Distributed Firewall hosts.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(10)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(4320000)]
-        [System.ComponentModel.DataAnnotations.Required]
         public long UdpFirstPacket { get; set; }
         /// <summary>
         /// The timeout value of connection in seconds after the first packet. This will be the initial timeout for the new ICMP
         /// flow. The default value for Edges (i.e, Gateway, or Logical Router) may be different than Distributed Firewall hosts.
         /// </summary>
         [JsonProperty(PropertyName = "icmp_first_packet", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"The timeout value of connection in seconds after the first packet. This will be the initial timeout for the new ICMP flow. The default value for Edges (i.e, Gateway, or Logical Router) may be different than Distributed Firewall hosts.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(10)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(4320000)]
-        [System.ComponentModel.DataAnnotations.Required]
         public long IcmpFirstPacket { get; set; }
     }
 }

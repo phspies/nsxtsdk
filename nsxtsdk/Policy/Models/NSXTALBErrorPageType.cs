@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,42 +17,28 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer ErrorPage object")]
     public class NSXTALBErrorPageType 
     {
-        public NSXTALBErrorPageType()
-        {
-            Enable = test
-        }
         /// <summary>
         /// Index of the error page.
         /// </summary>
-        [JsonProperty(PropertyName = "index")]
-        [NSXTProperty(IsRequired: false, Description: @"Index of the error page.")]
         public long? Index { get; set; }
         /// <summary>
         /// Custom error page body used to sent to the client.
         /// It is a reference to an object of type ErrorPageBody.
         /// </summary>
-        [JsonProperty(PropertyName = "error_page_body_path")]
-        [NSXTProperty(IsRequired: false, Description: @"Custom error page body used to sent to the client.It is a reference to an object of type ErrorPageBody.")]
         public string? ErrorPageBodyPath { get; set; }
         /// <summary>
         /// Enable or disable the error page.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as true.
         /// </summary>
-        [JsonProperty(PropertyName = "enable")]
-        [NSXTProperty(IsRequired: false, Description: @"Enable or disable the error page.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
         public bool? Enable { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "match")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBHTTPStatusMatchType Match { get; set; }
         /// <summary>
         /// Redirect sent to client when match.
         /// </summary>
-        [JsonProperty(PropertyName = "error_redirect")]
-        [NSXTProperty(IsRequired: false, Description: @"Redirect sent to client when match.")]
         public string? ErrorRedirect { get; set; }
     }
 }

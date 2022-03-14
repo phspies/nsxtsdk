@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,27 +17,18 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLogicalPortOperationalStatusType 
     {
-        public NSXTLogicalPortOperationalStatusType()
-        {
-        }
         /// <summary>
         /// The id of the logical port
         /// </summary>
-        [JsonProperty(PropertyName = "logical_port_id")]
-        [NSXTProperty(IsRequired: false, Description: @"The id of the logical port")]
         public string? LogicalPortId { get; set; }
         /// <summary>
         /// The Operational status of the logical port
         /// </summary>
         [JsonProperty(PropertyName = "status", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"The Operational status of the logical port")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTLogicalPortOperationalStatusStatusEnumType Status { get; set; }
         /// <summary>
         /// Timestamp when the data was last updated; unset if data source has never updated the data.
         /// </summary>
-        [JsonProperty(PropertyName = "last_update_timestamp")]
-        [NSXTProperty(IsRequired: false, Description: @"Timestamp when the data was last updated; unset if data source has never updated the data.")]
         public long? LastUpdateTimestamp { get; set; }
     }
 }

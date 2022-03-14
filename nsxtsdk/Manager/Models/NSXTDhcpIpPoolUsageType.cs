@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,36 +17,25 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTDhcpIpPoolUsageType 
     {
-        public NSXTDhcpIpPoolUsageType()
-        {
-        }
         /// <summary>
         /// allocated percentage. COULD BE INACCURATE, REFERENCE ONLY.
         /// </summary>
         [JsonProperty(PropertyName = "allocated_percentage", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"allocated percentage. COULD BE INACCURATE, REFERENCE ONLY.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public long AllocatedPercentage { get; set; }
         /// <summary>
         /// pool size
         /// </summary>
         [JsonProperty(PropertyName = "pool_size", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"pool size")]
-        [System.ComponentModel.DataAnnotations.Required]
         public long PoolSize { get; set; }
         /// <summary>
         /// allocated number. COULD BE INACCURATE, REFERENCE ONLY.
         /// </summary>
         [JsonProperty(PropertyName = "allocated_number", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"allocated number. COULD BE INACCURATE, REFERENCE ONLY.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public long AllocatedNumber { get; set; }
         /// <summary>
         /// uuid of dhcp ip pool
         /// </summary>
         [JsonProperty(PropertyName = "dhcp_ip_pool_id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"uuid of dhcp ip pool")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string DhcpIpPoolId { get; set; }
     }
 }

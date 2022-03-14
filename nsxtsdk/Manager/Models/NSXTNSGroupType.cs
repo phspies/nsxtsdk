@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,22 +17,15 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNSGroupType : NSXTManagedResourceType
     {
-        public NSXTNSGroupType()
-        {
-        }
         /// <summary>
         /// Count of the members added to this NSGroup
         /// </summary>
-        [JsonProperty(PropertyName = "member_count")]
-        [NSXTProperty(IsRequired: false, Description: @"Count of the members added to this NSGroup")]
         public long? MemberCount { get; set; }
         /// <summary>
         /// Reference to the direct/static members of the NSGroup.
         /// Can be ID based expressions only. VirtualMachine cannot
         /// be added as a static member.
         /// </summary>
-        [JsonProperty(PropertyName = "members")]
-        [NSXTProperty(IsRequired: false, Description: @"Reference to the direct/static members of the NSGroup.Can be ID based expressions only. VirtualMachine cannotbe added as a static member.")]
         public IList<NSXTNSGroupSimpleExpressionType> Members { get; set; }
         /// <summary>
         /// List of tag or name based expressions which define the dynamic membership criteria
@@ -41,8 +34,6 @@ namespace nsxtsdk.ManagerModels
         /// It is not recommended to use ID based expressions in this section.
         /// ID based expression should be used in "members" section
         /// </summary>
-        [JsonProperty(PropertyName = "membership_criteria")]
-        [NSXTProperty(IsRequired: false, Description: @"List of tag or name based expressions which define the dynamic membership criteriafor this NSGroup. An object must satisfy atleast one of these expressionsto qualify as a member of this group.It is not recommended to use ID based expressions in this section.ID based expression should be used in &quot;members&quot; section")]
         public IList<NSXTNSGroupExpressionType> MembershipCriteria { get; set; }
     }
 }

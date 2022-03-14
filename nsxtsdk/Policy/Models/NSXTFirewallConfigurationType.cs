@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -19,36 +19,23 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTFirewallConfigurationType : NSXTPolicyConfigResourceType
     {
-        public NSXTFirewallConfigurationType()
-        {
-            GlobalAddrsetModeEnabled = test
-            EnableFirewall = test
-        }
         /// <summary>
         /// To disable auto drafts, set it to true.
         /// By default, auto drafts are enabled.
         /// </summary>
-        [JsonProperty(PropertyName = "disable_auto_drafts")]
-        [NSXTProperty(IsRequired: false, Description: @"To disable auto drafts, set it to true.By default, auto drafts are enabled.")]
         public bool? DisableAutoDrafts { get; set; }
         /// <summary>
         /// When this flag is set to true, global address set is enabled in Distributed Firewall.
         /// </summary>
-        [JsonProperty(PropertyName = "global_addrset_mode_enabled")]
-        [NSXTProperty(IsRequired: false, Description: @"When this flag is set to true, global address set is enabled in Distributed Firewall.")]
         public bool? GlobalAddrsetModeEnabled { get; set; }
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty(PropertyName = "resource_type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTFirewallConfigurationResourceTypeEnumType ResourceType { get; set; }
         /// <summary>
         /// If set to true, Firewall is enabled.
         /// </summary>
-        [JsonProperty(PropertyName = "enable_firewall")]
-        [NSXTProperty(IsRequired: false, Description: @"If set to true, Firewall is enabled.")]
         public bool? EnableFirewall { get; set; }
     }
 }

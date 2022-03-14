@@ -21,16 +21,23 @@ namespace nsxtapi.PolicyModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public PolicyForwarding(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public PolicyForwarding(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTForwardingRuleType CreateOrUpdateForwardingRule(string DomainId, string ForwardingPolicyId, string RuleId, NSXTForwardingRuleType ForwardingRule)
+        public async Task<NSXTForwardingRuleType> CreateOrUpdateForwardingRule(string DomainId, string ForwardingPolicyId, string RuleId, NSXTForwardingRuleType ForwardingRule)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (ForwardingPolicyId == null) { throw new System.ArgumentNullException("ForwardingPolicyId cannot be null"); }
@@ -49,31 +56,19 @@ namespace nsxtapi.PolicyModules
             CreateOrUpdateForwardingRuleServiceURL.Replace("{rule-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(RuleId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(ForwardingRule, defaultSerializationSettings));
             request.Resource = CreateOrUpdateForwardingRuleServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTForwardingRuleType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTForwardingRuleType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateOrUpdateForwardingRuleServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTForwardingRuleType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTForwardingRuleType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTForwardingRuleType ReadForwardingRule(string DomainId, string ForwardingPolicyId, string RuleId)
+        public async Task<NSXTForwardingRuleType> ReadForwardingRule(string DomainId, string ForwardingPolicyId, string RuleId)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (ForwardingPolicyId == null) { throw new System.ArgumentNullException("ForwardingPolicyId cannot be null"); }
@@ -90,31 +85,19 @@ namespace nsxtapi.PolicyModules
             ReadForwardingRuleServiceURL.Replace("{forwarding-policy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ForwardingPolicyId, System.Globalization.CultureInfo.InvariantCulture)));
             ReadForwardingRuleServiceURL.Replace("{rule-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(RuleId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadForwardingRuleServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTForwardingRuleType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTForwardingRuleType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadForwardingRuleServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTForwardingRuleType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTForwardingRuleType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchForwardingRule(string DomainId, string ForwardingPolicyId, string RuleId, NSXTForwardingRuleType ForwardingRule)
+        public async Task PatchForwardingRule(string DomainId, string ForwardingPolicyId, string RuleId, NSXTForwardingRuleType ForwardingRule)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (ForwardingPolicyId == null) { throw new System.ArgumentNullException("ForwardingPolicyId cannot be null"); }
@@ -133,7 +116,7 @@ namespace nsxtapi.PolicyModules
             PatchForwardingRuleServiceURL.Replace("{rule-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(RuleId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(ForwardingRule, defaultSerializationSettings));
             request.Resource = PatchForwardingRuleServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchForwardingRuleServiceURL.ToString() + " did not complete successfull";
@@ -145,7 +128,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteForwardingRule(string DomainId, string ForwardingPolicyId, string RuleId)
+        public async Task DeleteForwardingRule(string DomainId, string ForwardingPolicyId, string RuleId)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (ForwardingPolicyId == null) { throw new System.ArgumentNullException("ForwardingPolicyId cannot be null"); }
@@ -162,7 +145,7 @@ namespace nsxtapi.PolicyModules
             DeleteForwardingRuleServiceURL.Replace("{forwarding-policy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ForwardingPolicyId, System.Globalization.CultureInfo.InvariantCulture)));
             DeleteForwardingRuleServiceURL.Replace("{rule-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(RuleId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteForwardingRuleServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteForwardingRuleServiceURL.ToString() + " did not complete successfull";
@@ -174,7 +157,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTForwardingRuleListResultType ListForwardingRule(string DomainId, string ForwardingPolicyId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTForwardingRuleListResultType> ListForwardingRule(string DomainId, string ForwardingPolicyId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (ForwardingPolicyId == null) { throw new System.ArgumentNullException("ForwardingPolicyId cannot be null"); }
@@ -195,31 +178,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListForwardingRuleServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTForwardingRuleListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTForwardingRuleListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListForwardingRuleServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTForwardingRuleListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTForwardingRuleListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTForwardingRuleType GlobalGlobalInfraReadForwardingRule(string DomainId, string ForwardingPolicyId, string RuleId)
+        public async Task<NSXTForwardingRuleType> GlobalGlobalInfraReadForwardingRule(string DomainId, string ForwardingPolicyId, string RuleId)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (ForwardingPolicyId == null) { throw new System.ArgumentNullException("ForwardingPolicyId cannot be null"); }
@@ -236,31 +207,19 @@ namespace nsxtapi.PolicyModules
             GlobalInfraReadForwardingRuleServiceURL.Replace("{forwarding-policy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ForwardingPolicyId, System.Globalization.CultureInfo.InvariantCulture)));
             GlobalInfraReadForwardingRuleServiceURL.Replace("{rule-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(RuleId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GlobalInfraReadForwardingRuleServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTForwardingRuleType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTForwardingRuleType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraReadForwardingRuleServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTForwardingRuleType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTForwardingRuleType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTForwardingPolicyListResultType ListForwardingPolicies(string DomainId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, bool? IncludeRuleCount = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTForwardingPolicyListResultType> ListForwardingPolicies(string DomainId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, bool? IncludeRuleCount = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             NSXTForwardingPolicyListResultType returnValue = default(NSXTForwardingPolicyListResultType);
@@ -280,31 +239,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListForwardingPoliciesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTForwardingPolicyListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTForwardingPolicyListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListForwardingPoliciesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTForwardingPolicyListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTForwardingPolicyListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTForwardingPolicyType CreateOrUpdateForwardingPolicy(string DomainId, string ForwardingPolicyId, NSXTForwardingPolicyType ForwardingPolicy)
+        public async Task<NSXTForwardingPolicyType> CreateOrUpdateForwardingPolicy(string DomainId, string ForwardingPolicyId, NSXTForwardingPolicyType ForwardingPolicy)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (ForwardingPolicyId == null) { throw new System.ArgumentNullException("ForwardingPolicyId cannot be null"); }
@@ -321,31 +268,19 @@ namespace nsxtapi.PolicyModules
             CreateOrUpdateForwardingPolicyServiceURL.Replace("{forwarding-policy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ForwardingPolicyId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(ForwardingPolicy, defaultSerializationSettings));
             request.Resource = CreateOrUpdateForwardingPolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTForwardingPolicyType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTForwardingPolicyType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateOrUpdateForwardingPolicyServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTForwardingPolicyType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTForwardingPolicyType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchForwardingPolicy(string DomainId, string ForwardingPolicyId, NSXTForwardingPolicyType ForwardingPolicy)
+        public async Task PatchForwardingPolicy(string DomainId, string ForwardingPolicyId, NSXTForwardingPolicyType ForwardingPolicy)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (ForwardingPolicyId == null) { throw new System.ArgumentNullException("ForwardingPolicyId cannot be null"); }
@@ -362,7 +297,7 @@ namespace nsxtapi.PolicyModules
             PatchForwardingPolicyServiceURL.Replace("{forwarding-policy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ForwardingPolicyId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(ForwardingPolicy, defaultSerializationSettings));
             request.Resource = PatchForwardingPolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchForwardingPolicyServiceURL.ToString() + " did not complete successfull";
@@ -374,7 +309,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteForwardingPolicy(string DomainId, string ForwardingPolicyId)
+        public async Task DeleteForwardingPolicy(string DomainId, string ForwardingPolicyId)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (ForwardingPolicyId == null) { throw new System.ArgumentNullException("ForwardingPolicyId cannot be null"); }
@@ -389,7 +324,7 @@ namespace nsxtapi.PolicyModules
             DeleteForwardingPolicyServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
             DeleteForwardingPolicyServiceURL.Replace("{forwarding-policy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ForwardingPolicyId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteForwardingPolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteForwardingPolicyServiceURL.ToString() + " did not complete successfull";
@@ -401,7 +336,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTForwardingPolicyType ReadForwardingPolicy(string DomainId, string ForwardingPolicyId)
+        public async Task<NSXTForwardingPolicyType> ReadForwardingPolicy(string DomainId, string ForwardingPolicyId)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (ForwardingPolicyId == null) { throw new System.ArgumentNullException("ForwardingPolicyId cannot be null"); }
@@ -416,31 +351,19 @@ namespace nsxtapi.PolicyModules
             ReadForwardingPolicyServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
             ReadForwardingPolicyServiceURL.Replace("{forwarding-policy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ForwardingPolicyId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadForwardingPolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTForwardingPolicyType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTForwardingPolicyType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadForwardingPolicyServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTForwardingPolicyType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTForwardingPolicyType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTForwardingPolicyType GlobalGlobalInfraReadForwardingPolicy(string DomainId, string ForwardingPolicyId)
+        public async Task<NSXTForwardingPolicyType> GlobalGlobalInfraReadForwardingPolicy(string DomainId, string ForwardingPolicyId)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (ForwardingPolicyId == null) { throw new System.ArgumentNullException("ForwardingPolicyId cannot be null"); }
@@ -455,31 +378,19 @@ namespace nsxtapi.PolicyModules
             GlobalInfraReadForwardingPolicyServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
             GlobalInfraReadForwardingPolicyServiceURL.Replace("{forwarding-policy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ForwardingPolicyId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GlobalInfraReadForwardingPolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTForwardingPolicyType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTForwardingPolicyType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraReadForwardingPolicyServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTForwardingPolicyType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTForwardingPolicyType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTForwardingPolicyListResultType GlobalGlobalInfraListForwardingPolicies(string DomainId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, bool? IncludeRuleCount = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTForwardingPolicyListResultType> GlobalGlobalInfraListForwardingPolicies(string DomainId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, bool? IncludeRuleCount = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             NSXTForwardingPolicyListResultType returnValue = default(NSXTForwardingPolicyListResultType);
@@ -499,31 +410,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GlobalInfraListForwardingPoliciesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTForwardingPolicyListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTForwardingPolicyListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraListForwardingPoliciesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTForwardingPolicyListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTForwardingPolicyListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTForwardingRuleListResultType GlobalGlobalInfraListForwardingRule(string DomainId, string ForwardingPolicyId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTForwardingRuleListResultType> GlobalGlobalInfraListForwardingRule(string DomainId, string ForwardingPolicyId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (ForwardingPolicyId == null) { throw new System.ArgumentNullException("ForwardingPolicyId cannot be null"); }
@@ -544,25 +443,13 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GlobalInfraListForwardingRuleServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTForwardingRuleListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTForwardingRuleListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraListForwardingRuleServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTForwardingRuleListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTForwardingRuleListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

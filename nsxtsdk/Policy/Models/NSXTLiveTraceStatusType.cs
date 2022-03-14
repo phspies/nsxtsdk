@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLiveTraceStatusType : NSXTManagedResourceType
     {
-        public NSXTLiveTraceStatusType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "filter")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTLiveTraceFilterDataType Filter { get; set; }
         /// <summary>
         /// The operation state of Livetrace.
@@ -35,29 +30,19 @@ namespace nsxtsdk.PolicyModels
         /// INVALIDATED - session is invalidated by configuration changes such as VM migration.
         /// TIMEOUT - session is not completed on time.
         /// </summary>
-        [JsonProperty(PropertyName = "operation_state")]
-        [NSXTProperty(IsRequired: false, Description: @"The operation state of Livetrace.IN_PROGRESS - collecting the session results.FINISHED - session results collection completes.PARTIAL_FINISHED - session results may be incomplete.CANCELED - session is cancelled by exception.INVALIDATED - session is invalidated by configuration changes such as VM migration.TIMEOUT - session is not completed on time.")]
         public NSXTLiveTraceStatusOperationStateEnumType? OperationState { get; set; }
         /// <summary>
         /// The detail of invalid filter(s) in a Livetrace session.
         /// This field is only applicable for filters of PlainFilterData type.
         /// </summary>
-        [JsonProperty(PropertyName = "filter_invalid_info")]
-        [NSXTProperty(IsRequired: false, Description: @"The detail of invalid filter(s) in a Livetrace session.This field is only applicable for filters of PlainFilterData type.")]
         public IList<NSXTLiveTraceFilterInvalidInfoType> FilterInvalidInfo { get; set; }
         /// <summary>
         /// Timeout in seconds for livetrace session
         /// </summary>
-        [JsonProperty(PropertyName = "timeout")]
-        [NSXTProperty(IsRequired: false, Description: @"Timeout in seconds for livetrace session")]
-        //[System.ComponentModel.DataAnnotations.MinLength(5)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(300)]
         public long? Timeout { get; set; }
         /// <summary>
         /// The source logical port
         /// </summary>
-        [JsonProperty(PropertyName = "source_lport")]
-        [NSXTProperty(IsRequired: false, Description: @"The source logical port")]
         public string? SourceLport { get; set; }
         /// <summary>
         /// The reason of invalidating a Livetrace session.
@@ -65,8 +50,6 @@ namespace nsxtsdk.PolicyModels
         /// DP_DESTROY - Dataplane is destroyed.
         /// UNKNOWN - The invalidation reason cannot be determined.
         /// </summary>
-        [JsonProperty(PropertyName = "invalidation_reason")]
-        [NSXTProperty(IsRequired: false, Description: @"The reason of invalidating a Livetrace session.PORT_DISCONNECT - Source or destination logical port of the session is disconnected.DP_DESTROY - Dataplane is destroyed.UNKNOWN - The invalidation reason cannot be determined.")]
         public NSXTLiveTraceStatusInvalidationReasonEnumType? InvalidationReason { get; set; }
         /// <summary>
         /// The status of a Livetrace request.
@@ -78,14 +61,10 @@ namespace nsxtsdk.PolicyModels
         /// CONNECTION_ERROR - There is connection error between host components.
         /// UNKNOWN - The status of request cannot be determined.
         /// </summary>
-        [JsonProperty(PropertyName = "request_status")]
-        [NSXTProperty(IsRequired: false, Description: @"The status of a Livetrace request.SUCCESS_DELIVERED - The request is delivered successfully.LCP_FAILURE - LCP agent fails to realize the request.INVALID_FILTER - Filter is invalid.DATAPATH_FAILURE - Dataplane fails to realize the request.TIMEOUT - The response to the request is not received within timeout.CONNECTION_ERROR - There is connection error between host components.UNKNOWN - The status of request cannot be determined.")]
         public NSXTLiveTraceStatusRequestStatusEnumType? RequestStatus { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "actions")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTLiveTraceActionConfigType Actions { get; set; }
     }
 }

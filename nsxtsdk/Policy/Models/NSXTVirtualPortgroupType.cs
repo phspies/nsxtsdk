@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,26 +17,17 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTVirtualPortgroupType : NSXTDiscoveredResourceType
     {
-        public NSXTVirtualPortgroupType()
-        {
-        }
         /// <summary>
         /// External id of the virtual portgroup
         /// </summary>
-        [JsonProperty(PropertyName = "external_id")]
-        [NSXTProperty(IsRequired: false, Description: @"External id of the virtual portgroup")]
         public string? ExternalId { get; set; }
         /// <summary>
         /// Portgroup type like DistributedVirtualPortgroup
         /// </summary>
-        [JsonProperty(PropertyName = "origin_type")]
-        [NSXTProperty(IsRequired: false, Description: @"Portgroup type like DistributedVirtualPortgroup")]
         public string? OriginType { get; set; }
         /// <summary>
         /// Id of the portgroup, eg. a mo-ref from VC.
         /// </summary>
-        [JsonProperty(PropertyName = "cm_local_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Id of the portgroup, eg. a mo-ref from VC.")]
         public string? CmLocalId { get; set; }
     }
 }

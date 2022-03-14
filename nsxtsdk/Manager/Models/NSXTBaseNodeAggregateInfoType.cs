@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,44 +17,29 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTBaseNodeAggregateInfoType 
     {
-        public NSXTBaseNodeAggregateInfoType()
-        {
-        }
         /// <summary>
         /// Array of Node interface statistic properties
         /// </summary>
-        [JsonProperty(PropertyName = "node_interface_properties")]
-        [NSXTProperty(IsRequired: false, Description: @"Array of Node interface statistic properties")]
         public IList<NSXTNodeInterfacePropertiesType> NodeInterfaceProperties { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "node_status")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTClusterNodeStatusType NodeStatus { get; set; }
         /// <summary>
         /// Array of Node network interface statistic properties
         /// </summary>
-        [JsonProperty(PropertyName = "node_interface_statistics")]
-        [NSXTProperty(IsRequired: false, Description: @"Array of Node network interface statistic properties")]
         public IList<NSXTNodeInterfaceStatisticsPropertiesType> NodeInterfaceStatistics { get; set; }
         /// <summary>
         /// Defaults to ID if not set
         /// </summary>
-        [JsonProperty(PropertyName = "display_name")]
-        [NSXTProperty(IsRequired: false, Description: @"Defaults to ID if not set")]
         public string? DisplayName { get; set; }
         /// <summary>
         /// Time series of the node's system properties
         /// </summary>
-        [JsonProperty(PropertyName = "node_status_properties")]
-        [NSXTProperty(IsRequired: false, Description: @"Time series of the node&apos;s system properties")]
         public IList<NSXTNodeStatusPropertiesType> NodeStatusProperties { get; set; }
         /// <summary>
         /// Unique identifier of this resource
         /// </summary>
-        [JsonProperty(PropertyName = "id")]
-        [NSXTProperty(IsRequired: false, Description: @"Unique identifier of this resource")]
         public string? Id { get; set; }
     }
 }

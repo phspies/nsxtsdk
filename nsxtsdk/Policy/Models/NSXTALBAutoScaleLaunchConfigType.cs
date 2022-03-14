@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,16 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTALBAutoScaleLaunchConfigType : NSXTPolicyConfigResourceType
     {
-        public NSXTALBAutoScaleLaunchConfigType()
-        {
-            UseExternalAsg = test
-        }
         /// <summary>
         /// Unique ID of the Amazon Machine Image (AMI)  or OpenStack
         /// VM ID.
         /// </summary>
-        [JsonProperty(PropertyName = "image_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Unique ID of the Amazon Machine Image (AMI)  or OpenStackVM ID.")]
         public string? ImageId { get; set; }
         /// <summary>
         /// If set to True, ServerAutoscalePolicy will use the
@@ -36,28 +30,20 @@ namespace nsxtsdk.PolicyModels
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as true.
         /// </summary>
-        [JsonProperty(PropertyName = "use_external_asg")]
-        [NSXTProperty(IsRequired: false, Description: @"If set to True, ServerAutoscalePolicy will use theautoscaling group (external_autoscaling_groups) from Pool toperform scale up and scale down.Pool should have single autoscaling group configured.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
         public bool? UseExternalAsg { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "mesos")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBAutoScaleMesosSettingsType Mesos { get; set; }
         /// <summary>
         /// List of labels to be used for granular RBAC.
         /// Allowed in Basic edition, Essentials edition, Enterprise
         /// edition.
         /// </summary>
-        [JsonProperty(PropertyName = "markers")]
-        [NSXTProperty(IsRequired: false, Description: @"List of labels to be used for granular RBAC.Allowed in Basic edition, Essentials edition, Enterpriseedition.")]
         public IList<NSXTALBRoleFilterMatchLabelType> Markers { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "openstack")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBAutoScaleOpenStackSettingsType Openstack { get; set; }
     }
 }

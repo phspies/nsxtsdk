@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,30 +17,18 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLBHttpsMonitorProfileType : NSXTLBActiveMonitorType
     {
-        public NSXTLBHttpsMonitorProfileType()
-        {
-            RequestMethod = test
-            RequestUrl = test
-            RequestVersion = test
-        }
         /// <summary>
         /// The HTTP response status code should be a valid HTTP status code.
         /// </summary>
-        [JsonProperty(PropertyName = "response_status_codes")]
-        [NSXTProperty(IsRequired: false, Description: @"The HTTP response status code should be a valid HTTP status code.")]
         public int? ResponseStatusCodes { get; set; }
         /// <summary>
         /// The health check method for HTTP monitor type.
         /// </summary>
-        [JsonProperty(PropertyName = "request_method")]
-        [NSXTProperty(IsRequired: false, Description: @"The health check method for HTTP monitor type.")]
         public NSXTLbhttpsMonitorProfileRequestMethodEnumType? RequestMethod { get; set; }
         /// <summary>
         /// String to send as part of HTTP health check request body. Valid only
         /// for certain HTTP methods like POST.
         /// </summary>
-        [JsonProperty(PropertyName = "request_body")]
-        [NSXTProperty(IsRequired: false, Description: @"String to send as part of HTTP health check request body. Valid onlyfor certain HTTP methods like POST.")]
         public string? RequestBody { get; set; }
         /// <summary>
         /// If HTTP response body match string (regular expressions not supported)
@@ -51,33 +39,23 @@ namespace nsxtsdk.PolicyModels
         /// considered successful if the HTTP response status code is 2xx, but it
         /// can be configured to accept other status codes as successful.
         /// </summary>
-        [JsonProperty(PropertyName = "response_body")]
-        [NSXTProperty(IsRequired: false, Description: @"If HTTP response body match string (regular expressions not supported)is specified (using LBHttpMonitor.response_body) then thehealthcheck HTTP response body is matched against the specified stringand server is considered healthy only if there is a match.If the response body string is not specified, HTTP healthcheck isconsidered successful if the HTTP response status code is 2xx, but itcan be configured to accept other status codes as successful.")]
         public string? ResponseBody { get; set; }
         /// <summary>
         /// For HTTPS active healthchecks, the HTTPS request url sent can be
         /// customized and can include query parameters.
         /// </summary>
-        [JsonProperty(PropertyName = "request_url")]
-        [NSXTProperty(IsRequired: false, Description: @"For HTTPS active healthchecks, the HTTPS request url sent can becustomized and can include query parameters.")]
         public string? RequestUrl { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "server_ssl_profile_binding")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTLBServerSslProfileBindingType ServerSslProfileBinding { get; set; }
         /// <summary>
         /// HTTP request version.
         /// </summary>
-        [JsonProperty(PropertyName = "request_version")]
-        [NSXTProperty(IsRequired: false, Description: @"HTTP request version.")]
         public NSXTLbhttpsMonitorProfileRequestVersionEnumType? RequestVersion { get; set; }
         /// <summary>
         /// Array of HTTP request headers.
         /// </summary>
-        [JsonProperty(PropertyName = "request_headers")]
-        [NSXTProperty(IsRequired: false, Description: @"Array of HTTP request headers.")]
         public IList<NSXTLbHttpRequestHeaderType> RequestHeaders { get; set; }
     }
 }

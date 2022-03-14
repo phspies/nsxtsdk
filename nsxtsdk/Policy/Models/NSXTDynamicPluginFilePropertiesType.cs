@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,29 +17,20 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTDynamicPluginFilePropertiesType : NSXTResourceType
     {
-        public NSXTDynamicPluginFilePropertiesType()
-        {
-        }
         /// <summary>
         /// Upload status
         /// </summary>
         [JsonProperty(PropertyName = "status", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Upload status")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTDynamicPluginFilePropertiesStatusEnumType Status { get; set; }
         /// <summary>
         /// File name
         /// </summary>
         [JsonProperty(PropertyName = "file_name", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"File name")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string FileName { get; set; }
         /// <summary>
         /// Plugin id
         /// </summary>
         [JsonProperty(PropertyName = "plugin_path", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Plugin id")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string PluginPath { get; set; }
     }
 }

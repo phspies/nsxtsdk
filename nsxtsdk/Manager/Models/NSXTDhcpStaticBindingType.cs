@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,28 +17,19 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTDhcpStaticBindingType : NSXTIpAllocationBaseType
     {
-        public NSXTDhcpStaticBindingType()
-        {
-        }
         /// <summary>
         /// The ip address to be assigned to the host.
         /// </summary>
         [JsonProperty(PropertyName = "ip_address", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"The ip address to be assigned to the host.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string IpAddress { get; set; }
         /// <summary>
         /// The host name to be assigned to the host.
         /// </summary>
-        [JsonProperty(PropertyName = "host_name")]
-        [NSXTProperty(IsRequired: false, Description: @"The host name to be assigned to the host.")]
         public string? HostName { get; set; }
         /// <summary>
         /// The MAC address of the host.
         /// </summary>
         [JsonProperty(PropertyName = "mac_address", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"The MAC address of the host.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string MacAddress { get; set; }
     }
 }

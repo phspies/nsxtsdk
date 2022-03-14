@@ -21,16 +21,23 @@ namespace nsxtapi.PolicyModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public PolicySegmentSecurity(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public PolicySegmentSecurity(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSegmentSecurityProfileType CreateOrUpdateSegmentSecurityProfile(string SegmentSecurityProfileId, NSXTSegmentSecurityProfileType SegmentSecurityProfile, bool? Override = null)
+        public async Task<NSXTSegmentSecurityProfileType> CreateOrUpdateSegmentSecurityProfile(string SegmentSecurityProfileId, NSXTSegmentSecurityProfileType SegmentSecurityProfile, bool? Override = null)
         {
             if (SegmentSecurityProfileId == null) { throw new System.ArgumentNullException("SegmentSecurityProfileId cannot be null"); }
             if (SegmentSecurityProfile == null) { throw new System.ArgumentNullException("SegmentSecurityProfile cannot be null"); }
@@ -46,31 +53,19 @@ namespace nsxtapi.PolicyModules
             request.AddJsonBody(JsonConvert.SerializeObject(SegmentSecurityProfile, defaultSerializationSettings));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = CreateOrUpdateSegmentSecurityProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTSegmentSecurityProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTSegmentSecurityProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateOrUpdateSegmentSecurityProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSegmentSecurityProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSegmentSecurityProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteSegmentSecurityProfile(string SegmentSecurityProfileId, bool? Override = null)
+        public async Task DeleteSegmentSecurityProfile(string SegmentSecurityProfileId, bool? Override = null)
         {
             if (SegmentSecurityProfileId == null) { throw new System.ArgumentNullException("SegmentSecurityProfileId cannot be null"); }
             
@@ -84,7 +79,7 @@ namespace nsxtapi.PolicyModules
             DeleteSegmentSecurityProfileServiceURL.Replace("{segment-security-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentSecurityProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = DeleteSegmentSecurityProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteSegmentSecurityProfileServiceURL.ToString() + " did not complete successfull";
@@ -96,7 +91,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSegmentSecurityProfileType GetSegmentSecurityProfile(string SegmentSecurityProfileId)
+        public async Task<NSXTSegmentSecurityProfileType> GetSegmentSecurityProfile(string SegmentSecurityProfileId)
         {
             if (SegmentSecurityProfileId == null) { throw new System.ArgumentNullException("SegmentSecurityProfileId cannot be null"); }
             NSXTSegmentSecurityProfileType returnValue = default(NSXTSegmentSecurityProfileType);
@@ -109,31 +104,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             GetSegmentSecurityProfileServiceURL.Replace("{segment-security-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentSecurityProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetSegmentSecurityProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTSegmentSecurityProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTSegmentSecurityProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetSegmentSecurityProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSegmentSecurityProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSegmentSecurityProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchSegmentSecurityProfile(string SegmentSecurityProfileId, NSXTSegmentSecurityProfileType SegmentSecurityProfile, bool? Override = null)
+        public async Task PatchSegmentSecurityProfile(string SegmentSecurityProfileId, NSXTSegmentSecurityProfileType SegmentSecurityProfile, bool? Override = null)
         {
             if (SegmentSecurityProfileId == null) { throw new System.ArgumentNullException("SegmentSecurityProfileId cannot be null"); }
             if (SegmentSecurityProfile == null) { throw new System.ArgumentNullException("SegmentSecurityProfile cannot be null"); }
@@ -149,7 +132,7 @@ namespace nsxtapi.PolicyModules
             request.AddJsonBody(JsonConvert.SerializeObject(SegmentSecurityProfile, defaultSerializationSettings));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = PatchSegmentSecurityProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchSegmentSecurityProfileServiceURL.ToString() + " did not complete successfull";
@@ -161,7 +144,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSegmentSecurityProfileType GlobalGlobalInfraCreateOrUpdateSegmentSecurityProfile(string SegmentSecurityProfileId, NSXTSegmentSecurityProfileType SegmentSecurityProfile, bool? Override = null)
+        public async Task<NSXTSegmentSecurityProfileType> GlobalGlobalInfraCreateOrUpdateSegmentSecurityProfile(string SegmentSecurityProfileId, NSXTSegmentSecurityProfileType SegmentSecurityProfile, bool? Override = null)
         {
             if (SegmentSecurityProfileId == null) { throw new System.ArgumentNullException("SegmentSecurityProfileId cannot be null"); }
             if (SegmentSecurityProfile == null) { throw new System.ArgumentNullException("SegmentSecurityProfile cannot be null"); }
@@ -177,31 +160,19 @@ namespace nsxtapi.PolicyModules
             request.AddJsonBody(JsonConvert.SerializeObject(SegmentSecurityProfile, defaultSerializationSettings));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = GlobalInfraCreateOrUpdateSegmentSecurityProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTSegmentSecurityProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTSegmentSecurityProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + GlobalInfraCreateOrUpdateSegmentSecurityProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSegmentSecurityProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSegmentSecurityProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GlobalGlobalInfraDeleteSegmentSecurityProfile(string SegmentSecurityProfileId, bool? Override = null)
+        public async Task GlobalGlobalInfraDeleteSegmentSecurityProfile(string SegmentSecurityProfileId, bool? Override = null)
         {
             if (SegmentSecurityProfileId == null) { throw new System.ArgumentNullException("SegmentSecurityProfileId cannot be null"); }
             
@@ -215,7 +186,7 @@ namespace nsxtapi.PolicyModules
             GlobalInfraDeleteSegmentSecurityProfileServiceURL.Replace("{segment-security-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentSecurityProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = GlobalInfraDeleteSegmentSecurityProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + GlobalInfraDeleteSegmentSecurityProfileServiceURL.ToString() + " did not complete successfull";
@@ -227,7 +198,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSegmentSecurityProfileType GlobalGlobalInfraGetSegmentSecurityProfile(string SegmentSecurityProfileId)
+        public async Task<NSXTSegmentSecurityProfileType> GlobalGlobalInfraGetSegmentSecurityProfile(string SegmentSecurityProfileId)
         {
             if (SegmentSecurityProfileId == null) { throw new System.ArgumentNullException("SegmentSecurityProfileId cannot be null"); }
             NSXTSegmentSecurityProfileType returnValue = default(NSXTSegmentSecurityProfileType);
@@ -240,31 +211,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             GlobalInfraGetSegmentSecurityProfileServiceURL.Replace("{segment-security-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SegmentSecurityProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GlobalInfraGetSegmentSecurityProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTSegmentSecurityProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTSegmentSecurityProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraGetSegmentSecurityProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSegmentSecurityProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSegmentSecurityProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GlobalGlobalInfraPatchSegmentSecurityProfile(string SegmentSecurityProfileId, NSXTSegmentSecurityProfileType SegmentSecurityProfile, bool? Override = null)
+        public async Task GlobalGlobalInfraPatchSegmentSecurityProfile(string SegmentSecurityProfileId, NSXTSegmentSecurityProfileType SegmentSecurityProfile, bool? Override = null)
         {
             if (SegmentSecurityProfileId == null) { throw new System.ArgumentNullException("SegmentSecurityProfileId cannot be null"); }
             if (SegmentSecurityProfile == null) { throw new System.ArgumentNullException("SegmentSecurityProfile cannot be null"); }
@@ -280,7 +239,7 @@ namespace nsxtapi.PolicyModules
             request.AddJsonBody(JsonConvert.SerializeObject(SegmentSecurityProfile, defaultSerializationSettings));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = GlobalInfraPatchSegmentSecurityProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + GlobalInfraPatchSegmentSecurityProfileServiceURL.ToString() + " did not complete successfull";
@@ -292,7 +251,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSegmentSecurityProfileListResultType ListSegmentSecurityProfiles(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTSegmentSecurityProfileListResultType> ListSegmentSecurityProfiles(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTSegmentSecurityProfileListResultType returnValue = default(NSXTSegmentSecurityProfileListResultType);
             StringBuilder ListSegmentSecurityProfilesServiceURL = new StringBuilder("/infra/segment-security-profiles");
@@ -309,31 +268,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListSegmentSecurityProfilesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTSegmentSecurityProfileListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTSegmentSecurityProfileListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListSegmentSecurityProfilesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSegmentSecurityProfileListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSegmentSecurityProfileListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSegmentSecurityProfileListResultType GlobalGlobalInfraListSegmentSecurityProfiles(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTSegmentSecurityProfileListResultType> GlobalGlobalInfraListSegmentSecurityProfiles(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTSegmentSecurityProfileListResultType returnValue = default(NSXTSegmentSecurityProfileListResultType);
             StringBuilder GlobalInfraListSegmentSecurityProfilesServiceURL = new StringBuilder("/global-infra/segment-security-profiles");
@@ -350,25 +297,13 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GlobalInfraListSegmentSecurityProfilesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTSegmentSecurityProfileListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTSegmentSecurityProfileListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraListSegmentSecurityProfilesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSegmentSecurityProfileListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSegmentSecurityProfileListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

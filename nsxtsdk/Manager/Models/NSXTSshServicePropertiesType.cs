@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,21 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"SSH Service properties")]
     public class NSXTSshServicePropertiesType 
     {
-        public NSXTSshServicePropertiesType()
-        {
-        }
         /// <summary>
         /// Permit SSH Root login
         /// </summary>
-        [JsonProperty(PropertyName = "root_login")]
-        [NSXTProperty(IsRequired: false, Description: @"Permit SSH Root login")]
         public bool? RootLogin { get; set; }
         /// <summary>
         /// Start service when system boots
         /// </summary>
         [JsonProperty(PropertyName = "start_on_boot", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Start service when system boots")]
-        [System.ComponentModel.DataAnnotations.Required]
         public bool StartOnBoot { get; set; }
     }
 }

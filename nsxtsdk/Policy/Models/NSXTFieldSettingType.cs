@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,22 +17,15 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Field Setting.")]
     public class NSXTFieldSettingType 
     {
-        public NSXTFieldSettingType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty(PropertyName = "value", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTFieldSettingValueType Value { get; set; }
         /// <summary>
         /// Field Pointer.
         /// </summary>
         [JsonProperty(PropertyName = "field_pointer", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Field Pointer.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string FieldPointer { get; set; }
     }
 }

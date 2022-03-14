@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,35 +17,20 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTDhcpIpPoolType : NSXTIpAllocationBaseType
     {
-        public NSXTDhcpIpPoolType()
-        {
-            WarningThreshold = test
-            ErrorThreshold = test
-        }
         /// <summary>
         /// Ip-ranges to define dynamic ip allocation ranges.
         /// </summary>
         [JsonProperty(PropertyName = "allocation_ranges", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Ip-ranges to define dynamic ip allocation ranges.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTIpPoolRangeType> AllocationRanges { get; set; }
         /// <summary>
         /// Warning threshold. Alert will be raised if the pool usage reaches the
         /// given threshold.
         /// </summary>
-        [JsonProperty(PropertyName = "warning_threshold")]
-        [NSXTProperty(IsRequired: false, Description: @"Warning threshold. Alert will be raised if the pool usage reaches thegiven threshold.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(50)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(80)]
         public long? WarningThreshold { get; set; }
         /// <summary>
         /// Error threshold. Alert will be raised if the pool usage reaches the
         /// given threshold.
         /// </summary>
-        [JsonProperty(PropertyName = "error_threshold")]
-        [NSXTProperty(IsRequired: false, Description: @"Error threshold. Alert will be raised if the pool usage reaches thegiven threshold.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(80)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(100)]
         public long? ErrorThreshold { get; set; }
     }
 }

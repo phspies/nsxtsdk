@@ -21,16 +21,23 @@ namespace nsxtapi.PolicyModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public PolicyFirewallFloodProtectionProfileBinding(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public PolicyFirewallFloodProtectionProfileBinding(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyFirewallFloodProtectionProfileBindingMapListResultType ListPolicyFirewallFloodProtectionBindings(string DomainId, string GroupId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTPolicyFirewallFloodProtectionProfileBindingMapListResultType> ListPolicyFirewallFloodProtectionBindings(string DomainId, string GroupId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (GroupId == null) { throw new System.ArgumentNullException("GroupId cannot be null"); }
@@ -51,31 +58,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListPolicyFirewallFloodProtectionBindingsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyFirewallFloodProtectionProfileBindingMapListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyFirewallFloodProtectionProfileBindingMapListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListPolicyFirewallFloodProtectionBindingsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyFirewallFloodProtectionProfileBindingMapListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyFirewallFloodProtectionProfileBindingMapListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyFirewallFloodProtectionProfileBindingMapType UpdatePolicyFirewallFloodProtectionBinding(string DomainId, string GroupId, string FirewallFloodProtectionProfileBindingMapId, NSXTPolicyFirewallFloodProtectionProfileBindingMapType PolicyFirewallFloodProtectionProfileBindingMap)
+        public async Task<NSXTPolicyFirewallFloodProtectionProfileBindingMapType> UpdatePolicyFirewallFloodProtectionBinding(string DomainId, string GroupId, string FirewallFloodProtectionProfileBindingMapId, NSXTPolicyFirewallFloodProtectionProfileBindingMapType PolicyFirewallFloodProtectionProfileBindingMap)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (GroupId == null) { throw new System.ArgumentNullException("GroupId cannot be null"); }
@@ -94,31 +89,19 @@ namespace nsxtapi.PolicyModules
             UpdatePolicyFirewallFloodProtectionBindingServiceURL.Replace("{firewall-flood-protection-profile-binding-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FirewallFloodProtectionProfileBindingMapId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(PolicyFirewallFloodProtectionProfileBindingMap, defaultSerializationSettings));
             request.Resource = UpdatePolicyFirewallFloodProtectionBindingServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyFirewallFloodProtectionProfileBindingMapType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyFirewallFloodProtectionProfileBindingMapType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdatePolicyFirewallFloodProtectionBindingServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyFirewallFloodProtectionProfileBindingMapType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyFirewallFloodProtectionProfileBindingMapType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeletePolicyFirewallFloodProtectionBinding(string DomainId, string GroupId, string FirewallFloodProtectionProfileBindingMapId)
+        public async Task DeletePolicyFirewallFloodProtectionBinding(string DomainId, string GroupId, string FirewallFloodProtectionProfileBindingMapId)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (GroupId == null) { throw new System.ArgumentNullException("GroupId cannot be null"); }
@@ -135,7 +118,7 @@ namespace nsxtapi.PolicyModules
             DeletePolicyFirewallFloodProtectionBindingServiceURL.Replace("{group-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GroupId, System.Globalization.CultureInfo.InvariantCulture)));
             DeletePolicyFirewallFloodProtectionBindingServiceURL.Replace("{firewall-flood-protection-profile-binding-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FirewallFloodProtectionProfileBindingMapId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeletePolicyFirewallFloodProtectionBindingServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeletePolicyFirewallFloodProtectionBindingServiceURL.ToString() + " did not complete successfull";
@@ -147,7 +130,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchPolicyFirewallFloodProtectionProfileBindingMap(string DomainId, string GroupId, string FirewallFloodProtectionProfileBindingMapId, NSXTPolicyFirewallFloodProtectionProfileBindingMapType PolicyFirewallFloodProtectionProfileBindingMap)
+        public async Task PatchPolicyFirewallFloodProtectionProfileBindingMap(string DomainId, string GroupId, string FirewallFloodProtectionProfileBindingMapId, NSXTPolicyFirewallFloodProtectionProfileBindingMapType PolicyFirewallFloodProtectionProfileBindingMap)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (GroupId == null) { throw new System.ArgumentNullException("GroupId cannot be null"); }
@@ -166,7 +149,7 @@ namespace nsxtapi.PolicyModules
             PatchPolicyFirewallFloodProtectionProfileBindingMapServiceURL.Replace("{firewall-flood-protection-profile-binding-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FirewallFloodProtectionProfileBindingMapId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(PolicyFirewallFloodProtectionProfileBindingMap, defaultSerializationSettings));
             request.Resource = PatchPolicyFirewallFloodProtectionProfileBindingMapServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchPolicyFirewallFloodProtectionProfileBindingMapServiceURL.ToString() + " did not complete successfull";
@@ -178,7 +161,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyFirewallFloodProtectionProfileBindingMapType GetPolicyFirewallFloodProtectionBinding(string DomainId, string GroupId, string FirewallFloodProtectionProfileBindingMapId)
+        public async Task<NSXTPolicyFirewallFloodProtectionProfileBindingMapType> GetPolicyFirewallFloodProtectionBinding(string DomainId, string GroupId, string FirewallFloodProtectionProfileBindingMapId)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (GroupId == null) { throw new System.ArgumentNullException("GroupId cannot be null"); }
@@ -195,31 +178,19 @@ namespace nsxtapi.PolicyModules
             GetPolicyFirewallFloodProtectionBindingServiceURL.Replace("{group-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GroupId, System.Globalization.CultureInfo.InvariantCulture)));
             GetPolicyFirewallFloodProtectionBindingServiceURL.Replace("{firewall-flood-protection-profile-binding-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FirewallFloodProtectionProfileBindingMapId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetPolicyFirewallFloodProtectionBindingServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyFirewallFloodProtectionProfileBindingMapType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyFirewallFloodProtectionProfileBindingMapType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetPolicyFirewallFloodProtectionBindingServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyFirewallFloodProtectionProfileBindingMapType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyFirewallFloodProtectionProfileBindingMapType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyFirewallFloodProtectionProfileBindingMapType GlobalGlobalInfraGetPolicyFirewallFloodProtectionBinding(string DomainId, string GroupId, string FirewallFloodProtectionProfileBindingMapId)
+        public async Task<NSXTPolicyFirewallFloodProtectionProfileBindingMapType> GlobalGlobalInfraGetPolicyFirewallFloodProtectionBinding(string DomainId, string GroupId, string FirewallFloodProtectionProfileBindingMapId)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (GroupId == null) { throw new System.ArgumentNullException("GroupId cannot be null"); }
@@ -236,31 +207,19 @@ namespace nsxtapi.PolicyModules
             GlobalInfraGetPolicyFirewallFloodProtectionBindingServiceURL.Replace("{group-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GroupId, System.Globalization.CultureInfo.InvariantCulture)));
             GlobalInfraGetPolicyFirewallFloodProtectionBindingServiceURL.Replace("{firewall-flood-protection-profile-binding-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FirewallFloodProtectionProfileBindingMapId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GlobalInfraGetPolicyFirewallFloodProtectionBindingServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyFirewallFloodProtectionProfileBindingMapType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyFirewallFloodProtectionProfileBindingMapType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraGetPolicyFirewallFloodProtectionBindingServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyFirewallFloodProtectionProfileBindingMapType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyFirewallFloodProtectionProfileBindingMapType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyFirewallFloodProtectionProfileBindingMapListResultType GlobalGlobalInfraListPolicyFirewallFloodProtectionBindings(string DomainId, string GroupId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTPolicyFirewallFloodProtectionProfileBindingMapListResultType> GlobalGlobalInfraListPolicyFirewallFloodProtectionBindings(string DomainId, string GroupId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (GroupId == null) { throw new System.ArgumentNullException("GroupId cannot be null"); }
@@ -281,31 +240,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GlobalInfraListPolicyFirewallFloodProtectionBindingsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyFirewallFloodProtectionProfileBindingMapListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyFirewallFloodProtectionProfileBindingMapListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraListPolicyFirewallFloodProtectionBindingsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyFirewallFloodProtectionProfileBindingMapListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyFirewallFloodProtectionProfileBindingMapListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyFirewallFloodProtectionProfileBindingMapListResultType ListFirewallFloodProtectionBindingsAcrossDomains(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTPolicyFirewallFloodProtectionProfileBindingMapListResultType> ListFirewallFloodProtectionBindingsAcrossDomains(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTPolicyFirewallFloodProtectionProfileBindingMapListResultType returnValue = default(NSXTPolicyFirewallFloodProtectionProfileBindingMapListResultType);
             StringBuilder ListFirewallFloodProtectionBindingsAcrossDomainsServiceURL = new StringBuilder("/infra/domains/firewall-flood-protection-profile-binding-maps");
@@ -322,25 +269,13 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListFirewallFloodProtectionBindingsAcrossDomainsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyFirewallFloodProtectionProfileBindingMapListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyFirewallFloodProtectionProfileBindingMapListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListFirewallFloodProtectionBindingsAcrossDomainsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyFirewallFloodProtectionProfileBindingMapListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyFirewallFloodProtectionProfileBindingMapListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

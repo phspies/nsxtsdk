@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,33 +17,21 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTTraceflowRequestType : NSXTManagedResourceType
     {
-        public NSXTTraceflowRequestType()
-        {
-            Timeout = test
-        }
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty(PropertyName = "packet", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTPacketDataType Packet { get; set; }
         /// <summary>
         /// Maximum time (in ms) the management plane will wait for observation result list to be sent by controller plane. Upper
         /// limit for federation case is 90000, for non-federation case is 15000, the maximum is set to 90000 as the higher of the
         /// two cases.
         /// </summary>
-        [JsonProperty(PropertyName = "timeout")]
-        [NSXTProperty(IsRequired: false, Description: @"Maximum time (in ms) the management plane will wait for observation result list to be sent by controller plane. Upper limit for federation case is 90000, for non-federation case is 15000, the maximum is set to 90000 as the higher of the two cases.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(5000)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(90000)]
         public long? Timeout { get; set; }
         /// <summary>
         /// id of the source logical port to inject the traceflow packet into
         /// </summary>
         [JsonProperty(PropertyName = "lport_id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"id of the source logical port to inject the traceflow packet into")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string LportId { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,21 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Static IPv4 multicast address and assciated multicast group ranges.")]
     public class NSXTRpAddressMulticastRangesType 
     {
-        public NSXTRpAddressMulticastRangesType()
-        {
-        }
         /// <summary>
         /// Assciated multicast group ranges configuration.
         /// </summary>
-        [JsonProperty(PropertyName = "multicast_ranges")]
-        [NSXTProperty(IsRequired: false, Description: @"Assciated multicast group ranges configuration.")]
         public IList<string> MulticastRanges { get; set; }
         /// <summary>
         /// Static IPv4 multicast address configuration.
         /// </summary>
         [JsonProperty(PropertyName = "rp_address", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Static IPv4 multicast address configuration.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string RpAddress { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,32 +17,21 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Upload status of upgrade bundle uploaded from url")]
     public class NSXTUpgradeBundleUploadStatusType 
     {
-        public NSXTUpgradeBundleUploadStatusType()
-        {
-        }
         /// <summary>
         /// URL for uploading upgrade bundle
         /// </summary>
-        [JsonProperty(PropertyName = "url")]
-        [NSXTProperty(IsRequired: false, Description: @"URL for uploading upgrade bundle")]
         public string? Url { get; set; }
         /// <summary>
         /// Current status of upgrade bundle upload
         /// </summary>
-        [JsonProperty(PropertyName = "status")]
-        [NSXTProperty(IsRequired: false, Description: @"Current status of upgrade bundle upload")]
         public NSXTUpgradeBundleUploadStatusStatusEnumType? Status { get; set; }
         /// <summary>
         /// Detailed status of upgrade bundle upload
         /// </summary>
-        [JsonProperty(PropertyName = "detailed_status")]
-        [NSXTProperty(IsRequired: false, Description: @"Detailed status of upgrade bundle upload")]
         public string? DetailedStatus { get; set; }
         /// <summary>
         /// Percent of bundle uploaded from URL
         /// </summary>
-        [JsonProperty(PropertyName = "percent")]
-        [NSXTProperty(IsRequired: false, Description: @"Percent of bundle uploaded from URL")]
         public double? Percent { get; set; }
     }
 }

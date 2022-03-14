@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,20 +17,13 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTSIAggregatedDataCounterExType : NSXTSIAggregatedDataCounterType
     {
-        public NSXTSIAggregatedDataCounterExType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "mac_learning")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTSIMacLearningCountersType MacLearning { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "dropped_by_security_packets")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTSIPacketsDroppedBySecurityType DroppedBySecurityPackets { get; set; }
     }
 }

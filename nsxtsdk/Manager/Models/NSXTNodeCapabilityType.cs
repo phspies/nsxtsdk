@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,38 +17,25 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Capability of a fabric node")]
     public class NSXTNodeCapabilityType 
     {
-        public NSXTNodeCapabilityType()
-        {
-        }
         /// <summary>
         /// Value of this capability
         /// </summary>
-        [JsonProperty(PropertyName = "value")]
-        [NSXTProperty(IsRequired: false, Description: @"Value of this capability")]
         public string? Value { get; set; }
         /// <summary>
         /// Version of the capability
         /// </summary>
-        [JsonProperty(PropertyName = "version")]
-        [NSXTProperty(IsRequired: false, Description: @"Version of the capability")]
         public int? Version { get; set; }
         /// <summary>
         /// Description of this capability that can be displayed in UI
         /// </summary>
-        [JsonProperty(PropertyName = "description")]
-        [NSXTProperty(IsRequired: false, Description: @"Description of this capability that can be displayed in UI")]
         public string? Description { get; set; }
         /// <summary>
         /// String that identifies the base capability for all nodes
         /// </summary>
-        [JsonProperty(PropertyName = "key")]
-        [NSXTProperty(IsRequired: false, Description: @"String that identifies the base capability for all nodes")]
         public string? Key { get; set; }
         /// <summary>
         /// Provider of this capability for the node
         /// </summary>
-        [JsonProperty(PropertyName = "provider")]
-        [NSXTProperty(IsRequired: false, Description: @"Provider of this capability for the node")]
         public string? Provider { get; set; }
     }
 }

@@ -21,16 +21,23 @@ namespace nsxtapi.PolicyModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public PolicyIpDiscovery(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public PolicyIpDiscovery(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIPDiscoveryProfileListResultType GlobalGlobalInfraGetIpdiscoveryProfiles(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTIPDiscoveryProfileListResultType> GlobalGlobalInfraGetIpdiscoveryProfiles(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTIPDiscoveryProfileListResultType returnValue = default(NSXTIPDiscoveryProfileListResultType);
             StringBuilder GlobalInfraGetIpdiscoveryProfilesServiceURL = new StringBuilder("/global-infra/ip-discovery-profiles");
@@ -47,31 +54,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GlobalInfraGetIpdiscoveryProfilesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIPDiscoveryProfileListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIPDiscoveryProfileListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraGetIpdiscoveryProfilesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIPDiscoveryProfileListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIPDiscoveryProfileListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIPDiscoveryProfileType GlobalGlobalInfraUpdateIpdiscoveryProfile(string IpDiscoveryProfileId, NSXTIPDiscoveryProfileType IpdiscoveryProfile, bool? Override = null)
+        public async Task<NSXTIPDiscoveryProfileType> GlobalGlobalInfraUpdateIpdiscoveryProfile(string IpDiscoveryProfileId, NSXTIPDiscoveryProfileType IpdiscoveryProfile, bool? Override = null)
         {
             if (IpDiscoveryProfileId == null) { throw new System.ArgumentNullException("IpDiscoveryProfileId cannot be null"); }
             if (IpdiscoveryProfile == null) { throw new System.ArgumentNullException("IpdiscoveryProfile cannot be null"); }
@@ -87,31 +82,19 @@ namespace nsxtapi.PolicyModules
             request.AddJsonBody(JsonConvert.SerializeObject(IpdiscoveryProfile, defaultSerializationSettings));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = GlobalInfraUpdateIpdiscoveryProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIPDiscoveryProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIPDiscoveryProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + GlobalInfraUpdateIpdiscoveryProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIPDiscoveryProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIPDiscoveryProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GlobalGlobalInfraCreateIpdiscoveryProfile(string IpDiscoveryProfileId, NSXTIPDiscoveryProfileType IpdiscoveryProfile, bool? Override = null)
+        public async Task GlobalGlobalInfraCreateIpdiscoveryProfile(string IpDiscoveryProfileId, NSXTIPDiscoveryProfileType IpdiscoveryProfile, bool? Override = null)
         {
             if (IpDiscoveryProfileId == null) { throw new System.ArgumentNullException("IpDiscoveryProfileId cannot be null"); }
             if (IpdiscoveryProfile == null) { throw new System.ArgumentNullException("IpdiscoveryProfile cannot be null"); }
@@ -127,7 +110,7 @@ namespace nsxtapi.PolicyModules
             request.AddJsonBody(JsonConvert.SerializeObject(IpdiscoveryProfile, defaultSerializationSettings));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = GlobalInfraCreateIpdiscoveryProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + GlobalInfraCreateIpdiscoveryProfileServiceURL.ToString() + " did not complete successfull";
@@ -139,7 +122,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void GlobalGlobalInfraDeleteIpdiscoveryProfile(string IpDiscoveryProfileId, bool? Override = null)
+        public async Task GlobalGlobalInfraDeleteIpdiscoveryProfile(string IpDiscoveryProfileId, bool? Override = null)
         {
             if (IpDiscoveryProfileId == null) { throw new System.ArgumentNullException("IpDiscoveryProfileId cannot be null"); }
             
@@ -153,7 +136,7 @@ namespace nsxtapi.PolicyModules
             GlobalInfraDeleteIpdiscoveryProfileServiceURL.Replace("{ip-discovery-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(IpDiscoveryProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = GlobalInfraDeleteIpdiscoveryProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + GlobalInfraDeleteIpdiscoveryProfileServiceURL.ToString() + " did not complete successfull";
@@ -165,7 +148,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIPDiscoveryProfileType GlobalGlobalInfraGetIpdiscoveryProfile(string IpDiscoveryProfileId)
+        public async Task<NSXTIPDiscoveryProfileType> GlobalGlobalInfraGetIpdiscoveryProfile(string IpDiscoveryProfileId)
         {
             if (IpDiscoveryProfileId == null) { throw new System.ArgumentNullException("IpDiscoveryProfileId cannot be null"); }
             NSXTIPDiscoveryProfileType returnValue = default(NSXTIPDiscoveryProfileType);
@@ -178,31 +161,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             GlobalInfraGetIpdiscoveryProfileServiceURL.Replace("{ip-discovery-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(IpDiscoveryProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GlobalInfraGetIpdiscoveryProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIPDiscoveryProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIPDiscoveryProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraGetIpdiscoveryProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIPDiscoveryProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIPDiscoveryProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIPDiscoveryProfileListResultType GetIpdiscoveryProfiles(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTIPDiscoveryProfileListResultType> GetIpdiscoveryProfiles(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTIPDiscoveryProfileListResultType returnValue = default(NSXTIPDiscoveryProfileListResultType);
             StringBuilder GetIpdiscoveryProfilesServiceURL = new StringBuilder("/infra/ip-discovery-profiles");
@@ -219,31 +190,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GetIpdiscoveryProfilesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIPDiscoveryProfileListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIPDiscoveryProfileListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetIpdiscoveryProfilesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIPDiscoveryProfileListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIPDiscoveryProfileListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIPDiscoveryProfileType UpdateIpdiscoveryProfile(string IpDiscoveryProfileId, NSXTIPDiscoveryProfileType IpdiscoveryProfile, bool? Override = null)
+        public async Task<NSXTIPDiscoveryProfileType> UpdateIpdiscoveryProfile(string IpDiscoveryProfileId, NSXTIPDiscoveryProfileType IpdiscoveryProfile, bool? Override = null)
         {
             if (IpDiscoveryProfileId == null) { throw new System.ArgumentNullException("IpDiscoveryProfileId cannot be null"); }
             if (IpdiscoveryProfile == null) { throw new System.ArgumentNullException("IpdiscoveryProfile cannot be null"); }
@@ -259,31 +218,19 @@ namespace nsxtapi.PolicyModules
             request.AddJsonBody(JsonConvert.SerializeObject(IpdiscoveryProfile, defaultSerializationSettings));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = UpdateIpdiscoveryProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIPDiscoveryProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIPDiscoveryProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateIpdiscoveryProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIPDiscoveryProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIPDiscoveryProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void CreateIpdiscoveryProfile(string IpDiscoveryProfileId, NSXTIPDiscoveryProfileType IpdiscoveryProfile, bool? Override = null)
+        public async Task CreateIpdiscoveryProfile(string IpDiscoveryProfileId, NSXTIPDiscoveryProfileType IpdiscoveryProfile, bool? Override = null)
         {
             if (IpDiscoveryProfileId == null) { throw new System.ArgumentNullException("IpDiscoveryProfileId cannot be null"); }
             if (IpdiscoveryProfile == null) { throw new System.ArgumentNullException("IpdiscoveryProfile cannot be null"); }
@@ -299,7 +246,7 @@ namespace nsxtapi.PolicyModules
             request.AddJsonBody(JsonConvert.SerializeObject(IpdiscoveryProfile, defaultSerializationSettings));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = CreateIpdiscoveryProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + CreateIpdiscoveryProfileServiceURL.ToString() + " did not complete successfull";
@@ -311,7 +258,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteIpdiscoveryProfile(string IpDiscoveryProfileId, bool? Override = null)
+        public async Task DeleteIpdiscoveryProfile(string IpDiscoveryProfileId, bool? Override = null)
         {
             if (IpDiscoveryProfileId == null) { throw new System.ArgumentNullException("IpDiscoveryProfileId cannot be null"); }
             
@@ -325,7 +272,7 @@ namespace nsxtapi.PolicyModules
             DeleteIpdiscoveryProfileServiceURL.Replace("{ip-discovery-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(IpDiscoveryProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Override != null) { request.AddQueryParameter("override", Override.ToString()); }
             request.Resource = DeleteIpdiscoveryProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteIpdiscoveryProfileServiceURL.ToString() + " did not complete successfull";
@@ -337,7 +284,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIPDiscoveryProfileType GetIpdiscoveryProfile(string IpDiscoveryProfileId)
+        public async Task<NSXTIPDiscoveryProfileType> GetIpdiscoveryProfile(string IpDiscoveryProfileId)
         {
             if (IpDiscoveryProfileId == null) { throw new System.ArgumentNullException("IpDiscoveryProfileId cannot be null"); }
             NSXTIPDiscoveryProfileType returnValue = default(NSXTIPDiscoveryProfileType);
@@ -350,25 +297,13 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             GetIpdiscoveryProfileServiceURL.Replace("{ip-discovery-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(IpDiscoveryProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetIpdiscoveryProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIPDiscoveryProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIPDiscoveryProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetIpdiscoveryProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIPDiscoveryProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIPDiscoveryProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

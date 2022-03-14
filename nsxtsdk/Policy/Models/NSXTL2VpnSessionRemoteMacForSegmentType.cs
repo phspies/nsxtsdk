@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,21 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Remote MAC addresses for logical switch.")]
     public class NSXTL2VpnSessionRemoteMacForSegmentType 
     {
-        public NSXTL2VpnSessionRemoteMacForSegmentType()
-        {
-        }
         /// <summary>
         /// Remote Mac addresses.
         /// </summary>
-        [JsonProperty(PropertyName = "remote_mac_addresses")]
-        [NSXTProperty(IsRequired: false, Description: @"Remote Mac addresses.")]
         public IList<string> RemoteMacAddresses { get; set; }
         /// <summary>
         /// Intent path of the segment.
         /// </summary>
         [JsonProperty(PropertyName = "segment_path", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Intent path of the segment.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string SegmentPath { get; set; }
     }
 }

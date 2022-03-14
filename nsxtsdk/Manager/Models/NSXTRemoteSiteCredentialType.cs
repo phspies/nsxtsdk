@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,34 +17,23 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Contains the information needed to communicate with another site.")]
     public class NSXTRemoteSiteCredentialType 
     {
-        public NSXTRemoteSiteCredentialType()
-        {
-        }
         /// <summary>
         /// Username of the site
         /// </summary>
         [JsonProperty(PropertyName = "username", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Username of the site")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Username { get; set; }
         /// <summary>
         /// Sha256 thumbprint of API certificate of the remote site
         /// </summary>
-        [JsonProperty(PropertyName = "thumbprint")]
-        [NSXTProperty(IsRequired: false, Description: @"Sha256 thumbprint of API certificate of the remote site")]
         public string? Thumbprint { get; set; }
         /// <summary>
         /// Password of the site
         /// </summary>
-        [JsonProperty(PropertyName = "password")]
-        [NSXTProperty(IsRequired: false, Description: @"Password of the site")]
         public string? Password { get; set; }
         /// <summary>
         /// Address of the site (IPv4:port)
         /// </summary>
         [JsonProperty(PropertyName = "address", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Address of the site (IPv4:port)")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Address { get; set; }
     }
 }

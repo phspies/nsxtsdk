@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,32 +17,21 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTFailedNodeSupportBundleResultType 
     {
-        public NSXTFailedNodeSupportBundleResultType()
-        {
-        }
         /// <summary>
         /// Display name of node
         /// </summary>
-        [JsonProperty(PropertyName = "node_display_name")]
-        [NSXTProperty(IsRequired: false, Description: @"Display name of node")]
         public string? NodeDisplayName { get; set; }
         /// <summary>
         /// UUID of node
         /// </summary>
-        [JsonProperty(PropertyName = "node_id")]
-        [NSXTProperty(IsRequired: false, Description: @"UUID of node")]
         public string? NodeId { get; set; }
         /// <summary>
         /// Error code
         /// </summary>
-        [JsonProperty(PropertyName = "error_code")]
-        [NSXTProperty(IsRequired: false, Description: @"Error code")]
         public string? ErrorCode { get; set; }
         /// <summary>
         /// Error message
         /// </summary>
-        [JsonProperty(PropertyName = "error_message")]
-        [NSXTProperty(IsRequired: false, Description: @"Error message")]
         public string? ErrorMessage { get; set; }
     }
 }

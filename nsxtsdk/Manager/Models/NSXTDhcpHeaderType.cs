@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,16 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTDhcpHeaderType 
     {
-        public NSXTDhcpHeaderType()
-        {
-            OpCode = test
-        }
         /// <summary>
         /// This is used to specify the general type of message. A client sending request to a server uses an op code of
         /// BOOTREQUEST, while a server replying uses an op code of BOOTREPLY.
         /// </summary>
-        [JsonProperty(PropertyName = "op_code")]
-        [NSXTProperty(IsRequired: false, Description: @"This is used to specify the general type of message. A client sending request to a server uses an op code of BOOTREQUEST, while a server replying uses an op code of BOOTREPLY.")]
         public NSXTDhcpHeaderOpCodeEnumType? OpCode { get; set; }
     }
 }

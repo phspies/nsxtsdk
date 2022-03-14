@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,34 +17,23 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTVtepTableCsvRecordType : NSXTCsvRecordType
     {
-        public NSXTVtepTableCsvRecordType()
-        {
-        }
         /// <summary>
         /// The virtual tunnel endpoint label
         /// </summary>
         [JsonProperty(PropertyName = "vtep_label", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"The virtual tunnel endpoint label")]
-        [System.ComponentModel.DataAnnotations.Required]
         public long VtepLabel { get; set; }
         /// <summary>
         /// The virtual tunnel endpoint MAC address
         /// </summary>
         [JsonProperty(PropertyName = "vtep_mac_address", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"The virtual tunnel endpoint MAC address")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string VtepMacAddress { get; set; }
         /// <summary>
         /// The virtual tunnel endpoint IP address
         /// </summary>
-        [JsonProperty(PropertyName = "vtep_ip")]
-        [NSXTProperty(IsRequired: false, Description: @"The virtual tunnel endpoint IP address")]
         public string? VtepIp { get; set; }
         /// <summary>
         /// The segment Id
         /// </summary>
-        [JsonProperty(PropertyName = "segment_id")]
-        [NSXTProperty(IsRequired: false, Description: @"The segment Id")]
         public string? SegmentId { get; set; }
     }
 }

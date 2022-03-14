@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,20 +17,13 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer HealthMonitorImap object")]
     public class NSXTALBHealthMonitorImapType 
     {
-        public NSXTALBHealthMonitorImapType()
-        {
-        }
         /// <summary>
         /// Folder to access.
         /// </summary>
-        [JsonProperty(PropertyName = "folder")]
-        [NSXTProperty(IsRequired: false, Description: @"Folder to access.")]
         public string? Folder { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "ssl_attributes")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBHealthMonitorSSLAttributesType SslAttributes { get; set; }
     }
 }

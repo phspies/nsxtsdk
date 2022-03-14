@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public Vnim(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public Vnim(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTVniPoolType CreateVnipool(NSXTVniPoolType VniPool)
+        public async Task<NSXTVniPoolType> CreateVnipool(NSXTVniPoolType VniPool)
         {
             if (VniPool == null) { throw new System.ArgumentNullException("VniPool cannot be null"); }
             NSXTVniPoolType returnValue = default(NSXTVniPoolType);
@@ -43,31 +50,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(VniPool, defaultSerializationSettings));
             request.Resource = CreateVnipoolServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTVniPoolType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTVniPoolType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CreateVnipoolServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTVniPoolType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTVniPoolType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTVniPoolListResultType ListVnipools(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTVniPoolListResultType> ListVnipools(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTVniPoolListResultType returnValue = default(NSXTVniPoolListResultType);
             StringBuilder ListVnipoolsServiceURL = new StringBuilder("/pools/vni-pools");
@@ -83,31 +78,19 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListVnipoolsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTVniPoolListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTVniPoolListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListVnipoolsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTVniPoolListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTVniPoolListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTVniPoolType UpdateVnipool(string PoolId, NSXTVniPoolType VniPool)
+        public async Task<NSXTVniPoolType> UpdateVnipool(string PoolId, NSXTVniPoolType VniPool)
         {
             if (PoolId == null) { throw new System.ArgumentNullException("PoolId cannot be null"); }
             if (VniPool == null) { throw new System.ArgumentNullException("VniPool cannot be null"); }
@@ -122,31 +105,19 @@ namespace nsxtapi.ManagerModules
             UpdateVnipoolServiceURL.Replace("{pool-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PoolId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(VniPool, defaultSerializationSettings));
             request.Resource = UpdateVnipoolServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTVniPoolType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTVniPoolType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateVnipoolServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTVniPoolType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTVniPoolType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTVniPoolType ReadVnipool(string PoolId)
+        public async Task<NSXTVniPoolType> ReadVnipool(string PoolId)
         {
             if (PoolId == null) { throw new System.ArgumentNullException("PoolId cannot be null"); }
             NSXTVniPoolType returnValue = default(NSXTVniPoolType);
@@ -159,31 +130,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             ReadVnipoolServiceURL.Replace("{pool-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PoolId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadVnipoolServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTVniPoolType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTVniPoolType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadVnipoolServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTVniPoolType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTVniPoolType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteVnipool(string PoolId, bool? Force = null)
+        public async Task DeleteVnipool(string PoolId, bool? Force = null)
         {
             if (PoolId == null) { throw new System.ArgumentNullException("PoolId cannot be null"); }
             
@@ -197,7 +156,7 @@ namespace nsxtapi.ManagerModules
             DeleteVnipoolServiceURL.Replace("{pool-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PoolId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
             request.Resource = DeleteVnipoolServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteVnipoolServiceURL.ToString() + " did not complete successfull";

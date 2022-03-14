@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,16 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTRealizationStateBarrierConfigType : NSXTRevisionedResourceType
     {
-        public NSXTRealizationStateBarrierConfigType()
-        {
-        }
         /// <summary>
         /// The interval in milliseconds used for auto incrementing the barrier number
         /// </summary>
         [JsonProperty(PropertyName = "interval", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"The interval in milliseconds used for auto incrementing the barrier number")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        [System.ComponentModel.DataAnnotations.Required]
         public long Interval { get; set; }
     }
 }

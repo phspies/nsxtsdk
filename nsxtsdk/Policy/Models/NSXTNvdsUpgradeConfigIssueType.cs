@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,32 +17,21 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTNvdsUpgradeConfigIssueType : NSXTManagedResourceType
     {
-        public NSXTNvdsUpgradeConfigIssueType()
-        {
-        }
         /// <summary>
         /// Recommendation to resolve the error returned for component
         /// </summary>
-        [JsonProperty(PropertyName = "recommendation")]
-        [NSXTProperty(IsRequired: false, Description: @"Recommendation to resolve the error returned for component")]
         public string? Recommendation { get; set; }
         /// <summary>
         /// Name of the component/object
         /// </summary>
-        [JsonProperty(PropertyName = "component")]
-        [NSXTProperty(IsRequired: false, Description: @"Name of the component/object")]
         public string? Component { get; set; }
         /// <summary>
         /// Id of the object that generated error
         /// </summary>
-        [JsonProperty(PropertyName = "objid")]
-        [NSXTProperty(IsRequired: false, Description: @"Id of the object that generated error")]
         public string? Objid { get; set; }
         /// <summary>
         /// Error for the component describing precheck failure
         /// </summary>
-        [JsonProperty(PropertyName = "error")]
-        [NSXTProperty(IsRequired: false, Description: @"Error for the component describing precheck failure")]
         public string? Error { get; set; }
     }
 }

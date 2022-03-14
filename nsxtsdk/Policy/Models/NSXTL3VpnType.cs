@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,102 +17,70 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTL3VpnType : NSXTPolicyConfigResourceType
     {
-        public NSXTL3VpnType()
-        {
-            EnablePerfectForwardSecrecy = test
-            IkeVersion = test
-            Enabled = test
-        }
         /// <summary>
         /// This field is used to resolve conflicts in case of a remote site being
         /// behind NAT as remote public ip address is not enough. If it is not the
         /// case the remote public address should be provided here. If not provided,
         /// the value of this field is set to remote_public_address.
         /// </summary>
-        [JsonProperty(PropertyName = "remote_private_address")]
-        [NSXTProperty(IsRequired: false, Description: @"This field is used to resolve conflicts in case of a remote site beingbehind NAT as remote public ip address is not enough. If it is not thecase the remote public address should be provided here. If not provided,the value of this field is set to remote_public_address.")]
         public string? RemotePrivateAddress { get; set; }
         /// <summary>
         /// Algorithm to be used for message digest during tunnel establishment.
         /// Default algorithm is empty.
         /// </summary>
-        [JsonProperty(PropertyName = "tunnel_digest_algorithms")]
-        [NSXTProperty(IsRequired: false, Description: @"Algorithm to be used for message digest during tunnel establishment.Default algorithm is empty.")]
         public IList<string> TunnelDigestAlgorithms { get; set; }
         /// <summary>
         /// List of IPSec pre-shared keys used for IPSec authentication. If not
         /// specified, the older passphrase values are retained if there are any.
         /// </summary>
-        [JsonProperty(PropertyName = "passphrases")]
-        [NSXTProperty(IsRequired: false, Description: @"List of IPSec pre-shared keys used for IPSec authentication. If notspecified, the older passphrase values are retained if there are any.")]
         public IList<string> Passphrases { get; set; }
         /// <summary>
         /// If true, perfect forward secrecy (PFS) is enabled.
         /// </summary>
-        [JsonProperty(PropertyName = "enable_perfect_forward_secrecy")]
-        [NSXTProperty(IsRequired: false, Description: @"If true, perfect forward secrecy (PFS) is enabled.")]
         public bool? EnablePerfectForwardSecrecy { get; set; }
         /// <summary>
         /// Algorithm to be used for message digest during Internet Key Exchange(IKE)
         /// negotiation. Default is SHA2_256.
         /// </summary>
-        [JsonProperty(PropertyName = "ike_digest_algorithms")]
-        [NSXTProperty(IsRequired: false, Description: @"Algorithm to be used for message digest during Internet Key Exchange(IKE)negotiation. Default is SHA2_256.")]
         public IList<string> IkeDigestAlgorithms { get; set; }
         /// <summary>
         /// IKE protocol version to be used. IKE-Flex will initiate IKE-V2 and responds
         /// to both IKE-V1 and IKE-V2.
         /// </summary>
-        [JsonProperty(PropertyName = "ike_version")]
-        [NSXTProperty(IsRequired: false, Description: @"IKE protocol version to be used. IKE-Flex will initiate IKE-V2 and respondsto both IKE-V1 and IKE-V2.")]
         public NSXTL3VpnIkeVersionEnumType? IkeVersion { get; set; }
         /// <summary>
         /// Algorithm to be used during Internet Key Exchange(IKE) negotiation.
         /// Default is AES_128.
         /// </summary>
-        [JsonProperty(PropertyName = "ike_encryption_algorithms")]
-        [NSXTProperty(IsRequired: false, Description: @"Algorithm to be used during Internet Key Exchange(IKE) negotiation.Default is AES_128.")]
         public IList<string> IkeEncryptionAlgorithms { get; set; }
         /// <summary>
         /// IPv4 address of local gateway
         /// </summary>
         [JsonProperty(PropertyName = "local_address", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"IPv4 address of local gateway")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string LocalAddress { get; set; }
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty(PropertyName = "l3vpn_session", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTL3VpnSessionType L3vpnSession { get; set; }
         /// <summary>
         /// Diffie-Hellman group to be used if PFS is enabled. Default group is GROUP14.
         /// </summary>
-        [JsonProperty(PropertyName = "dh_groups")]
-        [NSXTProperty(IsRequired: false, Description: @"Diffie-Hellman group to be used if PFS is enabled. Default group is GROUP14.")]
         public IList<string> DhGroups { get; set; }
         /// <summary>
         /// Encryption algorithm to encrypt/decrypt the messages exchanged between
         /// IPSec VPN initiator and responder during tunnel negotiation. Default is
         /// AES_GCM_128.
         /// </summary>
-        [JsonProperty(PropertyName = "tunnel_encryption_algorithms")]
-        [NSXTProperty(IsRequired: false, Description: @"Encryption algorithm to encrypt/decrypt the messages exchanged betweenIPSec VPN initiator and responder during tunnel negotiation. Default isAES_GCM_128.")]
         public IList<string> TunnelEncryptionAlgorithms { get; set; }
         /// <summary>
         /// Flag to enable L3Vpn. Default is enabled.
         /// </summary>
-        [JsonProperty(PropertyName = "enabled")]
-        [NSXTProperty(IsRequired: false, Description: @"Flag to enable L3Vpn. Default is enabled.")]
         public bool? Enabled { get; set; }
         /// <summary>
         /// Public IPv4 address of remote gateway
         /// </summary>
         [JsonProperty(PropertyName = "remote_public_address", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Public IPv4 address of remote gateway")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string RemotePublicAddress { get; set; }
     }
 }

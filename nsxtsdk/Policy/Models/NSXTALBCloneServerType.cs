@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,33 +17,22 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer CloneServer object")]
     public class NSXTALBCloneServerType 
     {
-        public NSXTALBCloneServerType()
-        {
-        }
         /// <summary>
         /// Network to clone the traffic to.
         /// It is a reference to an object of type Network.
         /// </summary>
-        [JsonProperty(PropertyName = "network_name")]
-        [NSXTProperty(IsRequired: false, Description: @"Network to clone the traffic to.It is a reference to an object of type Network.")]
         public string? NetworkName { get; set; }
         /// <summary>
         /// MAC Address of the Clone Server.
         /// </summary>
-        [JsonProperty(PropertyName = "mac")]
-        [NSXTProperty(IsRequired: false, Description: @"MAC Address of the Clone Server.")]
         public string? Mac { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "ip_address")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBIpAddrType IpAddress { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "subnet")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBIpAddrPrefixType Subnet { get; set; }
     }
 }

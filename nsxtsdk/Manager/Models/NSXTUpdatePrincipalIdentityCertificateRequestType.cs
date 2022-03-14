@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,22 +17,15 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTUpdatePrincipalIdentityCertificateRequestType : NSXTManagedResourceType
     {
-        public NSXTUpdatePrincipalIdentityCertificateRequestType()
-        {
-        }
         /// <summary>
         /// Unique ID of the principal.
         /// </summary>
         [JsonProperty(PropertyName = "principal_identity_id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Unique ID of the principal.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string PrincipalIdentityId { get; set; }
         /// <summary>
         /// Id of the stored certificate.
         /// </summary>
         [JsonProperty(PropertyName = "certificate_id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Id of the stored certificate.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string CertificateId { get; set; }
     }
 }

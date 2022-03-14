@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,27 +17,18 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Preconfigured host switch is used for manually configured transport node.")]
     public class NSXTPreconfiguredHostSwitchType 
     {
-        public NSXTPreconfiguredHostSwitchType()
-        {
-        }
         /// <summary>
         /// External Id of the preconfigured host switch.
         /// </summary>
         [JsonProperty(PropertyName = "host_switch_id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"External Id of the preconfigured host switch.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string HostSwitchId { get; set; }
         /// <summary>
         /// List of virtual tunnel endpoints which are preconfigured on this host switch
         /// </summary>
-        [JsonProperty(PropertyName = "endpoints")]
-        [NSXTProperty(IsRequired: false, Description: @"List of virtual tunnel endpoints which are preconfigured on this host switch")]
         public IList<NSXTPreconfiguredEndpointType> Endpoints { get; set; }
         /// <summary>
         /// List of TransportZones that are to be associated with specified host switch.
         /// </summary>
-        [JsonProperty(PropertyName = "transport_zone_endpoints")]
-        [NSXTProperty(IsRequired: false, Description: @"List of TransportZones that are to be associated with specified host switch.")]
         public IList<NSXTTransportZoneEndPointType> TransportZoneEndpoints { get; set; }
     }
 }

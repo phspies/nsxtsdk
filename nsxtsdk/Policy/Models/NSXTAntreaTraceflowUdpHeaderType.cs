@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,20 +17,13 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Udp header stuffs for Antrea traceflow.")]
     public class NSXTAntreaTraceflowUdpHeaderType 
     {
-        public NSXTAntreaTraceflowUdpHeaderType()
-        {
-        }
         /// <summary>
         /// Destination port number in UdpHeader.
         /// </summary>
-        [JsonProperty(PropertyName = "dstPort")]
-        [NSXTProperty(IsRequired: false, Description: @"Destination port number in UdpHeader.")]
         public long? DstPort { get; set; }
         /// <summary>
         /// Source port number in UdpHeader.
         /// </summary>
-        [JsonProperty(PropertyName = "srcPort")]
-        [NSXTProperty(IsRequired: false, Description: @"Source port number in UdpHeader.")]
         public long? SrcPort { get; set; }
     }
 }

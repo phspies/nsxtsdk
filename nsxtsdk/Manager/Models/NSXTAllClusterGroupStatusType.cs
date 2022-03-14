@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,26 +17,17 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"A list of the statuses of all the groups in the cluster.")]
     public class NSXTAllClusterGroupStatusType 
     {
-        public NSXTAllClusterGroupStatusType()
-        {
-        }
         /// <summary>
         /// Overall status of the cluster
         /// </summary>
-        [JsonProperty(PropertyName = "overall_status")]
-        [NSXTProperty(IsRequired: false, Description: @"Overall status of the cluster")]
         public NSXTAllClusterGroupStatusOverallStatusEnumType? OverallStatus { get; set; }
         /// <summary>
         /// UUID of the cluster
         /// </summary>
-        [JsonProperty(PropertyName = "cluster_id")]
-        [NSXTProperty(IsRequired: false, Description: @"UUID of the cluster")]
         public string? ClusterId { get; set; }
         /// <summary>
         /// Array of groups and their statuses
         /// </summary>
-        [JsonProperty(PropertyName = "groups")]
-        [NSXTProperty(IsRequired: false, Description: @"Array of groups and their statuses")]
         public IList<NSXTClusterGroupStatusType> Groups { get; set; }
     }
 }

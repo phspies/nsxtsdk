@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,20 +17,13 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Arbitrary key-value pairs that may be attached to an entity")]
     public class NSXTTagType 
     {
-        public NSXTTagType()
-        {
-        }
         /// <summary>
         /// Tag searches may optionally be restricted by scope
         /// </summary>
-        [JsonProperty(PropertyName = "scope")]
-        [NSXTProperty(IsRequired: false, Description: @"Tag searches may optionally be restricted by scope")]
         public string? Scope { get; set; }
         /// <summary>
         /// Identifier meaningful to user with maximum length of 256 characters
         /// </summary>
-        [JsonProperty(PropertyName = "tag")]
-        [NSXTProperty(IsRequired: false, Description: @"Identifier meaningful to user with maximum length of 256 characters")]
         public string? Tag { get; set; }
     }
 }

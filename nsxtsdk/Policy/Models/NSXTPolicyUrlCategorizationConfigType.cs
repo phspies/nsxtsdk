@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,33 +17,22 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyUrlCategorizationConfigType : NSXTPolicyConfigResourceType
     {
-        public NSXTPolicyUrlCategorizationConfigType()
-        {
-            UpdateFrequency = test
-        }
         /// <summary>
         /// The frequency in minutes at which the updates are downloaded from the
         /// URL categorization cloud service. The minimum allowed value is 5
         /// minutes.
         /// </summary>
-        [JsonProperty(PropertyName = "update_frequency")]
-        [NSXTProperty(IsRequired: false, Description: @"The frequency in minutes at which the updates are downloaded from theURL categorization cloud service. The minimum allowed value is 5minutes.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(5)]
         public int? UpdateFrequency { get; set; }
         /// <summary>
         /// The ids of the context profiles that provides the list of categories to
         /// be detected. This field is deprecated. URL Categorization will not be
         /// supported in association with context profiles.
         /// </summary>
-        [JsonProperty(PropertyName = "context_profiles")]
-        [NSXTProperty(IsRequired: false, Description: @"The ids of the context profiles that provides the list of categories tobe detected. This field is deprecated. URL Categorization will not besupported in association with context profiles.")]
         public IList<string> ContextProfiles { get; set; }
         /// <summary>
         /// Property which specifies the enabling/disabling of the feature.
         /// </summary>
         [JsonProperty(PropertyName = "enabled", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Property which specifies the enabling/disabling of the feature.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public bool Enabled { get; set; }
     }
 }

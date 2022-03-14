@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,27 +17,18 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Duplicate address detection status for IP address on the interface.")]
     public class NSXTInterfaceIPv6DADStatusType 
     {
-        public NSXTInterfaceIPv6DADStatusType()
-        {
-        }
         /// <summary>
         /// DAD status for IP address on the port.
         /// </summary>
-        [JsonProperty(PropertyName = "status")]
-        [NSXTProperty(IsRequired: false, Description: @"DAD status for IP address on the port.")]
         public NSXTInterfaceIpv6DadstatusStatusEnumType? Status { get; set; }
         /// <summary>
         /// Array of edge nodes on which DAD status is reported for
         /// given IP address.
         /// </summary>
-        [JsonProperty(PropertyName = "edge_paths")]
-        [NSXTProperty(IsRequired: false, Description: @"Array of edge nodes on which DAD status is reported forgiven IP address.")]
         public IList<string> EdgePaths { get; set; }
         /// <summary>
         /// IP address on the port for which DAD status is reported.
         /// </summary>
-        [JsonProperty(PropertyName = "ip_address")]
-        [NSXTProperty(IsRequired: false, Description: @"IP address on the port for which DAD status is reported.")]
         public string? IpAddress { get; set; }
     }
 }

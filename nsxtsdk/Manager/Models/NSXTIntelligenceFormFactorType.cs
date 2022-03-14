@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,38 +17,25 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Napp cluster form factor")]
     public class NSXTIntelligenceFormFactorType 
     {
-        public NSXTIntelligenceFormFactorType()
-        {
-        }
         /// <summary>
         /// Number of virtual cpus on the Napp worker nodes
         /// </summary>
-        [JsonProperty(PropertyName = "vcpu")]
-        [NSXTProperty(IsRequired: false, Description: @"Number of virtual cpus on the Napp worker nodes")]
         public long? Vcpu { get; set; }
         /// <summary>
         /// Default number of Napp worker nodes.
         /// </summary>
-        [JsonProperty(PropertyName = "default_worker_count")]
-        [NSXTProperty(IsRequired: false, Description: @"Default number of Napp worker nodes.")]
         public long? DefaultWorkerCount { get; set; }
         /// <summary>
         /// Disk size of the Napp worker nodes in GBs.
         /// </summary>
-        [JsonProperty(PropertyName = "disk")]
-        [NSXTProperty(IsRequired: false, Description: @"Disk size of the Napp worker nodes in GBs.")]
         public long? Disk { get; set; }
         /// <summary>
         /// NSX Intelligence node form factor type
         /// </summary>
-        [JsonProperty(PropertyName = "type")]
-        [NSXTProperty(IsRequired: false, Description: @"NSX Intelligence node form factor type")]
         public NSXTIntelligenceFormFactorTypeEnumType? Type { get; set; }
         /// <summary>
         /// Memory size of the Napp worker nodes in GBs
         /// </summary>
-        [JsonProperty(PropertyName = "memory")]
-        [NSXTProperty(IsRequired: false, Description: @"Memory size of the Napp worker nodes in GBs")]
         public long? Memory { get; set; }
     }
 }

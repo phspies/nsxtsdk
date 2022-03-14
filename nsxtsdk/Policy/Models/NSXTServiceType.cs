@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,27 +17,18 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTServiceType : NSXTPolicyConfigResourceType
     {
-        public NSXTServiceType()
-        {
-        }
         /// <summary>
         /// The flag, if true, indicates that service is created in the system by default.
         /// Such default services can't be modified/deleted.
         /// </summary>
-        [JsonProperty(PropertyName = "is_default")]
-        [NSXTProperty(IsRequired: false, Description: @"The flag, if true, indicates that service is created in the system by default.Such default services can&apos;t be modified/deleted.")]
         public bool? IsDefault { get; set; }
         /// <summary>
         /// Type of service, EITHER or NON_ETHER
         /// </summary>
-        [JsonProperty(PropertyName = "service_type")]
-        [NSXTProperty(IsRequired: false, Description: @"Type of service, EITHER or NON_ETHER")]
         public string? ServiceType { get; set; }
         /// <summary>
         /// Service type
         /// </summary>
-        [JsonProperty(PropertyName = "service_entries")]
-        [NSXTProperty(IsRequired: false, Description: @"Service type")]
         public IList<NSXTServiceEntryType> ServiceEntries { get; set; }
     }
 }

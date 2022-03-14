@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,29 +17,20 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"The Instance Deployment Config contains settings that is applied during install time.")]
     public class NSXTInstanceDeploymentConfigType 
     {
-        public NSXTInstanceDeploymentConfigType()
-        {
-        }
         /// <summary>
         /// Context Id or VCenter Id.
         /// </summary>
         [JsonProperty(PropertyName = "context_id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Context Id or VCenter Id.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string ContextId { get; set; }
         /// <summary>
         /// List of NIC information for VMs
         /// </summary>
         [JsonProperty(PropertyName = "vm_nic_infos", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"List of NIC information for VMs")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTVmNicInfoType> VmNicInfos { get; set; }
         /// <summary>
         /// Storage Id.
         /// </summary>
         [JsonProperty(PropertyName = "storage_id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Storage Id.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string StorageId { get; set; }
         /// <summary>
         /// The service VM will be deployed on the specified host in the
@@ -47,15 +38,11 @@ namespace nsxtsdk.ManagerModels
         /// Note: You must ensure that storage and specified networks are
         /// accessible by this host.
         /// </summary>
-        [JsonProperty(PropertyName = "host_id")]
-        [NSXTProperty(IsRequired: false, Description: @"The service VM will be deployed on the specified host in thespecified server within the cluster if host_id is specified.Note: You must ensure that storage and specified networks areaccessible by this host.")]
         public string? HostId { get; set; }
         /// <summary>
         /// Resource Pool or Compute Id.
         /// </summary>
         [JsonProperty(PropertyName = "compute_id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Resource Pool or Compute Id.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string ComputeId { get; set; }
     }
 }

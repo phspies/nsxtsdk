@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTAggregateLBServiceStatisticsType : NSXTAggregatePolicyRuntimeInfoType
     {
-        public NSXTAggregateLBServiceStatisticsType()
-        {
-        }
         /// <summary>
         /// LBServiceStatisticsPerEP list results.
         /// </summary>
-        [JsonProperty(PropertyName = "results")]
-        [NSXTProperty(IsRequired: false, Description: @"LBServiceStatisticsPerEP list results.")]
         public IList<NSXTLBServiceStatisticsPerEPType> Results { get; set; }
     }
 }

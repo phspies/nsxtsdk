@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public Batch(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public Batch(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTBatchResponseType RegisterBatchRequest(NSXTBatchRequestType BatchRequest, bool? Atomic = null)
+        public async Task<NSXTBatchResponseType> RegisterBatchRequest(NSXTBatchRequestType BatchRequest, bool? Atomic = null)
         {
             if (BatchRequest == null) { throw new System.ArgumentNullException("BatchRequest cannot be null"); }
             NSXTBatchResponseType returnValue = default(NSXTBatchResponseType);
@@ -44,25 +51,13 @@ namespace nsxtapi.ManagerModules
             request.AddJsonBody(JsonConvert.SerializeObject(BatchRequest, defaultSerializationSettings));
             if (Atomic != null) { request.AddQueryParameter("atomic", Atomic.ToString()); }
             request.Resource = RegisterBatchRequestServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTBatchResponseType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTBatchResponseType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + RegisterBatchRequestServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTBatchResponseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTBatchResponseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

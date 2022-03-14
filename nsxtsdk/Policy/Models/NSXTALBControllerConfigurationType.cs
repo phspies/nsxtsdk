@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,49 +17,34 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Alb Controller config details")]
     public class NSXTALBControllerConfigurationType 
     {
-        public NSXTALBControllerConfigurationType()
-        {
-        }
         /// <summary>
         /// The cluster IP of the Advanced Load Balancer controller node cluster. This is mandatory parameter and
         /// required for single node controller deployments as well.
         /// </summary>
         [JsonProperty(PropertyName = "cluster_ip", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"The cluster IP of the Advanced Load Balancer controller node cluster. This is mandatory parameter andrequired for single node controller deployments as well.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string ClusterIp { get; set; }
         /// <summary>
         /// Username for server authentication.
         /// </summary>
-        [JsonProperty(PropertyName = "infra_admin_username")]
-        [NSXTProperty(IsRequired: false, Description: @"Username for server authentication.")]
         public string? InfraAdminUsername { get; set; }
         /// <summary>
         /// List of DNS servers.
         /// </summary>
-        [JsonProperty(PropertyName = "dns_servers")]
-        [NSXTProperty(IsRequired: false, Description: @"List of DNS servers.")]
         public IList<string> DnsServers { get; set; }
         /// <summary>
         /// List of NTP servers.
         /// </summary>
-        [JsonProperty(PropertyName = "ntp_servers")]
-        [NSXTProperty(IsRequired: false, Description: @"List of NTP servers.")]
         public IList<string> NtpServers { get; set; }
         /// <summary>
         /// The policy initiates workflow by LCM/VCF
         /// </summary>
         [JsonProperty(PropertyName = "owned_by", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"The policy initiates workflow by LCM/VCF")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTAlbcontrollerConfigurationOwnedByEnumType OwnedBy { get; set; }
         /// <summary>
         /// Password for the controller node admin user. For deployment,
         /// this property is required.
         /// The password specified must be at least 8 characters in length.
         /// </summary>
-        [JsonProperty(PropertyName = "infra_admin_password")]
-        [NSXTProperty(IsRequired: false, Description: @"Password for the controller node admin user. For deployment,this property is required.The password specified must be at least 8 characters in length.")]
         public string? InfraAdminPassword { get; set; }
     }
 }

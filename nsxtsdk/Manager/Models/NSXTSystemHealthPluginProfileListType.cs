@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,21 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTSystemHealthPluginProfileListType : NSXTListResultType
     {
-        public NSXTSystemHealthPluginProfileListType()
-        {
-        }
         /// <summary>
         /// System Health plugin list
         /// </summary>
-        [JsonProperty(PropertyName = "results")]
-        [NSXTProperty(IsRequired: false, Description: @"System Health plugin list")]
         public IList<NSXTSystemHealthPluginProfileType> Results { get; set; }
         /// <summary>
         /// Total plugin count
         /// </summary>
         [JsonProperty(PropertyName = "result_count", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Total plugin count")]
-        [System.ComponentModel.DataAnnotations.Required]
         public long ResultCount { get; set; }
     }
 }

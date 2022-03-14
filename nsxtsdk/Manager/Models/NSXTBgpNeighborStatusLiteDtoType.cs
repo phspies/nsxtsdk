@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,32 +17,21 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTBgpNeighborStatusLiteDtoType 
     {
-        public NSXTBgpNeighborStatusLiteDtoType()
-        {
-        }
         /// <summary>
         /// Current state of the BGP session.
         /// </summary>
-        [JsonProperty(PropertyName = "connection_state")]
-        [NSXTProperty(IsRequired: false, Description: @"Current state of the BGP session.")]
         public NSXTBgpNeighborStatusLiteDtoConnectionStateEnumType? ConnectionState { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "remote_site")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTResourceReferenceType RemoteSite { get; set; }
         /// <summary>
         /// Source Ip address.
         /// </summary>
-        [JsonProperty(PropertyName = "source_address")]
-        [NSXTProperty(IsRequired: false, Description: @"Source Ip address.")]
         public string? SourceAddress { get; set; }
         /// <summary>
         /// Ip address of BGP neighbor.
         /// </summary>
-        [JsonProperty(PropertyName = "neighbor_address")]
-        [NSXTProperty(IsRequired: false, Description: @"Ip address of BGP neighbor.")]
         public string? NeighborAddress { get; set; }
     }
 }

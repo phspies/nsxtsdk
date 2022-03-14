@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,22 +17,15 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTFirewallSectionLockType 
     {
-        public NSXTFirewallSectionLockType()
-        {
-        }
         /// <summary>
         /// Comments for section lock/unlock.
         /// </summary>
         [JsonProperty(PropertyName = "comments", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Comments for section lock/unlock.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Comments { get; set; }
         /// <summary>
         /// Revision of the section.
         /// </summary>
         [JsonProperty(PropertyName = "section_revision", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Revision of the section.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public long SectionRevision { get; set; }
     }
 }

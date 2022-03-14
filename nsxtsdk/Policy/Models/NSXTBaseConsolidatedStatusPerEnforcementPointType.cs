@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -19,33 +19,22 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTBaseConsolidatedStatusPerEnforcementPointType : NSXTPolicyRuntimeInfoPerEPType
     {
-        public NSXTBaseConsolidatedStatusPerEnforcementPointType()
-        {
-        }
         /// <summary>
         /// The site where this enforcement point resides.
         /// </summary>
-        [JsonProperty(PropertyName = "site_path")]
-        [NSXTProperty(IsRequired: false, Description: @"The site where this enforcement point resides.")]
         public string? SitePath { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "consolidated_status")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTConsolidatedStatusType ConsolidatedStatus { get; set; }
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty(PropertyName = "resource_type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string ResourceType { get; set; }
         /// <summary>
         /// Enforcement Point Id.
         /// </summary>
-        [JsonProperty(PropertyName = "enforcement_point_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Enforcement Point Id.")]
         public string? EnforcementPointId { get; set; }
     }
 }

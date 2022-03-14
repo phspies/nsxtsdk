@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,9 +17,6 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer DnsZone object")]
     public class NSXTALBDnsZoneType 
     {
-        public NSXTALBDnsZoneType()
-        {
-        }
         /// <summary>
         /// Email address of the administrator responsible for this
         /// zone.
@@ -27,8 +24,6 @@ namespace nsxtsdk.PolicyModels
         /// If not configured, it is inherited from the DNS service
         /// profile.
         /// </summary>
-        [JsonProperty(PropertyName = "admin_email")]
-        [NSXTProperty(IsRequired: false, Description: @"Email address of the administrator responsible for thiszone.This field is used in SOA records as rname (RFC 1035).If not configured, it is inherited from the DNS serviceprofile.")]
         public string? AdminEmail { get; set; }
         /// <summary>
         /// Domain name authoritatively serviced by this Virtual
@@ -40,8 +35,6 @@ namespace nsxtsdk.PolicyModels
         /// answer section of response if query type is SOA.
         /// </summary>
         [JsonProperty(PropertyName = "domain_name", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Domain name authoritatively serviced by this VirtualService.Queries for FQDNs that are sub domains of this domain anddo not have any DNS record in Avi are dropped or NXDomainresponse sent.For domains which are present, SOA parameters are sent inanswer section of response if query type is SOA.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string DomainName { get; set; }
         /// <summary>
         /// The primary name server for this zone.
@@ -51,8 +44,6 @@ namespace nsxtsdk.PolicyModels
         /// If even that is not configured, the domain name is used
         /// instead.
         /// </summary>
-        [JsonProperty(PropertyName = "name_server")]
-        [NSXTProperty(IsRequired: false, Description: @"The primary name server for this zone.This field is used in SOA records as mname (RFC 1035).If not configured, it is inherited from the DNS serviceprofile.If even that is not configured, the domain name is usedinstead.")]
         public string? NameServer { get; set; }
     }
 }

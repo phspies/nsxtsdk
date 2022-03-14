@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,10 +17,6 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer DnsRuleActionGslbSiteSelection object")]
     public class NSXTALBDnsRuleActionGslbSiteSelectionType 
     {
-        public NSXTALBDnsRuleActionGslbSiteSelectionType()
-        {
-            IsSitePreferred = test
-        }
         /// <summary>
         /// When set to true, GSLB site is a preferred site.
         /// This setting comes into play when the site is down, as well
@@ -31,23 +27,17 @@ namespace nsxtsdk.PolicyModels
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as true.
         /// </summary>
-        [JsonProperty(PropertyName = "is_site_preferred")]
-        [NSXTProperty(IsRequired: false, Description: @"When set to true, GSLB site is a preferred site.This setting comes into play when the site is down, as wellas no configured fallback site is available (all fallbacksites are also down), then any one available site isselected based on the default algorithm for GSLB pool memberselection.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
         public bool? IsSitePreferred { get; set; }
         /// <summary>
         /// GSLB site name.
         /// </summary>
         [JsonProperty(PropertyName = "site_name", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"GSLB site name.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string SiteName { get; set; }
         /// <summary>
         /// GSLB fallback sites to use in case the desired site is
         /// down.
         /// Maximum of 64 items allowed.
         /// </summary>
-        [JsonProperty(PropertyName = "fallback_site_names")]
-        [NSXTProperty(IsRequired: false, Description: @"GSLB fallback sites to use in case the desired site isdown.Maximum of 64 items allowed.")]
         public IList<string> FallbackSiteNames { get; set; }
     }
 }

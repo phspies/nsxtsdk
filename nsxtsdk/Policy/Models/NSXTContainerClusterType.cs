@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,27 +17,17 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTContainerClusterType : NSXTDiscoveredResourceType
     {
-        public NSXTContainerClusterType()
-        {
-            CniType = test
-        }
         /// <summary>
         /// Network status of container cluster.
         /// </summary>
-        [JsonProperty(PropertyName = "network_status")]
-        [NSXTProperty(IsRequired: false, Description: @"Network status of container cluster.")]
         public NSXTContainerClusterNetworkStatusEnumType? NetworkStatus { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "infrastructure")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTContainerInfrastructureInfoType Infrastructure { get; set; }
         /// <summary>
         /// Specifies supervisor container project identifier for cluster.
         /// </summary>
-        [JsonProperty(PropertyName = "supervisor_project_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Specifies supervisor container project identifier for cluster.")]
         public string? SupervisorProjectId { get; set; }
         /// <summary>
         /// Type of the container cluster. In case of creating container cluster
@@ -45,33 +35,23 @@ namespace nsxtsdk.PolicyModels
         /// In case of update, if there is no change in cluster-type, then this
         /// field can be omitted in the request.
         /// </summary>
-        [JsonProperty(PropertyName = "cluster_type")]
-        [NSXTProperty(IsRequired: false, Description: @"Type of the container cluster. In case of creating container clusterfirst time, it is expected to pass the valid cluster-type.In case of update, if there is no change in cluster-type, then thisfield can be omitted in the request.")]
         public NSXTContainerClusterClusterTypeEnumType? ClusterType { get; set; }
         /// <summary>
         /// Array of additional specific properties of container cluster
         /// in key-value format.
         /// </summary>
-        [JsonProperty(PropertyName = "origin_properties")]
-        [NSXTProperty(IsRequired: false, Description: @"Array of additional specific properties of container clusterin key-value format.")]
         public IList<NSXTKeyValuePairType> OriginProperties { get; set; }
         /// <summary>
         /// Specifies Container Network Interface type for container cluster.
         /// </summary>
-        [JsonProperty(PropertyName = "cni_type")]
-        [NSXTProperty(IsRequired: false, Description: @"Specifies Container Network Interface type for container cluster.")]
         public NSXTContainerClusterCniTypeEnumType? CniType { get; set; }
         /// <summary>
         /// External identifier of the container cluster.
         /// </summary>
-        [JsonProperty(PropertyName = "external_id")]
-        [NSXTProperty(IsRequired: false, Description: @"External identifier of the container cluster.")]
         public string? ExternalId { get; set; }
         /// <summary>
         /// List of network errors related to container cluster.
         /// </summary>
-        [JsonProperty(PropertyName = "network_errors")]
-        [NSXTProperty(IsRequired: false, Description: @"List of network errors related to container cluster.")]
         public IList<NSXTNetworkErrorType> NetworkErrors { get; set; }
     }
 }

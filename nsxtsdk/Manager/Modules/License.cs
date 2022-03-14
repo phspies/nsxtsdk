@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public License(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public License(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLicenseType GetLicenseByKey(string LicenseKey)
+        public async Task<NSXTLicenseType> GetLicenseByKey(string LicenseKey)
         {
             if (LicenseKey == null) { throw new System.ArgumentNullException("LicenseKey cannot be null"); }
             NSXTLicenseType returnValue = default(NSXTLicenseType);
@@ -43,31 +50,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             GetLicenseByKeyServiceURL.Replace("{license-key}", System.Uri.EscapeDataString(Helpers.ConvertToString(LicenseKey, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetLicenseByKeyServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLicenseType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLicenseType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetLicenseByKeyServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLicenseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLicenseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteLicense(string LicenseKey)
+        public async Task DeleteLicense(string LicenseKey)
         {
             if (LicenseKey == null) { throw new System.ArgumentNullException("LicenseKey cannot be null"); }
             
@@ -80,7 +75,7 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             DeleteLicenseServiceURL.Replace("{license-key}", System.Uri.EscapeDataString(Helpers.ConvertToString(LicenseKey, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteLicenseServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteLicenseServiceURL.ToString() + " did not complete successfull";
@@ -92,7 +87,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTFeatureUsageListType GetLicenseUsageReport()
+        public async Task<NSXTFeatureUsageListType> GetLicenseUsageReport()
         {
             NSXTFeatureUsageListType returnValue = default(NSXTFeatureUsageListType);
             StringBuilder GetLicenseUsageReportServiceURL = new StringBuilder("/licenses/licenses-usage");
@@ -103,31 +98,19 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = GetLicenseUsageReportServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTFeatureUsageListType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTFeatureUsageListType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetLicenseUsageReportServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTFeatureUsageListType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTFeatureUsageListType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLicenseType UpdateLicense(NSXTLicenseType License)
+        public async Task<NSXTLicenseType> UpdateLicense(NSXTLicenseType License)
         {
             if (License == null) { throw new System.ArgumentNullException("License cannot be null"); }
             NSXTLicenseType returnValue = default(NSXTLicenseType);
@@ -140,31 +123,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(License, defaultSerializationSettings));
             request.Resource = UpdateLicenseServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLicenseType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLicenseType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateLicenseServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLicenseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLicenseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLicenseType GetLicense()
+        public async Task<NSXTLicenseType> GetLicense()
         {
             NSXTLicenseType returnValue = default(NSXTLicenseType);
             StringBuilder GetLicenseServiceURL = new StringBuilder("/license");
@@ -175,31 +146,19 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = GetLicenseServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLicenseType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLicenseType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetLicenseServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLicenseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLicenseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTFeatureUsageListInCsvFormatType GetLicenseUsageReportInCsvFormat()
+        public async Task<NSXTFeatureUsageListInCsvFormatType> GetLicenseUsageReportInCsvFormat()
         {
             NSXTFeatureUsageListInCsvFormatType returnValue = default(NSXTFeatureUsageListInCsvFormatType);
             StringBuilder GetLicenseUsageReportInCsvFormatServiceURL = new StringBuilder("/licenses/licenses-usage?format=csv");
@@ -210,31 +169,19 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = GetLicenseUsageReportInCsvFormatServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTFeatureUsageListInCsvFormatType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTFeatureUsageListInCsvFormatType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetLicenseUsageReportInCsvFormatServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTFeatureUsageListInCsvFormatType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTFeatureUsageListInCsvFormatType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteLicenseKey(NSXTLicenseType License)
+        public async Task DeleteLicenseKey(NSXTLicenseType License)
         {
             if (License == null) { throw new System.ArgumentNullException("License cannot be null"); }
             
@@ -247,7 +194,7 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(License, defaultSerializationSettings));
             request.Resource = DeleteLicenseKeyServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + DeleteLicenseKeyServiceURL.ToString() + " did not complete successfull";
@@ -259,7 +206,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLicenseType CreateLicense(NSXTLicenseType License)
+        public async Task<NSXTLicenseType> CreateLicense(NSXTLicenseType License)
         {
             if (License == null) { throw new System.ArgumentNullException("License cannot be null"); }
             NSXTLicenseType returnValue = default(NSXTLicenseType);
@@ -272,31 +219,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(License, defaultSerializationSettings));
             request.Resource = CreateLicenseServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLicenseType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLicenseType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CreateLicenseServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLicenseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLicenseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLicensesListResultType GetLicenses()
+        public async Task<NSXTLicensesListResultType> GetLicenses()
         {
             NSXTLicensesListResultType returnValue = default(NSXTLicensesListResultType);
             StringBuilder GetLicensesServiceURL = new StringBuilder("/licenses");
@@ -307,25 +242,13 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = GetLicensesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLicensesListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLicensesListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetLicensesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLicensesListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLicensesListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

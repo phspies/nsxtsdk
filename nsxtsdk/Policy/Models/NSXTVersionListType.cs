@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTVersionListType : NSXTManagedResourceType
     {
-        public NSXTVersionListType()
-        {
-        }
         /// <summary>
         /// List of component versions
         /// </summary>
         [JsonProperty(PropertyName = "acceptable_versions", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"List of component versions")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<string> AcceptableVersions { get; set; }
     }
 }

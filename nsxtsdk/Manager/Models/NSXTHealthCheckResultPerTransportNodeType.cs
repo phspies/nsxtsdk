@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,20 +17,13 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Health check result on specific transport node")]
     public class NSXTHealthCheckResultPerTransportNodeType 
     {
-        public NSXTHealthCheckResultPerTransportNodeType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "result_on_host_switch")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTHealthCheckResultOnHostSwitchType ResultOnHostSwitch { get; set; }
         /// <summary>
         /// ID of the Transport Node.
         /// </summary>
-        [JsonProperty(PropertyName = "transport_node_id")]
-        [NSXTProperty(IsRequired: false, Description: @"ID of the Transport Node.")]
         public string? TransportNodeId { get; set; }
     }
 }

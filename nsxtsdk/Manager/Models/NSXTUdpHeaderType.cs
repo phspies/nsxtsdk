@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,26 +17,13 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTUdpHeaderType 
     {
-        public NSXTUdpHeaderType()
-        {
-            SrcPort = test
-            DstPort = test
-        }
         /// <summary>
         /// Source port of udp header
         /// </summary>
-        [JsonProperty(PropertyName = "src_port")]
-        [NSXTProperty(IsRequired: false, Description: @"Source port of udp header")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
         public long? SrcPort { get; set; }
         /// <summary>
         /// Destination port of udp header
         /// </summary>
-        [JsonProperty(PropertyName = "dst_port")]
-        [NSXTProperty(IsRequired: false, Description: @"Destination port of udp header")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
         public long? DstPort { get; set; }
     }
 }

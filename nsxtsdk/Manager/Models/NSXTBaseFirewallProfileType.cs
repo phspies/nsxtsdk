@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTBaseFirewallProfileType : NSXTManagedResourceType
     {
-        public NSXTBaseFirewallProfileType()
-        {
-        }
         /// <summary>
         /// Resource type to use as profile type
         /// </summary>
         [JsonProperty(PropertyName = "resource_type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Resource type to use as profile type")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTBaseFirewallProfileResourceTypeEnumType ResourceType { get; set; }
     }
 }

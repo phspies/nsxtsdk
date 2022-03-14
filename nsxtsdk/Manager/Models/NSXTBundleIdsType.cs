@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,26 +17,17 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Contains a list of bundle-ids.")]
     public class NSXTBundleIdsType 
     {
-        public NSXTBundleIdsType()
-        {
-        }
         /// <summary>
         /// Id of a bundle whose upload is successful.
         /// </summary>
-        [JsonProperty(PropertyName = "successful")]
-        [NSXTProperty(IsRequired: false, Description: @"Id of a bundle whose upload is successful.")]
         public string? Successful { get; set; }
         /// <summary>
         /// Id of a bundle whose upload was failed.
         /// </summary>
-        [JsonProperty(PropertyName = "failed")]
-        [NSXTProperty(IsRequired: false, Description: @"Id of a bundle whose upload was failed.")]
         public string? Failed { get; set; }
         /// <summary>
         /// Id of a bundle whose upload is in-progress.
         /// </summary>
-        [JsonProperty(PropertyName = "in_progress")]
-        [NSXTProperty(IsRequired: false, Description: @"Id of a bundle whose upload is in-progress.")]
         public string? InProgress { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,30 +17,21 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIdsSignatureStatusType : NSXTPolicyConfigResourceType
     {
-        public NSXTIdsSignatureStatusType()
-        {
-        }
         /// <summary>
         /// READY means signatures were downloaded and parsed successfully.
         /// PENDING means that signatures download is in progress.
         /// ERROR means error occurred during signature processing.
         /// DISABLED means IDS is disabled.
         /// </summary>
-        [JsonProperty(PropertyName = "download_status")]
-        [NSXTProperty(IsRequired: false, Description: @"READY means signatures were downloaded and parsed successfully.PENDING means that signatures download is in progress.ERROR means error occurred during signature processing.DISABLED means IDS is disabled.")]
         public NSXTIdsSignatureStatusDownloadStatusEnumType? DownloadStatus { get; set; }
         /// <summary>
         /// AVAILABLE means the signatures are available for the version.
         /// UNAVAILABLE means there are no available signatures for the version.
         /// </summary>
-        [JsonProperty(PropertyName = "signature_status")]
-        [NSXTProperty(IsRequired: false, Description: @"AVAILABLE means the signatures are available for the version.UNAVAILABLE means there are no available signatures for the version.")]
         public NSXTIdsSignatureStatusSignatureStatusEnumType? SignatureStatus { get; set; }
         /// <summary>
         /// Represents the version id.
         /// </summary>
-        [JsonProperty(PropertyName = "version_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Represents the version id.")]
         public string? VersionId { get; set; }
     }
 }

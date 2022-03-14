@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,27 +17,18 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Meta-data of a pre/post-upgrade check")]
     public class NSXTUpgradeCheckInfoType 
     {
-        public NSXTUpgradeCheckInfoType()
-        {
-        }
         /// <summary>
         /// Display name of the pre/post-upgrade check
         /// </summary>
-        [JsonProperty(PropertyName = "name")]
-        [NSXTProperty(IsRequired: false, Description: @"Display name of the pre/post-upgrade check")]
         public string? Name { get; set; }
         /// <summary>
         /// Component type of the pre/post-upgrade check
         /// </summary>
         [JsonProperty(PropertyName = "component_type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Component type of the pre/post-upgrade check")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string ComponentType { get; set; }
         /// <summary>
         /// Description of the pre/post-upgrade check
         /// </summary>
-        [JsonProperty(PropertyName = "description")]
-        [NSXTProperty(IsRequired: false, Description: @"Description of the pre/post-upgrade check")]
         public string? Description { get; set; }
     }
 }

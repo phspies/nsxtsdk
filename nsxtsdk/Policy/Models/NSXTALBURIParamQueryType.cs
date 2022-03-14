@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,26 +17,18 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer URIParamQuery object")]
     public class NSXTALBURIParamQueryType 
     {
-        public NSXTALBURIParamQueryType()
-        {
-            KeepQuery = test
-        }
         /// <summary>
         /// Use or drop the query of the incoming request URI in the
         /// request URI to the backend server.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as true.
         /// </summary>
-        [JsonProperty(PropertyName = "keep_query")]
-        [NSXTProperty(IsRequired: false, Description: @"Use or drop the query of the incoming request URI in therequest URI to the backend server.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
         public bool? KeepQuery { get; set; }
         /// <summary>
         /// Concatenate a string to the query of the incoming request
         /// URI and then use it in the request URI going to the backend
         /// server.
         /// </summary>
-        [JsonProperty(PropertyName = "add_string")]
-        [NSXTProperty(IsRequired: false, Description: @"Concatenate a string to the query of the incoming requestURI and then use it in the request URI going to the backendserver.")]
         public string? AddString { get; set; }
     }
 }

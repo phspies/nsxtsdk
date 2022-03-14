@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,26 +17,17 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Result of health check.")]
     public class NSXTHealthCheckResultType 
     {
-        public NSXTHealthCheckResultType()
-        {
-        }
         /// <summary>
         /// Overall status of VLAN-MTU health check result.
         /// </summary>
-        [JsonProperty(PropertyName = "vlan_mtu_status")]
-        [NSXTProperty(IsRequired: false, Description: @"Overall status of VLAN-MTU health check result.")]
         public NSXTHealthCheckResultVlanMtuStatusEnumType? VlanMtuStatus { get; set; }
         /// <summary>
         /// List of health check results on specific transport node.
         /// </summary>
-        [JsonProperty(PropertyName = "results_per_transport_node")]
-        [NSXTProperty(IsRequired: false, Description: @"List of health check results on specific transport node.")]
         public IList<NSXTHealthCheckResultPerTransportNodeType> ResultsPerTransportNode { get; set; }
         /// <summary>
         /// Timestamp of check result updated.
         /// </summary>
-        [JsonProperty(PropertyName = "updated_time")]
-        [NSXTProperty(IsRequired: false, Description: @"Timestamp of check result updated.")]
         public long? UpdatedTime { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,35 +17,22 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTUpgradeUnitGroupType : NSXTManagedResourceType
     {
-        public NSXTUpgradeUnitGroupType()
-        {
-            Enabled = test
-            Parallel = test
-        }
         /// <summary>
         /// Flag to indicate whether upgrade of this group is enabled or not
         /// </summary>
-        [JsonProperty(PropertyName = "enabled")]
-        [NSXTProperty(IsRequired: false, Description: @"Flag to indicate whether upgrade of this group is enabled or not")]
         public bool? Enabled { get; set; }
         /// <summary>
         /// Number of upgrade units in the group
         /// </summary>
-        [JsonProperty(PropertyName = "upgrade_unit_count")]
-        [NSXTProperty(IsRequired: false, Description: @"Number of upgrade units in the group")]
         public int? UpgradeUnitCount { get; set; }
         /// <summary>
         /// Component type
         /// </summary>
         [JsonProperty(PropertyName = "type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Component type")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Type { get; set; }
         /// <summary>
         /// List of upgrade units in the group
         /// </summary>
-        [JsonProperty(PropertyName = "upgrade_units")]
-        [NSXTProperty(IsRequired: false, Description: @"List of upgrade units in the group")]
         public IList<NSXTUpgradeUnitType> UpgradeUnits { get; set; }
         /// <summary>
         /// Extended configuration for the group. Following extended_configuration is supported:
@@ -62,14 +49,10 @@ namespace nsxtsdk.ManagerModels
         /// Key: rebootless_upgrade
         /// Supported values: true, false
         /// </summary>
-        [JsonProperty(PropertyName = "extended_configuration")]
-        [NSXTProperty(IsRequired: false, Description: @"Extended configuration for the group. Following extended_configuration is supported:Key: upgrade_modeSupported values: maintenance_mode, in_place, stage_in_vlcmKey: maintenance_mode_config_vsan_modeSupported values: evacuate_all_data, ensure_object_accessibility, no_actionKey: maintenance_mode_config_evacuate_powered_off_vmsSupported values: true, falseKey: rebootless_upgradeSupported values: true, false")]
         public IList<NSXTKeyValuePairType> ExtendedConfiguration { get; set; }
         /// <summary>
         /// Upgrade method to specify whether the upgrade is to be performed in parallel or serially
         /// </summary>
-        [JsonProperty(PropertyName = "parallel")]
-        [NSXTProperty(IsRequired: false, Description: @"Upgrade method to specify whether the upgrade is to be performed in parallel or serially")]
         public bool? Parallel { get; set; }
     }
 }

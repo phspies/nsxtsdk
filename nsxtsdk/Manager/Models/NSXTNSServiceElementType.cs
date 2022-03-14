@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"An NSService element that describes traffic corresponding to an NSService")]
     public class NSXTNSServiceElementType 
     {
-        public NSXTNSServiceElementType()
-        {
-        }
         /// <summary>
         /// The specific type of NSServiceElement
         /// </summary>
         [JsonProperty(PropertyName = "resource_type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"The specific type of NSServiceElement")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTNsserviceElementResourceTypeEnumType ResourceType { get; set; }
     }
 }

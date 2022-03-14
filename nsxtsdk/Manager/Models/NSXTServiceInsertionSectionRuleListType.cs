@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTServiceInsertionSectionRuleListType : NSXTServiceInsertionSectionType
     {
-        public NSXTServiceInsertionSectionRuleListType()
-        {
-        }
         /// <summary>
         /// List of Service Insertion rules in the section. Only homogeneous rules are supported.
         /// </summary>
         [JsonProperty(PropertyName = "rules", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"List of Service Insertion rules in the section. Only homogeneous rules are supported.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTServiceInsertionRuleType> Rules { get; set; }
     }
 }

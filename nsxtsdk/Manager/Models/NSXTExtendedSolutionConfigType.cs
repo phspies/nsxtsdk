@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,20 +17,13 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTExtendedSolutionConfigType : NSXTManagedResourceType
     {
-        public NSXTExtendedSolutionConfigType()
-        {
-        }
         /// <summary>
         /// The service to which the solution config belongs.
         /// </summary>
-        [JsonProperty(PropertyName = "service_id")]
-        [NSXTProperty(IsRequired: false, Description: @"The service to which the solution config belongs.")]
         public string? ServiceId { get; set; }
         /// <summary>
         /// List of attributes specific to a partner which needs to be passed to host.
         /// </summary>
-        [JsonProperty(PropertyName = "attributes")]
-        [NSXTProperty(IsRequired: false, Description: @"List of attributes specific to a partner which needs to be passed to host.")]
         public IList<NSXTAttributeType> Attributes { get; set; }
     }
 }

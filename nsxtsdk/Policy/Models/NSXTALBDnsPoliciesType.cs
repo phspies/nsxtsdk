@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,23 +17,16 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer DnsPolicies object")]
     public class NSXTALBDnsPoliciesType 
     {
-        public NSXTALBDnsPoliciesType()
-        {
-        }
         /// <summary>
         /// Index of the dns policy.
         /// </summary>
         [JsonProperty(PropertyName = "index", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Index of the dns policy.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public long Index { get; set; }
         /// <summary>
         /// path of the dns policy.
         /// It is a reference to an object of type DnsPolicy.
         /// </summary>
         [JsonProperty(PropertyName = "dns_policy_path", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"path of the dns policy.It is a reference to an object of type DnsPolicy.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string DnsPolicyPath { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -18,20 +18,13 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"NSGroupInfo contains information about a particular NSGroup used in a SI Rule. It also contains information about policy path used to create this NSGroup.")]
     public class NSXTNSGroupInfoType 
     {
-        public NSXTNSGroupInfoType()
-        {
-        }
         /// <summary>
         /// Relative Policy path of a particular NSGroup.
         /// </summary>
-        [JsonProperty(PropertyName = "nsgroup_policy_path")]
-        [NSXTProperty(IsRequired: false, Description: @"Relative Policy path of a particular NSGroup.")]
         public string? NsgroupPolicyPath { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "nsgroup")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTResourceReferenceType Nsgroup { get; set; }
     }
 }

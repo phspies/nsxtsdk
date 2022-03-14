@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,38 +17,24 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"This object specifies what, where and how logs on NSX nodes are forwarded.")]
     public class NSXTSyslogExporterType 
     {
-        public NSXTSyslogExporterType()
-        {
-            Port = test
-        }
         /// <summary>
         /// Maximum logging level for messages to be exported.
         /// </summary>
         [JsonProperty(PropertyName = "max_log_level", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Maximum logging level for messages to be exported.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTSyslogExporterMaxLogLevelEnumType MaxLogLevel { get; set; }
         /// <summary>
         /// Protocol to be used to export logs to syslog server.
         /// </summary>
         [JsonProperty(PropertyName = "protocol", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Protocol to be used to export logs to syslog server.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTSyslogExporterProtocolEnumType Protocol { get; set; }
         /// <summary>
         /// Server port on which syslog listener is listening.
         /// </summary>
-        [JsonProperty(PropertyName = "port")]
-        [NSXTProperty(IsRequired: false, Description: @"Server port on which syslog listener is listening.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
         public long? Port { get; set; }
         /// <summary>
         /// Syslog server IP address or hostname.
         /// </summary>
         [JsonProperty(PropertyName = "server", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Syslog server IP address or hostname.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Server { get; set; }
     }
 }

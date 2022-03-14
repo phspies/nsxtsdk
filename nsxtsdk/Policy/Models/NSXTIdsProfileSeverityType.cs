@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,23 +17,16 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIdsProfileSeverityType : NSXTPolicyConfigResourceType
     {
-        public NSXTIdsProfileSeverityType()
-        {
-        }
         /// <summary>
         /// Contains the id of signatures that will be ignored as part of the profile.
         /// This field is deprecated, please use ignore_signatures field under IdsProfile
         /// to ignore the signatures.
         /// </summary>
-        [JsonProperty(PropertyName = "ignore_signatures")]
-        [NSXTProperty(IsRequired: false, Description: @"Contains the id of signatures that will be ignored as part of the profile.This field is deprecated, please use ignore_signatures field under IdsProfileto ignore the signatures.")]
         public IList<string> IgnoreSignatures { get; set; }
         /// <summary>
         /// Represents the severity of a profile.
         /// </summary>
         [JsonProperty(PropertyName = "severity", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Represents the severity of a profile.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTIdsProfileSeveritySeverityEnumType Severity { get; set; }
     }
 }

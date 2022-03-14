@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,35 +17,23 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLacpGroupConfigInfoType 
     {
-        public NSXTLacpGroupConfigInfoType()
-        {
-            TimeoutType = test
-        }
         /// <summary>
         /// The key represents the identifier for the group that is unique
         /// across VC.
         /// </summary>
-        [JsonProperty(PropertyName = "key")]
-        [NSXTProperty(IsRequired: false, Description: @"The key represents the identifier for the group that is uniqueacross VC.")]
         public string? Key { get; set; }
         /// <summary>
         /// The display name of the LACP group.
         /// </summary>
-        [JsonProperty(PropertyName = "name")]
-        [NSXTProperty(IsRequired: false, Description: @"The display name of the LACP group.")]
         public string? Name { get; set; }
         /// <summary>
         /// Keys for the uplink ports in the group. Each uplink port is
         /// assigned a key that is unique across VC.
         /// </summary>
-        [JsonProperty(PropertyName = "uplink_port_keys")]
-        [NSXTProperty(IsRequired: false, Description: @"Keys for the uplink ports in the group. Each uplink port isassigned a key that is unique across VC.")]
         public IList<string> UplinkPortKeys { get; set; }
         /// <summary>
         /// To set the lag mode as fast for LACP. By default, it will be slow.
         /// </summary>
-        [JsonProperty(PropertyName = "timeout_type")]
-        [NSXTProperty(IsRequired: false, Description: @"To set the lag mode as fast for LACP. By default, it will be slow.")]
         public NSXTLacpGroupConfigInfoTimeoutTypeEnumType? TimeoutType { get; set; }
         /// <summary>
         /// Load balance algorithm used in LACP group. The possible values
@@ -54,28 +42,20 @@ namespace nsxtsdk.ManagerModels
         /// of values. A few examples are srcDestIp where source and destination
         /// IP are considered, srcIp where only source IP is considered.
         /// </summary>
-        [JsonProperty(PropertyName = "load_balance_algorithm")]
-        [NSXTProperty(IsRequired: false, Description: @"Load balance algorithm used in LACP group. The possible valuesare dictated by the values available in VC. Please referVMwareDvsLacpLoadBalanceAlgorithm documentation for a full listof values. A few examples are srcDestIp where source and destinationIP are considered, srcIp where only source IP is considered.")]
         public string? LoadBalanceAlgorithm { get; set; }
         /// <summary>
         /// The number of uplink ports
         /// </summary>
-        [JsonProperty(PropertyName = "uplink_num")]
-        [NSXTProperty(IsRequired: false, Description: @"The number of uplink ports")]
         public long? UplinkNum { get; set; }
         /// <summary>
         /// Names for the uplink ports in the group.
         /// </summary>
-        [JsonProperty(PropertyName = "uplink_names")]
-        [NSXTProperty(IsRequired: false, Description: @"Names for the uplink ports in the group.")]
         public IList<string> UplinkNames { get; set; }
         /// <summary>
         /// The mode of LACP can be ACTIVE or PASSIVE. If the mode is ACTIVE, LACP
         /// is enabled unconditionally. If the mode is PASSIVE, LACP is enabled
         /// only if LACP device is detected.
         /// </summary>
-        [JsonProperty(PropertyName = "mode")]
-        [NSXTProperty(IsRequired: false, Description: @"The mode of LACP can be ACTIVE or PASSIVE. If the mode is ACTIVE, LACPis enabled unconditionally. If the mode is PASSIVE, LACP is enabledonly if LACP device is detected.")]
         public NSXTLacpGroupConfigInfoModeEnumType? Mode { get; set; }
     }
 }

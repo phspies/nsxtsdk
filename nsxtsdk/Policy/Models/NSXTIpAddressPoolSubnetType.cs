@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -20,15 +20,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIpAddressPoolSubnetType : NSXTPolicyConfigResourceType
     {
-        public NSXTIpAddressPoolSubnetType()
-        {
-        }
         /// <summary>
         /// Specifies whether the IpAddressPoolSubnet is to be carved out of a IpAddressBlock or will be specified by the user
         /// </summary>
         [JsonProperty(PropertyName = "resource_type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Specifies whether the IpAddressPoolSubnet is to be carved out of a IpAddressBlock or will be specified by the user")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTIpAddressPoolSubnetResourceTypeEnumType ResourceType { get; set; }
     }
 }

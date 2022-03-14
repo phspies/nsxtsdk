@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced Load Balancer controller node clustering trigger response.")]
     public class NSXTALBControllerClusterTriggerType 
     {
-        public NSXTALBControllerClusterTriggerType()
-        {
-        }
         /// <summary>
         /// Advanced Load Balancer controller node clustering trigger status.
         /// </summary>
-        [JsonProperty(PropertyName = "status")]
-        [NSXTProperty(IsRequired: false, Description: @"Advanced Load Balancer controller node clustering trigger status.")]
         public string? Status { get; set; }
     }
 }

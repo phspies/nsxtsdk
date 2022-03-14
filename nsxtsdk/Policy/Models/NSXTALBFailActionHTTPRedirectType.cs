@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,23 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer FailActionHTTPRedirect object")]
     public class NSXTALBFailActionHTTPRedirectType 
     {
-        public NSXTALBFailActionHTTPRedirectType()
-        {
-            Protocol = test
-            StatusCode = test
-        }
         /// <summary>
         /// path of FailActionHTTPRedirect.
         /// </summary>
-        [JsonProperty(PropertyName = "path")]
-        [NSXTProperty(IsRequired: false, Description: @"path of FailActionHTTPRedirect.")]
         public string? Path { get; set; }
         /// <summary>
         /// host of FailActionHTTPRedirect.
         /// </summary>
         [JsonProperty(PropertyName = "host", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"host of FailActionHTTPRedirect.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Host { get; set; }
         /// <summary>
         /// Enum options - HTTP, HTTPS.
@@ -44,8 +35,6 @@ namespace nsxtsdk.PolicyModels
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as HTTP.
         /// </summary>
-        [JsonProperty(PropertyName = "protocol")]
-        [NSXTProperty(IsRequired: false, Description: @"Enum options - HTTP, HTTPS.Allowed in Basic(Allowed values- HTTP) edition, Enterpriseedition.Special default for Basic edition is HTTP, Enterprise isHTTPS.Default value when not specified in API or module isinterpreted by ALB Controller as HTTP.")]
         public NSXTAlbfailActionHttpredirectProtocolEnumType? Protocol { get; set; }
         /// <summary>
         /// Enum options - HTTP_REDIRECT_STATUS_CODE_301,
@@ -57,14 +46,10 @@ namespace nsxtsdk.PolicyModels
         /// interpreted by ALB Controller as
         /// HTTP_REDIRECT_STATUS_CODE_302.
         /// </summary>
-        [JsonProperty(PropertyName = "status_code")]
-        [NSXTProperty(IsRequired: false, Description: @"Enum options - HTTP_REDIRECT_STATUS_CODE_301,HTTP_REDIRECT_STATUS_CODE_302,HTTP_REDIRECT_STATUS_CODE_307.Allowed in Basic(Allowed values-HTTP_REDIRECT_STATUS_CODE_302) edition, Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller asHTTP_REDIRECT_STATUS_CODE_302.")]
         public NSXTAlbfailActionHttpredirectStatusCodeEnumType? StatusCode { get; set; }
         /// <summary>
         /// query of FailActionHTTPRedirect.
         /// </summary>
-        [JsonProperty(PropertyName = "query")]
-        [NSXTProperty(IsRequired: false, Description: @"query of FailActionHTTPRedirect.")]
         public string? Query { get; set; }
     }
 }

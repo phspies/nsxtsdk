@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Node system time in UTC")]
     public class NSXTNodeTimeType 
     {
-        public NSXTNodeTimeType()
-        {
-        }
         /// <summary>
         /// Datetime string in UTC
         /// </summary>
         [JsonProperty(PropertyName = "system_datetime", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Datetime string in UTC")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string SystemDatetime { get; set; }
     }
 }

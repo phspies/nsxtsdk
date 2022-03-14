@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,46 +17,31 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIPSecVPNLocalEndpointType : NSXTManagedResourceType
     {
-        public NSXTIPSecVPNLocalEndpointType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty(PropertyName = "ipsec_vpn_service_id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTResourceReferenceType IpsecVpnServiceId { get; set; }
         /// <summary>
         /// Certificate authority (CA) identifier list to verify peer certificates.
         /// </summary>
-        [JsonProperty(PropertyName = "trust_ca_ids")]
-        [NSXTProperty(IsRequired: false, Description: @"Certificate authority (CA) identifier list to verify peer certificates.")]
         public IList<string> TrustCaIds { get; set; }
         /// <summary>
         /// Local identifier.
         /// </summary>
-        [JsonProperty(PropertyName = "local_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Local identifier.")]
         public string? LocalId { get; set; }
         /// <summary>
         /// IPV4 Address for local endpoint.
         /// </summary>
         [JsonProperty(PropertyName = "local_address", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"IPV4 Address for local endpoint.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string LocalAddress { get; set; }
         /// <summary>
         /// Site certificate identifier.
         /// </summary>
-        [JsonProperty(PropertyName = "certificate_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Site certificate identifier.")]
         public string? CertificateId { get; set; }
         /// <summary>
         /// Certificate revocation list (CRL) identifier list of peer certificates.
         /// </summary>
-        [JsonProperty(PropertyName = "trust_crl_ids")]
-        [NSXTProperty(IsRequired: false, Description: @"Certificate revocation list (CRL) identifier list of peer certificates.")]
         public IList<string> TrustCrlIds { get; set; }
     }
 }

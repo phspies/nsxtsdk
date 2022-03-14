@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,22 +17,15 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer PerformanceLimits object")]
     public class NSXTALBPerformanceLimitsType 
     {
-        public NSXTALBPerformanceLimitsType()
-        {
-        }
         /// <summary>
         /// The maximum number of concurrent client conections allowed
         /// to the Virtual Service.
         /// </summary>
-        [JsonProperty(PropertyName = "max_concurrent_connections")]
-        [NSXTProperty(IsRequired: false, Description: @"The maximum number of concurrent client conections allowedto the Virtual Service.")]
         public long? MaxConcurrentConnections { get; set; }
         /// <summary>
         /// The maximum throughput per second for all clients allowed
         /// through the client side of the Virtual Service.
         /// </summary>
-        [JsonProperty(PropertyName = "max_throughput")]
-        [NSXTProperty(IsRequired: false, Description: @"The maximum throughput per second for all clients allowedthrough the client side of the Virtual Service.")]
         public long? MaxThroughput { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer DnsCnameRdata object")]
     public class NSXTALBDnsCnameRdataType 
     {
-        public NSXTALBDnsCnameRdataType()
-        {
-        }
         /// <summary>
         /// Canonical name.
         /// </summary>
         [JsonProperty(PropertyName = "cname", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Canonical name.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Cname { get; set; }
     }
 }

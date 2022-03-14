@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public ClusterManagement(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public ClusterManagement(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTClusterNodeStatusType ReadClusterNodeStatus(string NodeId, string? Source = null)
+        public async Task<NSXTClusterNodeStatusType> ReadClusterNodeStatus(string NodeId, string? Source = null)
         {
             if (NodeId == null) { throw new System.ArgumentNullException("NodeId cannot be null"); }
             NSXTClusterNodeStatusType returnValue = default(NSXTClusterNodeStatusType);
@@ -44,31 +51,19 @@ namespace nsxtapi.ManagerModules
             ReadClusterNodeStatusServiceURL.Replace("{node-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NodeId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             request.Resource = ReadClusterNodeStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTClusterNodeStatusType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTClusterNodeStatusType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadClusterNodeStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTClusterNodeStatusType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTClusterNodeStatusType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTClusterNodeConfigType AddClusterNode(NSXTAddClusterNodeSpecType AddClusterNodeSpec, string Action)
+        public async Task<NSXTClusterNodeConfigType> AddClusterNode(NSXTAddClusterNodeSpecType AddClusterNodeSpec, string Action)
         {
             if (AddClusterNodeSpec == null) { throw new System.ArgumentNullException("AddClusterNodeSpec cannot be null"); }
             if (Action == null) { throw new System.ArgumentNullException("Action cannot be null"); }
@@ -83,31 +78,19 @@ namespace nsxtapi.ManagerModules
             request.AddJsonBody(JsonConvert.SerializeObject(AddClusterNodeSpec, defaultSerializationSettings));
             if (Action != null) { request.AddQueryParameter("action", Action.ToString()); }
             request.Resource = AddClusterNodeServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTClusterNodeConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTClusterNodeConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + AddClusterNodeServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTClusterNodeConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTClusterNodeConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTClusterNodeConfigListResultType ListClusterNodeConfigs(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTClusterNodeConfigListResultType> ListClusterNodeConfigs(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTClusterNodeConfigListResultType returnValue = default(NSXTClusterNodeConfigListResultType);
             StringBuilder ListClusterNodeConfigsServiceURL = new StringBuilder("/cluster/nodes");
@@ -123,31 +106,19 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListClusterNodeConfigsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTClusterNodeConfigListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTClusterNodeConfigListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListClusterNodeConfigsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTClusterNodeConfigListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTClusterNodeConfigListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTClusterStatusType ReadClusterStatus()
+        public async Task<NSXTClusterStatusType> ReadClusterStatus()
         {
             NSXTClusterStatusType returnValue = default(NSXTClusterStatusType);
             StringBuilder ReadClusterStatusServiceURL = new StringBuilder("/cluster/status");
@@ -158,31 +129,19 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = ReadClusterStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTClusterStatusType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTClusterStatusType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadClusterStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTClusterStatusType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTClusterStatusType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteClusterNodeConfig(string NodeId)
+        public async Task DeleteClusterNodeConfig(string NodeId)
         {
             if (NodeId == null) { throw new System.ArgumentNullException("NodeId cannot be null"); }
             
@@ -195,7 +154,7 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             DeleteClusterNodeConfigServiceURL.Replace("{node-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NodeId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteClusterNodeConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteClusterNodeConfigServiceURL.ToString() + " did not complete successfull";
@@ -207,7 +166,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTClusterNodeConfigType ReadClusterNodeConfig(string NodeId)
+        public async Task<NSXTClusterNodeConfigType> ReadClusterNodeConfig(string NodeId)
         {
             if (NodeId == null) { throw new System.ArgumentNullException("NodeId cannot be null"); }
             NSXTClusterNodeConfigType returnValue = default(NSXTClusterNodeConfigType);
@@ -220,31 +179,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             ReadClusterNodeConfigServiceURL.Replace("{node-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NodeId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadClusterNodeConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTClusterNodeConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTClusterNodeConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadClusterNodeConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTClusterNodeConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTClusterNodeConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTClustersAggregateInfoType ReadClusterNodesAggregateStatus()
+        public async Task<NSXTClustersAggregateInfoType> ReadClusterNodesAggregateStatus()
         {
             NSXTClustersAggregateInfoType returnValue = default(NSXTClustersAggregateInfoType);
             StringBuilder ReadClusterNodesAggregateStatusServiceURL = new StringBuilder("/cluster/nodes/status");
@@ -255,31 +202,19 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = ReadClusterNodesAggregateStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTClustersAggregateInfoType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTClustersAggregateInfoType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadClusterNodesAggregateStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTClustersAggregateInfoType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTClustersAggregateInfoType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTClusterConfigType ReadClusterConfig()
+        public async Task<NSXTClusterConfigType> ReadClusterConfig()
         {
             NSXTClusterConfigType returnValue = default(NSXTClusterConfigType);
             StringBuilder ReadClusterConfigServiceURL = new StringBuilder("/cluster");
@@ -290,31 +225,19 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = ReadClusterConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTClusterConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTClusterConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadClusterConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTClusterConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTClusterConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTClusterNodeInfoType GetClusterNodeConfig(string NodeId)
+        public async Task<NSXTClusterNodeInfoType> GetClusterNodeConfig(string NodeId)
         {
             if (NodeId == null) { throw new System.ArgumentNullException("NodeId cannot be null"); }
             NSXTClusterNodeInfoType returnValue = default(NSXTClusterNodeInfoType);
@@ -327,25 +250,13 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             GetClusterNodeConfigServiceURL.Replace("{node-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NodeId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetClusterNodeConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTClusterNodeInfoType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTClusterNodeInfoType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetClusterNodeConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTClusterNodeInfoType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTClusterNodeInfoType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

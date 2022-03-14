@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,35 +17,24 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTManualHealthCheckType : NSXTManagedResourceType
     {
-        public NSXTManualHealthCheckType()
-        {
-        }
         /// <summary>
         /// The entity ID works as a filter param. Entity ID and entity type should
         /// be both provided or not at a query.
         /// </summary>
         [JsonProperty(PropertyName = "transport_zone_id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"The entity ID works as a filter param. Entity ID and entity type should  be both provided or not at a query.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string TransportZoneId { get; set; }
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty(PropertyName = "vlans", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTHealthCheckSpecVlansType Vlans { get; set; }
         /// <summary>
         /// The operation status for health check
         /// </summary>
-        [JsonProperty(PropertyName = "operation_status")]
-        [NSXTProperty(IsRequired: false, Description: @"The operation status for health check")]
         public NSXTManualHealthCheckOperationStatusEnumType? OperationStatus { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "result")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTHealthCheckResultType Result { get; set; }
     }
 }

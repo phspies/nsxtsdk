@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTServiceProfileNSGroupsType : NSXTManagedResourceType
     {
-        public NSXTServiceProfileNSGroupsType()
-        {
-        }
         /// <summary>
         /// List of NSGroups Used in ServiceInsertion Rules.
         /// </summary>
-        [JsonProperty(PropertyName = "nsroups")]
-        [NSXTProperty(IsRequired: false, Description: @"List of NSGroups Used in ServiceInsertion Rules.")]
         public IList<NSXTNSGroupInfoType> Nsroups { get; set; }
     }
 }

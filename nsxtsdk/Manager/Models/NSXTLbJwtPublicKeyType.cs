@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLbJwtPublicKeyType : NSXTLbJwtKeyType
     {
-        public NSXTLbJwtPublicKeyType()
-        {
-        }
         /// <summary>
         /// Content of public key
         /// </summary>
         [JsonProperty(PropertyName = "public_key_content", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Content of public key")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string PublicKeyContent { get; set; }
     }
 }

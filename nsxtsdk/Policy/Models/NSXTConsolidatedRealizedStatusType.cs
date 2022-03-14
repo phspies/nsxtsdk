@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,33 +17,22 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTConsolidatedRealizedStatusType : NSXTAggregatePolicyRuntimeInfoType
     {
-        public NSXTConsolidatedRealizedStatusType()
-        {
-        }
         /// <summary>
         /// Represent highest intent version across all realized objects
         /// </summary>
-        [JsonProperty(PropertyName = "intent_version")]
-        [NSXTProperty(IsRequired: false, Description: @"Represent highest intent version across all realized objects")]
         public string? IntentVersion { get; set; }
         /// <summary>
         /// Aggregated Realization state of this object
         /// </summary>
         [JsonProperty(PropertyName = "publish_status", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Aggregated Realization state of this object")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTConsolidatedRealizedStatusPublishStatusEnumType PublishStatus { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "consolidated_status")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTConsolidatedStatusType ConsolidatedStatus { get; set; }
         /// <summary>
         /// List of Consolidated Realized Status per enforcement point.
         /// </summary>
-        [JsonProperty(PropertyName = "consolidated_status_per_enforcement_point")]
-        [NSXTProperty(IsRequired: false, Description: @"List of Consolidated Realized Status per enforcement point.")]
         public IList<NSXTConsolidatedStatusPerEnforcementPointType> ConsolidatedStatusPerEnforcementPoint { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,20 +17,13 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Ipaddress information of the fabric node.")]
     public class NSXTIpAddressInfoType 
     {
-        public NSXTIpAddressInfoType()
-        {
-        }
         /// <summary>
         /// Source of the ipaddress information.
         /// </summary>
-        [JsonProperty(PropertyName = "source")]
-        [NSXTProperty(IsRequired: false, Description: @"Source of the ipaddress information.")]
         public NSXTIpAddressInfoSourceEnumType? Source { get; set; }
         /// <summary>
         /// IP Addresses of the the virtual network interface, as discovered in the source.
         /// </summary>
-        [JsonProperty(PropertyName = "ip_addresses")]
-        [NSXTProperty(IsRequired: false, Description: @"IP Addresses of the the virtual network interface, as discovered in the source.")]
         public IList<string> IpAddresses { get; set; }
     }
 }

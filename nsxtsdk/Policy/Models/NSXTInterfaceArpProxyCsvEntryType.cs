@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,26 +17,17 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTInterfaceArpProxyCsvEntryType : NSXTCsvRecordType
     {
-        public NSXTInterfaceArpProxyCsvEntryType()
-        {
-        }
         /// <summary>
         /// Identifier of connected service on port.
         /// </summary>
-        [JsonProperty(PropertyName = "service_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Identifier of connected service on port.")]
         public string? ServiceId { get; set; }
         /// <summary>
         /// ARP proxy information for a service with ip.
         /// </summary>
-        [JsonProperty(PropertyName = "arp_proxy_ip")]
-        [NSXTProperty(IsRequired: false, Description: @"ARP proxy information for a service with ip.")]
         public string? ArpProxyIp { get; set; }
         /// <summary>
         /// Policy path of gateway interface
         /// </summary>
-        [JsonProperty(PropertyName = "interface_path")]
-        [NSXTProperty(IsRequired: false, Description: @"Policy path of gateway interface")]
         public string? InterfacePath { get; set; }
     }
 }

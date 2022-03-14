@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,32 +17,21 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLogicalRouterLinkPortOnTIER1Type : NSXTLogicalRouterPortType
     {
-        public NSXTLogicalRouterLinkPortOnTIER1Type()
-        {
-        }
         /// <summary>
         /// Logical router port subnets
         /// </summary>
-        [JsonProperty(PropertyName = "subnets")]
-        [NSXTProperty(IsRequired: false, Description: @"Logical router port subnets")]
         public IList<NSXTIPSubnetType> Subnets { get; set; }
         /// <summary>
         /// MAC address
         /// </summary>
-        [JsonProperty(PropertyName = "mac_address")]
-        [NSXTProperty(IsRequired: false, Description: @"MAC address")]
         public string? MacAddress { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "linked_logical_router_port_id")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTResourceReferenceType LinkedLogicalRouterPortId { get; set; }
         /// <summary>
         /// Please use logical router API to pass edge cluster members indexes manually.
         /// </summary>
-        [JsonProperty(PropertyName = "edge_cluster_member_index")]
-        [NSXTProperty(IsRequired: false, Description: @"Please use logical router API to pass edge cluster members indexes manually.")]
         public long? EdgeClusterMemberIndex { get; set; }
     }
 }

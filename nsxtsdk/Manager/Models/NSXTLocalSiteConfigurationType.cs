@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,29 +17,20 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Local site with federation id and epoch.")]
     public class NSXTLocalSiteConfigurationType 
     {
-        public NSXTLocalSiteConfigurationType()
-        {
-        }
         /// <summary>
         /// Epoch
         /// </summary>
         [JsonProperty(PropertyName = "epoch", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Epoch")]
-        [System.ComponentModel.DataAnnotations.Required]
         public long Epoch { get; set; }
         /// <summary>
         /// Federation id
         /// </summary>
         [JsonProperty(PropertyName = "id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Federation id")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Id { get; set; }
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty(PropertyName = "site", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTFederationSiteType Site { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTSpoofGuardSwitchingProfileType : NSXTBaseSwitchingProfileType
     {
-        public NSXTSpoofGuardSwitchingProfileType()
-        {
-        }
         /// <summary>
         /// List of providers for white listed address bindings.
         /// </summary>
         [JsonProperty(PropertyName = "white_list_providers", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"List of providers for white listed address bindings.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<string> WhiteListProviders { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,32 +17,21 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTTraceflowObservationReceivedType : NSXTTraceflowObservationType
     {
-        public NSXTTraceflowObservationReceivedType()
-        {
-        }
         /// <summary>
         /// The virtual tunnel endpoint label
         /// </summary>
-        [JsonProperty(PropertyName = "vtep_label")]
-        [NSXTProperty(IsRequired: false, Description: @"The virtual tunnel endpoint label")]
         public long? VtepLabel { get; set; }
         /// <summary>
         /// The name of the uplink the traceflow packet is received on
         /// </summary>
-        [JsonProperty(PropertyName = "uplink_name")]
-        [NSXTProperty(IsRequired: false, Description: @"The name of the uplink the traceflow packet is received on")]
         public string? UplinkName { get; set; }
         /// <summary>
         /// IP address of the destination end of the tunnel
         /// </summary>
-        [JsonProperty(PropertyName = "local_ip_address")]
-        [NSXTProperty(IsRequired: false, Description: @"IP address of the destination end of the tunnel")]
         public string? LocalIpAddress { get; set; }
         /// <summary>
         /// IP address of the source end of the tunnel
         /// </summary>
-        [JsonProperty(PropertyName = "remote_ip_address")]
-        [NSXTProperty(IsRequired: false, Description: @"IP address of the source end of the tunnel")]
         public string? RemoteIpAddress { get; set; }
     }
 }

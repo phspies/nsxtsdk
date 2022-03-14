@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTDropdownFilterPlotConfigurationType : NSXTWidgetPlotConfigurationType
     {
-        public NSXTDropdownFilterPlotConfigurationType()
-        {
-        }
         /// <summary>
         /// Allow search on drop down filter.
         /// </summary>
-        [JsonProperty(PropertyName = "allow_search")]
-        [NSXTProperty(IsRequired: false, Description: @"Allow search on drop down filter.")]
         public bool? AllowSearch { get; set; }
     }
 }

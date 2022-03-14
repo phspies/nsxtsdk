@@ -21,16 +21,23 @@ namespace nsxtapi.PolicyModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public PolicyGuestIntrospection(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public PolicyGuestIntrospection(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTEndpointRuleListResultType ListEndpointRule(string DomainId, string EndpointPolicyId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTEndpointRuleListResultType> ListEndpointRule(string DomainId, string EndpointPolicyId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (EndpointPolicyId == null) { throw new System.ArgumentNullException("EndpointPolicyId cannot be null"); }
@@ -51,31 +58,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListEndpointRuleServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTEndpointRuleListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTEndpointRuleListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListEndpointRuleServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTEndpointRuleListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTEndpointRuleListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTEndpointPolicyType CreateOrUpdateEndpointPolicy(string DomainId, string EndpointPolicyId, NSXTEndpointPolicyType EndpointPolicy)
+        public async Task<NSXTEndpointPolicyType> CreateOrUpdateEndpointPolicy(string DomainId, string EndpointPolicyId, NSXTEndpointPolicyType EndpointPolicy)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (EndpointPolicyId == null) { throw new System.ArgumentNullException("EndpointPolicyId cannot be null"); }
@@ -92,31 +87,19 @@ namespace nsxtapi.PolicyModules
             CreateOrUpdateEndpointPolicyServiceURL.Replace("{endpoint-policy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EndpointPolicyId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(EndpointPolicy, defaultSerializationSettings));
             request.Resource = CreateOrUpdateEndpointPolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTEndpointPolicyType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTEndpointPolicyType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateOrUpdateEndpointPolicyServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTEndpointPolicyType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTEndpointPolicyType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchEndpointPolicy(string DomainId, string EndpointPolicyId, NSXTEndpointPolicyType EndpointPolicy)
+        public async Task PatchEndpointPolicy(string DomainId, string EndpointPolicyId, NSXTEndpointPolicyType EndpointPolicy)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (EndpointPolicyId == null) { throw new System.ArgumentNullException("EndpointPolicyId cannot be null"); }
@@ -133,7 +116,7 @@ namespace nsxtapi.PolicyModules
             PatchEndpointPolicyServiceURL.Replace("{endpoint-policy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EndpointPolicyId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(EndpointPolicy, defaultSerializationSettings));
             request.Resource = PatchEndpointPolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchEndpointPolicyServiceURL.ToString() + " did not complete successfull";
@@ -145,7 +128,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTEndpointPolicyType ReadEndpointPolicy(string DomainId, string EndpointPolicyId)
+        public async Task<NSXTEndpointPolicyType> ReadEndpointPolicy(string DomainId, string EndpointPolicyId)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (EndpointPolicyId == null) { throw new System.ArgumentNullException("EndpointPolicyId cannot be null"); }
@@ -160,31 +143,19 @@ namespace nsxtapi.PolicyModules
             ReadEndpointPolicyServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
             ReadEndpointPolicyServiceURL.Replace("{endpoint-policy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EndpointPolicyId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadEndpointPolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTEndpointPolicyType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTEndpointPolicyType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadEndpointPolicyServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTEndpointPolicyType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTEndpointPolicyType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteEndpointPolicy(string DomainId, string EndpointPolicyId)
+        public async Task DeleteEndpointPolicy(string DomainId, string EndpointPolicyId)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (EndpointPolicyId == null) { throw new System.ArgumentNullException("EndpointPolicyId cannot be null"); }
@@ -199,7 +170,7 @@ namespace nsxtapi.PolicyModules
             DeleteEndpointPolicyServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
             DeleteEndpointPolicyServiceURL.Replace("{endpoint-policy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EndpointPolicyId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteEndpointPolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteEndpointPolicyServiceURL.ToString() + " did not complete successfull";
@@ -211,7 +182,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTEndpointPolicyListResultType ListEndpointPoliciesAcrossAllDomains(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTEndpointPolicyListResultType> ListEndpointPoliciesAcrossAllDomains(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTEndpointPolicyListResultType returnValue = default(NSXTEndpointPolicyListResultType);
             StringBuilder ListEndpointPoliciesAcrossAllDomainsServiceURL = new StringBuilder("/infra/domains/endpoint-policies");
@@ -228,31 +199,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListEndpointPoliciesAcrossAllDomainsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTEndpointPolicyListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTEndpointPolicyListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListEndpointPoliciesAcrossAllDomainsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTEndpointPolicyListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTEndpointPolicyListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTEndpointRuleType CreateOrUpdateEndpointRule(string DomainId, string EndpointPolicyId, string EndpointRuleId, NSXTEndpointRuleType EndpointRule)
+        public async Task<NSXTEndpointRuleType> CreateOrUpdateEndpointRule(string DomainId, string EndpointPolicyId, string EndpointRuleId, NSXTEndpointRuleType EndpointRule)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (EndpointPolicyId == null) { throw new System.ArgumentNullException("EndpointPolicyId cannot be null"); }
@@ -271,31 +230,19 @@ namespace nsxtapi.PolicyModules
             CreateOrUpdateEndpointRuleServiceURL.Replace("{endpoint-rule-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EndpointRuleId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(EndpointRule, defaultSerializationSettings));
             request.Resource = CreateOrUpdateEndpointRuleServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTEndpointRuleType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTEndpointRuleType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateOrUpdateEndpointRuleServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTEndpointRuleType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTEndpointRuleType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchEndpointRule(string DomainId, string EndpointPolicyId, string EndpointRuleId, NSXTEndpointRuleType EndpointRule)
+        public async Task PatchEndpointRule(string DomainId, string EndpointPolicyId, string EndpointRuleId, NSXTEndpointRuleType EndpointRule)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (EndpointPolicyId == null) { throw new System.ArgumentNullException("EndpointPolicyId cannot be null"); }
@@ -314,7 +261,7 @@ namespace nsxtapi.PolicyModules
             PatchEndpointRuleServiceURL.Replace("{endpoint-rule-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EndpointRuleId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(EndpointRule, defaultSerializationSettings));
             request.Resource = PatchEndpointRuleServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchEndpointRuleServiceURL.ToString() + " did not complete successfull";
@@ -326,7 +273,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTEndpointRuleType ReadEndpointRule(string DomainId, string EndpointPolicyId, string EndpointRuleId)
+        public async Task<NSXTEndpointRuleType> ReadEndpointRule(string DomainId, string EndpointPolicyId, string EndpointRuleId)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (EndpointPolicyId == null) { throw new System.ArgumentNullException("EndpointPolicyId cannot be null"); }
@@ -343,31 +290,19 @@ namespace nsxtapi.PolicyModules
             ReadEndpointRuleServiceURL.Replace("{endpoint-policy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EndpointPolicyId, System.Globalization.CultureInfo.InvariantCulture)));
             ReadEndpointRuleServiceURL.Replace("{endpoint-rule-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EndpointRuleId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadEndpointRuleServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTEndpointRuleType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTEndpointRuleType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadEndpointRuleServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTEndpointRuleType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTEndpointRuleType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteEndpointRule(string DomainId, string EndpointPolicyId, string EndpointRuleId)
+        public async Task DeleteEndpointRule(string DomainId, string EndpointPolicyId, string EndpointRuleId)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (EndpointPolicyId == null) { throw new System.ArgumentNullException("EndpointPolicyId cannot be null"); }
@@ -384,7 +319,7 @@ namespace nsxtapi.PolicyModules
             DeleteEndpointRuleServiceURL.Replace("{endpoint-policy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EndpointPolicyId, System.Globalization.CultureInfo.InvariantCulture)));
             DeleteEndpointRuleServiceURL.Replace("{endpoint-rule-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EndpointRuleId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteEndpointRuleServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteEndpointRuleServiceURL.ToString() + " did not complete successfull";

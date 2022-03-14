@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,27 +17,17 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Vrf Route Targets for import/export.")]
     public class NSXTVrfRouteTargetsType 
     {
-        public NSXTVrfRouteTargetsType()
-        {
-            AddressFamily = test
-        }
         /// <summary>
         /// Address family.
         /// </summary>
-        [JsonProperty(PropertyName = "address_family")]
-        [NSXTProperty(IsRequired: false, Description: @"Address family.")]
         public NSXTVrfRouteTargetsAddressFamilyEnumType? AddressFamily { get; set; }
         /// <summary>
         /// Import route targets with format in ASN:<number>.
         /// </summary>
-        [JsonProperty(PropertyName = "import_route_targets")]
-        [NSXTProperty(IsRequired: false, Description: @"Import route targets with format in ASN:&lt;number&gt;.")]
         public IList<string> ImportRouteTargets { get; set; }
         /// <summary>
         /// Export route targets with format in ASN:<number>.
         /// </summary>
-        [JsonProperty(PropertyName = "export_route_targets")]
-        [NSXTProperty(IsRequired: false, Description: @"Export route targets with format in ASN:&lt;number&gt;.")]
         public IList<string> ExportRouteTargets { get; set; }
     }
 }

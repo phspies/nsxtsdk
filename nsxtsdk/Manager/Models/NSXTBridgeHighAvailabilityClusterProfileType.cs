@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,24 +17,13 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTBridgeHighAvailabilityClusterProfileType : NSXTClusterProfileType
     {
-        public NSXTBridgeHighAvailabilityClusterProfileType()
-        {
-            Enable = test
-            BfdProbeInterval = test
-        }
         /// <summary>
         /// whether the heartbeat is enabled
         /// </summary>
-        [JsonProperty(PropertyName = "enable")]
-        [NSXTProperty(IsRequired: false, Description: @"whether the heartbeat is enabled")]
         public bool? Enable { get; set; }
         /// <summary>
         /// the time interval (in millisec) between probe packets for heartbeat purpose
         /// </summary>
-        [JsonProperty(PropertyName = "bfd_probe_interval")]
-        [NSXTProperty(IsRequired: false, Description: @"the time interval (in millisec) between probe packets for heartbeat purpose")]
-        //[System.ComponentModel.DataAnnotations.MinLength(300)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(60000)]
         public long? BfdProbeInterval { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,32 +17,21 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTMigrationUnitTypeStatsType 
     {
-        public NSXTMigrationUnitTypeStatsType()
-        {
-        }
         /// <summary>
         /// Number of nodes with issues that may cause migration failure
         /// </summary>
-        [JsonProperty(PropertyName = "node_with_issues_count")]
-        [NSXTProperty(IsRequired: false, Description: @"Number of nodes with issues that may cause migration failure")]
         public int? NodeWithIssuesCount { get; set; }
         /// <summary>
         /// Number of nodes
         /// </summary>
-        [JsonProperty(PropertyName = "node_count")]
-        [NSXTProperty(IsRequired: false, Description: @"Number of nodes")]
         public int? NodeCount { get; set; }
         /// <summary>
         /// Version of the migration unit
         /// </summary>
-        [JsonProperty(PropertyName = "version")]
-        [NSXTProperty(IsRequired: false, Description: @"Version of the migration unit")]
         public string? Version { get; set; }
         /// <summary>
         /// Type of migration unit
         /// </summary>
-        [JsonProperty(PropertyName = "type")]
-        [NSXTProperty(IsRequired: false, Description: @"Type of migration unit")]
         public string? Type { get; set; }
     }
 }

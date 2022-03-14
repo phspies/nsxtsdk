@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,30 +17,18 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Enables OSPF authentication with specified mode and password.")]
     public class NSXTOspfAuthenticationConfigType 
     {
-        public NSXTOspfAuthenticationConfigType()
-        {
-            Mode = test
-        }
         /// <summary>
         /// Authentication secret key id is mandatory for type md5 with min value of 1 and max value 255.
         /// </summary>
-        [JsonProperty(PropertyName = "key_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Authentication secret key id is mandatory for type md5 with min value of 1 and max value 255.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(255)]
         public long? KeyId { get; set; }
         /// <summary>
         /// Authentication secret is mandatory for type password and md5 with min length of 1 and max length 8.
         /// </summary>
-        [JsonProperty(PropertyName = "secret_key")]
-        [NSXTProperty(IsRequired: false, Description: @"Authentication secret is mandatory for type password and md5 with min length of 1 and max length 8.")]
         public string? SecretKey { get; set; }
         /// <summary>
         /// If mode is MD5 or PASSWORD, Authentication secret key is mandatory
         /// if mode is NONE, then authentication is disabled.
         /// </summary>
-        [JsonProperty(PropertyName = "mode")]
-        [NSXTProperty(IsRequired: false, Description: @"If mode is MD5 or PASSWORD, Authentication secret key is mandatoryif mode is NONE, then authentication is disabled.")]
         public NSXTOspfAuthenticationConfigModeEnumType? Mode { get; set; }
     }
 }

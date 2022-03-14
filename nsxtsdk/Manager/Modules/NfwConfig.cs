@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public NfwConfig(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public NfwConfig(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNotificationsListType UpdateNotifications(string WatcherId, NSXTNotificationsListType NotificationsList)
+        public async Task<NSXTNotificationsListType> UpdateNotifications(string WatcherId, NSXTNotificationsListType NotificationsList)
         {
             if (WatcherId == null) { throw new System.ArgumentNullException("WatcherId cannot be null"); }
             if (NotificationsList == null) { throw new System.ArgumentNullException("NotificationsList cannot be null"); }
@@ -45,31 +52,19 @@ namespace nsxtapi.ManagerModules
             UpdateNotificationsServiceURL.Replace("{watcher-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(WatcherId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(NotificationsList, defaultSerializationSettings));
             request.Resource = UpdateNotificationsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNotificationsListType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNotificationsListType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateNotificationsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNotificationsListType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNotificationsListType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNotificationsListType GetNotifications(string WatcherId)
+        public async Task<NSXTNotificationsListType> GetNotifications(string WatcherId)
         {
             if (WatcherId == null) { throw new System.ArgumentNullException("WatcherId cannot be null"); }
             NSXTNotificationsListType returnValue = default(NSXTNotificationsListType);
@@ -82,31 +77,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             GetNotificationsServiceURL.Replace("{watcher-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(WatcherId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetNotificationsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNotificationsListType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNotificationsListType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetNotificationsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNotificationsListType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNotificationsListType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNotificationWatcherType UpdateNotificationWatcher(string WatcherId, NSXTNotificationWatcherType NotificationWatcher)
+        public async Task<NSXTNotificationWatcherType> UpdateNotificationWatcher(string WatcherId, NSXTNotificationWatcherType NotificationWatcher)
         {
             if (WatcherId == null) { throw new System.ArgumentNullException("WatcherId cannot be null"); }
             if (NotificationWatcher == null) { throw new System.ArgumentNullException("NotificationWatcher cannot be null"); }
@@ -121,31 +104,19 @@ namespace nsxtapi.ManagerModules
             UpdateNotificationWatcherServiceURL.Replace("{watcher-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(WatcherId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(NotificationWatcher, defaultSerializationSettings));
             request.Resource = UpdateNotificationWatcherServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNotificationWatcherType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNotificationWatcherType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateNotificationWatcherServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNotificationWatcherType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNotificationWatcherType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNotificationWatcherType GetNotificationWatcher(string WatcherId)
+        public async Task<NSXTNotificationWatcherType> GetNotificationWatcher(string WatcherId)
         {
             if (WatcherId == null) { throw new System.ArgumentNullException("WatcherId cannot be null"); }
             NSXTNotificationWatcherType returnValue = default(NSXTNotificationWatcherType);
@@ -158,31 +129,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             GetNotificationWatcherServiceURL.Replace("{watcher-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(WatcherId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetNotificationWatcherServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNotificationWatcherType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNotificationWatcherType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetNotificationWatcherServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNotificationWatcherType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNotificationWatcherType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteNotificationWatcher(string WatcherId)
+        public async Task DeleteNotificationWatcher(string WatcherId)
         {
             if (WatcherId == null) { throw new System.ArgumentNullException("WatcherId cannot be null"); }
             
@@ -195,7 +154,7 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             DeleteNotificationWatcherServiceURL.Replace("{watcher-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(WatcherId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteNotificationWatcherServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteNotificationWatcherServiceURL.ToString() + " did not complete successfull";
@@ -207,7 +166,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNotificationsListType DeleteUriFilters(string WatcherId, NSXTNotificationType Notification)
+        public async Task<NSXTNotificationsListType> DeleteUriFilters(string WatcherId, NSXTNotificationType Notification)
         {
             if (WatcherId == null) { throw new System.ArgumentNullException("WatcherId cannot be null"); }
             if (Notification == null) { throw new System.ArgumentNullException("Notification cannot be null"); }
@@ -222,31 +181,19 @@ namespace nsxtapi.ManagerModules
             DeleteUriFiltersServiceURL.Replace("{watcher-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(WatcherId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(Notification, defaultSerializationSettings));
             request.Resource = DeleteUriFiltersServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNotificationsListType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNotificationsListType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + DeleteUriFiltersServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNotificationsListType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNotificationsListType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNotificationsListType AddUriFilters(string WatcherId, NSXTNotificationType Notification)
+        public async Task<NSXTNotificationsListType> AddUriFilters(string WatcherId, NSXTNotificationType Notification)
         {
             if (WatcherId == null) { throw new System.ArgumentNullException("WatcherId cannot be null"); }
             if (Notification == null) { throw new System.ArgumentNullException("Notification cannot be null"); }
@@ -261,31 +208,19 @@ namespace nsxtapi.ManagerModules
             AddUriFiltersServiceURL.Replace("{watcher-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(WatcherId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(Notification, defaultSerializationSettings));
             request.Resource = AddUriFiltersServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNotificationsListType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNotificationsListType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + AddUriFiltersServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNotificationsListType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNotificationsListType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNotificationWatcherType AddNotificationWatcher(NSXTNotificationWatcherType NotificationWatcher)
+        public async Task<NSXTNotificationWatcherType> AddNotificationWatcher(NSXTNotificationWatcherType NotificationWatcher)
         {
             if (NotificationWatcher == null) { throw new System.ArgumentNullException("NotificationWatcher cannot be null"); }
             NSXTNotificationWatcherType returnValue = default(NSXTNotificationWatcherType);
@@ -298,31 +233,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(NotificationWatcher, defaultSerializationSettings));
             request.Resource = AddNotificationWatcherServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNotificationWatcherType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNotificationWatcherType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + AddNotificationWatcherServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNotificationWatcherType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNotificationWatcherType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNotificationWatcherListResultType ListNotificationWatchers()
+        public async Task<NSXTNotificationWatcherListResultType> ListNotificationWatchers()
         {
             NSXTNotificationWatcherListResultType returnValue = default(NSXTNotificationWatcherListResultType);
             StringBuilder ListNotificationWatchersServiceURL = new StringBuilder("/notification-watchers");
@@ -333,25 +256,13 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = ListNotificationWatchersServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNotificationWatcherListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNotificationWatcherListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListNotificationWatchersServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNotificationWatcherListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNotificationWatcherListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,52 +17,35 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Information of a network interface present on the partner appliance that needs to be configured by the NSX Manager.")]
     public class NSXTNicInfoType 
     {
-        public NSXTNicInfoType()
-        {
-        }
         /// <summary>
         /// Subnet mask associated with the NIC metadata.
         /// </summary>
-        [JsonProperty(PropertyName = "subnet_mask")]
-        [NSXTProperty(IsRequired: false, Description: @"Subnet mask associated with the NIC metadata.")]
         public string? SubnetMask { get; set; }
         /// <summary>
         /// Gateway address associated with the NIC metadata.
         /// </summary>
-        [JsonProperty(PropertyName = "gateway_address")]
-        [NSXTProperty(IsRequired: false, Description: @"Gateway address associated with the NIC metadata.")]
         public string? GatewayAddress { get; set; }
         /// <summary>
         /// IP allocation type with values STATIC, DHCP, or NONE indicating that IP address is not required.
         /// </summary>
-        [JsonProperty(PropertyName = "ip_allocation_type")]
-        [NSXTProperty(IsRequired: false, Description: @"IP allocation type with values STATIC, DHCP, or NONE indicating that IP address is not required.")]
         public NSXTNicInfoIpAllocationTypeEnumType? IpAllocationType { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "nic_metadata")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTNicMetadataType NicMetadata { get; set; }
         /// <summary>
         /// Network Id associated with the NIC metadata. It can be a moref, or a logical switch ID. If it is to be taken from 'Agent
         /// VM Settings', then it should be empty.
         /// </summary>
-        [JsonProperty(PropertyName = "network_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Network Id associated with the NIC metadata. It can be a moref, or a logical switch ID. If it is to be taken from &apos;Agent VM Settings&apos;, then it should be empty.")]
         public string? NetworkId { get; set; }
         /// <summary>
         /// If the nic should get IP using a static IP pool then IP pool id should be provided here.
         /// </summary>
-        [JsonProperty(PropertyName = "ip_pool_id")]
-        [NSXTProperty(IsRequired: false, Description: @"If the nic should get IP using a static IP pool then IP pool id should be provided here.")]
         public string? IpPoolId { get; set; }
         /// <summary>
         /// IP address associated with the NIC metadata. Required only when assigning IP statically for a deployment that is for a
         /// single VM instance.
         /// </summary>
-        [JsonProperty(PropertyName = "ip_address")]
-        [NSXTProperty(IsRequired: false, Description: @"IP address associated with the NIC metadata. Required only when assigning IP statically for a deployment that is for a single VM instance.")]
         public string? IpAddress { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,21 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTSiteStatusType 
     {
-        public NSXTSiteStatusType()
-        {
-        }
         /// <summary>
         /// Connection status
         /// </summary>
-        [JsonProperty(PropertyName = "stubs")]
-        [NSXTProperty(IsRequired: false, Description: @"Connection status")]
         public IList<NSXTStubStatusType> Stubs { get; set; }
         /// <summary>
         /// Site name
         /// </summary>
         [JsonProperty(PropertyName = "site_name", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Site name")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string SiteName { get; set; }
     }
 }

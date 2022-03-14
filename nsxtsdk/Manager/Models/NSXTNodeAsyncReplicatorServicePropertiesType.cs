@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNodeAsyncReplicatorServicePropertiesType : NSXTNodeServicePropertiesType
     {
-        public NSXTNodeAsyncReplicatorServicePropertiesType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "service_properties")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTLoggingServicePropertiesType ServiceProperties { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,21 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTTraceflowObservationDroppedLogicalType : NSXTTraceflowObservationDroppedType
     {
-        public NSXTTraceflowObservationDroppedLogicalType()
-        {
-        }
         /// <summary>
         /// The index of service path that is a chain of services
         /// represents the point where the traceflow packet was dropped.
         /// </summary>
-        [JsonProperty(PropertyName = "service_path_index")]
-        [NSXTProperty(IsRequired: false, Description: @"The index of service path that is a chain of servicesrepresents the point where the traceflow packet was dropped.")]
         public long? ServicePathIndex { get; set; }
         /// <summary>
         /// The id of the component that dropped the traceflow packet.
         /// </summary>
-        [JsonProperty(PropertyName = "component_id")]
-        [NSXTProperty(IsRequired: false, Description: @"The id of the component that dropped the traceflow packet.")]
         public string? ComponentId { get; set; }
     }
 }

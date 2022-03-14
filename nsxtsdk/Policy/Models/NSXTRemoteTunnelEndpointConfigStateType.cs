@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Remote tunnel endpoint configuration state")]
     public class NSXTRemoteTunnelEndpointConfigStateType 
     {
-        public NSXTRemoteTunnelEndpointConfigStateType()
-        {
-        }
         /// <summary>
         /// List of remote tunnel endpoints which are configured on this node
         /// </summary>
-        [JsonProperty(PropertyName = "endpoints")]
-        [NSXTProperty(IsRequired: false, Description: @"List of remote tunnel endpoints which are configured on this node")]
         public IList<NSXTRemoteTunnelEndpointType> Endpoints { get; set; }
     }
 }

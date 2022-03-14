@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,28 +17,19 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTPasswordAuthenticationSchemeType : NSXTAuthenticationSchemeType
     {
-        public NSXTPasswordAuthenticationSchemeType()
-        {
-        }
         /// <summary>
         /// User name to authenticate with
         /// </summary>
         [JsonProperty(PropertyName = "username", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"User name to authenticate with")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Username { get; set; }
         /// <summary>
         /// Authentication scheme name
         /// </summary>
         [JsonProperty(PropertyName = "scheme_name", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Authentication scheme name")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTPasswordAuthenticationSchemeSchemeNameEnumType SchemeName { get; set; }
         /// <summary>
         /// Password to authenticate with
         /// </summary>
-        [JsonProperty(PropertyName = "password")]
-        [NSXTProperty(IsRequired: false, Description: @"Password to authenticate with")]
         public string? Password { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,51 +17,34 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Pre/post-upgrade check failure")]
     public class NSXTUpgradeCheckFailureType 
     {
-        public NSXTUpgradeCheckFailureType()
-        {
-        }
         /// <summary>
         /// Component type of the origin of failure
         /// </summary>
-        [JsonProperty(PropertyName = "component_type")]
-        [NSXTProperty(IsRequired: false, Description: @"Component type of the origin of failure")]
         public string? ComponentType { get; set; }
         /// <summary>
         /// Name of origin of pre/post-upgrade check failure
         /// </summary>
-        [JsonProperty(PropertyName = "origin_name")]
-        [NSXTProperty(IsRequired: false, Description: @"Name of origin of pre/post-upgrade check failure")]
         public string? OriginName { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "message")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTUpgradeCheckFailureMessageType Message { get; set; }
         /// <summary>
         /// Unique id of origin of pre/post-upgrade check failure
         /// </summary>
-        [JsonProperty(PropertyName = "origin_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Unique id of origin of pre/post-upgrade check failure")]
         public string? OriginId { get; set; }
         /// <summary>
         /// Type of the pre/post-upgrade check failure
         /// </summary>
-        [JsonProperty(PropertyName = "type")]
-        [NSXTProperty(IsRequired: false, Description: @"Type of the pre/post-upgrade check failure")]
         public NSXTUpgradeCheckFailureTypeEnumType? Type { get; set; }
         /// <summary>
         /// Type of origin of pre/post-upgrade check failure
         /// </summary>
-        [JsonProperty(PropertyName = "origin_type")]
-        [NSXTProperty(IsRequired: false, Description: @"Type of origin of pre/post-upgrade check failure")]
         public NSXTUpgradeCheckFailureOriginTypeEnumType? OriginType { get; set; }
         /// <summary>
         /// Name of the upgrade group of the origin of failure. Only applicable when
         /// origin_type is UPGRADE_UNIT.
         /// </summary>
-        [JsonProperty(PropertyName = "group_name")]
-        [NSXTProperty(IsRequired: false, Description: @"Name of the upgrade group of the origin of failure. Only applicable whenorigin_type is UPGRADE_UNIT.")]
         public string? GroupName { get; set; }
     }
 }

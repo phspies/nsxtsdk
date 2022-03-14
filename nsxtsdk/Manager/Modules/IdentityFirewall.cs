@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public IdentityFirewall(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public IdentityFirewall(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIdfwMasterSwitchSettingType UpdateMasterSwitchSetting(NSXTIdfwMasterSwitchSettingType IdfwMasterSwitchSetting)
+        public async Task<NSXTIdfwMasterSwitchSettingType> UpdateMasterSwitchSetting(NSXTIdfwMasterSwitchSettingType IdfwMasterSwitchSetting)
         {
             if (IdfwMasterSwitchSetting == null) { throw new System.ArgumentNullException("IdfwMasterSwitchSetting cannot be null"); }
             NSXTIdfwMasterSwitchSettingType returnValue = default(NSXTIdfwMasterSwitchSettingType);
@@ -43,31 +50,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(IdfwMasterSwitchSetting, defaultSerializationSettings));
             request.Resource = UpdateMasterSwitchSettingServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIdfwMasterSwitchSettingType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIdfwMasterSwitchSettingType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateMasterSwitchSettingServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIdfwMasterSwitchSettingType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIdfwMasterSwitchSettingType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIdfwMasterSwitchSettingType GetMasterSwitchSetting()
+        public async Task<NSXTIdfwMasterSwitchSettingType> GetMasterSwitchSetting()
         {
             NSXTIdfwMasterSwitchSettingType returnValue = default(NSXTIdfwMasterSwitchSettingType);
             StringBuilder GetMasterSwitchSettingServiceURL = new StringBuilder("/idfw/master-switch-setting");
@@ -78,31 +73,19 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = GetMasterSwitchSettingServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIdfwMasterSwitchSettingType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIdfwMasterSwitchSettingType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetMasterSwitchSettingServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIdfwMasterSwitchSettingType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIdfwMasterSwitchSettingType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIdfwEnabledComputeCollectionType UpdateEnabledComputeCollection(string CcExtId, NSXTIdfwEnabledComputeCollectionType IdfwEnabledComputeCollection)
+        public async Task<NSXTIdfwEnabledComputeCollectionType> UpdateEnabledComputeCollection(string CcExtId, NSXTIdfwEnabledComputeCollectionType IdfwEnabledComputeCollection)
         {
             if (CcExtId == null) { throw new System.ArgumentNullException("CcExtId cannot be null"); }
             if (IdfwEnabledComputeCollection == null) { throw new System.ArgumentNullException("IdfwEnabledComputeCollection cannot be null"); }
@@ -117,31 +100,19 @@ namespace nsxtapi.ManagerModules
             UpdateEnabledComputeCollectionServiceURL.Replace("{cc-ext-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CcExtId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(IdfwEnabledComputeCollection, defaultSerializationSettings));
             request.Resource = UpdateEnabledComputeCollectionServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIdfwEnabledComputeCollectionType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIdfwEnabledComputeCollectionType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateEnabledComputeCollectionServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIdfwEnabledComputeCollectionType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIdfwEnabledComputeCollectionType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIdfwEnabledComputeCollectionType GetEnabledComputeCollection(string CcExtId)
+        public async Task<NSXTIdfwEnabledComputeCollectionType> GetEnabledComputeCollection(string CcExtId)
         {
             if (CcExtId == null) { throw new System.ArgumentNullException("CcExtId cannot be null"); }
             NSXTIdfwEnabledComputeCollectionType returnValue = default(NSXTIdfwEnabledComputeCollectionType);
@@ -154,31 +125,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             GetEnabledComputeCollectionServiceURL.Replace("{cc-ext-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CcExtId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetEnabledComputeCollectionServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIdfwEnabledComputeCollectionType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIdfwEnabledComputeCollectionType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetEnabledComputeCollectionServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIdfwEnabledComputeCollectionType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIdfwEnabledComputeCollectionType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteEnabledComputeCollection(string CcExtId)
+        public async Task DeleteEnabledComputeCollection(string CcExtId)
         {
             if (CcExtId == null) { throw new System.ArgumentNullException("CcExtId cannot be null"); }
             
@@ -191,7 +150,7 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             DeleteEnabledComputeCollectionServiceURL.Replace("{cc-ext-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CcExtId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteEnabledComputeCollectionServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteEnabledComputeCollectionServiceURL.ToString() + " did not complete successfull";
@@ -203,7 +162,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIdfwTransportNodeStatusListResultType ListTransportNodeStatusesByComputeCollectionId(string CcExtId)
+        public async Task<NSXTIdfwTransportNodeStatusListResultType> ListTransportNodeStatusesByComputeCollectionId(string CcExtId)
         {
             if (CcExtId == null) { throw new System.ArgumentNullException("CcExtId cannot be null"); }
             NSXTIdfwTransportNodeStatusListResultType returnValue = default(NSXTIdfwTransportNodeStatusListResultType);
@@ -216,31 +175,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             ListTransportNodeStatusesByComputeCollectionIdServiceURL.Replace("{cc-ext-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CcExtId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ListTransportNodeStatusesByComputeCollectionIdServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIdfwTransportNodeStatusListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIdfwTransportNodeStatusListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListTransportNodeStatusesByComputeCollectionIdServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIdfwTransportNodeStatusListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIdfwTransportNodeStatusListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIdfwComputeCollectionStatusType GetComputeCollectionStatusById(string ComputeCollectionExtId)
+        public async Task<NSXTIdfwComputeCollectionStatusType> GetComputeCollectionStatusById(string ComputeCollectionExtId)
         {
             if (ComputeCollectionExtId == null) { throw new System.ArgumentNullException("ComputeCollectionExtId cannot be null"); }
             NSXTIdfwComputeCollectionStatusType returnValue = default(NSXTIdfwComputeCollectionStatusType);
@@ -253,31 +200,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             GetComputeCollectionStatusByIdServiceURL.Replace("{compute-collection-ext-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ComputeCollectionExtId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetComputeCollectionStatusByIdServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIdfwComputeCollectionStatusType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIdfwComputeCollectionStatusType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetComputeCollectionStatusByIdServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIdfwComputeCollectionStatusType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIdfwComputeCollectionStatusType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIdfwVmStatsType GetVmStats(string VmExtId)
+        public async Task<NSXTIdfwVmStatsType> GetVmStats(string VmExtId)
         {
             if (VmExtId == null) { throw new System.ArgumentNullException("VmExtId cannot be null"); }
             NSXTIdfwVmStatsType returnValue = default(NSXTIdfwVmStatsType);
@@ -290,31 +225,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             GetVmStatsServiceURL.Replace("{vm-ext-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(VmExtId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetVmStatsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIdfwVmStatsType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIdfwVmStatsType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetVmStatsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIdfwVmStatsType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIdfwVmStatsType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIdfwSystemStatsType GetSystemStats()
+        public async Task<NSXTIdfwSystemStatsType> GetSystemStats()
         {
             NSXTIdfwSystemStatsType returnValue = default(NSXTIdfwSystemStatsType);
             StringBuilder GetSystemStatsServiceURL = new StringBuilder("/idfw/system-stats");
@@ -325,31 +248,19 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = GetSystemStatsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIdfwSystemStatsType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIdfwSystemStatsType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetSystemStatsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIdfwSystemStatsType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIdfwSystemStatsType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIdfwNsgroupVmDetailListResultType GetNsgroupVmDetails(string GroupId)
+        public async Task<NSXTIdfwNsgroupVmDetailListResultType> GetNsgroupVmDetails(string GroupId)
         {
             if (GroupId == null) { throw new System.ArgumentNullException("GroupId cannot be null"); }
             NSXTIdfwNsgroupVmDetailListResultType returnValue = default(NSXTIdfwNsgroupVmDetailListResultType);
@@ -362,31 +273,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             GetNsgroupVmDetailsServiceURL.Replace("{group-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GroupId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetNsgroupVmDetailsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIdfwNsgroupVmDetailListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIdfwNsgroupVmDetailListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetNsgroupVmDetailsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIdfwNsgroupVmDetailListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIdfwNsgroupVmDetailListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIdfwUserSessionDataAndMappingsType ListUserSessions()
+        public async Task<NSXTIdfwUserSessionDataAndMappingsType> ListUserSessions()
         {
             NSXTIdfwUserSessionDataAndMappingsType returnValue = default(NSXTIdfwUserSessionDataAndMappingsType);
             StringBuilder ListUserSessionsServiceURL = new StringBuilder("/idfw/user-session-data");
@@ -397,31 +296,19 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = ListUserSessionsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIdfwUserSessionDataAndMappingsType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIdfwUserSessionDataAndMappingsType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListUserSessionsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIdfwUserSessionDataAndMappingsType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIdfwUserSessionDataAndMappingsType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIdfwEnabledComputeCollectionListResultType ListEnabledComputeCollections(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTIdfwEnabledComputeCollectionListResultType> ListEnabledComputeCollections(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTIdfwEnabledComputeCollectionListResultType returnValue = default(NSXTIdfwEnabledComputeCollectionListResultType);
             StringBuilder ListEnabledComputeCollectionsServiceURL = new StringBuilder("/idfw/idfw-compute-collections");
@@ -437,31 +324,19 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListEnabledComputeCollectionsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIdfwEnabledComputeCollectionListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIdfwEnabledComputeCollectionListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListEnabledComputeCollectionsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIdfwEnabledComputeCollectionListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIdfwEnabledComputeCollectionListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIdfwVirtualMachineStatusListResultType ListVirtualMachineStatusesByTransportNodeId(string TransportNodeId)
+        public async Task<NSXTIdfwVirtualMachineStatusListResultType> ListVirtualMachineStatusesByTransportNodeId(string TransportNodeId)
         {
             if (TransportNodeId == null) { throw new System.ArgumentNullException("TransportNodeId cannot be null"); }
             NSXTIdfwVirtualMachineStatusListResultType returnValue = default(NSXTIdfwVirtualMachineStatusListResultType);
@@ -474,31 +349,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             ListVirtualMachineStatusesByTransportNodeIdServiceURL.Replace("{transport-node-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(TransportNodeId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ListVirtualMachineStatusesByTransportNodeIdServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIdfwVirtualMachineStatusListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIdfwVirtualMachineStatusListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListVirtualMachineStatusesByTransportNodeIdServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIdfwVirtualMachineStatusListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIdfwVirtualMachineStatusListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIdfwStandaloneHostsSwitchSettingType UpdateStandaloneHostsSwitchSetting(NSXTIdfwStandaloneHostsSwitchSettingType IdfwStandaloneHostsSwitchSetting)
+        public async Task<NSXTIdfwStandaloneHostsSwitchSettingType> UpdateStandaloneHostsSwitchSetting(NSXTIdfwStandaloneHostsSwitchSettingType IdfwStandaloneHostsSwitchSetting)
         {
             if (IdfwStandaloneHostsSwitchSetting == null) { throw new System.ArgumentNullException("IdfwStandaloneHostsSwitchSetting cannot be null"); }
             NSXTIdfwStandaloneHostsSwitchSettingType returnValue = default(NSXTIdfwStandaloneHostsSwitchSettingType);
@@ -511,31 +374,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(IdfwStandaloneHostsSwitchSetting, defaultSerializationSettings));
             request.Resource = UpdateStandaloneHostsSwitchSettingServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIdfwStandaloneHostsSwitchSettingType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIdfwStandaloneHostsSwitchSettingType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateStandaloneHostsSwitchSettingServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIdfwStandaloneHostsSwitchSettingType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIdfwStandaloneHostsSwitchSettingType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIdfwStandaloneHostsSwitchSettingType GetStandaloneHostsSwitchSetting()
+        public async Task<NSXTIdfwStandaloneHostsSwitchSettingType> GetStandaloneHostsSwitchSetting()
         {
             NSXTIdfwStandaloneHostsSwitchSettingType returnValue = default(NSXTIdfwStandaloneHostsSwitchSettingType);
             StringBuilder GetStandaloneHostsSwitchSettingServiceURL = new StringBuilder("/idfw/standalone-host-switch-setting");
@@ -546,31 +397,19 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = GetStandaloneHostsSwitchSettingServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIdfwStandaloneHostsSwitchSettingType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIdfwStandaloneHostsSwitchSettingType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetStandaloneHostsSwitchSettingServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIdfwStandaloneHostsSwitchSettingType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIdfwStandaloneHostsSwitchSettingType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIdfwUserStatsType GetUserStats(string UserId)
+        public async Task<NSXTIdfwUserStatsType> GetUserStats(string UserId)
         {
             if (UserId == null) { throw new System.ArgumentNullException("UserId cannot be null"); }
             NSXTIdfwUserStatsType returnValue = default(NSXTIdfwUserStatsType);
@@ -583,31 +422,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             GetUserStatsServiceURL.Replace("{user-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(UserId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetUserStatsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIdfwUserStatsType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIdfwUserStatsType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetUserStatsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIdfwUserStatsType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIdfwUserStatsType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIdfwComputeCollectionListResultType ListComputeCollectionStatuses()
+        public async Task<NSXTIdfwComputeCollectionListResultType> ListComputeCollectionStatuses()
         {
             NSXTIdfwComputeCollectionListResultType returnValue = default(NSXTIdfwComputeCollectionListResultType);
             StringBuilder ListComputeCollectionStatusesServiceURL = new StringBuilder("/idfw/compute-collections/status");
@@ -618,25 +445,13 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = ListComputeCollectionStatusesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIdfwComputeCollectionListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIdfwComputeCollectionListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListComputeCollectionStatusesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIdfwComputeCollectionListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIdfwComputeCollectionListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

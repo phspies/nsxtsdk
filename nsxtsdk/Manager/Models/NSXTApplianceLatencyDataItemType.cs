@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,86 +17,57 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Describes appliance latency data in detail.")]
     public class NSXTApplianceLatencyDataItemType 
     {
-        public NSXTApplianceLatencyDataItemType()
-        {
-        }
         /// <summary>
         /// Display the connection status between source node and destination node.
         /// </summary>
-        [JsonProperty(PropertyName = "status")]
-        [NSXTProperty(IsRequired: false, Description: @"Display the connection status between source node and destination node.")]
         public NSXTApplianceLatencyDataItemStatusEnumType? Status { get; set; }
         /// <summary>
         /// Display the transmitted packets in Ping
         /// </summary>
-        [JsonProperty(PropertyName = "packet_transmitted")]
-        [NSXTProperty(IsRequired: false, Description: @"Display the transmitted packets in Ping")]
         public long? PacketTransmitted { get; set; }
         /// <summary>
         /// Display the appliance node id.
         /// </summary>
-        [JsonProperty(PropertyName = "destination_node_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Display the appliance node id.")]
         public string? DestinationNodeId { get; set; }
         /// <summary>
         /// Display the appliance node ip.
         /// </summary>
-        [JsonProperty(PropertyName = "destination_node_ip")]
-        [NSXTProperty(IsRequired: false, Description: @"Display the appliance node ip.")]
         public string? DestinationNodeIp { get; set; }
         /// <summary>
         /// Display the average Round Trip Time in milliseconds.
         /// </summary>
-        [JsonProperty(PropertyName = "rtt_avg")]
-        [NSXTProperty(IsRequired: false, Description: @"Display the average Round Trip Time in milliseconds.")]
         public double? RttAvg { get; set; }
         /// <summary>
         /// Display the appliance node ip.
         /// </summary>
-        [JsonProperty(PropertyName = "source_node_ip")]
-        [NSXTProperty(IsRequired: false, Description: @"Display the appliance node ip.")]
         public string? SourceNodeIp { get; set; }
         /// <summary>
         /// Display the percentage of lost packet.
         /// </summary>
-        [JsonProperty(PropertyName = "packet_loss_percent")]
-        [NSXTProperty(IsRequired: false, Description: @"Display the percentage of lost packet.")]
         public string? PacketLossPercent { get; set; }
         /// <summary>
         /// Display the min Round Trip Time in milliseconds.
         /// </summary>
-        [JsonProperty(PropertyName = "rtt_min")]
-        [NSXTProperty(IsRequired: false, Description: @"Display the min Round Trip Time in milliseconds.")]
         public double? RttMin { get; set; }
         /// <summary>
         /// Display the max Round Trip Time in milliseconds.
         /// </summary>
-        [JsonProperty(PropertyName = "rtt_max")]
-        [NSXTProperty(IsRequired: false, Description: @"Display the max Round Trip Time in milliseconds.")]
         public double? RttMax { get; set; }
         /// <summary>
         /// Display the total time of sending and receiving packets in milliseconds.
         /// </summary>
-        [JsonProperty(PropertyName = "total_time")]
-        [NSXTProperty(IsRequired: false, Description: @"Display the total time of sending and receiving packets in milliseconds.")]
         public long? TotalTime { get; set; }
         /// <summary>
         /// Display the received packets.
         /// </summary>
-        [JsonProperty(PropertyName = "packet_received")]
-        [NSXTProperty(IsRequired: false, Description: @"Display the received packets.")]
         public long? PacketReceived { get; set; }
         /// <summary>
         /// Display the appliance node name.
         /// </summary>
-        [JsonProperty(PropertyName = "destination_node_name")]
-        [NSXTProperty(IsRequired: false, Description: @"Display the appliance node name.")]
         public string? DestinationNodeName { get; set; }
         /// <summary>
         /// Display the mean Round Trip Time in milliseconds.
         /// </summary>
-        [JsonProperty(PropertyName = "rtt_mdev")]
-        [NSXTProperty(IsRequired: false, Description: @"Display the mean Round Trip Time in milliseconds.")]
         public double? RttMdev { get; set; }
     }
 }

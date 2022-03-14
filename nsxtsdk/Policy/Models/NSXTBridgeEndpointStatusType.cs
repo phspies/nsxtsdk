@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,26 +17,17 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTBridgeEndpointStatusType 
     {
-        public NSXTBridgeEndpointStatusType()
-        {
-        }
         /// <summary>
         /// The Ids of the transport nodes which actively serve the endpoint.
         /// </summary>
-        [JsonProperty(PropertyName = "active_nodes")]
-        [NSXTProperty(IsRequired: false, Description: @"The Ids of the transport nodes which actively serve the endpoint.")]
         public IList<string> ActiveNodes { get; set; }
         /// <summary>
         /// Timestamp when the data was last updated; unset if data source has never updated the data.
         /// </summary>
-        [JsonProperty(PropertyName = "last_update_timestamp")]
-        [NSXTProperty(IsRequired: false, Description: @"Timestamp when the data was last updated; unset if data source has never updated the data.")]
         public long? LastUpdateTimestamp { get; set; }
         /// <summary>
         /// The id of the bridge endpoint
         /// </summary>
-        [JsonProperty(PropertyName = "endpoint_id")]
-        [NSXTProperty(IsRequired: false, Description: @"The id of the bridge endpoint")]
         public string? EndpointId { get; set; }
     }
 }

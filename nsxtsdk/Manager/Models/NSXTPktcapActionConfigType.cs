@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,20 +17,13 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTPktcapActionConfigType 
     {
-        public NSXTPktcapActionConfigType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "sampling_argument")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTSamplingArgumentType SamplingArgument { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "action_argument")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTPktcapActionArgumentType ActionArgument { get; set; }
     }
 }

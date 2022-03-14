@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,17 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIPSecVpnServiceType : NSXTPolicyConfigResourceType
     {
-        public NSXTIPSecVpnServiceType()
-        {
-            IkeLogLevel = test
-            HaSync = test
-            Enabled = test
-        }
         /// <summary>
         /// Log level for internet key exchange (IKE).
         /// </summary>
-        [JsonProperty(PropertyName = "ike_log_level")]
-        [NSXTProperty(IsRequired: false, Description: @"Log level for internet key exchange (IKE).")]
         public NSXTIpsecVpnServiceIkeLogLevelEnumType? IkeLogLevel { get; set; }
         /// <summary>
         /// Bypass policy rules are configured using VPN service.
@@ -36,21 +28,15 @@ namespace nsxtsdk.PolicyModels
         /// with the IPSec VPN service. Protect rules are defined per
         /// policy based vpn session.
         /// </summary>
-        [JsonProperty(PropertyName = "bypass_rules")]
-        [NSXTProperty(IsRequired: false, Description: @"Bypass policy rules are configured using VPN service.Bypass rules always have higher priority over protectrules and they affect all policy based vpn sessions associatedwith the IPSec VPN service. Protect rules are defined perpolicy based vpn session.")]
         public IList<NSXTIPSecVpnRuleType> BypassRules { get; set; }
         /// <summary>
         /// Enable/disable IPSec HA state sync. IPSec HA state sync can be disabled if in case there are performance issues w.r.t.
         /// the state sync messages.
         /// </summary>
-        [JsonProperty(PropertyName = "ha_sync")]
-        [NSXTProperty(IsRequired: false, Description: @"Enable/disable IPSec HA state sync. IPSec HA state sync can be disabled if in case there are performance issues w.r.t. the state sync messages.")]
         public bool? HaSync { get; set; }
         /// <summary>
         /// If true, enable VPN services under tier-0/tier-1.
         /// </summary>
-        [JsonProperty(PropertyName = "enabled")]
-        [NSXTProperty(IsRequired: false, Description: @"If true, enable VPN services under tier-0/tier-1.")]
         public bool? Enabled { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPortSecurityProfileBindingMapListResultType : NSXTListResultType
     {
-        public NSXTPortSecurityProfileBindingMapListResultType()
-        {
-        }
         /// <summary>
         /// Port security profile binding map list results
         /// </summary>
         [JsonProperty(PropertyName = "results", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Port security profile binding map list results")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTPortSecurityProfileBindingMapType> Results { get; set; }
     }
 }

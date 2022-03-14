@@ -21,16 +21,23 @@ namespace nsxtapi.PolicyModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public PolicyCloudNativeCommonAgent(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public PolicyCloudNativeCommonAgent(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTCommonAgentHostConfigurationInfoType PatchCommonAgentHostConfiguration(NSXTCommonAgentHostConfigurationInfoType CommonAgentHostConfigurationInfo)
+        public async Task<NSXTCommonAgentHostConfigurationInfoType> PatchCommonAgentHostConfiguration(NSXTCommonAgentHostConfigurationInfoType CommonAgentHostConfigurationInfo)
         {
             if (CommonAgentHostConfigurationInfo == null) { throw new System.ArgumentNullException("CommonAgentHostConfigurationInfo cannot be null"); }
             NSXTCommonAgentHostConfigurationInfoType returnValue = default(NSXTCommonAgentHostConfigurationInfoType);
@@ -43,31 +50,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(CommonAgentHostConfigurationInfo, defaultSerializationSettings));
             request.Resource = PatchCommonAgentHostConfigurationServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTCommonAgentHostConfigurationInfoType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTCommonAgentHostConfigurationInfoType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchCommonAgentHostConfigurationServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTCommonAgentHostConfigurationInfoType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTCommonAgentHostConfigurationInfoType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTCommonAgentHostConfigurationInfoType GetCommonAgentHostConfiguration()
+        public async Task<NSXTCommonAgentHostConfigurationInfoType> GetCommonAgentHostConfiguration()
         {
             NSXTCommonAgentHostConfigurationInfoType returnValue = default(NSXTCommonAgentHostConfigurationInfoType);
             StringBuilder GetCommonAgentHostConfigurationServiceURL = new StringBuilder("/infra/napp/common-agent/host-config");
@@ -78,31 +73,19 @@ namespace nsxtapi.PolicyModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = GetCommonAgentHostConfigurationServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTCommonAgentHostConfigurationInfoType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTCommonAgentHostConfigurationInfoType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetCommonAgentHostConfigurationServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTCommonAgentHostConfigurationInfoType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTCommonAgentHostConfigurationInfoType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTCommonAgentHostConfigurationInfoType ResetCommonAgentHostConfiguration()
+        public async Task<NSXTCommonAgentHostConfigurationInfoType> ResetCommonAgentHostConfiguration()
         {
             NSXTCommonAgentHostConfigurationInfoType returnValue = default(NSXTCommonAgentHostConfigurationInfoType);
             StringBuilder ResetCommonAgentHostConfigurationServiceURL = new StringBuilder("/infra/napp/common-agent/host-config?action=reset");
@@ -113,25 +96,13 @@ namespace nsxtapi.PolicyModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = ResetCommonAgentHostConfigurationServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTCommonAgentHostConfigurationInfoType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTCommonAgentHostConfigurationInfoType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + ResetCommonAgentHostConfigurationServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTCommonAgentHostConfigurationInfoType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTCommonAgentHostConfigurationInfoType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

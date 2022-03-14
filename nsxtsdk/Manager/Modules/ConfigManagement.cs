@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public ConfigManagement(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public ConfigManagement(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTManagementConfigType UpdateManagementConfig(NSXTManagementConfigType ManagementConfig)
+        public async Task<NSXTManagementConfigType> UpdateManagementConfig(NSXTManagementConfigType ManagementConfig)
         {
             if (ManagementConfig == null) { throw new System.ArgumentNullException("ManagementConfig cannot be null"); }
             NSXTManagementConfigType returnValue = default(NSXTManagementConfigType);
@@ -43,31 +50,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(ManagementConfig, defaultSerializationSettings));
             request.Resource = UpdateManagementConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTManagementConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTManagementConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateManagementConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTManagementConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTManagementConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTManagementConfigType ReadManagementConfig()
+        public async Task<NSXTManagementConfigType> ReadManagementConfig()
         {
             NSXTManagementConfigType returnValue = default(NSXTManagementConfigType);
             StringBuilder ReadManagementConfigServiceURL = new StringBuilder("/configs/management");
@@ -78,25 +73,13 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = ReadManagementConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTManagementConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTManagementConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadManagementConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTManagementConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTManagementConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

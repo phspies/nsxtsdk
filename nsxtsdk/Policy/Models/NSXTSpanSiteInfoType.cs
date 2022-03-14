@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -18,20 +18,13 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Represents the Site resource information for a Span entityincluding both the internal id as well as the site path.")]
     public class NSXTSpanSiteInfoType 
     {
-        public NSXTSpanSiteInfoType()
-        {
-        }
         /// <summary>
         /// Path of the Site resource
         /// </summary>
-        [JsonProperty(PropertyName = "site_path")]
-        [NSXTProperty(IsRequired: false, Description: @"Path of the Site resource")]
         public string? SitePath { get; set; }
         /// <summary>
         /// Site UUID representing the Site resource
         /// </summary>
-        [JsonProperty(PropertyName = "site_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Site UUID representing the Site resource")]
         public string? SiteId { get; set; }
     }
 }

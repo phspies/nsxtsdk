@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,39 +17,26 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLbServiceStatisticsType 
     {
-        public NSXTLbServiceStatisticsType()
-        {
-        }
         /// <summary>
         /// Statistics of load balancer pools
         /// </summary>
-        [JsonProperty(PropertyName = "pools")]
-        [NSXTProperty(IsRequired: false, Description: @"Statistics of load balancer pools")]
         public IList<NSXTLbPoolStatisticsType> Pools { get; set; }
         /// <summary>
         /// load balancer service identifier
         /// </summary>
         [JsonProperty(PropertyName = "service_id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"load balancer service identifier")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string ServiceId { get; set; }
         /// <summary>
         /// Statistics of load balancer virtual servers
         /// </summary>
-        [JsonProperty(PropertyName = "virtual_servers")]
-        [NSXTProperty(IsRequired: false, Description: @"Statistics of load balancer virtual servers")]
         public IList<NSXTLbVirtualServerStatisticsType> VirtualServers { get; set; }
         /// <summary>
         /// Timestamp when the data was last updated
         /// </summary>
-        [JsonProperty(PropertyName = "last_update_timestamp")]
-        [NSXTProperty(IsRequired: false, Description: @"Timestamp when the data was last updated")]
         public long? LastUpdateTimestamp { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "statistics")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTLbServiceStatisticsCounterType Statistics { get; set; }
     }
 }

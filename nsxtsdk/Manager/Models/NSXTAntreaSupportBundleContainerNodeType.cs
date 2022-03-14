@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTAntreaSupportBundleContainerNodeType : NSXTSupportBundleContainerNodeType
     {
-        public NSXTAntreaSupportBundleContainerNodeType()
-        {
-        }
         /// <summary>
         /// List of AntreaContainerClusterNodes identifying container clusters and their nodes
         /// </summary>
-        [JsonProperty(PropertyName = "clusters")]
-        [NSXTProperty(IsRequired: false, Description: @"List of AntreaContainerClusterNodes identifying container clusters and their nodes")]
         public IList<NSXTAntreaContainerClusterNodeType> Clusters { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,21 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLBServiceInstanceDetailPerTransportNodeType 
     {
-        public NSXTLBServiceInstanceDetailPerTransportNodeType()
-        {
-        }
         /// <summary>
         /// Load balancer instances details for each load balancer instance
         /// status type from the given transport node.
         /// </summary>
-        [JsonProperty(PropertyName = "instance_detail_per_status")]
-        [NSXTProperty(IsRequired: false, Description: @"Load balancer instances details for each load balancer instancestatus type from the given transport node.")]
         public IList<NSXTLBServiceInstanceDetailPerStatusType> InstanceDetailPerStatus { get; set; }
         /// <summary>
         /// The UUID of the transport node.
         /// </summary>
-        [JsonProperty(PropertyName = "transport_node_id")]
-        [NSXTProperty(IsRequired: false, Description: @"The UUID of the transport node.")]
         public string? TransportNodeId { get; set; }
     }
 }

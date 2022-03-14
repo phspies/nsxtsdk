@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,20 +17,13 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTCryptoAlgorithmType 
     {
-        public NSXTCryptoAlgorithmType()
-        {
-        }
         /// <summary>
         /// Supported key sizes for the algorithm.
         /// </summary>
-        [JsonProperty(PropertyName = "key_size")]
-        [NSXTProperty(IsRequired: false, Description: @"Supported key sizes for the algorithm.")]
         public long? KeySize { get; set; }
         /// <summary>
         /// Crypto algorithm name.
         /// </summary>
-        [JsonProperty(PropertyName = "name")]
-        [NSXTProperty(IsRequired: false, Description: @"Crypto algorithm name.")]
         public string? Name { get; set; }
     }
 }

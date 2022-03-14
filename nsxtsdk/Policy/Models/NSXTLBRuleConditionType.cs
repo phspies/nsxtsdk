@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -81,21 +81,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Match conditions are used to match application traffic passing throughload balancers. Multiple match conditions can be specified in one loadbalancer rule, each match condition defines a criterion for applicationtraffic.If inverse field is set to true, the match result of the condition isinverted.If more than one match condition is specified, match strategy determinesif all conditions should match or any one condition should match for theload balancer rule to be considered a match.Currently only HTTP messages are supported by load balancer rules.Each load balancer rule is used at a specific phase of load balancerprocessing. Currently three phases are supported, HTTP_REQUEST_REWRITE,HTTP_FORWARDING and HTTP_RESPONSE_REWRITE.Each phase supports certain types of match conditions, supported matchconditions in HTTP_REQUEST_REWRITE phase are:LBHttpRequestMethodConditionLBHttpRequestUriConditionLBHttpRequestUriArgumentsConditionLBHttpRequestVersionConditionLBHttpRequestHeaderConditionLBHttpRequestCookieConditionLBHttpRequestBodyConditionLBTcpHeaderConditionLBIpHeaderConditionLBVariableConditionLBHttpSslConditionSupported match conditions in HTTP_FORWARDING phase are:LBHttpRequestMethodConditionLBHttpRequestUriConditionLBHttpRequestUriArgumentsConditionLBHttpRequestVersionConditionLBHttpRequestHeaderConditionLBHttpRequestCookieConditionLBHttpRequestBodyConditionLBTcpHeaderConditionLBIpHeaderConditionLBVariableConditionLBHttpSslConditionLBSslSniConditionSupported match conditions in HTTP_RESPONSE_REWRITE phase are:LBHttpResponseHeaderConditionLBHttpRequestMethodConditionLBHttpRequestUriConditionLBHttpRequestUriArgumentsConditionLBHttpRequestVersionConditionLBHttpRequestHeaderConditionLBHttpRequestCookieConditionLBTcpHeaderConditionLBIpHeaderConditionLBVariableConditionLBHttpSslConditionSupported match condition in HTTP_ACCESS phase is:LBHttpRequestMethodConditionLBHttpRequestUriConditionLBHttpRequestUriArgumentsConditionLBHttpRequestVersionConditionLBHttpRequestHeaderConditionLBHttpRequestCookieConditionLBHttpRequestBodyConditionLBTcpHeaderConditionLBIpHeaderConditionLBVariableConditionLBHttpSslConditionSupported match condition in TRANSPORT phase is:LBSslSniCondition")]
     public class NSXTLBRuleConditionType 
     {
-        public NSXTLBRuleConditionType()
-        {
-        }
         /// <summary>
         /// A flag to indicate whether reverse the match result of this condition
         /// </summary>
-        [JsonProperty(PropertyName = "inverse")]
-        [NSXTProperty(IsRequired: false, Description: @"A flag to indicate whether reverse the match result of this condition")]
         public bool? Inverse { get; set; }
         /// <summary>
         /// Type of load balancer rule condition
         /// </summary>
         [JsonProperty(PropertyName = "type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Type of load balancer rule condition")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTLbruleConditionTypeEnumType Type { get; set; }
     }
 }

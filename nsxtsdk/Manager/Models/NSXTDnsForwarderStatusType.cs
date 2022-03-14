@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -18,9 +18,6 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"The current runtime status of the DNS forwarder including the hostingtransport nodes and forwarder service status.")]
     public class NSXTDnsForwarderStatusType 
     {
-        public NSXTDnsForwarderStatusType()
-        {
-        }
         /// <summary>
         /// UP means the DNS forwarder is working correctly on the active transport
         /// node and the stand-by transport node (if present). Failover will occur
@@ -35,32 +32,22 @@ namespace nsxtsdk.ManagerModels
         /// either because it is down on the standby node, or no standby is configured.
         /// An forwarder outage will occur if the active node goes down.
         /// </summary>
-        [JsonProperty(PropertyName = "status")]
-        [NSXTProperty(IsRequired: false, Description: @"UP means the DNS forwarder is working correctly on the active transportnode and the stand-by transport node (if present). Failover will occurif either node goes down.DOWN means the DNS forwarder is down on both active transport node andstandby node (if present). The DNS forwarder does not function in thissituation.Error means there is some error on one or both transport node, or nostatus was reported from one or both transport nodes. The dns forwardermay be working (or not working).NO_BACKUP means dns forwarder is working in only one transport node,either because it is down on the standby node, or no standby is configured.An forwarder outage will occur if the active node goes down.")]
         public NSXTDnsForwarderStatusStatusEnumType? Status { get; set; }
         /// <summary>
         /// Time stamp of the current status, in ms
         /// </summary>
-        [JsonProperty(PropertyName = "timestamp")]
-        [NSXTProperty(IsRequired: false, Description: @"Time stamp of the current status, in ms")]
         public long? Timestamp { get; set; }
         /// <summary>
         /// Uuid of stand_by transport node. null if non-HA mode
         /// </summary>
-        [JsonProperty(PropertyName = "standby_node")]
-        [NSXTProperty(IsRequired: false, Description: @"Uuid of stand_by transport node. null if non-HA mode")]
         public string? StandbyNode { get; set; }
         /// <summary>
         /// Extra message, if available
         /// </summary>
-        [JsonProperty(PropertyName = "extra_message")]
-        [NSXTProperty(IsRequired: false, Description: @"Extra message, if available")]
         public string? ExtraMessage { get; set; }
         /// <summary>
         /// Uuid of active transport node
         /// </summary>
-        [JsonProperty(PropertyName = "active_node")]
-        [NSXTProperty(IsRequired: false, Description: @"Uuid of active transport node")]
         public string? ActiveNode { get; set; }
     }
 }

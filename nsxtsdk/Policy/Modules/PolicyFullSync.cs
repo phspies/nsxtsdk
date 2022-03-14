@@ -21,16 +21,23 @@ namespace nsxtapi.PolicyModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public PolicyFullSync(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public PolicyFullSync(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTFullSyncStateType GetFullSyncStates(string FullSyncId)
+        public async Task<NSXTFullSyncStateType> GetFullSyncStates(string FullSyncId)
         {
             if (FullSyncId == null) { throw new System.ArgumentNullException("FullSyncId cannot be null"); }
             NSXTFullSyncStateType returnValue = default(NSXTFullSyncStateType);
@@ -43,31 +50,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             GetFullSyncStatesServiceURL.Replace("{full-sync-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FullSyncId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetFullSyncStatesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTFullSyncStateType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTFullSyncStateType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetFullSyncStatesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTFullSyncStateType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTFullSyncStateType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void FullSyncActions(string Action, string? SyncType = null)
+        public async Task FullSyncActions(string Action, string? SyncType = null)
         {
             if (Action == null) { throw new System.ArgumentNullException("Action cannot be null"); }
             
@@ -81,7 +76,7 @@ namespace nsxtapi.PolicyModules
             if (Action != null) { request.AddQueryParameter("action", Action.ToString()); }
             if (SyncType != null) { request.AddQueryParameter("sync_type", SyncType.ToString()); }
             request.Resource = FullSyncActionsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + FullSyncActionsServiceURL.ToString() + " did not complete successfull";
@@ -93,7 +88,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTFullSyncStateListResultType GlobalGlobalInfraListFullSyncStates(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTFullSyncStateListResultType> GlobalGlobalInfraListFullSyncStates(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTFullSyncStateListResultType returnValue = default(NSXTFullSyncStateListResultType);
             StringBuilder GlobalInfraListFullSyncStatesServiceURL = new StringBuilder("/global-infra/full-sync-states");
@@ -110,31 +105,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GlobalInfraListFullSyncStatesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTFullSyncStateListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTFullSyncStateListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraListFullSyncStatesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTFullSyncStateListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTFullSyncStateListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTFullSyncStateType GlobalGlobalInfraGetFullSyncStates(string FullSyncId)
+        public async Task<NSXTFullSyncStateType> GlobalGlobalInfraGetFullSyncStates(string FullSyncId)
         {
             if (FullSyncId == null) { throw new System.ArgumentNullException("FullSyncId cannot be null"); }
             NSXTFullSyncStateType returnValue = default(NSXTFullSyncStateType);
@@ -147,31 +130,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             GlobalInfraGetFullSyncStatesServiceURL.Replace("{full-sync-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FullSyncId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GlobalInfraGetFullSyncStatesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTFullSyncStateType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTFullSyncStateType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraGetFullSyncStatesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTFullSyncStateType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTFullSyncStateType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTFullSyncStateListResultType ListFullSyncStates(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTFullSyncStateListResultType> ListFullSyncStates(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTFullSyncStateListResultType returnValue = default(NSXTFullSyncStateListResultType);
             StringBuilder ListFullSyncStatesServiceURL = new StringBuilder("/infra/full-sync-states");
@@ -188,25 +159,13 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListFullSyncStatesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTFullSyncStateListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTFullSyncStateListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListFullSyncStatesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTFullSyncStateListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTFullSyncStateListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

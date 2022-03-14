@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,30 +17,18 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Next hop configuration for network")]
     public class NSXTRouterNexthopType 
     {
-        public NSXTRouterNexthopType()
-        {
-            AdminDistance = test
-        }
         /// <summary>
         /// Interface path associated with current route.
         /// For example: specify a policy path referencing the IPSec VPN Session.
         /// </summary>
-        [JsonProperty(PropertyName = "scope")]
-        [NSXTProperty(IsRequired: false, Description: @"Interface path associated with current route.For example: specify a policy path referencing the IPSec VPN Session.")]
         public IList<string> Scope { get; set; }
         /// <summary>
         /// Next hop gateway IP address
         /// </summary>
-        [JsonProperty(PropertyName = "ip_address")]
-        [NSXTProperty(IsRequired: false, Description: @"Next hop gateway IP address")]
         public string? IpAddress { get; set; }
         /// <summary>
         /// Cost associated with next hop route
         /// </summary>
-        [JsonProperty(PropertyName = "admin_distance")]
-        [NSXTProperty(IsRequired: false, Description: @"Cost associated with next hop route")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(255)]
         public int? AdminDistance { get; set; }
     }
 }

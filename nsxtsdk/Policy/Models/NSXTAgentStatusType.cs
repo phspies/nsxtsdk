@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,20 +17,13 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTAgentStatusType 
     {
-        public NSXTAgentStatusType()
-        {
-        }
         /// <summary>
         /// Agent status
         /// </summary>
-        [JsonProperty(PropertyName = "status")]
-        [NSXTProperty(IsRequired: false, Description: @"Agent status")]
         public NSXTAgentStatusStatusEnumType? Status { get; set; }
         /// <summary>
         /// Agent name
         /// </summary>
-        [JsonProperty(PropertyName = "name")]
-        [NSXTProperty(IsRequired: false, Description: @"Agent name")]
         public NSXTAgentStatusNameEnumType? Name { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTVirtualEndpointType : NSXTBaseEndpointType
     {
-        public NSXTVirtualEndpointType()
-        {
-        }
         /// <summary>
         /// One VirtualEndpoint will be created per service name.
         /// </summary>
         [JsonProperty(PropertyName = "service_names", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"One VirtualEndpoint will be created per service name.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<string> ServiceNames { get; set; }
     }
 }

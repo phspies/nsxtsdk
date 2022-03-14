@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,44 +17,29 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTUpgradeUnitGroupStatusType 
     {
-        public NSXTUpgradeUnitGroupStatusType()
-        {
-        }
         /// <summary>
         /// Upgrade status of upgrade unit group
         /// </summary>
-        [JsonProperty(PropertyName = "status")]
-        [NSXTProperty(IsRequired: false, Description: @"Upgrade status of upgrade unit group")]
         public NSXTUpgradeUnitGroupStatusStatusEnumType? Status { get; set; }
         /// <summary>
         /// Number of upgrade units in the group
         /// </summary>
-        [JsonProperty(PropertyName = "upgrade_unit_count")]
-        [NSXTProperty(IsRequired: false, Description: @"Number of upgrade units in the group")]
         public int? UpgradeUnitCount { get; set; }
         /// <summary>
         /// Number of nodes in the upgrade unit group that failed upgrade
         /// </summary>
-        [JsonProperty(PropertyName = "failed_count")]
-        [NSXTProperty(IsRequired: false, Description: @"Number of nodes in the upgrade unit group that failed upgrade")]
         public int? FailedCount { get; set; }
         /// <summary>
         /// Indicator of upgrade progress in percentage
         /// </summary>
-        [JsonProperty(PropertyName = "percent_complete")]
-        [NSXTProperty(IsRequired: false, Description: @"Indicator of upgrade progress in percentage")]
         public double? PercentComplete { get; set; }
         /// <summary>
         /// Identifier for upgrade unit group
         /// </summary>
-        [JsonProperty(PropertyName = "group_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Identifier for upgrade unit group")]
         public string? GroupId { get; set; }
         /// <summary>
         /// Name of the upgrade unit group
         /// </summary>
-        [JsonProperty(PropertyName = "group_name")]
-        [NSXTProperty(IsRequired: false, Description: @"Name of the upgrade unit group")]
         public string? GroupName { get; set; }
     }
 }

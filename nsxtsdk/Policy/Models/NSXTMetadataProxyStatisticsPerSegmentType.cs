@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,50 +17,35 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTMetadataProxyStatisticsPerSegmentType 
     {
-        public NSXTMetadataProxyStatisticsPerSegmentType()
-        {
-        }
         /// <summary>
         /// requests to nova server
         /// </summary>
         [JsonProperty(PropertyName = "requests_to_nova_server", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"requests to nova server")]
-        [System.ComponentModel.DataAnnotations.Required]
         public long RequestsToNovaServer { get; set; }
         /// <summary>
         /// responses to clients
         /// </summary>
         [JsonProperty(PropertyName = "responses_to_clients", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"responses to clients")]
-        [System.ComponentModel.DataAnnotations.Required]
         public long ResponsesToClients { get; set; }
         /// <summary>
         /// succeeded responses from  nova server
         /// </summary>
         [JsonProperty(PropertyName = "succeeded_responses_from_nova_server", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"succeeded responses from  nova server")]
-        [System.ComponentModel.DataAnnotations.Required]
         public long SucceededResponsesFromNovaServer { get; set; }
         /// <summary>
         /// requests from clients
         /// </summary>
         [JsonProperty(PropertyName = "requests_from_clients", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"requests from clients")]
-        [System.ComponentModel.DataAnnotations.Required]
         public long RequestsFromClients { get; set; }
         /// <summary>
         /// error responses from  nova server
         /// </summary>
         [JsonProperty(PropertyName = "error_responses_from_nova_server", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"error responses from  nova server")]
-        [System.ComponentModel.DataAnnotations.Required]
         public long ErrorResponsesFromNovaServer { get; set; }
         /// <summary>
         /// Policy path of the attached segment
         /// </summary>
         [JsonProperty(PropertyName = "segment_path", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Policy path of the attached segment")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string SegmentPath { get; set; }
     }
 }

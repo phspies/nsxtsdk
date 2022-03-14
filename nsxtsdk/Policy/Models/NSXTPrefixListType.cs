@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPrefixListType : NSXTPolicyConfigResourceType
     {
-        public NSXTPrefixListType()
-        {
-        }
         /// <summary>
         /// Specify ordered list of network prefixes.
         /// </summary>
         [JsonProperty(PropertyName = "prefixes", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Specify ordered list of network prefixes.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTPrefixEntryType> Prefixes { get; set; }
     }
 }

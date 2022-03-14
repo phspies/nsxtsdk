@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,12 +17,6 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer DnsSrvRdata object")]
     public class NSXTALBDnsSrvRdataType 
     {
-        public NSXTALBDnsSrvRdataType()
-        {
-            Priority = test
-            Weight = test
-            Target = test
-        }
         /// <summary>
         /// Priority of the target hosting the service, low value
         /// implies higher priority for this service record.
@@ -30,20 +24,12 @@ namespace nsxtsdk.PolicyModels
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 0.
         /// </summary>
-        [JsonProperty(PropertyName = "priority")]
-        [NSXTProperty(IsRequired: false, Description: @"Priority of the target hosting the service, low valueimplies higher priority for this service record.Allowed values are 0-65535.Default value when not specified in API or module isinterpreted by ALB Controller as 0.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
         public long? Priority { get; set; }
         /// <summary>
         /// Service port.
         /// Allowed values are 0-65535.
         /// </summary>
         [JsonProperty(PropertyName = "port", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Service port.Allowed values are 0-65535.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
-        [System.ComponentModel.DataAnnotations.Required]
         public long Port { get; set; }
         /// <summary>
         /// Relative weight for service records with same priority,
@@ -53,10 +39,6 @@ namespace nsxtsdk.PolicyModels
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 0.
         /// </summary>
-        [JsonProperty(PropertyName = "weight")]
-        [NSXTProperty(IsRequired: false, Description: @"Relative weight for service records with same priority,high value implies higher preference for this servicerecord.Allowed values are 0-65535.Default value when not specified in API or module isinterpreted by ALB Controller as 0.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
         public long? Weight { get; set; }
         /// <summary>
         /// Canonical hostname, of the machine hosting the service,
@@ -65,8 +47,6 @@ namespace nsxtsdk.PolicyModels
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as default.host.
         /// </summary>
-        [JsonProperty(PropertyName = "target")]
-        [NSXTProperty(IsRequired: false, Description: @"Canonical hostname, of the machine hosting the service,with no trailing period.&apos;default.host&apos; is valid but not &apos;default.host.&apos;.Default value when not specified in API or module isinterpreted by ALB Controller as default.host.")]
         public string? Target { get; set; }
     }
 }

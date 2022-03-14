@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,9 +17,6 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTUploadBundleStatusType : NSXTUploadBundleRemoteServerType
     {
-        public NSXTUploadBundleStatusType()
-        {
-        }
         /// <summary>
         /// Current state of bundle upload.
         /// UPLOADING - Upload in progress.
@@ -29,20 +26,14 @@ namespace nsxtsdk.PolicyModels
         /// SUCCESS - Upload complete.
         /// FAILED - Upload failed.
         /// </summary>
-        [JsonProperty(PropertyName = "status")]
-        [NSXTProperty(IsRequired: false, Description: @"Current state of bundle upload.UPLOADING - Upload in progress.DOWNLOADING - Download in progress.EXTRACTING - Extract in progress.VERIFYING - Verifying signature of uploaded bundle.SUCCESS - Upload complete.FAILED - Upload failed.")]
         public NSXTUploadBundleStatusStatusEnumType? Status { get; set; }
         /// <summary>
         /// Upload percentage for bundle.
         /// </summary>
-        [JsonProperty(PropertyName = "percent")]
-        [NSXTProperty(IsRequired: false, Description: @"Upload percentage for bundle.")]
         public double? Percent { get; set; }
         /// <summary>
         /// More detail about bundle upload.
         /// </summary>
-        [JsonProperty(PropertyName = "description")]
-        [NSXTProperty(IsRequired: false, Description: @"More detail about bundle upload.")]
         public string? Description { get; set; }
     }
 }

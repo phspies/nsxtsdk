@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public MPAConfigModule(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public MPAConfigModule(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTMPAConfigPropertiesType UpdateMpaconfiguration(NSXTMPAConfigPropertiesType MpaconfigProperties)
+        public async Task<NSXTMPAConfigPropertiesType> UpdateMpaconfiguration(NSXTMPAConfigPropertiesType MpaconfigProperties)
         {
             if (MpaconfigProperties == null) { throw new System.ArgumentNullException("MpaconfigProperties cannot be null"); }
             NSXTMPAConfigPropertiesType returnValue = default(NSXTMPAConfigPropertiesType);
@@ -43,31 +50,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(MpaconfigProperties, defaultSerializationSettings));
             request.Resource = UpdateMpaconfigurationServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTMPAConfigPropertiesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTMPAConfigPropertiesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateMpaconfigurationServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTMPAConfigPropertiesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTMPAConfigPropertiesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTMPAConfigPropertiesType ReadMpaconfiguration()
+        public async Task<NSXTMPAConfigPropertiesType> ReadMpaconfiguration()
         {
             NSXTMPAConfigPropertiesType returnValue = default(NSXTMPAConfigPropertiesType);
             StringBuilder ReadMpaconfigurationServiceURL = new StringBuilder("/node/mpa-config");
@@ -78,31 +73,19 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = ReadMpaconfigurationServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTMPAConfigPropertiesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTMPAConfigPropertiesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadMpaconfigurationServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTMPAConfigPropertiesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTMPAConfigPropertiesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteMpaconfiguration()
+        public async Task DeleteMpaconfiguration()
         {
             
             StringBuilder DeleteMpaconfigurationServiceURL = new StringBuilder("/node/mpa-config");
@@ -113,7 +96,7 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = DeleteMpaconfigurationServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteMpaconfigurationServiceURL.ToString() + " did not complete successfull";

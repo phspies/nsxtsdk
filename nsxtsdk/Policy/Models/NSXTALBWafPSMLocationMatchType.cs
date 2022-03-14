@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,26 +17,17 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer WafPSMLocationMatch object")]
     public class NSXTALBWafPSMLocationMatchType 
     {
-        public NSXTALBWafPSMLocationMatchType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "path")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBPathMatchType Path { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "host")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBHostHdrMatchType Host { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "methods")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBMethodMatchType Methods { get; set; }
     }
 }

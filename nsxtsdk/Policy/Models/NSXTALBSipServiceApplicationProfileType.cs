@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,10 +17,6 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer SipServiceApplicationProfile object")]
     public class NSXTALBSipServiceApplicationProfileType 
     {
-        public NSXTALBSipServiceApplicationProfileType()
-        {
-            TransactionTimeout = test
-        }
         /// <summary>
         /// SIP transaction timeout in seconds.
         /// Allowed values are 2-512.
@@ -28,10 +24,6 @@ namespace nsxtsdk.PolicyModels
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 32.
         /// </summary>
-        [JsonProperty(PropertyName = "transaction_timeout")]
-        [NSXTProperty(IsRequired: false, Description: @"SIP transaction timeout in seconds.Allowed values are 2-512.Unit is SEC.Default value when not specified in API or module isinterpreted by ALB Controller as 32.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(2)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(512)]
         public long? TransactionTimeout { get; set; }
     }
 }

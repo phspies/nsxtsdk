@@ -21,16 +21,23 @@ namespace nsxtapi.PolicyModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public PolicyDraft(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public PolicyDraft(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyDraftPaginatedAggregatedConfigurationResultType GetPolicyDraftPaginatedAggregatedConfigurationResult(string DraftId, string? RequestId = null, string? RootPath = null)
+        public async Task<NSXTPolicyDraftPaginatedAggregatedConfigurationResultType> GetPolicyDraftPaginatedAggregatedConfigurationResult(string DraftId, string? RequestId = null, string? RootPath = null)
         {
             if (DraftId == null) { throw new System.ArgumentNullException("DraftId cannot be null"); }
             NSXTPolicyDraftPaginatedAggregatedConfigurationResultType returnValue = default(NSXTPolicyDraftPaginatedAggregatedConfigurationResultType);
@@ -45,31 +52,19 @@ namespace nsxtapi.PolicyModules
             if (RequestId != null) { request.AddQueryParameter("request_id", RequestId.ToString()); }
             if (RootPath != null) { request.AddQueryParameter("root_path", RootPath.ToString()); }
             request.Resource = GetPolicyDraftPaginatedAggregatedConfigurationResultServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyDraftPaginatedAggregatedConfigurationResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyDraftPaginatedAggregatedConfigurationResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetPolicyDraftPaginatedAggregatedConfigurationResultServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyDraftPaginatedAggregatedConfigurationResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyDraftPaginatedAggregatedConfigurationResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyDraftType PutDraft(string DraftId, NSXTPolicyDraftType PolicyDraft)
+        public async Task<NSXTPolicyDraftType> PutDraft(string DraftId, NSXTPolicyDraftType PolicyDraft)
         {
             if (DraftId == null) { throw new System.ArgumentNullException("DraftId cannot be null"); }
             if (PolicyDraft == null) { throw new System.ArgumentNullException("PolicyDraft cannot be null"); }
@@ -84,31 +79,19 @@ namespace nsxtapi.PolicyModules
             PutDraftServiceURL.Replace("{draft-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DraftId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(PolicyDraft, defaultSerializationSettings));
             request.Resource = PutDraftServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyDraftType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyDraftType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + PutDraftServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyDraftType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyDraftType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteDraft(string DraftId)
+        public async Task DeleteDraft(string DraftId)
         {
             if (DraftId == null) { throw new System.ArgumentNullException("DraftId cannot be null"); }
             
@@ -121,7 +104,7 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             DeleteDraftServiceURL.Replace("{draft-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DraftId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteDraftServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteDraftServiceURL.ToString() + " did not complete successfull";
@@ -133,7 +116,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchDraft(string DraftId, NSXTPolicyDraftType PolicyDraft)
+        public async Task PatchDraft(string DraftId, NSXTPolicyDraftType PolicyDraft)
         {
             if (DraftId == null) { throw new System.ArgumentNullException("DraftId cannot be null"); }
             if (PolicyDraft == null) { throw new System.ArgumentNullException("PolicyDraft cannot be null"); }
@@ -148,7 +131,7 @@ namespace nsxtapi.PolicyModules
             PatchDraftServiceURL.Replace("{draft-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DraftId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(PolicyDraft, defaultSerializationSettings));
             request.Resource = PatchDraftServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchDraftServiceURL.ToString() + " did not complete successfull";
@@ -160,7 +143,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyDraftType ReadDraft(string DraftId)
+        public async Task<NSXTPolicyDraftType> ReadDraft(string DraftId)
         {
             if (DraftId == null) { throw new System.ArgumentNullException("DraftId cannot be null"); }
             NSXTPolicyDraftType returnValue = default(NSXTPolicyDraftType);
@@ -173,31 +156,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ReadDraftServiceURL.Replace("{draft-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DraftId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadDraftServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyDraftType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyDraftType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadDraftServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyDraftType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyDraftType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTInfraType GetAggregatedConfigurationToBePublishedForDraft(string DraftId)
+        public async Task<NSXTInfraType> GetAggregatedConfigurationToBePublishedForDraft(string DraftId)
         {
             if (DraftId == null) { throw new System.ArgumentNullException("DraftId cannot be null"); }
             NSXTInfraType returnValue = default(NSXTInfraType);
@@ -210,31 +181,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             GetAggregatedConfigurationToBePublishedForDraftServiceURL.Replace("{draft-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DraftId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetAggregatedConfigurationToBePublishedForDraftServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTInfraType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTInfraType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetAggregatedConfigurationToBePublishedForDraftServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTInfraType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTInfraType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyDraftListResultType ListDrafts(bool? AutoDrafts = null, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTPolicyDraftListResultType> ListDrafts(bool? AutoDrafts = null, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTPolicyDraftListResultType returnValue = default(NSXTPolicyDraftListResultType);
             StringBuilder ListDraftsServiceURL = new StringBuilder("/infra/drafts");
@@ -252,31 +211,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListDraftsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyDraftListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyDraftListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListDraftsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyDraftListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyDraftListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PublishDraft(string DraftId, NSXTInfraType Infra)
+        public async Task PublishDraft(string DraftId, NSXTInfraType Infra)
         {
             if (DraftId == null) { throw new System.ArgumentNullException("DraftId cannot be null"); }
             if (Infra == null) { throw new System.ArgumentNullException("Infra cannot be null"); }
@@ -291,7 +238,7 @@ namespace nsxtapi.PolicyModules
             PublishDraftServiceURL.Replace("{draft-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DraftId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(Infra, defaultSerializationSettings));
             request.Resource = PublishDraftServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + PublishDraftServiceURL.ToString() + " did not complete successfull";
@@ -303,7 +250,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTInfraType GetPreviewOfConfigurationAfterPublishOfDraft(string DraftId)
+        public async Task<NSXTInfraType> GetPreviewOfConfigurationAfterPublishOfDraft(string DraftId)
         {
             if (DraftId == null) { throw new System.ArgumentNullException("DraftId cannot be null"); }
             NSXTInfraType returnValue = default(NSXTInfraType);
@@ -316,25 +263,13 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             GetPreviewOfConfigurationAfterPublishOfDraftServiceURL.Replace("{draft-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DraftId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetPreviewOfConfigurationAfterPublishOfDraftServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTInfraType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTInfraType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetPreviewOfConfigurationAfterPublishOfDraftServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTInfraType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTInfraType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

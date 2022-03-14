@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,21 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Tag operation status for particular resource type and resource ids.")]
     public class NSXTResourceTypeTagStatusType 
     {
-        public NSXTResourceTypeTagStatusType()
-        {
-        }
         /// <summary>
         /// List of resources on which tag needs to be applied.
         /// </summary>
-        [JsonProperty(PropertyName = "resource_tag_status")]
-        [NSXTProperty(IsRequired: false, Description: @"List of resources on which tag needs to be applied.")]
         public IList<NSXTResourceTagStatusType> ResourceTagStatus { get; set; }
         /// <summary>
         /// Resource type
         /// </summary>
         [JsonProperty(PropertyName = "resource_type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Resource type")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string ResourceType { get; set; }
     }
 }

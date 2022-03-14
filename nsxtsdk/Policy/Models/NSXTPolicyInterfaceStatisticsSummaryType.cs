@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyInterfaceStatisticsSummaryType : NSXTLogicalRouterPortStatisticsSummaryType
     {
-        public NSXTPolicyInterfaceStatisticsSummaryType()
-        {
-        }
         /// <summary>
         /// Policy path for the interface
         /// </summary>
-        [JsonProperty(PropertyName = "interface_policy_path")]
-        [NSXTProperty(IsRequired: false, Description: @"Policy path for the interface")]
         public string? InterfacePolicyPath { get; set; }
     }
 }

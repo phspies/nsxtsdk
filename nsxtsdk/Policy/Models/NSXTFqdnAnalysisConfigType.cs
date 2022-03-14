@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTFqdnAnalysisConfigType : NSXTPolicyConfigResourceType
     {
-        public NSXTFqdnAnalysisConfigType()
-        {
-        }
         /// <summary>
         /// Property which specifies the enabling/disabling of the feature.
         /// </summary>
-        [JsonProperty(PropertyName = "enabled")]
-        [NSXTProperty(IsRequired: false, Description: @"Property which specifies the enabling/disabling of the feature.")]
         public bool? Enabled { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,30 +17,17 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyFirewallCpuMemThresholdsProfileType : NSXTPolicyConfigResourceType
     {
-        public NSXTPolicyFirewallCpuMemThresholdsProfileType()
-        {
-            MemThresholdPercentage = test
-            CpuThresholdPercentage = test
-        }
         /// <summary>
         /// Heap memory thresholds percentage to monitor and report for
         /// distributed firewall.
         /// </summary>
         [JsonProperty(PropertyName = "mem_threshold_percentage", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Heap memory thresholds percentage to monitor and report fordistributed firewall.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(10)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(100)]
-        [System.ComponentModel.DataAnnotations.Required]
         public long MemThresholdPercentage { get; set; }
         /// <summary>
         /// CPU utilization thresholds percentage to monitor and report for
         /// distributed firewall.
         /// </summary>
         [JsonProperty(PropertyName = "cpu_threshold_percentage", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"CPU utilization thresholds percentage to monitor and report fordistributed firewall.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(10)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(100)]
-        [System.ComponentModel.DataAnnotations.Required]
         public long CpuThresholdPercentage { get; set; }
     }
 }

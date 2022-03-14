@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,22 +17,15 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Unary Operation.")]
     public class NSXTUnaryOperationType 
     {
-        public NSXTUnaryOperationType()
-        {
-        }
         /// <summary>
         /// Logical Operator describing the operation to apply to the operand.
         /// </summary>
         [JsonProperty(PropertyName = "operator", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Logical Operator describing the operation to apply to the operand.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTUnaryOperationOperatorEnumType OperatorProperty { get; set; }
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty(PropertyName = "operand", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTResourceFieldPointerType Operand { get; set; }
     }
 }

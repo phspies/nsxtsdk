@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,21 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildResourceReferenceType : NSXTChildPolicyConfigResourceType
     {
-        public NSXTChildResourceReferenceType()
-        {
-        }
         /// <summary>
         /// subtree for this type within policy tree containing nested elements.
         /// </summary>
-        [JsonProperty(PropertyName = "children")]
-        [NSXTProperty(IsRequired: false, Description: @"subtree for this type within policy tree containing nested elements.")]
         public IList<NSXTChildPolicyConfigResourceType> Children { get; set; }
         /// <summary>
         /// The target type of this reference
         /// </summary>
         [JsonProperty(PropertyName = "target_type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"The target type of this reference")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string TargetType { get; set; }
     }
 }

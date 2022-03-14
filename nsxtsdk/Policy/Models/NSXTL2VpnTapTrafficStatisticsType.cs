@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,44 +17,29 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"TAP (Terminal access point) traffic statistics for L2Vpn.")]
     public class NSXTL2VpnTapTrafficStatisticsType 
     {
-        public NSXTL2VpnTapTrafficStatisticsType()
-        {
-        }
         /// <summary>
         /// Total number of outgoing packets.
         /// </summary>
-        [JsonProperty(PropertyName = "packets_out")]
-        [NSXTProperty(IsRequired: false, Description: @"Total number of outgoing packets.")]
         public long? PacketsOut { get; set; }
         /// <summary>
         /// Total number of incoming bytes.
         /// </summary>
-        [JsonProperty(PropertyName = "bytes_in")]
-        [NSXTProperty(IsRequired: false, Description: @"Total number of incoming bytes.")]
         public long? BytesIn { get; set; }
         /// <summary>
         /// Total number of packets dropped while sending for any reason.
         /// </summary>
-        [JsonProperty(PropertyName = "packets_sent_error")]
-        [NSXTProperty(IsRequired: false, Description: @"Total number of packets dropped while sending for any reason.")]
         public long? PacketsSentError { get; set; }
         /// <summary>
         /// Total number of incoming packets dropped.
         /// </summary>
-        [JsonProperty(PropertyName = "packets_receive_error")]
-        [NSXTProperty(IsRequired: false, Description: @"Total number of incoming packets dropped.")]
         public long? PacketsReceiveError { get; set; }
         /// <summary>
         /// Total number of incoming packets.
         /// </summary>
-        [JsonProperty(PropertyName = "packets_in")]
-        [NSXTProperty(IsRequired: false, Description: @"Total number of incoming packets.")]
         public long? PacketsIn { get; set; }
         /// <summary>
         /// Total number of outgoing bytes.
         /// </summary>
-        [JsonProperty(PropertyName = "bytes_out")]
-        [NSXTProperty(IsRequired: false, Description: @"Total number of outgoing bytes.")]
         public long? BytesOut { get; set; }
     }
 }

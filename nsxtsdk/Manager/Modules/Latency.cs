@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public Latency(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public Latency(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLatencyStatProfileType CreateLatencyStatProfile(NSXTLatencyStatProfileType LatencyStatProfile)
+        public async Task<NSXTLatencyStatProfileType> CreateLatencyStatProfile(NSXTLatencyStatProfileType LatencyStatProfile)
         {
             if (LatencyStatProfile == null) { throw new System.ArgumentNullException("LatencyStatProfile cannot be null"); }
             NSXTLatencyStatProfileType returnValue = default(NSXTLatencyStatProfileType);
@@ -43,31 +50,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(LatencyStatProfile, defaultSerializationSettings));
             request.Resource = CreateLatencyStatProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLatencyStatProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLatencyStatProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CreateLatencyStatProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLatencyStatProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLatencyStatProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLatencyStatProfileListResultType ListLatencyProfiles(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTLatencyStatProfileListResultType> ListLatencyProfiles(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTLatencyStatProfileListResultType returnValue = default(NSXTLatencyStatProfileListResultType);
             StringBuilder ListLatencyProfilesServiceURL = new StringBuilder("/latency-profiles");
@@ -83,31 +78,19 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListLatencyProfilesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLatencyStatProfileListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLatencyStatProfileListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListLatencyProfilesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLatencyStatProfileListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLatencyStatProfileListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLatencyStatProfileType UpdateLatencyProfile(string LatencyProfileId, NSXTLatencyStatProfileType LatencyStatProfile)
+        public async Task<NSXTLatencyStatProfileType> UpdateLatencyProfile(string LatencyProfileId, NSXTLatencyStatProfileType LatencyStatProfile)
         {
             if (LatencyProfileId == null) { throw new System.ArgumentNullException("LatencyProfileId cannot be null"); }
             if (LatencyStatProfile == null) { throw new System.ArgumentNullException("LatencyStatProfile cannot be null"); }
@@ -122,31 +105,19 @@ namespace nsxtapi.ManagerModules
             UpdateLatencyProfileServiceURL.Replace("{latency-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LatencyProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(LatencyStatProfile, defaultSerializationSettings));
             request.Resource = UpdateLatencyProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLatencyStatProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLatencyStatProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateLatencyProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLatencyStatProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLatencyStatProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteLatencyStatProfile(string LatencyProfileId)
+        public async Task DeleteLatencyStatProfile(string LatencyProfileId)
         {
             if (LatencyProfileId == null) { throw new System.ArgumentNullException("LatencyProfileId cannot be null"); }
             
@@ -159,7 +130,7 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             DeleteLatencyStatProfileServiceURL.Replace("{latency-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LatencyProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteLatencyStatProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteLatencyStatProfileServiceURL.ToString() + " did not complete successfull";
@@ -171,7 +142,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLatencyStatProfileType ReadLatencyStatProfile(string LatencyProfileId)
+        public async Task<NSXTLatencyStatProfileType> ReadLatencyStatProfile(string LatencyProfileId)
         {
             if (LatencyProfileId == null) { throw new System.ArgumentNullException("LatencyProfileId cannot be null"); }
             NSXTLatencyStatProfileType returnValue = default(NSXTLatencyStatProfileType);
@@ -184,25 +155,13 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             ReadLatencyStatProfileServiceURL.Replace("{latency-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LatencyProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadLatencyStatProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLatencyStatProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLatencyStatProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadLatencyStatProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLatencyStatProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLatencyStatProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

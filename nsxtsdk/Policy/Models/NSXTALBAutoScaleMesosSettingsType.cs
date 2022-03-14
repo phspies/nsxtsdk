@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,17 +17,11 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer AutoScaleMesosSettings object")]
     public class NSXTALBAutoScaleMesosSettingsType 
     {
-        public NSXTALBAutoScaleMesosSettingsType()
-        {
-            Force = test
-        }
         /// <summary>
         /// Apply scaleout even when there are deployments inprogress.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as true.
         /// </summary>
-        [JsonProperty(PropertyName = "force")]
-        [NSXTProperty(IsRequired: false, Description: @"Apply scaleout even when there are deployments inprogress.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
         public bool? Force { get; set; }
     }
 }

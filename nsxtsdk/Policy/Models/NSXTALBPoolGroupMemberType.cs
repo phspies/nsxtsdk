@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,10 +17,6 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer PoolGroupMember object")]
     public class NSXTALBPoolGroupMemberType 
     {
-        public NSXTALBPoolGroupMemberType()
-        {
-            Ratio = test
-        }
         /// <summary>
         /// All pools with same label are treated similarly in a pool
         /// group.
@@ -28,8 +24,6 @@ namespace nsxtsdk.PolicyModels
         /// pool is eligible or an explicit policy chooses a different
         /// pool.
         /// </summary>
-        [JsonProperty(PropertyName = "priority_label")]
-        [NSXTProperty(IsRequired: false, Description: @"All pools with same label are treated similarly in a poolgroup.A pool with a higher priority is selected, as long as thepool is eligible or an explicit policy chooses a differentpool.")]
         public string? PriorityLabel { get; set; }
         /// <summary>
         /// Ratio of selecting eligible pools in the pool group.
@@ -41,26 +35,18 @@ namespace nsxtsdk.PolicyModels
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 1.
         /// </summary>
-        [JsonProperty(PropertyName = "ratio")]
-        [NSXTProperty(IsRequired: false, Description: @"Ratio of selecting eligible pools in the pool group.Allowed values are 1-1000.Special values are 0 - &apos;Do not select this pool for newconnections&apos;.Allowed in Basic(Allowed values- 1) edition,Essentials(Allowed values- 1) edition, Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller as 1.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(1000)]
         public long? Ratio { get; set; }
         /// <summary>
         /// path of the pool.
         /// It is a reference to an object of type Pool.
         /// </summary>
         [JsonProperty(PropertyName = "pool_path", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"path of the pool.It is a reference to an object of type Pool.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string PoolPath { get; set; }
         /// <summary>
         /// Pool deployment state used with the PG deployment policy.
         /// Enum options - EVALUATION_IN_PROGRESS, IN_SERVICE,
         /// OUT_OF_SERVICE, EVALUATION_FAILED.
         /// </summary>
-        [JsonProperty(PropertyName = "deployment_state")]
-        [NSXTProperty(IsRequired: false, Description: @"Pool deployment state used with the PG deployment policy.Enum options - EVALUATION_IN_PROGRESS, IN_SERVICE,OUT_OF_SERVICE, EVALUATION_FAILED.")]
         public NSXTAlbpoolGroupMemberDeploymentStateEnumType? DeploymentState { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,55 +17,37 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Short name or alias of a url. It is used to represent the url.")]
     public class NSXTUrlAliasType 
     {
-        public NSXTUrlAliasType()
-        {
-            RequestMethod = test
-        }
         /// <summary>
         /// Short name or alias of url, if any. If not specified, the url can be referenced by its index in the array of urls of the
         /// datasource instance as $<index> (for example, $0).
         /// </summary>
-        [JsonProperty(PropertyName = "alias")]
-        [NSXTProperty(IsRequired: false, Description: @"Short name or alias of url, if any. If not specified, the url can be referenced by its index in the array of urls of the datasource instance as $&lt;index&gt; (for example, $0).")]
         public string? Alias { get; set; }
         /// <summary>
         /// Type of the http method (Get, Post) to be used while invoking the given url through dashboard datasource framework.
         /// </summary>
-        [JsonProperty(PropertyName = "request_method")]
-        [NSXTProperty(IsRequired: false, Description: @"Type of the http method (Get, Post) to be used while invoking the given url through dashboard datasource framework.")]
         public NSXTUrlAliasRequestMethodEnumType? RequestMethod { get; set; }
         /// <summary>
         /// A raw request body in the form json format for a given url. This request body will be submitted along with request while
         /// giving a post api call.
         /// </summary>
-        [JsonProperty(PropertyName = "request_body")]
-        [NSXTProperty(IsRequired: false, Description: @"A raw request body in the form json format for a given url. This request body will be submitted along with request while giving a post api call.")]
         public object? RequestBody { get; set; }
         /// <summary>
         /// Url to fetch data from.
         /// </summary>
         [JsonProperty(PropertyName = "url", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Url to fetch data from.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Url { get; set; }
         /// <summary>
         /// Search query to be applied, if any. If query string is not provided, it will be ignored.
         /// </summary>
-        [JsonProperty(PropertyName = "query")]
-        [NSXTProperty(IsRequired: false, Description: @"Search query to be applied, if any. If query string is not provided, it will be ignored.")]
         public string? Query { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "keystore_info")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTKeyStoreInfoType KeystoreInfo { get; set; }
         /// <summary>
         /// A raw request header in the form json format for a given url. This request header will be submitted along with request
         /// while giving a api call.
         /// </summary>
-        [JsonProperty(PropertyName = "request_headers")]
-        [NSXTProperty(IsRequired: false, Description: @"A raw request header in the form json format for a given url. This request header will be submitted along with request while giving a api call.")]
         public object? RequestHeaders { get; set; }
     }
 }

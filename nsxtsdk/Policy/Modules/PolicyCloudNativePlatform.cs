@@ -21,16 +21,23 @@ namespace nsxtapi.PolicyModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public PolicyCloudNativePlatform(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public PolicyCloudNativePlatform(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPlatformFormFactorsType GetAvailableFormFactors(string SiteId)
+        public async Task<NSXTPlatformFormFactorsType> GetAvailableFormFactors(string SiteId)
         {
             if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
             NSXTPlatformFormFactorsType returnValue = default(NSXTPlatformFormFactorsType);
@@ -43,31 +50,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             GetAvailableFormFactorsServiceURL.Replace("{site-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SiteId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetAvailableFormFactorsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPlatformFormFactorsType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPlatformFormFactorsType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetAvailableFormFactorsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPlatformFormFactorsType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPlatformFormFactorsType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDeploymentVersionsType GetAvailableVersions(string SiteId)
+        public async Task<NSXTDeploymentVersionsType> GetAvailableVersions(string SiteId)
         {
             if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
             NSXTDeploymentVersionsType returnValue = default(NSXTDeploymentVersionsType);
@@ -80,31 +75,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             GetAvailableVersionsServiceURL.Replace("{site-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SiteId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetAvailableVersionsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDeploymentVersionsType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDeploymentVersionsType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetAvailableVersionsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDeploymentVersionsType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDeploymentVersionsType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDeploymentChecksStatusResultType GetPlatformDeploymentChecksStatus(string SiteId)
+        public async Task<NSXTDeploymentChecksStatusResultType> GetPlatformDeploymentChecksStatus(string SiteId)
         {
             if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
             NSXTDeploymentChecksStatusResultType returnValue = default(NSXTDeploymentChecksStatusResultType);
@@ -117,31 +100,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             GetPlatformDeploymentChecksStatusServiceURL.Replace("{site-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SiteId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetPlatformDeploymentChecksStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDeploymentChecksStatusResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDeploymentChecksStatusResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetPlatformDeploymentChecksStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDeploymentChecksStatusResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDeploymentChecksStatusResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDeploymentProgressStatusType PlatformDeploymentProgress(string SiteId)
+        public async Task<NSXTDeploymentProgressStatusType> PlatformDeploymentProgress(string SiteId)
         {
             if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
             NSXTDeploymentProgressStatusType returnValue = default(NSXTDeploymentProgressStatusType);
@@ -154,31 +125,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             PlatformDeploymentProgressServiceURL.Replace("{site-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SiteId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = PlatformDeploymentProgressServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDeploymentProgressStatusType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDeploymentProgressStatusType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + PlatformDeploymentProgressServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDeploymentProgressStatusType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDeploymentProgressStatusType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void RunDeploymentChecks(string SiteId, NSXTPlatformDeploymentChecksActionType PlatformDeploymentChecksAction)
+        public async Task RunDeploymentChecks(string SiteId, NSXTPlatformDeploymentChecksActionType PlatformDeploymentChecksAction)
         {
             if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
             if (PlatformDeploymentChecksAction == null) { throw new System.ArgumentNullException("PlatformDeploymentChecksAction cannot be null"); }
@@ -193,7 +152,7 @@ namespace nsxtapi.PolicyModules
             RunDeploymentChecksServiceURL.Replace("{site-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SiteId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(PlatformDeploymentChecksAction, defaultSerializationSettings));
             request.Resource = RunDeploymentChecksServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + RunDeploymentChecksServiceURL.ToString() + " did not complete successfull";
@@ -205,7 +164,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPlatformDeploymentConfigType UpdatePlatformDeploymentConfig(string SiteId, NSXTPlatformDeploymentConfigType PlatformDeploymentConfig)
+        public async Task<NSXTPlatformDeploymentConfigType> UpdatePlatformDeploymentConfig(string SiteId, NSXTPlatformDeploymentConfigType PlatformDeploymentConfig)
         {
             if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
             if (PlatformDeploymentConfig == null) { throw new System.ArgumentNullException("PlatformDeploymentConfig cannot be null"); }
@@ -220,31 +179,19 @@ namespace nsxtapi.PolicyModules
             UpdatePlatformDeploymentConfigServiceURL.Replace("{site-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SiteId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(PlatformDeploymentConfig, defaultSerializationSettings));
             request.Resource = UpdatePlatformDeploymentConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPlatformDeploymentConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPlatformDeploymentConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + UpdatePlatformDeploymentConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPlatformDeploymentConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPlatformDeploymentConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPlatformDeploymentConfigType GetPlatformDeploymentConfig(string SiteId)
+        public async Task<NSXTPlatformDeploymentConfigType> GetPlatformDeploymentConfig(string SiteId)
         {
             if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
             NSXTPlatformDeploymentConfigType returnValue = default(NSXTPlatformDeploymentConfigType);
@@ -257,25 +204,13 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             GetPlatformDeploymentConfigServiceURL.Replace("{site-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SiteId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetPlatformDeploymentConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPlatformDeploymentConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPlatformDeploymentConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetPlatformDeploymentConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPlatformDeploymentConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPlatformDeploymentConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

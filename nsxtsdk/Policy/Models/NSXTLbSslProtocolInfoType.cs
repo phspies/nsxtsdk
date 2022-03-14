@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,29 +17,20 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"SSL protocol")]
     public class NSXTLbSslProtocolInfoType 
     {
-        public NSXTLbSslProtocolInfoType()
-        {
-        }
         /// <summary>
         /// Default SSL protocol flag
         /// </summary>
         [JsonProperty(PropertyName = "is_default", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Default SSL protocol flag")]
-        [System.ComponentModel.DataAnnotations.Required]
         public bool IsDefault { get; set; }
         /// <summary>
         /// Secure/insecure SSL protocol flag
         /// </summary>
         [JsonProperty(PropertyName = "is_secure", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Secure/insecure SSL protocol flag")]
-        [System.ComponentModel.DataAnnotations.Required]
         public bool IsSecure { get; set; }
         /// <summary>
         /// SSL protocol
         /// </summary>
         [JsonProperty(PropertyName = "protocol", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"SSL protocol")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTLbSslProtocolInfoProtocolEnumType Protocol { get; set; }
     }
 }

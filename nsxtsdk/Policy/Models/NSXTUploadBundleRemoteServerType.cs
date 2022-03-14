@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,35 +17,24 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTUploadBundleRemoteServerType : NSXTPolicyConfigResourceType
     {
-        public NSXTUploadBundleRemoteServerType()
-        {
-        }
         /// <summary>
         /// Relative path to download file.
         /// </summary>
         [JsonProperty(PropertyName = "uri", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Relative path to download file.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Uri { get; set; }
         /// <summary>
         /// Protocol used HTTP or HTTPS.
         /// </summary>
         [JsonProperty(PropertyName = "protocol", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Protocol used HTTP or HTTPS.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTUploadBundleRemoteServerProtocolEnumType Protocol { get; set; }
         /// <summary>
         /// Port to connect with.
         /// </summary>
-        [JsonProperty(PropertyName = "port")]
-        [NSXTProperty(IsRequired: false, Description: @"Port to connect with.")]
         public string? Port { get; set; }
         /// <summary>
         /// Server IP or FQDN.
         /// </summary>
         [JsonProperty(PropertyName = "server", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Server IP or FQDN.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Server { get; set; }
     }
 }

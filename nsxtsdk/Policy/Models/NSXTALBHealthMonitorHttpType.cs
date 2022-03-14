@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,18 +17,12 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer HealthMonitorHttp object")]
     public class NSXTALBHealthMonitorHttpType 
     {
-        public NSXTALBHealthMonitorHttpType()
-        {
-            HttpRequest = test
-        }
         /// <summary>
         /// Type of the authentication method.
         /// Enum options - AUTH_BASIC, AUTH_NTLM.
         /// Allowed in Basic edition, Essentials edition, Enterprise
         /// edition.
         /// </summary>
-        [JsonProperty(PropertyName = "auth_type")]
-        [NSXTProperty(IsRequired: false, Description: @"Type of the authentication method.Enum options - AUTH_BASIC, AUTH_NTLM.Allowed in Basic edition, Essentials edition, Enterpriseedition.")]
         public NSXTAlbhealthMonitorHttpAuthTypeEnumType? AuthType { get; set; }
         /// <summary>
         /// Send an HTTP request to the server.
@@ -39,8 +33,6 @@ namespace nsxtsdk.PolicyModels
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as GET / HTTP/1.0.
         /// </summary>
-        [JsonProperty(PropertyName = "http_request")]
-        [NSXTProperty(IsRequired: false, Description: @"Send an HTTP request to the server.The default GET / HTTP/1.0 may be extended with additionalheaders or information.For instance, GET /index.htm HTTP/1.1 Host  www.site.comConnection  Close.Default value when not specified in API or module isinterpreted by ALB Controller as GET / HTTP/1.0.")]
         public string? HttpRequest { get; set; }
         /// <summary>
         /// List of HTTP response codes to match as successful.
@@ -50,24 +42,16 @@ namespace nsxtsdk.PolicyModels
         /// Minimum of 1 items required.
         /// </summary>
         [JsonProperty(PropertyName = "http_response_code", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"List of HTTP response codes to match as successful.Default is 2xx.Enum options - HTTP_ANY, HTTP_1XX, HTTP_2XX, HTTP_3XX,HTTP_4XX, HTTP_5XX.Minimum of 1 items required.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<string> HttpResponseCode { get; set; }
         /// <summary>
         /// Expected http/https response page size.
         /// Allowed values are 2048-16384.
         /// </summary>
-        [JsonProperty(PropertyName = "response_size")]
-        [NSXTProperty(IsRequired: false, Description: @"Expected http/https response page size.Allowed values are 2048-16384.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(2048)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(16384)]
         public long? ResponseSize { get; set; }
         /// <summary>
         /// Match for a keyword in the first 2Kb of the server header
         /// and body response.
         /// </summary>
-        [JsonProperty(PropertyName = "http_response")]
-        [NSXTProperty(IsRequired: false, Description: @"Match for a keyword in the first 2Kb of the server headerand body response.")]
         public string? HttpResponse { get; set; }
         /// <summary>
         /// Use the exact http_request string as specified by user,
@@ -75,28 +59,20 @@ namespace nsxtsdk.PolicyModels
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as false.
         /// </summary>
-        [JsonProperty(PropertyName = "exact_http_request")]
-        [NSXTProperty(IsRequired: false, Description: @"Use the exact http_request string as specified by user,without any automatic insert of headers like Host header.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
         public bool? ExactHttpRequest { get; set; }
         /// <summary>
         /// Match or look for this keyword in the first 2KB of server
         /// header and body response indicating server maintenance.
         /// A successful match results in the server being marked down.
         /// </summary>
-        [JsonProperty(PropertyName = "maintenance_response")]
-        [NSXTProperty(IsRequired: false, Description: @"Match or look for this keyword in the first 2KB of serverheader and body response indicating server maintenance.A successful match results in the server being marked down.")]
         public string? MaintenanceResponse { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "ssl_attributes")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBHealthMonitorSSLAttributesType SslAttributes { get; set; }
         /// <summary>
         /// HTTP request body.
         /// </summary>
-        [JsonProperty(PropertyName = "http_request_body")]
-        [NSXTProperty(IsRequired: false, Description: @"HTTP request body.")]
         public string? HttpRequestBody { get; set; }
         /// <summary>
         /// Match or look for this HTTP response code indicating server
@@ -105,8 +81,6 @@ namespace nsxtsdk.PolicyModels
         /// Allowed values are 101-599.
         /// Maximum of 4 items allowed.
         /// </summary>
-        [JsonProperty(PropertyName = "maintenance_code")]
-        [NSXTProperty(IsRequired: false, Description: @"Match or look for this HTTP response code indicating servermaintenance.A successful match results in the server being marked down.Allowed values are 101-599.Maximum of 4 items allowed.")]
         public long? MaintenanceCode { get; set; }
     }
 }

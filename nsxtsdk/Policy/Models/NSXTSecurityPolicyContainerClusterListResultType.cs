@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTSecurityPolicyContainerClusterListResultType : NSXTListResultType
     {
-        public NSXTSecurityPolicyContainerClusterListResultType()
-        {
-        }
         /// <summary>
         /// List of container clusters for a security policy
         /// </summary>
-        [JsonProperty(PropertyName = "results")]
-        [NSXTProperty(IsRequired: false, Description: @"List of container clusters for a security policy")]
         public IList<NSXTSecurityPolicyContainerClusterType> Results { get; set; }
     }
 }

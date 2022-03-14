@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTALBAlertScriptConfigType : NSXTPolicyConfigResourceType
     {
-        public NSXTALBAlertScriptConfigType()
-        {
-        }
         /// <summary>
         /// User Defined Alert Action Script.
         /// Please refer to kb.avinetworks.com for more information.
         /// </summary>
-        [JsonProperty(PropertyName = "action_script")]
-        [NSXTProperty(IsRequired: false, Description: @"User Defined Alert Action Script.Please refer to kb.avinetworks.com for more information.")]
         public string? ActionScript { get; set; }
     }
 }

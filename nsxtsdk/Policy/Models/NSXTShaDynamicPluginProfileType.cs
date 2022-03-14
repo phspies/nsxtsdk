@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTShaDynamicPluginProfileType : NSXTShaPluginProfileType
     {
-        public NSXTShaDynamicPluginProfileType()
-        {
-        }
         /// <summary>
         /// Define the plugin configurtion.
         /// </summary>
         [JsonProperty(PropertyName = "config", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Define the plugin configurtion.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Config { get; set; }
     }
 }

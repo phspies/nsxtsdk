@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Used to specify subnets in L3Vpn rule.")]
     public class NSXTL3VpnSubnetType 
     {
-        public NSXTL3VpnSubnetType()
-        {
-        }
         /// <summary>
         /// Subnet used in L3Vpn Rule.
         /// </summary>
         [JsonProperty(PropertyName = "subnet", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Subnet used in L3Vpn Rule.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Subnet { get; set; }
     }
 }

@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public NodeSyslogExporters(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public NodeSyslogExporters(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNodeSyslogExporterPropertiesType PostNodeSyslogExporter(NSXTNodeSyslogExporterPropertiesType NodeSyslogExporterProperties)
+        public async Task<NSXTNodeSyslogExporterPropertiesType> PostNodeSyslogExporter(NSXTNodeSyslogExporterPropertiesType NodeSyslogExporterProperties)
         {
             if (NodeSyslogExporterProperties == null) { throw new System.ArgumentNullException("NodeSyslogExporterProperties cannot be null"); }
             NSXTNodeSyslogExporterPropertiesType returnValue = default(NSXTNodeSyslogExporterPropertiesType);
@@ -43,31 +50,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(NodeSyslogExporterProperties, defaultSerializationSettings));
             request.Resource = PostNodeSyslogExporterServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNodeSyslogExporterPropertiesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNodeSyslogExporterPropertiesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + PostNodeSyslogExporterServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNodeSyslogExporterPropertiesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNodeSyslogExporterPropertiesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNodeSyslogExporterPropertiesListResultType ListNodeSyslogExporters()
+        public async Task<NSXTNodeSyslogExporterPropertiesListResultType> ListNodeSyslogExporters()
         {
             NSXTNodeSyslogExporterPropertiesListResultType returnValue = default(NSXTNodeSyslogExporterPropertiesListResultType);
             StringBuilder ListNodeSyslogExportersServiceURL = new StringBuilder("/node/services/syslog/exporters");
@@ -78,31 +73,19 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = ListNodeSyslogExportersServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNodeSyslogExporterPropertiesListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNodeSyslogExporterPropertiesListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListNodeSyslogExportersServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNodeSyslogExporterPropertiesListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNodeSyslogExporterPropertiesListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteNodeSyslogExporterAll()
+        public async Task DeleteNodeSyslogExporterAll()
         {
             
             StringBuilder DeleteNodeSyslogExporterAllServiceURL = new StringBuilder("/node/services/syslog/exporters");
@@ -113,7 +96,7 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = DeleteNodeSyslogExporterAllServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteNodeSyslogExporterAllServiceURL.ToString() + " did not complete successfull";
@@ -125,7 +108,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNodeSyslogExporterPropertiesType ReadNodeSyslogExporter(string ExporterName)
+        public async Task<NSXTNodeSyslogExporterPropertiesType> ReadNodeSyslogExporter(string ExporterName)
         {
             if (ExporterName == null) { throw new System.ArgumentNullException("ExporterName cannot be null"); }
             NSXTNodeSyslogExporterPropertiesType returnValue = default(NSXTNodeSyslogExporterPropertiesType);
@@ -138,31 +121,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             ReadNodeSyslogExporterServiceURL.Replace("{exporter-name}", System.Uri.EscapeDataString(Helpers.ConvertToString(ExporterName, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadNodeSyslogExporterServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNodeSyslogExporterPropertiesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNodeSyslogExporterPropertiesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadNodeSyslogExporterServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNodeSyslogExporterPropertiesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNodeSyslogExporterPropertiesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteNodeSyslogExporter(string ExporterName)
+        public async Task DeleteNodeSyslogExporter(string ExporterName)
         {
             if (ExporterName == null) { throw new System.ArgumentNullException("ExporterName cannot be null"); }
             
@@ -175,7 +146,7 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             DeleteNodeSyslogExporterServiceURL.Replace("{exporter-name}", System.Uri.EscapeDataString(Helpers.ConvertToString(ExporterName, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteNodeSyslogExporterServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteNodeSyslogExporterServiceURL.ToString() + " did not complete successfull";
@@ -187,7 +158,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void VerifyNodeSyslogExporterVerify()
+        public async Task VerifyNodeSyslogExporterVerify()
         {
             
             StringBuilder VerifyNodeSyslogExporterVerifyServiceURL = new StringBuilder("/node/services/syslog/exporters?action=verify");
@@ -198,7 +169,7 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = VerifyNodeSyslogExporterVerifyServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + VerifyNodeSyslogExporterVerifyServiceURL.ToString() + " did not complete successfull";

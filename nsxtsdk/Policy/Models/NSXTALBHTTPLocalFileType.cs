@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,22 +17,15 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer HTTPLocalFile object")]
     public class NSXTALBHTTPLocalFileType 
     {
-        public NSXTALBHTTPLocalFileType()
-        {
-        }
         /// <summary>
         /// File content to used in the local HTTP response body.
         /// </summary>
         [JsonProperty(PropertyName = "file_content", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"File content to used in the local HTTP response body.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string FileContent { get; set; }
         /// <summary>
         /// Mime-type of the content in the file.
         /// </summary>
         [JsonProperty(PropertyName = "content_type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Mime-type of the content in the file.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string ContentType { get; set; }
     }
 }

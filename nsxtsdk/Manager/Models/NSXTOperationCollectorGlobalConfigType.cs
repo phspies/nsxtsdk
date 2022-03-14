@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,23 +17,13 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTOperationCollectorGlobalConfigType : NSXTGlobalConfigsType
     {
-        public NSXTOperationCollectorGlobalConfigType()
-        {
-            ReportInterval = test
-        }
         /// <summary>
         /// Report interval for operation data in seconds.
         /// </summary>
-        [JsonProperty(PropertyName = "report_interval")]
-        [NSXTProperty(IsRequired: false, Description: @"Report interval for operation data in seconds.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(1800)]
         public int? ReportInterval { get; set; }
         /// <summary>
         /// Operation Collector Config.
         /// </summary>
-        [JsonProperty(PropertyName = "collectors")]
-        [NSXTProperty(IsRequired: false, Description: @"Operation Collector Config.")]
         public IList<NSXTOperationCollectorType> Collectors { get; set; }
     }
 }

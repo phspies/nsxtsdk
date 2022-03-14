@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyFirewallCPUMemThresholdsProfileBindingMapListResultType : NSXTListResultType
     {
-        public NSXTPolicyFirewallCPUMemThresholdsProfileBindingMapListResultType()
-        {
-        }
         /// <summary>
         /// Firewall CPU Memory Thresholds Profile Binding Map list results
         /// </summary>
         [JsonProperty(PropertyName = "results", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Firewall CPU Memory Thresholds Profile Binding Map list results")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTPolicyFirewallCPUMemThresholdsProfileBindingMapType> Results { get; set; }
     }
 }

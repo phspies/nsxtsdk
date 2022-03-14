@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,10 +17,6 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer NetworkProfileUnion object")]
     public class NSXTALBNetworkProfileUnionType 
     {
-        public NSXTALBNetworkProfileUnionType()
-        {
-            Type = test
-        }
         /// <summary>
         /// Configure one of either proxy or fast path profiles.
         /// Enum options - PROTOCOL_TYPE_TCP_PROXY,
@@ -35,32 +31,22 @@ namespace nsxtsdk.PolicyModels
         /// interpreted by ALB Controller as PROTOCOL_TYPE_TCP_PROXY.
         /// </summary>
         [JsonProperty(PropertyName = "type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Configure one of either proxy or fast path profiles.Enum options - PROTOCOL_TYPE_TCP_PROXY,PROTOCOL_TYPE_TCP_FAST_PATH, PROTOCOL_TYPE_UDP_FAST_PATH,PROTOCOL_TYPE_UDP_PROXY.Allowed in Basic(Allowed values-PROTOCOL_TYPE_TCP_PROXY,PROTOCOL_TYPE_TCP_FAST_PATH,PROTOCOL_TYPE_UDP_FAST_PATH)edition, Essentials(Allowed values-PROTOCOL_TYPE_TCP_FAST_PATH,PROTOCOL_TYPE_UDP_FAST_PATH)edition, Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller as PROTOCOL_TYPE_TCP_PROXY.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTAlbnetworkProfileUnionTypeEnumType Type { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "tcp_proxy_profile")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBTCPProxyProfileType TcpProxyProfile { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "tcp_fast_path_profile")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBTCPFastPathProfileType TcpFastPathProfile { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "udp_proxy_profile")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBUDPProxyProfileType UdpProxyProfile { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "udp_fast_path_profile")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBUDPFastPathProfileType UdpFastPathProfile { get; set; }
     }
 }

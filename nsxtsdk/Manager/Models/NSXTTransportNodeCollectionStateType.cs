@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,21 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Realization state of attaching or detaching Transport node profile on compute collection.")]
     public class NSXTTransportNodeCollectionStateType 
     {
-        public NSXTTransportNodeCollectionStateType()
-        {
-        }
         /// <summary>
         /// Transport node profile(TNP) will not be applied to a discovered node(DN) if some validations are not passed. In this
         /// case transport node is not created or existing transport node is not updated with TNP configurations.
         /// </summary>
-        [JsonProperty(PropertyName = "validation_errors")]
-        [NSXTProperty(IsRequired: false, Description: @"Transport node profile(TNP) will not be applied to a discovered node(DN) if some validations are not passed. In this case transport node is not created or existing transport node is not updated with TNP configurations.")]
         public IList<NSXTValidationErrorType> ValidationErrors { get; set; }
         /// <summary>
         /// Errors while applying transport node profile which need cluster level action to resolve
         /// </summary>
-        [JsonProperty(PropertyName = "cluster_level_error")]
-        [NSXTProperty(IsRequired: false, Description: @"Errors while applying transport node profile which need cluster level action to resolve")]
         public string? ClusterLevelError { get; set; }
         /// <summary>
         /// If the host preparation or transport node creation is going on for
@@ -52,22 +45,16 @@ namespace nsxtsdk.ManagerModels
         /// and one or more hosts have overridden configuration then transport node
         /// collection state will be "PROFILE_MISMATCH".
         /// </summary>
-        [JsonProperty(PropertyName = "state")]
-        [NSXTProperty(IsRequired: false, Description: @"If the host preparation or transport node creation is going on forany host then state will be &quot;IN_PROGRESS&quot;.If setting desired state of the transport node failed for any ofthe host then state will be &quot;FAILED_TO_CREATE&quot;If realization of transport node failed for any ofthe host then state will be &quot;FAILED_TO_REALIZE&quot;If Transport node is successfully created for all of the hosts incompute collection then state will be &quot;SUCCESS&quot;You can override the configuration for one or more hosts in thecompute collection by update TN(transport node) request on individualTN. If TN is successfully created for all hosts in compute collectionand one or more hosts have overridden configuration then transport nodecollection state will be &quot;PROFILE_MISMATCH&quot;.")]
         public NSXTTransportNodeCollectionStateStateEnumType? State { get; set; }
         /// <summary>
         /// Average of all transport node deployment progress in a cluster. Applicable only if transport node profile is applied on
         /// a cluster.
         /// </summary>
-        [JsonProperty(PropertyName = "aggregate_progress_percentage")]
-        [NSXTProperty(IsRequired: false, Description: @"Average of all transport node deployment progress in a cluster. Applicable only if transport node profile is applied on a cluster.")]
         public long? AggregateProgressPercentage { get; set; }
         /// <summary>
         /// When vLCM is enabled on a compute collection in vSphere the transition workflow is triggered. This field indicates error
         /// in this special case.
         /// </summary>
-        [JsonProperty(PropertyName = "vlcm_transition_error")]
-        [NSXTProperty(IsRequired: false, Description: @"When vLCM is enabled on a compute collection in vSphere the transition workflow is triggered. This field indicates error in this special case.")]
         public string? VlcmTransitionError { get; set; }
     }
 }

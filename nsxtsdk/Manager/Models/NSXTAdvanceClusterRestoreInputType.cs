@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,22 +17,15 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTAdvanceClusterRestoreInputType 
     {
-        public NSXTAdvanceClusterRestoreInputType()
-        {
-        }
         /// <summary>
         /// Unique id of an instruction (as returned by the GET /restore/status
         /// call) for which input is to be provided
         /// </summary>
-        [JsonProperty(PropertyName = "id")]
-        [NSXTProperty(IsRequired: false, Description: @"Unique id of an instruction (as returned by the GET /restore/statuscall) for which input is to be provided")]
         public string? Id { get; set; }
         /// <summary>
         /// List of resources for which the instruction is applicable.
         /// </summary>
         [JsonProperty(PropertyName = "resources", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"List of resources for which the instruction is applicable.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTSelectableResourceReferenceType> Resources { get; set; }
     }
 }

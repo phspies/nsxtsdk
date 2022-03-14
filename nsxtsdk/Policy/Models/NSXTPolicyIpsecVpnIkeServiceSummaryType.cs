@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,27 +17,18 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyIpsecVpnIkeServiceSummaryType : NSXTPolicyIpsecVpnSessionSummaryType
     {
-        public NSXTPolicyIpsecVpnIkeServiceSummaryType()
-        {
-        }
         /// <summary>
         /// Display name of IPSec VPN service
         /// </summary>
-        [JsonProperty(PropertyName = "display_name")]
-        [NSXTProperty(IsRequired: false, Description: @"Display name of IPSec VPN service")]
         public string? DisplayName { get; set; }
         /// <summary>
         /// Policy path of IPSec VPN service
         /// </summary>
-        [JsonProperty(PropertyName = "ipsec_vpn_service_path")]
-        [NSXTProperty(IsRequired: false, Description: @"Policy path of IPSec VPN service")]
         public string? IpsecVpnServicePath { get; set; }
         /// <summary>
         /// Policy Path referencing the Primary site's enforcement point where the info is fetched.
         /// This is applicable only on a GlobalManager.
         /// </summary>
-        [JsonProperty(PropertyName = "enforcement_point_path")]
-        [NSXTProperty(IsRequired: false, Description: @"Policy Path referencing the Primary site&apos;s enforcement point where the info is fetched.This is applicable only on a GlobalManager.")]
         public string? EnforcementPointPath { get; set; }
     }
 }

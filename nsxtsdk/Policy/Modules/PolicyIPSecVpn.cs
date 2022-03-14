@@ -21,16 +21,23 @@ namespace nsxtapi.PolicyModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public PolicyIPSecVpn(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public PolicyIPSecVpn(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIPSecVpnLocalEndpointType CreateOrUpdateTier1IpsecVpnLocalEndpoint(string Tier1Id, string LocaleServiceId, string ServiceId, string LocalEndpointId, NSXTIPSecVpnLocalEndpointType IpsecVpnLocalEndpoint)
+        public async Task<NSXTIPSecVpnLocalEndpointType> CreateOrUpdateTier1IpsecVpnLocalEndpoint(string Tier1Id, string LocaleServiceId, string ServiceId, string LocalEndpointId, NSXTIPSecVpnLocalEndpointType IpsecVpnLocalEndpoint)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -51,31 +58,19 @@ namespace nsxtapi.PolicyModules
             CreateOrUpdateTier1IpsecVpnLocalEndpointServiceURL.Replace("{local-endpoint-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocalEndpointId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(IpsecVpnLocalEndpoint, defaultSerializationSettings));
             request.Resource = CreateOrUpdateTier1IpsecVpnLocalEndpointServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIPSecVpnLocalEndpointType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIPSecVpnLocalEndpointType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateOrUpdateTier1IpsecVpnLocalEndpointServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIPSecVpnLocalEndpointType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIPSecVpnLocalEndpointType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteTier1IpsecVpnLocalEndpoint(string Tier1Id, string LocaleServiceId, string ServiceId, string LocalEndpointId)
+        public async Task DeleteTier1IpsecVpnLocalEndpoint(string Tier1Id, string LocaleServiceId, string ServiceId, string LocalEndpointId)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -94,7 +89,7 @@ namespace nsxtapi.PolicyModules
             DeleteTier1IpsecVpnLocalEndpointServiceURL.Replace("{service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServiceId, System.Globalization.CultureInfo.InvariantCulture)));
             DeleteTier1IpsecVpnLocalEndpointServiceURL.Replace("{local-endpoint-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocalEndpointId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteTier1IpsecVpnLocalEndpointServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteTier1IpsecVpnLocalEndpointServiceURL.ToString() + " did not complete successfull";
@@ -106,7 +101,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void CreateOrPatchTier1IpsecVpnLocalEndpoint(string Tier1Id, string LocaleServiceId, string ServiceId, string LocalEndpointId, NSXTIPSecVpnLocalEndpointType IpsecVpnLocalEndpoint)
+        public async Task CreateOrPatchTier1IpsecVpnLocalEndpoint(string Tier1Id, string LocaleServiceId, string ServiceId, string LocalEndpointId, NSXTIPSecVpnLocalEndpointType IpsecVpnLocalEndpoint)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -127,7 +122,7 @@ namespace nsxtapi.PolicyModules
             CreateOrPatchTier1IpsecVpnLocalEndpointServiceURL.Replace("{local-endpoint-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocalEndpointId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(IpsecVpnLocalEndpoint, defaultSerializationSettings));
             request.Resource = CreateOrPatchTier1IpsecVpnLocalEndpointServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + CreateOrPatchTier1IpsecVpnLocalEndpointServiceURL.ToString() + " did not complete successfull";
@@ -139,7 +134,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIPSecVpnLocalEndpointType GetTier1IpsecVpnLocalEndpoint(string Tier1Id, string LocaleServiceId, string ServiceId, string LocalEndpointId)
+        public async Task<NSXTIPSecVpnLocalEndpointType> GetTier1IpsecVpnLocalEndpoint(string Tier1Id, string LocaleServiceId, string ServiceId, string LocalEndpointId)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -158,31 +153,19 @@ namespace nsxtapi.PolicyModules
             GetTier1IpsecVpnLocalEndpointServiceURL.Replace("{service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServiceId, System.Globalization.CultureInfo.InvariantCulture)));
             GetTier1IpsecVpnLocalEndpointServiceURL.Replace("{local-endpoint-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocalEndpointId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetTier1IpsecVpnLocalEndpointServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIPSecVpnLocalEndpointType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIPSecVpnLocalEndpointType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetTier1IpsecVpnLocalEndpointServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIPSecVpnLocalEndpointType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIPSecVpnLocalEndpointType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public string GetTier1IpsecVpnPeerConfig(string Tier1Id, string LocaleServiceId, string ServiceId, string SessionId, string? EnforcementPointPath = null)
+        public async Task<string> GetTier1IpsecVpnPeerConfig(string Tier1Id, string LocaleServiceId, string ServiceId, string SessionId, string? EnforcementPointPath = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -202,31 +185,19 @@ namespace nsxtapi.PolicyModules
             GetTier1IpsecVpnPeerConfigServiceURL.Replace("{session-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SessionId, System.Globalization.CultureInfo.InvariantCulture)));
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             request.Resource = GetTier1IpsecVpnPeerConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<string> response = await restClient.ExecuteTaskAsyncWithPolicy<string>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetTier1IpsecVpnPeerConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<string>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(string).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIPSecVpnServiceType CreateOrUpdateTier1IpsecVpnService(string Tier1Id, string LocaleServiceId, string ServiceId, NSXTIPSecVpnServiceType IpsecVpnService)
+        public async Task<NSXTIPSecVpnServiceType> CreateOrUpdateTier1IpsecVpnService(string Tier1Id, string LocaleServiceId, string ServiceId, NSXTIPSecVpnServiceType IpsecVpnService)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -245,31 +216,19 @@ namespace nsxtapi.PolicyModules
             CreateOrUpdateTier1IpsecVpnServiceServiceURL.Replace("{service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServiceId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(IpsecVpnService, defaultSerializationSettings));
             request.Resource = CreateOrUpdateTier1IpsecVpnServiceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIPSecVpnServiceType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIPSecVpnServiceType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateOrUpdateTier1IpsecVpnServiceServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIPSecVpnServiceType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIPSecVpnServiceType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void CreateOrPatchTier1IpsecVpnService(string Tier1Id, string LocaleServiceId, string ServiceId, NSXTIPSecVpnServiceType IpsecVpnService)
+        public async Task CreateOrPatchTier1IpsecVpnService(string Tier1Id, string LocaleServiceId, string ServiceId, NSXTIPSecVpnServiceType IpsecVpnService)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -288,7 +247,7 @@ namespace nsxtapi.PolicyModules
             CreateOrPatchTier1IpsecVpnServiceServiceURL.Replace("{service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServiceId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(IpsecVpnService, defaultSerializationSettings));
             request.Resource = CreateOrPatchTier1IpsecVpnServiceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + CreateOrPatchTier1IpsecVpnServiceServiceURL.ToString() + " did not complete successfull";
@@ -300,7 +259,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIPSecVpnServiceType GetTier1IpsecVpnService(string Tier1Id, string LocaleServiceId, string ServiceId)
+        public async Task<NSXTIPSecVpnServiceType> GetTier1IpsecVpnService(string Tier1Id, string LocaleServiceId, string ServiceId)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -317,31 +276,19 @@ namespace nsxtapi.PolicyModules
             GetTier1IpsecVpnServiceServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
             GetTier1IpsecVpnServiceServiceURL.Replace("{service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServiceId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetTier1IpsecVpnServiceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIPSecVpnServiceType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIPSecVpnServiceType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetTier1IpsecVpnServiceServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIPSecVpnServiceType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIPSecVpnServiceType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteTier1IpsecVpnService(string Tier1Id, string LocaleServiceId, string ServiceId)
+        public async Task DeleteTier1IpsecVpnService(string Tier1Id, string LocaleServiceId, string ServiceId)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -358,7 +305,7 @@ namespace nsxtapi.PolicyModules
             DeleteTier1IpsecVpnServiceServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
             DeleteTier1IpsecVpnServiceServiceURL.Replace("{service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServiceId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteTier1IpsecVpnServiceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteTier1IpsecVpnServiceServiceURL.ToString() + " did not complete successfull";
@@ -370,7 +317,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIPSecVpnLocalEndpointListResultType ListTier0IpsecVpnLocalEndpoints(string Tier0Id, string LocaleServiceId, string ServiceId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTIPSecVpnLocalEndpointListResultType> ListTier0IpsecVpnLocalEndpoints(string Tier0Id, string LocaleServiceId, string ServiceId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -393,31 +340,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListTier0IpsecVpnLocalEndpointsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIPSecVpnLocalEndpointListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIPSecVpnLocalEndpointListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListTier0IpsecVpnLocalEndpointsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIPSecVpnLocalEndpointListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIPSecVpnLocalEndpointListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIPSecVpnSessionType CreateOrUpdateTier0IpsecVpnSession(string Tier0Id, string LocaleServiceId, string ServiceId, string SessionId, NSXTIPSecVpnSessionType IpsecVpnSession)
+        public async Task<NSXTIPSecVpnSessionType> CreateOrUpdateTier0IpsecVpnSession(string Tier0Id, string LocaleServiceId, string ServiceId, string SessionId, NSXTIPSecVpnSessionType IpsecVpnSession)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -438,31 +373,19 @@ namespace nsxtapi.PolicyModules
             CreateOrUpdateTier0IpsecVpnSessionServiceURL.Replace("{session-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SessionId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(IpsecVpnSession, defaultSerializationSettings));
             request.Resource = CreateOrUpdateTier0IpsecVpnSessionServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIPSecVpnSessionType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIPSecVpnSessionType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateOrUpdateTier0IpsecVpnSessionServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIPSecVpnSessionType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIPSecVpnSessionType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteTier0IpsecVpnSession(string Tier0Id, string LocaleServiceId, string ServiceId, string SessionId)
+        public async Task DeleteTier0IpsecVpnSession(string Tier0Id, string LocaleServiceId, string ServiceId, string SessionId)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -481,7 +404,7 @@ namespace nsxtapi.PolicyModules
             DeleteTier0IpsecVpnSessionServiceURL.Replace("{service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServiceId, System.Globalization.CultureInfo.InvariantCulture)));
             DeleteTier0IpsecVpnSessionServiceURL.Replace("{session-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SessionId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteTier0IpsecVpnSessionServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteTier0IpsecVpnSessionServiceURL.ToString() + " did not complete successfull";
@@ -493,7 +416,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIPSecVpnSessionType GetTier0IpsecVpnSession(string Tier0Id, string LocaleServiceId, string ServiceId, string SessionId)
+        public async Task<NSXTIPSecVpnSessionType> GetTier0IpsecVpnSession(string Tier0Id, string LocaleServiceId, string ServiceId, string SessionId)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -512,31 +435,19 @@ namespace nsxtapi.PolicyModules
             GetTier0IpsecVpnSessionServiceURL.Replace("{service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServiceId, System.Globalization.CultureInfo.InvariantCulture)));
             GetTier0IpsecVpnSessionServiceURL.Replace("{session-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SessionId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetTier0IpsecVpnSessionServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIPSecVpnSessionType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIPSecVpnSessionType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetTier0IpsecVpnSessionServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIPSecVpnSessionType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIPSecVpnSessionType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void CreateOrPatchTier0IpsecVpnSession(string Tier0Id, string LocaleServiceId, string ServiceId, string SessionId, NSXTIPSecVpnSessionType IpsecVpnSession)
+        public async Task CreateOrPatchTier0IpsecVpnSession(string Tier0Id, string LocaleServiceId, string ServiceId, string SessionId, NSXTIPSecVpnSessionType IpsecVpnSession)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -557,7 +468,7 @@ namespace nsxtapi.PolicyModules
             CreateOrPatchTier0IpsecVpnSessionServiceURL.Replace("{session-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SessionId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(IpsecVpnSession, defaultSerializationSettings));
             request.Resource = CreateOrPatchTier0IpsecVpnSessionServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + CreateOrPatchTier0IpsecVpnSessionServiceURL.ToString() + " did not complete successfull";
@@ -569,7 +480,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIPSecVpnSessionListResultType ListTier1IpsecVpnSessions(string Tier1Id, string LocaleServiceId, string ServiceId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTIPSecVpnSessionListResultType> ListTier1IpsecVpnSessions(string Tier1Id, string LocaleServiceId, string ServiceId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -592,31 +503,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListTier1IpsecVpnSessionsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIPSecVpnSessionListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIPSecVpnSessionListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListTier1IpsecVpnSessionsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIPSecVpnSessionListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIPSecVpnSessionListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIPSecVpnServiceType CreateOrUpdateTier0IpsecVpnService(string Tier0Id, string LocaleServiceId, string ServiceId, NSXTIPSecVpnServiceType IpsecVpnService)
+        public async Task<NSXTIPSecVpnServiceType> CreateOrUpdateTier0IpsecVpnService(string Tier0Id, string LocaleServiceId, string ServiceId, NSXTIPSecVpnServiceType IpsecVpnService)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -635,31 +534,19 @@ namespace nsxtapi.PolicyModules
             CreateOrUpdateTier0IpsecVpnServiceServiceURL.Replace("{service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServiceId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(IpsecVpnService, defaultSerializationSettings));
             request.Resource = CreateOrUpdateTier0IpsecVpnServiceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIPSecVpnServiceType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIPSecVpnServiceType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateOrUpdateTier0IpsecVpnServiceServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIPSecVpnServiceType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIPSecVpnServiceType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIPSecVpnServiceType GetTier0IpsecVpnService(string Tier0Id, string LocaleServiceId, string ServiceId)
+        public async Task<NSXTIPSecVpnServiceType> GetTier0IpsecVpnService(string Tier0Id, string LocaleServiceId, string ServiceId)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -676,31 +563,19 @@ namespace nsxtapi.PolicyModules
             GetTier0IpsecVpnServiceServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
             GetTier0IpsecVpnServiceServiceURL.Replace("{service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServiceId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetTier0IpsecVpnServiceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIPSecVpnServiceType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIPSecVpnServiceType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetTier0IpsecVpnServiceServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIPSecVpnServiceType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIPSecVpnServiceType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteTier0IpsecVpnService(string Tier0Id, string LocaleServiceId, string ServiceId)
+        public async Task DeleteTier0IpsecVpnService(string Tier0Id, string LocaleServiceId, string ServiceId)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -717,7 +592,7 @@ namespace nsxtapi.PolicyModules
             DeleteTier0IpsecVpnServiceServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
             DeleteTier0IpsecVpnServiceServiceURL.Replace("{service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServiceId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteTier0IpsecVpnServiceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteTier0IpsecVpnServiceServiceURL.ToString() + " did not complete successfull";
@@ -729,7 +604,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void CreateOrPatchTier0IpsecVpnService(string Tier0Id, string LocaleServiceId, string ServiceId, NSXTIPSecVpnServiceType IpsecVpnService)
+        public async Task CreateOrPatchTier0IpsecVpnService(string Tier0Id, string LocaleServiceId, string ServiceId, NSXTIPSecVpnServiceType IpsecVpnService)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -748,7 +623,7 @@ namespace nsxtapi.PolicyModules
             CreateOrPatchTier0IpsecVpnServiceServiceURL.Replace("{service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServiceId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(IpsecVpnService, defaultSerializationSettings));
             request.Resource = CreateOrPatchTier0IpsecVpnServiceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + CreateOrPatchTier0IpsecVpnServiceServiceURL.ToString() + " did not complete successfull";
@@ -760,7 +635,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIPSecVpnServiceListResultType ListTier0IpsecVpnServices(string Tier0Id, string LocaleServiceId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTIPSecVpnServiceListResultType> ListTier0IpsecVpnServices(string Tier0Id, string LocaleServiceId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -781,31 +656,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListTier0IpsecVpnServicesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIPSecVpnServiceListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIPSecVpnServiceListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListTier0IpsecVpnServicesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIPSecVpnServiceListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIPSecVpnServiceListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIPSecVpnSessionType CreateOrUpdateTier1IpsecVpnSession(string Tier1Id, string LocaleServiceId, string ServiceId, string SessionId, NSXTIPSecVpnSessionType IpsecVpnSession)
+        public async Task<NSXTIPSecVpnSessionType> CreateOrUpdateTier1IpsecVpnSession(string Tier1Id, string LocaleServiceId, string ServiceId, string SessionId, NSXTIPSecVpnSessionType IpsecVpnSession)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -826,31 +689,19 @@ namespace nsxtapi.PolicyModules
             CreateOrUpdateTier1IpsecVpnSessionServiceURL.Replace("{session-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SessionId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(IpsecVpnSession, defaultSerializationSettings));
             request.Resource = CreateOrUpdateTier1IpsecVpnSessionServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIPSecVpnSessionType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIPSecVpnSessionType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateOrUpdateTier1IpsecVpnSessionServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIPSecVpnSessionType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIPSecVpnSessionType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIPSecVpnSessionType GetTier1IpsecVpnSession(string Tier1Id, string LocaleServiceId, string ServiceId, string SessionId)
+        public async Task<NSXTIPSecVpnSessionType> GetTier1IpsecVpnSession(string Tier1Id, string LocaleServiceId, string ServiceId, string SessionId)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -869,31 +720,19 @@ namespace nsxtapi.PolicyModules
             GetTier1IpsecVpnSessionServiceURL.Replace("{service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServiceId, System.Globalization.CultureInfo.InvariantCulture)));
             GetTier1IpsecVpnSessionServiceURL.Replace("{session-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SessionId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetTier1IpsecVpnSessionServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIPSecVpnSessionType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIPSecVpnSessionType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetTier1IpsecVpnSessionServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIPSecVpnSessionType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIPSecVpnSessionType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteTier1IpsecVpnSession(string Tier1Id, string LocaleServiceId, string ServiceId, string SessionId)
+        public async Task DeleteTier1IpsecVpnSession(string Tier1Id, string LocaleServiceId, string ServiceId, string SessionId)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -912,7 +751,7 @@ namespace nsxtapi.PolicyModules
             DeleteTier1IpsecVpnSessionServiceURL.Replace("{service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServiceId, System.Globalization.CultureInfo.InvariantCulture)));
             DeleteTier1IpsecVpnSessionServiceURL.Replace("{session-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SessionId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteTier1IpsecVpnSessionServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteTier1IpsecVpnSessionServiceURL.ToString() + " did not complete successfull";
@@ -924,7 +763,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void CreateOrPatchTier1IpsecVpnSession(string Tier1Id, string LocaleServiceId, string ServiceId, string SessionId, NSXTIPSecVpnSessionType IpsecVpnSession)
+        public async Task CreateOrPatchTier1IpsecVpnSession(string Tier1Id, string LocaleServiceId, string ServiceId, string SessionId, NSXTIPSecVpnSessionType IpsecVpnSession)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -945,7 +784,7 @@ namespace nsxtapi.PolicyModules
             CreateOrPatchTier1IpsecVpnSessionServiceURL.Replace("{session-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SessionId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(IpsecVpnSession, defaultSerializationSettings));
             request.Resource = CreateOrPatchTier1IpsecVpnSessionServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + CreateOrPatchTier1IpsecVpnSessionServiceURL.ToString() + " did not complete successfull";
@@ -957,7 +796,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIPSecVpnSessionListResultType ListTier0IpsecVpnSessions(string Tier0Id, string LocaleServiceId, string ServiceId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTIPSecVpnSessionListResultType> ListTier0IpsecVpnSessions(string Tier0Id, string LocaleServiceId, string ServiceId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -980,31 +819,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListTier0IpsecVpnSessionsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIPSecVpnSessionListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIPSecVpnSessionListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListTier0IpsecVpnSessionsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIPSecVpnSessionListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIPSecVpnSessionListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIPSecVpnSessionType GetTier1IpsecVpnSessionWithSensitiveData(string Tier1Id, string LocaleServiceId, string ServiceId, string SessionId)
+        public async Task<NSXTIPSecVpnSessionType> GetTier1IpsecVpnSessionWithSensitiveData(string Tier1Id, string LocaleServiceId, string ServiceId, string SessionId)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -1023,31 +850,19 @@ namespace nsxtapi.PolicyModules
             GetTier1IpsecVpnSessionWithSensitiveDataServiceURL.Replace("{service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServiceId, System.Globalization.CultureInfo.InvariantCulture)));
             GetTier1IpsecVpnSessionWithSensitiveDataServiceURL.Replace("{session-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SessionId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetTier1IpsecVpnSessionWithSensitiveDataServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIPSecVpnSessionType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIPSecVpnSessionType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetTier1IpsecVpnSessionWithSensitiveDataServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIPSecVpnSessionType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIPSecVpnSessionType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public string GetTier0IpsecVpnPeerConfig(string Tier0Id, string LocaleServiceId, string ServiceId, string SessionId, string? EnforcementPointPath = null)
+        public async Task<string> GetTier0IpsecVpnPeerConfig(string Tier0Id, string LocaleServiceId, string ServiceId, string SessionId, string? EnforcementPointPath = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -1067,31 +882,19 @@ namespace nsxtapi.PolicyModules
             GetTier0IpsecVpnPeerConfigServiceURL.Replace("{session-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SessionId, System.Globalization.CultureInfo.InvariantCulture)));
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             request.Resource = GetTier0IpsecVpnPeerConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<string> response = await restClient.ExecuteTaskAsyncWithPolicy<string>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetTier0IpsecVpnPeerConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<string>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(string).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIPSecVpnLocalEndpointType CreateOrUpdateTier0IpsecVpnLocalEndpoint(string Tier0Id, string LocaleServiceId, string ServiceId, string LocalEndpointId, NSXTIPSecVpnLocalEndpointType IpsecVpnLocalEndpoint)
+        public async Task<NSXTIPSecVpnLocalEndpointType> CreateOrUpdateTier0IpsecVpnLocalEndpoint(string Tier0Id, string LocaleServiceId, string ServiceId, string LocalEndpointId, NSXTIPSecVpnLocalEndpointType IpsecVpnLocalEndpoint)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -1112,31 +915,19 @@ namespace nsxtapi.PolicyModules
             CreateOrUpdateTier0IpsecVpnLocalEndpointServiceURL.Replace("{local-endpoint-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocalEndpointId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(IpsecVpnLocalEndpoint, defaultSerializationSettings));
             request.Resource = CreateOrUpdateTier0IpsecVpnLocalEndpointServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIPSecVpnLocalEndpointType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIPSecVpnLocalEndpointType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateOrUpdateTier0IpsecVpnLocalEndpointServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIPSecVpnLocalEndpointType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIPSecVpnLocalEndpointType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIPSecVpnLocalEndpointType GetTier0IpsecVpnLocalEndpoint(string Tier0Id, string LocaleServiceId, string ServiceId, string LocalEndpointId)
+        public async Task<NSXTIPSecVpnLocalEndpointType> GetTier0IpsecVpnLocalEndpoint(string Tier0Id, string LocaleServiceId, string ServiceId, string LocalEndpointId)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -1155,31 +946,19 @@ namespace nsxtapi.PolicyModules
             GetTier0IpsecVpnLocalEndpointServiceURL.Replace("{service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServiceId, System.Globalization.CultureInfo.InvariantCulture)));
             GetTier0IpsecVpnLocalEndpointServiceURL.Replace("{local-endpoint-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocalEndpointId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetTier0IpsecVpnLocalEndpointServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIPSecVpnLocalEndpointType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIPSecVpnLocalEndpointType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetTier0IpsecVpnLocalEndpointServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIPSecVpnLocalEndpointType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIPSecVpnLocalEndpointType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void CreateOrPatchTier0IpsecVpnLocalEndpoint(string Tier0Id, string LocaleServiceId, string ServiceId, string LocalEndpointId, NSXTIPSecVpnLocalEndpointType IpsecVpnLocalEndpoint)
+        public async Task CreateOrPatchTier0IpsecVpnLocalEndpoint(string Tier0Id, string LocaleServiceId, string ServiceId, string LocalEndpointId, NSXTIPSecVpnLocalEndpointType IpsecVpnLocalEndpoint)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -1200,7 +979,7 @@ namespace nsxtapi.PolicyModules
             CreateOrPatchTier0IpsecVpnLocalEndpointServiceURL.Replace("{local-endpoint-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocalEndpointId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(IpsecVpnLocalEndpoint, defaultSerializationSettings));
             request.Resource = CreateOrPatchTier0IpsecVpnLocalEndpointServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + CreateOrPatchTier0IpsecVpnLocalEndpointServiceURL.ToString() + " did not complete successfull";
@@ -1212,7 +991,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteTier0IpsecVpnLocalEndpoint(string Tier0Id, string LocaleServiceId, string ServiceId, string LocalEndpointId)
+        public async Task DeleteTier0IpsecVpnLocalEndpoint(string Tier0Id, string LocaleServiceId, string ServiceId, string LocalEndpointId)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -1231,7 +1010,7 @@ namespace nsxtapi.PolicyModules
             DeleteTier0IpsecVpnLocalEndpointServiceURL.Replace("{service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServiceId, System.Globalization.CultureInfo.InvariantCulture)));
             DeleteTier0IpsecVpnLocalEndpointServiceURL.Replace("{local-endpoint-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocalEndpointId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteTier0IpsecVpnLocalEndpointServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteTier0IpsecVpnLocalEndpointServiceURL.ToString() + " did not complete successfull";
@@ -1243,7 +1022,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIPSecVpnSessionType GetTier0IpsecVpnSessionWithSensitiveData(string Tier0Id, string LocaleServiceId, string ServiceId, string SessionId)
+        public async Task<NSXTIPSecVpnSessionType> GetTier0IpsecVpnSessionWithSensitiveData(string Tier0Id, string LocaleServiceId, string ServiceId, string SessionId)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -1262,31 +1041,19 @@ namespace nsxtapi.PolicyModules
             GetTier0IpsecVpnSessionWithSensitiveDataServiceURL.Replace("{service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServiceId, System.Globalization.CultureInfo.InvariantCulture)));
             GetTier0IpsecVpnSessionWithSensitiveDataServiceURL.Replace("{session-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SessionId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetTier0IpsecVpnSessionWithSensitiveDataServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIPSecVpnSessionType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIPSecVpnSessionType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetTier0IpsecVpnSessionWithSensitiveDataServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIPSecVpnSessionType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIPSecVpnSessionType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIPSecVpnLocalEndpointListResultType ListTier1IpsecVpnLocalEndpoints(string Tier1Id, string LocaleServiceId, string ServiceId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTIPSecVpnLocalEndpointListResultType> ListTier1IpsecVpnLocalEndpoints(string Tier1Id, string LocaleServiceId, string ServiceId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -1309,31 +1076,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListTier1IpsecVpnLocalEndpointsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIPSecVpnLocalEndpointListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIPSecVpnLocalEndpointListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListTier1IpsecVpnLocalEndpointsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIPSecVpnLocalEndpointListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIPSecVpnLocalEndpointListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIPSecVpnServiceListResultType ListTier1IpsecVpnServices(string Tier1Id, string LocaleServiceId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTIPSecVpnServiceListResultType> ListTier1IpsecVpnServices(string Tier1Id, string LocaleServiceId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -1354,25 +1109,13 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListTier1IpsecVpnServicesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIPSecVpnServiceListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIPSecVpnServiceListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListTier1IpsecVpnServicesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIPSecVpnServiceListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIPSecVpnServiceListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

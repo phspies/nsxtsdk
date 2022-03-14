@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,9 +17,6 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Pre/Post deployment check.")]
     public class NSXTDeploymentChecksActionType 
     {
-        public NSXTDeploymentChecksActionType()
-        {
-        }
         /// <summary>
         /// Run pre/post deployment checks.
         /// PRE_CHECKS - Run pre-check before deployment.
@@ -27,8 +24,6 @@ namespace nsxtsdk.PolicyModels
         /// ABORT_CHECKS - Abort running pre/post deployement checks.
         /// </summary>
         [JsonProperty(PropertyName = "action", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Run pre/post deployment checks.PRE_CHECKS - Run pre-check before deployment.POST_CHECKS - Run post-check after deployment.ABORT_CHECKS - Abort running pre/post deployement checks.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTDeploymentChecksActionActionEnumType Action { get; set; }
     }
 }

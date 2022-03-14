@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,22 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"NTP Service properties")]
     public class NSXTNtpServicePropertiesType 
     {
-        public NSXTNtpServicePropertiesType()
-        {
-            StartOnBoot = test
-        }
         /// <summary>
         /// Start NTP service when system boots
         /// </summary>
-        [JsonProperty(PropertyName = "start_on_boot")]
-        [NSXTProperty(IsRequired: false, Description: @"Start NTP service when system boots")]
         public bool? StartOnBoot { get; set; }
         /// <summary>
         /// NTP servers
         /// </summary>
         [JsonProperty(PropertyName = "servers", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"NTP servers")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<string> Servers { get; set; }
     }
 }

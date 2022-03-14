@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,28 +17,17 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer PortRange object")]
     public class NSXTALBPortRangeType 
     {
-        public NSXTALBPortRangeType()
-        {
-        }
         /// <summary>
         /// TCP/UDP port range start (inclusive).
         /// Allowed values are 1-65535.
         /// </summary>
         [JsonProperty(PropertyName = "start", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"TCP/UDP port range start (inclusive).Allowed values are 1-65535.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
-        [System.ComponentModel.DataAnnotations.Required]
         public long Start { get; set; }
         /// <summary>
         /// TCP/UDP port range end (inclusive).
         /// Allowed values are 1-65535.
         /// </summary>
         [JsonProperty(PropertyName = "end", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"TCP/UDP port range end (inclusive).Allowed values are 1-65535.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
-        [System.ComponentModel.DataAnnotations.Required]
         public long End { get; set; }
     }
 }

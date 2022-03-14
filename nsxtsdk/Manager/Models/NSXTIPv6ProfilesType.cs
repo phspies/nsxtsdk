@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,9 +17,6 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIPv6ProfilesType 
     {
-        public NSXTIPv6ProfilesType()
-        {
-        }
         /// <summary>
         /// Identifier of Duplicate Address Detection profile.
         /// DAD profile has various configurations related to duplicate
@@ -27,8 +24,6 @@ namespace nsxtsdk.ManagerModels
         /// then the system defined default DAD profile will be automatically
         /// applied.
         /// </summary>
-        [JsonProperty(PropertyName = "dad_profile_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Identifier of Duplicate Address Detection profile.DAD profile has various configurations related to duplicateaddress detection. If no profile is associated manually to the router,then the system defined default DAD profile will be automaticallyapplied.")]
         public string? DadProfileId { get; set; }
         /// <summary>
         /// Identifier of Neighbor Discovery Router Advertisement profile.
@@ -37,8 +32,6 @@ namespace nsxtsdk.ManagerModels
         /// then the system defined default NDRA profile will be automatically
         /// applied.
         /// </summary>
-        [JsonProperty(PropertyName = "ndra_profile_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Identifier of Neighbor Discovery Router Advertisement profile.NDRA profile has various configurations required for routeradvertisement. If no profile is associated manually to the router,then the system defined default NDRA profile will be automaticallyapplied.")]
         public string? NdraProfileId { get; set; }
     }
 }

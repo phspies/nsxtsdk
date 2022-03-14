@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Recommended topology for migrating NVDS to VDS")]
     public class NSXTUpgradeTopologyType 
     {
-        public NSXTUpgradeTopologyType()
-        {
-        }
         /// <summary>
         /// All resultant VDS mapping for a NVDS after the migration
         /// </summary>
         [JsonProperty(PropertyName = "topology", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"All resultant VDS mapping for a NVDS after the migration")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTNvdsUpgradeTopologyType> Topology { get; set; }
     }
 }

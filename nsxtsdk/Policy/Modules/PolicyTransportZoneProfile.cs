@@ -21,16 +21,23 @@ namespace nsxtapi.PolicyModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public PolicyTransportZoneProfile(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public PolicyTransportZoneProfile(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyTransportZoneProfileListResultType GetPolicyTransportZoneProfiles(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTPolicyTransportZoneProfileListResultType> GetPolicyTransportZoneProfiles(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTPolicyTransportZoneProfileListResultType returnValue = default(NSXTPolicyTransportZoneProfileListResultType);
             StringBuilder GetPolicyTransportZoneProfilesServiceURL = new StringBuilder("/infra/transport-zone-profiles");
@@ -47,31 +54,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GetPolicyTransportZoneProfilesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyTransportZoneProfileListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyTransportZoneProfileListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetPolicyTransportZoneProfilesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyTransportZoneProfileListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyTransportZoneProfileListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyTransportZoneProfileType GlobalGlobalInfraGetPolicyTransportZoneProfile(string TzProfileId)
+        public async Task<NSXTPolicyTransportZoneProfileType> GlobalGlobalInfraGetPolicyTransportZoneProfile(string TzProfileId)
         {
             if (TzProfileId == null) { throw new System.ArgumentNullException("TzProfileId cannot be null"); }
             NSXTPolicyTransportZoneProfileType returnValue = default(NSXTPolicyTransportZoneProfileType);
@@ -84,31 +79,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             GlobalInfraGetPolicyTransportZoneProfileServiceURL.Replace("{tz-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(TzProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GlobalInfraGetPolicyTransportZoneProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyTransportZoneProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyTransportZoneProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraGetPolicyTransportZoneProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyTransportZoneProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyTransportZoneProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyTransportZoneProfileType CreateOrUpdatePolicyTransportZoneProfile(string TzProfileId, NSXTPolicyTransportZoneProfileType PolicyTransportZoneProfile)
+        public async Task<NSXTPolicyTransportZoneProfileType> CreateOrUpdatePolicyTransportZoneProfile(string TzProfileId, NSXTPolicyTransportZoneProfileType PolicyTransportZoneProfile)
         {
             if (TzProfileId == null) { throw new System.ArgumentNullException("TzProfileId cannot be null"); }
             if (PolicyTransportZoneProfile == null) { throw new System.ArgumentNullException("PolicyTransportZoneProfile cannot be null"); }
@@ -123,31 +106,19 @@ namespace nsxtapi.PolicyModules
             CreateOrUpdatePolicyTransportZoneProfileServiceURL.Replace("{tz-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(TzProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(PolicyTransportZoneProfile, defaultSerializationSettings));
             request.Resource = CreateOrUpdatePolicyTransportZoneProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyTransportZoneProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyTransportZoneProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateOrUpdatePolicyTransportZoneProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyTransportZoneProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyTransportZoneProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyTransportZoneProfileType PatchPolicyTransportZoneProfile(string TzProfileId, NSXTPolicyTransportZoneProfileType PolicyTransportZoneProfile)
+        public async Task<NSXTPolicyTransportZoneProfileType> PatchPolicyTransportZoneProfile(string TzProfileId, NSXTPolicyTransportZoneProfileType PolicyTransportZoneProfile)
         {
             if (TzProfileId == null) { throw new System.ArgumentNullException("TzProfileId cannot be null"); }
             if (PolicyTransportZoneProfile == null) { throw new System.ArgumentNullException("PolicyTransportZoneProfile cannot be null"); }
@@ -162,31 +133,19 @@ namespace nsxtapi.PolicyModules
             PatchPolicyTransportZoneProfileServiceURL.Replace("{tz-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(TzProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(PolicyTransportZoneProfile, defaultSerializationSettings));
             request.Resource = PatchPolicyTransportZoneProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyTransportZoneProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyTransportZoneProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchPolicyTransportZoneProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyTransportZoneProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyTransportZoneProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeletePolicyTransportZoneProfile(string TzProfileId)
+        public async Task DeletePolicyTransportZoneProfile(string TzProfileId)
         {
             if (TzProfileId == null) { throw new System.ArgumentNullException("TzProfileId cannot be null"); }
             
@@ -199,7 +158,7 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             DeletePolicyTransportZoneProfileServiceURL.Replace("{tz-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(TzProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeletePolicyTransportZoneProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeletePolicyTransportZoneProfileServiceURL.ToString() + " did not complete successfull";
@@ -211,7 +170,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyTransportZoneProfileType GetPolicyTransportZoneProfile(string TzProfileId)
+        public async Task<NSXTPolicyTransportZoneProfileType> GetPolicyTransportZoneProfile(string TzProfileId)
         {
             if (TzProfileId == null) { throw new System.ArgumentNullException("TzProfileId cannot be null"); }
             NSXTPolicyTransportZoneProfileType returnValue = default(NSXTPolicyTransportZoneProfileType);
@@ -224,31 +183,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             GetPolicyTransportZoneProfileServiceURL.Replace("{tz-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(TzProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetPolicyTransportZoneProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyTransportZoneProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyTransportZoneProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetPolicyTransportZoneProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyTransportZoneProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyTransportZoneProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyTransportZoneProfileListResultType GlobalGlobalInfraGetPolicyTransportZoneProfiles(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTPolicyTransportZoneProfileListResultType> GlobalGlobalInfraGetPolicyTransportZoneProfiles(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTPolicyTransportZoneProfileListResultType returnValue = default(NSXTPolicyTransportZoneProfileListResultType);
             StringBuilder GlobalInfraGetPolicyTransportZoneProfilesServiceURL = new StringBuilder("/global-infra/transport-zone-profiles");
@@ -265,25 +212,13 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GlobalInfraGetPolicyTransportZoneProfilesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyTransportZoneProfileListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyTransportZoneProfileListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraGetPolicyTransportZoneProfilesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyTransportZoneProfileListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyTransportZoneProfileListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

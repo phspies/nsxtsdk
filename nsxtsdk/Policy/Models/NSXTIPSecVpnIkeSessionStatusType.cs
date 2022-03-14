@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -18,20 +18,13 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Status for IPSec VPN Ike session UP, DOWN, NEGOTIATING and fail reason if Ike sessionis down.")]
     public class NSXTIPSecVpnIkeSessionStatusType 
     {
-        public NSXTIPSecVpnIkeSessionStatusType()
-        {
-        }
         /// <summary>
         /// Reason for failure.
         /// </summary>
-        [JsonProperty(PropertyName = "fail_reason")]
-        [NSXTProperty(IsRequired: false, Description: @"Reason for failure.")]
         public string? FailReason { get; set; }
         /// <summary>
         /// Ike session service status UP, DOWN and NEGOTIATING.
         /// </summary>
-        [JsonProperty(PropertyName = "ike_session_state")]
-        [NSXTProperty(IsRequired: false, Description: @"Ike session service status UP, DOWN and NEGOTIATING.")]
         public NSXTIpsecVpnIkeSessionStatusIkeSessionStateEnumType? IkeSessionState { get; set; }
     }
 }

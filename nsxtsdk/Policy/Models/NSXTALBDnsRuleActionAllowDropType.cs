@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,27 +17,18 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer DnsRuleActionAllowDrop object")]
     public class NSXTALBDnsRuleActionAllowDropType 
     {
-        public NSXTALBDnsRuleActionAllowDropType()
-        {
-            ResetConn = test
-            Allow = test
-        }
         /// <summary>
         /// Reset the TCP connection of the DNS query, if allow is set
         /// to false to drop the query.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as true.
         /// </summary>
-        [JsonProperty(PropertyName = "reset_conn")]
-        [NSXTProperty(IsRequired: false, Description: @"Reset the TCP connection of the DNS query, if allow is setto false to drop the query.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
         public bool? ResetConn { get; set; }
         /// <summary>
         /// Allow the DNS query.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as true.
         /// </summary>
-        [JsonProperty(PropertyName = "allow")]
-        [NSXTProperty(IsRequired: false, Description: @"Allow the DNS query.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
         public bool? Allow { get; set; }
     }
 }

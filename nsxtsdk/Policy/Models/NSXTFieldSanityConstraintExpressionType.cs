@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,22 +17,15 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTFieldSanityConstraintExpressionType : NSXTConstraintExpressionType
     {
-        public NSXTFieldSanityConstraintExpressionType()
-        {
-        }
         /// <summary>
         /// A conditional operator
         /// </summary>
         [JsonProperty(PropertyName = "operator", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"A conditional operator")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTFieldSanityConstraintExpressionOperatorEnumType OperatorProperty { get; set; }
         /// <summary>
         /// List of sanity checks.
         /// </summary>
         [JsonProperty(PropertyName = "checks", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"List of sanity checks.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<string> Checks { get; set; }
     }
 }

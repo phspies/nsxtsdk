@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Collection of various x509 v3 extensions to be added to a CSR")]
     public class NSXTCsrExtensionsType 
     {
-        public NSXTCsrExtensionsType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "subject_alt_names")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTSubjectAltNamesType SubjectAltNames { get; set; }
     }
 }

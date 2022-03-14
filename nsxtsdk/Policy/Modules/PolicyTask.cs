@@ -21,16 +21,23 @@ namespace nsxtapi.PolicyModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public PolicyTask(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public PolicyTask(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTImportTaskType CancelImportTask()
+        public async Task<NSXTImportTaskType> CancelImportTask()
         {
             NSXTImportTaskType returnValue = default(NSXTImportTaskType);
             StringBuilder CancelImportTaskServiceURL = new StringBuilder("/infra/settings/firewall/import?action=cancel");
@@ -41,31 +48,19 @@ namespace nsxtapi.PolicyModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = CancelImportTaskServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTImportTaskType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTImportTaskType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CancelImportTaskServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTImportTaskType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTImportTaskType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTExportTaskType InvokeExportTask(NSXTExportRequestParameterType ExportRequestParameter)
+        public async Task<NSXTExportTaskType> InvokeExportTask(NSXTExportRequestParameterType ExportRequestParameter)
         {
             if (ExportRequestParameter == null) { throw new System.ArgumentNullException("ExportRequestParameter cannot be null"); }
             NSXTExportTaskType returnValue = default(NSXTExportTaskType);
@@ -78,31 +73,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(ExportRequestParameter, defaultSerializationSettings));
             request.Resource = InvokeExportTaskServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTExportTaskType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTExportTaskType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + InvokeExportTaskServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTExportTaskType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTExportTaskType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTExportTaskType GetExportTask()
+        public async Task<NSXTExportTaskType> GetExportTask()
         {
             NSXTExportTaskType returnValue = default(NSXTExportTaskType);
             StringBuilder GetExportTaskServiceURL = new StringBuilder("/infra/settings/firewall/export");
@@ -113,31 +96,19 @@ namespace nsxtapi.PolicyModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = GetExportTaskServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTExportTaskType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTExportTaskType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetExportTaskServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTExportTaskType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTExportTaskType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DownloadExportedFile()
+        public async Task DownloadExportedFile()
         {
             
             StringBuilder DownloadExportedFileServiceURL = new StringBuilder("/infra/settings/firewall/export?action=download");
@@ -148,7 +119,7 @@ namespace nsxtapi.PolicyModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = DownloadExportedFileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + DownloadExportedFileServiceURL.ToString() + " did not complete successfull";
@@ -160,7 +131,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTImportTaskType GetImportTask()
+        public async Task<NSXTImportTaskType> GetImportTask()
         {
             NSXTImportTaskType returnValue = default(NSXTImportTaskType);
             StringBuilder GetImportTaskServiceURL = new StringBuilder("/infra/settings/firewall/import");
@@ -171,31 +142,19 @@ namespace nsxtapi.PolicyModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = GetImportTaskServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTImportTaskType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTImportTaskType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetImportTaskServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTImportTaskType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTImportTaskType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTExportTaskType CancelExportTask()
+        public async Task<NSXTExportTaskType> CancelExportTask()
         {
             NSXTExportTaskType returnValue = default(NSXTExportTaskType);
             StringBuilder CancelExportTaskServiceURL = new StringBuilder("/infra/settings/firewall/export?action=cancel");
@@ -206,25 +165,13 @@ namespace nsxtapi.PolicyModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = CancelExportTaskServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTExportTaskType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTExportTaskType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CancelExportTaskServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTExportTaskType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTExportTaskType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

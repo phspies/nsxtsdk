@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Metadata fetched from an external system like Syslog or LogInsight.")]
     public class NSXTErrorResolverSystemMetadataType 
     {
-        public NSXTErrorResolverSystemMetadataType()
-        {
-        }
         /// <summary>
         /// The value fetched from another system
         /// </summary>
-        [JsonProperty(PropertyName = "value")]
-        [NSXTProperty(IsRequired: false, Description: @"The value fetched from another system")]
         public string? Value { get; set; }
     }
 }

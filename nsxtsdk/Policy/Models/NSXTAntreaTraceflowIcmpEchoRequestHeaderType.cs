@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,20 +17,13 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"IcmpEchoRequest header stuffs for Antrea traceflow.")]
     public class NSXTAntreaTraceflowIcmpEchoRequestHeaderType 
     {
-        public NSXTAntreaTraceflowIcmpEchoRequestHeaderType()
-        {
-        }
         /// <summary>
         /// Id of IcmpEchoRequest.
         /// </summary>
-        [JsonProperty(PropertyName = "id")]
-        [NSXTProperty(IsRequired: false, Description: @"Id of IcmpEchoRequest.")]
         public long? Id { get; set; }
         /// <summary>
         /// Sequence number of IcmpEchoRequest.
         /// </summary>
-        [JsonProperty(PropertyName = "sequence")]
-        [NSXTProperty(IsRequired: false, Description: @"Sequence number of IcmpEchoRequest.")]
         public long? Sequence { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTSwitchingProfileTypeIdEntryType 
     {
-        public NSXTSwitchingProfileTypeIdEntryType()
-        {
-        }
         /// <summary>
         /// key value
         /// </summary>
         [JsonProperty(PropertyName = "value", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"key value")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Value { get; set; }
         /// <summary>
         /// Supported switching profiles.
@@ -33,8 +28,6 @@ namespace nsxtsdk.ManagerModels
         /// "Troubleshooting And Monitoring: Portmirroring" and use
         /// PortMirroringSession API for port mirror function.
         /// </summary>
-        [JsonProperty(PropertyName = "key")]
-        [NSXTProperty(IsRequired: false, Description: @"Supported switching profiles.&apos;PortMirroringSwitchingProfile&apos; is deprecated, please turn to&quot;Troubleshooting And Monitoring: Portmirroring&quot; and usePortMirroringSession API for port mirror function.")]
         public NSXTSwitchingProfileTypeIdEntryKeyEnumType? Key { get; set; }
     }
 }

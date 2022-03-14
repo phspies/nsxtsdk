@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -20,48 +20,30 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTTlsProfileType : NSXTPolicyConfigResourceType
     {
-        public NSXTTlsProfileType()
-        {
-            /Infra/Cabundles/DefaultTrustedPublicCaBundle = test
-            /Infra/Crls/DefaultPublicCrl = test
-            IdleConnectionTimeout = test
-        }
         /// <summary>
         /// Bypass profile  - CA bundle is required if the "invalid_certificate" action is allow.
         /// External profile - CA bundle is always required.
         /// Internal profile - CA bundle is required if "certificate_validation" is turned on.
         /// </summary>
-        [JsonProperty(PropertyName = "trusted_ca_bundles")]
-        [NSXTProperty(IsRequired: false, Description: @"Bypass profile  - CA bundle is required if the &quot;invalid_certificate&quot; action is allow.External profile - CA bundle is always required.Internal profile - CA bundle is required if &quot;certificate_validation&quot; is turned on.")]
         public IList<string> TrustedCaBundles { get; set; }
         /// <summary>
         /// Bypass profile  - CRL is required if the "invalid_certificate" action is allow.
         /// External profile - CRL is always required.
         /// Internal profile - CRL is required if "certificate_validation" is turned on.
         /// </summary>
-        [JsonProperty(PropertyName = "crls")]
-        [NSXTProperty(IsRequired: false, Description: @"Bypass profile  - CRL is required if the &quot;invalid_certificate&quot; action is allow.External profile - CRL is always required.Internal profile - CRL is required if &quot;certificate_validation&quot; is turned on.")]
         public IList<string> Crls { get; set; }
         /// <summary>
         /// Used to indicate an TLS version or Cipher version pre-defined settings mis-match.
         /// </summary>
-        [JsonProperty(PropertyName = "attention")]
-        [NSXTProperty(IsRequired: false, Description: @"Used to indicate an TLS version or Cipher version pre-defined settings mis-match.")]
         public string? Attention { get; set; }
         /// <summary>
         /// Resource type to use as profile type
         /// </summary>
         [JsonProperty(PropertyName = "resource_type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Resource type to use as profile type")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTTlsProfileResourceTypeEnumType ResourceType { get; set; }
         /// <summary>
         /// Timeout the connection when kept idle. Default is 90 minutes.
         /// </summary>
-        [JsonProperty(PropertyName = "idle_connection_timeout")]
-        [NSXTProperty(IsRequired: false, Description: @"Timeout the connection when kept idle. Default is 90 minutes.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(4320000)]
         public int? IdleConnectionTimeout { get; set; }
     }
 }

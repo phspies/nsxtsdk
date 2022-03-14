@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,27 +17,18 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTAllocatedServiceType 
     {
-        public NSXTAllocatedServiceType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "service_reference")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTResourceReferenceType ServiceReference { get; set; }
         /// <summary>
         /// Represents the active or the standby state of the service.
         /// </summary>
-        [JsonProperty(PropertyName = "high_availability_status")]
-        [NSXTProperty(IsRequired: false, Description: @"Represents the active or the standby state of the service.")]
         public NSXTAllocatedServiceHighAvailabilityStatusEnumType? HighAvailabilityStatus { get; set; }
         /// <summary>
         /// Additional properties of a service, say the sub_pool_size and
         /// sub_pool_type for a LoadBalancer.
         /// </summary>
-        [JsonProperty(PropertyName = "allocation_details")]
-        [NSXTProperty(IsRequired: false, Description: @"Additional properties of a service, say the sub_pool_size andsub_pool_type for a LoadBalancer.")]
         public IList<NSXTKeyValuePairType> AllocationDetails { get; set; }
     }
 }

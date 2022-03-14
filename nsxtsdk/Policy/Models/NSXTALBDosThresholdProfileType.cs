@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,10 +17,6 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer DosThresholdProfile object")]
     public class NSXTALBDosThresholdProfileType 
     {
-        public NSXTALBDosThresholdProfileType()
-        {
-            ThreshPeriod = test
-        }
         /// <summary>
         /// Timer value in seconds to collect DoS attack metrics based
         /// on threshold on the Service Engine for this Virtual Service.
@@ -29,14 +25,10 @@ namespace nsxtsdk.PolicyModels
         /// interpreted by ALB Controller as 5.
         /// </summary>
         [JsonProperty(PropertyName = "thresh_period", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Timer value in seconds to collect DoS attack metrics basedon threshold on the Service Engine for this Virtual Service.Unit is SEC.Default value when not specified in API or module isinterpreted by ALB Controller as 5.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public long ThreshPeriod { get; set; }
         /// <summary>
         /// Attack type, min and max values for DoS attack detection.
         /// </summary>
-        [JsonProperty(PropertyName = "thresh_info")]
-        [NSXTProperty(IsRequired: false, Description: @"Attack type, min and max values for DoS attack detection.")]
         public IList<NSXTALBDosThresholdType> ThreshInfo { get; set; }
     }
 }

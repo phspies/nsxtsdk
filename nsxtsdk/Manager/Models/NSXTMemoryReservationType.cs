@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -19,10 +19,6 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Relative to the form factor pre-defined reservation value. To reducereservation of a VM to 50 percent, a user may specify 50 instead of theabsolute number relevant for the edge form factor.")]
     public class NSXTMemoryReservationType 
     {
-        public NSXTMemoryReservationType()
-        {
-            ReservationPercentage = test
-        }
         /// <summary>
         /// Memory reserved relative to the default reservation of 100 percent.
         /// For example, take an edge virtual machine of medium form factor.
@@ -31,10 +27,6 @@ namespace nsxtsdk.ManagerModels
         /// reserved. If you specify reservation_percentage value as 50 percent,
         /// then 4 GB of memory will be reserved.
         /// </summary>
-        [JsonProperty(PropertyName = "reservation_percentage")]
-        [NSXTProperty(IsRequired: false, Description: @"Memory reserved relative to the default reservation of 100 percent.For example, take an edge virtual machine of medium form factor.By default, an edge of medium form factor is configured with 8 GB ofmemory and with reservation of 100 percent. So, 8 GB of memory isreserved. If you specify reservation_percentage value as 50 percent,then 4 GB of memory will be reserved.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(100)]
         public int? ReservationPercentage { get; set; }
     }
 }

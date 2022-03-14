@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyNatRuleListResultType : NSXTListResultType
     {
-        public NSXTPolicyNatRuleListResultType()
-        {
-        }
         /// <summary>
         /// NAT Rules list results
         /// </summary>
         [JsonProperty(PropertyName = "results", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"NAT Rules list results")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTPolicyNatRuleType> Results { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTMigrationUnitAggregateInfoListResultType : NSXTListResultType
     {
-        public NSXTMigrationUnitAggregateInfoListResultType()
-        {
-        }
         /// <summary>
         /// Paged collection of MigrationUnit AggregateInfo
         /// </summary>
-        [JsonProperty(PropertyName = "results")]
-        [NSXTProperty(IsRequired: false, Description: @"Paged collection of MigrationUnit AggregateInfo")]
         public IList<NSXTMigrationUnitAggregateInfoType> Results { get; set; }
     }
 }

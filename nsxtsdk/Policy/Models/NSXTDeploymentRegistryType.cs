@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,22 +17,15 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTDeploymentRegistryType : NSXTPolicyConfigResourceType
     {
-        public NSXTDeploymentRegistryType()
-        {
-        }
         /// <summary>
         /// Docker url for containers.
         /// </summary>
         [JsonProperty(PropertyName = "docker_registry", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Docker url for containers.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string DockerRegistry { get; set; }
         /// <summary>
         /// Repo url to access helm chart.
         /// </summary>
         [JsonProperty(PropertyName = "helm_repo", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Repo url to access helm chart.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string HelmRepo { get; set; }
     }
 }

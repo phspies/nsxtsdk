@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,28 +17,19 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer HTTPReselectRespCode object")]
     public class NSXTALBHTTPReselectRespCodeType 
     {
-        public NSXTALBHTTPReselectRespCodeType()
-        {
-        }
         /// <summary>
         /// HTTP response code ranges to match.
         /// </summary>
-        [JsonProperty(PropertyName = "ranges")]
-        [NSXTProperty(IsRequired: false, Description: @"HTTP response code ranges to match.")]
         public IList<NSXTALBHTTPStatusRangeType> Ranges { get; set; }
         /// <summary>
         /// HTTP response code to be matched.
         /// Allowed values are 400-599.
         /// </summary>
-        [JsonProperty(PropertyName = "codes")]
-        [NSXTProperty(IsRequired: false, Description: @"HTTP response code to be matched.Allowed values are 400-599.")]
         public long? Codes { get; set; }
         /// <summary>
         /// Block of HTTP response codes to match for server reselect.
         /// Enum options - HTTP_RSP_4XX, HTTP_RSP_5XX.
         /// </summary>
-        [JsonProperty(PropertyName = "resp_code_block")]
-        [NSXTProperty(IsRequired: false, Description: @"Block of HTTP response codes to match for server reselect.Enum options - HTTP_RSP_4XX, HTTP_RSP_5XX.")]
         public IList<string> RespCodeBlock { get; set; }
     }
 }

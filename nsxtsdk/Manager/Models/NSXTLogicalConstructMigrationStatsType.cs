@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,44 +17,29 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Contains migration related information about logical constructs")]
     public class NSXTLogicalConstructMigrationStatsType 
     {
-        public NSXTLogicalConstructMigrationStatsType()
-        {
-        }
         /// <summary>
         /// Type of the vSphere object (e.g. dvportgroup).
         /// </summary>
-        [JsonProperty(PropertyName = "source_type")]
-        [NSXTProperty(IsRequired: false, Description: @"Type of the vSphere object (e.g. dvportgroup).")]
         public string? SourceType { get; set; }
         /// <summary>
         /// Number of objects of source type.
         /// </summary>
-        [JsonProperty(PropertyName = "source_count")]
-        [NSXTProperty(IsRequired: false, Description: @"Number of objects of source type.")]
         public string? SourceCount { get; set; }
         /// <summary>
         /// Functional area that this vSphere object falls into
         /// </summary>
-        [JsonProperty(PropertyName = "vertical")]
-        [NSXTProperty(IsRequired: false, Description: @"Functional area that this vSphere object falls into")]
         public string? Vertical { get; set; }
         /// <summary>
         /// Federation site id.
         /// </summary>
-        [JsonProperty(PropertyName = "site_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Federation site id.")]
         public string? SiteId { get; set; }
         /// <summary>
         /// Type of the Policy object corresponding to the source type (e.g. Segment).
         /// </summary>
-        [JsonProperty(PropertyName = "target_type")]
-        [NSXTProperty(IsRequired: false, Description: @"Type of the Policy object corresponding to the source type (e.g. Segment).")]
         public string? TargetType { get; set; }
         /// <summary>
         /// Number of objects of target type.
         /// </summary>
-        [JsonProperty(PropertyName = "target_count")]
-        [NSXTProperty(IsRequired: false, Description: @"Number of objects of target type.")]
         public string? TargetCount { get; set; }
     }
 }

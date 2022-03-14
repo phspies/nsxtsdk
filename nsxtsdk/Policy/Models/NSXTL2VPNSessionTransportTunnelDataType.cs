@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -18,15 +18,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"L2VPN Session Transport Tunnel Data uses a peer code which has all theinformation to create the transport tunnel.")]
     public class NSXTL2VPNSessionTransportTunnelDataType 
     {
-        public NSXTL2VPNSessionTransportTunnelDataType()
-        {
-        }
         /// <summary>
         /// IPv4 Address of local endpoint.
         /// </summary>
         [JsonProperty(PropertyName = "local_address", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"IPv4 Address of local endpoint.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string LocalAddress { get; set; }
         /// <summary>
         /// Peer code represents a base64 encoded string which has
@@ -34,15 +29,11 @@ namespace nsxtsdk.PolicyModels
         /// protocol, encryption algorithm, etc. Peer code also contains
         /// PSK; be careful when sharing or storing it.
         /// </summary>
-        [JsonProperty(PropertyName = "peer_code")]
-        [NSXTProperty(IsRequired: false, Description: @"Peer code represents a base64 encoded string which hasall the configuration for tunnel. E.g local/peer ips andprotocol, encryption algorithm, etc. Peer code also containsPSK; be careful when sharing or storing it.")]
         public string? PeerCode { get; set; }
         /// <summary>
         /// IPv4 Address of Peer endpoint on remote site.
         /// </summary>
         [JsonProperty(PropertyName = "peer_address", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"IPv4 Address of Peer endpoint on remote site.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string PeerAddress { get; set; }
     }
 }

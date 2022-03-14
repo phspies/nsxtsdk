@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,20 +17,13 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTRealizedLogicalSwitchType : NSXTPolicyRealizedResourceType
     {
-        public NSXTRealizedLogicalSwitchType()
-        {
-        }
         /// <summary>
         /// Transport zone identifier
         /// </summary>
-        [JsonProperty(PropertyName = "transport_zone_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Transport zone identifier")]
         public string? TransportZoneId { get; set; }
         /// <summary>
         /// Id of the logical switch
         /// </summary>
-        [JsonProperty(PropertyName = "logical_switch_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Id of the logical switch")]
         public string? LogicalSwitchId { get; set; }
     }
 }

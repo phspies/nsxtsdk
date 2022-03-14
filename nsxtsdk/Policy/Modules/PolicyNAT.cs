@@ -21,16 +21,23 @@ namespace nsxtapi.PolicyModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public PolicyNAT(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public PolicyNAT(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyNatRuleStatisticsListResultType GetPolicyNatRuleStatisticsFromTier1(string Tier1Id, string NatId, string NatRuleId, string? Action = null, string? ContainerClusterPath = null, string? EnforcementPointPath = null)
+        public async Task<NSXTPolicyNatRuleStatisticsListResultType> GetPolicyNatRuleStatisticsFromTier1(string Tier1Id, string NatId, string NatRuleId, string? Action = null, string? ContainerClusterPath = null, string? EnforcementPointPath = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (NatId == null) { throw new System.ArgumentNullException("NatId cannot be null"); }
@@ -50,31 +57,19 @@ namespace nsxtapi.PolicyModules
             if (ContainerClusterPath != null) { request.AddQueryParameter("container_cluster_path", ContainerClusterPath.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             request.Resource = GetPolicyNatRuleStatisticsFromTier1ServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyNatRuleStatisticsListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyNatRuleStatisticsListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetPolicyNatRuleStatisticsFromTier1ServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyNatRuleStatisticsListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyNatRuleStatisticsListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyNatRuleListResultType ListPolicyNatRules(string Tier1Id, string NatId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTPolicyNatRuleListResultType> ListPolicyNatRules(string Tier1Id, string NatId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (NatId == null) { throw new System.ArgumentNullException("NatId cannot be null"); }
@@ -95,31 +90,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListPolicyNatRulesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyNatRuleListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyNatRuleListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListPolicyNatRulesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyNatRuleListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyNatRuleListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyNatRuleType GlobalGlobalInfraGetPolicyNatRuleFromTier0(string Tier0Id, string NatId, string NatRuleId)
+        public async Task<NSXTPolicyNatRuleType> GlobalGlobalInfraGetPolicyNatRuleFromTier0(string Tier0Id, string NatId, string NatRuleId)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (NatId == null) { throw new System.ArgumentNullException("NatId cannot be null"); }
@@ -136,31 +119,19 @@ namespace nsxtapi.PolicyModules
             GlobalInfraGetPolicyNatRuleFromTier0ServiceURL.Replace("{nat-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NatId, System.Globalization.CultureInfo.InvariantCulture)));
             GlobalInfraGetPolicyNatRuleFromTier0ServiceURL.Replace("{nat-rule-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NatRuleId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GlobalInfraGetPolicyNatRuleFromTier0ServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyNatRuleType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyNatRuleType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraGetPolicyNatRuleFromTier0ServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyNatRuleType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyNatRuleType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyNatRuleListResultType ListPolicyNatRulesFromTier0(string Tier0Id, string NatId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTPolicyNatRuleListResultType> ListPolicyNatRulesFromTier0(string Tier0Id, string NatId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (NatId == null) { throw new System.ArgumentNullException("NatId cannot be null"); }
@@ -181,31 +152,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListPolicyNatRulesFromTier0ServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyNatRuleListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyNatRuleListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListPolicyNatRulesFromTier0ServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyNatRuleListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyNatRuleListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyNatRuleType CreateOrReplacePolicyNatRule(string Tier1Id, string NatId, string NatRuleId, NSXTPolicyNatRuleType PolicyNatRule)
+        public async Task<NSXTPolicyNatRuleType> CreateOrReplacePolicyNatRule(string Tier1Id, string NatId, string NatRuleId, NSXTPolicyNatRuleType PolicyNatRule)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (NatId == null) { throw new System.ArgumentNullException("NatId cannot be null"); }
@@ -224,31 +183,19 @@ namespace nsxtapi.PolicyModules
             CreateOrReplacePolicyNatRuleServiceURL.Replace("{nat-rule-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NatRuleId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(PolicyNatRule, defaultSerializationSettings));
             request.Resource = CreateOrReplacePolicyNatRuleServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyNatRuleType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyNatRuleType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateOrReplacePolicyNatRuleServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyNatRuleType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyNatRuleType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchPolicyNatRule(string Tier1Id, string NatId, string NatRuleId, NSXTPolicyNatRuleType PolicyNatRule)
+        public async Task PatchPolicyNatRule(string Tier1Id, string NatId, string NatRuleId, NSXTPolicyNatRuleType PolicyNatRule)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (NatId == null) { throw new System.ArgumentNullException("NatId cannot be null"); }
@@ -267,7 +214,7 @@ namespace nsxtapi.PolicyModules
             PatchPolicyNatRuleServiceURL.Replace("{nat-rule-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NatRuleId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(PolicyNatRule, defaultSerializationSettings));
             request.Resource = PatchPolicyNatRuleServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchPolicyNatRuleServiceURL.ToString() + " did not complete successfull";
@@ -279,7 +226,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyNatRuleType GetPolicyNatRule(string Tier1Id, string NatId, string NatRuleId)
+        public async Task<NSXTPolicyNatRuleType> GetPolicyNatRule(string Tier1Id, string NatId, string NatRuleId)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (NatId == null) { throw new System.ArgumentNullException("NatId cannot be null"); }
@@ -296,31 +243,19 @@ namespace nsxtapi.PolicyModules
             GetPolicyNatRuleServiceURL.Replace("{nat-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NatId, System.Globalization.CultureInfo.InvariantCulture)));
             GetPolicyNatRuleServiceURL.Replace("{nat-rule-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NatRuleId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetPolicyNatRuleServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyNatRuleType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyNatRuleType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetPolicyNatRuleServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyNatRuleType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyNatRuleType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeletePolicyNatRule(string Tier1Id, string NatId, string NatRuleId)
+        public async Task DeletePolicyNatRule(string Tier1Id, string NatId, string NatRuleId)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (NatId == null) { throw new System.ArgumentNullException("NatId cannot be null"); }
@@ -337,7 +272,7 @@ namespace nsxtapi.PolicyModules
             DeletePolicyNatRuleServiceURL.Replace("{nat-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NatId, System.Globalization.CultureInfo.InvariantCulture)));
             DeletePolicyNatRuleServiceURL.Replace("{nat-rule-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NatRuleId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeletePolicyNatRuleServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeletePolicyNatRuleServiceURL.ToString() + " did not complete successfull";
@@ -349,7 +284,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyNatListResultType GlobalGlobalInfraListPolicyNatOnTier0(string Tier0Id, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTPolicyNatListResultType> GlobalGlobalInfraListPolicyNatOnTier0(string Tier0Id, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             NSXTPolicyNatListResultType returnValue = default(NSXTPolicyNatListResultType);
@@ -368,31 +303,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GlobalInfraListPolicyNatOnTier0ServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyNatListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyNatListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraListPolicyNatOnTier0ServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyNatListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyNatListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyNatRuleStatisticsPerLogicalRouterListResultType ListPolicyNatRulesStatisticsFromTier0(string Tier0Id, string? Cursor = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTPolicyNatRuleStatisticsPerLogicalRouterListResultType> ListPolicyNatRulesStatisticsFromTier0(string Tier0Id, string? Cursor = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             NSXTPolicyNatRuleStatisticsPerLogicalRouterListResultType returnValue = default(NSXTPolicyNatRuleStatisticsPerLogicalRouterListResultType);
@@ -412,31 +335,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListPolicyNatRulesStatisticsFromTier0ServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyNatRuleStatisticsPerLogicalRouterListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyNatRuleStatisticsPerLogicalRouterListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListPolicyNatRulesStatisticsFromTier0ServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyNatRuleStatisticsPerLogicalRouterListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyNatRuleStatisticsPerLogicalRouterListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyNatRuleStatisticsListResultType GlobalGlobalInfraGetPolicyNatRuleStatisticsFromTier0(string Tier0Id, string NatId, string NatRuleId, string? Action = null, string? ContainerClusterPath = null, string? EnforcementPointPath = null)
+        public async Task<NSXTPolicyNatRuleStatisticsListResultType> GlobalGlobalInfraGetPolicyNatRuleStatisticsFromTier0(string Tier0Id, string NatId, string NatRuleId, string? Action = null, string? ContainerClusterPath = null, string? EnforcementPointPath = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (NatId == null) { throw new System.ArgumentNullException("NatId cannot be null"); }
@@ -456,31 +367,19 @@ namespace nsxtapi.PolicyModules
             if (ContainerClusterPath != null) { request.AddQueryParameter("container_cluster_path", ContainerClusterPath.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             request.Resource = GlobalInfraGetPolicyNatRuleStatisticsFromTier0ServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyNatRuleStatisticsListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyNatRuleStatisticsListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraGetPolicyNatRuleStatisticsFromTier0ServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyNatRuleStatisticsListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyNatRuleStatisticsListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyNatRuleStatisticsPerLogicalRouterListResultType GlobalGlobalInfraListPolicyNatRulesStatisticsFromTier0(string Tier0Id, string? Cursor = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTPolicyNatRuleStatisticsPerLogicalRouterListResultType> GlobalGlobalInfraListPolicyNatRulesStatisticsFromTier0(string Tier0Id, string? Cursor = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             NSXTPolicyNatRuleStatisticsPerLogicalRouterListResultType returnValue = default(NSXTPolicyNatRuleStatisticsPerLogicalRouterListResultType);
@@ -500,31 +399,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GlobalInfraListPolicyNatRulesStatisticsFromTier0ServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyNatRuleStatisticsPerLogicalRouterListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyNatRuleStatisticsPerLogicalRouterListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraListPolicyNatRulesStatisticsFromTier0ServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyNatRuleStatisticsPerLogicalRouterListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyNatRuleStatisticsPerLogicalRouterListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyNatRuleListResultType GlobalGlobalInfraListPolicyNatRulesFromTier0(string Tier0Id, string NatId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTPolicyNatRuleListResultType> GlobalGlobalInfraListPolicyNatRulesFromTier0(string Tier0Id, string NatId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (NatId == null) { throw new System.ArgumentNullException("NatId cannot be null"); }
@@ -545,31 +432,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GlobalInfraListPolicyNatRulesFromTier0ServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyNatRuleListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyNatRuleListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraListPolicyNatRulesFromTier0ServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyNatRuleListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyNatRuleListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyNatRuleStatisticsPerLogicalRouterListResultType GlobalGlobalInfraListPolicyNatRulesStatisticsFromTier1(string Tier1Id, string? Cursor = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTPolicyNatRuleStatisticsPerLogicalRouterListResultType> GlobalGlobalInfraListPolicyNatRulesStatisticsFromTier1(string Tier1Id, string? Cursor = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             NSXTPolicyNatRuleStatisticsPerLogicalRouterListResultType returnValue = default(NSXTPolicyNatRuleStatisticsPerLogicalRouterListResultType);
@@ -589,31 +464,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GlobalInfraListPolicyNatRulesStatisticsFromTier1ServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyNatRuleStatisticsPerLogicalRouterListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyNatRuleStatisticsPerLogicalRouterListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraListPolicyNatRulesStatisticsFromTier1ServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyNatRuleStatisticsPerLogicalRouterListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyNatRuleStatisticsPerLogicalRouterListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyNatRuleStatisticsListResultType GlobalGlobalInfraGetPolicyNatRuleStatisticsFromTier1(string Tier1Id, string NatId, string NatRuleId, string? Action = null, string? ContainerClusterPath = null, string? EnforcementPointPath = null)
+        public async Task<NSXTPolicyNatRuleStatisticsListResultType> GlobalGlobalInfraGetPolicyNatRuleStatisticsFromTier1(string Tier1Id, string NatId, string NatRuleId, string? Action = null, string? ContainerClusterPath = null, string? EnforcementPointPath = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (NatId == null) { throw new System.ArgumentNullException("NatId cannot be null"); }
@@ -633,31 +496,19 @@ namespace nsxtapi.PolicyModules
             if (ContainerClusterPath != null) { request.AddQueryParameter("container_cluster_path", ContainerClusterPath.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             request.Resource = GlobalInfraGetPolicyNatRuleStatisticsFromTier1ServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyNatRuleStatisticsListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyNatRuleStatisticsListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraGetPolicyNatRuleStatisticsFromTier1ServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyNatRuleStatisticsListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyNatRuleStatisticsListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyNatRuleStatisticsPerLogicalRouterListResultType ListPolicyNatRulesStatisticsFromTier1(string Tier1Id, string? Cursor = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTPolicyNatRuleStatisticsPerLogicalRouterListResultType> ListPolicyNatRulesStatisticsFromTier1(string Tier1Id, string? Cursor = null, string? EnforcementPointPath = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             NSXTPolicyNatRuleStatisticsPerLogicalRouterListResultType returnValue = default(NSXTPolicyNatRuleStatisticsPerLogicalRouterListResultType);
@@ -677,31 +528,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListPolicyNatRulesStatisticsFromTier1ServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyNatRuleStatisticsPerLogicalRouterListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyNatRuleStatisticsPerLogicalRouterListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListPolicyNatRulesStatisticsFromTier1ServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyNatRuleStatisticsPerLogicalRouterListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyNatRuleStatisticsPerLogicalRouterListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyNatRuleStatisticsListResultType GetPolicyNatRuleStatisticsFromTier0(string Tier0Id, string NatId, string NatRuleId, string? Action = null, string? ContainerClusterPath = null, string? EnforcementPointPath = null)
+        public async Task<NSXTPolicyNatRuleStatisticsListResultType> GetPolicyNatRuleStatisticsFromTier0(string Tier0Id, string NatId, string NatRuleId, string? Action = null, string? ContainerClusterPath = null, string? EnforcementPointPath = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (NatId == null) { throw new System.ArgumentNullException("NatId cannot be null"); }
@@ -721,31 +560,19 @@ namespace nsxtapi.PolicyModules
             if (ContainerClusterPath != null) { request.AddQueryParameter("container_cluster_path", ContainerClusterPath.ToString()); }
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             request.Resource = GetPolicyNatRuleStatisticsFromTier0ServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyNatRuleStatisticsListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyNatRuleStatisticsListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetPolicyNatRuleStatisticsFromTier0ServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyNatRuleStatisticsListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyNatRuleStatisticsListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyNatRuleType CreateOrReplacePolicyNatRuleOnTier0(string Tier0Id, string NatId, string NatRuleId, NSXTPolicyNatRuleType PolicyNatRule)
+        public async Task<NSXTPolicyNatRuleType> CreateOrReplacePolicyNatRuleOnTier0(string Tier0Id, string NatId, string NatRuleId, NSXTPolicyNatRuleType PolicyNatRule)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (NatId == null) { throw new System.ArgumentNullException("NatId cannot be null"); }
@@ -764,31 +591,19 @@ namespace nsxtapi.PolicyModules
             CreateOrReplacePolicyNatRuleOnTier0ServiceURL.Replace("{nat-rule-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NatRuleId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(PolicyNatRule, defaultSerializationSettings));
             request.Resource = CreateOrReplacePolicyNatRuleOnTier0ServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyNatRuleType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyNatRuleType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateOrReplacePolicyNatRuleOnTier0ServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyNatRuleType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyNatRuleType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyNatRuleType GetPolicyNatRuleFromTier0(string Tier0Id, string NatId, string NatRuleId)
+        public async Task<NSXTPolicyNatRuleType> GetPolicyNatRuleFromTier0(string Tier0Id, string NatId, string NatRuleId)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (NatId == null) { throw new System.ArgumentNullException("NatId cannot be null"); }
@@ -805,31 +620,19 @@ namespace nsxtapi.PolicyModules
             GetPolicyNatRuleFromTier0ServiceURL.Replace("{nat-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NatId, System.Globalization.CultureInfo.InvariantCulture)));
             GetPolicyNatRuleFromTier0ServiceURL.Replace("{nat-rule-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NatRuleId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetPolicyNatRuleFromTier0ServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyNatRuleType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyNatRuleType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetPolicyNatRuleFromTier0ServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyNatRuleType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyNatRuleType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchPolicyNatRuleOnTier0(string Tier0Id, string NatId, string NatRuleId, NSXTPolicyNatRuleType PolicyNatRule)
+        public async Task PatchPolicyNatRuleOnTier0(string Tier0Id, string NatId, string NatRuleId, NSXTPolicyNatRuleType PolicyNatRule)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (NatId == null) { throw new System.ArgumentNullException("NatId cannot be null"); }
@@ -848,7 +651,7 @@ namespace nsxtapi.PolicyModules
             PatchPolicyNatRuleOnTier0ServiceURL.Replace("{nat-rule-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NatRuleId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(PolicyNatRule, defaultSerializationSettings));
             request.Resource = PatchPolicyNatRuleOnTier0ServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchPolicyNatRuleOnTier0ServiceURL.ToString() + " did not complete successfull";
@@ -860,7 +663,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeletePolicyNatRuleFromTier0(string Tier0Id, string NatId, string NatRuleId)
+        public async Task DeletePolicyNatRuleFromTier0(string Tier0Id, string NatId, string NatRuleId)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (NatId == null) { throw new System.ArgumentNullException("NatId cannot be null"); }
@@ -877,7 +680,7 @@ namespace nsxtapi.PolicyModules
             DeletePolicyNatRuleFromTier0ServiceURL.Replace("{nat-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NatId, System.Globalization.CultureInfo.InvariantCulture)));
             DeletePolicyNatRuleFromTier0ServiceURL.Replace("{nat-rule-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NatRuleId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeletePolicyNatRuleFromTier0ServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeletePolicyNatRuleFromTier0ServiceURL.ToString() + " did not complete successfull";
@@ -889,7 +692,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyNatRuleType GlobalGlobalInfraGetPolicyNatRule(string Tier1Id, string NatId, string NatRuleId)
+        public async Task<NSXTPolicyNatRuleType> GlobalGlobalInfraGetPolicyNatRule(string Tier1Id, string NatId, string NatRuleId)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (NatId == null) { throw new System.ArgumentNullException("NatId cannot be null"); }
@@ -906,31 +709,19 @@ namespace nsxtapi.PolicyModules
             GlobalInfraGetPolicyNatRuleServiceURL.Replace("{nat-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NatId, System.Globalization.CultureInfo.InvariantCulture)));
             GlobalInfraGetPolicyNatRuleServiceURL.Replace("{nat-rule-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NatRuleId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GlobalInfraGetPolicyNatRuleServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyNatRuleType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyNatRuleType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraGetPolicyNatRuleServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyNatRuleType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyNatRuleType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyNatListResultType GlobalGlobalInfraListPolicyNatOnTier1(string Tier1Id, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTPolicyNatListResultType> GlobalGlobalInfraListPolicyNatOnTier1(string Tier1Id, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             NSXTPolicyNatListResultType returnValue = default(NSXTPolicyNatListResultType);
@@ -949,31 +740,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GlobalInfraListPolicyNatOnTier1ServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyNatListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyNatListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraListPolicyNatOnTier1ServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyNatListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyNatListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyNatListResultType ListPolicyNatOnTier1(string Tier1Id, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTPolicyNatListResultType> ListPolicyNatOnTier1(string Tier1Id, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             NSXTPolicyNatListResultType returnValue = default(NSXTPolicyNatListResultType);
@@ -992,31 +771,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListPolicyNatOnTier1ServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyNatListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyNatListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListPolicyNatOnTier1ServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyNatListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyNatListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyNatListResultType ListPolicyNatOnTier0(string Tier0Id, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTPolicyNatListResultType> ListPolicyNatOnTier0(string Tier0Id, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             NSXTPolicyNatListResultType returnValue = default(NSXTPolicyNatListResultType);
@@ -1035,31 +802,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListPolicyNatOnTier0ServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyNatListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyNatListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListPolicyNatOnTier0ServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyNatListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyNatListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyNatRuleListResultType GlobalGlobalInfraListPolicyNatRules(string Tier1Id, string NatId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTPolicyNatRuleListResultType> GlobalGlobalInfraListPolicyNatRules(string Tier1Id, string NatId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (NatId == null) { throw new System.ArgumentNullException("NatId cannot be null"); }
@@ -1080,25 +835,13 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GlobalInfraListPolicyNatRulesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyNatRuleListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyNatRuleListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraListPolicyNatRulesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyNatRuleListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyNatRuleListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

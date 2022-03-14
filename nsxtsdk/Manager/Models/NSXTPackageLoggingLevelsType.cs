@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,20 +17,13 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTPackageLoggingLevelsType 
     {
-        public NSXTPackageLoggingLevelsType()
-        {
-        }
         /// <summary>
         /// Logging levels per package
         /// </summary>
-        [JsonProperty(PropertyName = "logging_level")]
-        [NSXTProperty(IsRequired: false, Description: @"Logging levels per package")]
         public NSXTPackageLoggingLevelsLoggingLevelEnumType? LoggingLevel { get; set; }
         /// <summary>
         /// Package name
         /// </summary>
-        [JsonProperty(PropertyName = "package_name")]
-        [NSXTProperty(IsRequired: false, Description: @"Package name")]
         public string? PackageName { get; set; }
     }
 }

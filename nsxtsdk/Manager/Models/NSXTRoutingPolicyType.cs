@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,22 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Routing policy details.")]
     public class NSXTRoutingPolicyType 
     {
-        public NSXTRoutingPolicyType()
-        {
-            RoutingPolicyType = test
-        }
         /// <summary>
         /// Array of next hop to prefix lists mapping.
         /// </summary>
         [JsonProperty(PropertyName = "next_hop_prefix_lists_mappings", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Array of next hop to prefix lists mapping.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTNextHopPrefixListsMappingType> NextHopPrefixListsMappings { get; set; }
         /// <summary>
         /// Routing policy type.
         /// </summary>
-        [JsonProperty(PropertyName = "routing_policy_type")]
-        [NSXTProperty(IsRequired: false, Description: @"Routing policy type.")]
         public NSXTRoutingPolicyRoutingPolicyTypeEnumType? RoutingPolicyType { get; set; }
     }
 }

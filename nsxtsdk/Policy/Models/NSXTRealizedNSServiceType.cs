@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTRealizedNSServiceType : NSXTRealizedServiceType
     {
-        public NSXTRealizedNSServiceType()
-        {
-        }
         /// <summary>
         /// Realized nsservice type
         /// </summary>
-        [JsonProperty(PropertyName = "service_type")]
-        [NSXTProperty(IsRequired: false, Description: @"Realized nsservice type")]
         public NSXTRealizedNsserviceServiceTypeEnumType? ServiceType { get; set; }
     }
 }

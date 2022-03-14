@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public NodeUsersManagerNodeType(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public NodeUsersManagerNodeType(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void ResetNodeUserPasswordResetPassword(string Userid, NSXTNodeUserPasswordPropertyType NodeUserPasswordProperty)
+        public async Task ResetNodeUserPasswordResetPassword(string Userid, NSXTNodeUserPasswordPropertyType NodeUserPasswordProperty)
         {
             if (Userid == null) { throw new System.ArgumentNullException("Userid cannot be null"); }
             if (NodeUserPasswordProperty == null) { throw new System.ArgumentNullException("NodeUserPasswordProperty cannot be null"); }
@@ -45,7 +52,7 @@ namespace nsxtapi.ManagerModules
             ResetNodeUserPasswordResetPasswordServiceURL.Replace("{userid}", System.Uri.EscapeDataString(Helpers.ConvertToString(Userid, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(NodeUserPasswordProperty, defaultSerializationSettings));
             request.Resource = ResetNodeUserPasswordResetPasswordServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + ResetNodeUserPasswordResetPasswordServiceURL.ToString() + " did not complete successfull";
@@ -57,7 +64,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNodeUserPropertiesType ActivateNodeUserActivate(string Userid, NSXTNodeUserPasswordPropertyType NodeUserPasswordProperty)
+        public async Task<NSXTNodeUserPropertiesType> ActivateNodeUserActivate(string Userid, NSXTNodeUserPasswordPropertyType NodeUserPasswordProperty)
         {
             if (Userid == null) { throw new System.ArgumentNullException("Userid cannot be null"); }
             if (NodeUserPasswordProperty == null) { throw new System.ArgumentNullException("NodeUserPasswordProperty cannot be null"); }
@@ -72,31 +79,19 @@ namespace nsxtapi.ManagerModules
             ActivateNodeUserActivateServiceURL.Replace("{userid}", System.Uri.EscapeDataString(Helpers.ConvertToString(Userid, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(NodeUserPasswordProperty, defaultSerializationSettings));
             request.Resource = ActivateNodeUserActivateServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNodeUserPropertiesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNodeUserPropertiesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + ActivateNodeUserActivateServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNodeUserPropertiesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNodeUserPropertiesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNodeUserPropertiesType DeactivateNodeUserDeactivate(string Userid)
+        public async Task<NSXTNodeUserPropertiesType> DeactivateNodeUserDeactivate(string Userid)
         {
             if (Userid == null) { throw new System.ArgumentNullException("Userid cannot be null"); }
             NSXTNodeUserPropertiesType returnValue = default(NSXTNodeUserPropertiesType);
@@ -109,31 +104,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             DeactivateNodeUserDeactivateServiceURL.Replace("{userid}", System.Uri.EscapeDataString(Helpers.ConvertToString(Userid, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeactivateNodeUserDeactivateServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNodeUserPropertiesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNodeUserPropertiesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + DeactivateNodeUserDeactivateServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNodeUserPropertiesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNodeUserPropertiesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void ResetNodeUserOwnPasswordResetOwnPassword(NSXTResetNodeUserOwnPasswordPropertiesType ResetNodeUserOwnPasswordProperties)
+        public async Task ResetNodeUserOwnPasswordResetOwnPassword(NSXTResetNodeUserOwnPasswordPropertiesType ResetNodeUserOwnPasswordProperties)
         {
             if (ResetNodeUserOwnPasswordProperties == null) { throw new System.ArgumentNullException("ResetNodeUserOwnPasswordProperties cannot be null"); }
             
@@ -146,7 +129,7 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(ResetNodeUserOwnPasswordProperties, defaultSerializationSettings));
             request.Resource = ResetNodeUserOwnPasswordResetOwnPasswordServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + ResetNodeUserOwnPasswordResetOwnPasswordServiceURL.ToString() + " did not complete successfull";

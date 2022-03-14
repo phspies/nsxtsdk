@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,43 +17,30 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTFullSyncStatusType 
     {
-        public NSXTFullSyncStatusType()
-        {
-        }
         /// <summary>
         /// Status of full sync.
         /// </summary>
         [JsonProperty(PropertyName = "status", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Status of full sync.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTFullSyncStatusStatusEnumType Status { get; set; }
         /// <summary>
         /// Time at which the full sync was completed.
         /// </summary>
         [JsonProperty(PropertyName = "completed_at", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Time at which the full sync was completed.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string CompletedAt { get; set; }
         /// <summary>
         /// Identifier for the full sync.
         /// </summary>
         [JsonProperty(PropertyName = "sync_id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Identifier for the full sync.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string SyncId { get; set; }
         /// <summary>
         /// Type of full sync.
         /// </summary>
         [JsonProperty(PropertyName = "sync_type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Type of full sync.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTFullSyncStatusSyncTypeEnumType SyncType { get; set; }
         /// <summary>
         /// Snapshot version targeted by full sync.
         /// </summary>
         [JsonProperty(PropertyName = "snapshot_version", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Snapshot version targeted by full sync.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string SnapshotVersion { get; set; }
     }
 }

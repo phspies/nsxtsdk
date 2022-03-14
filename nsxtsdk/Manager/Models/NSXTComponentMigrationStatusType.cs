@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,38 +17,25 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTComponentMigrationStatusType 
     {
-        public NSXTComponentMigrationStatusType()
-        {
-        }
         /// <summary>
         /// Migration status of component
         /// </summary>
-        [JsonProperty(PropertyName = "status")]
-        [NSXTProperty(IsRequired: false, Description: @"Migration status of component")]
         public NSXTComponentMigrationStatusStatusEnumType? Status { get; set; }
         /// <summary>
         /// Indicator of migration progress in percentage
         /// </summary>
-        [JsonProperty(PropertyName = "percent_complete")]
-        [NSXTProperty(IsRequired: false, Description: @"Indicator of migration progress in percentage")]
         public double? PercentComplete { get; set; }
         /// <summary>
         /// Can the migration of the remaining units in this component be skipped
         /// </summary>
-        [JsonProperty(PropertyName = "can_skip")]
-        [NSXTProperty(IsRequired: false, Description: @"Can the migration of the remaining units in this component be skipped")]
         public bool? CanSkip { get; set; }
         /// <summary>
         /// Details about the migration status
         /// </summary>
-        [JsonProperty(PropertyName = "details")]
-        [NSXTProperty(IsRequired: false, Description: @"Details about the migration status")]
         public string? Details { get; set; }
         /// <summary>
         /// Component type for the migration status
         /// </summary>
-        [JsonProperty(PropertyName = "component_type")]
-        [NSXTProperty(IsRequired: false, Description: @"Component type for the migration status")]
         public string? ComponentType { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyDraftListResultType : NSXTListResultType
     {
-        public NSXTPolicyDraftListResultType()
-        {
-        }
         /// <summary>
         /// Paginated list of policy drafts.
         /// </summary>
-        [JsonProperty(PropertyName = "results")]
-        [NSXTProperty(IsRequired: false, Description: @"Paginated list of policy drafts.")]
         public IList<NSXTPolicyDraftType> Results { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTRealizedNSGroupType : NSXTRealizedGroupType
     {
-        public NSXTRealizedNSGroupType()
-        {
-        }
         /// <summary>
         /// Reference to the evaluated members of the NSGroup.
         /// </summary>
-        [JsonProperty(PropertyName = "evaluations")]
-        [NSXTProperty(IsRequired: false, Description: @"Reference to the evaluated members of the NSGroup.")]
         public IList<NSXTRealizedNSGroupMemberEvaluationType> Evaluations { get; set; }
     }
 }

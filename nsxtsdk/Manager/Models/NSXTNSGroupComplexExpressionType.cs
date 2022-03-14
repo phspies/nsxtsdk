@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,17 +17,12 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNSGroupComplexExpressionType : NSXTNSGroupExpressionType
     {
-        public NSXTNSGroupComplexExpressionType()
-        {
-        }
         /// <summary>
         /// Represents expressions which are to be logically 'AND'ed.The array cannot contain
         /// NSGroupComplexExpression.Only NSGroupTagExpression and NSGroupSimpleExpressions
         /// are accepted.
         /// </summary>
         [JsonProperty(PropertyName = "expressions", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Represents expressions which are to be logically &apos;AND&apos;ed.The array cannot containNSGroupComplexExpression.Only NSGroupTagExpression and NSGroupSimpleExpressionsare accepted.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTNSGroupExpressionType> Expressions { get; set; }
     }
 }

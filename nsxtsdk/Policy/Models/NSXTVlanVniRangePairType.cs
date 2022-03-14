@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,23 +17,16 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Vlan-Vni mapping pair resource in EvpnTenantConfig for ROUTE-SERVER Evpn mode")]
     public class NSXTVlanVniRangePairType 
     {
-        public NSXTVlanVniRangePairType()
-        {
-        }
         /// <summary>
         /// List of VNI ids and VNI ranges (specified with '-'). The vni id is used for VXLAN transmission for a given tenant Vlan
         /// ID in ROUTE-SERVER Evpn.
         /// </summary>
         [JsonProperty(PropertyName = "vnis", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"List of VNI ids and VNI ranges (specified with &apos;-&apos;). The vni id is used for VXLAN transmission for a given tenant Vlan ID in ROUTE-SERVER Evpn.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Vnis { get; set; }
         /// <summary>
         /// List of VLAN ids and VLAN ranges (specified with '-').
         /// </summary>
         [JsonProperty(PropertyName = "vlans", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"List of VLAN ids and VLAN ranges (specified with &apos;-&apos;).")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Vlans { get; set; }
     }
 }

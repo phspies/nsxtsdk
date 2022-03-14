@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public NetworkInterfaceModule(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public NetworkInterfaceModule(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNodeNetworkInterfacePropertiesType UpdateNodeInterface(string InterfaceId, NSXTNodeNetworkInterfacePropertiesType NodeNetworkInterfaceProperties)
+        public async Task<NSXTNodeNetworkInterfacePropertiesType> UpdateNodeInterface(string InterfaceId, NSXTNodeNetworkInterfacePropertiesType NodeNetworkInterfaceProperties)
         {
             if (InterfaceId == null) { throw new System.ArgumentNullException("InterfaceId cannot be null"); }
             if (NodeNetworkInterfaceProperties == null) { throw new System.ArgumentNullException("NodeNetworkInterfaceProperties cannot be null"); }
@@ -45,31 +52,19 @@ namespace nsxtapi.ManagerModules
             UpdateNodeInterfaceServiceURL.Replace("{interface-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(InterfaceId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(NodeNetworkInterfaceProperties, defaultSerializationSettings));
             request.Resource = UpdateNodeInterfaceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNodeNetworkInterfacePropertiesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNodeNetworkInterfacePropertiesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateNodeInterfaceServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNodeNetworkInterfacePropertiesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNodeNetworkInterfacePropertiesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNodeNetworkInterfacePropertiesType ReadNodeInterface(string InterfaceId)
+        public async Task<NSXTNodeNetworkInterfacePropertiesType> ReadNodeInterface(string InterfaceId)
         {
             if (InterfaceId == null) { throw new System.ArgumentNullException("InterfaceId cannot be null"); }
             NSXTNodeNetworkInterfacePropertiesType returnValue = default(NSXTNodeNetworkInterfacePropertiesType);
@@ -82,31 +77,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             ReadNodeInterfaceServiceURL.Replace("{interface-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(InterfaceId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadNodeInterfaceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNodeNetworkInterfacePropertiesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNodeNetworkInterfacePropertiesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadNodeInterfaceServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNodeNetworkInterfacePropertiesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNodeNetworkInterfacePropertiesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNodeNetworkInterfacePropertiesListResultType ListNodeInterfaces()
+        public async Task<NSXTNodeNetworkInterfacePropertiesListResultType> ListNodeInterfaces()
         {
             NSXTNodeNetworkInterfacePropertiesListResultType returnValue = default(NSXTNodeNetworkInterfacePropertiesListResultType);
             StringBuilder ListNodeInterfacesServiceURL = new StringBuilder("/node/network/interfaces");
@@ -117,31 +100,19 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = ListNodeInterfacesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNodeNetworkInterfacePropertiesListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNodeNetworkInterfacePropertiesListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListNodeInterfacesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNodeNetworkInterfacePropertiesListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNodeNetworkInterfacePropertiesListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNodeInterfaceStatisticsPropertiesType ReadNetworkInterfaceStatistics(string InterfaceId)
+        public async Task<NSXTNodeInterfaceStatisticsPropertiesType> ReadNetworkInterfaceStatistics(string InterfaceId)
         {
             if (InterfaceId == null) { throw new System.ArgumentNullException("InterfaceId cannot be null"); }
             NSXTNodeInterfaceStatisticsPropertiesType returnValue = default(NSXTNodeInterfaceStatisticsPropertiesType);
@@ -154,25 +125,13 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             ReadNetworkInterfaceStatisticsServiceURL.Replace("{interface-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(InterfaceId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadNetworkInterfaceStatisticsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNodeInterfaceStatisticsPropertiesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNodeInterfaceStatisticsPropertiesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadNetworkInterfaceStatisticsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNodeInterfaceStatisticsPropertiesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNodeInterfaceStatisticsPropertiesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

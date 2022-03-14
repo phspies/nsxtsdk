@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,26 +17,17 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Remote MAC addresses for logical switch.")]
     public class NSXTL2VPNSessionRemoteMacsForLSType 
     {
-        public NSXTL2VPNSessionRemoteMacsForLSType()
-        {
-        }
         /// <summary>
         /// Mac addresses.
         /// </summary>
-        [JsonProperty(PropertyName = "remote_mac_addresses")]
-        [NSXTProperty(IsRequired: false, Description: @"Mac addresses.")]
         public IList<string> RemoteMacAddresses { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "logical_switch")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTResourceReferenceType LogicalSwitch { get; set; }
         /// <summary>
         /// Contains policy specific information like policy path.
         /// </summary>
-        [JsonProperty(PropertyName = "tags")]
-        [NSXTProperty(IsRequired: false, Description: @"Contains policy specific information like policy path.")]
         public IList<NSXTTagType> Tags { get; set; }
     }
 }

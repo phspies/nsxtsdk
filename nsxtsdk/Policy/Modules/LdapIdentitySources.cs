@@ -21,16 +21,23 @@ namespace nsxtapi.PolicyModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public LdapIdentitySources(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public LdapIdentitySources(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLdapIdentitySourceType CreateOrUpdateLdapIdentitySource(string LdapIdentitySourceId, NSXTLdapIdentitySourceType LdapIdentitySource)
+        public async Task<NSXTLdapIdentitySourceType> CreateOrUpdateLdapIdentitySource(string LdapIdentitySourceId, NSXTLdapIdentitySourceType LdapIdentitySource)
         {
             if (LdapIdentitySourceId == null) { throw new System.ArgumentNullException("LdapIdentitySourceId cannot be null"); }
             if (LdapIdentitySource == null) { throw new System.ArgumentNullException("LdapIdentitySource cannot be null"); }
@@ -45,31 +52,19 @@ namespace nsxtapi.PolicyModules
             CreateOrUpdateLdapIdentitySourceServiceURL.Replace("{ldap-identity-source-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LdapIdentitySourceId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(LdapIdentitySource, defaultSerializationSettings));
             request.Resource = CreateOrUpdateLdapIdentitySourceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLdapIdentitySourceType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLdapIdentitySourceType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateOrUpdateLdapIdentitySourceServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLdapIdentitySourceType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLdapIdentitySourceType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLdapIdentitySourceType ReadLdapIdentitySource(string LdapIdentitySourceId)
+        public async Task<NSXTLdapIdentitySourceType> ReadLdapIdentitySource(string LdapIdentitySourceId)
         {
             if (LdapIdentitySourceId == null) { throw new System.ArgumentNullException("LdapIdentitySourceId cannot be null"); }
             NSXTLdapIdentitySourceType returnValue = default(NSXTLdapIdentitySourceType);
@@ -82,31 +77,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ReadLdapIdentitySourceServiceURL.Replace("{ldap-identity-source-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LdapIdentitySourceId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadLdapIdentitySourceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLdapIdentitySourceType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLdapIdentitySourceType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadLdapIdentitySourceServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLdapIdentitySourceType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLdapIdentitySourceType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteLdapIdentitySource(string LdapIdentitySourceId)
+        public async Task DeleteLdapIdentitySource(string LdapIdentitySourceId)
         {
             if (LdapIdentitySourceId == null) { throw new System.ArgumentNullException("LdapIdentitySourceId cannot be null"); }
             
@@ -119,7 +102,7 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             DeleteLdapIdentitySourceServiceURL.Replace("{ldap-identity-source-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LdapIdentitySourceId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteLdapIdentitySourceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteLdapIdentitySourceServiceURL.ToString() + " did not complete successfull";
@@ -131,7 +114,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLdapIdentitySourceProbeResultsType ProbeUnconfiguredLdapIdentitySource(NSXTLdapIdentitySourceType LdapIdentitySource)
+        public async Task<NSXTLdapIdentitySourceProbeResultsType> ProbeUnconfiguredLdapIdentitySource(NSXTLdapIdentitySourceType LdapIdentitySource)
         {
             if (LdapIdentitySource == null) { throw new System.ArgumentNullException("LdapIdentitySource cannot be null"); }
             NSXTLdapIdentitySourceProbeResultsType returnValue = default(NSXTLdapIdentitySourceProbeResultsType);
@@ -144,31 +127,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(LdapIdentitySource, defaultSerializationSettings));
             request.Resource = ProbeUnconfiguredLdapIdentitySourceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLdapIdentitySourceProbeResultsType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLdapIdentitySourceProbeResultsType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + ProbeUnconfiguredLdapIdentitySourceServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLdapIdentitySourceProbeResultsType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLdapIdentitySourceProbeResultsType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLdapIdentitySourceListResultType ListLdapIdentitySources(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTLdapIdentitySourceListResultType> ListLdapIdentitySources(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTLdapIdentitySourceListResultType returnValue = default(NSXTLdapIdentitySourceListResultType);
             StringBuilder ListLdapIdentitySourcesServiceURL = new StringBuilder("/aaa/ldap-identity-sources");
@@ -184,31 +155,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListLdapIdentitySourcesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLdapIdentitySourceListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLdapIdentitySourceListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListLdapIdentitySourcesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLdapIdentitySourceListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLdapIdentitySourceListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPeerCertificateChainType FetchIdentitySourceLdapServerCertificate(NSXTIdentitySourceLdapServerEndpointType IdentitySourceLdapServerEndpoint)
+        public async Task<NSXTPeerCertificateChainType> FetchIdentitySourceLdapServerCertificate(NSXTIdentitySourceLdapServerEndpointType IdentitySourceLdapServerEndpoint)
         {
             if (IdentitySourceLdapServerEndpoint == null) { throw new System.ArgumentNullException("IdentitySourceLdapServerEndpoint cannot be null"); }
             NSXTPeerCertificateChainType returnValue = default(NSXTPeerCertificateChainType);
@@ -221,31 +180,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(IdentitySourceLdapServerEndpoint, defaultSerializationSettings));
             request.Resource = FetchIdentitySourceLdapServerCertificateServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPeerCertificateChainType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPeerCertificateChainType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + FetchIdentitySourceLdapServerCertificateServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPeerCertificateChainType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPeerCertificateChainType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIdentitySourceLdapServerProbeResultType ProbeIdentitySourceLdapServer(NSXTIdentitySourceLdapServerType IdentitySourceLdapServer)
+        public async Task<NSXTIdentitySourceLdapServerProbeResultType> ProbeIdentitySourceLdapServer(NSXTIdentitySourceLdapServerType IdentitySourceLdapServer)
         {
             if (IdentitySourceLdapServer == null) { throw new System.ArgumentNullException("IdentitySourceLdapServer cannot be null"); }
             NSXTIdentitySourceLdapServerProbeResultType returnValue = default(NSXTIdentitySourceLdapServerProbeResultType);
@@ -258,31 +205,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(IdentitySourceLdapServer, defaultSerializationSettings));
             request.Resource = ProbeIdentitySourceLdapServerServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIdentitySourceLdapServerProbeResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIdentitySourceLdapServerProbeResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + ProbeIdentitySourceLdapServerServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIdentitySourceLdapServerProbeResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIdentitySourceLdapServerProbeResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLdapIdentitySourceProbeResultsType ProbeConfiguredLdapIdentitySource(string LdapIdentitySourceId)
+        public async Task<NSXTLdapIdentitySourceProbeResultsType> ProbeConfiguredLdapIdentitySource(string LdapIdentitySourceId)
         {
             if (LdapIdentitySourceId == null) { throw new System.ArgumentNullException("LdapIdentitySourceId cannot be null"); }
             NSXTLdapIdentitySourceProbeResultsType returnValue = default(NSXTLdapIdentitySourceProbeResultsType);
@@ -295,31 +230,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ProbeConfiguredLdapIdentitySourceServiceURL.Replace("{ldap-identity-source-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LdapIdentitySourceId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ProbeConfiguredLdapIdentitySourceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLdapIdentitySourceProbeResultsType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLdapIdentitySourceProbeResultsType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + ProbeConfiguredLdapIdentitySourceServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLdapIdentitySourceProbeResultsType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLdapIdentitySourceProbeResultsType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLdapIdentitySourceSearchResultListType SearchLdapIdentitySource(string LdapIdentitySourceId, string FilterValue)
+        public async Task<NSXTLdapIdentitySourceSearchResultListType> SearchLdapIdentitySource(string LdapIdentitySourceId, string FilterValue)
         {
             if (LdapIdentitySourceId == null) { throw new System.ArgumentNullException("LdapIdentitySourceId cannot be null"); }
             if (FilterValue == null) { throw new System.ArgumentNullException("FilterValue cannot be null"); }
@@ -334,25 +257,13 @@ namespace nsxtapi.PolicyModules
             SearchLdapIdentitySourceServiceURL.Replace("{ldap-identity-source-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LdapIdentitySourceId, System.Globalization.CultureInfo.InvariantCulture)));
             if (FilterValue != null) { request.AddQueryParameter("filter_value", FilterValue.ToString()); }
             request.Resource = SearchLdapIdentitySourceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLdapIdentitySourceSearchResultListType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLdapIdentitySourceSearchResultListType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + SearchLdapIdentitySourceServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLdapIdentitySourceSearchResultListType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLdapIdentitySourceSearchResultListType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

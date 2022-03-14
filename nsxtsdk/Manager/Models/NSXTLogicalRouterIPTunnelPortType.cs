@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,26 +17,17 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLogicalRouterIPTunnelPortType : NSXTLogicalRouterPortType
     {
-        public NSXTLogicalRouterIPTunnelPortType()
-        {
-        }
         /// <summary>
         /// Tunnel port subnets.
         /// </summary>
-        [JsonProperty(PropertyName = "subnets")]
-        [NSXTProperty(IsRequired: false, Description: @"Tunnel port subnets.")]
         public IList<NSXTIPSubnetType> Subnets { get; set; }
         /// <summary>
         /// Admin state of port.
         /// </summary>
-        [JsonProperty(PropertyName = "admin_state")]
-        [NSXTProperty(IsRequired: false, Description: @"Admin state of port.")]
         public NSXTLogicalRouterIptunnelPortAdminStateEnumType? AdminState { get; set; }
         /// <summary>
         /// Associated VPN session identifier.
         /// </summary>
-        [JsonProperty(PropertyName = "vpn_session_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Associated VPN session identifier.")]
         public string? VpnSessionId { get; set; }
     }
 }

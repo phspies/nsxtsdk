@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,44 +17,29 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Traffic counters for IPSec VPN session.")]
     public class NSXTIPSecVPNTrafficCountersType 
     {
-        public NSXTIPSecVPNTrafficCountersType()
-        {
-        }
         /// <summary>
         /// Total number of packets sent.
         /// </summary>
-        [JsonProperty(PropertyName = "packets_out")]
-        [NSXTProperty(IsRequired: false, Description: @"Total number of packets sent.")]
         public long? PacketsOut { get; set; }
         /// <summary>
         /// Total number of outgoing packets dropped on outbound security association.
         /// </summary>
-        [JsonProperty(PropertyName = "dropped_packets_out")]
-        [NSXTProperty(IsRequired: false, Description: @"Total number of outgoing packets dropped on outbound security association.")]
         public long? DroppedPacketsOut { get; set; }
         /// <summary>
         /// Total number of bytes recevied.
         /// </summary>
-        [JsonProperty(PropertyName = "bytes_in")]
-        [NSXTProperty(IsRequired: false, Description: @"Total number of bytes recevied.")]
         public long? BytesIn { get; set; }
         /// <summary>
         /// Total number of bytes sent.
         /// </summary>
-        [JsonProperty(PropertyName = "bytes_out")]
-        [NSXTProperty(IsRequired: false, Description: @"Total number of bytes sent.")]
         public long? BytesOut { get; set; }
         /// <summary>
         /// Total number of incoming packets dropped on inbound security association.
         /// </summary>
-        [JsonProperty(PropertyName = "dropped_packets_in")]
-        [NSXTProperty(IsRequired: false, Description: @"Total number of incoming packets dropped on inbound security association.")]
         public long? DroppedPacketsIn { get; set; }
         /// <summary>
         /// Total number of packets received.
         /// </summary>
-        [JsonProperty(PropertyName = "packets_in")]
-        [NSXTProperty(IsRequired: false, Description: @"Total number of packets received.")]
         public long? PacketsIn { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"This object contains the list of NTP servers used by NSX nodes.")]
     public class NSXTNtpPropertiesType 
     {
-        public NSXTNtpPropertiesType()
-        {
-        }
         /// <summary>
         /// List of NTP servers.
         /// </summary>
         [JsonProperty(PropertyName = "servers", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"List of NTP servers.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<string> Servers { get; set; }
     }
 }

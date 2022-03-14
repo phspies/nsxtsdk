@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,21 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTEffectiveMemberTypeListResultType 
     {
-        public NSXTEffectiveMemberTypeListResultType()
-        {
-        }
         /// <summary>
         /// Collection of member types for the given NSGroup
         /// </summary>
         [JsonProperty(PropertyName = "results", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Collection of member types for the given NSGroup")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<string> Results { get; set; }
         /// <summary>
         /// Count of the member types in the results array
         /// </summary>
-        [JsonProperty(PropertyName = "result_count")]
-        [NSXTProperty(IsRequired: false, Description: @"Count of the member types in the results array")]
         public long? ResultCount { get; set; }
     }
 }

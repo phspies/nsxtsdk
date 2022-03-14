@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,39 +17,26 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Check to identify potential pre/post-upgrade issues")]
     public class NSXTUpgradeCheckType 
     {
-        public NSXTUpgradeCheckType()
-        {
-        }
         /// <summary>
         /// Status of pre/post-upgrade check
         /// </summary>
-        [JsonProperty(PropertyName = "status")]
-        [NSXTProperty(IsRequired: false, Description: @"Status of pre/post-upgrade check")]
         public NSXTUpgradeCheckStatusEnumType? Status { get; set; }
         /// <summary>
         /// List of failures
         /// </summary>
-        [JsonProperty(PropertyName = "failures")]
-        [NSXTProperty(IsRequired: false, Description: @"List of failures")]
         public IList<NSXTUpgradeCheckFailureMessageType> Failures { get; set; }
         /// <summary>
         /// Name of the pre/post-upgrade check
         /// </summary>
-        [JsonProperty(PropertyName = "display_name")]
-        [NSXTProperty(IsRequired: false, Description: @"Name of the pre/post-upgrade check")]
         public string? DisplayName { get; set; }
         /// <summary>
         /// List of failure messages. This field is deprecated now. Please use failures instead.
         /// </summary>
-        [JsonProperty(PropertyName = "failure_messages")]
-        [NSXTProperty(IsRequired: false, Description: @"List of failure messages. This field is deprecated now. Please use failures instead.")]
         public IList<string> FailureMessages { get; set; }
         /// <summary>
         /// Component type
         /// </summary>
         [JsonProperty(PropertyName = "component_type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Component type")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string ComponentType { get; set; }
     }
 }

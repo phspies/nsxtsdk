@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,22 +17,15 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer HTTPStatusRange object")]
     public class NSXTALBHTTPStatusRangeType 
     {
-        public NSXTALBHTTPStatusRangeType()
-        {
-        }
         /// <summary>
         /// Starting HTTP response status code.
         /// </summary>
         [JsonProperty(PropertyName = "begin", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Starting HTTP response status code.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public long Begin { get; set; }
         /// <summary>
         /// Ending HTTP response status code.
         /// </summary>
         [JsonProperty(PropertyName = "end", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Ending HTTP response status code.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public long End { get; set; }
     }
 }

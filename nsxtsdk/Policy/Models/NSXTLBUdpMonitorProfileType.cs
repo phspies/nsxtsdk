@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,9 +17,6 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLBUdpMonitorProfileType : NSXTLBActiveMonitorType
     {
-        public NSXTLBUdpMonitorProfileType()
-        {
-        }
         /// <summary>
         /// Expected data, can be anywhere in the response and it has to be a
         /// string, regular expressions are not supported.
@@ -27,15 +24,11 @@ namespace nsxtsdk.PolicyModels
         /// within the timeout period.
         /// </summary>
         [JsonProperty(PropertyName = "receive", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Expected data, can be anywhere in the response and it has to be astring, regular expressions are not supported.UDP healthcheck is considered failed if there is no server responsewithin the timeout period.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Receive { get; set; }
         /// <summary>
         /// The data to be sent to the monitored server.
         /// </summary>
         [JsonProperty(PropertyName = "send", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"The data to be sent to the monitored server.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Send { get; set; }
     }
 }

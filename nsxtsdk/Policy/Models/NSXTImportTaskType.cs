@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTImportTaskType : NSXTPolicyTaskType
     {
-        public NSXTImportTaskType()
-        {
-        }
         /// <summary>
         /// Policy path of a draft in which the imported configuration gets stored
         /// after completion of import task.
         /// </summary>
-        [JsonProperty(PropertyName = "draft_path")]
-        [NSXTProperty(IsRequired: false, Description: @"Policy path of a draft in which the imported configuration gets storedafter completion of import task.")]
         public string? DraftPath { get; set; }
     }
 }

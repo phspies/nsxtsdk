@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,22 +17,15 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Match criteria based on a community list")]
     public class NSXTCommunityMatchCriteriaType 
     {
-        public NSXTCommunityMatchCriteriaType()
-        {
-        }
         /// <summary>
         /// Match operator for community list entries. Not valid when a regular expression is specified for criteria.
         /// </summary>
-        [JsonProperty(PropertyName = "match_operator")]
-        [NSXTProperty(IsRequired: false, Description: @"Match operator for community list entries. Not valid when a regular expression is specified for criteria.")]
         public NSXTCommunityMatchCriteriaMatchOperatorEnumType? MatchOperator { get; set; }
         /// <summary>
         /// Match criteria specified as a community list path or a regular
         /// expression.
         /// </summary>
         [JsonProperty(PropertyName = "criteria", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Match criteria specified as a community list path or a regularexpression.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Criteria { get; set; }
     }
 }

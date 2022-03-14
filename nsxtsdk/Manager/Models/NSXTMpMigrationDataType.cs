@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,34 +17,22 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Contains manager and policy resource id.")]
     public class NSXTMpMigrationDataType 
     {
-        public NSXTMpMigrationDataType()
-        {
-            Mode = test
-        }
         /// <summary>
         /// Default value is false. This value will indicate if there is error,
         /// skip the failed objects and proceed with next set of objects for MP to Policy promotion.
         /// </summary>
-        [JsonProperty(PropertyName = "skip_failed_resources")]
-        [NSXTProperty(IsRequired: false, Description: @"Default value is false. This value will indicate if there is error,skip the failed objects and proceed with next set of objects for MP to Policy promotion.")]
         public bool? SkipFailedResources { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "setup_details")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTSetupDetailsType SetupDetails { get; set; }
         /// <summary>
         /// migration data ( resource type and Ids ).
         /// </summary>
-        [JsonProperty(PropertyName = "migration_data")]
-        [NSXTProperty(IsRequired: false, Description: @"migration data ( resource type and Ids ).")]
         public IList<NSXTMPResourceType> MigrationData { get; set; }
         /// <summary>
         /// Mode of MP2Policy migration
         /// </summary>
-        [JsonProperty(PropertyName = "mode")]
-        [NSXTProperty(IsRequired: false, Description: @"Mode of MP2Policy migration")]
         public NSXTMpMigrationDataModeEnumType? Mode { get; set; }
     }
 }

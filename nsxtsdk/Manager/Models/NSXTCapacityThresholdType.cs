@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,35 +17,22 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTCapacityThresholdType 
     {
-        public NSXTCapacityThresholdType()
-        {
-        }
         /// <summary>
         /// Set the maximum threshold percentage. Specify a value between 0 and
         /// 100. Usage percentage above this value is tagged as critical.
         /// </summary>
         [JsonProperty(PropertyName = "max_threshold_percentage", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Set the maximum threshold percentage. Specify a value between 0 and100. Usage percentage above this value is tagged as critical.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(100)]
-        [System.ComponentModel.DataAnnotations.Required]
         public double MaxThresholdPercentage { get; set; }
         /// <summary>
         /// Indicate the object type for which threshold is to be set.
         /// </summary>
         [JsonProperty(PropertyName = "threshold_type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Indicate the object type for which threshold is to be set.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string ThresholdType { get; set; }
         /// <summary>
         /// Set the minimum threshold percentage. Specify a value between 0 and
         /// 100. Usage percentage above this value is tagged as warning.
         /// </summary>
         [JsonProperty(PropertyName = "min_threshold_percentage", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Set the minimum threshold percentage. Specify a value between 0 and100. Usage percentage above this value is tagged as warning.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(100)]
-        [System.ComponentModel.DataAnnotations.Required]
         public double MinThresholdPercentage { get; set; }
     }
 }

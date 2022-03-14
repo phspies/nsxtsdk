@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public Firewall(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public Firewall(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTFirewallRuleType ReadFirewallRule(string RuleId)
+        public async Task<NSXTFirewallRuleType> ReadFirewallRule(string RuleId)
         {
             if (RuleId == null) { throw new System.ArgumentNullException("RuleId cannot be null"); }
             NSXTFirewallRuleType returnValue = default(NSXTFirewallRuleType);
@@ -43,31 +50,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             ReadFirewallRuleServiceURL.Replace("{rule-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(RuleId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadFirewallRuleServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTFirewallRuleType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTFirewallRuleType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadFirewallRuleServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTFirewallRuleType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTFirewallRuleType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTFirewallSectionRuleListType ReviseSectionWithRules(string SectionId, NSXTFirewallSectionRuleListType FirewallSectionRuleList, string? Id = null, string? Operation = null)
+        public async Task<NSXTFirewallSectionRuleListType> ReviseSectionWithRules(string SectionId, NSXTFirewallSectionRuleListType FirewallSectionRuleList, string? Id = null, string? Operation = null)
         {
             if (SectionId == null) { throw new System.ArgumentNullException("SectionId cannot be null"); }
             if (FirewallSectionRuleList == null) { throw new System.ArgumentNullException("FirewallSectionRuleList cannot be null"); }
@@ -84,31 +79,19 @@ namespace nsxtapi.ManagerModules
             if (Id != null) { request.AddQueryParameter("id", Id.ToString()); }
             if (Operation != null) { request.AddQueryParameter("operation", Operation.ToString()); }
             request.Resource = ReviseSectionWithRulesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTFirewallSectionRuleListType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTFirewallSectionRuleListType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + ReviseSectionWithRulesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTFirewallSectionRuleListType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTFirewallSectionRuleListType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTFirewallSectionRuleListType UpdateSectionWithRules(string SectionId, NSXTFirewallSectionRuleListType FirewallSectionRuleList)
+        public async Task<NSXTFirewallSectionRuleListType> UpdateSectionWithRules(string SectionId, NSXTFirewallSectionRuleListType FirewallSectionRuleList)
         {
             if (SectionId == null) { throw new System.ArgumentNullException("SectionId cannot be null"); }
             if (FirewallSectionRuleList == null) { throw new System.ArgumentNullException("FirewallSectionRuleList cannot be null"); }
@@ -123,31 +106,19 @@ namespace nsxtapi.ManagerModules
             UpdateSectionWithRulesServiceURL.Replace("{section-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SectionId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(FirewallSectionRuleList, defaultSerializationSettings));
             request.Resource = UpdateSectionWithRulesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTFirewallSectionRuleListType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTFirewallSectionRuleListType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + UpdateSectionWithRulesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTFirewallSectionRuleListType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTFirewallSectionRuleListType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTFirewallRuleListType AddRulesInSection(string SectionId, NSXTFirewallRuleListType FirewallRuleList, string? Id = null, string? Operation = null)
+        public async Task<NSXTFirewallRuleListType> AddRulesInSection(string SectionId, NSXTFirewallRuleListType FirewallRuleList, string? Id = null, string? Operation = null)
         {
             if (SectionId == null) { throw new System.ArgumentNullException("SectionId cannot be null"); }
             if (FirewallRuleList == null) { throw new System.ArgumentNullException("FirewallRuleList cannot be null"); }
@@ -164,31 +135,19 @@ namespace nsxtapi.ManagerModules
             if (Id != null) { request.AddQueryParameter("id", Id.ToString()); }
             if (Operation != null) { request.AddQueryParameter("operation", Operation.ToString()); }
             request.Resource = AddRulesInSectionServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTFirewallRuleListType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTFirewallRuleListType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + AddRulesInSectionServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTFirewallRuleListType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTFirewallRuleListType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTFirewallRuleType AddRuleInSection(string SectionId, NSXTFirewallRuleType FirewallRule, string? Id = null, string? Operation = null)
+        public async Task<NSXTFirewallRuleType> AddRuleInSection(string SectionId, NSXTFirewallRuleType FirewallRule, string? Id = null, string? Operation = null)
         {
             if (SectionId == null) { throw new System.ArgumentNullException("SectionId cannot be null"); }
             if (FirewallRule == null) { throw new System.ArgumentNullException("FirewallRule cannot be null"); }
@@ -205,31 +164,19 @@ namespace nsxtapi.ManagerModules
             if (Id != null) { request.AddQueryParameter("id", Id.ToString()); }
             if (Operation != null) { request.AddQueryParameter("operation", Operation.ToString()); }
             request.Resource = AddRuleInSectionServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTFirewallRuleType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTFirewallRuleType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + AddRuleInSectionServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTFirewallRuleType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTFirewallRuleType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTFirewallRuleListResultType GetRules(string SectionId, string? AppliedTos = null, string? ContextProfiles = null, string? Cursor = null, bool? DeepSearch = null, string? Destinations = null, string? ExtendedSources = null, string? FilterType = null, string? IncludedFields = null, long? PageSize = null, bool? SearchInvalidReferences = null, string? Services = null, bool? SortAscending = null, string? SortBy = null, string? Sources = null)
+        public async Task<NSXTFirewallRuleListResultType> GetRules(string SectionId, string? AppliedTos = null, string? ContextProfiles = null, string? Cursor = null, bool? DeepSearch = null, string? Destinations = null, string? ExtendedSources = null, string? FilterType = null, string? IncludedFields = null, long? PageSize = null, bool? SearchInvalidReferences = null, string? Services = null, bool? SortAscending = null, string? SortBy = null, string? Sources = null)
         {
             if (SectionId == null) { throw new System.ArgumentNullException("SectionId cannot be null"); }
             NSXTFirewallRuleListResultType returnValue = default(NSXTFirewallRuleListResultType);
@@ -256,31 +203,19 @@ namespace nsxtapi.ManagerModules
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             if (Sources != null) { request.AddQueryParameter("sources", Sources.ToString()); }
             request.Resource = GetRulesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTFirewallRuleListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTFirewallRuleListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetRulesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTFirewallRuleListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTFirewallRuleListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTFirewallSectionType UnlockSection(string SectionId, NSXTFirewallSectionLockType FirewallSectionLock)
+        public async Task<NSXTFirewallSectionType> UnlockSection(string SectionId, NSXTFirewallSectionLockType FirewallSectionLock)
         {
             if (SectionId == null) { throw new System.ArgumentNullException("SectionId cannot be null"); }
             if (FirewallSectionLock == null) { throw new System.ArgumentNullException("FirewallSectionLock cannot be null"); }
@@ -295,31 +230,19 @@ namespace nsxtapi.ManagerModules
             UnlockSectionServiceURL.Replace("{section-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SectionId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(FirewallSectionLock, defaultSerializationSettings));
             request.Resource = UnlockSectionServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTFirewallSectionType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTFirewallSectionType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + UnlockSectionServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTFirewallSectionType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTFirewallSectionType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTFirewallSectionRuleListType AddSectionWithRules(NSXTFirewallSectionRuleListType FirewallSectionRuleList, string? Id = null, string? Operation = null)
+        public async Task<NSXTFirewallSectionRuleListType> AddSectionWithRules(NSXTFirewallSectionRuleListType FirewallSectionRuleList, string? Id = null, string? Operation = null)
         {
             if (FirewallSectionRuleList == null) { throw new System.ArgumentNullException("FirewallSectionRuleList cannot be null"); }
             NSXTFirewallSectionRuleListType returnValue = default(NSXTFirewallSectionRuleListType);
@@ -334,31 +257,19 @@ namespace nsxtapi.ManagerModules
             if (Id != null) { request.AddQueryParameter("id", Id.ToString()); }
             if (Operation != null) { request.AddQueryParameter("operation", Operation.ToString()); }
             request.Resource = AddSectionWithRulesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTFirewallSectionRuleListType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTFirewallSectionRuleListType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + AddSectionWithRulesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTFirewallSectionRuleListType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTFirewallSectionRuleListType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTFirewallSectionType ReviseSection(string SectionId, NSXTFirewallSectionType FirewallSection, string? Id = null, string? Operation = null)
+        public async Task<NSXTFirewallSectionType> ReviseSection(string SectionId, NSXTFirewallSectionType FirewallSection, string? Id = null, string? Operation = null)
         {
             if (SectionId == null) { throw new System.ArgumentNullException("SectionId cannot be null"); }
             if (FirewallSection == null) { throw new System.ArgumentNullException("FirewallSection cannot be null"); }
@@ -375,31 +286,19 @@ namespace nsxtapi.ManagerModules
             if (Id != null) { request.AddQueryParameter("id", Id.ToString()); }
             if (Operation != null) { request.AddQueryParameter("operation", Operation.ToString()); }
             request.Resource = ReviseSectionServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTFirewallSectionType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTFirewallSectionType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + ReviseSectionServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTFirewallSectionType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTFirewallSectionType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTFirewallRuleType ReviseRule(string SectionId, string RuleId, NSXTFirewallRuleType FirewallRule, string? Id = null, string? Operation = null)
+        public async Task<NSXTFirewallRuleType> ReviseRule(string SectionId, string RuleId, NSXTFirewallRuleType FirewallRule, string? Id = null, string? Operation = null)
         {
             if (SectionId == null) { throw new System.ArgumentNullException("SectionId cannot be null"); }
             if (RuleId == null) { throw new System.ArgumentNullException("RuleId cannot be null"); }
@@ -418,31 +317,19 @@ namespace nsxtapi.ManagerModules
             if (Id != null) { request.AddQueryParameter("id", Id.ToString()); }
             if (Operation != null) { request.AddQueryParameter("operation", Operation.ToString()); }
             request.Resource = ReviseRuleServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTFirewallRuleType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTFirewallRuleType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + ReviseRuleServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTFirewallRuleType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTFirewallRuleType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTFirewallSectionType LockSection(string SectionId, NSXTFirewallSectionLockType FirewallSectionLock)
+        public async Task<NSXTFirewallSectionType> LockSection(string SectionId, NSXTFirewallSectionLockType FirewallSectionLock)
         {
             if (SectionId == null) { throw new System.ArgumentNullException("SectionId cannot be null"); }
             if (FirewallSectionLock == null) { throw new System.ArgumentNullException("FirewallSectionLock cannot be null"); }
@@ -457,31 +344,19 @@ namespace nsxtapi.ManagerModules
             LockSectionServiceURL.Replace("{section-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SectionId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(FirewallSectionLock, defaultSerializationSettings));
             request.Resource = LockSectionServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTFirewallSectionType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTFirewallSectionType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + LockSectionServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTFirewallSectionType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTFirewallSectionType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTFirewallSectionType AddSection(NSXTFirewallSectionType FirewallSection, string? Id = null, string? Operation = null)
+        public async Task<NSXTFirewallSectionType> AddSection(NSXTFirewallSectionType FirewallSection, string? Id = null, string? Operation = null)
         {
             if (FirewallSection == null) { throw new System.ArgumentNullException("FirewallSection cannot be null"); }
             NSXTFirewallSectionType returnValue = default(NSXTFirewallSectionType);
@@ -496,31 +371,19 @@ namespace nsxtapi.ManagerModules
             if (Id != null) { request.AddQueryParameter("id", Id.ToString()); }
             if (Operation != null) { request.AddQueryParameter("operation", Operation.ToString()); }
             request.Resource = AddSectionServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTFirewallSectionType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTFirewallSectionType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + AddSectionServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTFirewallSectionType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTFirewallSectionType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTFirewallSectionListResultType ListSections(string? AppliedTos = null, string? ContextProfiles = null, string? Cursor = null, bool? DeepSearch = null, string? Destinations = null, string? EnforcedOn = null, string? ExcludeAppliedToType = null, string? ExtendedSources = null, string? FilterType = null, string? IncludeAppliedToType = null, string? IncludedFields = null, bool? Locked = null, long? PageSize = null, bool? SearchInvalidReferences = null, string? SearchScope = null, string? Services = null, bool? SortAscending = null, string? SortBy = null, string? Sources = null, string? Type = null)
+        public async Task<NSXTFirewallSectionListResultType> ListSections(string? AppliedTos = null, string? ContextProfiles = null, string? Cursor = null, bool? DeepSearch = null, string? Destinations = null, string? EnforcedOn = null, string? ExcludeAppliedToType = null, string? ExtendedSources = null, string? FilterType = null, string? IncludeAppliedToType = null, string? IncludedFields = null, bool? Locked = null, long? PageSize = null, bool? SearchInvalidReferences = null, string? SearchScope = null, string? Services = null, bool? SortAscending = null, string? SortBy = null, string? Sources = null, string? Type = null)
         {
             NSXTFirewallSectionListResultType returnValue = default(NSXTFirewallSectionListResultType);
             StringBuilder ListSectionsServiceURL = new StringBuilder("/firewall/sections");
@@ -551,31 +414,19 @@ namespace nsxtapi.ManagerModules
             if (Sources != null) { request.AddQueryParameter("sources", Sources.ToString()); }
             if (Type != null) { request.AddQueryParameter("type", Type.ToString()); }
             request.Resource = ListSectionsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTFirewallSectionListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTFirewallSectionListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListSectionsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTFirewallSectionListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTFirewallSectionListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTFirewallSectionType UpdateSection(string SectionId, NSXTFirewallSectionType FirewallSection)
+        public async Task<NSXTFirewallSectionType> UpdateSection(string SectionId, NSXTFirewallSectionType FirewallSection)
         {
             if (SectionId == null) { throw new System.ArgumentNullException("SectionId cannot be null"); }
             if (FirewallSection == null) { throw new System.ArgumentNullException("FirewallSection cannot be null"); }
@@ -590,31 +441,19 @@ namespace nsxtapi.ManagerModules
             UpdateSectionServiceURL.Replace("{section-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SectionId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(FirewallSection, defaultSerializationSettings));
             request.Resource = UpdateSectionServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTFirewallSectionType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTFirewallSectionType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateSectionServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTFirewallSectionType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTFirewallSectionType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTFirewallSectionType GetSection(string SectionId)
+        public async Task<NSXTFirewallSectionType> GetSection(string SectionId)
         {
             if (SectionId == null) { throw new System.ArgumentNullException("SectionId cannot be null"); }
             NSXTFirewallSectionType returnValue = default(NSXTFirewallSectionType);
@@ -627,31 +466,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             GetSectionServiceURL.Replace("{section-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SectionId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetSectionServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTFirewallSectionType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTFirewallSectionType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetSectionServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTFirewallSectionType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTFirewallSectionType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteSection(string SectionId, bool? Cascade = null)
+        public async Task DeleteSection(string SectionId, bool? Cascade = null)
         {
             if (SectionId == null) { throw new System.ArgumentNullException("SectionId cannot be null"); }
             
@@ -665,7 +492,7 @@ namespace nsxtapi.ManagerModules
             DeleteSectionServiceURL.Replace("{section-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SectionId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Cascade != null) { request.AddQueryParameter("cascade", Cascade.ToString()); }
             request.Resource = DeleteSectionServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteSectionServiceURL.ToString() + " did not complete successfull";
@@ -677,7 +504,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTFirewallRuleType UpdateRule(string SectionId, string RuleId, NSXTFirewallRuleType FirewallRule)
+        public async Task<NSXTFirewallRuleType> UpdateRule(string SectionId, string RuleId, NSXTFirewallRuleType FirewallRule)
         {
             if (SectionId == null) { throw new System.ArgumentNullException("SectionId cannot be null"); }
             if (RuleId == null) { throw new System.ArgumentNullException("RuleId cannot be null"); }
@@ -694,31 +521,19 @@ namespace nsxtapi.ManagerModules
             UpdateRuleServiceURL.Replace("{rule-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(RuleId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(FirewallRule, defaultSerializationSettings));
             request.Resource = UpdateRuleServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTFirewallRuleType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTFirewallRuleType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateRuleServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTFirewallRuleType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTFirewallRuleType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTFirewallRuleType GetRule(string SectionId, string RuleId)
+        public async Task<NSXTFirewallRuleType> GetRule(string SectionId, string RuleId)
         {
             if (SectionId == null) { throw new System.ArgumentNullException("SectionId cannot be null"); }
             if (RuleId == null) { throw new System.ArgumentNullException("RuleId cannot be null"); }
@@ -733,31 +548,19 @@ namespace nsxtapi.ManagerModules
             GetRuleServiceURL.Replace("{section-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SectionId, System.Globalization.CultureInfo.InvariantCulture)));
             GetRuleServiceURL.Replace("{rule-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(RuleId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetRuleServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTFirewallRuleType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTFirewallRuleType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetRuleServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTFirewallRuleType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTFirewallRuleType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteRule(string SectionId, string RuleId)
+        public async Task DeleteRule(string SectionId, string RuleId)
         {
             if (SectionId == null) { throw new System.ArgumentNullException("SectionId cannot be null"); }
             if (RuleId == null) { throw new System.ArgumentNullException("RuleId cannot be null"); }
@@ -772,7 +575,7 @@ namespace nsxtapi.ManagerModules
             DeleteRuleServiceURL.Replace("{section-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SectionId, System.Globalization.CultureInfo.InvariantCulture)));
             DeleteRuleServiceURL.Replace("{rule-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(RuleId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteRuleServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteRuleServiceURL.ToString() + " did not complete successfull";
@@ -784,7 +587,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTFirewallSectionStateType GetSectionState(string SectionId, long? BarrierId = null, string? RequestId = null)
+        public async Task<NSXTFirewallSectionStateType> GetSectionState(string SectionId, long? BarrierId = null, string? RequestId = null)
         {
             if (SectionId == null) { throw new System.ArgumentNullException("SectionId cannot be null"); }
             NSXTFirewallSectionStateType returnValue = default(NSXTFirewallSectionStateType);
@@ -799,31 +602,19 @@ namespace nsxtapi.ManagerModules
             if (BarrierId != null) { request.AddQueryParameter("barrier_id", BarrierId.ToString()); }
             if (RequestId != null) { request.AddQueryParameter("request_id", RequestId.ToString()); }
             request.Resource = GetSectionStateServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTFirewallSectionStateType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTFirewallSectionStateType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetSectionStateServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTFirewallSectionStateType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTFirewallSectionStateType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTRuleStateType GetRuleState(string RuleId, long? BarrierId = null, string? RequestId = null)
+        public async Task<NSXTRuleStateType> GetRuleState(string RuleId, long? BarrierId = null, string? RequestId = null)
         {
             if (RuleId == null) { throw new System.ArgumentNullException("RuleId cannot be null"); }
             NSXTRuleStateType returnValue = default(NSXTRuleStateType);
@@ -838,31 +629,19 @@ namespace nsxtapi.ManagerModules
             if (BarrierId != null) { request.AddQueryParameter("barrier_id", BarrierId.ToString()); }
             if (RequestId != null) { request.AddQueryParameter("request_id", RequestId.ToString()); }
             request.Resource = GetRuleStateServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTRuleStateType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTRuleStateType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetRuleStateServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTRuleStateType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTRuleStateType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTFirewallSectionRuleListType GetSectionWithRules(string SectionId)
+        public async Task<NSXTFirewallSectionRuleListType> GetSectionWithRules(string SectionId)
         {
             if (SectionId == null) { throw new System.ArgumentNullException("SectionId cannot be null"); }
             NSXTFirewallSectionRuleListType returnValue = default(NSXTFirewallSectionRuleListType);
@@ -875,25 +654,13 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             GetSectionWithRulesServiceURL.Replace("{section-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SectionId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetSectionWithRulesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTFirewallSectionRuleListType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTFirewallSectionRuleListType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + GetSectionWithRulesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTFirewallSectionRuleListType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTFirewallSectionRuleListType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

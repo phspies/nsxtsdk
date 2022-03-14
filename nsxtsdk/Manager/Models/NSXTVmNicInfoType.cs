@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -18,16 +18,11 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Contains a set of information of a VM on the network interfaces present on the partner appliance that needs to be configured by the NSX Manager.")]
     public class NSXTVmNicInfoType 
     {
-        public NSXTVmNicInfoType()
-        {
-        }
         /// <summary>
         /// Set of information of a VM on the network interfaces present on the partner appliance that needs to be configured by the
         /// NSX Manager.
         /// </summary>
         [JsonProperty(PropertyName = "nic_infos", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Set of information of a VM on the network interfaces present on the partner appliance that needs to be configured by the NSX Manager.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTNicInfoType> NicInfos { get; set; }
     }
 }

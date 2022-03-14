@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,26 +17,17 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Gives the statistics count of a NAT rule.")]
     public class NSXTPolicyNATRuleCountersType 
     {
-        public NSXTPolicyNATRuleCountersType()
-        {
-        }
         /// <summary>
         /// Gives the total number of packets.
         /// </summary>
-        [JsonProperty(PropertyName = "total_packets")]
-        [NSXTProperty(IsRequired: false, Description: @"Gives the total number of packets.")]
         public long? TotalPackets { get; set; }
         /// <summary>
         /// Gives the total number of active sessions.
         /// </summary>
-        [JsonProperty(PropertyName = "active_sessions")]
-        [NSXTProperty(IsRequired: false, Description: @"Gives the total number of active sessions.")]
         public long? ActiveSessions { get; set; }
         /// <summary>
         /// Gives the total number of bytes.
         /// </summary>
-        [JsonProperty(PropertyName = "total_bytes")]
-        [NSXTProperty(IsRequired: false, Description: @"Gives the total number of bytes.")]
         public long? TotalBytes { get; set; }
     }
 }

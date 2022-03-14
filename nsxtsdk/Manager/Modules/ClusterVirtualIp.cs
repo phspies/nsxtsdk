@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public ClusterVirtualIp(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public ClusterVirtualIp(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTClusterVirtualIpPropertiesType GetClusterVirtualIp()
+        public async Task<NSXTClusterVirtualIpPropertiesType> GetClusterVirtualIp()
         {
             NSXTClusterVirtualIpPropertiesType returnValue = default(NSXTClusterVirtualIpPropertiesType);
             StringBuilder GetClusterVirtualIpServiceURL = new StringBuilder("/cluster/api-virtual-ip");
@@ -41,31 +48,19 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = GetClusterVirtualIpServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTClusterVirtualIpPropertiesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTClusterVirtualIpPropertiesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetClusterVirtualIpServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTClusterVirtualIpPropertiesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTClusterVirtualIpPropertiesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTClusterVirtualIpPropertiesType ClearClusterVirtualIpClearVirtualIp()
+        public async Task<NSXTClusterVirtualIpPropertiesType> ClearClusterVirtualIpClearVirtualIp()
         {
             NSXTClusterVirtualIpPropertiesType returnValue = default(NSXTClusterVirtualIpPropertiesType);
             StringBuilder ClearClusterVirtualIpClearVirtualIpServiceURL = new StringBuilder("/cluster/api-virtual-ip?action=clear_virtual_ip");
@@ -76,31 +71,19 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = ClearClusterVirtualIpClearVirtualIpServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTClusterVirtualIpPropertiesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTClusterVirtualIpPropertiesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + ClearClusterVirtualIpClearVirtualIpServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTClusterVirtualIpPropertiesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTClusterVirtualIpPropertiesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTClusterVirtualIpPropertiesType SetClusterVirtualIpSetVirtualIp(string IpAddress)
+        public async Task<NSXTClusterVirtualIpPropertiesType> SetClusterVirtualIpSetVirtualIp(string IpAddress)
         {
             if (IpAddress == null) { throw new System.ArgumentNullException("IpAddress cannot be null"); }
             NSXTClusterVirtualIpPropertiesType returnValue = default(NSXTClusterVirtualIpPropertiesType);
@@ -113,25 +96,13 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             if (IpAddress != null) { request.AddQueryParameter("ip_address", IpAddress.ToString()); }
             request.Resource = SetClusterVirtualIpSetVirtualIpServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTClusterVirtualIpPropertiesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTClusterVirtualIpPropertiesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + SetClusterVirtualIpSetVirtualIpServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTClusterVirtualIpPropertiesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTClusterVirtualIpPropertiesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

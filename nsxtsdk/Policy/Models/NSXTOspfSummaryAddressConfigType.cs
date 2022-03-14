@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,16 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"OSPF summary address configuration to summarize external routes")]
     public class NSXTOspfSummaryAddressConfigType 
     {
-        public NSXTOspfSummaryAddressConfigType()
-        {
-            Advertise = test
-        }
         /// <summary>
         /// OSPF Summary address in CIDR format
         /// </summary>
         [JsonProperty(PropertyName = "prefix", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"OSPF Summary address in CIDR format")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Prefix { get; set; }
         /// <summary>
         /// Used to filter the advertisement of external routes into the OSPF domain.
@@ -35,8 +29,6 @@ namespace nsxtsdk.PolicyModels
         /// Setting this field to "FALSE" will filter the advertisement of external routes that are covered by
         /// ip_prefix configuration.
         /// </summary>
-        [JsonProperty(PropertyName = "advertise")]
-        [NSXTProperty(IsRequired: false, Description: @"Used to filter the advertisement of external routes into the OSPF domain.Setting this field to &quot;TRUE&quot; will enable the summarization of external routes that are covered byip_prefix configuration.Setting this field to &quot;FALSE&quot; will filter the advertisement of external routes that are covered byip_prefix configuration.")]
         public bool? Advertise { get; set; }
     }
 }

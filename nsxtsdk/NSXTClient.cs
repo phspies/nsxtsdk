@@ -9,6 +9,7 @@ using RestSharp.Serializers.NewtonsoftJson;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using nsxtsdk;
+using System.Threading;
 
 namespace nsxtapi
 {
@@ -16,8 +17,11 @@ namespace nsxtapi
     {
         public string EndPoint { get; set; }
         public RestClient restClient { get; set; }
-        JsonSerializerSettings defaultSerializationSettings;
-        public NSXTClient(string host, string Username, string Password, bool? remoteCertificateValidation = true, JsonSerializerSettings? DefaultSerializationSettings = null, int Port = 443)
+        private JsonSerializerSettings defaultSerializationSettings;
+        private CancellationToken cancellationToken;
+        private int timeout;
+        private int retry;
+        public NSXTClient(string host, string Username, string Password, bool? remoteCertificateValidation = true, JsonSerializerSettings? DefaultSerializationSettings = null, CancellationToken _cancellationToken = default(CancellationToken), int Port = 443, int _timeout = 5, int _retry = 2)
         {
             var uri = new UriBuilder(host)
             {

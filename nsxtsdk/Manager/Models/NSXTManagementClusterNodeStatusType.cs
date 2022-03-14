@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTManagementClusterNodeStatusType 
     {
-        public NSXTManagementClusterNodeStatusType()
-        {
-        }
         /// <summary>
         /// Status of this node's connection to the management cluster
         /// </summary>
-        [JsonProperty(PropertyName = "mgmt_cluster_status")]
-        [NSXTProperty(IsRequired: false, Description: @"Status of this node&apos;s connection to the management cluster")]
         public NSXTManagementClusterNodeStatusMgmtClusterStatusEnumType? MgmtClusterStatus { get; set; }
     }
 }

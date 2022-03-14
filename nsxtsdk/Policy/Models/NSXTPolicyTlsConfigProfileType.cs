@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,21 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyTlsConfigProfileType : NSXTPolicyConfigResourceType
     {
-        public NSXTPolicyTlsConfigProfileType()
-        {
-        }
         /// <summary>
         /// Turn on TLS cache
         /// </summary>
         [JsonProperty(PropertyName = "cache", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Turn on TLS cache")]
-        [System.ComponentModel.DataAnnotations.Required]
         public bool Cache { get; set; }
         /// <summary>
         /// TLS SSL cache size
         /// </summary>
-        [JsonProperty(PropertyName = "ssl_cache_size")]
-        [NSXTProperty(IsRequired: false, Description: @"TLS SSL cache size")]
         public long? SslCacheSize { get; set; }
     }
 }

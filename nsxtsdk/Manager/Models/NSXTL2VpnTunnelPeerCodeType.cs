@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"L2Vpn tunnel peer code")]
     public class NSXTL2VpnTunnelPeerCodeType 
     {
-        public NSXTL2VpnTunnelPeerCodeType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty(PropertyName = "transport_tunnel", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTResourceReferenceType TransportTunnel { get; set; }
         /// <summary>
         /// Copy this code to paste on the remote end of the tunnel. This is a base64 encoded string which has all the configuration
@@ -33,8 +28,6 @@ namespace nsxtsdk.ManagerModels
         /// pre-shared key; be careful when sharing or storing it.
         /// </summary>
         [JsonProperty(PropertyName = "peer_code", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Copy this code to paste on the remote end of the tunnel. This is a base64 encoded string which has all the configuration for tunnel. E.g tap device local/peer ips and protocol, encryption algorithm, etc. The peer code also contains a pre-shared key; be careful when sharing or storing it.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string PeerCode { get; set; }
     }
 }

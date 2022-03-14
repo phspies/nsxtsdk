@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,17 +17,11 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Intersite gateway configuration.")]
     public class NSXTIntersiteGatewayConfigType 
     {
-        public NSXTIntersiteGatewayConfigType()
-        {
-            IntersiteTransitSubnet = test
-        }
         /// <summary>
         /// IPv4 subnet for inter-site transit segment connecting service routers
         /// across sites for stretched gateway. For IPv6 link local subnet is
         /// auto configured.
         /// </summary>
-        [JsonProperty(PropertyName = "intersite_transit_subnet")]
-        [NSXTProperty(IsRequired: false, Description: @"IPv4 subnet for inter-site transit segment connecting service routersacross sites for stretched gateway. For IPv6 link local subnet isauto configured.")]
         public string? IntersiteTransitSubnet { get; set; }
         /// <summary>
         /// Primary egress site for gateway. T0/T1 gateway in Active/Standby mode
@@ -37,8 +31,6 @@ namespace nsxtsdk.PolicyModels
         /// prefers routes learned from primary over locally learned routes. This field
         /// is not applicable for T1 gateway with no services.
         /// </summary>
-        [JsonProperty(PropertyName = "primary_site_path")]
-        [NSXTProperty(IsRequired: false, Description: @"Primary egress site for gateway. T0/T1 gateway in Active/Standby modesupports stateful services on primary site. In this mode primary sitemust be set if gateway is stretched to more than one site. For T0 gatewayin Active/Active primary site is optional field. If set then secondary siteprefers routes learned from primary over locally learned routes. This fieldis not applicable for T1 gateway with no services.")]
         public string? PrimarySitePath { get; set; }
         /// <summary>
         /// Epoch(in seconds) is auto updated based on system current timestamp
@@ -46,9 +38,6 @@ namespace nsxtsdk.PolicyModels
         /// during site failover. If system clock not in sync then User can optionally
         /// override this. New value must be higher than the current value.
         /// </summary>
-        [JsonProperty(PropertyName = "last_admin_active_epoch")]
-        [NSXTProperty(IsRequired: false, Description: @"Epoch(in seconds) is auto updated based on system current timestampwhen primary locale service is updated. It is used for resolving conflictduring site failover. If system clock not in sync then User can optionallyoverride this. New value must be higher than the current value.")]
-        //[System.ComponentModel.DataAnnotations.MaxLength(4294967295)]
         public long? LastAdminActiveEpoch { get; set; }
         /// <summary>
         /// Fallback site to be used as new primary site on current primary site
@@ -56,8 +45,6 @@ namespace nsxtsdk.PolicyModels
         /// configuration is supported only for T0 gateway. T1 gateway will follow
         /// T0 gateway's primary site during disaster recovery.
         /// </summary>
-        [JsonProperty(PropertyName = "fallback_sites")]
-        [NSXTProperty(IsRequired: false, Description: @"Fallback site to be used as new primary site on current primary sitefailure. Disaster recovery must be initiated via API/UI. Fallback siteconfiguration is supported only for T0 gateway. T1 gateway will followT0 gateway&apos;s primary site during disaster recovery.")]
         public IList<string> FallbackSites { get; set; }
     }
 }

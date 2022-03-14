@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"List of same type members to either add or remove from a group.")]
     public class NSXTGroupMemberListType 
     {
-        public NSXTGroupMemberListType()
-        {
-        }
         /// <summary>
         /// This array contains group members of similar types.
         /// </summary>
         [JsonProperty(PropertyName = "members", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"This array contains group members of similar types.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<string> Members { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,28 +17,19 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTMetadataProxyStatisticsType 
     {
-        public NSXTMetadataProxyStatisticsType()
-        {
-        }
         /// <summary>
         /// timestamp of the statistics
         /// </summary>
         [JsonProperty(PropertyName = "timestamp", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"timestamp of the statistics")]
-        [System.ComponentModel.DataAnnotations.Required]
         public long Timestamp { get; set; }
         /// <summary>
         /// metadata proxy statistics per logical switch
         /// </summary>
-        [JsonProperty(PropertyName = "statistics")]
-        [NSXTProperty(IsRequired: false, Description: @"metadata proxy statistics per logical switch")]
         public IList<NSXTMetadataProxyStatisticsPerLogicalSwitchType> Statistics { get; set; }
         /// <summary>
         /// metadata proxy uuid
         /// </summary>
         [JsonProperty(PropertyName = "metadata_proxy_id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"metadata proxy uuid")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string MetadataProxyId { get; set; }
     }
 }

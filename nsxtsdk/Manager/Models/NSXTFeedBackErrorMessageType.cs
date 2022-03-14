@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -18,22 +18,15 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Provide details of error_id and error description for errors occurred during collection,translation and apply phase in MP to Policy promotion.")]
     public class NSXTFeedBackErrorMessageType 
     {
-        public NSXTFeedBackErrorMessageType()
-        {
-        }
         /// <summary>
         /// Error description due to which promotion is not successful.
         /// </summary>
         [JsonProperty(PropertyName = "error_desc", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Error description due to which promotion is not successful.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string ErrorDesc { get; set; }
         /// <summary>
         /// Error Id due to which promotion is not successful.
         /// </summary>
         [JsonProperty(PropertyName = "error_id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Error Id due to which promotion is not successful.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string ErrorId { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,20 +17,13 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Information related to OVF file.")]
     public class NSXTOvfInfoType 
     {
-        public NSXTOvfInfoType()
-        {
-        }
         /// <summary>
         /// Version of the OVF.
         /// </summary>
-        [JsonProperty(PropertyName = "version")]
-        [NSXTProperty(IsRequired: false, Description: @"Version of the OVF.")]
         public string? Version { get; set; }
         /// <summary>
         /// Name of OVF file.
         /// </summary>
-        [JsonProperty(PropertyName = "ovf_name")]
-        [NSXTProperty(IsRequired: false, Description: @"Name of OVF file.")]
         public string? OvfName { get; set; }
     }
 }

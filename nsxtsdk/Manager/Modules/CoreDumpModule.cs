@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public CoreDumpModule(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public CoreDumpModule(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void CopyCoreDumpToRemoteFileCopyToRemoteFile(string FileName, NSXTCopyToRemoteFilePropertiesType CopyToRemoteFileProperties)
+        public async Task CopyCoreDumpToRemoteFileCopyToRemoteFile(string FileName, NSXTCopyToRemoteFilePropertiesType CopyToRemoteFileProperties)
         {
             if (FileName == null) { throw new System.ArgumentNullException("FileName cannot be null"); }
             if (CopyToRemoteFileProperties == null) { throw new System.ArgumentNullException("CopyToRemoteFileProperties cannot be null"); }
@@ -45,7 +52,7 @@ namespace nsxtapi.ManagerModules
             CopyCoreDumpToRemoteFileCopyToRemoteFileServiceURL.Replace("{file-name}", System.Uri.EscapeDataString(Helpers.ConvertToString(FileName, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(CopyToRemoteFileProperties, defaultSerializationSettings));
             request.Resource = CopyCoreDumpToRemoteFileCopyToRemoteFileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CopyCoreDumpToRemoteFileCopyToRemoteFileServiceURL.ToString() + " did not complete successfull";
@@ -57,7 +64,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTFilePropertiesListResultType ListCoreDumps()
+        public async Task<NSXTFilePropertiesListResultType> ListCoreDumps()
         {
             NSXTFilePropertiesListResultType returnValue = default(NSXTFilePropertiesListResultType);
             StringBuilder ListCoreDumpsServiceURL = new StringBuilder("/node/core-dumps");
@@ -68,25 +75,13 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = ListCoreDumpsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTFilePropertiesListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTFilePropertiesListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListCoreDumpsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTFilePropertiesListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTFilePropertiesListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

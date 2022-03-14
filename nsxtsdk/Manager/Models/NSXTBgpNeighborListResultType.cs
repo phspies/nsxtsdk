@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTBgpNeighborListResultType : NSXTListResultType
     {
-        public NSXTBgpNeighborListResultType()
-        {
-        }
         /// <summary>
         /// Paginated list of bgp neighbors
         /// </summary>
         [JsonProperty(PropertyName = "results", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Paginated list of bgp neighbors")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTBgpNeighborType> Results { get; set; }
     }
 }

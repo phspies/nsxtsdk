@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,32 +17,21 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Overall status of the upgrade readiness check")]
     public class NSXTNvdsUpgradeStatusSummaryType 
     {
-        public NSXTNvdsUpgradeStatusSummaryType()
-        {
-        }
         /// <summary>
         /// Tracking ID of nvds upgrade precheck
         /// </summary>
-        [JsonProperty(PropertyName = "precheck_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Tracking ID of nvds upgrade precheck")]
         public string? PrecheckId { get; set; }
         /// <summary>
         /// Overall state of migration across all TransportNodes
         /// </summary>
-        [JsonProperty(PropertyName = "migration_state")]
-        [NSXTProperty(IsRequired: false, Description: @"Overall state of migration across all TransportNodes")]
         public IList<NSXTNvdsUpgradeHostStateType> MigrationState { get; set; }
         /// <summary>
         /// Config issue in pre-check
         /// </summary>
-        [JsonProperty(PropertyName = "precheck_issue")]
-        [NSXTProperty(IsRequired: false, Description: @"Config issue in pre-check")]
         public IList<NSXTNvdsUpgradeConfigIssueType> PrecheckIssue { get; set; }
         /// <summary>
         /// Overall status of pre-check
         /// </summary>
-        [JsonProperty(PropertyName = "precheck_status")]
-        [NSXTProperty(IsRequired: false, Description: @"Overall status of pre-check")]
         public NSXTNvdsUpgradeStatusSummaryPrecheckStatusEnumType? PrecheckStatus { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -18,26 +18,17 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Aggregate statistics of all the rules in a security policy for a specificenforcement point.")]
     public class NSXTSecurityPolicyStatisticsForEnforcementPointType 
     {
-        public NSXTSecurityPolicyStatisticsForEnforcementPointType()
-        {
-        }
         /// <summary>
         /// Enforcement point to fetch the statistics from.
         /// </summary>
-        [JsonProperty(PropertyName = "enforcement_point")]
-        [NSXTProperty(IsRequired: false, Description: @"Enforcement point to fetch the statistics from.")]
         public string? EnforcementPoint { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "statistics")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTSecurityPolicyStatisticsType Statistics { get; set; }
         /// <summary>
         /// Security Policy statistics for a single container cluster
         /// </summary>
-        [JsonProperty(PropertyName = "container_cluster_path")]
-        [NSXTProperty(IsRequired: false, Description: @"Security Policy statistics for a single container cluster")]
         public string? ContainerClusterPath { get; set; }
     }
 }

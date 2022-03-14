@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,58 +17,39 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTServiceManagerType : NSXTManagedResourceType
     {
-        public NSXTServiceManagerType()
-        {
-        }
         /// <summary>
         /// Integer port value to specify a standard/non-standard HTTPS port.
         /// </summary>
         [JsonProperty(PropertyName = "port", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Integer port value to specify a standard/non-standard HTTPS port.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
-        [System.ComponentModel.DataAnnotations.Required]
         public long Port { get; set; }
         /// <summary>
         /// The IDs of services, provided by partner.
         /// </summary>
         [JsonProperty(PropertyName = "service_ids", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"The IDs of services, provided by partner.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTResourceReferenceType> ServiceIds { get; set; }
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty(PropertyName = "authentication_scheme", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTCallbackAuthenticationSchemeType AuthenticationScheme { get; set; }
         /// <summary>
         /// Thumbprint (SHA-256 hash represented in lower case hex) for the certificate on the partner console. This will be
         /// required to establish secure communication with the console and to avoid man-in-the-middle attacks.
         /// </summary>
-        [JsonProperty(PropertyName = "thumbprint")]
-        [NSXTProperty(IsRequired: false, Description: @"Thumbprint (SHA-256 hash represented in lower case hex) for the certificate on the partner console. This will be required to establish secure communication with the console and to avoid man-in-the-middle attacks.")]
         public string? Thumbprint { get; set; }
         /// <summary>
         /// Id which is unique to a vendor or partner for which the service is created.
         /// </summary>
-        [JsonProperty(PropertyName = "vendor_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Id which is unique to a vendor or partner for which the service is created.")]
         public string? VendorId { get; set; }
         /// <summary>
         /// URI on which notification requests should be made on the specified server.
         /// </summary>
         [JsonProperty(PropertyName = "uri", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"URI on which notification requests should be made on the specified server.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Uri { get; set; }
         /// <summary>
         /// IP address or fully qualified domain name of the partner REST server.
         /// </summary>
         [JsonProperty(PropertyName = "server", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"IP address or fully qualified domain name of the partner REST server.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Server { get; set; }
     }
 }

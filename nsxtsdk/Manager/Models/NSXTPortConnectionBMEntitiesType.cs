@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,20 +17,13 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Port Connection Bare Metal Entities")]
     public class NSXTPortConnectionBMEntitiesType 
     {
-        public NSXTPortConnectionBMEntitiesType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "src_port")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTLogicalPortType SrcPort { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "dst_port")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTLogicalPortType DstPort { get; set; }
     }
 }

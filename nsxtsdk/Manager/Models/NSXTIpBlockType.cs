@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIpBlockType : NSXTManagedResourceType
     {
-        public NSXTIpBlockType()
-        {
-        }
         /// <summary>
         /// Represents network address and the prefix length which will be associated with a layer-2 broadcast domain
         /// </summary>
         [JsonProperty(PropertyName = "cidr", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Represents network address and the prefix length which will be associated with a layer-2 broadcast domain")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Cidr { get; set; }
     }
 }

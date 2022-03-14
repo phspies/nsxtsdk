@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,22 +17,15 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTUpdateOidcEndPointThumbprintRequestType : NSXTManagedResourceType
     {
-        public NSXTUpdateOidcEndPointThumbprintRequestType()
-        {
-        }
         /// <summary>
         /// URI where to download the meta-data of the OIDC end-point.
         /// </summary>
         [JsonProperty(PropertyName = "oidc_uri", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"URI where to download the meta-data of the OIDC end-point.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string OidcUri { get; set; }
         /// <summary>
         /// Thumbprint of the OIDC URI to make an SSL connection.
         /// </summary>
         [JsonProperty(PropertyName = "thumbprint", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Thumbprint of the OIDC URI to make an SSL connection.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Thumbprint { get; set; }
     }
 }

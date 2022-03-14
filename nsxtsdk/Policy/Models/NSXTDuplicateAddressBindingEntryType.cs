@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTDuplicateAddressBindingEntryType : NSXTAddressBindingEntryType
     {
-        public NSXTDuplicateAddressBindingEntryType()
-        {
-        }
         /// <summary>
         /// Provides the ID of the port on which the same address bidning exists
         /// </summary>
-        [JsonProperty(PropertyName = "conflicting_port")]
-        [NSXTProperty(IsRequired: false, Description: @"Provides the ID of the port on which the same address bidning exists")]
         public string? ConflictingPort { get; set; }
     }
 }

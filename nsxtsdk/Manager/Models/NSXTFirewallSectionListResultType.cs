@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTFirewallSectionListResultType : NSXTDSSectionListResultType
     {
-        public NSXTFirewallSectionListResultType()
-        {
-        }
         /// <summary>
         /// List of the firewall sections. The list has to be homogenous.
         /// </summary>
-        [JsonProperty(PropertyName = "results")]
-        [NSXTProperty(IsRequired: false, Description: @"List of the firewall sections. The list has to be homogenous.")]
         public IList<NSXTFirewallSectionType> Results { get; set; }
     }
 }

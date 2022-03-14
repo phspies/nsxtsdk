@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,41 +17,28 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTTraceflowObservationDeliveredType : NSXTTraceflowObservationType
     {
-        public NSXTTraceflowObservationDeliveredType()
-        {
-        }
         /// <summary>
         /// This field specifies the resolution type of ARP ARP_SUPPRESSION_PORT_CACHE - ARP request is suppressed by port DB
         /// ARP_SUPPRESSION_TABLE - ARP request is suppressed by ARP table ARP_SUPPRESSION_CP_QUERY - ARP request is suppressed by
         /// info derived from CP ARP_VM - No suppression and the ARP request is resolved.
         /// </summary>
-        [JsonProperty(PropertyName = "resolution_type")]
-        [NSXTProperty(IsRequired: false, Description: @"This field specifies the resolution type of ARP ARP_SUPPRESSION_PORT_CACHE - ARP request is suppressed by port DB ARP_SUPPRESSION_TABLE - ARP request is suppressed by ARP table ARP_SUPPRESSION_CP_QUERY - ARP request is suppressed by info derived from CP ARP_VM - No suppression and the ARP request is resolved.")]
         public NSXTTraceflowObservationDeliveredResolutionTypeEnumType? ResolutionType { get; set; }
         /// <summary>
         /// The name of the logical port into which the traceflow packet was delivered
         /// </summary>
-        [JsonProperty(PropertyName = "lport_name")]
-        [NSXTProperty(IsRequired: false, Description: @"The name of the logical port into which the traceflow packet was delivered")]
         public string? LportName { get; set; }
         /// <summary>
         /// The source MAC address of form:
         /// "^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$". For example: 00:00:00:00:00:00.
         /// </summary>
-        [JsonProperty(PropertyName = "target_mac")]
-        [NSXTProperty(IsRequired: false, Description: @"The source MAC address of form:&quot;^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$&quot;. For example: 00:00:00:00:00:00.")]
         public string? TargetMac { get; set; }
         /// <summary>
         /// VLAN on bridged network
         /// </summary>
-        [JsonProperty(PropertyName = "vlan_id")]
-        [NSXTProperty(IsRequired: false, Description: @"VLAN on bridged network")]
         public long? VlanId { get; set; }
         /// <summary>
         /// The id of the logical port into which the traceflow packet was delivered
         /// </summary>
-        [JsonProperty(PropertyName = "lport_id")]
-        [NSXTProperty(IsRequired: false, Description: @"The id of the logical port into which the traceflow packet was delivered")]
         public string? LportId { get; set; }
     }
 }

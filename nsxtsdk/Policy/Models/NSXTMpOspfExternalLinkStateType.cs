@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,56 +17,37 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"OSPF router link state details.")]
     public class NSXTMpOspfExternalLinkStateType 
     {
-        public NSXTMpOspfExternalLinkStateType()
-        {
-        }
         /// <summary>
         /// LSA age
         /// </summary>
-        [JsonProperty(PropertyName = "up_time")]
-        [NSXTProperty(IsRequired: false, Description: @"LSA age")]
         public long? UpTime { get; set; }
         /// <summary>
         /// Tag
         /// </summary>
-        [JsonProperty(PropertyName = "tag")]
-        [NSXTProperty(IsRequired: false, Description: @"Tag")]
         public long? Tag { get; set; }
         /// <summary>
         /// OSPF advertised router
         /// </summary>
-        [JsonProperty(PropertyName = "advertised_router")]
-        [NSXTProperty(IsRequired: false, Description: @"OSPF advertised router")]
         public string? AdvertisedRouter { get; set; }
         /// <summary>
         /// OSPF link id
         /// </summary>
-        [JsonProperty(PropertyName = "link_state_id")]
-        [NSXTProperty(IsRequired: false, Description: @"OSPF link id")]
         public string? LinkStateId { get; set; }
         /// <summary>
         /// Type of metric
         /// </summary>
-        [JsonProperty(PropertyName = "metric_type")]
-        [NSXTProperty(IsRequired: false, Description: @"Type of metric")]
         public string? MetricType { get; set; }
         /// <summary>
         /// Cost of the route
         /// </summary>
-        [JsonProperty(PropertyName = "checksum")]
-        [NSXTProperty(IsRequired: false, Description: @"Cost of the route")]
         public string? Checksum { get; set; }
         /// <summary>
         /// Route with ip address and mask
         /// </summary>
-        [JsonProperty(PropertyName = "route")]
-        [NSXTProperty(IsRequired: false, Description: @"Route with ip address and mask")]
         public string? Route { get; set; }
         /// <summary>
         /// Sequence number
         /// </summary>
-        [JsonProperty(PropertyName = "sequence_number")]
-        [NSXTProperty(IsRequired: false, Description: @"Sequence number")]
         public string? SequenceNumber { get; set; }
     }
 }

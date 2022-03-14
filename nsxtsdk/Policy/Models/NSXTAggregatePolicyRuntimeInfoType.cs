@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Aggregate of PolicyRuntimeInfoPerEP across Enforcement Points.")]
     public class NSXTAggregatePolicyRuntimeInfoType 
     {
-        public NSXTAggregatePolicyRuntimeInfoType()
-        {
-        }
         /// <summary>
         /// Intent path of object, forward slashes must be escaped using %2F.
         /// </summary>
-        [JsonProperty(PropertyName = "intent_path")]
-        [NSXTProperty(IsRequired: false, Description: @"Intent path of object, forward slashes must be escaped using %2F.")]
         public string? IntentPath { get; set; }
     }
 }

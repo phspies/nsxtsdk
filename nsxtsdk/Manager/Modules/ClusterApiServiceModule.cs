@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public ClusterApiServiceModule(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public ClusterApiServiceModule(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTApiServiceConfigType UpdateApiServiceConfig(NSXTApiServiceConfigType ApiServiceConfig)
+        public async Task<NSXTApiServiceConfigType> UpdateApiServiceConfig(NSXTApiServiceConfigType ApiServiceConfig)
         {
             if (ApiServiceConfig == null) { throw new System.ArgumentNullException("ApiServiceConfig cannot be null"); }
             NSXTApiServiceConfigType returnValue = default(NSXTApiServiceConfigType);
@@ -43,31 +50,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(ApiServiceConfig, defaultSerializationSettings));
             request.Resource = UpdateApiServiceConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTApiServiceConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTApiServiceConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateApiServiceConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTApiServiceConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTApiServiceConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTApiServiceConfigType GetApiServiceConfig()
+        public async Task<NSXTApiServiceConfigType> GetApiServiceConfig()
         {
             NSXTApiServiceConfigType returnValue = default(NSXTApiServiceConfigType);
             StringBuilder GetApiServiceConfigServiceURL = new StringBuilder("/cluster/api-service");
@@ -78,25 +73,13 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = GetApiServiceConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTApiServiceConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTApiServiceConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetApiServiceConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTApiServiceConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTApiServiceConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

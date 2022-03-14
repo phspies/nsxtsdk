@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,10 +17,6 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer WafDataFile object")]
     public class NSXTALBWafDataFileType 
     {
-        public NSXTALBWafDataFileType()
-        {
-            Type = test
-        }
         /// <summary>
         /// WAF data file type.
         /// Enum options - WAF_DATAFILE_PM_FROM_FILE, WAF_DATAFILE_DTD,
@@ -28,22 +24,16 @@ namespace nsxtsdk.PolicyModels
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as WAF_DATAFILE_PM_FROM_FILE.
         /// </summary>
-        [JsonProperty(PropertyName = "type")]
-        [NSXTProperty(IsRequired: false, Description: @"WAF data file type.Enum options - WAF_DATAFILE_PM_FROM_FILE, WAF_DATAFILE_DTD,WAF_DATAFILE_XSD.Default value when not specified in API or module isinterpreted by ALB Controller as WAF_DATAFILE_PM_FROM_FILE.")]
         public NSXTAlbwafDataFileTypeEnumType? Type { get; set; }
         /// <summary>
         /// Stringified WAF File Data.
         /// </summary>
         [JsonProperty(PropertyName = "data", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Stringified WAF File Data.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Data { get; set; }
         /// <summary>
         /// WAF Data File Name.
         /// </summary>
         [JsonProperty(PropertyName = "name", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"WAF Data File Name.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Name { get; set; }
     }
 }

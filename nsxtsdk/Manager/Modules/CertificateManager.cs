@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public CertificateManager(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public CertificateManager(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTOidcEndPointType GetOidcEndPoint(string Id, bool? Refresh = null)
+        public async Task<NSXTOidcEndPointType> GetOidcEndPoint(string Id, bool? Refresh = null)
         {
             if (Id == null) { throw new System.ArgumentNullException("Id cannot be null"); }
             NSXTOidcEndPointType returnValue = default(NSXTOidcEndPointType);
@@ -44,31 +51,19 @@ namespace nsxtapi.ManagerModules
             GetOidcEndPointServiceURL.Replace("{id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Id, System.Globalization.CultureInfo.InvariantCulture)));
             if (Refresh != null) { request.AddQueryParameter("refresh", Refresh.ToString()); }
             request.Resource = GetOidcEndPointServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTOidcEndPointType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTOidcEndPointType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetOidcEndPointServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTOidcEndPointType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTOidcEndPointType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTCsrType GetCsr(string CsrId)
+        public async Task<NSXTCsrType> GetCsr(string CsrId)
         {
             if (CsrId == null) { throw new System.ArgumentNullException("CsrId cannot be null"); }
             NSXTCsrType returnValue = default(NSXTCsrType);
@@ -81,31 +76,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             GetCsrServiceURL.Replace("{csr-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CsrId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetCsrServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTCsrType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTCsrType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetCsrServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTCsrType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTCsrType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteCsr(string CsrId)
+        public async Task DeleteCsr(string CsrId)
         {
             if (CsrId == null) { throw new System.ArgumentNullException("CsrId cannot be null"); }
             
@@ -118,7 +101,7 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             DeleteCsrServiceURL.Replace("{csr-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CsrId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteCsrServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteCsrServiceURL.ToString() + " did not complete successfull";
@@ -130,7 +113,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTCertificateProfileListResultType ListCertificateProfiles()
+        public async Task<NSXTCertificateProfileListResultType> ListCertificateProfiles()
         {
             NSXTCertificateProfileListResultType returnValue = default(NSXTCertificateProfileListResultType);
             StringBuilder ListCertificateProfilesServiceURL = new StringBuilder("/trust-management/certificate-profiles");
@@ -141,31 +124,19 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = ListCertificateProfilesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTCertificateProfileListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTCertificateProfileListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListCertificateProfilesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTCertificateProfileListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTCertificateProfileListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTrustManagementDataType GetTrustObjects()
+        public async Task<NSXTTrustManagementDataType> GetTrustObjects()
         {
             NSXTTrustManagementDataType returnValue = default(NSXTTrustManagementDataType);
             StringBuilder GetTrustObjectsServiceURL = new StringBuilder("/trust-management");
@@ -176,31 +147,19 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = GetTrustObjectsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTrustManagementDataType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTrustManagementDataType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetTrustObjectsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTrustManagementDataType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTrustManagementDataType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTCrlListType AddCrl(NSXTCrlObjectDataType CrlObjectData)
+        public async Task<NSXTCrlListType> AddCrl(NSXTCrlObjectDataType CrlObjectData)
         {
             if (CrlObjectData == null) { throw new System.ArgumentNullException("CrlObjectData cannot be null"); }
             NSXTCrlListType returnValue = default(NSXTCrlListType);
@@ -213,31 +172,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(CrlObjectData, defaultSerializationSettings));
             request.Resource = AddCrlServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTCrlListType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTCrlListType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + AddCrlServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTCrlListType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTCrlListType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTCertificateProfileType GetCertificateProfile(string ServiceType)
+        public async Task<NSXTCertificateProfileType> GetCertificateProfile(string ServiceType)
         {
             if (ServiceType == null) { throw new System.ArgumentNullException("ServiceType cannot be null"); }
             NSXTCertificateProfileType returnValue = default(NSXTCertificateProfileType);
@@ -250,31 +197,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             GetCertificateProfileServiceURL.Replace("{service-type}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServiceType, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetCertificateProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTCertificateProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTCertificateProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetCertificateProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTCertificateProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTCertificateProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void ApplyCertificate(string CertId, string ServiceType, string? NodeId = null)
+        public async Task ApplyCertificate(string CertId, string ServiceType, string? NodeId = null)
         {
             if (CertId == null) { throw new System.ArgumentNullException("CertId cannot be null"); }
             if (ServiceType == null) { throw new System.ArgumentNullException("ServiceType cannot be null"); }
@@ -290,7 +225,7 @@ namespace nsxtapi.ManagerModules
             if (NodeId != null) { request.AddQueryParameter("node_id", NodeId.ToString()); }
             if (ServiceType != null) { request.AddQueryParameter("service_type", ServiceType.ToString()); }
             request.Resource = ApplyCertificateServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + ApplyCertificateServiceURL.ToString() + " did not complete successfull";
@@ -302,7 +237,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTCertificateListType ImportCertificate(string CsrId, NSXTTrustObjectDataType TrustObjectData)
+        public async Task<NSXTCertificateListType> ImportCertificate(string CsrId, NSXTTrustObjectDataType TrustObjectData)
         {
             if (CsrId == null) { throw new System.ArgumentNullException("CsrId cannot be null"); }
             if (TrustObjectData == null) { throw new System.ArgumentNullException("TrustObjectData cannot be null"); }
@@ -317,31 +252,19 @@ namespace nsxtapi.ManagerModules
             ImportCertificateServiceURL.Replace("{csr-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CsrId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(TrustObjectData, defaultSerializationSettings));
             request.Resource = ImportCertificateServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTCertificateListType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTCertificateListType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + ImportCertificateServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTCertificateListType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTCertificateListType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTCrlDistributionPointType CreateCrlDistributionPoint(NSXTCrlDistributionPointType CrlDistributionPoint)
+        public async Task<NSXTCrlDistributionPointType> CreateCrlDistributionPoint(NSXTCrlDistributionPointType CrlDistributionPoint)
         {
             if (CrlDistributionPoint == null) { throw new System.ArgumentNullException("CrlDistributionPoint cannot be null"); }
             NSXTCrlDistributionPointType returnValue = default(NSXTCrlDistributionPointType);
@@ -354,31 +277,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(CrlDistributionPoint, defaultSerializationSettings));
             request.Resource = CreateCrlDistributionPointServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTCrlDistributionPointType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTCrlDistributionPointType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CreateCrlDistributionPointServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTCrlDistributionPointType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTCrlDistributionPointType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTCrlDistributionPointListType ListCrlDistributionPoints(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTCrlDistributionPointListType> ListCrlDistributionPoints(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTCrlDistributionPointListType returnValue = default(NSXTCrlDistributionPointListType);
             StringBuilder ListCrlDistributionPointsServiceURL = new StringBuilder("/trust-management/crl-distribution-points");
@@ -394,31 +305,19 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListCrlDistributionPointsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTCrlDistributionPointListType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTCrlDistributionPointListType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListCrlDistributionPointsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTCrlDistributionPointListType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTCrlDistributionPointListType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTCertificateCheckingStatusType ValidateCertificate(string CertId, string? Usage = null)
+        public async Task<NSXTCertificateCheckingStatusType> ValidateCertificate(string CertId, string? Usage = null)
         {
             if (CertId == null) { throw new System.ArgumentNullException("CertId cannot be null"); }
             NSXTCertificateCheckingStatusType returnValue = default(NSXTCertificateCheckingStatusType);
@@ -432,31 +331,19 @@ namespace nsxtapi.ManagerModules
             ValidateCertificateServiceURL.Replace("{cert-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CertId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Usage != null) { request.AddQueryParameter("usage", Usage.ToString()); }
             request.Resource = ValidateCertificateServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTCertificateCheckingStatusType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTCertificateCheckingStatusType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ValidateCertificateServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTCertificateCheckingStatusType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTCertificateCheckingStatusType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTCertificateType GenerateSelfSignedCertificate(NSXTCsrWithDaysValidType CsrWithDaysValid)
+        public async Task<NSXTCertificateType> GenerateSelfSignedCertificate(NSXTCsrWithDaysValidType CsrWithDaysValid)
         {
             if (CsrWithDaysValid == null) { throw new System.ArgumentNullException("CsrWithDaysValid cannot be null"); }
             NSXTCertificateType returnValue = default(NSXTCertificateType);
@@ -469,31 +356,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(CsrWithDaysValid, defaultSerializationSettings));
             request.Resource = GenerateSelfSignedCertificateServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTCertificateType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTCertificateType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + GenerateSelfSignedCertificateServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTCertificateType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTCertificateType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTCrlDistributionPointStatusType GetCrlDistributionPointStatus(string CrlDistributionPointId)
+        public async Task<NSXTCrlDistributionPointStatusType> GetCrlDistributionPointStatus(string CrlDistributionPointId)
         {
             if (CrlDistributionPointId == null) { throw new System.ArgumentNullException("CrlDistributionPointId cannot be null"); }
             NSXTCrlDistributionPointStatusType returnValue = default(NSXTCrlDistributionPointStatusType);
@@ -506,31 +381,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             GetCrlDistributionPointStatusServiceURL.Replace("{crl-distribution-point-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CrlDistributionPointId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetCrlDistributionPointStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTCrlDistributionPointStatusType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTCrlDistributionPointStatusType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetCrlDistributionPointStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTCrlDistributionPointStatusType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTCrlDistributionPointStatusType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public string GetCsrPem(string CsrId)
+        public async Task<string> GetCsrPem(string CsrId)
         {
             if (CsrId == null) { throw new System.ArgumentNullException("CsrId cannot be null"); }
             string returnValue  = default(string);
@@ -543,31 +406,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             GetCsrPemServiceURL.Replace("{csr-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CsrId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetCsrPemServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<string> response = await restClient.ExecuteTaskAsyncWithPolicy<string>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetCsrPemServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<string>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(string).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void SetInterSiteAphCertificate(NSXTSetInterSiteAphCertificateRequestType SetInterSiteAphCertificateRequest)
+        public async Task SetInterSiteAphCertificate(NSXTSetInterSiteAphCertificateRequestType SetInterSiteAphCertificateRequest)
         {
             if (SetInterSiteAphCertificateRequest == null) { throw new System.ArgumentNullException("SetInterSiteAphCertificateRequest cannot be null"); }
             
@@ -580,7 +431,7 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(SetInterSiteAphCertificateRequest, defaultSerializationSettings));
             request.Resource = SetInterSiteAphCertificateServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + SetInterSiteAphCertificateServiceURL.ToString() + " did not complete successfull";
@@ -592,7 +443,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTOidcEndPointType AddOidcEndPoint(NSXTOidcEndPointType OidcEndPoint)
+        public async Task<NSXTOidcEndPointType> AddOidcEndPoint(NSXTOidcEndPointType OidcEndPoint)
         {
             if (OidcEndPoint == null) { throw new System.ArgumentNullException("OidcEndPoint cannot be null"); }
             NSXTOidcEndPointType returnValue = default(NSXTOidcEndPointType);
@@ -605,31 +456,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(OidcEndPoint, defaultSerializationSettings));
             request.Resource = AddOidcEndPointServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTOidcEndPointType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTOidcEndPointType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + AddOidcEndPointServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTOidcEndPointType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTOidcEndPointType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTOidcEndPointListResultType ListOidcEndPoints()
+        public async Task<NSXTOidcEndPointListResultType> ListOidcEndPoints()
         {
             NSXTOidcEndPointListResultType returnValue = default(NSXTOidcEndPointListResultType);
             StringBuilder ListOidcEndPointsServiceURL = new StringBuilder("/trust-management/oidc-uris");
@@ -640,31 +479,19 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = ListOidcEndPointsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTOidcEndPointListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTOidcEndPointListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListOidcEndPointsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTOidcEndPointListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTOidcEndPointListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeletePrincipalIdentity(string PrincipalIdentityId)
+        public async Task DeletePrincipalIdentity(string PrincipalIdentityId)
         {
             if (PrincipalIdentityId == null) { throw new System.ArgumentNullException("PrincipalIdentityId cannot be null"); }
             
@@ -677,7 +504,7 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             DeletePrincipalIdentityServiceURL.Replace("{principal-identity-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PrincipalIdentityId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeletePrincipalIdentityServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeletePrincipalIdentityServiceURL.ToString() + " did not complete successfull";
@@ -689,7 +516,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPrincipalIdentityType GetPrincipalIdentity(string PrincipalIdentityId)
+        public async Task<NSXTPrincipalIdentityType> GetPrincipalIdentity(string PrincipalIdentityId)
         {
             if (PrincipalIdentityId == null) { throw new System.ArgumentNullException("PrincipalIdentityId cannot be null"); }
             NSXTPrincipalIdentityType returnValue = default(NSXTPrincipalIdentityType);
@@ -702,31 +529,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             GetPrincipalIdentityServiceURL.Replace("{principal-identity-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PrincipalIdentityId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetPrincipalIdentityServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPrincipalIdentityType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPrincipalIdentityType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetPrincipalIdentityServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPrincipalIdentityType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPrincipalIdentityType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTOidcEndPointType UpdateOidcEndPointThumbprint(NSXTUpdateOidcEndPointThumbprintRequestType UpdateOidcEndPointThumbprintRequest)
+        public async Task<NSXTOidcEndPointType> UpdateOidcEndPointThumbprint(NSXTUpdateOidcEndPointThumbprintRequestType UpdateOidcEndPointThumbprintRequest)
         {
             if (UpdateOidcEndPointThumbprintRequest == null) { throw new System.ArgumentNullException("UpdateOidcEndPointThumbprintRequest cannot be null"); }
             NSXTOidcEndPointType returnValue = default(NSXTOidcEndPointType);
@@ -739,31 +554,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(UpdateOidcEndPointThumbprintRequest, defaultSerializationSettings));
             request.Resource = UpdateOidcEndPointThumbprintServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTOidcEndPointType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTOidcEndPointType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + UpdateOidcEndPointThumbprintServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTOidcEndPointType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTOidcEndPointType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTCsrType GenerateCsrWithExtensions(NSXTCsrExtType CsrExt)
+        public async Task<NSXTCsrType> GenerateCsrWithExtensions(NSXTCsrExtType CsrExt)
         {
             if (CsrExt == null) { throw new System.ArgumentNullException("CsrExt cannot be null"); }
             NSXTCsrType returnValue = default(NSXTCsrType);
@@ -776,31 +579,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(CsrExt, defaultSerializationSettings));
             request.Resource = GenerateCsrWithExtensionsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTCsrType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTCsrType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + GenerateCsrWithExtensionsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTCsrType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTCsrType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPrincipalIdentityType RegisterPrincipalIdentityWithCertificate(NSXTPrincipalIdentityWithCertificateType PrincipalIdentityWithCertificate)
+        public async Task<NSXTPrincipalIdentityType> RegisterPrincipalIdentityWithCertificate(NSXTPrincipalIdentityWithCertificateType PrincipalIdentityWithCertificate)
         {
             if (PrincipalIdentityWithCertificate == null) { throw new System.ArgumentNullException("PrincipalIdentityWithCertificate cannot be null"); }
             NSXTPrincipalIdentityType returnValue = default(NSXTPrincipalIdentityType);
@@ -813,31 +604,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(PrincipalIdentityWithCertificate, defaultSerializationSettings));
             request.Resource = RegisterPrincipalIdentityWithCertificateServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPrincipalIdentityType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPrincipalIdentityType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + RegisterPrincipalIdentityWithCertificateServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPrincipalIdentityType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPrincipalIdentityType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTCrlDistributionPointType UpdateCrlDistributionPoint(string CrlDistributionPointId, NSXTCrlDistributionPointType CrlDistributionPoint)
+        public async Task<NSXTCrlDistributionPointType> UpdateCrlDistributionPoint(string CrlDistributionPointId, NSXTCrlDistributionPointType CrlDistributionPoint)
         {
             if (CrlDistributionPointId == null) { throw new System.ArgumentNullException("CrlDistributionPointId cannot be null"); }
             if (CrlDistributionPoint == null) { throw new System.ArgumentNullException("CrlDistributionPoint cannot be null"); }
@@ -852,31 +631,19 @@ namespace nsxtapi.ManagerModules
             UpdateCrlDistributionPointServiceURL.Replace("{crl-distribution-point-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CrlDistributionPointId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(CrlDistributionPoint, defaultSerializationSettings));
             request.Resource = UpdateCrlDistributionPointServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTCrlDistributionPointType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTCrlDistributionPointType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateCrlDistributionPointServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTCrlDistributionPointType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTCrlDistributionPointType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteCrlDistributionPoint(string CrlDistributionPointId)
+        public async Task DeleteCrlDistributionPoint(string CrlDistributionPointId)
         {
             if (CrlDistributionPointId == null) { throw new System.ArgumentNullException("CrlDistributionPointId cannot be null"); }
             
@@ -889,7 +656,7 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             DeleteCrlDistributionPointServiceURL.Replace("{crl-distribution-point-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CrlDistributionPointId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteCrlDistributionPointServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteCrlDistributionPointServiceURL.ToString() + " did not complete successfull";
@@ -901,7 +668,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTCrlDistributionPointType GetCrlDistributionPoint(string CrlDistributionPointId)
+        public async Task<NSXTCrlDistributionPointType> GetCrlDistributionPoint(string CrlDistributionPointId)
         {
             if (CrlDistributionPointId == null) { throw new System.ArgumentNullException("CrlDistributionPointId cannot be null"); }
             NSXTCrlDistributionPointType returnValue = default(NSXTCrlDistributionPointType);
@@ -914,31 +681,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             GetCrlDistributionPointServiceURL.Replace("{crl-distribution-point-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CrlDistributionPointId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetCrlDistributionPointServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTCrlDistributionPointType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTCrlDistributionPointType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetCrlDistributionPointServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTCrlDistributionPointType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTCrlDistributionPointType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTokenBasedPrincipalIdentityType RegisterTokenBasedPrincipalIdentity(NSXTTokenBasedPrincipalIdentityType TokenBasedPrincipalIdentity)
+        public async Task<NSXTTokenBasedPrincipalIdentityType> RegisterTokenBasedPrincipalIdentity(NSXTTokenBasedPrincipalIdentityType TokenBasedPrincipalIdentity)
         {
             if (TokenBasedPrincipalIdentity == null) { throw new System.ArgumentNullException("TokenBasedPrincipalIdentity cannot be null"); }
             NSXTTokenBasedPrincipalIdentityType returnValue = default(NSXTTokenBasedPrincipalIdentityType);
@@ -951,31 +706,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(TokenBasedPrincipalIdentity, defaultSerializationSettings));
             request.Resource = RegisterTokenBasedPrincipalIdentityServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTokenBasedPrincipalIdentityType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTokenBasedPrincipalIdentityType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + RegisterTokenBasedPrincipalIdentityServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTokenBasedPrincipalIdentityType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTokenBasedPrincipalIdentityType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTokenBasedPrincipalIdentityListResultType ListTokenBasedPrincipalIdentities()
+        public async Task<NSXTTokenBasedPrincipalIdentityListResultType> ListTokenBasedPrincipalIdentities()
         {
             NSXTTokenBasedPrincipalIdentityListResultType returnValue = default(NSXTTokenBasedPrincipalIdentityListResultType);
             StringBuilder ListTokenBasedPrincipalIdentitiesServiceURL = new StringBuilder("/trust-management/token-principal-identities");
@@ -986,31 +729,19 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = ListTokenBasedPrincipalIdentitiesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTokenBasedPrincipalIdentityListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTokenBasedPrincipalIdentityListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListTokenBasedPrincipalIdentitiesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTokenBasedPrincipalIdentityListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTokenBasedPrincipalIdentityListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTCsrType GenerateCsr(NSXTCsrType Csr)
+        public async Task<NSXTCsrType> GenerateCsr(NSXTCsrType Csr)
         {
             if (Csr == null) { throw new System.ArgumentNullException("Csr cannot be null"); }
             NSXTCsrType returnValue = default(NSXTCsrType);
@@ -1023,31 +754,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(Csr, defaultSerializationSettings));
             request.Resource = GenerateCsrServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTCsrType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTCsrType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + GenerateCsrServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTCsrType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTCsrType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTCsrListType GetCsrs(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTCsrListType> GetCsrs(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTCsrListType returnValue = default(NSXTCsrListType);
             StringBuilder GetCsrsServiceURL = new StringBuilder("/trust-management/csrs");
@@ -1063,31 +782,19 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GetCsrsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTCsrListType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTCsrListType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetCsrsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTCsrListType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTCsrListType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTCrlType UpdateCrl(string CrlId, NSXTCrlType Crl)
+        public async Task<NSXTCrlType> UpdateCrl(string CrlId, NSXTCrlType Crl)
         {
             if (CrlId == null) { throw new System.ArgumentNullException("CrlId cannot be null"); }
             if (Crl == null) { throw new System.ArgumentNullException("Crl cannot be null"); }
@@ -1102,31 +809,19 @@ namespace nsxtapi.ManagerModules
             UpdateCrlServiceURL.Replace("{crl-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CrlId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(Crl, defaultSerializationSettings));
             request.Resource = UpdateCrlServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTCrlType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTCrlType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateCrlServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTCrlType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTCrlType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTCrlType GetCrl(string CrlId, bool? Details = null)
+        public async Task<NSXTCrlType> GetCrl(string CrlId, bool? Details = null)
         {
             if (CrlId == null) { throw new System.ArgumentNullException("CrlId cannot be null"); }
             NSXTCrlType returnValue = default(NSXTCrlType);
@@ -1140,31 +835,19 @@ namespace nsxtapi.ManagerModules
             GetCrlServiceURL.Replace("{crl-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CrlId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Details != null) { request.AddQueryParameter("details", Details.ToString()); }
             request.Resource = GetCrlServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTCrlType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTCrlType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetCrlServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTCrlType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTCrlType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteCrl(string CrlId)
+        public async Task DeleteCrl(string CrlId)
         {
             if (CrlId == null) { throw new System.ArgumentNullException("CrlId cannot be null"); }
             
@@ -1177,7 +860,7 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             DeleteCrlServiceURL.Replace("{crl-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CrlId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteCrlServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteCrlServiceURL.ToString() + " did not complete successfull";
@@ -1189,7 +872,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTCertificateType SelfSignCertificate(string CsrId, long DaysValid)
+        public async Task<NSXTCertificateType> SelfSignCertificate(string CsrId, long DaysValid)
         {
             if (CsrId == null) { throw new System.ArgumentNullException("CsrId cannot be null"); }
             if (DaysValid == null) { throw new System.ArgumentNullException("DaysValid cannot be null"); }
@@ -1204,31 +887,19 @@ namespace nsxtapi.ManagerModules
             SelfSignCertificateServiceURL.Replace("{csr-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CsrId, System.Globalization.CultureInfo.InvariantCulture)));
             if (DaysValid != null) { request.AddQueryParameter("days_valid", DaysValid.ToString()); }
             request.Resource = SelfSignCertificateServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTCertificateType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTCertificateType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + SelfSignCertificateServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTCertificateType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTCertificateType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteCertificate(string CertId)
+        public async Task DeleteCertificate(string CertId)
         {
             if (CertId == null) { throw new System.ArgumentNullException("CertId cannot be null"); }
             
@@ -1241,7 +912,7 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             DeleteCertificateServiceURL.Replace("{cert-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CertId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteCertificateServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteCertificateServiceURL.ToString() + " did not complete successfull";
@@ -1253,7 +924,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTCertificateType GetCertificate(string CertId, bool? Details = null)
+        public async Task<NSXTCertificateType> GetCertificate(string CertId, bool? Details = null)
         {
             if (CertId == null) { throw new System.ArgumentNullException("CertId cannot be null"); }
             NSXTCertificateType returnValue = default(NSXTCertificateType);
@@ -1267,31 +938,19 @@ namespace nsxtapi.ManagerModules
             GetCertificateServiceURL.Replace("{cert-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CertId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Details != null) { request.AddQueryParameter("details", Details.ToString()); }
             request.Resource = GetCertificateServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTCertificateType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTCertificateType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetCertificateServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTCertificateType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTCertificateType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPrincipalIdentityType UpdatePrincipalIdentityCertificate(NSXTUpdatePrincipalIdentityCertificateRequestType UpdatePrincipalIdentityCertificateRequest)
+        public async Task<NSXTPrincipalIdentityType> UpdatePrincipalIdentityCertificate(NSXTUpdatePrincipalIdentityCertificateRequestType UpdatePrincipalIdentityCertificateRequest)
         {
             if (UpdatePrincipalIdentityCertificateRequest == null) { throw new System.ArgumentNullException("UpdatePrincipalIdentityCertificateRequest cannot be null"); }
             NSXTPrincipalIdentityType returnValue = default(NSXTPrincipalIdentityType);
@@ -1304,31 +963,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(UpdatePrincipalIdentityCertificateRequest, defaultSerializationSettings));
             request.Resource = UpdatePrincipalIdentityCertificateServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPrincipalIdentityType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPrincipalIdentityType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + UpdatePrincipalIdentityCertificateServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPrincipalIdentityType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPrincipalIdentityType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTokenBasedPrincipalIdentityType GetTokenBasedPrincipalIdentity(string PrincipalIdentityId)
+        public async Task<NSXTTokenBasedPrincipalIdentityType> GetTokenBasedPrincipalIdentity(string PrincipalIdentityId)
         {
             if (PrincipalIdentityId == null) { throw new System.ArgumentNullException("PrincipalIdentityId cannot be null"); }
             NSXTTokenBasedPrincipalIdentityType returnValue = default(NSXTTokenBasedPrincipalIdentityType);
@@ -1341,31 +988,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             GetTokenBasedPrincipalIdentityServiceURL.Replace("{principal-identity-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PrincipalIdentityId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetTokenBasedPrincipalIdentityServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTokenBasedPrincipalIdentityType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTokenBasedPrincipalIdentityType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetTokenBasedPrincipalIdentityServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTokenBasedPrincipalIdentityType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTokenBasedPrincipalIdentityType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteTokenBasedPrincipalIdentity(string PrincipalIdentityId)
+        public async Task DeleteTokenBasedPrincipalIdentity(string PrincipalIdentityId)
         {
             if (PrincipalIdentityId == null) { throw new System.ArgumentNullException("PrincipalIdentityId cannot be null"); }
             
@@ -1378,7 +1013,7 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             DeleteTokenBasedPrincipalIdentityServiceURL.Replace("{principal-identity-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PrincipalIdentityId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteTokenBasedPrincipalIdentityServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteTokenBasedPrincipalIdentityServiceURL.ToString() + " did not complete successfull";
@@ -1390,7 +1025,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTCrlListType GetCrls(string? Cursor = null, bool? Details = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? Type = null)
+        public async Task<NSXTCrlListType> GetCrls(string? Cursor = null, bool? Details = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? Type = null)
         {
             NSXTCrlListType returnValue = default(NSXTCrlListType);
             StringBuilder GetCrlsServiceURL = new StringBuilder("/trust-management/crls");
@@ -1408,31 +1043,19 @@ namespace nsxtapi.ManagerModules
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             if (Type != null) { request.AddQueryParameter("type", Type.ToString()); }
             request.Resource = GetCrlsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTCrlListType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTCrlListType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetCrlsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTCrlListType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTCrlListType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void SetPrincipalIdentityCertificateForFederation(NSXTSetPrincipalIdentityCertificateForFederationRequestType SetPrincipalIdentityCertificateForFederationRequest)
+        public async Task SetPrincipalIdentityCertificateForFederation(NSXTSetPrincipalIdentityCertificateForFederationRequestType SetPrincipalIdentityCertificateForFederationRequest)
         {
             if (SetPrincipalIdentityCertificateForFederationRequest == null) { throw new System.ArgumentNullException("SetPrincipalIdentityCertificateForFederationRequest cannot be null"); }
             
@@ -1445,7 +1068,7 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(SetPrincipalIdentityCertificateForFederationRequest, defaultSerializationSettings));
             request.Resource = SetPrincipalIdentityCertificateForFederationServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + SetPrincipalIdentityCertificateForFederationServiceURL.ToString() + " did not complete successfull";
@@ -1457,7 +1080,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTCertificateListType GetCertificates(string? Cursor = null, bool? Details = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? Type = null)
+        public async Task<NSXTCertificateListType> GetCertificates(string? Cursor = null, bool? Details = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? Type = null)
         {
             NSXTCertificateListType returnValue = default(NSXTCertificateListType);
             StringBuilder GetCertificatesServiceURL = new StringBuilder("/trust-management/certificates");
@@ -1475,31 +1098,19 @@ namespace nsxtapi.ManagerModules
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             if (Type != null) { request.AddQueryParameter("type", Type.ToString()); }
             request.Resource = GetCertificatesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTCertificateListType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTCertificateListType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetCertificatesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTCertificateListType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTCertificateListType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPrincipalIdentityType RegisterPrincipalIdentity(NSXTPrincipalIdentityType PrincipalIdentity)
+        public async Task<NSXTPrincipalIdentityType> RegisterPrincipalIdentity(NSXTPrincipalIdentityType PrincipalIdentity)
         {
             if (PrincipalIdentity == null) { throw new System.ArgumentNullException("PrincipalIdentity cannot be null"); }
             NSXTPrincipalIdentityType returnValue = default(NSXTPrincipalIdentityType);
@@ -1512,31 +1123,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(PrincipalIdentity, defaultSerializationSettings));
             request.Resource = RegisterPrincipalIdentityServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPrincipalIdentityType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPrincipalIdentityType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + RegisterPrincipalIdentityServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPrincipalIdentityType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPrincipalIdentityType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPrincipalIdentityListType GetPrincipalIdentities()
+        public async Task<NSXTPrincipalIdentityListType> GetPrincipalIdentities()
         {
             NSXTPrincipalIdentityListType returnValue = default(NSXTPrincipalIdentityListType);
             StringBuilder GetPrincipalIdentitiesServiceURL = new StringBuilder("/trust-management/principal-identities");
@@ -1547,31 +1146,19 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = GetPrincipalIdentitiesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPrincipalIdentityListType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPrincipalIdentityListType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetPrincipalIdentitiesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPrincipalIdentityListType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPrincipalIdentityListType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTCertificateListType AddCertificate(NSXTTrustObjectDataType TrustObjectData)
+        public async Task<NSXTCertificateListType> AddCertificate(NSXTTrustObjectDataType TrustObjectData)
         {
             if (TrustObjectData == null) { throw new System.ArgumentNullException("TrustObjectData cannot be null"); }
             NSXTCertificateListType returnValue = default(NSXTCertificateListType);
@@ -1584,31 +1171,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(TrustObjectData, defaultSerializationSettings));
             request.Resource = AddCertificateServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTCertificateListType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTCertificateListType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + AddCertificateServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTCertificateListType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTCertificateListType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public string GetCrlDistributionPointPem(NSXTCrlPemRequestTypeType CrlPemRequestType)
+        public async Task<string> GetCrlDistributionPointPem(NSXTCrlPemRequestTypeType CrlPemRequestType)
         {
             if (CrlPemRequestType == null) { throw new System.ArgumentNullException("CrlPemRequestType cannot be null"); }
             string returnValue  = default(string);
@@ -1621,25 +1196,13 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(CrlPemRequestType, defaultSerializationSettings));
             request.Resource = GetCrlDistributionPointPemServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<string> response = await restClient.ExecuteTaskAsyncWithPolicy<string>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + GetCrlDistributionPointPemServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<string>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(string).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

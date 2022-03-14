@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,38 +17,25 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTBackupUiFramesInfoType 
     {
-        public NSXTBackupUiFramesInfoType()
-        {
-        }
         /// <summary>
         /// prefix to be used for api call
         /// </summary>
-        [JsonProperty(PropertyName = "api_endpoint")]
-        [NSXTProperty(IsRequired: false, Description: @"prefix to be used for api call")]
         public NSXTBackupUiFramesInfoApiEndpointEnumType? ApiEndpoint { get; set; }
         /// <summary>
         /// Type of service, for which backup is handled
         /// </summary>
-        [JsonProperty(PropertyName = "frame_type")]
-        [NSXTProperty(IsRequired: false, Description: @"Type of service, for which backup is handled")]
         public NSXTBackupUiFramesInfoFrameTypeEnumType? FrameType { get; set; }
         /// <summary>
         /// Does site have active GM
         /// </summary>
-        [JsonProperty(PropertyName = "active_gm")]
-        [NSXTProperty(IsRequired: false, Description: @"Does site have active GM")]
         public NSXTBackupUiFramesInfoActiveGmEnumType? ActiveGm { get; set; }
         /// <summary>
         /// Version of the site
         /// </summary>
-        [JsonProperty(PropertyName = "site_version")]
-        [NSXTProperty(IsRequired: false, Description: @"Version of the site")]
         public string? SiteVersion { get; set; }
         /// <summary>
         /// Id of the site
         /// </summary>
-        [JsonProperty(PropertyName = "site_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Id of the site")]
         public string? SiteId { get; set; }
     }
 }

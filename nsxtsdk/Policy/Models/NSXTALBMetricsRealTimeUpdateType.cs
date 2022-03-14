@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,10 +17,6 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer MetricsRealTimeUpdate object")]
     public class NSXTALBMetricsRealTimeUpdateType 
     {
-        public NSXTALBMetricsRealTimeUpdateType()
-        {
-            Duration = test
-        }
         /// <summary>
         /// Real time metrics collection duration in minutes.
         /// 0 for infinite.
@@ -29,8 +25,6 @@ namespace nsxtsdk.PolicyModels
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 30.
         /// </summary>
-        [JsonProperty(PropertyName = "duration")]
-        [NSXTProperty(IsRequired: false, Description: @"Real time metrics collection duration in minutes.0 for infinite.Special values are 0 - &apos;infinite&apos;.Unit is MIN.Default value when not specified in API or module isinterpreted by ALB Controller as 30.")]
         public long? Duration { get; set; }
         /// <summary>
         /// Enables real time metrics collection.
@@ -40,8 +34,6 @@ namespace nsxtsdk.PolicyModels
         /// interpreted by ALB Controller as false.
         /// </summary>
         [JsonProperty(PropertyName = "enabled", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Enables real time metrics collection.When deactivated, 6 hour view is the most granular thesystem will track.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public bool Enabled { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Parameters for nvds upgrade precheck")]
     public class NSXTPrecheckParametersType 
     {
-        public NSXTPrecheckParametersType()
-        {
-        }
         /// <summary>
         /// Cluster ID list for nvds upgrade precheck
         /// </summary>
-        [JsonProperty(PropertyName = "cluster_ids")]
-        [NSXTProperty(IsRequired: false, Description: @"Cluster ID list for nvds upgrade precheck")]
         public IList<string> ClusterIds { get; set; }
     }
 }

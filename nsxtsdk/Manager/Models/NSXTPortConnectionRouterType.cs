@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,20 +17,13 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTPortConnectionRouterType : NSXTPortConnectionEntityType
     {
-        public NSXTPortConnectionRouterType()
-        {
-        }
         /// <summary>
         /// Uplink ports of the Logical Router.
         /// </summary>
-        [JsonProperty(PropertyName = "uplink_ports")]
-        [NSXTProperty(IsRequired: false, Description: @"Uplink ports of the Logical Router.")]
         public IList<NSXTLogicalRouterPortType> UplinkPorts { get; set; }
         /// <summary>
         /// Downlink ports of the Logical Router.
         /// </summary>
-        [JsonProperty(PropertyName = "downlink_ports")]
-        [NSXTProperty(IsRequired: false, Description: @"Downlink ports of the Logical Router.")]
         public IList<NSXTLogicalRouterPortType> DownlinkPorts { get; set; }
     }
 }

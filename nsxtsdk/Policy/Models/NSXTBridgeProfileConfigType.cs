@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,36 +17,25 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"configuration parameters for Bridge Profile")]
     public class NSXTBridgeProfileConfigType 
     {
-        public NSXTBridgeProfileConfigType()
-        {
-        }
         /// <summary>
         /// The name of the switching uplink teaming policy for the bridge endpoint. This name corresponds to one fot he switching
         /// uplink teaming policy names listed in teh transport zone. When this property is not specified, the teaming policy is
         /// assigned by MP.
         /// </summary>
-        [JsonProperty(PropertyName = "uplink_teaming_policy_name")]
-        [NSXTProperty(IsRequired: false, Description: @"The name of the switching uplink teaming policy for the bridge endpoint. This name corresponds to one fot he switching uplink teaming policy names listed in teh transport zone. When this property is not specified, the teaming policy is assigned by MP.")]
         public string? UplinkTeamingPolicyName { get; set; }
         /// <summary>
         /// VLAN specification for bridge endpoint. Either VLAN ID or VLAN ranges can be specified. Not both.
         /// </summary>
-        [JsonProperty(PropertyName = "vlan_ids")]
-        [NSXTProperty(IsRequired: false, Description: @"VLAN specification for bridge endpoint. Either VLAN ID or VLAN ranges can be specified. Not both.")]
         public IList<string> VlanIds { get; set; }
         /// <summary>
         /// Same bridge profile can be configured on different segments. Each bridge profile on a segment must unique.
         /// </summary>
         [JsonProperty(PropertyName = "bridge_profile_path", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Same bridge profile can be configured on different segments. Each bridge profile on a segment must unique.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string BridgeProfilePath { get; set; }
         /// <summary>
         /// VLAN transport zone should belong to the enforcment-point as the transport zone specified in the segment.
         /// </summary>
         [JsonProperty(PropertyName = "vlan_transport_zone_path", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"VLAN transport zone should belong to the enforcment-point as the transport zone specified in the segment.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string VlanTransportZonePath { get; set; }
     }
 }

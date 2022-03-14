@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,21 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTSshKeyBasePropertiesType 
     {
-        public NSXTSshKeyBasePropertiesType()
-        {
-        }
         /// <summary>
         /// Current password for user (required for users root and admin)
         /// </summary>
-        [JsonProperty(PropertyName = "password")]
-        [NSXTProperty(IsRequired: false, Description: @"Current password for user (required for users root and admin)")]
         public string? Password { get; set; }
         /// <summary>
         /// SSH key label (used to identify the key)
         /// </summary>
         [JsonProperty(PropertyName = "label", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"SSH key label (used to identify the key)")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Label { get; set; }
     }
 }

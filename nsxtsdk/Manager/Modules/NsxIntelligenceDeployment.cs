@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public NsxIntelligenceDeployment(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public NsxIntelligenceDeployment(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIntelligenceClusterNodeVMDeploymentRequestListType AddPaceClusterNodeVM(NSXTAddIntelligenceClusterNodeVMInfoType AddIntelligenceClusterNodeVminfo)
+        public async Task<NSXTIntelligenceClusterNodeVMDeploymentRequestListType> AddPaceClusterNodeVM(NSXTAddIntelligenceClusterNodeVMInfoType AddIntelligenceClusterNodeVminfo)
         {
             if (AddIntelligenceClusterNodeVminfo == null) { throw new System.ArgumentNullException("AddIntelligenceClusterNodeVminfo cannot be null"); }
             NSXTIntelligenceClusterNodeVMDeploymentRequestListType returnValue = default(NSXTIntelligenceClusterNodeVMDeploymentRequestListType);
@@ -43,31 +50,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(AddIntelligenceClusterNodeVminfo, defaultSerializationSettings));
             request.Resource = AddPaceClusterNodeVMServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIntelligenceClusterNodeVMDeploymentRequestListType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIntelligenceClusterNodeVMDeploymentRequestListType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + AddPaceClusterNodeVMServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIntelligenceClusterNodeVMDeploymentRequestListType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIntelligenceClusterNodeVMDeploymentRequestListType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIntelligenceClusterNodeVMDeploymentRequestListType ListPaceClusterNodeVmdeploymentRequests()
+        public async Task<NSXTIntelligenceClusterNodeVMDeploymentRequestListType> ListPaceClusterNodeVmdeploymentRequests()
         {
             NSXTIntelligenceClusterNodeVMDeploymentRequestListType returnValue = default(NSXTIntelligenceClusterNodeVMDeploymentRequestListType);
             StringBuilder ListPaceClusterNodeVmdeploymentRequestsServiceURL = new StringBuilder("/intelligence/nodes/deployments");
@@ -78,31 +73,19 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = ListPaceClusterNodeVmdeploymentRequestsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIntelligenceClusterNodeVMDeploymentRequestListType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIntelligenceClusterNodeVMDeploymentRequestListType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListPaceClusterNodeVmdeploymentRequestsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIntelligenceClusterNodeVMDeploymentRequestListType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIntelligenceClusterNodeVMDeploymentRequestListType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIntelligenceClusterNodeVMDeploymentStatusReportType ReadPaceClusterNodeVmdeploymentStatus(string NodeId)
+        public async Task<NSXTIntelligenceClusterNodeVMDeploymentStatusReportType> ReadPaceClusterNodeVmdeploymentStatus(string NodeId)
         {
             if (NodeId == null) { throw new System.ArgumentNullException("NodeId cannot be null"); }
             NSXTIntelligenceClusterNodeVMDeploymentStatusReportType returnValue = default(NSXTIntelligenceClusterNodeVMDeploymentStatusReportType);
@@ -115,31 +98,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             ReadPaceClusterNodeVmdeploymentStatusServiceURL.Replace("{node-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NodeId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadPaceClusterNodeVmdeploymentStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIntelligenceClusterNodeVMDeploymentStatusReportType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIntelligenceClusterNodeVMDeploymentStatusReportType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadPaceClusterNodeVmdeploymentStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIntelligenceClusterNodeVMDeploymentStatusReportType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIntelligenceClusterNodeVMDeploymentStatusReportType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteAutoDeployedPaceClusterNodeVM(string NodeId, bool? ForceDelete = null)
+        public async Task DeleteAutoDeployedPaceClusterNodeVM(string NodeId, bool? ForceDelete = null)
         {
             if (NodeId == null) { throw new System.ArgumentNullException("NodeId cannot be null"); }
             
@@ -153,7 +124,7 @@ namespace nsxtapi.ManagerModules
             DeleteAutoDeployedPaceClusterNodeVMServiceURL.Replace("{node-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NodeId, System.Globalization.CultureInfo.InvariantCulture)));
             if (ForceDelete != null) { request.AddQueryParameter("force_delete", ForceDelete.ToString()); }
             request.Resource = DeleteAutoDeployedPaceClusterNodeVMServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + DeleteAutoDeployedPaceClusterNodeVMServiceURL.ToString() + " did not complete successfull";
@@ -165,7 +136,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIntelligenceClusterNodeVMDeploymentRequestType ReadPaceClusterNodeVmdeploymentRequest(string NodeId)
+        public async Task<NSXTIntelligenceClusterNodeVMDeploymentRequestType> ReadPaceClusterNodeVmdeploymentRequest(string NodeId)
         {
             if (NodeId == null) { throw new System.ArgumentNullException("NodeId cannot be null"); }
             NSXTIntelligenceClusterNodeVMDeploymentRequestType returnValue = default(NSXTIntelligenceClusterNodeVMDeploymentRequestType);
@@ -178,25 +149,13 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             ReadPaceClusterNodeVmdeploymentRequestServiceURL.Replace("{node-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NodeId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadPaceClusterNodeVmdeploymentRequestServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIntelligenceClusterNodeVMDeploymentRequestType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIntelligenceClusterNodeVMDeploymentRequestType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadPaceClusterNodeVmdeploymentRequestServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIntelligenceClusterNodeVMDeploymentRequestType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIntelligenceClusterNodeVMDeploymentRequestType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

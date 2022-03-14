@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,21 +17,13 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTManagementNodeAggregateInfoType : NSXTBaseNodeAggregateInfoType
     {
-        public NSXTManagementNodeAggregateInfoType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "transport_nodes_connected")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
         public long? TransportNodesConnected { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "role_config")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTManagementClusterRoleConfigType RoleConfig { get; set; }
     }
 }

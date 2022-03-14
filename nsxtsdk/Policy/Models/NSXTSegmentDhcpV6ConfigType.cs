@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,35 +17,22 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTSegmentDhcpV6ConfigType : NSXTSegmentDhcpConfigType
     {
-        public NSXTSegmentDhcpV6ConfigType()
-        {
-        }
         /// <summary>
         /// Excluded addresses to define dynamic ip allocation ranges.
         /// </summary>
-        [JsonProperty(PropertyName = "excluded_ranges")]
-        [NSXTProperty(IsRequired: false, Description: @"Excluded addresses to define dynamic ip allocation ranges.")]
         public IList<string> ExcludedRanges { get; set; }
         /// <summary>
         /// IPv6 address of SNTP servers for subnet.
         /// </summary>
-        [JsonProperty(PropertyName = "sntp_servers")]
-        [NSXTProperty(IsRequired: false, Description: @"IPv6 address of SNTP servers for subnet.")]
         public IList<string> SntpServers { get; set; }
         /// <summary>
         /// The length of time that a valid address is preferred. When the
         /// preferred lifetime expires, the address becomes deprecated.
         /// </summary>
-        [JsonProperty(PropertyName = "preferred_time")]
-        [NSXTProperty(IsRequired: false, Description: @"The length of time that a valid address is preferred. When thepreferred lifetime expires, the address becomes deprecated.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(60)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(4294967295)]
         public long? PreferredTime { get; set; }
         /// <summary>
         /// Domain names for subnet.
         /// </summary>
-        [JsonProperty(PropertyName = "domain_names")]
-        [NSXTProperty(IsRequired: false, Description: @"Domain names for subnet.")]
         public IList<string> DomainNames { get; set; }
     }
 }

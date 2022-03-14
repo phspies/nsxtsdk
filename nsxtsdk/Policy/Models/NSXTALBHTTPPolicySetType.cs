@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,56 +17,39 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTALBHTTPPolicySetType : NSXTPolicyConfigResourceType
     {
-        public NSXTALBHTTPPolicySetType()
-        {
-        }
         /// <summary>
         /// Placeholder for description of property is_internal_policy
         /// of obj type HTTPPolicySet field type str  type boolean.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as false.
         /// </summary>
-        [JsonProperty(PropertyName = "is_internal_policy")]
-        [NSXTProperty(IsRequired: false, Description: @"Placeholder for description of property is_internal_policyof obj type HTTPPolicySet field type str  type boolean.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
         public bool? IsInternalPolicy { get; set; }
         /// <summary>
         /// Checksum of cloud configuration for Pool.
         /// Internally set by cloud connector.
         /// </summary>
-        [JsonProperty(PropertyName = "cloud_config_cksum")]
-        [NSXTProperty(IsRequired: false, Description: @"Checksum of cloud configuration for Pool.Internally set by cloud connector.")]
         public string? CloudConfigCksum { get; set; }
         /// <summary>
         /// List of labels to be used for granular RBAC.
         /// Allowed in Basic edition, Essentials edition, Enterprise
         /// edition.
         /// </summary>
-        [JsonProperty(PropertyName = "markers")]
-        [NSXTProperty(IsRequired: false, Description: @"List of labels to be used for granular RBAC.Allowed in Basic edition, Essentials edition, Enterpriseedition.")]
         public IList<NSXTALBRoleFilterMatchLabelType> Markers { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "http_request_policy")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBHTTPRequestPolicyType HttpRequestPolicy { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "http_response_policy")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBHTTPResponsePolicyType HttpResponsePolicy { get; set; }
         /// <summary>
         /// Creator name.
         /// </summary>
-        [JsonProperty(PropertyName = "created_by")]
-        [NSXTProperty(IsRequired: false, Description: @"Creator name.")]
         public string? CreatedBy { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "http_security_policy")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBHTTPSecurityPolicyType HttpSecurityPolicy { get; set; }
     }
 }

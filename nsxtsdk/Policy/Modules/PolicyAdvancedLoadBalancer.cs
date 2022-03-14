@@ -21,16 +21,23 @@ namespace nsxtapi.PolicyModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public PolicyAdvancedLoadBalancer(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public PolicyAdvancedLoadBalancer(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBServerAutoScalePolicyApiResponseType ListAlbserverAutoScalePolicy(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTALBServerAutoScalePolicyApiResponseType> ListAlbserverAutoScalePolicy(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTALBServerAutoScalePolicyApiResponseType returnValue = default(NSXTALBServerAutoScalePolicyApiResponseType);
             StringBuilder ListAlbserverAutoScalePolicyServiceURL = new StringBuilder("/infra/alb-server-auto-scale-policies");
@@ -47,31 +54,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListAlbserverAutoScalePolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBServerAutoScalePolicyApiResponseType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBServerAutoScalePolicyApiResponseType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListAlbserverAutoScalePolicyServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBServerAutoScalePolicyApiResponseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBServerAutoScalePolicyApiResponseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBPoolType UpdateAlbpool(string AlbPoolId, NSXTALBPoolType Albpool)
+        public async Task<NSXTALBPoolType> UpdateAlbpool(string AlbPoolId, NSXTALBPoolType Albpool)
         {
             if (AlbPoolId == null) { throw new System.ArgumentNullException("AlbPoolId cannot be null"); }
             if (Albpool == null) { throw new System.ArgumentNullException("Albpool cannot be null"); }
@@ -86,31 +81,19 @@ namespace nsxtapi.PolicyModules
             UpdateAlbpoolServiceURL.Replace("{alb-pool-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbPoolId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(Albpool, defaultSerializationSettings));
             request.Resource = UpdateAlbpoolServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBPoolType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBPoolType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateAlbpoolServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBPoolType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBPoolType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchAlbpool(string AlbPoolId, NSXTALBPoolType Albpool)
+        public async Task PatchAlbpool(string AlbPoolId, NSXTALBPoolType Albpool)
         {
             if (AlbPoolId == null) { throw new System.ArgumentNullException("AlbPoolId cannot be null"); }
             if (Albpool == null) { throw new System.ArgumentNullException("Albpool cannot be null"); }
@@ -125,7 +108,7 @@ namespace nsxtapi.PolicyModules
             PatchAlbpoolServiceURL.Replace("{alb-pool-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbPoolId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(Albpool, defaultSerializationSettings));
             request.Resource = PatchAlbpoolServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchAlbpoolServiceURL.ToString() + " did not complete successfull";
@@ -137,7 +120,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBPoolType ReadAlbpool(string AlbPoolId)
+        public async Task<NSXTALBPoolType> ReadAlbpool(string AlbPoolId)
         {
             if (AlbPoolId == null) { throw new System.ArgumentNullException("AlbPoolId cannot be null"); }
             NSXTALBPoolType returnValue = default(NSXTALBPoolType);
@@ -150,31 +133,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ReadAlbpoolServiceURL.Replace("{alb-pool-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbPoolId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadAlbpoolServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBPoolType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBPoolType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadAlbpoolServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBPoolType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBPoolType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteAlbpool(string AlbPoolId, bool? Force = null)
+        public async Task DeleteAlbpool(string AlbPoolId, bool? Force = null)
         {
             if (AlbPoolId == null) { throw new System.ArgumentNullException("AlbPoolId cannot be null"); }
             
@@ -188,7 +159,7 @@ namespace nsxtapi.PolicyModules
             DeleteAlbpoolServiceURL.Replace("{alb-pool-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbPoolId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
             request.Resource = DeleteAlbpoolServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteAlbpoolServiceURL.ToString() + " did not complete successfull";
@@ -200,7 +171,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBSecurityPolicyApiResponseType ListAlbsecurityPolicy(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTALBSecurityPolicyApiResponseType> ListAlbsecurityPolicy(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTALBSecurityPolicyApiResponseType returnValue = default(NSXTALBSecurityPolicyApiResponseType);
             StringBuilder ListAlbsecurityPolicyServiceURL = new StringBuilder("/infra/alb-security-policies");
@@ -217,31 +188,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListAlbsecurityPolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBSecurityPolicyApiResponseType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBSecurityPolicyApiResponseType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListAlbsecurityPolicyServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBSecurityPolicyApiResponseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBSecurityPolicyApiResponseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBWebhookApiResponseType ListAlbwebhook(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTALBWebhookApiResponseType> ListAlbwebhook(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTALBWebhookApiResponseType returnValue = default(NSXTALBWebhookApiResponseType);
             StringBuilder ListAlbwebhookServiceURL = new StringBuilder("/infra/alb-webhooks");
@@ -258,31 +217,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListAlbwebhookServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBWebhookApiResponseType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBWebhookApiResponseType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListAlbwebhookServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBWebhookApiResponseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBWebhookApiResponseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBTrafficCloneProfileApiResponseType ListAlbtrafficCloneProfile(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTALBTrafficCloneProfileApiResponseType> ListAlbtrafficCloneProfile(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTALBTrafficCloneProfileApiResponseType returnValue = default(NSXTALBTrafficCloneProfileApiResponseType);
             StringBuilder ListAlbtrafficCloneProfileServiceURL = new StringBuilder("/infra/alb-traffic-clone-profiles");
@@ -299,31 +246,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListAlbtrafficCloneProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBTrafficCloneProfileApiResponseType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBTrafficCloneProfileApiResponseType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListAlbtrafficCloneProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBTrafficCloneProfileApiResponseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBTrafficCloneProfileApiResponseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBHardwareSecurityModuleGroupType UpdateAlbhardwareSecurityModuleGroup(string AlbHardwaresecuritymodulegroupId, NSXTALBHardwareSecurityModuleGroupType AlbhardwareSecurityModuleGroup)
+        public async Task<NSXTALBHardwareSecurityModuleGroupType> UpdateAlbhardwareSecurityModuleGroup(string AlbHardwaresecuritymodulegroupId, NSXTALBHardwareSecurityModuleGroupType AlbhardwareSecurityModuleGroup)
         {
             if (AlbHardwaresecuritymodulegroupId == null) { throw new System.ArgumentNullException("AlbHardwaresecuritymodulegroupId cannot be null"); }
             if (AlbhardwareSecurityModuleGroup == null) { throw new System.ArgumentNullException("AlbhardwareSecurityModuleGroup cannot be null"); }
@@ -338,31 +273,19 @@ namespace nsxtapi.PolicyModules
             UpdateAlbhardwareSecurityModuleGroupServiceURL.Replace("{alb-hardwaresecuritymodulegroup-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbHardwaresecuritymodulegroupId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(AlbhardwareSecurityModuleGroup, defaultSerializationSettings));
             request.Resource = UpdateAlbhardwareSecurityModuleGroupServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBHardwareSecurityModuleGroupType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBHardwareSecurityModuleGroupType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateAlbhardwareSecurityModuleGroupServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBHardwareSecurityModuleGroupType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBHardwareSecurityModuleGroupType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteAlbhardwareSecurityModuleGroup(string AlbHardwaresecuritymodulegroupId, bool? Force = null)
+        public async Task DeleteAlbhardwareSecurityModuleGroup(string AlbHardwaresecuritymodulegroupId, bool? Force = null)
         {
             if (AlbHardwaresecuritymodulegroupId == null) { throw new System.ArgumentNullException("AlbHardwaresecuritymodulegroupId cannot be null"); }
             
@@ -376,7 +299,7 @@ namespace nsxtapi.PolicyModules
             DeleteAlbhardwareSecurityModuleGroupServiceURL.Replace("{alb-hardwaresecuritymodulegroup-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbHardwaresecuritymodulegroupId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
             request.Resource = DeleteAlbhardwareSecurityModuleGroupServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteAlbhardwareSecurityModuleGroupServiceURL.ToString() + " did not complete successfull";
@@ -388,7 +311,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchAlbhardwareSecurityModuleGroup(string AlbHardwaresecuritymodulegroupId, NSXTALBHardwareSecurityModuleGroupType AlbhardwareSecurityModuleGroup)
+        public async Task PatchAlbhardwareSecurityModuleGroup(string AlbHardwaresecuritymodulegroupId, NSXTALBHardwareSecurityModuleGroupType AlbhardwareSecurityModuleGroup)
         {
             if (AlbHardwaresecuritymodulegroupId == null) { throw new System.ArgumentNullException("AlbHardwaresecuritymodulegroupId cannot be null"); }
             if (AlbhardwareSecurityModuleGroup == null) { throw new System.ArgumentNullException("AlbhardwareSecurityModuleGroup cannot be null"); }
@@ -403,7 +326,7 @@ namespace nsxtapi.PolicyModules
             PatchAlbhardwareSecurityModuleGroupServiceURL.Replace("{alb-hardwaresecuritymodulegroup-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbHardwaresecuritymodulegroupId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(AlbhardwareSecurityModuleGroup, defaultSerializationSettings));
             request.Resource = PatchAlbhardwareSecurityModuleGroupServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchAlbhardwareSecurityModuleGroupServiceURL.ToString() + " did not complete successfull";
@@ -415,7 +338,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBHardwareSecurityModuleGroupType ReadAlbhardwareSecurityModuleGroup(string AlbHardwaresecuritymodulegroupId)
+        public async Task<NSXTALBHardwareSecurityModuleGroupType> ReadAlbhardwareSecurityModuleGroup(string AlbHardwaresecuritymodulegroupId)
         {
             if (AlbHardwaresecuritymodulegroupId == null) { throw new System.ArgumentNullException("AlbHardwaresecuritymodulegroupId cannot be null"); }
             NSXTALBHardwareSecurityModuleGroupType returnValue = default(NSXTALBHardwareSecurityModuleGroupType);
@@ -428,31 +351,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ReadAlbhardwareSecurityModuleGroupServiceURL.Replace("{alb-hardwaresecuritymodulegroup-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbHardwaresecuritymodulegroupId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadAlbhardwareSecurityModuleGroupServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBHardwareSecurityModuleGroupType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBHardwareSecurityModuleGroupType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadAlbhardwareSecurityModuleGroupServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBHardwareSecurityModuleGroupType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBHardwareSecurityModuleGroupType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBWebhookType UpdateAlbwebhook(string AlbWebhookId, NSXTALBWebhookType Albwebhook)
+        public async Task<NSXTALBWebhookType> UpdateAlbwebhook(string AlbWebhookId, NSXTALBWebhookType Albwebhook)
         {
             if (AlbWebhookId == null) { throw new System.ArgumentNullException("AlbWebhookId cannot be null"); }
             if (Albwebhook == null) { throw new System.ArgumentNullException("Albwebhook cannot be null"); }
@@ -467,31 +378,19 @@ namespace nsxtapi.PolicyModules
             UpdateAlbwebhookServiceURL.Replace("{alb-webhook-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbWebhookId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(Albwebhook, defaultSerializationSettings));
             request.Resource = UpdateAlbwebhookServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBWebhookType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBWebhookType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateAlbwebhookServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBWebhookType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBWebhookType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBWebhookType ReadAlbwebhook(string AlbWebhookId)
+        public async Task<NSXTALBWebhookType> ReadAlbwebhook(string AlbWebhookId)
         {
             if (AlbWebhookId == null) { throw new System.ArgumentNullException("AlbWebhookId cannot be null"); }
             NSXTALBWebhookType returnValue = default(NSXTALBWebhookType);
@@ -504,31 +403,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ReadAlbwebhookServiceURL.Replace("{alb-webhook-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbWebhookId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadAlbwebhookServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBWebhookType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBWebhookType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadAlbwebhookServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBWebhookType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBWebhookType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteAlbwebhook(string AlbWebhookId, bool? Force = null)
+        public async Task DeleteAlbwebhook(string AlbWebhookId, bool? Force = null)
         {
             if (AlbWebhookId == null) { throw new System.ArgumentNullException("AlbWebhookId cannot be null"); }
             
@@ -542,7 +429,7 @@ namespace nsxtapi.PolicyModules
             DeleteAlbwebhookServiceURL.Replace("{alb-webhook-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbWebhookId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
             request.Resource = DeleteAlbwebhookServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteAlbwebhookServiceURL.ToString() + " did not complete successfull";
@@ -554,7 +441,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchAlbwebhook(string AlbWebhookId, NSXTALBWebhookType Albwebhook)
+        public async Task PatchAlbwebhook(string AlbWebhookId, NSXTALBWebhookType Albwebhook)
         {
             if (AlbWebhookId == null) { throw new System.ArgumentNullException("AlbWebhookId cannot be null"); }
             if (Albwebhook == null) { throw new System.ArgumentNullException("Albwebhook cannot be null"); }
@@ -569,7 +456,7 @@ namespace nsxtapi.PolicyModules
             PatchAlbwebhookServiceURL.Replace("{alb-webhook-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbWebhookId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(Albwebhook, defaultSerializationSettings));
             request.Resource = PatchAlbwebhookServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchAlbwebhookServiceURL.ToString() + " did not complete successfull";
@@ -581,7 +468,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBSSOPolicyType UpdateAlbssopolicy(string AlbSsopolicyId, NSXTALBSSOPolicyType Albssopolicy)
+        public async Task<NSXTALBSSOPolicyType> UpdateAlbssopolicy(string AlbSsopolicyId, NSXTALBSSOPolicyType Albssopolicy)
         {
             if (AlbSsopolicyId == null) { throw new System.ArgumentNullException("AlbSsopolicyId cannot be null"); }
             if (Albssopolicy == null) { throw new System.ArgumentNullException("Albssopolicy cannot be null"); }
@@ -596,31 +483,19 @@ namespace nsxtapi.PolicyModules
             UpdateAlbssopolicyServiceURL.Replace("{alb-ssopolicy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbSsopolicyId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(Albssopolicy, defaultSerializationSettings));
             request.Resource = UpdateAlbssopolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBSSOPolicyType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBSSOPolicyType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateAlbssopolicyServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBSSOPolicyType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBSSOPolicyType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchAlbssopolicy(string AlbSsopolicyId, NSXTALBSSOPolicyType Albssopolicy)
+        public async Task PatchAlbssopolicy(string AlbSsopolicyId, NSXTALBSSOPolicyType Albssopolicy)
         {
             if (AlbSsopolicyId == null) { throw new System.ArgumentNullException("AlbSsopolicyId cannot be null"); }
             if (Albssopolicy == null) { throw new System.ArgumentNullException("Albssopolicy cannot be null"); }
@@ -635,7 +510,7 @@ namespace nsxtapi.PolicyModules
             PatchAlbssopolicyServiceURL.Replace("{alb-ssopolicy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbSsopolicyId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(Albssopolicy, defaultSerializationSettings));
             request.Resource = PatchAlbssopolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchAlbssopolicyServiceURL.ToString() + " did not complete successfull";
@@ -647,7 +522,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteAlbssopolicy(string AlbSsopolicyId, bool? Force = null)
+        public async Task DeleteAlbssopolicy(string AlbSsopolicyId, bool? Force = null)
         {
             if (AlbSsopolicyId == null) { throw new System.ArgumentNullException("AlbSsopolicyId cannot be null"); }
             
@@ -661,7 +536,7 @@ namespace nsxtapi.PolicyModules
             DeleteAlbssopolicyServiceURL.Replace("{alb-ssopolicy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbSsopolicyId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
             request.Resource = DeleteAlbssopolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteAlbssopolicyServiceURL.ToString() + " did not complete successfull";
@@ -673,7 +548,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBSSOPolicyType ReadAlbssopolicy(string AlbSsopolicyId)
+        public async Task<NSXTALBSSOPolicyType> ReadAlbssopolicy(string AlbSsopolicyId)
         {
             if (AlbSsopolicyId == null) { throw new System.ArgumentNullException("AlbSsopolicyId cannot be null"); }
             NSXTALBSSOPolicyType returnValue = default(NSXTALBSSOPolicyType);
@@ -686,31 +561,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ReadAlbssopolicyServiceURL.Replace("{alb-ssopolicy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbSsopolicyId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadAlbssopolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBSSOPolicyType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBSSOPolicyType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadAlbssopolicyServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBSSOPolicyType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBSSOPolicyType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBPoolApiResponseType ListAlbpool(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTALBPoolApiResponseType> ListAlbpool(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTALBPoolApiResponseType returnValue = default(NSXTALBPoolApiResponseType);
             StringBuilder ListAlbpoolServiceURL = new StringBuilder("/infra/alb-pools");
@@ -727,31 +590,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListAlbpoolServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBPoolApiResponseType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBPoolApiResponseType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListAlbpoolServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBPoolApiResponseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBPoolApiResponseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBHardwareSecurityModuleGroupApiResponseType ListAlbhardwareSecurityModuleGroup(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTALBHardwareSecurityModuleGroupApiResponseType> ListAlbhardwareSecurityModuleGroup(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTALBHardwareSecurityModuleGroupApiResponseType returnValue = default(NSXTALBHardwareSecurityModuleGroupApiResponseType);
             StringBuilder ListAlbhardwareSecurityModuleGroupServiceURL = new StringBuilder("/infra/alb-hardware-security-module-groups");
@@ -768,31 +619,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListAlbhardwareSecurityModuleGroupServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBHardwareSecurityModuleGroupApiResponseType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBHardwareSecurityModuleGroupApiResponseType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListAlbhardwareSecurityModuleGroupServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBHardwareSecurityModuleGroupApiResponseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBHardwareSecurityModuleGroupApiResponseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBAutoScaleLaunchConfigType UpdateAlbautoScaleLaunchConfig(string AlbAutoscalelaunchconfigId, NSXTALBAutoScaleLaunchConfigType AlbautoScaleLaunchConfig)
+        public async Task<NSXTALBAutoScaleLaunchConfigType> UpdateAlbautoScaleLaunchConfig(string AlbAutoscalelaunchconfigId, NSXTALBAutoScaleLaunchConfigType AlbautoScaleLaunchConfig)
         {
             if (AlbAutoscalelaunchconfigId == null) { throw new System.ArgumentNullException("AlbAutoscalelaunchconfigId cannot be null"); }
             if (AlbautoScaleLaunchConfig == null) { throw new System.ArgumentNullException("AlbautoScaleLaunchConfig cannot be null"); }
@@ -807,31 +646,19 @@ namespace nsxtapi.PolicyModules
             UpdateAlbautoScaleLaunchConfigServiceURL.Replace("{alb-autoscalelaunchconfig-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbAutoscalelaunchconfigId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(AlbautoScaleLaunchConfig, defaultSerializationSettings));
             request.Resource = UpdateAlbautoScaleLaunchConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBAutoScaleLaunchConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBAutoScaleLaunchConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateAlbautoScaleLaunchConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBAutoScaleLaunchConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBAutoScaleLaunchConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBAutoScaleLaunchConfigType ReadAlbautoScaleLaunchConfig(string AlbAutoscalelaunchconfigId)
+        public async Task<NSXTALBAutoScaleLaunchConfigType> ReadAlbautoScaleLaunchConfig(string AlbAutoscalelaunchconfigId)
         {
             if (AlbAutoscalelaunchconfigId == null) { throw new System.ArgumentNullException("AlbAutoscalelaunchconfigId cannot be null"); }
             NSXTALBAutoScaleLaunchConfigType returnValue = default(NSXTALBAutoScaleLaunchConfigType);
@@ -844,31 +671,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ReadAlbautoScaleLaunchConfigServiceURL.Replace("{alb-autoscalelaunchconfig-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbAutoscalelaunchconfigId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadAlbautoScaleLaunchConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBAutoScaleLaunchConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBAutoScaleLaunchConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadAlbautoScaleLaunchConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBAutoScaleLaunchConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBAutoScaleLaunchConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteAlbautoScaleLaunchConfig(string AlbAutoscalelaunchconfigId, bool? Force = null)
+        public async Task DeleteAlbautoScaleLaunchConfig(string AlbAutoscalelaunchconfigId, bool? Force = null)
         {
             if (AlbAutoscalelaunchconfigId == null) { throw new System.ArgumentNullException("AlbAutoscalelaunchconfigId cannot be null"); }
             
@@ -882,7 +697,7 @@ namespace nsxtapi.PolicyModules
             DeleteAlbautoScaleLaunchConfigServiceURL.Replace("{alb-autoscalelaunchconfig-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbAutoscalelaunchconfigId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
             request.Resource = DeleteAlbautoScaleLaunchConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteAlbautoScaleLaunchConfigServiceURL.ToString() + " did not complete successfull";
@@ -894,7 +709,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchAlbautoScaleLaunchConfig(string AlbAutoscalelaunchconfigId, NSXTALBAutoScaleLaunchConfigType AlbautoScaleLaunchConfig)
+        public async Task PatchAlbautoScaleLaunchConfig(string AlbAutoscalelaunchconfigId, NSXTALBAutoScaleLaunchConfigType AlbautoScaleLaunchConfig)
         {
             if (AlbAutoscalelaunchconfigId == null) { throw new System.ArgumentNullException("AlbAutoscalelaunchconfigId cannot be null"); }
             if (AlbautoScaleLaunchConfig == null) { throw new System.ArgumentNullException("AlbautoScaleLaunchConfig cannot be null"); }
@@ -909,7 +724,7 @@ namespace nsxtapi.PolicyModules
             PatchAlbautoScaleLaunchConfigServiceURL.Replace("{alb-autoscalelaunchconfig-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbAutoscalelaunchconfigId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(AlbautoScaleLaunchConfig, defaultSerializationSettings));
             request.Resource = PatchAlbautoScaleLaunchConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchAlbautoScaleLaunchConfigServiceURL.ToString() + " did not complete successfull";
@@ -921,7 +736,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBApplicationPersistenceProfileApiResponseType ListAlbapplicationPersistenceProfile(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTALBApplicationPersistenceProfileApiResponseType> ListAlbapplicationPersistenceProfile(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTALBApplicationPersistenceProfileApiResponseType returnValue = default(NSXTALBApplicationPersistenceProfileApiResponseType);
             StringBuilder ListAlbapplicationPersistenceProfileServiceURL = new StringBuilder("/infra/alb-application-persistence-profiles");
@@ -938,31 +753,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListAlbapplicationPersistenceProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBApplicationPersistenceProfileApiResponseType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBApplicationPersistenceProfileApiResponseType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListAlbapplicationPersistenceProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBApplicationPersistenceProfileApiResponseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBApplicationPersistenceProfileApiResponseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBWafPolicyPSMGroupType UpdateAlbwafPolicyPsmgroup(string AlbWafpolicypsmgroupId, NSXTALBWafPolicyPSMGroupType AlbwafPolicyPsmgroup)
+        public async Task<NSXTALBWafPolicyPSMGroupType> UpdateAlbwafPolicyPsmgroup(string AlbWafpolicypsmgroupId, NSXTALBWafPolicyPSMGroupType AlbwafPolicyPsmgroup)
         {
             if (AlbWafpolicypsmgroupId == null) { throw new System.ArgumentNullException("AlbWafpolicypsmgroupId cannot be null"); }
             if (AlbwafPolicyPsmgroup == null) { throw new System.ArgumentNullException("AlbwafPolicyPsmgroup cannot be null"); }
@@ -977,31 +780,19 @@ namespace nsxtapi.PolicyModules
             UpdateAlbwafPolicyPsmgroupServiceURL.Replace("{alb-wafpolicypsmgroup-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbWafpolicypsmgroupId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(AlbwafPolicyPsmgroup, defaultSerializationSettings));
             request.Resource = UpdateAlbwafPolicyPsmgroupServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBWafPolicyPSMGroupType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBWafPolicyPSMGroupType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateAlbwafPolicyPsmgroupServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBWafPolicyPSMGroupType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBWafPolicyPSMGroupType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBWafPolicyPSMGroupType ReadAlbwafPolicyPsmgroup(string AlbWafpolicypsmgroupId)
+        public async Task<NSXTALBWafPolicyPSMGroupType> ReadAlbwafPolicyPsmgroup(string AlbWafpolicypsmgroupId)
         {
             if (AlbWafpolicypsmgroupId == null) { throw new System.ArgumentNullException("AlbWafpolicypsmgroupId cannot be null"); }
             NSXTALBWafPolicyPSMGroupType returnValue = default(NSXTALBWafPolicyPSMGroupType);
@@ -1014,31 +805,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ReadAlbwafPolicyPsmgroupServiceURL.Replace("{alb-wafpolicypsmgroup-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbWafpolicypsmgroupId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadAlbwafPolicyPsmgroupServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBWafPolicyPSMGroupType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBWafPolicyPSMGroupType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadAlbwafPolicyPsmgroupServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBWafPolicyPSMGroupType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBWafPolicyPSMGroupType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchAlbwafPolicyPsmgroup(string AlbWafpolicypsmgroupId, NSXTALBWafPolicyPSMGroupType AlbwafPolicyPsmgroup)
+        public async Task PatchAlbwafPolicyPsmgroup(string AlbWafpolicypsmgroupId, NSXTALBWafPolicyPSMGroupType AlbwafPolicyPsmgroup)
         {
             if (AlbWafpolicypsmgroupId == null) { throw new System.ArgumentNullException("AlbWafpolicypsmgroupId cannot be null"); }
             if (AlbwafPolicyPsmgroup == null) { throw new System.ArgumentNullException("AlbwafPolicyPsmgroup cannot be null"); }
@@ -1053,7 +832,7 @@ namespace nsxtapi.PolicyModules
             PatchAlbwafPolicyPsmgroupServiceURL.Replace("{alb-wafpolicypsmgroup-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbWafpolicypsmgroupId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(AlbwafPolicyPsmgroup, defaultSerializationSettings));
             request.Resource = PatchAlbwafPolicyPsmgroupServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchAlbwafPolicyPsmgroupServiceURL.ToString() + " did not complete successfull";
@@ -1065,7 +844,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteAlbwafPolicyPsmgroup(string AlbWafpolicypsmgroupId, bool? Force = null)
+        public async Task DeleteAlbwafPolicyPsmgroup(string AlbWafpolicypsmgroupId, bool? Force = null)
         {
             if (AlbWafpolicypsmgroupId == null) { throw new System.ArgumentNullException("AlbWafpolicypsmgroupId cannot be null"); }
             
@@ -1079,7 +858,7 @@ namespace nsxtapi.PolicyModules
             DeleteAlbwafPolicyPsmgroupServiceURL.Replace("{alb-wafpolicypsmgroup-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbWafpolicypsmgroupId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
             request.Resource = DeleteAlbwafPolicyPsmgroupServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteAlbwafPolicyPsmgroupServiceURL.ToString() + " did not complete successfull";
@@ -1091,7 +870,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBServerAutoScalePolicyType UpdateAlbserverAutoScalePolicy(string AlbServerautoscalepolicyId, NSXTALBServerAutoScalePolicyType AlbserverAutoScalePolicy)
+        public async Task<NSXTALBServerAutoScalePolicyType> UpdateAlbserverAutoScalePolicy(string AlbServerautoscalepolicyId, NSXTALBServerAutoScalePolicyType AlbserverAutoScalePolicy)
         {
             if (AlbServerautoscalepolicyId == null) { throw new System.ArgumentNullException("AlbServerautoscalepolicyId cannot be null"); }
             if (AlbserverAutoScalePolicy == null) { throw new System.ArgumentNullException("AlbserverAutoScalePolicy cannot be null"); }
@@ -1106,31 +885,19 @@ namespace nsxtapi.PolicyModules
             UpdateAlbserverAutoScalePolicyServiceURL.Replace("{alb-serverautoscalepolicy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbServerautoscalepolicyId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(AlbserverAutoScalePolicy, defaultSerializationSettings));
             request.Resource = UpdateAlbserverAutoScalePolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBServerAutoScalePolicyType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBServerAutoScalePolicyType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateAlbserverAutoScalePolicyServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBServerAutoScalePolicyType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBServerAutoScalePolicyType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBServerAutoScalePolicyType ReadAlbserverAutoScalePolicy(string AlbServerautoscalepolicyId)
+        public async Task<NSXTALBServerAutoScalePolicyType> ReadAlbserverAutoScalePolicy(string AlbServerautoscalepolicyId)
         {
             if (AlbServerautoscalepolicyId == null) { throw new System.ArgumentNullException("AlbServerautoscalepolicyId cannot be null"); }
             NSXTALBServerAutoScalePolicyType returnValue = default(NSXTALBServerAutoScalePolicyType);
@@ -1143,31 +910,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ReadAlbserverAutoScalePolicyServiceURL.Replace("{alb-serverautoscalepolicy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbServerautoscalepolicyId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadAlbserverAutoScalePolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBServerAutoScalePolicyType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBServerAutoScalePolicyType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadAlbserverAutoScalePolicyServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBServerAutoScalePolicyType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBServerAutoScalePolicyType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchAlbserverAutoScalePolicy(string AlbServerautoscalepolicyId, NSXTALBServerAutoScalePolicyType AlbserverAutoScalePolicy)
+        public async Task PatchAlbserverAutoScalePolicy(string AlbServerautoscalepolicyId, NSXTALBServerAutoScalePolicyType AlbserverAutoScalePolicy)
         {
             if (AlbServerautoscalepolicyId == null) { throw new System.ArgumentNullException("AlbServerautoscalepolicyId cannot be null"); }
             if (AlbserverAutoScalePolicy == null) { throw new System.ArgumentNullException("AlbserverAutoScalePolicy cannot be null"); }
@@ -1182,7 +937,7 @@ namespace nsxtapi.PolicyModules
             PatchAlbserverAutoScalePolicyServiceURL.Replace("{alb-serverautoscalepolicy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbServerautoscalepolicyId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(AlbserverAutoScalePolicy, defaultSerializationSettings));
             request.Resource = PatchAlbserverAutoScalePolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchAlbserverAutoScalePolicyServiceURL.ToString() + " did not complete successfull";
@@ -1194,7 +949,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteAlbserverAutoScalePolicy(string AlbServerautoscalepolicyId, bool? Force = null)
+        public async Task DeleteAlbserverAutoScalePolicy(string AlbServerautoscalepolicyId, bool? Force = null)
         {
             if (AlbServerautoscalepolicyId == null) { throw new System.ArgumentNullException("AlbServerautoscalepolicyId cannot be null"); }
             
@@ -1208,7 +963,7 @@ namespace nsxtapi.PolicyModules
             DeleteAlbserverAutoScalePolicyServiceURL.Replace("{alb-serverautoscalepolicy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbServerautoscalepolicyId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
             request.Resource = DeleteAlbserverAutoScalePolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteAlbserverAutoScalePolicyServiceURL.ToString() + " did not complete successfull";
@@ -1220,7 +975,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBProtocolParserApiResponseType ListAlbprotocolParser(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTALBProtocolParserApiResponseType> ListAlbprotocolParser(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTALBProtocolParserApiResponseType returnValue = default(NSXTALBProtocolParserApiResponseType);
             StringBuilder ListAlbprotocolParserServiceURL = new StringBuilder("/infra/alb-protocol-parsers");
@@ -1237,31 +992,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListAlbprotocolParserServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBProtocolParserApiResponseType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBProtocolParserApiResponseType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListAlbprotocolParserServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBProtocolParserApiResponseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBProtocolParserApiResponseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBPoolGroupDeploymentPolicyType UpdateAlbpoolGroupDeploymentPolicy(string AlbPoolgroupdeploymentpolicyId, NSXTALBPoolGroupDeploymentPolicyType AlbpoolGroupDeploymentPolicy)
+        public async Task<NSXTALBPoolGroupDeploymentPolicyType> UpdateAlbpoolGroupDeploymentPolicy(string AlbPoolgroupdeploymentpolicyId, NSXTALBPoolGroupDeploymentPolicyType AlbpoolGroupDeploymentPolicy)
         {
             if (AlbPoolgroupdeploymentpolicyId == null) { throw new System.ArgumentNullException("AlbPoolgroupdeploymentpolicyId cannot be null"); }
             if (AlbpoolGroupDeploymentPolicy == null) { throw new System.ArgumentNullException("AlbpoolGroupDeploymentPolicy cannot be null"); }
@@ -1276,31 +1019,19 @@ namespace nsxtapi.PolicyModules
             UpdateAlbpoolGroupDeploymentPolicyServiceURL.Replace("{alb-poolgroupdeploymentpolicy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbPoolgroupdeploymentpolicyId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(AlbpoolGroupDeploymentPolicy, defaultSerializationSettings));
             request.Resource = UpdateAlbpoolGroupDeploymentPolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBPoolGroupDeploymentPolicyType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBPoolGroupDeploymentPolicyType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateAlbpoolGroupDeploymentPolicyServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBPoolGroupDeploymentPolicyType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBPoolGroupDeploymentPolicyType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteAlbpoolGroupDeploymentPolicy(string AlbPoolgroupdeploymentpolicyId, bool? Force = null)
+        public async Task DeleteAlbpoolGroupDeploymentPolicy(string AlbPoolgroupdeploymentpolicyId, bool? Force = null)
         {
             if (AlbPoolgroupdeploymentpolicyId == null) { throw new System.ArgumentNullException("AlbPoolgroupdeploymentpolicyId cannot be null"); }
             
@@ -1314,7 +1045,7 @@ namespace nsxtapi.PolicyModules
             DeleteAlbpoolGroupDeploymentPolicyServiceURL.Replace("{alb-poolgroupdeploymentpolicy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbPoolgroupdeploymentpolicyId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
             request.Resource = DeleteAlbpoolGroupDeploymentPolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteAlbpoolGroupDeploymentPolicyServiceURL.ToString() + " did not complete successfull";
@@ -1326,7 +1057,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchAlbpoolGroupDeploymentPolicy(string AlbPoolgroupdeploymentpolicyId, NSXTALBPoolGroupDeploymentPolicyType AlbpoolGroupDeploymentPolicy)
+        public async Task PatchAlbpoolGroupDeploymentPolicy(string AlbPoolgroupdeploymentpolicyId, NSXTALBPoolGroupDeploymentPolicyType AlbpoolGroupDeploymentPolicy)
         {
             if (AlbPoolgroupdeploymentpolicyId == null) { throw new System.ArgumentNullException("AlbPoolgroupdeploymentpolicyId cannot be null"); }
             if (AlbpoolGroupDeploymentPolicy == null) { throw new System.ArgumentNullException("AlbpoolGroupDeploymentPolicy cannot be null"); }
@@ -1341,7 +1072,7 @@ namespace nsxtapi.PolicyModules
             PatchAlbpoolGroupDeploymentPolicyServiceURL.Replace("{alb-poolgroupdeploymentpolicy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbPoolgroupdeploymentpolicyId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(AlbpoolGroupDeploymentPolicy, defaultSerializationSettings));
             request.Resource = PatchAlbpoolGroupDeploymentPolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchAlbpoolGroupDeploymentPolicyServiceURL.ToString() + " did not complete successfull";
@@ -1353,7 +1084,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBPoolGroupDeploymentPolicyType ReadAlbpoolGroupDeploymentPolicy(string AlbPoolgroupdeploymentpolicyId)
+        public async Task<NSXTALBPoolGroupDeploymentPolicyType> ReadAlbpoolGroupDeploymentPolicy(string AlbPoolgroupdeploymentpolicyId)
         {
             if (AlbPoolgroupdeploymentpolicyId == null) { throw new System.ArgumentNullException("AlbPoolgroupdeploymentpolicyId cannot be null"); }
             NSXTALBPoolGroupDeploymentPolicyType returnValue = default(NSXTALBPoolGroupDeploymentPolicyType);
@@ -1366,31 +1097,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ReadAlbpoolGroupDeploymentPolicyServiceURL.Replace("{alb-poolgroupdeploymentpolicy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbPoolgroupdeploymentpolicyId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadAlbpoolGroupDeploymentPolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBPoolGroupDeploymentPolicyType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBPoolGroupDeploymentPolicyType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadAlbpoolGroupDeploymentPolicyServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBPoolGroupDeploymentPolicyType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBPoolGroupDeploymentPolicyType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBL4PolicySetApiResponseType ListALBL4PolicySet(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTALBL4PolicySetApiResponseType> ListALBL4PolicySet(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTALBL4PolicySetApiResponseType returnValue = default(NSXTALBL4PolicySetApiResponseType);
             StringBuilder ListALBL4PolicySetServiceURL = new StringBuilder("/infra/alb-l4-policy-sets");
@@ -1407,31 +1126,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListALBL4PolicySetServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBL4PolicySetApiResponseType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBL4PolicySetApiResponseType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListALBL4PolicySetServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBL4PolicySetApiResponseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBL4PolicySetApiResponseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBVirtualServiceType UpdateAlbvirtualService(string AlbVirtualserviceId, NSXTALBVirtualServiceType AlbvirtualService)
+        public async Task<NSXTALBVirtualServiceType> UpdateAlbvirtualService(string AlbVirtualserviceId, NSXTALBVirtualServiceType AlbvirtualService)
         {
             if (AlbVirtualserviceId == null) { throw new System.ArgumentNullException("AlbVirtualserviceId cannot be null"); }
             if (AlbvirtualService == null) { throw new System.ArgumentNullException("AlbvirtualService cannot be null"); }
@@ -1446,31 +1153,19 @@ namespace nsxtapi.PolicyModules
             UpdateAlbvirtualServiceServiceURL.Replace("{alb-virtualservice-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbVirtualserviceId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(AlbvirtualService, defaultSerializationSettings));
             request.Resource = UpdateAlbvirtualServiceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBVirtualServiceType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBVirtualServiceType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateAlbvirtualServiceServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBVirtualServiceType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBVirtualServiceType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchAlbvirtualService(string AlbVirtualserviceId, NSXTALBVirtualServiceType AlbvirtualService)
+        public async Task PatchAlbvirtualService(string AlbVirtualserviceId, NSXTALBVirtualServiceType AlbvirtualService)
         {
             if (AlbVirtualserviceId == null) { throw new System.ArgumentNullException("AlbVirtualserviceId cannot be null"); }
             if (AlbvirtualService == null) { throw new System.ArgumentNullException("AlbvirtualService cannot be null"); }
@@ -1485,7 +1180,7 @@ namespace nsxtapi.PolicyModules
             PatchAlbvirtualServiceServiceURL.Replace("{alb-virtualservice-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbVirtualserviceId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(AlbvirtualService, defaultSerializationSettings));
             request.Resource = PatchAlbvirtualServiceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchAlbvirtualServiceServiceURL.ToString() + " did not complete successfull";
@@ -1497,7 +1192,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBVirtualServiceType ReadAlbvirtualService(string AlbVirtualserviceId)
+        public async Task<NSXTALBVirtualServiceType> ReadAlbvirtualService(string AlbVirtualserviceId)
         {
             if (AlbVirtualserviceId == null) { throw new System.ArgumentNullException("AlbVirtualserviceId cannot be null"); }
             NSXTALBVirtualServiceType returnValue = default(NSXTALBVirtualServiceType);
@@ -1510,31 +1205,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ReadAlbvirtualServiceServiceURL.Replace("{alb-virtualservice-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbVirtualserviceId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadAlbvirtualServiceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBVirtualServiceType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBVirtualServiceType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadAlbvirtualServiceServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBVirtualServiceType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBVirtualServiceType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteAlbvirtualService(string AlbVirtualserviceId, bool? Force = null)
+        public async Task DeleteAlbvirtualService(string AlbVirtualserviceId, bool? Force = null)
         {
             if (AlbVirtualserviceId == null) { throw new System.ArgumentNullException("AlbVirtualserviceId cannot be null"); }
             
@@ -1548,7 +1231,7 @@ namespace nsxtapi.PolicyModules
             DeleteAlbvirtualServiceServiceURL.Replace("{alb-virtualservice-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbVirtualserviceId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
             request.Resource = DeleteAlbvirtualServiceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteAlbvirtualServiceServiceURL.ToString() + " did not complete successfull";
@@ -1560,7 +1243,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBIpAddrGroupType UpdateAlbipAddrGroup(string AlbIpaddrgroupId, NSXTALBIpAddrGroupType AlbipAddrGroup)
+        public async Task<NSXTALBIpAddrGroupType> UpdateAlbipAddrGroup(string AlbIpaddrgroupId, NSXTALBIpAddrGroupType AlbipAddrGroup)
         {
             if (AlbIpaddrgroupId == null) { throw new System.ArgumentNullException("AlbIpaddrgroupId cannot be null"); }
             if (AlbipAddrGroup == null) { throw new System.ArgumentNullException("AlbipAddrGroup cannot be null"); }
@@ -1575,31 +1258,19 @@ namespace nsxtapi.PolicyModules
             UpdateAlbipAddrGroupServiceURL.Replace("{alb-ipaddrgroup-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbIpaddrgroupId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(AlbipAddrGroup, defaultSerializationSettings));
             request.Resource = UpdateAlbipAddrGroupServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBIpAddrGroupType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBIpAddrGroupType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateAlbipAddrGroupServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBIpAddrGroupType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBIpAddrGroupType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBIpAddrGroupType ReadAlbipAddrGroup(string AlbIpaddrgroupId)
+        public async Task<NSXTALBIpAddrGroupType> ReadAlbipAddrGroup(string AlbIpaddrgroupId)
         {
             if (AlbIpaddrgroupId == null) { throw new System.ArgumentNullException("AlbIpaddrgroupId cannot be null"); }
             NSXTALBIpAddrGroupType returnValue = default(NSXTALBIpAddrGroupType);
@@ -1612,31 +1283,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ReadAlbipAddrGroupServiceURL.Replace("{alb-ipaddrgroup-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbIpaddrgroupId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadAlbipAddrGroupServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBIpAddrGroupType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBIpAddrGroupType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadAlbipAddrGroupServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBIpAddrGroupType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBIpAddrGroupType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteAlbipAddrGroup(string AlbIpaddrgroupId, bool? Force = null)
+        public async Task DeleteAlbipAddrGroup(string AlbIpaddrgroupId, bool? Force = null)
         {
             if (AlbIpaddrgroupId == null) { throw new System.ArgumentNullException("AlbIpaddrgroupId cannot be null"); }
             
@@ -1650,7 +1309,7 @@ namespace nsxtapi.PolicyModules
             DeleteAlbipAddrGroupServiceURL.Replace("{alb-ipaddrgroup-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbIpaddrgroupId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
             request.Resource = DeleteAlbipAddrGroupServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteAlbipAddrGroupServiceURL.ToString() + " did not complete successfull";
@@ -1662,7 +1321,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchAlbipAddrGroup(string AlbIpaddrgroupId, NSXTALBIpAddrGroupType AlbipAddrGroup)
+        public async Task PatchAlbipAddrGroup(string AlbIpaddrgroupId, NSXTALBIpAddrGroupType AlbipAddrGroup)
         {
             if (AlbIpaddrgroupId == null) { throw new System.ArgumentNullException("AlbIpaddrgroupId cannot be null"); }
             if (AlbipAddrGroup == null) { throw new System.ArgumentNullException("AlbipAddrGroup cannot be null"); }
@@ -1677,7 +1336,7 @@ namespace nsxtapi.PolicyModules
             PatchAlbipAddrGroupServiceURL.Replace("{alb-ipaddrgroup-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbIpaddrgroupId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(AlbipAddrGroup, defaultSerializationSettings));
             request.Resource = PatchAlbipAddrGroupServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchAlbipAddrGroupServiceURL.ToString() + " did not complete successfull";
@@ -1689,7 +1348,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBHealthMonitorApiResponseType ListAlbhealthMonitor(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTALBHealthMonitorApiResponseType> ListAlbhealthMonitor(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTALBHealthMonitorApiResponseType returnValue = default(NSXTALBHealthMonitorApiResponseType);
             StringBuilder ListAlbhealthMonitorServiceURL = new StringBuilder("/infra/alb-health-monitors");
@@ -1706,31 +1365,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListAlbhealthMonitorServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBHealthMonitorApiResponseType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBHealthMonitorApiResponseType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListAlbhealthMonitorServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBHealthMonitorApiResponseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBHealthMonitorApiResponseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBSSLKeyAndCertificateApiResponseType ListAlbsslkeyAndCertificate(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTALBSSLKeyAndCertificateApiResponseType> ListAlbsslkeyAndCertificate(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTALBSSLKeyAndCertificateApiResponseType returnValue = default(NSXTALBSSLKeyAndCertificateApiResponseType);
             StringBuilder ListAlbsslkeyAndCertificateServiceURL = new StringBuilder("/infra/alb-ssl-key-and-certificates");
@@ -1747,31 +1394,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListAlbsslkeyAndCertificateServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBSSLKeyAndCertificateApiResponseType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBSSLKeyAndCertificateApiResponseType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListAlbsslkeyAndCertificateServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBSSLKeyAndCertificateApiResponseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBSSLKeyAndCertificateApiResponseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBWafPolicyPSMGroupApiResponseType ListAlbwafPolicyPsmgroup(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTALBWafPolicyPSMGroupApiResponseType> ListAlbwafPolicyPsmgroup(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTALBWafPolicyPSMGroupApiResponseType returnValue = default(NSXTALBWafPolicyPSMGroupApiResponseType);
             StringBuilder ListAlbwafPolicyPsmgroupServiceURL = new StringBuilder("/infra/alb-waf-policy-psm-groups");
@@ -1788,31 +1423,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListAlbwafPolicyPsmgroupServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBWafPolicyPSMGroupApiResponseType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBWafPolicyPSMGroupApiResponseType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListAlbwafPolicyPsmgroupServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBWafPolicyPSMGroupApiResponseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBWafPolicyPSMGroupApiResponseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBNetworkSecurityPolicyApiResponseType ListAlbnetworkSecurityPolicy(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTALBNetworkSecurityPolicyApiResponseType> ListAlbnetworkSecurityPolicy(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTALBNetworkSecurityPolicyApiResponseType returnValue = default(NSXTALBNetworkSecurityPolicyApiResponseType);
             StringBuilder ListAlbnetworkSecurityPolicyServiceURL = new StringBuilder("/infra/alb-network-security-policies");
@@ -1829,31 +1452,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListAlbnetworkSecurityPolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBNetworkSecurityPolicyApiResponseType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBNetworkSecurityPolicyApiResponseType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListAlbnetworkSecurityPolicyServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBNetworkSecurityPolicyApiResponseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBNetworkSecurityPolicyApiResponseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBSSLProfileApiResponseType ListAlbsslprofile(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTALBSSLProfileApiResponseType> ListAlbsslprofile(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTALBSSLProfileApiResponseType returnValue = default(NSXTALBSSLProfileApiResponseType);
             StringBuilder ListAlbsslprofileServiceURL = new StringBuilder("/infra/alb-ssl-profiles");
@@ -1870,31 +1481,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListAlbsslprofileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBSSLProfileApiResponseType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBSSLProfileApiResponseType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListAlbsslprofileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBSSLProfileApiResponseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBSSLProfileApiResponseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteAlbOnBoardingWorkflow(string ManagedBy)
+        public async Task DeleteAlbOnBoardingWorkflow(string ManagedBy)
         {
             if (ManagedBy == null) { throw new System.ArgumentNullException("ManagedBy cannot be null"); }
             
@@ -1907,7 +1506,7 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             DeleteAlbOnBoardingWorkflowServiceURL.Replace("{managed-by}", System.Uri.EscapeDataString(Helpers.ConvertToString(ManagedBy, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteAlbOnBoardingWorkflowServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteAlbOnBoardingWorkflowServiceURL.ToString() + " did not complete successfull";
@@ -1919,7 +1518,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBErrorPageProfileApiResponseType ListAlberrorPageProfile(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTALBErrorPageProfileApiResponseType> ListAlberrorPageProfile(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTALBErrorPageProfileApiResponseType returnValue = default(NSXTALBErrorPageProfileApiResponseType);
             StringBuilder ListAlberrorPageProfileServiceURL = new StringBuilder("/infra/alb-error-page-profiles");
@@ -1936,31 +1535,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListAlberrorPageProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBErrorPageProfileApiResponseType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBErrorPageProfileApiResponseType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListAlberrorPageProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBErrorPageProfileApiResponseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBErrorPageProfileApiResponseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBAuthTokenType GetAlbauthToken(NSXTALBAuthTokenType AlbauthToken)
+        public async Task<NSXTALBAuthTokenType> GetAlbauthToken(NSXTALBAuthTokenType AlbauthToken)
         {
             if (AlbauthToken == null) { throw new System.ArgumentNullException("AlbauthToken cannot be null"); }
             NSXTALBAuthTokenType returnValue = default(NSXTALBAuthTokenType);
@@ -1973,31 +1560,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(AlbauthToken, defaultSerializationSettings));
             request.Resource = GetAlbauthTokenServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBAuthTokenType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBAuthTokenType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + GetAlbauthTokenServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBAuthTokenType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBAuthTokenType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBVsVipType UpdateAlbvsVip(string AlbVsvipId, NSXTALBVsVipType AlbvsVip)
+        public async Task<NSXTALBVsVipType> UpdateAlbvsVip(string AlbVsvipId, NSXTALBVsVipType AlbvsVip)
         {
             if (AlbVsvipId == null) { throw new System.ArgumentNullException("AlbVsvipId cannot be null"); }
             if (AlbvsVip == null) { throw new System.ArgumentNullException("AlbvsVip cannot be null"); }
@@ -2012,31 +1587,19 @@ namespace nsxtapi.PolicyModules
             UpdateAlbvsVipServiceURL.Replace("{alb-vsvip-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbVsvipId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(AlbvsVip, defaultSerializationSettings));
             request.Resource = UpdateAlbvsVipServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBVsVipType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBVsVipType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateAlbvsVipServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBVsVipType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBVsVipType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBVsVipType ReadAlbvsVip(string AlbVsvipId)
+        public async Task<NSXTALBVsVipType> ReadAlbvsVip(string AlbVsvipId)
         {
             if (AlbVsvipId == null) { throw new System.ArgumentNullException("AlbVsvipId cannot be null"); }
             NSXTALBVsVipType returnValue = default(NSXTALBVsVipType);
@@ -2049,31 +1612,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ReadAlbvsVipServiceURL.Replace("{alb-vsvip-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbVsvipId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadAlbvsVipServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBVsVipType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBVsVipType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadAlbvsVipServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBVsVipType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBVsVipType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteAlbvsVip(string AlbVsvipId, bool? Force = null)
+        public async Task DeleteAlbvsVip(string AlbVsvipId, bool? Force = null)
         {
             if (AlbVsvipId == null) { throw new System.ArgumentNullException("AlbVsvipId cannot be null"); }
             
@@ -2087,7 +1638,7 @@ namespace nsxtapi.PolicyModules
             DeleteAlbvsVipServiceURL.Replace("{alb-vsvip-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbVsvipId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
             request.Resource = DeleteAlbvsVipServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteAlbvsVipServiceURL.ToString() + " did not complete successfull";
@@ -2099,7 +1650,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchAlbvsVip(string AlbVsvipId, NSXTALBVsVipType AlbvsVip)
+        public async Task PatchAlbvsVip(string AlbVsvipId, NSXTALBVsVipType AlbvsVip)
         {
             if (AlbVsvipId == null) { throw new System.ArgumentNullException("AlbVsvipId cannot be null"); }
             if (AlbvsVip == null) { throw new System.ArgumentNullException("AlbvsVip cannot be null"); }
@@ -2114,7 +1665,7 @@ namespace nsxtapi.PolicyModules
             PatchAlbvsVipServiceURL.Replace("{alb-vsvip-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbVsvipId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(AlbvsVip, defaultSerializationSettings));
             request.Resource = PatchAlbvsVipServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchAlbvsVipServiceURL.ToString() + " did not complete successfull";
@@ -2126,7 +1677,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBHTTPPolicySetType UpdateAlbhttppolicySet(string AlbHttppolicysetId, NSXTALBHTTPPolicySetType AlbhttppolicySet)
+        public async Task<NSXTALBHTTPPolicySetType> UpdateAlbhttppolicySet(string AlbHttppolicysetId, NSXTALBHTTPPolicySetType AlbhttppolicySet)
         {
             if (AlbHttppolicysetId == null) { throw new System.ArgumentNullException("AlbHttppolicysetId cannot be null"); }
             if (AlbhttppolicySet == null) { throw new System.ArgumentNullException("AlbhttppolicySet cannot be null"); }
@@ -2141,31 +1692,19 @@ namespace nsxtapi.PolicyModules
             UpdateAlbhttppolicySetServiceURL.Replace("{alb-httppolicyset-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbHttppolicysetId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(AlbhttppolicySet, defaultSerializationSettings));
             request.Resource = UpdateAlbhttppolicySetServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBHTTPPolicySetType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBHTTPPolicySetType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateAlbhttppolicySetServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBHTTPPolicySetType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBHTTPPolicySetType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteAlbhttppolicySet(string AlbHttppolicysetId, bool? Force = null)
+        public async Task DeleteAlbhttppolicySet(string AlbHttppolicysetId, bool? Force = null)
         {
             if (AlbHttppolicysetId == null) { throw new System.ArgumentNullException("AlbHttppolicysetId cannot be null"); }
             
@@ -2179,7 +1718,7 @@ namespace nsxtapi.PolicyModules
             DeleteAlbhttppolicySetServiceURL.Replace("{alb-httppolicyset-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbHttppolicysetId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
             request.Resource = DeleteAlbhttppolicySetServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteAlbhttppolicySetServiceURL.ToString() + " did not complete successfull";
@@ -2191,7 +1730,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBHTTPPolicySetType ReadAlbhttppolicySet(string AlbHttppolicysetId)
+        public async Task<NSXTALBHTTPPolicySetType> ReadAlbhttppolicySet(string AlbHttppolicysetId)
         {
             if (AlbHttppolicysetId == null) { throw new System.ArgumentNullException("AlbHttppolicysetId cannot be null"); }
             NSXTALBHTTPPolicySetType returnValue = default(NSXTALBHTTPPolicySetType);
@@ -2204,31 +1743,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ReadAlbhttppolicySetServiceURL.Replace("{alb-httppolicyset-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbHttppolicysetId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadAlbhttppolicySetServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBHTTPPolicySetType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBHTTPPolicySetType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadAlbhttppolicySetServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBHTTPPolicySetType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBHTTPPolicySetType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchAlbhttppolicySet(string AlbHttppolicysetId, NSXTALBHTTPPolicySetType AlbhttppolicySet)
+        public async Task PatchAlbhttppolicySet(string AlbHttppolicysetId, NSXTALBHTTPPolicySetType AlbhttppolicySet)
         {
             if (AlbHttppolicysetId == null) { throw new System.ArgumentNullException("AlbHttppolicysetId cannot be null"); }
             if (AlbhttppolicySet == null) { throw new System.ArgumentNullException("AlbhttppolicySet cannot be null"); }
@@ -2243,7 +1770,7 @@ namespace nsxtapi.PolicyModules
             PatchAlbhttppolicySetServiceURL.Replace("{alb-httppolicyset-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbHttppolicysetId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(AlbhttppolicySet, defaultSerializationSettings));
             request.Resource = PatchAlbhttppolicySetServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchAlbhttppolicySetServiceURL.ToString() + " did not complete successfull";
@@ -2255,7 +1782,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBStringGroupApiResponseType ListAlbstringGroup(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTALBStringGroupApiResponseType> ListAlbstringGroup(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTALBStringGroupApiResponseType returnValue = default(NSXTALBStringGroupApiResponseType);
             StringBuilder ListAlbstringGroupServiceURL = new StringBuilder("/infra/alb-string-groups");
@@ -2272,31 +1799,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListAlbstringGroupServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBStringGroupApiResponseType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBStringGroupApiResponseType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListAlbstringGroupServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBStringGroupApiResponseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBStringGroupApiResponseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBDnsPolicyType UpdateAlbdnsPolicy(string AlbDnspolicyId, NSXTALBDnsPolicyType AlbdnsPolicy)
+        public async Task<NSXTALBDnsPolicyType> UpdateAlbdnsPolicy(string AlbDnspolicyId, NSXTALBDnsPolicyType AlbdnsPolicy)
         {
             if (AlbDnspolicyId == null) { throw new System.ArgumentNullException("AlbDnspolicyId cannot be null"); }
             if (AlbdnsPolicy == null) { throw new System.ArgumentNullException("AlbdnsPolicy cannot be null"); }
@@ -2311,31 +1826,19 @@ namespace nsxtapi.PolicyModules
             UpdateAlbdnsPolicyServiceURL.Replace("{alb-dnspolicy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbDnspolicyId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(AlbdnsPolicy, defaultSerializationSettings));
             request.Resource = UpdateAlbdnsPolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBDnsPolicyType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBDnsPolicyType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateAlbdnsPolicyServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBDnsPolicyType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBDnsPolicyType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchAlbdnsPolicy(string AlbDnspolicyId, NSXTALBDnsPolicyType AlbdnsPolicy)
+        public async Task PatchAlbdnsPolicy(string AlbDnspolicyId, NSXTALBDnsPolicyType AlbdnsPolicy)
         {
             if (AlbDnspolicyId == null) { throw new System.ArgumentNullException("AlbDnspolicyId cannot be null"); }
             if (AlbdnsPolicy == null) { throw new System.ArgumentNullException("AlbdnsPolicy cannot be null"); }
@@ -2350,7 +1853,7 @@ namespace nsxtapi.PolicyModules
             PatchAlbdnsPolicyServiceURL.Replace("{alb-dnspolicy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbDnspolicyId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(AlbdnsPolicy, defaultSerializationSettings));
             request.Resource = PatchAlbdnsPolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchAlbdnsPolicyServiceURL.ToString() + " did not complete successfull";
@@ -2362,7 +1865,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBDnsPolicyType ReadAlbdnsPolicy(string AlbDnspolicyId)
+        public async Task<NSXTALBDnsPolicyType> ReadAlbdnsPolicy(string AlbDnspolicyId)
         {
             if (AlbDnspolicyId == null) { throw new System.ArgumentNullException("AlbDnspolicyId cannot be null"); }
             NSXTALBDnsPolicyType returnValue = default(NSXTALBDnsPolicyType);
@@ -2375,31 +1878,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ReadAlbdnsPolicyServiceURL.Replace("{alb-dnspolicy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbDnspolicyId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadAlbdnsPolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBDnsPolicyType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBDnsPolicyType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadAlbdnsPolicyServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBDnsPolicyType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBDnsPolicyType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteAlbdnsPolicy(string AlbDnspolicyId, bool? Force = null)
+        public async Task DeleteAlbdnsPolicy(string AlbDnspolicyId, bool? Force = null)
         {
             if (AlbDnspolicyId == null) { throw new System.ArgumentNullException("AlbDnspolicyId cannot be null"); }
             
@@ -2413,7 +1904,7 @@ namespace nsxtapi.PolicyModules
             DeleteAlbdnsPolicyServiceURL.Replace("{alb-dnspolicy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbDnspolicyId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
             request.Resource = DeleteAlbdnsPolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteAlbdnsPolicyServiceURL.ToString() + " did not complete successfull";
@@ -2425,7 +1916,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBSecurityPolicyType UpdateAlbsecurityPolicy(string AlbSecuritypolicyId, NSXTALBSecurityPolicyType AlbsecurityPolicy)
+        public async Task<NSXTALBSecurityPolicyType> UpdateAlbsecurityPolicy(string AlbSecuritypolicyId, NSXTALBSecurityPolicyType AlbsecurityPolicy)
         {
             if (AlbSecuritypolicyId == null) { throw new System.ArgumentNullException("AlbSecuritypolicyId cannot be null"); }
             if (AlbsecurityPolicy == null) { throw new System.ArgumentNullException("AlbsecurityPolicy cannot be null"); }
@@ -2440,31 +1931,19 @@ namespace nsxtapi.PolicyModules
             UpdateAlbsecurityPolicyServiceURL.Replace("{alb-securitypolicy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbSecuritypolicyId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(AlbsecurityPolicy, defaultSerializationSettings));
             request.Resource = UpdateAlbsecurityPolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBSecurityPolicyType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBSecurityPolicyType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateAlbsecurityPolicyServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBSecurityPolicyType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBSecurityPolicyType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchAlbsecurityPolicy(string AlbSecuritypolicyId, NSXTALBSecurityPolicyType AlbsecurityPolicy)
+        public async Task PatchAlbsecurityPolicy(string AlbSecuritypolicyId, NSXTALBSecurityPolicyType AlbsecurityPolicy)
         {
             if (AlbSecuritypolicyId == null) { throw new System.ArgumentNullException("AlbSecuritypolicyId cannot be null"); }
             if (AlbsecurityPolicy == null) { throw new System.ArgumentNullException("AlbsecurityPolicy cannot be null"); }
@@ -2479,7 +1958,7 @@ namespace nsxtapi.PolicyModules
             PatchAlbsecurityPolicyServiceURL.Replace("{alb-securitypolicy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbSecuritypolicyId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(AlbsecurityPolicy, defaultSerializationSettings));
             request.Resource = PatchAlbsecurityPolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchAlbsecurityPolicyServiceURL.ToString() + " did not complete successfull";
@@ -2491,7 +1970,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBSecurityPolicyType ReadAlbsecurityPolicy(string AlbSecuritypolicyId)
+        public async Task<NSXTALBSecurityPolicyType> ReadAlbsecurityPolicy(string AlbSecuritypolicyId)
         {
             if (AlbSecuritypolicyId == null) { throw new System.ArgumentNullException("AlbSecuritypolicyId cannot be null"); }
             NSXTALBSecurityPolicyType returnValue = default(NSXTALBSecurityPolicyType);
@@ -2504,31 +1983,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ReadAlbsecurityPolicyServiceURL.Replace("{alb-securitypolicy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbSecuritypolicyId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadAlbsecurityPolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBSecurityPolicyType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBSecurityPolicyType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadAlbsecurityPolicyServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBSecurityPolicyType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBSecurityPolicyType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteAlbsecurityPolicy(string AlbSecuritypolicyId, bool? Force = null)
+        public async Task DeleteAlbsecurityPolicy(string AlbSecuritypolicyId, bool? Force = null)
         {
             if (AlbSecuritypolicyId == null) { throw new System.ArgumentNullException("AlbSecuritypolicyId cannot be null"); }
             
@@ -2542,7 +2009,7 @@ namespace nsxtapi.PolicyModules
             DeleteAlbsecurityPolicyServiceURL.Replace("{alb-securitypolicy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbSecuritypolicyId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
             request.Resource = DeleteAlbsecurityPolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteAlbsecurityPolicyServiceURL.ToString() + " did not complete successfull";
@@ -2554,7 +2021,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBNetworkSecurityPolicyType UpdateAlbnetworkSecurityPolicy(string AlbNetworksecuritypolicyId, NSXTALBNetworkSecurityPolicyType AlbnetworkSecurityPolicy)
+        public async Task<NSXTALBNetworkSecurityPolicyType> UpdateAlbnetworkSecurityPolicy(string AlbNetworksecuritypolicyId, NSXTALBNetworkSecurityPolicyType AlbnetworkSecurityPolicy)
         {
             if (AlbNetworksecuritypolicyId == null) { throw new System.ArgumentNullException("AlbNetworksecuritypolicyId cannot be null"); }
             if (AlbnetworkSecurityPolicy == null) { throw new System.ArgumentNullException("AlbnetworkSecurityPolicy cannot be null"); }
@@ -2569,31 +2036,19 @@ namespace nsxtapi.PolicyModules
             UpdateAlbnetworkSecurityPolicyServiceURL.Replace("{alb-networksecuritypolicy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbNetworksecuritypolicyId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(AlbnetworkSecurityPolicy, defaultSerializationSettings));
             request.Resource = UpdateAlbnetworkSecurityPolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBNetworkSecurityPolicyType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBNetworkSecurityPolicyType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateAlbnetworkSecurityPolicyServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBNetworkSecurityPolicyType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBNetworkSecurityPolicyType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteAlbnetworkSecurityPolicy(string AlbNetworksecuritypolicyId, bool? Force = null)
+        public async Task DeleteAlbnetworkSecurityPolicy(string AlbNetworksecuritypolicyId, bool? Force = null)
         {
             if (AlbNetworksecuritypolicyId == null) { throw new System.ArgumentNullException("AlbNetworksecuritypolicyId cannot be null"); }
             
@@ -2607,7 +2062,7 @@ namespace nsxtapi.PolicyModules
             DeleteAlbnetworkSecurityPolicyServiceURL.Replace("{alb-networksecuritypolicy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbNetworksecuritypolicyId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
             request.Resource = DeleteAlbnetworkSecurityPolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteAlbnetworkSecurityPolicyServiceURL.ToString() + " did not complete successfull";
@@ -2619,7 +2074,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBNetworkSecurityPolicyType ReadAlbnetworkSecurityPolicy(string AlbNetworksecuritypolicyId)
+        public async Task<NSXTALBNetworkSecurityPolicyType> ReadAlbnetworkSecurityPolicy(string AlbNetworksecuritypolicyId)
         {
             if (AlbNetworksecuritypolicyId == null) { throw new System.ArgumentNullException("AlbNetworksecuritypolicyId cannot be null"); }
             NSXTALBNetworkSecurityPolicyType returnValue = default(NSXTALBNetworkSecurityPolicyType);
@@ -2632,31 +2087,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ReadAlbnetworkSecurityPolicyServiceURL.Replace("{alb-networksecuritypolicy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbNetworksecuritypolicyId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadAlbnetworkSecurityPolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBNetworkSecurityPolicyType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBNetworkSecurityPolicyType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadAlbnetworkSecurityPolicyServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBNetworkSecurityPolicyType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBNetworkSecurityPolicyType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchAlbnetworkSecurityPolicy(string AlbNetworksecuritypolicyId, NSXTALBNetworkSecurityPolicyType AlbnetworkSecurityPolicy)
+        public async Task PatchAlbnetworkSecurityPolicy(string AlbNetworksecuritypolicyId, NSXTALBNetworkSecurityPolicyType AlbnetworkSecurityPolicy)
         {
             if (AlbNetworksecuritypolicyId == null) { throw new System.ArgumentNullException("AlbNetworksecuritypolicyId cannot be null"); }
             if (AlbnetworkSecurityPolicy == null) { throw new System.ArgumentNullException("AlbnetworkSecurityPolicy cannot be null"); }
@@ -2671,7 +2114,7 @@ namespace nsxtapi.PolicyModules
             PatchAlbnetworkSecurityPolicyServiceURL.Replace("{alb-networksecuritypolicy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbNetworksecuritypolicyId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(AlbnetworkSecurityPolicy, defaultSerializationSettings));
             request.Resource = PatchAlbnetworkSecurityPolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchAlbnetworkSecurityPolicyServiceURL.ToString() + " did not complete successfull";
@@ -2683,7 +2126,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBPriorityLabelsApiResponseType ListAlbpriorityLabels(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTALBPriorityLabelsApiResponseType> ListAlbpriorityLabels(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTALBPriorityLabelsApiResponseType returnValue = default(NSXTALBPriorityLabelsApiResponseType);
             StringBuilder ListAlbpriorityLabelsServiceURL = new StringBuilder("/infra/alb-priority-labels");
@@ -2700,31 +2143,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListAlbpriorityLabelsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBPriorityLabelsApiResponseType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBPriorityLabelsApiResponseType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListAlbpriorityLabelsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBPriorityLabelsApiResponseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBPriorityLabelsApiResponseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBNetworkProfileApiResponseType ListAlbnetworkProfile(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTALBNetworkProfileApiResponseType> ListAlbnetworkProfile(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTALBNetworkProfileApiResponseType returnValue = default(NSXTALBNetworkProfileApiResponseType);
             StringBuilder ListAlbnetworkProfileServiceURL = new StringBuilder("/infra/alb-network-profiles");
@@ -2741,31 +2172,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListAlbnetworkProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBNetworkProfileApiResponseType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBNetworkProfileApiResponseType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListAlbnetworkProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBNetworkProfileApiResponseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBNetworkProfileApiResponseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBTrafficCloneProfileType UpdateAlbtrafficCloneProfile(string AlbTrafficcloneprofileId, NSXTALBTrafficCloneProfileType AlbtrafficCloneProfile)
+        public async Task<NSXTALBTrafficCloneProfileType> UpdateAlbtrafficCloneProfile(string AlbTrafficcloneprofileId, NSXTALBTrafficCloneProfileType AlbtrafficCloneProfile)
         {
             if (AlbTrafficcloneprofileId == null) { throw new System.ArgumentNullException("AlbTrafficcloneprofileId cannot be null"); }
             if (AlbtrafficCloneProfile == null) { throw new System.ArgumentNullException("AlbtrafficCloneProfile cannot be null"); }
@@ -2780,31 +2199,19 @@ namespace nsxtapi.PolicyModules
             UpdateAlbtrafficCloneProfileServiceURL.Replace("{alb-trafficcloneprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbTrafficcloneprofileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(AlbtrafficCloneProfile, defaultSerializationSettings));
             request.Resource = UpdateAlbtrafficCloneProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBTrafficCloneProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBTrafficCloneProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateAlbtrafficCloneProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBTrafficCloneProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBTrafficCloneProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchAlbtrafficCloneProfile(string AlbTrafficcloneprofileId, NSXTALBTrafficCloneProfileType AlbtrafficCloneProfile)
+        public async Task PatchAlbtrafficCloneProfile(string AlbTrafficcloneprofileId, NSXTALBTrafficCloneProfileType AlbtrafficCloneProfile)
         {
             if (AlbTrafficcloneprofileId == null) { throw new System.ArgumentNullException("AlbTrafficcloneprofileId cannot be null"); }
             if (AlbtrafficCloneProfile == null) { throw new System.ArgumentNullException("AlbtrafficCloneProfile cannot be null"); }
@@ -2819,7 +2226,7 @@ namespace nsxtapi.PolicyModules
             PatchAlbtrafficCloneProfileServiceURL.Replace("{alb-trafficcloneprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbTrafficcloneprofileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(AlbtrafficCloneProfile, defaultSerializationSettings));
             request.Resource = PatchAlbtrafficCloneProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchAlbtrafficCloneProfileServiceURL.ToString() + " did not complete successfull";
@@ -2831,7 +2238,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBTrafficCloneProfileType ReadAlbtrafficCloneProfile(string AlbTrafficcloneprofileId)
+        public async Task<NSXTALBTrafficCloneProfileType> ReadAlbtrafficCloneProfile(string AlbTrafficcloneprofileId)
         {
             if (AlbTrafficcloneprofileId == null) { throw new System.ArgumentNullException("AlbTrafficcloneprofileId cannot be null"); }
             NSXTALBTrafficCloneProfileType returnValue = default(NSXTALBTrafficCloneProfileType);
@@ -2844,31 +2251,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ReadAlbtrafficCloneProfileServiceURL.Replace("{alb-trafficcloneprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbTrafficcloneprofileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadAlbtrafficCloneProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBTrafficCloneProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBTrafficCloneProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadAlbtrafficCloneProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBTrafficCloneProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBTrafficCloneProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteAlbtrafficCloneProfile(string AlbTrafficcloneprofileId, bool? Force = null)
+        public async Task DeleteAlbtrafficCloneProfile(string AlbTrafficcloneprofileId, bool? Force = null)
         {
             if (AlbTrafficcloneprofileId == null) { throw new System.ArgumentNullException("AlbTrafficcloneprofileId cannot be null"); }
             
@@ -2882,7 +2277,7 @@ namespace nsxtapi.PolicyModules
             DeleteAlbtrafficCloneProfileServiceURL.Replace("{alb-trafficcloneprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbTrafficcloneprofileId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
             request.Resource = DeleteAlbtrafficCloneProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteAlbtrafficCloneProfileServiceURL.ToString() + " did not complete successfull";
@@ -2894,7 +2289,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBL4PolicySetType UpdateALBL4PolicySet(string AlbL4policysetId, NSXTALBL4PolicySetType ALBL4PolicySet)
+        public async Task<NSXTALBL4PolicySetType> UpdateALBL4PolicySet(string AlbL4policysetId, NSXTALBL4PolicySetType ALBL4PolicySet)
         {
             if (AlbL4policysetId == null) { throw new System.ArgumentNullException("AlbL4policysetId cannot be null"); }
             if (ALBL4PolicySet == null) { throw new System.ArgumentNullException("ALBL4PolicySet cannot be null"); }
@@ -2909,31 +2304,19 @@ namespace nsxtapi.PolicyModules
             UpdateALBL4PolicySetServiceURL.Replace("{alb-l4policyset-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbL4policysetId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(ALBL4PolicySet, defaultSerializationSettings));
             request.Resource = UpdateALBL4PolicySetServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBL4PolicySetType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBL4PolicySetType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateALBL4PolicySetServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBL4PolicySetType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBL4PolicySetType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBL4PolicySetType ReadALBL4PolicySet(string AlbL4policysetId)
+        public async Task<NSXTALBL4PolicySetType> ReadALBL4PolicySet(string AlbL4policysetId)
         {
             if (AlbL4policysetId == null) { throw new System.ArgumentNullException("AlbL4policysetId cannot be null"); }
             NSXTALBL4PolicySetType returnValue = default(NSXTALBL4PolicySetType);
@@ -2946,31 +2329,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ReadALBL4PolicySetServiceURL.Replace("{alb-l4policyset-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbL4policysetId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadALBL4PolicySetServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBL4PolicySetType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBL4PolicySetType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadALBL4PolicySetServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBL4PolicySetType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBL4PolicySetType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteALBL4PolicySet(string AlbL4policysetId, bool? Force = null)
+        public async Task DeleteALBL4PolicySet(string AlbL4policysetId, bool? Force = null)
         {
             if (AlbL4policysetId == null) { throw new System.ArgumentNullException("AlbL4policysetId cannot be null"); }
             
@@ -2984,7 +2355,7 @@ namespace nsxtapi.PolicyModules
             DeleteALBL4PolicySetServiceURL.Replace("{alb-l4policyset-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbL4policysetId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
             request.Resource = DeleteALBL4PolicySetServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteALBL4PolicySetServiceURL.ToString() + " did not complete successfull";
@@ -2996,7 +2367,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchALBL4PolicySet(string AlbL4policysetId, NSXTALBL4PolicySetType ALBL4PolicySet)
+        public async Task PatchALBL4PolicySet(string AlbL4policysetId, NSXTALBL4PolicySetType ALBL4PolicySet)
         {
             if (AlbL4policysetId == null) { throw new System.ArgumentNullException("AlbL4policysetId cannot be null"); }
             if (ALBL4PolicySet == null) { throw new System.ArgumentNullException("ALBL4PolicySet cannot be null"); }
@@ -3011,7 +2382,7 @@ namespace nsxtapi.PolicyModules
             PatchALBL4PolicySetServiceURL.Replace("{alb-l4policyset-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbL4policysetId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(ALBL4PolicySet, defaultSerializationSettings));
             request.Resource = PatchALBL4PolicySetServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchALBL4PolicySetServiceURL.ToString() + " did not complete successfull";
@@ -3023,7 +2394,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBApplicationProfileApiResponseType ListAlbapplicationProfile(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTALBApplicationProfileApiResponseType> ListAlbapplicationProfile(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTALBApplicationProfileApiResponseType returnValue = default(NSXTALBApplicationProfileApiResponseType);
             StringBuilder ListAlbapplicationProfileServiceURL = new StringBuilder("/infra/alb-application-profiles");
@@ -3040,31 +2411,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListAlbapplicationProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBApplicationProfileApiResponseType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBApplicationProfileApiResponseType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListAlbapplicationProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBApplicationProfileApiResponseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBApplicationProfileApiResponseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBWafCRSType UpdateAlbwafCRS(string AlbWafcrsId, NSXTALBWafCRSType AlbwafCRS)
+        public async Task<NSXTALBWafCRSType> UpdateAlbwafCRS(string AlbWafcrsId, NSXTALBWafCRSType AlbwafCRS)
         {
             if (AlbWafcrsId == null) { throw new System.ArgumentNullException("AlbWafcrsId cannot be null"); }
             if (AlbwafCRS == null) { throw new System.ArgumentNullException("AlbwafCRS cannot be null"); }
@@ -3079,31 +2438,19 @@ namespace nsxtapi.PolicyModules
             UpdateAlbwafCRSServiceURL.Replace("{alb-wafcrs-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbWafcrsId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(AlbwafCRS, defaultSerializationSettings));
             request.Resource = UpdateAlbwafCRSServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBWafCRSType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBWafCRSType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateAlbwafCRSServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBWafCRSType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBWafCRSType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBWafCRSType ReadAlbwafCRS(string AlbWafcrsId)
+        public async Task<NSXTALBWafCRSType> ReadAlbwafCRS(string AlbWafcrsId)
         {
             if (AlbWafcrsId == null) { throw new System.ArgumentNullException("AlbWafcrsId cannot be null"); }
             NSXTALBWafCRSType returnValue = default(NSXTALBWafCRSType);
@@ -3116,31 +2463,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ReadAlbwafCRSServiceURL.Replace("{alb-wafcrs-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbWafcrsId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadAlbwafCRSServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBWafCRSType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBWafCRSType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadAlbwafCRSServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBWafCRSType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBWafCRSType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchAlbwafCRS(string AlbWafcrsId, NSXTALBWafCRSType AlbwafCRS)
+        public async Task PatchAlbwafCRS(string AlbWafcrsId, NSXTALBWafCRSType AlbwafCRS)
         {
             if (AlbWafcrsId == null) { throw new System.ArgumentNullException("AlbWafcrsId cannot be null"); }
             if (AlbwafCRS == null) { throw new System.ArgumentNullException("AlbwafCRS cannot be null"); }
@@ -3155,7 +2490,7 @@ namespace nsxtapi.PolicyModules
             PatchAlbwafCRSServiceURL.Replace("{alb-wafcrs-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbWafcrsId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(AlbwafCRS, defaultSerializationSettings));
             request.Resource = PatchAlbwafCRSServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchAlbwafCRSServiceURL.ToString() + " did not complete successfull";
@@ -3167,7 +2502,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteAlbwafCRS(string AlbWafcrsId, bool? Force = null)
+        public async Task DeleteAlbwafCRS(string AlbWafcrsId, bool? Force = null)
         {
             if (AlbWafcrsId == null) { throw new System.ArgumentNullException("AlbWafcrsId cannot be null"); }
             
@@ -3181,7 +2516,7 @@ namespace nsxtapi.PolicyModules
             DeleteAlbwafCRSServiceURL.Replace("{alb-wafcrs-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbWafcrsId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
             request.Resource = DeleteAlbwafCRSServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteAlbwafCRSServiceURL.ToString() + " did not complete successfull";
@@ -3193,7 +2528,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBHealthMonitorType UpdateAlbhealthMonitor(string AlbHealthmonitorId, NSXTALBHealthMonitorType AlbhealthMonitor)
+        public async Task<NSXTALBHealthMonitorType> UpdateAlbhealthMonitor(string AlbHealthmonitorId, NSXTALBHealthMonitorType AlbhealthMonitor)
         {
             if (AlbHealthmonitorId == null) { throw new System.ArgumentNullException("AlbHealthmonitorId cannot be null"); }
             if (AlbhealthMonitor == null) { throw new System.ArgumentNullException("AlbhealthMonitor cannot be null"); }
@@ -3208,31 +2543,19 @@ namespace nsxtapi.PolicyModules
             UpdateAlbhealthMonitorServiceURL.Replace("{alb-healthmonitor-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbHealthmonitorId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(AlbhealthMonitor, defaultSerializationSettings));
             request.Resource = UpdateAlbhealthMonitorServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBHealthMonitorType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBHealthMonitorType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateAlbhealthMonitorServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBHealthMonitorType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBHealthMonitorType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBHealthMonitorType ReadAlbhealthMonitor(string AlbHealthmonitorId)
+        public async Task<NSXTALBHealthMonitorType> ReadAlbhealthMonitor(string AlbHealthmonitorId)
         {
             if (AlbHealthmonitorId == null) { throw new System.ArgumentNullException("AlbHealthmonitorId cannot be null"); }
             NSXTALBHealthMonitorType returnValue = default(NSXTALBHealthMonitorType);
@@ -3245,31 +2568,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ReadAlbhealthMonitorServiceURL.Replace("{alb-healthmonitor-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbHealthmonitorId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadAlbhealthMonitorServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBHealthMonitorType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBHealthMonitorType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadAlbhealthMonitorServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBHealthMonitorType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBHealthMonitorType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteAlbhealthMonitor(string AlbHealthmonitorId, bool? Force = null)
+        public async Task DeleteAlbhealthMonitor(string AlbHealthmonitorId, bool? Force = null)
         {
             if (AlbHealthmonitorId == null) { throw new System.ArgumentNullException("AlbHealthmonitorId cannot be null"); }
             
@@ -3283,7 +2594,7 @@ namespace nsxtapi.PolicyModules
             DeleteAlbhealthMonitorServiceURL.Replace("{alb-healthmonitor-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbHealthmonitorId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
             request.Resource = DeleteAlbhealthMonitorServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteAlbhealthMonitorServiceURL.ToString() + " did not complete successfull";
@@ -3295,7 +2606,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchAlbhealthMonitor(string AlbHealthmonitorId, NSXTALBHealthMonitorType AlbhealthMonitor)
+        public async Task PatchAlbhealthMonitor(string AlbHealthmonitorId, NSXTALBHealthMonitorType AlbhealthMonitor)
         {
             if (AlbHealthmonitorId == null) { throw new System.ArgumentNullException("AlbHealthmonitorId cannot be null"); }
             if (AlbhealthMonitor == null) { throw new System.ArgumentNullException("AlbhealthMonitor cannot be null"); }
@@ -3310,7 +2621,7 @@ namespace nsxtapi.PolicyModules
             PatchAlbhealthMonitorServiceURL.Replace("{alb-healthmonitor-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbHealthmonitorId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(AlbhealthMonitor, defaultSerializationSettings));
             request.Resource = PatchAlbhealthMonitorServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchAlbhealthMonitorServiceURL.ToString() + " did not complete successfull";
@@ -3322,7 +2633,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBPoolGroupApiResponseType ListAlbpoolGroup(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTALBPoolGroupApiResponseType> ListAlbpoolGroup(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTALBPoolGroupApiResponseType returnValue = default(NSXTALBPoolGroupApiResponseType);
             StringBuilder ListAlbpoolGroupServiceURL = new StringBuilder("/infra/alb-pool-groups");
@@ -3339,31 +2650,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListAlbpoolGroupServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBPoolGroupApiResponseType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBPoolGroupApiResponseType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListAlbpoolGroupServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBPoolGroupApiResponseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBPoolGroupApiResponseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBPriorityLabelsType UpdateAlbpriorityLabels(string AlbPrioritylabelsId, NSXTALBPriorityLabelsType AlbpriorityLabels)
+        public async Task<NSXTALBPriorityLabelsType> UpdateAlbpriorityLabels(string AlbPrioritylabelsId, NSXTALBPriorityLabelsType AlbpriorityLabels)
         {
             if (AlbPrioritylabelsId == null) { throw new System.ArgumentNullException("AlbPrioritylabelsId cannot be null"); }
             if (AlbpriorityLabels == null) { throw new System.ArgumentNullException("AlbpriorityLabels cannot be null"); }
@@ -3378,31 +2677,19 @@ namespace nsxtapi.PolicyModules
             UpdateAlbpriorityLabelsServiceURL.Replace("{alb-prioritylabels-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbPrioritylabelsId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(AlbpriorityLabels, defaultSerializationSettings));
             request.Resource = UpdateAlbpriorityLabelsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBPriorityLabelsType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBPriorityLabelsType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateAlbpriorityLabelsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBPriorityLabelsType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBPriorityLabelsType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBPriorityLabelsType ReadAlbpriorityLabels(string AlbPrioritylabelsId)
+        public async Task<NSXTALBPriorityLabelsType> ReadAlbpriorityLabels(string AlbPrioritylabelsId)
         {
             if (AlbPrioritylabelsId == null) { throw new System.ArgumentNullException("AlbPrioritylabelsId cannot be null"); }
             NSXTALBPriorityLabelsType returnValue = default(NSXTALBPriorityLabelsType);
@@ -3415,31 +2702,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ReadAlbpriorityLabelsServiceURL.Replace("{alb-prioritylabels-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbPrioritylabelsId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadAlbpriorityLabelsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBPriorityLabelsType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBPriorityLabelsType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadAlbpriorityLabelsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBPriorityLabelsType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBPriorityLabelsType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchAlbpriorityLabels(string AlbPrioritylabelsId, NSXTALBPriorityLabelsType AlbpriorityLabels)
+        public async Task PatchAlbpriorityLabels(string AlbPrioritylabelsId, NSXTALBPriorityLabelsType AlbpriorityLabels)
         {
             if (AlbPrioritylabelsId == null) { throw new System.ArgumentNullException("AlbPrioritylabelsId cannot be null"); }
             if (AlbpriorityLabels == null) { throw new System.ArgumentNullException("AlbpriorityLabels cannot be null"); }
@@ -3454,7 +2729,7 @@ namespace nsxtapi.PolicyModules
             PatchAlbpriorityLabelsServiceURL.Replace("{alb-prioritylabels-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbPrioritylabelsId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(AlbpriorityLabels, defaultSerializationSettings));
             request.Resource = PatchAlbpriorityLabelsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchAlbpriorityLabelsServiceURL.ToString() + " did not complete successfull";
@@ -3466,7 +2741,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteAlbpriorityLabels(string AlbPrioritylabelsId, bool? Force = null)
+        public async Task DeleteAlbpriorityLabels(string AlbPrioritylabelsId, bool? Force = null)
         {
             if (AlbPrioritylabelsId == null) { throw new System.ArgumentNullException("AlbPrioritylabelsId cannot be null"); }
             
@@ -3480,7 +2755,7 @@ namespace nsxtapi.PolicyModules
             DeleteAlbpriorityLabelsServiceURL.Replace("{alb-prioritylabels-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbPrioritylabelsId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
             request.Resource = DeleteAlbpriorityLabelsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteAlbpriorityLabelsServiceURL.ToString() + " did not complete successfull";
@@ -3492,7 +2767,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBPKIProfileApiResponseType ListAlbpkiprofile(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTALBPKIProfileApiResponseType> ListAlbpkiprofile(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTALBPKIProfileApiResponseType returnValue = default(NSXTALBPKIProfileApiResponseType);
             StringBuilder ListAlbpkiprofileServiceURL = new StringBuilder("/infra/alb-pki-profiles");
@@ -3509,31 +2784,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListAlbpkiprofileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBPKIProfileApiResponseType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBPKIProfileApiResponseType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListAlbpkiprofileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBPKIProfileApiResponseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBPKIProfileApiResponseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBIpAddrGroupApiResponseType ListAlbipAddrGroup(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTALBIpAddrGroupApiResponseType> ListAlbipAddrGroup(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTALBIpAddrGroupApiResponseType returnValue = default(NSXTALBIpAddrGroupApiResponseType);
             StringBuilder ListAlbipAddrGroupServiceURL = new StringBuilder("/infra/alb-ip-addr-groups");
@@ -3550,31 +2813,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListAlbipAddrGroupServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBIpAddrGroupApiResponseType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBIpAddrGroupApiResponseType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListAlbipAddrGroupServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBIpAddrGroupApiResponseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBIpAddrGroupApiResponseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBAuthProfileApiResponseType ListAlbauthProfile(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTALBAuthProfileApiResponseType> ListAlbauthProfile(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTALBAuthProfileApiResponseType returnValue = default(NSXTALBAuthProfileApiResponseType);
             StringBuilder ListAlbauthProfileServiceURL = new StringBuilder("/infra/alb-auth-profiles");
@@ -3591,31 +2842,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListAlbauthProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBAuthProfileApiResponseType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBAuthProfileApiResponseType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListAlbauthProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBAuthProfileApiResponseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBAuthProfileApiResponseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBVsVipApiResponseType ListAlbvsVip(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTALBVsVipApiResponseType> ListAlbvsVip(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTALBVsVipApiResponseType returnValue = default(NSXTALBVsVipApiResponseType);
             StringBuilder ListAlbvsVipServiceURL = new StringBuilder("/infra/alb-vs-vips");
@@ -3632,31 +2871,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListAlbvsVipServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBVsVipApiResponseType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBVsVipApiResponseType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListAlbvsVipServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBVsVipApiResponseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBVsVipApiResponseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBErrorPageProfileType UpdateAlberrorPageProfile(string AlbErrorpageprofileId, NSXTALBErrorPageProfileType AlberrorPageProfile)
+        public async Task<NSXTALBErrorPageProfileType> UpdateAlberrorPageProfile(string AlbErrorpageprofileId, NSXTALBErrorPageProfileType AlberrorPageProfile)
         {
             if (AlbErrorpageprofileId == null) { throw new System.ArgumentNullException("AlbErrorpageprofileId cannot be null"); }
             if (AlberrorPageProfile == null) { throw new System.ArgumentNullException("AlberrorPageProfile cannot be null"); }
@@ -3671,31 +2898,19 @@ namespace nsxtapi.PolicyModules
             UpdateAlberrorPageProfileServiceURL.Replace("{alb-errorpageprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbErrorpageprofileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(AlberrorPageProfile, defaultSerializationSettings));
             request.Resource = UpdateAlberrorPageProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBErrorPageProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBErrorPageProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateAlberrorPageProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBErrorPageProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBErrorPageProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteAlberrorPageProfile(string AlbErrorpageprofileId, bool? Force = null)
+        public async Task DeleteAlberrorPageProfile(string AlbErrorpageprofileId, bool? Force = null)
         {
             if (AlbErrorpageprofileId == null) { throw new System.ArgumentNullException("AlbErrorpageprofileId cannot be null"); }
             
@@ -3709,7 +2924,7 @@ namespace nsxtapi.PolicyModules
             DeleteAlberrorPageProfileServiceURL.Replace("{alb-errorpageprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbErrorpageprofileId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
             request.Resource = DeleteAlberrorPageProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteAlberrorPageProfileServiceURL.ToString() + " did not complete successfull";
@@ -3721,7 +2936,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBErrorPageProfileType ReadAlberrorPageProfile(string AlbErrorpageprofileId)
+        public async Task<NSXTALBErrorPageProfileType> ReadAlberrorPageProfile(string AlbErrorpageprofileId)
         {
             if (AlbErrorpageprofileId == null) { throw new System.ArgumentNullException("AlbErrorpageprofileId cannot be null"); }
             NSXTALBErrorPageProfileType returnValue = default(NSXTALBErrorPageProfileType);
@@ -3734,31 +2949,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ReadAlberrorPageProfileServiceURL.Replace("{alb-errorpageprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbErrorpageprofileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadAlberrorPageProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBErrorPageProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBErrorPageProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadAlberrorPageProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBErrorPageProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBErrorPageProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchAlberrorPageProfile(string AlbErrorpageprofileId, NSXTALBErrorPageProfileType AlberrorPageProfile)
+        public async Task PatchAlberrorPageProfile(string AlbErrorpageprofileId, NSXTALBErrorPageProfileType AlberrorPageProfile)
         {
             if (AlbErrorpageprofileId == null) { throw new System.ArgumentNullException("AlbErrorpageprofileId cannot be null"); }
             if (AlberrorPageProfile == null) { throw new System.ArgumentNullException("AlberrorPageProfile cannot be null"); }
@@ -3773,7 +2976,7 @@ namespace nsxtapi.PolicyModules
             PatchAlberrorPageProfileServiceURL.Replace("{alb-errorpageprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbErrorpageprofileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(AlberrorPageProfile, defaultSerializationSettings));
             request.Resource = PatchAlberrorPageProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchAlberrorPageProfileServiceURL.ToString() + " did not complete successfull";
@@ -3785,7 +2988,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBErrorPageBodyType UpdateAlberrorPageBody(string AlbErrorpagebodyId, NSXTALBErrorPageBodyType AlberrorPageBody)
+        public async Task<NSXTALBErrorPageBodyType> UpdateAlberrorPageBody(string AlbErrorpagebodyId, NSXTALBErrorPageBodyType AlberrorPageBody)
         {
             if (AlbErrorpagebodyId == null) { throw new System.ArgumentNullException("AlbErrorpagebodyId cannot be null"); }
             if (AlberrorPageBody == null) { throw new System.ArgumentNullException("AlberrorPageBody cannot be null"); }
@@ -3800,31 +3003,19 @@ namespace nsxtapi.PolicyModules
             UpdateAlberrorPageBodyServiceURL.Replace("{alb-errorpagebody-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbErrorpagebodyId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(AlberrorPageBody, defaultSerializationSettings));
             request.Resource = UpdateAlberrorPageBodyServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBErrorPageBodyType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBErrorPageBodyType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateAlberrorPageBodyServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBErrorPageBodyType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBErrorPageBodyType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteAlberrorPageBody(string AlbErrorpagebodyId, bool? Force = null)
+        public async Task DeleteAlberrorPageBody(string AlbErrorpagebodyId, bool? Force = null)
         {
             if (AlbErrorpagebodyId == null) { throw new System.ArgumentNullException("AlbErrorpagebodyId cannot be null"); }
             
@@ -3838,7 +3029,7 @@ namespace nsxtapi.PolicyModules
             DeleteAlberrorPageBodyServiceURL.Replace("{alb-errorpagebody-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbErrorpagebodyId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
             request.Resource = DeleteAlberrorPageBodyServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteAlberrorPageBodyServiceURL.ToString() + " did not complete successfull";
@@ -3850,7 +3041,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBErrorPageBodyType ReadAlberrorPageBody(string AlbErrorpagebodyId)
+        public async Task<NSXTALBErrorPageBodyType> ReadAlberrorPageBody(string AlbErrorpagebodyId)
         {
             if (AlbErrorpagebodyId == null) { throw new System.ArgumentNullException("AlbErrorpagebodyId cannot be null"); }
             NSXTALBErrorPageBodyType returnValue = default(NSXTALBErrorPageBodyType);
@@ -3863,31 +3054,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ReadAlberrorPageBodyServiceURL.Replace("{alb-errorpagebody-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbErrorpagebodyId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadAlberrorPageBodyServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBErrorPageBodyType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBErrorPageBodyType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadAlberrorPageBodyServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBErrorPageBodyType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBErrorPageBodyType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchAlberrorPageBody(string AlbErrorpagebodyId, NSXTALBErrorPageBodyType AlberrorPageBody)
+        public async Task PatchAlberrorPageBody(string AlbErrorpagebodyId, NSXTALBErrorPageBodyType AlberrorPageBody)
         {
             if (AlbErrorpagebodyId == null) { throw new System.ArgumentNullException("AlbErrorpagebodyId cannot be null"); }
             if (AlberrorPageBody == null) { throw new System.ArgumentNullException("AlberrorPageBody cannot be null"); }
@@ -3902,7 +3081,7 @@ namespace nsxtapi.PolicyModules
             PatchAlberrorPageBodyServiceURL.Replace("{alb-errorpagebody-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbErrorpagebodyId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(AlberrorPageBody, defaultSerializationSettings));
             request.Resource = PatchAlberrorPageBodyServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchAlberrorPageBodyServiceURL.ToString() + " did not complete successfull";
@@ -3914,7 +3093,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBAnalyticsProfileApiResponseType ListAlbanalyticsProfile(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTALBAnalyticsProfileApiResponseType> ListAlbanalyticsProfile(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTALBAnalyticsProfileApiResponseType returnValue = default(NSXTALBAnalyticsProfileApiResponseType);
             StringBuilder ListAlbanalyticsProfileServiceURL = new StringBuilder("/infra/alb-analytics-profiles");
@@ -3931,31 +3110,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListAlbanalyticsProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBAnalyticsProfileApiResponseType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBAnalyticsProfileApiResponseType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListAlbanalyticsProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBAnalyticsProfileApiResponseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBAnalyticsProfileApiResponseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBPKIProfileType UpdateAlbpkiprofile(string AlbPkiprofileId, NSXTALBPKIProfileType Albpkiprofile)
+        public async Task<NSXTALBPKIProfileType> UpdateAlbpkiprofile(string AlbPkiprofileId, NSXTALBPKIProfileType Albpkiprofile)
         {
             if (AlbPkiprofileId == null) { throw new System.ArgumentNullException("AlbPkiprofileId cannot be null"); }
             if (Albpkiprofile == null) { throw new System.ArgumentNullException("Albpkiprofile cannot be null"); }
@@ -3970,31 +3137,19 @@ namespace nsxtapi.PolicyModules
             UpdateAlbpkiprofileServiceURL.Replace("{alb-pkiprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbPkiprofileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(Albpkiprofile, defaultSerializationSettings));
             request.Resource = UpdateAlbpkiprofileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBPKIProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBPKIProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateAlbpkiprofileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBPKIProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBPKIProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchAlbpkiprofile(string AlbPkiprofileId, NSXTALBPKIProfileType Albpkiprofile)
+        public async Task PatchAlbpkiprofile(string AlbPkiprofileId, NSXTALBPKIProfileType Albpkiprofile)
         {
             if (AlbPkiprofileId == null) { throw new System.ArgumentNullException("AlbPkiprofileId cannot be null"); }
             if (Albpkiprofile == null) { throw new System.ArgumentNullException("Albpkiprofile cannot be null"); }
@@ -4009,7 +3164,7 @@ namespace nsxtapi.PolicyModules
             PatchAlbpkiprofileServiceURL.Replace("{alb-pkiprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbPkiprofileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(Albpkiprofile, defaultSerializationSettings));
             request.Resource = PatchAlbpkiprofileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchAlbpkiprofileServiceURL.ToString() + " did not complete successfull";
@@ -4021,7 +3176,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteAlbpkiprofile(string AlbPkiprofileId, bool? Force = null)
+        public async Task DeleteAlbpkiprofile(string AlbPkiprofileId, bool? Force = null)
         {
             if (AlbPkiprofileId == null) { throw new System.ArgumentNullException("AlbPkiprofileId cannot be null"); }
             
@@ -4035,7 +3190,7 @@ namespace nsxtapi.PolicyModules
             DeleteAlbpkiprofileServiceURL.Replace("{alb-pkiprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbPkiprofileId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
             request.Resource = DeleteAlbpkiprofileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteAlbpkiprofileServiceURL.ToString() + " did not complete successfull";
@@ -4047,7 +3202,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBPKIProfileType ReadAlbpkiprofile(string AlbPkiprofileId)
+        public async Task<NSXTALBPKIProfileType> ReadAlbpkiprofile(string AlbPkiprofileId)
         {
             if (AlbPkiprofileId == null) { throw new System.ArgumentNullException("AlbPkiprofileId cannot be null"); }
             NSXTALBPKIProfileType returnValue = default(NSXTALBPKIProfileType);
@@ -4060,31 +3215,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ReadAlbpkiprofileServiceURL.Replace("{alb-pkiprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbPkiprofileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadAlbpkiprofileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBPKIProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBPKIProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadAlbpkiprofileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBPKIProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBPKIProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBWafCRSApiResponseType ListAlbwafCRS(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTALBWafCRSApiResponseType> ListAlbwafCRS(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTALBWafCRSApiResponseType returnValue = default(NSXTALBWafCRSApiResponseType);
             StringBuilder ListAlbwafCRSServiceURL = new StringBuilder("/infra/alb-waf-crs");
@@ -4101,31 +3244,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListAlbwafCRSServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBWafCRSApiResponseType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBWafCRSApiResponseType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListAlbwafCRSServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBWafCRSApiResponseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBWafCRSApiResponseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBAuthProfileType UpdateAlbauthProfile(string AlbAuthprofileId, NSXTALBAuthProfileType AlbauthProfile)
+        public async Task<NSXTALBAuthProfileType> UpdateAlbauthProfile(string AlbAuthprofileId, NSXTALBAuthProfileType AlbauthProfile)
         {
             if (AlbAuthprofileId == null) { throw new System.ArgumentNullException("AlbAuthprofileId cannot be null"); }
             if (AlbauthProfile == null) { throw new System.ArgumentNullException("AlbauthProfile cannot be null"); }
@@ -4140,31 +3271,19 @@ namespace nsxtapi.PolicyModules
             UpdateAlbauthProfileServiceURL.Replace("{alb-authprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbAuthprofileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(AlbauthProfile, defaultSerializationSettings));
             request.Resource = UpdateAlbauthProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBAuthProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBAuthProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateAlbauthProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBAuthProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBAuthProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchAlbauthProfile(string AlbAuthprofileId, NSXTALBAuthProfileType AlbauthProfile)
+        public async Task PatchAlbauthProfile(string AlbAuthprofileId, NSXTALBAuthProfileType AlbauthProfile)
         {
             if (AlbAuthprofileId == null) { throw new System.ArgumentNullException("AlbAuthprofileId cannot be null"); }
             if (AlbauthProfile == null) { throw new System.ArgumentNullException("AlbauthProfile cannot be null"); }
@@ -4179,7 +3298,7 @@ namespace nsxtapi.PolicyModules
             PatchAlbauthProfileServiceURL.Replace("{alb-authprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbAuthprofileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(AlbauthProfile, defaultSerializationSettings));
             request.Resource = PatchAlbauthProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchAlbauthProfileServiceURL.ToString() + " did not complete successfull";
@@ -4191,7 +3310,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBAuthProfileType ReadAlbauthProfile(string AlbAuthprofileId)
+        public async Task<NSXTALBAuthProfileType> ReadAlbauthProfile(string AlbAuthprofileId)
         {
             if (AlbAuthprofileId == null) { throw new System.ArgumentNullException("AlbAuthprofileId cannot be null"); }
             NSXTALBAuthProfileType returnValue = default(NSXTALBAuthProfileType);
@@ -4204,31 +3323,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ReadAlbauthProfileServiceURL.Replace("{alb-authprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbAuthprofileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadAlbauthProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBAuthProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBAuthProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadAlbauthProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBAuthProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBAuthProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteAlbauthProfile(string AlbAuthprofileId, bool? Force = null)
+        public async Task DeleteAlbauthProfile(string AlbAuthprofileId, bool? Force = null)
         {
             if (AlbAuthprofileId == null) { throw new System.ArgumentNullException("AlbAuthprofileId cannot be null"); }
             
@@ -4242,7 +3349,7 @@ namespace nsxtapi.PolicyModules
             DeleteAlbauthProfileServiceURL.Replace("{alb-authprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbAuthprofileId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
             request.Resource = DeleteAlbauthProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteAlbauthProfileServiceURL.ToString() + " did not complete successfull";
@@ -4254,7 +3361,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBAnalyticsProfileType UpdateAlbanalyticsProfile(string AlbAnalyticsprofileId, NSXTALBAnalyticsProfileType AlbanalyticsProfile)
+        public async Task<NSXTALBAnalyticsProfileType> UpdateAlbanalyticsProfile(string AlbAnalyticsprofileId, NSXTALBAnalyticsProfileType AlbanalyticsProfile)
         {
             if (AlbAnalyticsprofileId == null) { throw new System.ArgumentNullException("AlbAnalyticsprofileId cannot be null"); }
             if (AlbanalyticsProfile == null) { throw new System.ArgumentNullException("AlbanalyticsProfile cannot be null"); }
@@ -4269,31 +3376,19 @@ namespace nsxtapi.PolicyModules
             UpdateAlbanalyticsProfileServiceURL.Replace("{alb-analyticsprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbAnalyticsprofileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(AlbanalyticsProfile, defaultSerializationSettings));
             request.Resource = UpdateAlbanalyticsProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBAnalyticsProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBAnalyticsProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateAlbanalyticsProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBAnalyticsProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBAnalyticsProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBAnalyticsProfileType ReadAlbanalyticsProfile(string AlbAnalyticsprofileId)
+        public async Task<NSXTALBAnalyticsProfileType> ReadAlbanalyticsProfile(string AlbAnalyticsprofileId)
         {
             if (AlbAnalyticsprofileId == null) { throw new System.ArgumentNullException("AlbAnalyticsprofileId cannot be null"); }
             NSXTALBAnalyticsProfileType returnValue = default(NSXTALBAnalyticsProfileType);
@@ -4306,31 +3401,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ReadAlbanalyticsProfileServiceURL.Replace("{alb-analyticsprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbAnalyticsprofileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadAlbanalyticsProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBAnalyticsProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBAnalyticsProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadAlbanalyticsProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBAnalyticsProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBAnalyticsProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchAlbanalyticsProfile(string AlbAnalyticsprofileId, NSXTALBAnalyticsProfileType AlbanalyticsProfile)
+        public async Task PatchAlbanalyticsProfile(string AlbAnalyticsprofileId, NSXTALBAnalyticsProfileType AlbanalyticsProfile)
         {
             if (AlbAnalyticsprofileId == null) { throw new System.ArgumentNullException("AlbAnalyticsprofileId cannot be null"); }
             if (AlbanalyticsProfile == null) { throw new System.ArgumentNullException("AlbanalyticsProfile cannot be null"); }
@@ -4345,7 +3428,7 @@ namespace nsxtapi.PolicyModules
             PatchAlbanalyticsProfileServiceURL.Replace("{alb-analyticsprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbAnalyticsprofileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(AlbanalyticsProfile, defaultSerializationSettings));
             request.Resource = PatchAlbanalyticsProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchAlbanalyticsProfileServiceURL.ToString() + " did not complete successfull";
@@ -4357,7 +3440,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteAlbanalyticsProfile(string AlbAnalyticsprofileId, bool? Force = null)
+        public async Task DeleteAlbanalyticsProfile(string AlbAnalyticsprofileId, bool? Force = null)
         {
             if (AlbAnalyticsprofileId == null) { throw new System.ArgumentNullException("AlbAnalyticsprofileId cannot be null"); }
             
@@ -4371,7 +3454,7 @@ namespace nsxtapi.PolicyModules
             DeleteAlbanalyticsProfileServiceURL.Replace("{alb-analyticsprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbAnalyticsprofileId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
             request.Resource = DeleteAlbanalyticsProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteAlbanalyticsProfileServiceURL.ToString() + " did not complete successfull";
@@ -4383,7 +3466,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBStringGroupType UpdateAlbstringGroup(string AlbStringgroupId, NSXTALBStringGroupType AlbstringGroup)
+        public async Task<NSXTALBStringGroupType> UpdateAlbstringGroup(string AlbStringgroupId, NSXTALBStringGroupType AlbstringGroup)
         {
             if (AlbStringgroupId == null) { throw new System.ArgumentNullException("AlbStringgroupId cannot be null"); }
             if (AlbstringGroup == null) { throw new System.ArgumentNullException("AlbstringGroup cannot be null"); }
@@ -4398,31 +3481,19 @@ namespace nsxtapi.PolicyModules
             UpdateAlbstringGroupServiceURL.Replace("{alb-stringgroup-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbStringgroupId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(AlbstringGroup, defaultSerializationSettings));
             request.Resource = UpdateAlbstringGroupServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBStringGroupType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBStringGroupType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateAlbstringGroupServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBStringGroupType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBStringGroupType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBStringGroupType ReadAlbstringGroup(string AlbStringgroupId)
+        public async Task<NSXTALBStringGroupType> ReadAlbstringGroup(string AlbStringgroupId)
         {
             if (AlbStringgroupId == null) { throw new System.ArgumentNullException("AlbStringgroupId cannot be null"); }
             NSXTALBStringGroupType returnValue = default(NSXTALBStringGroupType);
@@ -4435,31 +3506,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ReadAlbstringGroupServiceURL.Replace("{alb-stringgroup-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbStringgroupId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadAlbstringGroupServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBStringGroupType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBStringGroupType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadAlbstringGroupServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBStringGroupType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBStringGroupType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteAlbstringGroup(string AlbStringgroupId, bool? Force = null)
+        public async Task DeleteAlbstringGroup(string AlbStringgroupId, bool? Force = null)
         {
             if (AlbStringgroupId == null) { throw new System.ArgumentNullException("AlbStringgroupId cannot be null"); }
             
@@ -4473,7 +3532,7 @@ namespace nsxtapi.PolicyModules
             DeleteAlbstringGroupServiceURL.Replace("{alb-stringgroup-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbStringgroupId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
             request.Resource = DeleteAlbstringGroupServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteAlbstringGroupServiceURL.ToString() + " did not complete successfull";
@@ -4485,7 +3544,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchAlbstringGroup(string AlbStringgroupId, NSXTALBStringGroupType AlbstringGroup)
+        public async Task PatchAlbstringGroup(string AlbStringgroupId, NSXTALBStringGroupType AlbstringGroup)
         {
             if (AlbStringgroupId == null) { throw new System.ArgumentNullException("AlbStringgroupId cannot be null"); }
             if (AlbstringGroup == null) { throw new System.ArgumentNullException("AlbstringGroup cannot be null"); }
@@ -4500,7 +3559,7 @@ namespace nsxtapi.PolicyModules
             PatchAlbstringGroupServiceURL.Replace("{alb-stringgroup-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbStringgroupId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(AlbstringGroup, defaultSerializationSettings));
             request.Resource = PatchAlbstringGroupServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchAlbstringGroupServiceURL.ToString() + " did not complete successfull";
@@ -4512,7 +3571,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBWafPolicyApiResponseType ListAlbwafPolicy(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTALBWafPolicyApiResponseType> ListAlbwafPolicy(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTALBWafPolicyApiResponseType returnValue = default(NSXTALBWafPolicyApiResponseType);
             StringBuilder ListAlbwafPolicyServiceURL = new StringBuilder("/infra/alb-waf-policies");
@@ -4529,31 +3588,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListAlbwafPolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBWafPolicyApiResponseType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBWafPolicyApiResponseType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListAlbwafPolicyServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBWafPolicyApiResponseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBWafPolicyApiResponseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBDnsPolicyApiResponseType ListAlbdnsPolicy(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTALBDnsPolicyApiResponseType> ListAlbdnsPolicy(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTALBDnsPolicyApiResponseType returnValue = default(NSXTALBDnsPolicyApiResponseType);
             StringBuilder ListAlbdnsPolicyServiceURL = new StringBuilder("/infra/alb-dns-policies");
@@ -4570,31 +3617,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListAlbdnsPolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBDnsPolicyApiResponseType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBDnsPolicyApiResponseType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListAlbdnsPolicyServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBDnsPolicyApiResponseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBDnsPolicyApiResponseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBErrorPageBodyApiResponseType ListAlberrorPageBody(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTALBErrorPageBodyApiResponseType> ListAlberrorPageBody(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTALBErrorPageBodyApiResponseType returnValue = default(NSXTALBErrorPageBodyApiResponseType);
             StringBuilder ListAlberrorPageBodyServiceURL = new StringBuilder("/infra/alb-error-page-bodies");
@@ -4611,31 +3646,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListAlberrorPageBodyServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBErrorPageBodyApiResponseType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBErrorPageBodyApiResponseType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListAlberrorPageBodyServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBErrorPageBodyApiResponseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBErrorPageBodyApiResponseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTEnforcementPointType IntiateAlbOnBoardingWorkflow(NSXTALBControllerConfigurationType AlbcontrollerConfiguration)
+        public async Task<NSXTEnforcementPointType> IntiateAlbOnBoardingWorkflow(NSXTALBControllerConfigurationType AlbcontrollerConfiguration)
         {
             if (AlbcontrollerConfiguration == null) { throw new System.ArgumentNullException("AlbcontrollerConfiguration cannot be null"); }
             NSXTEnforcementPointType returnValue = default(NSXTEnforcementPointType);
@@ -4648,31 +3671,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(AlbcontrollerConfiguration, defaultSerializationSettings));
             request.Resource = IntiateAlbOnBoardingWorkflowServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTEnforcementPointType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTEnforcementPointType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + IntiateAlbOnBoardingWorkflowServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTEnforcementPointType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTEnforcementPointType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBWafPolicyType UpdateAlbwafPolicy(string AlbWafpolicyId, NSXTALBWafPolicyType AlbwafPolicy)
+        public async Task<NSXTALBWafPolicyType> UpdateAlbwafPolicy(string AlbWafpolicyId, NSXTALBWafPolicyType AlbwafPolicy)
         {
             if (AlbWafpolicyId == null) { throw new System.ArgumentNullException("AlbWafpolicyId cannot be null"); }
             if (AlbwafPolicy == null) { throw new System.ArgumentNullException("AlbwafPolicy cannot be null"); }
@@ -4687,31 +3698,19 @@ namespace nsxtapi.PolicyModules
             UpdateAlbwafPolicyServiceURL.Replace("{alb-wafpolicy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbWafpolicyId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(AlbwafPolicy, defaultSerializationSettings));
             request.Resource = UpdateAlbwafPolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBWafPolicyType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBWafPolicyType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateAlbwafPolicyServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBWafPolicyType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBWafPolicyType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteAlbwafPolicy(string AlbWafpolicyId, bool? Force = null)
+        public async Task DeleteAlbwafPolicy(string AlbWafpolicyId, bool? Force = null)
         {
             if (AlbWafpolicyId == null) { throw new System.ArgumentNullException("AlbWafpolicyId cannot be null"); }
             
@@ -4725,7 +3724,7 @@ namespace nsxtapi.PolicyModules
             DeleteAlbwafPolicyServiceURL.Replace("{alb-wafpolicy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbWafpolicyId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
             request.Resource = DeleteAlbwafPolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteAlbwafPolicyServiceURL.ToString() + " did not complete successfull";
@@ -4737,7 +3736,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchAlbwafPolicy(string AlbWafpolicyId, NSXTALBWafPolicyType AlbwafPolicy)
+        public async Task PatchAlbwafPolicy(string AlbWafpolicyId, NSXTALBWafPolicyType AlbwafPolicy)
         {
             if (AlbWafpolicyId == null) { throw new System.ArgumentNullException("AlbWafpolicyId cannot be null"); }
             if (AlbwafPolicy == null) { throw new System.ArgumentNullException("AlbwafPolicy cannot be null"); }
@@ -4752,7 +3751,7 @@ namespace nsxtapi.PolicyModules
             PatchAlbwafPolicyServiceURL.Replace("{alb-wafpolicy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbWafpolicyId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(AlbwafPolicy, defaultSerializationSettings));
             request.Resource = PatchAlbwafPolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchAlbwafPolicyServiceURL.ToString() + " did not complete successfull";
@@ -4764,7 +3763,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBWafPolicyType ReadAlbwafPolicy(string AlbWafpolicyId)
+        public async Task<NSXTALBWafPolicyType> ReadAlbwafPolicy(string AlbWafpolicyId)
         {
             if (AlbWafpolicyId == null) { throw new System.ArgumentNullException("AlbWafpolicyId cannot be null"); }
             NSXTALBWafPolicyType returnValue = default(NSXTALBWafPolicyType);
@@ -4777,31 +3776,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ReadAlbwafPolicyServiceURL.Replace("{alb-wafpolicy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbWafpolicyId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadAlbwafPolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBWafPolicyType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBWafPolicyType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadAlbwafPolicyServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBWafPolicyType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBWafPolicyType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBVSDataScriptSetType UpdateAlbvsdataScriptSet(string AlbVsdatascriptsetId, NSXTALBVSDataScriptSetType AlbvsdataScriptSet)
+        public async Task<NSXTALBVSDataScriptSetType> UpdateAlbvsdataScriptSet(string AlbVsdatascriptsetId, NSXTALBVSDataScriptSetType AlbvsdataScriptSet)
         {
             if (AlbVsdatascriptsetId == null) { throw new System.ArgumentNullException("AlbVsdatascriptsetId cannot be null"); }
             if (AlbvsdataScriptSet == null) { throw new System.ArgumentNullException("AlbvsdataScriptSet cannot be null"); }
@@ -4816,31 +3803,19 @@ namespace nsxtapi.PolicyModules
             UpdateAlbvsdataScriptSetServiceURL.Replace("{alb-vsdatascriptset-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbVsdatascriptsetId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(AlbvsdataScriptSet, defaultSerializationSettings));
             request.Resource = UpdateAlbvsdataScriptSetServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBVSDataScriptSetType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBVSDataScriptSetType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateAlbvsdataScriptSetServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBVSDataScriptSetType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBVSDataScriptSetType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchAlbvsdataScriptSet(string AlbVsdatascriptsetId, NSXTALBVSDataScriptSetType AlbvsdataScriptSet)
+        public async Task PatchAlbvsdataScriptSet(string AlbVsdatascriptsetId, NSXTALBVSDataScriptSetType AlbvsdataScriptSet)
         {
             if (AlbVsdatascriptsetId == null) { throw new System.ArgumentNullException("AlbVsdatascriptsetId cannot be null"); }
             if (AlbvsdataScriptSet == null) { throw new System.ArgumentNullException("AlbvsdataScriptSet cannot be null"); }
@@ -4855,7 +3830,7 @@ namespace nsxtapi.PolicyModules
             PatchAlbvsdataScriptSetServiceURL.Replace("{alb-vsdatascriptset-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbVsdatascriptsetId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(AlbvsdataScriptSet, defaultSerializationSettings));
             request.Resource = PatchAlbvsdataScriptSetServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchAlbvsdataScriptSetServiceURL.ToString() + " did not complete successfull";
@@ -4867,7 +3842,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteAlbvsdataScriptSet(string AlbVsdatascriptsetId, bool? Force = null)
+        public async Task DeleteAlbvsdataScriptSet(string AlbVsdatascriptsetId, bool? Force = null)
         {
             if (AlbVsdatascriptsetId == null) { throw new System.ArgumentNullException("AlbVsdatascriptsetId cannot be null"); }
             
@@ -4881,7 +3856,7 @@ namespace nsxtapi.PolicyModules
             DeleteAlbvsdataScriptSetServiceURL.Replace("{alb-vsdatascriptset-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbVsdatascriptsetId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
             request.Resource = DeleteAlbvsdataScriptSetServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteAlbvsdataScriptSetServiceURL.ToString() + " did not complete successfull";
@@ -4893,7 +3868,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBVSDataScriptSetType ReadAlbvsdataScriptSet(string AlbVsdatascriptsetId)
+        public async Task<NSXTALBVSDataScriptSetType> ReadAlbvsdataScriptSet(string AlbVsdatascriptsetId)
         {
             if (AlbVsdatascriptsetId == null) { throw new System.ArgumentNullException("AlbVsdatascriptsetId cannot be null"); }
             NSXTALBVSDataScriptSetType returnValue = default(NSXTALBVSDataScriptSetType);
@@ -4906,31 +3881,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ReadAlbvsdataScriptSetServiceURL.Replace("{alb-vsdatascriptset-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbVsdatascriptsetId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadAlbvsdataScriptSetServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBVSDataScriptSetType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBVSDataScriptSetType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadAlbvsdataScriptSetServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBVSDataScriptSetType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBVSDataScriptSetType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBVirtualServiceApiResponseType ListAlbvirtualService(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTALBVirtualServiceApiResponseType> ListAlbvirtualService(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTALBVirtualServiceApiResponseType returnValue = default(NSXTALBVirtualServiceApiResponseType);
             StringBuilder ListAlbvirtualServiceServiceURL = new StringBuilder("/infra/alb-virtual-services");
@@ -4947,31 +3910,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListAlbvirtualServiceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBVirtualServiceApiResponseType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBVirtualServiceApiResponseType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListAlbvirtualServiceServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBVirtualServiceApiResponseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBVirtualServiceApiResponseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBSSOPolicyApiResponseType ListAlbssopolicy(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTALBSSOPolicyApiResponseType> ListAlbssopolicy(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTALBSSOPolicyApiResponseType returnValue = default(NSXTALBSSOPolicyApiResponseType);
             StringBuilder ListAlbssopolicyServiceURL = new StringBuilder("/infra/alb-sso-policies");
@@ -4988,31 +3939,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListAlbssopolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBSSOPolicyApiResponseType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBSSOPolicyApiResponseType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListAlbssopolicyServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBSSOPolicyApiResponseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBSSOPolicyApiResponseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBNetworkProfileType UpdateAlbnetworkProfile(string AlbNetworkprofileId, NSXTALBNetworkProfileType AlbnetworkProfile)
+        public async Task<NSXTALBNetworkProfileType> UpdateAlbnetworkProfile(string AlbNetworkprofileId, NSXTALBNetworkProfileType AlbnetworkProfile)
         {
             if (AlbNetworkprofileId == null) { throw new System.ArgumentNullException("AlbNetworkprofileId cannot be null"); }
             if (AlbnetworkProfile == null) { throw new System.ArgumentNullException("AlbnetworkProfile cannot be null"); }
@@ -5027,31 +3966,19 @@ namespace nsxtapi.PolicyModules
             UpdateAlbnetworkProfileServiceURL.Replace("{alb-networkprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbNetworkprofileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(AlbnetworkProfile, defaultSerializationSettings));
             request.Resource = UpdateAlbnetworkProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBNetworkProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBNetworkProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateAlbnetworkProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBNetworkProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBNetworkProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBNetworkProfileType ReadAlbnetworkProfile(string AlbNetworkprofileId)
+        public async Task<NSXTALBNetworkProfileType> ReadAlbnetworkProfile(string AlbNetworkprofileId)
         {
             if (AlbNetworkprofileId == null) { throw new System.ArgumentNullException("AlbNetworkprofileId cannot be null"); }
             NSXTALBNetworkProfileType returnValue = default(NSXTALBNetworkProfileType);
@@ -5064,31 +3991,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ReadAlbnetworkProfileServiceURL.Replace("{alb-networkprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbNetworkprofileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadAlbnetworkProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBNetworkProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBNetworkProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadAlbnetworkProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBNetworkProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBNetworkProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteAlbnetworkProfile(string AlbNetworkprofileId, bool? Force = null)
+        public async Task DeleteAlbnetworkProfile(string AlbNetworkprofileId, bool? Force = null)
         {
             if (AlbNetworkprofileId == null) { throw new System.ArgumentNullException("AlbNetworkprofileId cannot be null"); }
             
@@ -5102,7 +4017,7 @@ namespace nsxtapi.PolicyModules
             DeleteAlbnetworkProfileServiceURL.Replace("{alb-networkprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbNetworkprofileId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
             request.Resource = DeleteAlbnetworkProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteAlbnetworkProfileServiceURL.ToString() + " did not complete successfull";
@@ -5114,7 +4029,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchAlbnetworkProfile(string AlbNetworkprofileId, NSXTALBNetworkProfileType AlbnetworkProfile)
+        public async Task PatchAlbnetworkProfile(string AlbNetworkprofileId, NSXTALBNetworkProfileType AlbnetworkProfile)
         {
             if (AlbNetworkprofileId == null) { throw new System.ArgumentNullException("AlbNetworkprofileId cannot be null"); }
             if (AlbnetworkProfile == null) { throw new System.ArgumentNullException("AlbnetworkProfile cannot be null"); }
@@ -5129,7 +4044,7 @@ namespace nsxtapi.PolicyModules
             PatchAlbnetworkProfileServiceURL.Replace("{alb-networkprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbNetworkprofileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(AlbnetworkProfile, defaultSerializationSettings));
             request.Resource = PatchAlbnetworkProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchAlbnetworkProfileServiceURL.ToString() + " did not complete successfull";
@@ -5141,7 +4056,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBWafProfileType UpdateAlbwafProfile(string AlbWafprofileId, NSXTALBWafProfileType AlbwafProfile)
+        public async Task<NSXTALBWafProfileType> UpdateAlbwafProfile(string AlbWafprofileId, NSXTALBWafProfileType AlbwafProfile)
         {
             if (AlbWafprofileId == null) { throw new System.ArgumentNullException("AlbWafprofileId cannot be null"); }
             if (AlbwafProfile == null) { throw new System.ArgumentNullException("AlbwafProfile cannot be null"); }
@@ -5156,31 +4071,19 @@ namespace nsxtapi.PolicyModules
             UpdateAlbwafProfileServiceURL.Replace("{alb-wafprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbWafprofileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(AlbwafProfile, defaultSerializationSettings));
             request.Resource = UpdateAlbwafProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBWafProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBWafProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateAlbwafProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBWafProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBWafProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBWafProfileType ReadAlbwafProfile(string AlbWafprofileId)
+        public async Task<NSXTALBWafProfileType> ReadAlbwafProfile(string AlbWafprofileId)
         {
             if (AlbWafprofileId == null) { throw new System.ArgumentNullException("AlbWafprofileId cannot be null"); }
             NSXTALBWafProfileType returnValue = default(NSXTALBWafProfileType);
@@ -5193,31 +4096,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ReadAlbwafProfileServiceURL.Replace("{alb-wafprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbWafprofileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadAlbwafProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBWafProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBWafProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadAlbwafProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBWafProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBWafProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchAlbwafProfile(string AlbWafprofileId, NSXTALBWafProfileType AlbwafProfile)
+        public async Task PatchAlbwafProfile(string AlbWafprofileId, NSXTALBWafProfileType AlbwafProfile)
         {
             if (AlbWafprofileId == null) { throw new System.ArgumentNullException("AlbWafprofileId cannot be null"); }
             if (AlbwafProfile == null) { throw new System.ArgumentNullException("AlbwafProfile cannot be null"); }
@@ -5232,7 +4123,7 @@ namespace nsxtapi.PolicyModules
             PatchAlbwafProfileServiceURL.Replace("{alb-wafprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbWafprofileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(AlbwafProfile, defaultSerializationSettings));
             request.Resource = PatchAlbwafProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchAlbwafProfileServiceURL.ToString() + " did not complete successfull";
@@ -5244,7 +4135,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteAlbwafProfile(string AlbWafprofileId, bool? Force = null)
+        public async Task DeleteAlbwafProfile(string AlbWafprofileId, bool? Force = null)
         {
             if (AlbWafprofileId == null) { throw new System.ArgumentNullException("AlbWafprofileId cannot be null"); }
             
@@ -5258,7 +4149,7 @@ namespace nsxtapi.PolicyModules
             DeleteAlbwafProfileServiceURL.Replace("{alb-wafprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbWafprofileId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
             request.Resource = DeleteAlbwafProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteAlbwafProfileServiceURL.ToString() + " did not complete successfull";
@@ -5270,7 +4161,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBApplicationProfileType UpdateAlbapplicationProfile(string AlbApplicationprofileId, NSXTALBApplicationProfileType AlbapplicationProfile)
+        public async Task<NSXTALBApplicationProfileType> UpdateAlbapplicationProfile(string AlbApplicationprofileId, NSXTALBApplicationProfileType AlbapplicationProfile)
         {
             if (AlbApplicationprofileId == null) { throw new System.ArgumentNullException("AlbApplicationprofileId cannot be null"); }
             if (AlbapplicationProfile == null) { throw new System.ArgumentNullException("AlbapplicationProfile cannot be null"); }
@@ -5285,31 +4176,19 @@ namespace nsxtapi.PolicyModules
             UpdateAlbapplicationProfileServiceURL.Replace("{alb-applicationprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbApplicationprofileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(AlbapplicationProfile, defaultSerializationSettings));
             request.Resource = UpdateAlbapplicationProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBApplicationProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBApplicationProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateAlbapplicationProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBApplicationProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBApplicationProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBApplicationProfileType ReadAlbapplicationProfile(string AlbApplicationprofileId)
+        public async Task<NSXTALBApplicationProfileType> ReadAlbapplicationProfile(string AlbApplicationprofileId)
         {
             if (AlbApplicationprofileId == null) { throw new System.ArgumentNullException("AlbApplicationprofileId cannot be null"); }
             NSXTALBApplicationProfileType returnValue = default(NSXTALBApplicationProfileType);
@@ -5322,31 +4201,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ReadAlbapplicationProfileServiceURL.Replace("{alb-applicationprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbApplicationprofileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadAlbapplicationProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBApplicationProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBApplicationProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadAlbapplicationProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBApplicationProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBApplicationProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteAlbapplicationProfile(string AlbApplicationprofileId, bool? Force = null)
+        public async Task DeleteAlbapplicationProfile(string AlbApplicationprofileId, bool? Force = null)
         {
             if (AlbApplicationprofileId == null) { throw new System.ArgumentNullException("AlbApplicationprofileId cannot be null"); }
             
@@ -5360,7 +4227,7 @@ namespace nsxtapi.PolicyModules
             DeleteAlbapplicationProfileServiceURL.Replace("{alb-applicationprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbApplicationprofileId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
             request.Resource = DeleteAlbapplicationProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteAlbapplicationProfileServiceURL.ToString() + " did not complete successfull";
@@ -5372,7 +4239,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchAlbapplicationProfile(string AlbApplicationprofileId, NSXTALBApplicationProfileType AlbapplicationProfile)
+        public async Task PatchAlbapplicationProfile(string AlbApplicationprofileId, NSXTALBApplicationProfileType AlbapplicationProfile)
         {
             if (AlbApplicationprofileId == null) { throw new System.ArgumentNullException("AlbApplicationprofileId cannot be null"); }
             if (AlbapplicationProfile == null) { throw new System.ArgumentNullException("AlbapplicationProfile cannot be null"); }
@@ -5387,7 +4254,7 @@ namespace nsxtapi.PolicyModules
             PatchAlbapplicationProfileServiceURL.Replace("{alb-applicationprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbApplicationprofileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(AlbapplicationProfile, defaultSerializationSettings));
             request.Resource = PatchAlbapplicationProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchAlbapplicationProfileServiceURL.ToString() + " did not complete successfull";
@@ -5399,7 +4266,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBControllerVersionType ReadAlbcontrollerSupportedVersion()
+        public async Task<NSXTALBControllerVersionType> ReadAlbcontrollerSupportedVersion()
         {
             NSXTALBControllerVersionType returnValue = default(NSXTALBControllerVersionType);
             StringBuilder ReadAlbcontrollerSupportedVersionServiceURL = new StringBuilder("/infra/alb-controller-version");
@@ -5410,31 +4277,19 @@ namespace nsxtapi.PolicyModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = ReadAlbcontrollerSupportedVersionServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBControllerVersionType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBControllerVersionType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadAlbcontrollerSupportedVersionServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBControllerVersionType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBControllerVersionType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBVSDataScriptSetApiResponseType ListAlbvsdataScriptSet(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTALBVSDataScriptSetApiResponseType> ListAlbvsdataScriptSet(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTALBVSDataScriptSetApiResponseType returnValue = default(NSXTALBVSDataScriptSetApiResponseType);
             StringBuilder ListAlbvsdataScriptSetServiceURL = new StringBuilder("/infra/alb-vs-data-script-sets");
@@ -5451,31 +4306,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListAlbvsdataScriptSetServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBVSDataScriptSetApiResponseType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBVSDataScriptSetApiResponseType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListAlbvsdataScriptSetServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBVSDataScriptSetApiResponseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBVSDataScriptSetApiResponseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBSSLKeyAndCertificateType UpdateAlbsslkeyAndCertificate(string AlbSslkeyandcertificateId, NSXTALBSSLKeyAndCertificateType AlbsslkeyAndCertificate)
+        public async Task<NSXTALBSSLKeyAndCertificateType> UpdateAlbsslkeyAndCertificate(string AlbSslkeyandcertificateId, NSXTALBSSLKeyAndCertificateType AlbsslkeyAndCertificate)
         {
             if (AlbSslkeyandcertificateId == null) { throw new System.ArgumentNullException("AlbSslkeyandcertificateId cannot be null"); }
             if (AlbsslkeyAndCertificate == null) { throw new System.ArgumentNullException("AlbsslkeyAndCertificate cannot be null"); }
@@ -5490,31 +4333,19 @@ namespace nsxtapi.PolicyModules
             UpdateAlbsslkeyAndCertificateServiceURL.Replace("{alb-sslkeyandcertificate-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbSslkeyandcertificateId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(AlbsslkeyAndCertificate, defaultSerializationSettings));
             request.Resource = UpdateAlbsslkeyAndCertificateServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBSSLKeyAndCertificateType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBSSLKeyAndCertificateType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateAlbsslkeyAndCertificateServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBSSLKeyAndCertificateType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBSSLKeyAndCertificateType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteAlbsslkeyAndCertificate(string AlbSslkeyandcertificateId, bool? Force = null)
+        public async Task DeleteAlbsslkeyAndCertificate(string AlbSslkeyandcertificateId, bool? Force = null)
         {
             if (AlbSslkeyandcertificateId == null) { throw new System.ArgumentNullException("AlbSslkeyandcertificateId cannot be null"); }
             
@@ -5528,7 +4359,7 @@ namespace nsxtapi.PolicyModules
             DeleteAlbsslkeyAndCertificateServiceURL.Replace("{alb-sslkeyandcertificate-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbSslkeyandcertificateId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
             request.Resource = DeleteAlbsslkeyAndCertificateServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteAlbsslkeyAndCertificateServiceURL.ToString() + " did not complete successfull";
@@ -5540,7 +4371,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchAlbsslkeyAndCertificate(string AlbSslkeyandcertificateId, NSXTALBSSLKeyAndCertificateType AlbsslkeyAndCertificate)
+        public async Task PatchAlbsslkeyAndCertificate(string AlbSslkeyandcertificateId, NSXTALBSSLKeyAndCertificateType AlbsslkeyAndCertificate)
         {
             if (AlbSslkeyandcertificateId == null) { throw new System.ArgumentNullException("AlbSslkeyandcertificateId cannot be null"); }
             if (AlbsslkeyAndCertificate == null) { throw new System.ArgumentNullException("AlbsslkeyAndCertificate cannot be null"); }
@@ -5555,7 +4386,7 @@ namespace nsxtapi.PolicyModules
             PatchAlbsslkeyAndCertificateServiceURL.Replace("{alb-sslkeyandcertificate-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbSslkeyandcertificateId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(AlbsslkeyAndCertificate, defaultSerializationSettings));
             request.Resource = PatchAlbsslkeyAndCertificateServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchAlbsslkeyAndCertificateServiceURL.ToString() + " did not complete successfull";
@@ -5567,7 +4398,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBSSLKeyAndCertificateType ReadAlbsslkeyAndCertificate(string AlbSslkeyandcertificateId)
+        public async Task<NSXTALBSSLKeyAndCertificateType> ReadAlbsslkeyAndCertificate(string AlbSslkeyandcertificateId)
         {
             if (AlbSslkeyandcertificateId == null) { throw new System.ArgumentNullException("AlbSslkeyandcertificateId cannot be null"); }
             NSXTALBSSLKeyAndCertificateType returnValue = default(NSXTALBSSLKeyAndCertificateType);
@@ -5580,31 +4411,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ReadAlbsslkeyAndCertificateServiceURL.Replace("{alb-sslkeyandcertificate-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbSslkeyandcertificateId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadAlbsslkeyAndCertificateServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBSSLKeyAndCertificateType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBSSLKeyAndCertificateType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadAlbsslkeyAndCertificateServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBSSLKeyAndCertificateType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBSSLKeyAndCertificateType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBPoolGroupType UpdateAlbpoolGroup(string AlbPoolgroupId, NSXTALBPoolGroupType AlbpoolGroup)
+        public async Task<NSXTALBPoolGroupType> UpdateAlbpoolGroup(string AlbPoolgroupId, NSXTALBPoolGroupType AlbpoolGroup)
         {
             if (AlbPoolgroupId == null) { throw new System.ArgumentNullException("AlbPoolgroupId cannot be null"); }
             if (AlbpoolGroup == null) { throw new System.ArgumentNullException("AlbpoolGroup cannot be null"); }
@@ -5619,31 +4438,19 @@ namespace nsxtapi.PolicyModules
             UpdateAlbpoolGroupServiceURL.Replace("{alb-poolgroup-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbPoolgroupId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(AlbpoolGroup, defaultSerializationSettings));
             request.Resource = UpdateAlbpoolGroupServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBPoolGroupType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBPoolGroupType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateAlbpoolGroupServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBPoolGroupType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBPoolGroupType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteAlbpoolGroup(string AlbPoolgroupId, bool? Force = null)
+        public async Task DeleteAlbpoolGroup(string AlbPoolgroupId, bool? Force = null)
         {
             if (AlbPoolgroupId == null) { throw new System.ArgumentNullException("AlbPoolgroupId cannot be null"); }
             
@@ -5657,7 +4464,7 @@ namespace nsxtapi.PolicyModules
             DeleteAlbpoolGroupServiceURL.Replace("{alb-poolgroup-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbPoolgroupId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
             request.Resource = DeleteAlbpoolGroupServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteAlbpoolGroupServiceURL.ToString() + " did not complete successfull";
@@ -5669,7 +4476,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBPoolGroupType ReadAlbpoolGroup(string AlbPoolgroupId)
+        public async Task<NSXTALBPoolGroupType> ReadAlbpoolGroup(string AlbPoolgroupId)
         {
             if (AlbPoolgroupId == null) { throw new System.ArgumentNullException("AlbPoolgroupId cannot be null"); }
             NSXTALBPoolGroupType returnValue = default(NSXTALBPoolGroupType);
@@ -5682,31 +4489,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ReadAlbpoolGroupServiceURL.Replace("{alb-poolgroup-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbPoolgroupId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadAlbpoolGroupServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBPoolGroupType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBPoolGroupType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadAlbpoolGroupServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBPoolGroupType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBPoolGroupType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchAlbpoolGroup(string AlbPoolgroupId, NSXTALBPoolGroupType AlbpoolGroup)
+        public async Task PatchAlbpoolGroup(string AlbPoolgroupId, NSXTALBPoolGroupType AlbpoolGroup)
         {
             if (AlbPoolgroupId == null) { throw new System.ArgumentNullException("AlbPoolgroupId cannot be null"); }
             if (AlbpoolGroup == null) { throw new System.ArgumentNullException("AlbpoolGroup cannot be null"); }
@@ -5721,7 +4516,7 @@ namespace nsxtapi.PolicyModules
             PatchAlbpoolGroupServiceURL.Replace("{alb-poolgroup-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbPoolgroupId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(AlbpoolGroup, defaultSerializationSettings));
             request.Resource = PatchAlbpoolGroupServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchAlbpoolGroupServiceURL.ToString() + " did not complete successfull";
@@ -5733,7 +4528,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBPoolGroupDeploymentPolicyApiResponseType ListAlbpoolGroupDeploymentPolicy(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTALBPoolGroupDeploymentPolicyApiResponseType> ListAlbpoolGroupDeploymentPolicy(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTALBPoolGroupDeploymentPolicyApiResponseType returnValue = default(NSXTALBPoolGroupDeploymentPolicyApiResponseType);
             StringBuilder ListAlbpoolGroupDeploymentPolicyServiceURL = new StringBuilder("/infra/alb-pool-group-deployment-policies");
@@ -5750,31 +4545,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListAlbpoolGroupDeploymentPolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBPoolGroupDeploymentPolicyApiResponseType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBPoolGroupDeploymentPolicyApiResponseType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListAlbpoolGroupDeploymentPolicyServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBPoolGroupDeploymentPolicyApiResponseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBPoolGroupDeploymentPolicyApiResponseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBSSLProfileType UpdateAlbsslprofile(string AlbSslprofileId, NSXTALBSSLProfileType Albsslprofile)
+        public async Task<NSXTALBSSLProfileType> UpdateAlbsslprofile(string AlbSslprofileId, NSXTALBSSLProfileType Albsslprofile)
         {
             if (AlbSslprofileId == null) { throw new System.ArgumentNullException("AlbSslprofileId cannot be null"); }
             if (Albsslprofile == null) { throw new System.ArgumentNullException("Albsslprofile cannot be null"); }
@@ -5789,31 +4572,19 @@ namespace nsxtapi.PolicyModules
             UpdateAlbsslprofileServiceURL.Replace("{alb-sslprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbSslprofileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(Albsslprofile, defaultSerializationSettings));
             request.Resource = UpdateAlbsslprofileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBSSLProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBSSLProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateAlbsslprofileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBSSLProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBSSLProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBSSLProfileType ReadAlbsslprofile(string AlbSslprofileId)
+        public async Task<NSXTALBSSLProfileType> ReadAlbsslprofile(string AlbSslprofileId)
         {
             if (AlbSslprofileId == null) { throw new System.ArgumentNullException("AlbSslprofileId cannot be null"); }
             NSXTALBSSLProfileType returnValue = default(NSXTALBSSLProfileType);
@@ -5826,31 +4597,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ReadAlbsslprofileServiceURL.Replace("{alb-sslprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbSslprofileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadAlbsslprofileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBSSLProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBSSLProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadAlbsslprofileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBSSLProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBSSLProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchAlbsslprofile(string AlbSslprofileId, NSXTALBSSLProfileType Albsslprofile)
+        public async Task PatchAlbsslprofile(string AlbSslprofileId, NSXTALBSSLProfileType Albsslprofile)
         {
             if (AlbSslprofileId == null) { throw new System.ArgumentNullException("AlbSslprofileId cannot be null"); }
             if (Albsslprofile == null) { throw new System.ArgumentNullException("Albsslprofile cannot be null"); }
@@ -5865,7 +4624,7 @@ namespace nsxtapi.PolicyModules
             PatchAlbsslprofileServiceURL.Replace("{alb-sslprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbSslprofileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(Albsslprofile, defaultSerializationSettings));
             request.Resource = PatchAlbsslprofileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchAlbsslprofileServiceURL.ToString() + " did not complete successfull";
@@ -5877,7 +4636,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteAlbsslprofile(string AlbSslprofileId, bool? Force = null)
+        public async Task DeleteAlbsslprofile(string AlbSslprofileId, bool? Force = null)
         {
             if (AlbSslprofileId == null) { throw new System.ArgumentNullException("AlbSslprofileId cannot be null"); }
             
@@ -5891,7 +4650,7 @@ namespace nsxtapi.PolicyModules
             DeleteAlbsslprofileServiceURL.Replace("{alb-sslprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbSslprofileId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
             request.Resource = DeleteAlbsslprofileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteAlbsslprofileServiceURL.ToString() + " did not complete successfull";
@@ -5903,7 +4662,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBApplicationPersistenceProfileType UpdateAlbapplicationPersistenceProfile(string AlbApplicationpersistenceprofileId, NSXTALBApplicationPersistenceProfileType AlbapplicationPersistenceProfile)
+        public async Task<NSXTALBApplicationPersistenceProfileType> UpdateAlbapplicationPersistenceProfile(string AlbApplicationpersistenceprofileId, NSXTALBApplicationPersistenceProfileType AlbapplicationPersistenceProfile)
         {
             if (AlbApplicationpersistenceprofileId == null) { throw new System.ArgumentNullException("AlbApplicationpersistenceprofileId cannot be null"); }
             if (AlbapplicationPersistenceProfile == null) { throw new System.ArgumentNullException("AlbapplicationPersistenceProfile cannot be null"); }
@@ -5918,31 +4677,19 @@ namespace nsxtapi.PolicyModules
             UpdateAlbapplicationPersistenceProfileServiceURL.Replace("{alb-applicationpersistenceprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbApplicationpersistenceprofileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(AlbapplicationPersistenceProfile, defaultSerializationSettings));
             request.Resource = UpdateAlbapplicationPersistenceProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBApplicationPersistenceProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBApplicationPersistenceProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateAlbapplicationPersistenceProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBApplicationPersistenceProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBApplicationPersistenceProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteAlbapplicationPersistenceProfile(string AlbApplicationpersistenceprofileId, bool? Force = null)
+        public async Task DeleteAlbapplicationPersistenceProfile(string AlbApplicationpersistenceprofileId, bool? Force = null)
         {
             if (AlbApplicationpersistenceprofileId == null) { throw new System.ArgumentNullException("AlbApplicationpersistenceprofileId cannot be null"); }
             
@@ -5956,7 +4703,7 @@ namespace nsxtapi.PolicyModules
             DeleteAlbapplicationPersistenceProfileServiceURL.Replace("{alb-applicationpersistenceprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbApplicationpersistenceprofileId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
             request.Resource = DeleteAlbapplicationPersistenceProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteAlbapplicationPersistenceProfileServiceURL.ToString() + " did not complete successfull";
@@ -5968,7 +4715,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchAlbapplicationPersistenceProfile(string AlbApplicationpersistenceprofileId, NSXTALBApplicationPersistenceProfileType AlbapplicationPersistenceProfile)
+        public async Task PatchAlbapplicationPersistenceProfile(string AlbApplicationpersistenceprofileId, NSXTALBApplicationPersistenceProfileType AlbapplicationPersistenceProfile)
         {
             if (AlbApplicationpersistenceprofileId == null) { throw new System.ArgumentNullException("AlbApplicationpersistenceprofileId cannot be null"); }
             if (AlbapplicationPersistenceProfile == null) { throw new System.ArgumentNullException("AlbapplicationPersistenceProfile cannot be null"); }
@@ -5983,7 +4730,7 @@ namespace nsxtapi.PolicyModules
             PatchAlbapplicationPersistenceProfileServiceURL.Replace("{alb-applicationpersistenceprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbApplicationpersistenceprofileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(AlbapplicationPersistenceProfile, defaultSerializationSettings));
             request.Resource = PatchAlbapplicationPersistenceProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchAlbapplicationPersistenceProfileServiceURL.ToString() + " did not complete successfull";
@@ -5995,7 +4742,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBApplicationPersistenceProfileType ReadAlbapplicationPersistenceProfile(string AlbApplicationpersistenceprofileId)
+        public async Task<NSXTALBApplicationPersistenceProfileType> ReadAlbapplicationPersistenceProfile(string AlbApplicationpersistenceprofileId)
         {
             if (AlbApplicationpersistenceprofileId == null) { throw new System.ArgumentNullException("AlbApplicationpersistenceprofileId cannot be null"); }
             NSXTALBApplicationPersistenceProfileType returnValue = default(NSXTALBApplicationPersistenceProfileType);
@@ -6008,31 +4755,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ReadAlbapplicationPersistenceProfileServiceURL.Replace("{alb-applicationpersistenceprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbApplicationpersistenceprofileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadAlbapplicationPersistenceProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBApplicationPersistenceProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBApplicationPersistenceProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadAlbapplicationPersistenceProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBApplicationPersistenceProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBApplicationPersistenceProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBHTTPPolicySetApiResponseType ListAlbhttppolicySet(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTALBHTTPPolicySetApiResponseType> ListAlbhttppolicySet(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTALBHTTPPolicySetApiResponseType returnValue = default(NSXTALBHTTPPolicySetApiResponseType);
             StringBuilder ListAlbhttppolicySetServiceURL = new StringBuilder("/infra/alb-http-policy-sets");
@@ -6049,31 +4784,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListAlbhttppolicySetServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBHTTPPolicySetApiResponseType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBHTTPPolicySetApiResponseType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListAlbhttppolicySetServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBHTTPPolicySetApiResponseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBHTTPPolicySetApiResponseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBProtocolParserType UpdateAlbprotocolParser(string AlbProtocolparserId, NSXTALBProtocolParserType AlbprotocolParser)
+        public async Task<NSXTALBProtocolParserType> UpdateAlbprotocolParser(string AlbProtocolparserId, NSXTALBProtocolParserType AlbprotocolParser)
         {
             if (AlbProtocolparserId == null) { throw new System.ArgumentNullException("AlbProtocolparserId cannot be null"); }
             if (AlbprotocolParser == null) { throw new System.ArgumentNullException("AlbprotocolParser cannot be null"); }
@@ -6088,31 +4811,19 @@ namespace nsxtapi.PolicyModules
             UpdateAlbprotocolParserServiceURL.Replace("{alb-protocolparser-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbProtocolparserId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(AlbprotocolParser, defaultSerializationSettings));
             request.Resource = UpdateAlbprotocolParserServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBProtocolParserType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBProtocolParserType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateAlbprotocolParserServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBProtocolParserType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBProtocolParserType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchAlbprotocolParser(string AlbProtocolparserId, NSXTALBProtocolParserType AlbprotocolParser)
+        public async Task PatchAlbprotocolParser(string AlbProtocolparserId, NSXTALBProtocolParserType AlbprotocolParser)
         {
             if (AlbProtocolparserId == null) { throw new System.ArgumentNullException("AlbProtocolparserId cannot be null"); }
             if (AlbprotocolParser == null) { throw new System.ArgumentNullException("AlbprotocolParser cannot be null"); }
@@ -6127,7 +4838,7 @@ namespace nsxtapi.PolicyModules
             PatchAlbprotocolParserServiceURL.Replace("{alb-protocolparser-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbProtocolparserId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(AlbprotocolParser, defaultSerializationSettings));
             request.Resource = PatchAlbprotocolParserServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchAlbprotocolParserServiceURL.ToString() + " did not complete successfull";
@@ -6139,7 +4850,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBProtocolParserType ReadAlbprotocolParser(string AlbProtocolparserId)
+        public async Task<NSXTALBProtocolParserType> ReadAlbprotocolParser(string AlbProtocolparserId)
         {
             if (AlbProtocolparserId == null) { throw new System.ArgumentNullException("AlbProtocolparserId cannot be null"); }
             NSXTALBProtocolParserType returnValue = default(NSXTALBProtocolParserType);
@@ -6152,31 +4863,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ReadAlbprotocolParserServiceURL.Replace("{alb-protocolparser-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbProtocolparserId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadAlbprotocolParserServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBProtocolParserType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBProtocolParserType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadAlbprotocolParserServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBProtocolParserType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBProtocolParserType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteAlbprotocolParser(string AlbProtocolparserId, bool? Force = null)
+        public async Task DeleteAlbprotocolParser(string AlbProtocolparserId, bool? Force = null)
         {
             if (AlbProtocolparserId == null) { throw new System.ArgumentNullException("AlbProtocolparserId cannot be null"); }
             
@@ -6190,7 +4889,7 @@ namespace nsxtapi.PolicyModules
             DeleteAlbprotocolParserServiceURL.Replace("{alb-protocolparser-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AlbProtocolparserId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
             request.Resource = DeleteAlbprotocolParserServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteAlbprotocolParserServiceURL.ToString() + " did not complete successfull";
@@ -6202,7 +4901,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBAutoScaleLaunchConfigApiResponseType ListAlbautoScaleLaunchConfig(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTALBAutoScaleLaunchConfigApiResponseType> ListAlbautoScaleLaunchConfig(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTALBAutoScaleLaunchConfigApiResponseType returnValue = default(NSXTALBAutoScaleLaunchConfigApiResponseType);
             StringBuilder ListAlbautoScaleLaunchConfigServiceURL = new StringBuilder("/infra/alb-auto-scale-launch-configs");
@@ -6219,31 +4918,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListAlbautoScaleLaunchConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBAutoScaleLaunchConfigApiResponseType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBAutoScaleLaunchConfigApiResponseType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListAlbautoScaleLaunchConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBAutoScaleLaunchConfigApiResponseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBAutoScaleLaunchConfigApiResponseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBWafProfileApiResponseType ListAlbwafProfile(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTALBWafProfileApiResponseType> ListAlbwafProfile(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTALBWafProfileApiResponseType returnValue = default(NSXTALBWafProfileApiResponseType);
             StringBuilder ListAlbwafProfileServiceURL = new StringBuilder("/infra/alb-waf-profiles");
@@ -6260,25 +4947,13 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListAlbwafProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBWafProfileApiResponseType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBWafProfileApiResponseType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListAlbwafProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBWafProfileApiResponseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBWafProfileApiResponseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

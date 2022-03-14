@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -20,15 +20,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Identity Firewall master switch setting.  This setting enables or disablesIdentity Firewall feature across the system.  It affects compute collections,hypervisor and virtual machines.  This operation is expensive and also has bigimpact and implication on system perforamce.")]
     public class NSXTIdfwMasterSwitchSettingType 
     {
-        public NSXTIdfwMasterSwitchSettingType()
-        {
-        }
         /// <summary>
         /// IDFW master switch (true=Enabled / false=Disabled).
         /// </summary>
         [JsonProperty(PropertyName = "idfw_master_switch_enabled", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"IDFW master switch (true=Enabled / false=Disabled).")]
-        [System.ComponentModel.DataAnnotations.Required]
         public bool IdfwMasterSwitchEnabled { get; set; }
     }
 }

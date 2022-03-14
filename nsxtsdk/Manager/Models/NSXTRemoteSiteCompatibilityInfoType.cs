@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,26 +17,17 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTRemoteSiteCompatibilityInfoType 
     {
-        public NSXTRemoteSiteCompatibilityInfoType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "remote_site")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTSiteCompatibilityInfoType RemoteSite { get; set; }
         /// <summary>
         /// are the 2 sites compatible
         /// </summary>
-        [JsonProperty(PropertyName = "is_compatible")]
-        [NSXTProperty(IsRequired: false, Description: @"are the 2 sites compatible")]
         public bool? IsCompatible { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "local_site")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTSiteCompatibilityInfoType LocalSite { get; set; }
     }
 }

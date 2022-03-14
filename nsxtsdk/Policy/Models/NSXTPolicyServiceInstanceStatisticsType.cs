@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,27 +17,18 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyServiceInstanceStatisticsType : NSXTResourceType
     {
-        public NSXTPolicyServiceInstanceStatisticsType()
-        {
-        }
         /// <summary>
         /// PolicyServiceInsatnce path
         /// </summary>
-        [JsonProperty(PropertyName = "service_instance_id")]
-        [NSXTProperty(IsRequired: false, Description: @"PolicyServiceInsatnce path")]
         public string? ServiceInstanceId { get; set; }
         /// <summary>
         /// Statistics for the data NICs for all the runtimes associated
         /// with this service instance.
         /// </summary>
-        [JsonProperty(PropertyName = "instance_runtime_statistics")]
-        [NSXTProperty(IsRequired: false, Description: @"Statistics for the data NICs for all the runtimes associatedwith this service instance.")]
         public IList<NSXTInstanceRuntimeStatisticType> InstanceRuntimeStatistics { get; set; }
         /// <summary>
         /// Enforcement point path, forward slashes must be escaped using %2F.
         /// </summary>
-        [JsonProperty(PropertyName = "enforcement_point_path")]
-        [NSXTProperty(IsRequired: false, Description: @"Enforcement point path, forward slashes must be escaped using %2F.")]
         public string? EnforcementPointPath { get; set; }
     }
 }

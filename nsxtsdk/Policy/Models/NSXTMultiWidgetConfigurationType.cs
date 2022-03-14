@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,21 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTMultiWidgetConfigurationType : NSXTWidgetConfigurationType
     {
-        public NSXTMultiWidgetConfigurationType()
-        {
-        }
         /// <summary>
         /// Array of widgets that are part of the multi-widget.
         /// </summary>
         [JsonProperty(PropertyName = "widgets", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Array of widgets that are part of the multi-widget.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTWidgetItemType> Widgets { get; set; }
         /// <summary>
         /// Hyperlink of the specified UI page that provides details.
         /// </summary>
-        [JsonProperty(PropertyName = "navigation")]
-        [NSXTProperty(IsRequired: false, Description: @"Hyperlink of the specified UI page that provides details.")]
         public string? Navigation { get; set; }
     }
 }

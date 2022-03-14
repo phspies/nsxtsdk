@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,32 +17,21 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTAntreaClusterInfoType : NSXTPolicyConfigResourceType
     {
-        public NSXTAntreaClusterInfoType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "agent_info")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTAntreaAgentsInfoType AgentInfo { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "mp_adapter_status")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTAntreaAdapterStatusType MpAdapterStatus { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "controller_status")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTAntreaControllerStatusType ControllerStatus { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "ccp_adapter_status")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTAntreaAdapterStatusType CcpAdapterStatus { get; set; }
     }
 }

@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public TransportZone(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public TransportZone(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTransportZoneType UpdateTransportZone(string ZoneId, NSXTTransportZoneType TransportZone)
+        public async Task<NSXTTransportZoneType> UpdateTransportZone(string ZoneId, NSXTTransportZoneType TransportZone)
         {
             if (ZoneId == null) { throw new System.ArgumentNullException("ZoneId cannot be null"); }
             if (TransportZone == null) { throw new System.ArgumentNullException("TransportZone cannot be null"); }
@@ -45,31 +52,19 @@ namespace nsxtapi.ManagerModules
             UpdateTransportZoneServiceURL.Replace("{zone-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ZoneId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(TransportZone, defaultSerializationSettings));
             request.Resource = UpdateTransportZoneServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTransportZoneType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTransportZoneType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateTransportZoneServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTransportZoneType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTransportZoneType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTransportZoneType GetTransportZone(string ZoneId)
+        public async Task<NSXTTransportZoneType> GetTransportZone(string ZoneId)
         {
             if (ZoneId == null) { throw new System.ArgumentNullException("ZoneId cannot be null"); }
             NSXTTransportZoneType returnValue = default(NSXTTransportZoneType);
@@ -82,31 +77,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             GetTransportZoneServiceURL.Replace("{zone-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ZoneId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetTransportZoneServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTransportZoneType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTransportZoneType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetTransportZoneServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTransportZoneType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTransportZoneType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteTransportZone(string ZoneId)
+        public async Task DeleteTransportZone(string ZoneId)
         {
             if (ZoneId == null) { throw new System.ArgumentNullException("ZoneId cannot be null"); }
             
@@ -119,7 +102,7 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             DeleteTransportZoneServiceURL.Replace("{zone-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ZoneId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteTransportZoneServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteTransportZoneServiceURL.ToString() + " did not complete successfull";
@@ -131,7 +114,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTransportZoneStatusType GetTransportZoneStatus(string ZoneId)
+        public async Task<NSXTTransportZoneStatusType> GetTransportZoneStatus(string ZoneId)
         {
             if (ZoneId == null) { throw new System.ArgumentNullException("ZoneId cannot be null"); }
             NSXTTransportZoneStatusType returnValue = default(NSXTTransportZoneStatusType);
@@ -144,31 +127,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             GetTransportZoneStatusServiceURL.Replace("{zone-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ZoneId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetTransportZoneStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTransportZoneStatusType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTransportZoneStatusType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetTransportZoneStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTransportZoneStatusType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTransportZoneStatusType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTransportZoneType CreateTransportZone(NSXTTransportZoneType TransportZone)
+        public async Task<NSXTTransportZoneType> CreateTransportZone(NSXTTransportZoneType TransportZone)
         {
             if (TransportZone == null) { throw new System.ArgumentNullException("TransportZone cannot be null"); }
             NSXTTransportZoneType returnValue = default(NSXTTransportZoneType);
@@ -181,31 +152,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(TransportZone, defaultSerializationSettings));
             request.Resource = CreateTransportZoneServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTransportZoneType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTransportZoneType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CreateTransportZoneServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTransportZoneType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTransportZoneType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTransportZoneListResultType ListTransportZones(string? Cursor = null, string? DisplayName = null, bool? IncludeSystemOwned = null, string? IncludedFields = null, bool? IsDefault = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? TransportType = null, string? UplinkTeamingPolicyName = null)
+        public async Task<NSXTTransportZoneListResultType> ListTransportZones(string? Cursor = null, string? DisplayName = null, bool? IncludeSystemOwned = null, string? IncludedFields = null, bool? IsDefault = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? TransportType = null, string? UplinkTeamingPolicyName = null)
         {
             NSXTTransportZoneListResultType returnValue = default(NSXTTransportZoneListResultType);
             StringBuilder ListTransportZonesServiceURL = new StringBuilder("/transport-zones");
@@ -226,25 +185,13 @@ namespace nsxtapi.ManagerModules
             if (TransportType != null) { request.AddQueryParameter("transport_type", TransportType.ToString()); }
             if (UplinkTeamingPolicyName != null) { request.AddQueryParameter("uplink_teaming_policy_name", UplinkTeamingPolicyName.ToString()); }
             request.Resource = ListTransportZonesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTransportZoneListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTransportZoneListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListTransportZonesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTransportZoneListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTransportZoneListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

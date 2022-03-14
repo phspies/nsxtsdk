@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNodeNameServersPropertiesType : NSXTResourceType
     {
-        public NSXTNodeNameServersPropertiesType()
-        {
-        }
         /// <summary>
         /// Name servers
         /// </summary>
         [JsonProperty(PropertyName = "name_servers", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Name servers")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<string> NameServers { get; set; }
     }
 }

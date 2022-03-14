@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public Nxgi(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public Nxgi(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSolutionConfigType UpdateSolutionConfig(string ServiceId, string SolutionConfigId, NSXTSolutionConfigType SolutionConfig)
+        public async Task<NSXTSolutionConfigType> UpdateSolutionConfig(string ServiceId, string SolutionConfigId, NSXTSolutionConfigType SolutionConfig)
         {
             if (ServiceId == null) { throw new System.ArgumentNullException("ServiceId cannot be null"); }
             if (SolutionConfigId == null) { throw new System.ArgumentNullException("SolutionConfigId cannot be null"); }
@@ -47,31 +54,19 @@ namespace nsxtapi.ManagerModules
             UpdateSolutionConfigServiceURL.Replace("{solution-config-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SolutionConfigId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(SolutionConfig, defaultSerializationSettings));
             request.Resource = UpdateSolutionConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTSolutionConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTSolutionConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateSolutionConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSolutionConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSolutionConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSolutionConfigType GetSolutionConfig(string ServiceId, string SolutionConfigId)
+        public async Task<NSXTSolutionConfigType> GetSolutionConfig(string ServiceId, string SolutionConfigId)
         {
             if (ServiceId == null) { throw new System.ArgumentNullException("ServiceId cannot be null"); }
             if (SolutionConfigId == null) { throw new System.ArgumentNullException("SolutionConfigId cannot be null"); }
@@ -86,31 +81,19 @@ namespace nsxtapi.ManagerModules
             GetSolutionConfigServiceURL.Replace("{service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServiceId, System.Globalization.CultureInfo.InvariantCulture)));
             GetSolutionConfigServiceURL.Replace("{solution-config-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SolutionConfigId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetSolutionConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTSolutionConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTSolutionConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetSolutionConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSolutionConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSolutionConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteSolutionConfig(string ServiceId, string SolutionConfigId)
+        public async Task DeleteSolutionConfig(string ServiceId, string SolutionConfigId)
         {
             if (ServiceId == null) { throw new System.ArgumentNullException("ServiceId cannot be null"); }
             if (SolutionConfigId == null) { throw new System.ArgumentNullException("SolutionConfigId cannot be null"); }
@@ -125,7 +108,7 @@ namespace nsxtapi.ManagerModules
             DeleteSolutionConfigServiceURL.Replace("{service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServiceId, System.Globalization.CultureInfo.InvariantCulture)));
             DeleteSolutionConfigServiceURL.Replace("{solution-config-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SolutionConfigId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteSolutionConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteSolutionConfigServiceURL.ToString() + " did not complete successfull";
@@ -137,7 +120,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSolutionConfigType CreateSolutionConfig(string ServiceId, NSXTSolutionConfigType SolutionConfig)
+        public async Task<NSXTSolutionConfigType> CreateSolutionConfig(string ServiceId, NSXTSolutionConfigType SolutionConfig)
         {
             if (ServiceId == null) { throw new System.ArgumentNullException("ServiceId cannot be null"); }
             if (SolutionConfig == null) { throw new System.ArgumentNullException("SolutionConfig cannot be null"); }
@@ -152,31 +135,19 @@ namespace nsxtapi.ManagerModules
             CreateSolutionConfigServiceURL.Replace("{service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServiceId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(SolutionConfig, defaultSerializationSettings));
             request.Resource = CreateSolutionConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTSolutionConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTSolutionConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CreateSolutionConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSolutionConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSolutionConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSolutionConfigListResultType ListSolutionConfigs(string ServiceId)
+        public async Task<NSXTSolutionConfigListResultType> ListSolutionConfigs(string ServiceId)
         {
             if (ServiceId == null) { throw new System.ArgumentNullException("ServiceId cannot be null"); }
             NSXTSolutionConfigListResultType returnValue = default(NSXTSolutionConfigListResultType);
@@ -189,31 +160,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             ListSolutionConfigsServiceURL.Replace("{service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServiceId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ListSolutionConfigsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTSolutionConfigListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTSolutionConfigListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListSolutionConfigsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSolutionConfigListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSolutionConfigListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTExtendedSolutionConfigType UpdateExtendedSolutionConfig(string ServiceId, string SolutionConfigId, NSXTExtendedSolutionConfigType ExtendedSolutionConfig)
+        public async Task<NSXTExtendedSolutionConfigType> UpdateExtendedSolutionConfig(string ServiceId, string SolutionConfigId, NSXTExtendedSolutionConfigType ExtendedSolutionConfig)
         {
             if (ServiceId == null) { throw new System.ArgumentNullException("ServiceId cannot be null"); }
             if (SolutionConfigId == null) { throw new System.ArgumentNullException("SolutionConfigId cannot be null"); }
@@ -230,31 +189,19 @@ namespace nsxtapi.ManagerModules
             UpdateExtendedSolutionConfigServiceURL.Replace("{solution-config-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SolutionConfigId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(ExtendedSolutionConfig, defaultSerializationSettings));
             request.Resource = UpdateExtendedSolutionConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTExtendedSolutionConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTExtendedSolutionConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateExtendedSolutionConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTExtendedSolutionConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTExtendedSolutionConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTExtendedSolutionConfigType CreateExtendedSolutionConfig(string ServiceId, string SolutionConfigId, NSXTExtendedSolutionConfigType ExtendedSolutionConfig)
+        public async Task<NSXTExtendedSolutionConfigType> CreateExtendedSolutionConfig(string ServiceId, string SolutionConfigId, NSXTExtendedSolutionConfigType ExtendedSolutionConfig)
         {
             if (ServiceId == null) { throw new System.ArgumentNullException("ServiceId cannot be null"); }
             if (SolutionConfigId == null) { throw new System.ArgumentNullException("SolutionConfigId cannot be null"); }
@@ -271,31 +218,19 @@ namespace nsxtapi.ManagerModules
             CreateExtendedSolutionConfigServiceURL.Replace("{solution-config-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SolutionConfigId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(ExtendedSolutionConfig, defaultSerializationSettings));
             request.Resource = CreateExtendedSolutionConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTExtendedSolutionConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTExtendedSolutionConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CreateExtendedSolutionConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTExtendedSolutionConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTExtendedSolutionConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTExtendedSolutionConfigType GetExtendedSolutionConfig(string ServiceId, string SolutionConfigId)
+        public async Task<NSXTExtendedSolutionConfigType> GetExtendedSolutionConfig(string ServiceId, string SolutionConfigId)
         {
             if (ServiceId == null) { throw new System.ArgumentNullException("ServiceId cannot be null"); }
             if (SolutionConfigId == null) { throw new System.ArgumentNullException("SolutionConfigId cannot be null"); }
@@ -310,31 +245,19 @@ namespace nsxtapi.ManagerModules
             GetExtendedSolutionConfigServiceURL.Replace("{service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServiceId, System.Globalization.CultureInfo.InvariantCulture)));
             GetExtendedSolutionConfigServiceURL.Replace("{solution-config-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SolutionConfigId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetExtendedSolutionConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTExtendedSolutionConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTExtendedSolutionConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetExtendedSolutionConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTExtendedSolutionConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTExtendedSolutionConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteExtendedSolutionConfig(string ServiceId, string SolutionConfigId)
+        public async Task DeleteExtendedSolutionConfig(string ServiceId, string SolutionConfigId)
         {
             if (ServiceId == null) { throw new System.ArgumentNullException("ServiceId cannot be null"); }
             if (SolutionConfigId == null) { throw new System.ArgumentNullException("SolutionConfigId cannot be null"); }
@@ -349,7 +272,7 @@ namespace nsxtapi.ManagerModules
             DeleteExtendedSolutionConfigServiceURL.Replace("{service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServiceId, System.Globalization.CultureInfo.InvariantCulture)));
             DeleteExtendedSolutionConfigServiceURL.Replace("{solution-config-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SolutionConfigId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteExtendedSolutionConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteExtendedSolutionConfigServiceURL.ToString() + " did not complete successfull";

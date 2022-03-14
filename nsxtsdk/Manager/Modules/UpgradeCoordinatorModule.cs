@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public UpgradeCoordinatorModule(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public UpgradeCoordinatorModule(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void TriggerRepositoryDrivenUcUpgrade(NSXTTriggerUcUpgradeParametersType TriggerUcUpgradeParameters)
+        public async Task TriggerRepositoryDrivenUcUpgrade(NSXTTriggerUcUpgradeParametersType TriggerUcUpgradeParameters)
         {
             if (TriggerUcUpgradeParameters == null) { throw new System.ArgumentNullException("TriggerUcUpgradeParameters cannot be null"); }
             
@@ -43,7 +50,7 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(TriggerUcUpgradeParameters, defaultSerializationSettings));
             request.Resource = TriggerRepositoryDrivenUcUpgradeServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + TriggerRepositoryDrivenUcUpgradeServiceURL.ToString() + " did not complete successfull";

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,38 +17,25 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Describes plugin status on node")]
     public class NSXTPluginStatusType 
     {
-        public NSXTPluginStatusType()
-        {
-        }
         /// <summary>
         /// Plugin status.
         /// </summary>
-        [JsonProperty(PropertyName = "status")]
-        [NSXTProperty(IsRequired: false, Description: @"Plugin status.")]
         public NSXTPluginStatusStatusEnumType? Status { get; set; }
         /// <summary>
         /// Display the plugin profile content.
         /// </summary>
-        [JsonProperty(PropertyName = "profile")]
-        [NSXTProperty(IsRequired: false, Description: @"Display the plugin profile content.")]
         public string? Profile { get; set; }
         /// <summary>
         /// Detail information of plugin.
         /// </summary>
-        [JsonProperty(PropertyName = "detail")]
-        [NSXTProperty(IsRequired: false, Description: @"Detail information of plugin.")]
         public string? Detail { get; set; }
         /// <summary>
         /// Plugin id.
         /// </summary>
-        [JsonProperty(PropertyName = "id")]
-        [NSXTProperty(IsRequired: false, Description: @"Plugin id.")]
         public string? Id { get; set; }
         /// <summary>
         /// Plugin name.
         /// </summary>
-        [JsonProperty(PropertyName = "name")]
-        [NSXTProperty(IsRequired: false, Description: @"Plugin name.")]
         public string? Name { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,21 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"IP Tunnel port configuration.")]
     public class NSXTTunnelPortConfigType 
     {
-        public NSXTTunnelPortConfigType()
-        {
-        }
         /// <summary>
         /// IP Tunnel port  (commonly referred as VTI) subnet.
         /// </summary>
         [JsonProperty(PropertyName = "ip_subnets", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"IP Tunnel port  (commonly referred as VTI) subnet.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTIPSubnetType> IpSubnets { get; set; }
         /// <summary>
         /// Logical route port identifier.
         /// </summary>
-        [JsonProperty(PropertyName = "tunnel_port_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Logical route port identifier.")]
         public string? TunnelPortId { get; set; }
     }
 }

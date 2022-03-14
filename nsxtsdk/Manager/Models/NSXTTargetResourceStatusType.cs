@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,21 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Holds status of target resource in firewall context.")]
     public class NSXTTargetResourceStatusType 
     {
-        public NSXTTargetResourceStatusType()
-        {
-        }
         /// <summary>
         /// Firewall status on a target logical resource.
         /// </summary>
         [JsonProperty(PropertyName = "target_status", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Firewall status on a target logical resource.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTTargetResourceStatusTargetStatusEnumType TargetStatus { get; set; }
         /// <summary>
         /// Identifier of the NSX resource.
         /// </summary>
-        [JsonProperty(PropertyName = "target_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Identifier of the NSX resource.")]
         public string? TargetId { get; set; }
     }
 }

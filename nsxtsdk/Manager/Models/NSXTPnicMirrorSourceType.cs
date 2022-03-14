@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,29 +17,20 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTPnicMirrorSourceType : NSXTMirrorSourceType
     {
-        public NSXTPnicMirrorSourceType()
-        {
-        }
         /// <summary>
         /// Transport node identifier for the pnic located.
         /// </summary>
         [JsonProperty(PropertyName = "node_id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Transport node identifier for the pnic located.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string NodeId { get; set; }
         /// <summary>
         /// Whether to filter encapsulated packet.
         /// </summary>
         [JsonProperty(PropertyName = "encapsulated", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Whether to filter encapsulated packet.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public bool Encapsulated { get; set; }
         /// <summary>
         /// Source physical NIC device names
         /// </summary>
         [JsonProperty(PropertyName = "source_pnics", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Source physical NIC device names")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<string> SourcePnics { get; set; }
     }
 }

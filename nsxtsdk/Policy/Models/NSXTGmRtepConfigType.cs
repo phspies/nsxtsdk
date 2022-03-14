@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -18,17 +18,12 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Global Manager federation RTEP configuration. This configuration is distributedto all Sites participating in federation.")]
     public class NSXTGmRtepConfigType 
     {
-        public NSXTGmRtepConfigType()
-        {
-        }
         /// <summary>
         /// Password to authenticate IBGP session between remote tunnel endpoints
         /// created on federated sites. This is applied to inter-site underlay
         /// IBGP neighbors created over remote tunnel endpoints on all sites.
         /// Empty string ("") clears existing password.
         /// </summary>
-        [JsonProperty(PropertyName = "ibgp_password")]
-        [NSXTProperty(IsRequired: false, Description: @"Password to authenticate IBGP session between remote tunnel endpointscreated on federated sites. This is applied to inter-site underlayIBGP neighbors created over remote tunnel endpoints on all sites.Empty string (&quot;&quot;) clears existing password.")]
         public string? IbgpPassword { get; set; }
     }
 }

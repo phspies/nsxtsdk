@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,45 +17,30 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTDropdownFilterWidgetConfigurationType : NSXTFilterWidgetConfigurationType
     {
-        public NSXTDropdownFilterWidgetConfigurationType()
-        {
-        }
         /// <summary>
         /// Expression to specify default value of filter.
         /// </summary>
-        [JsonProperty(PropertyName = "default_value")]
-        [NSXTProperty(IsRequired: false, Description: @"Expression to specify default value of filter.")]
         public string? DefaultValue { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "dropdown_filter_plot_config")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTDropdownFilterPlotConfigurationType DropdownFilterPlotConfig { get; set; }
         /// <summary>
         /// Placeholder message to be displayed in dropdown filter.
         /// </summary>
-        [JsonProperty(PropertyName = "placeholder_msg")]
-        [NSXTProperty(IsRequired: false, Description: @"Placeholder message to be displayed in dropdown filter.")]
         public string? PlaceholderMsg { get; set; }
         /// <summary>
         /// Additional static items to be added in dropdown filter. Example can be 'ALL'.
         /// </summary>
-        [JsonProperty(PropertyName = "static_filters")]
-        [NSXTProperty(IsRequired: false, Description: @"Additional static items to be added in dropdown filter. Example can be &apos;ALL&apos;.")]
         public IList<NSXTStaticFilterType> StaticFilters { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "dropdown_item")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTDropdownItemType DropdownItem { get; set; }
         /// <summary>
         /// If the condition is met then the static filter will be added. If no condition is provided, then the static filters will
         /// be applied unconditionally.
         /// </summary>
-        [JsonProperty(PropertyName = "static_filter_condition")]
-        [NSXTProperty(IsRequired: false, Description: @"If the condition is met then the static filter will be added. If no condition is provided, then the static filters will be applied unconditionally.")]
         public string? StaticFilterCondition { get; set; }
     }
 }

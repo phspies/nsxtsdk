@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,56 +17,37 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Session statistics gives aggregated statistics of all policies for all the tunnels.")]
     public class NSXTIPSecVPNSessionStatisticsType 
     {
-        public NSXTIPSecVPNSessionStatisticsType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "ike_traffic_statistics")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTIPSecVPNIKETrafficStatisticsType IkeTrafficStatistics { get; set; }
         /// <summary>
         /// Display name of vpn session.
         /// </summary>
-        [JsonProperty(PropertyName = "display_name")]
-        [NSXTProperty(IsRequired: false, Description: @"Display name of vpn session.")]
         public string? DisplayName { get; set; }
         /// <summary>
         /// Gives aggregate traffic statistics across all ipsec tunnels and individual tunnel statistics.
         /// </summary>
-        [JsonProperty(PropertyName = "policy_statistics")]
-        [NSXTProperty(IsRequired: false, Description: @"Gives aggregate traffic statistics across all ipsec tunnels and individual tunnel statistics.")]
         public IList<NSXTIPSecVPNPolicyTrafficStatisticsType> PolicyStatistics { get; set; }
         /// <summary>
         /// Partial statistics if true specifies that the statistics are only from active node.
         /// </summary>
-        [JsonProperty(PropertyName = "partial_stats")]
-        [NSXTProperty(IsRequired: false, Description: @"Partial statistics if true specifies that the statistics are only from active node.")]
         public bool? PartialStats { get; set; }
         /// <summary>
         /// UUID of vpn session.
         /// </summary>
-        [JsonProperty(PropertyName = "ipsec_vpn_session_id")]
-        [NSXTProperty(IsRequired: false, Description: @"UUID of vpn session.")]
         public string? IpsecVpnSessionId { get; set; }
         /// <summary>
         /// Timestamp when the data was last updated.
         /// </summary>
-        [JsonProperty(PropertyName = "last_update_timestamp")]
-        [NSXTProperty(IsRequired: false, Description: @"Timestamp when the data was last updated.")]
         public long? LastUpdateTimestamp { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "ike_status")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTIPSecVPNIKESessionStatusType IkeStatus { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "aggregate_traffic_counters")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTIPSecVPNTrafficCountersType AggregateTrafficCounters { get; set; }
     }
 }

@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public NvdsUpgradeReadinessCheck(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public NvdsUpgradeReadinessCheck(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNvdsUpgradePrecheckIdType CreateNvdsUpgradePrecheck()
+        public async Task<NSXTNvdsUpgradePrecheckIdType> CreateNvdsUpgradePrecheck()
         {
             NSXTNvdsUpgradePrecheckIdType returnValue = default(NSXTNvdsUpgradePrecheckIdType);
             StringBuilder CreateNvdsUpgradePrecheckServiceURL = new StringBuilder("/nvds-urt/precheck");
@@ -41,31 +48,19 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = CreateNvdsUpgradePrecheckServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNvdsUpgradePrecheckIdType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNvdsUpgradePrecheckIdType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CreateNvdsUpgradePrecheckServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNvdsUpgradePrecheckIdType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNvdsUpgradePrecheckIdType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNvdsUpgradePrecheckIdType GetNvdsUpgradePrecheckId()
+        public async Task<NSXTNvdsUpgradePrecheckIdType> GetNvdsUpgradePrecheckId()
         {
             NSXTNvdsUpgradePrecheckIdType returnValue = default(NSXTNvdsUpgradePrecheckIdType);
             StringBuilder GetNvdsUpgradePrecheckIdServiceURL = new StringBuilder("/nvds-urt/precheck");
@@ -76,31 +71,19 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = GetNvdsUpgradePrecheckIdServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNvdsUpgradePrecheckIdType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNvdsUpgradePrecheckIdType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetNvdsUpgradePrecheckIdServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNvdsUpgradePrecheckIdType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNvdsUpgradePrecheckIdType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void IgnoreMigrateStatus()
+        public async Task IgnoreMigrateStatus()
         {
             
             StringBuilder IgnoreMigrateStatusServiceURL = new StringBuilder("/nvds-urt?action=ignore_migrate_status");
@@ -111,7 +94,7 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = IgnoreMigrateStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + IgnoreMigrateStatusServiceURL.ToString() + " did not complete successfull";
@@ -123,7 +106,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNvdsUpgradePrecheckIdType CreateNvdsUpgradePrecheckByClusters(NSXTPrecheckParametersType PrecheckParameters)
+        public async Task<NSXTNvdsUpgradePrecheckIdType> CreateNvdsUpgradePrecheckByClusters(NSXTPrecheckParametersType PrecheckParameters)
         {
             if (PrecheckParameters == null) { throw new System.ArgumentNullException("PrecheckParameters cannot be null"); }
             NSXTNvdsUpgradePrecheckIdType returnValue = default(NSXTNvdsUpgradePrecheckIdType);
@@ -136,31 +119,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(PrecheckParameters, defaultSerializationSettings));
             request.Resource = CreateNvdsUpgradePrecheckByClustersServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNvdsUpgradePrecheckIdType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNvdsUpgradePrecheckIdType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CreateNvdsUpgradePrecheckByClustersServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNvdsUpgradePrecheckIdType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNvdsUpgradePrecheckIdType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNvdsUpgradeStatusSummaryType GetNvdsUpgradeReadinessCheckSummary(string PrecheckId, string? ClusterId = null)
+        public async Task<NSXTNvdsUpgradeStatusSummaryType> GetNvdsUpgradeReadinessCheckSummary(string PrecheckId, string? ClusterId = null)
         {
             if (PrecheckId == null) { throw new System.ArgumentNullException("PrecheckId cannot be null"); }
             NSXTNvdsUpgradeStatusSummaryType returnValue = default(NSXTNvdsUpgradeStatusSummaryType);
@@ -174,31 +145,19 @@ namespace nsxtapi.ManagerModules
             GetNvdsUpgradeReadinessCheckSummaryServiceURL.Replace("{precheck-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PrecheckId, System.Globalization.CultureInfo.InvariantCulture)));
             if (ClusterId != null) { request.AddQueryParameter("cluster_id", ClusterId.ToString()); }
             request.Resource = GetNvdsUpgradeReadinessCheckSummaryServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNvdsUpgradeStatusSummaryType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNvdsUpgradeStatusSummaryType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetNvdsUpgradeReadinessCheckSummaryServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNvdsUpgradeStatusSummaryType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNvdsUpgradeStatusSummaryType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void NvdsUpgradeCleanup()
+        public async Task NvdsUpgradeCleanup()
         {
             
             StringBuilder NvdsUpgradeCleanupServiceURL = new StringBuilder("/nvds-urt?action=cleanup");
@@ -209,7 +168,7 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = NvdsUpgradeCleanupServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + NvdsUpgradeCleanupServiceURL.ToString() + " did not complete successfull";
@@ -221,7 +180,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTUpgradeTopologyType SetTargetVdsTopology(NSXTUpgradeTopologyType UpgradeTopology, string? ClusterId = null, bool? UseRecommendedTopologyConfig = null)
+        public async Task<NSXTUpgradeTopologyType> SetTargetVdsTopology(NSXTUpgradeTopologyType UpgradeTopology, string? ClusterId = null, bool? UseRecommendedTopologyConfig = null)
         {
             if (UpgradeTopology == null) { throw new System.ArgumentNullException("UpgradeTopology cannot be null"); }
             NSXTUpgradeTopologyType returnValue = default(NSXTUpgradeTopologyType);
@@ -236,31 +195,19 @@ namespace nsxtapi.ManagerModules
             if (ClusterId != null) { request.AddQueryParameter("cluster_id", ClusterId.ToString()); }
             if (UseRecommendedTopologyConfig != null) { request.AddQueryParameter("use_recommended_topology_config", UseRecommendedTopologyConfig.ToString()); }
             request.Resource = SetTargetVdsTopologyServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTUpgradeTopologyType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTUpgradeTopologyType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + SetTargetVdsTopologyServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTUpgradeTopologyType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTUpgradeTopologyType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTUpgradeTopologyType GetRecommendedVdsTopology(string PrecheckId, string? ClusterId = null, string? ComputeManagerId = null, bool? ShowVdsConfig = null)
+        public async Task<NSXTUpgradeTopologyType> GetRecommendedVdsTopology(string PrecheckId, string? ClusterId = null, string? ComputeManagerId = null, bool? ShowVdsConfig = null)
         {
             if (PrecheckId == null) { throw new System.ArgumentNullException("PrecheckId cannot be null"); }
             NSXTUpgradeTopologyType returnValue = default(NSXTUpgradeTopologyType);
@@ -276,25 +223,13 @@ namespace nsxtapi.ManagerModules
             if (ComputeManagerId != null) { request.AddQueryParameter("compute_manager_id", ComputeManagerId.ToString()); }
             if (ShowVdsConfig != null) { request.AddQueryParameter("show_vds_config", ShowVdsConfig.ToString()); }
             request.Resource = GetRecommendedVdsTopologyServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTUpgradeTopologyType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTUpgradeTopologyType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetRecommendedVdsTopologyServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTUpgradeTopologyType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTUpgradeTopologyType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,32 +17,21 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"CPU usage of DPDK and non-DPDK cores")]
     public class NSXTCpuUsageType 
     {
-        public NSXTCpuUsageType()
-        {
-        }
         /// <summary>
         /// Indicates the average usage of all DPDK cores in percentage.
         /// </summary>
-        [JsonProperty(PropertyName = "avg_cpu_core_usage_dpdk")]
-        [NSXTProperty(IsRequired: false, Description: @"Indicates the average usage of all DPDK cores in percentage.")]
         public double? AvgCpuCoreUsageDpdk { get; set; }
         /// <summary>
         /// Indicates the highest cpu utilization value among non_dpdk cores in percentage.
         /// </summary>
-        [JsonProperty(PropertyName = "highest_cpu_core_usage_non_dpdk")]
-        [NSXTProperty(IsRequired: false, Description: @"Indicates the highest cpu utilization value among non_dpdk cores in percentage.")]
         public double? HighestCpuCoreUsageNonDpdk { get; set; }
         /// <summary>
         /// Indicates the average usage of all non-DPDK cores in percentage.
         /// </summary>
-        [JsonProperty(PropertyName = "avg_cpu_core_usage_non_dpdk")]
-        [NSXTProperty(IsRequired: false, Description: @"Indicates the average usage of all non-DPDK cores in percentage.")]
         public double? AvgCpuCoreUsageNonDpdk { get; set; }
         /// <summary>
         /// Indicates the highest CPU utilization value among DPDK cores in percentage.
         /// </summary>
-        [JsonProperty(PropertyName = "highest_cpu_core_usage_dpdk")]
-        [NSXTProperty(IsRequired: false, Description: @"Indicates the highest CPU utilization value among DPDK cores in percentage.")]
         public double? HighestCpuCoreUsageDpdk { get; set; }
     }
 }

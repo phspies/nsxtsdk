@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTDSSectionStateType : NSXTConfigurationStateType
     {
-        public NSXTDSSectionStateType()
-        {
-        }
         /// <summary>
         /// This attribute represents revision number of section's desired state.
         /// </summary>
-        [JsonProperty(PropertyName = "revision_desired")]
-        [NSXTProperty(IsRequired: false, Description: @"This attribute represents revision number of section&apos;s desired state.")]
         public long? RevisionDesired { get; set; }
     }
 }

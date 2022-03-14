@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -20,35 +20,21 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIPSecVpnSessionType : NSXTPolicyConfigResourceType
     {
-        public NSXTIPSecVpnSessionType()
-        {
-            Enabled = test
-            ConnectionInitiationMode = test
-            AuthenticationMode = test
-        }
         /// <summary>
         /// IPSec Pre-shared key. Maximum length of this field is 128 characters.
         /// </summary>
-        [JsonProperty(PropertyName = "psk")]
-        [NSXTProperty(IsRequired: false, Description: @"IPSec Pre-shared key. Maximum length of this field is 128 characters.")]
         public string? Psk { get; set; }
         /// <summary>
         /// Policy path referencing Dead Peer Detection (DPD) profile. Default is set to system default profile.
         /// </summary>
-        [JsonProperty(PropertyName = "dpd_profile_path")]
-        [NSXTProperty(IsRequired: false, Description: @"Policy path referencing Dead Peer Detection (DPD) profile. Default is set to system default profile.")]
         public string? DpdProfilePath { get; set; }
         /// <summary>
         /// Policy path referencing IKE profile to be used. Default is set according to system default profile.
         /// </summary>
-        [JsonProperty(PropertyName = "ike_profile_path")]
-        [NSXTProperty(IsRequired: false, Description: @"Policy path referencing IKE profile to be used. Default is set according to system default profile.")]
         public string? IkeProfilePath { get; set; }
         /// <summary>
         /// Enable/Disable IPSec VPN session.
         /// </summary>
-        [JsonProperty(PropertyName = "enabled")]
-        [NSXTProperty(IsRequired: false, Description: @"Enable/Disable IPSec VPN session.")]
         public bool? Enabled { get; set; }
         /// <summary>
         /// Connection initiation mode used by local endpoint to
@@ -64,39 +50,27 @@ namespace nsxtsdk.PolicyModels
         /// rule is received and will also respond to incoming
         /// initiation request.
         /// </summary>
-        [JsonProperty(PropertyName = "connection_initiation_mode")]
-        [NSXTProperty(IsRequired: false, Description: @"Connection initiation mode used by local endpoint toestablish ike connection with peer site.INITIATOR - In this mode local endpoint initiatestunnel setup and will also respond to incoming tunnelsetup requests from peer gateway.RESPOND_ONLY - In this mode, local endpoint shall onlyrespond to incoming tunnel setup requests. It shall notinitiate the tunnel setup.ON_DEMAND - In this mode local endpoint will initiatetunnel creation once first packet matching the policyrule is received and will also respond to incominginitiation request.")]
         public NSXTIpsecVpnSessionConnectionInitiationModeEnumType? ConnectionInitiationMode { get; set; }
         /// <summary>
         /// Policy path referencing Local endpoint. This property is mandatory on LM. It is required on GM only in case of
         /// site_overrides property not provided.
         /// </summary>
-        [JsonProperty(PropertyName = "local_endpoint_path")]
-        [NSXTProperty(IsRequired: false, Description: @"Policy path referencing Local endpoint. This property is mandatory on LM. It is required on GM only in case of site_overrides property not provided.")]
         public string? LocalEndpointPath { get; set; }
         /// <summary>
         /// A collection of site specific attributes specificed only on GM
         /// </summary>
-        [JsonProperty(PropertyName = "site_overrides")]
-        [NSXTProperty(IsRequired: false, Description: @"A collection of site specific attributes specificed only on GM")]
         public IList<NSXTSiteOverrideType> SiteOverrides { get; set; }
         /// <summary>
         /// Policy path referencing Tunnel profile to be used. Default is set to system default profile.
         /// </summary>
-        [JsonProperty(PropertyName = "tunnel_profile_path")]
-        [NSXTProperty(IsRequired: false, Description: @"Policy path referencing Tunnel profile to be used. Default is set to system default profile.")]
         public string? TunnelProfilePath { get; set; }
         /// <summary>
         /// Compliance suite.
         /// </summary>
-        [JsonProperty(PropertyName = "compliance_suite")]
-        [NSXTProperty(IsRequired: false, Description: @"Compliance suite.")]
         public NSXTIpsecVpnSessionComplianceSuiteEnumType? ComplianceSuite { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "tcp_mss_clamping")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTTcpMaximumSegmentSizeClampingType TcpMssClamping { get; set; }
         /// <summary>
         /// Peer authentication mode.
@@ -106,23 +80,17 @@ namespace nsxtsdk.PolicyModels
         /// CERTIFICATE - In this mode a certificate defined at the
         /// global level is to be used for authentication.
         /// </summary>
-        [JsonProperty(PropertyName = "authentication_mode")]
-        [NSXTProperty(IsRequired: false, Description: @"Peer authentication mode.PSK - In this mode a secret key shared between local andpeer sites is to be used for authentication. The secretkey can be a string with a maximum length of 128 characters.CERTIFICATE - In this mode a certificate defined at theglobal level is to be used for authentication.")]
         public NSXTIpsecVpnSessionAuthenticationModeEnumType? AuthenticationMode { get; set; }
         /// <summary>
         /// Peer ID to uniquely identify the peer site. The peer ID is the public IP address of the remote device terminating the
         /// VPN tunnel. When NAT is configured for the peer, enter the private IP address of the peer. This property is mandatory on
         /// LM. It is required on GM only in case of site_overrides property not provided.
         /// </summary>
-        [JsonProperty(PropertyName = "peer_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Peer ID to uniquely identify the peer site. The peer ID is the public IP address of the remote device terminating the VPN tunnel. When NAT is configured for the peer, enter the private IP address of the peer. This property is mandatory on LM. It is required on GM only in case of site_overrides property not provided.")]
         public string? PeerId { get; set; }
         /// <summary>
         /// Public IPV4 address of the remote device terminating the VPN connection. This property is mandatory on LM. It is
         /// required on GM only in case of site_overrides property not provided.
         /// </summary>
-        [JsonProperty(PropertyName = "peer_address")]
-        [NSXTProperty(IsRequired: false, Description: @"Public IPV4 address of the remote device terminating the VPN connection. This property is mandatory on LM. It is required on GM only in case of site_overrides property not provided.")]
         public string? PeerAddress { get; set; }
         /// <summary>
         /// A Policy Based VPN requires to define protect rules that match
@@ -135,8 +103,6 @@ namespace nsxtsdk.PolicyModels
         /// redundant VPN session to remote site.
         /// </summary>
         [JsonProperty(PropertyName = "resource_type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"A Policy Based VPN requires to define protect rules that match  local and peer subnets. IPSec security associations is  negotiated for each pair of local and peer subnet.A Route Based VPN is more flexible, more powerful and recommended over  policy based VPN. IP Tunnel port is created and all traffic routed via  tunnel port is protected. Routes can be configured statically  or can be learned through BGP. A route based VPN is must for establishing  redundant VPN session to remote site.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTIpsecVpnSessionResourceTypeEnumType ResourceType { get; set; }
     }
 }

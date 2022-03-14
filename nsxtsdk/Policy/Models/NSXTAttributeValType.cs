@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,32 +17,21 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Contains type specific properties of generic realized entity")]
     public class NSXTAttributeValType 
     {
-        public NSXTAttributeValType()
-        {
-        }
         /// <summary>
         /// List of attribute values
         /// </summary>
-        [JsonProperty(PropertyName = "values")]
-        [NSXTProperty(IsRequired: false, Description: @"List of attribute values")]
         public IList<string> Values { get; set; }
         /// <summary>
         /// If attribute has a single value or collection of values
         /// </summary>
-        [JsonProperty(PropertyName = "multivalue")]
-        [NSXTProperty(IsRequired: false, Description: @"If attribute has a single value or collection of values")]
         public bool? Multivalue { get; set; }
         /// <summary>
         /// Attribute key
         /// </summary>
-        [JsonProperty(PropertyName = "key")]
-        [NSXTProperty(IsRequired: false, Description: @"Attribute key")]
         public string? Key { get; set; }
         /// <summary>
         /// Datatype of the property
         /// </summary>
-        [JsonProperty(PropertyName = "data_type")]
-        [NSXTProperty(IsRequired: false, Description: @"Datatype of the property")]
         public NSXTAttributeValDataTypeEnumType? DataType { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,24 +17,15 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTTunnelSubnetType 
     {
-        public NSXTTunnelSubnetType()
-        {
-        }
         /// <summary>
         /// Subnet ip addresses
         /// </summary>
         [JsonProperty(PropertyName = "ip_addresses", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Subnet ip addresses")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<string> IpAddresses { get; set; }
         /// <summary>
         /// Subnet Prefix Length
         /// </summary>
         [JsonProperty(PropertyName = "prefix_length", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Subnet Prefix Length")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(31)]
-        [System.ComponentModel.DataAnnotations.Required]
         public long PrefixLength { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,16 +17,11 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTInventoryConfigType 
     {
-        public NSXTInventoryConfigType()
-        {
-        }
         /// <summary>
         /// Soft limit on number of compute managers, which can be added, beyond which,
         /// addition of compute managers will result in warning getting logged
         /// </summary>
         [JsonProperty(PropertyName = "compute_managers_soft_limit", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Soft limit on number of compute managers, which can be added, beyond which,addition of compute managers will result in warning getting logged")]
-        [System.ComponentModel.DataAnnotations.Required]
         public int ComputeManagersSoftLimit { get; set; }
     }
 }

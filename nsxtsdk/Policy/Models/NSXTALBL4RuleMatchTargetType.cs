@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,26 +17,17 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer L4RuleMatchTarget object")]
     public class NSXTALBL4RuleMatchTargetType 
     {
-        public NSXTALBL4RuleMatchTargetType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "client_ip")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBIpAddrMatchType ClientIp { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "protocol")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBL4RuleProtocolMatchType Protocol { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "port")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBL4RulePortMatchType Port { get; set; }
     }
 }

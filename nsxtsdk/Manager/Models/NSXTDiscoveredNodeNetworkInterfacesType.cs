@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,21 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"All the network interfaces of the discovered node")]
     public class NSXTDiscoveredNodeNetworkInterfacesType 
     {
-        public NSXTDiscoveredNodeNetworkInterfacesType()
-        {
-        }
         /// <summary>
         /// Id of the discovered node
         /// </summary>
         [JsonProperty(PropertyName = "discovered_node_id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Id of the discovered node")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string DiscoveredNodeId { get; set; }
         /// <summary>
         /// Network interfaces of the node
         /// </summary>
-        [JsonProperty(PropertyName = "network_interfaces")]
-        [NSXTProperty(IsRequired: false, Description: @"Network interfaces of the node")]
         public IList<NSXTDiscoveredNodeInterfacePropertiesType> NetworkInterfaces { get; set; }
     }
 }

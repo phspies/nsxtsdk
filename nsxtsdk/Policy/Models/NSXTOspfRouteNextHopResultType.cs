@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,26 +17,17 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"OSPF route next hop result.")]
     public class NSXTOspfRouteNextHopResultType 
     {
-        public NSXTOspfRouteNextHopResultType()
-        {
-        }
         /// <summary>
         /// Check whether OSPF route is directly connected.
         /// </summary>
-        [JsonProperty(PropertyName = "directly_attached")]
-        [NSXTProperty(IsRequired: false, Description: @"Check whether OSPF route is directly connected.")]
         public bool? DirectlyAttached { get; set; }
         /// <summary>
         /// OSPF policy interface name.
         /// </summary>
-        [JsonProperty(PropertyName = "interface_name")]
-        [NSXTProperty(IsRequired: false, Description: @"OSPF policy interface name.")]
         public string? InterfaceName { get; set; }
         /// <summary>
         /// next-hop address.
         /// </summary>
-        [JsonProperty(PropertyName = "neighbor_address")]
-        [NSXTProperty(IsRequired: false, Description: @"next-hop address.")]
         public string? NeighborAddress { get; set; }
     }
 }

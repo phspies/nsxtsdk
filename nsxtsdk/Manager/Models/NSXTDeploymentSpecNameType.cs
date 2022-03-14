@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Used to provide the deployment spec for Upgrade.")]
     public class NSXTDeploymentSpecNameType 
     {
-        public NSXTDeploymentSpecNameType()
-        {
-        }
         /// <summary>
         /// This indicates the deployment spec.
         /// </summary>
-        [JsonProperty(PropertyName = "deployment_spec_name")]
-        [NSXTProperty(IsRequired: false, Description: @"This indicates the deployment spec.")]
         public string? DeploymentSpecName { get; set; }
     }
 }

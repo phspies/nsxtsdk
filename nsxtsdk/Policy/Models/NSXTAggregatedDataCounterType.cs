@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,32 +17,21 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTAggregatedDataCounterType 
     {
-        public NSXTAggregatedDataCounterType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "tx_bytes")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTDataCounterType TxBytes { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "rx_packets")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTDataCounterType RxPackets { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "tx_packets")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTDataCounterType TxPackets { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "rx_bytes")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTDataCounterType RxBytes { get; set; }
     }
 }

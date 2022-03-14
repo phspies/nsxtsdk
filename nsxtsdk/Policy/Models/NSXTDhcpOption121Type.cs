@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"DHCP option 121 to define classless static route.")]
     public class NSXTDhcpOption121Type 
     {
-        public NSXTDhcpOption121Type()
-        {
-        }
         /// <summary>
         /// Classless static route of DHCP option 121.
         /// </summary>
         [JsonProperty(PropertyName = "static_routes", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Classless static route of DHCP option 121.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTClasslessStaticRouteType> StaticRoutes { get; set; }
     }
 }

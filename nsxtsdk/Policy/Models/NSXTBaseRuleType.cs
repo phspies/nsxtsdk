@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,41 +17,27 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTBaseRuleType : NSXTPolicyConfigResourceType
     {
-        public NSXTBaseRuleType()
-        {
-            Direction = test
-        }
         /// <summary>
         /// Flag to disable the rule. Default is enabled.
         /// </summary>
-        [JsonProperty(PropertyName = "disabled")]
-        [NSXTProperty(IsRequired: false, Description: @"Flag to disable the rule. Default is enabled.")]
         public bool? Disabled { get; set; }
         /// <summary>
         /// Define direction of traffic.
         /// </summary>
-        [JsonProperty(PropertyName = "direction")]
-        [NSXTProperty(IsRequired: false, Description: @"Define direction of traffic.")]
         public NSXTBaseRuleDirectionEnumType? Direction { get; set; }
         /// <summary>
         /// Type of IP packet that should be matched while enforcing the rule.
         /// The value is set to IPV4_IPV6 for Layer3 rule if not specified.
         /// For Layer2/Ether rule the value must be null.
         /// </summary>
-        [JsonProperty(PropertyName = "ip_protocol")]
-        [NSXTProperty(IsRequired: false, Description: @"Type of IP packet that should be matched while enforcing the rule.The value is set to IPV4_IPV6 for Layer3 rule if not specified.For Layer2/Ether rule the value must be null.")]
         public NSXTBaseRuleIpProtocolEnumType? IpProtocol { get; set; }
         /// <summary>
         /// Text for additional notes on changes.
         /// </summary>
-        [JsonProperty(PropertyName = "notes")]
-        [NSXTProperty(IsRequired: false, Description: @"Text for additional notes on changes.")]
         public string? Notes { get; set; }
         /// <summary>
         /// Flag to enable packet logging. Default is disabled.
         /// </summary>
-        [JsonProperty(PropertyName = "logged")]
-        [NSXTProperty(IsRequired: false, Description: @"Flag to enable packet logging. Default is disabled.")]
         public bool? Logged { get; set; }
         /// <summary>
         /// Holds the list of layer 7 service profile paths. These profiles accept
@@ -61,8 +47,6 @@ namespace nsxtsdk.PolicyModels
         /// One of either Layer 7 service profiles or L7 Access Profile can be used in firewall rule.
         /// In case of L7 access profile only one is allowed.
         /// </summary>
-        [JsonProperty(PropertyName = "profiles")]
-        [NSXTProperty(IsRequired: false, Description: @"Holds the list of layer 7 service profile paths. These profiles acceptattributes and sub-attributes of various network services(e.g. L4 AppId, encryption algorithm, domain name, etc) as key valuepairs. Instead of Layer 7 service profiles you can use a L7 access profile.One of either Layer 7 service profiles or L7 Access Profile can be used in firewall rule.In case of L7 access profile only one is allowed.")]
         public IList<string> Profiles { get; set; }
         /// <summary>
         /// This is a unique 4 byte positive number that is assigned by the system.
@@ -71,22 +55,16 @@ namespace nsxtsdk.PolicyModels
         /// number space. For E.g 1000 to (1Million -1) by LM, (1M - 2M-1) by GM
         /// and so on.
         /// </summary>
-        [JsonProperty(PropertyName = "rule_id")]
-        [NSXTProperty(IsRequired: false, Description: @"This is a unique 4 byte positive number that is assigned by the system. This rule id is passed all the way down to the data path. The first 1GB(1000 to 2^30) will be shared by GM and LM with zebra style stripednumber space. For E.g 1000 to (1Million -1) by LM, (1M - 2M-1) by GMand so on.")]
         public long? RuleId { get; set; }
         /// <summary>
         /// A flag to indicate whether rule is a default rule.
         /// </summary>
-        [JsonProperty(PropertyName = "is_default")]
-        [NSXTProperty(IsRequired: false, Description: @"A flag to indicate whether rule is a default rule.")]
         public bool? IsDefault { get; set; }
         /// <summary>
         /// User level field which will be printed in CLI and packet logs.
         /// Even though there is no limitation on length of a tag, internally
         /// tag will get truncated after 32 characters.
         /// </summary>
-        [JsonProperty(PropertyName = "tag")]
-        [NSXTProperty(IsRequired: false, Description: @"User level field which will be printed in CLI and packet logs.Even though there is no limitation on length of a tag, internallytag will get truncated after 32 characters.")]
         public string? Tag { get; set; }
         /// <summary>
         /// We need paths as duplicate names may exist for groups under different
@@ -97,8 +75,6 @@ namespace nsxtsdk.PolicyModels
         /// in the group array. Error will be thrown if ANY is used in conjunction
         /// with other values.
         /// </summary>
-        [JsonProperty(PropertyName = "source_groups")]
-        [NSXTProperty(IsRequired: false, Description: @"We need paths as duplicate names may exist for groups under differentdomains. Along with paths we support IP Address of type IPv4 and IPv6.IP Address can be in one of the format(CIDR, IP Address, Range of IP Address).In order to specify all groups, use the constant &quot;ANY&quot;. Thisis case insensitive. If &quot;ANY&quot; is used, it should be the ONLY elementin the group array. Error will be thrown if ANY is used in conjunctionwith other values.")]
         public IList<string> SourceGroups { get; set; }
         /// <summary>
         /// We need paths as duplicate names may exist for groups under different
@@ -109,8 +85,6 @@ namespace nsxtsdk.PolicyModels
         /// in the group array. Error will be thrown if ANY is used in conjunction
         /// with other values.
         /// </summary>
-        [JsonProperty(PropertyName = "destination_groups")]
-        [NSXTProperty(IsRequired: false, Description: @"We need paths as duplicate names may exist for groups under differentdomains. Along with paths we support IP Address of type IPv4 and IPv6.IP Address can be in one of the format(CIDR, IP Address, Range of IP Address).In order to specify all groups, use the constant &quot;ANY&quot;. Thisis case insensitive. If &quot;ANY&quot; is used, it should be the ONLY elementin the group array. Error will be thrown if ANY is used in conjunctionwith other values.")]
         public IList<string> DestinationGroups { get; set; }
         /// <summary>
         /// In order to specify all services, use the constant "ANY".
@@ -118,32 +92,24 @@ namespace nsxtsdk.PolicyModels
         /// be the ONLY element in the services array. Error will be thrown
         /// if ANY is used in conjunction with other values.
         /// </summary>
-        [JsonProperty(PropertyName = "services")]
-        [NSXTProperty(IsRequired: false, Description: @"In order to specify all services, use the constant &quot;ANY&quot;.This is case insensitive. If &quot;ANY&quot; is used, it shouldbe the ONLY element in the services array. Error will be thrownif ANY is used in conjunction with other values.")]
         public IList<string> Services { get; set; }
         /// <summary>
         /// The list of policy paths where the rule is applied
         /// LR/Edge/T0/T1/LRP etc. Note that a given rule can be applied
         /// on multiple LRs/LRPs.
         /// </summary>
-        [JsonProperty(PropertyName = "scope")]
-        [NSXTProperty(IsRequired: false, Description: @"The list of policy paths where the rule is appliedLR/Edge/T0/T1/LRP etc. Note that a given rule can be appliedon multiple LRs/LRPs.")]
         public IList<string> Scope { get; set; }
         /// <summary>
         /// In order to specify raw services this can be used,
         /// along with services which contains path to services.
         /// This can be empty or null.
         /// </summary>
-        [JsonProperty(PropertyName = "service_entries")]
-        [NSXTProperty(IsRequired: false, Description: @"In order to specify raw services this can be used,along with services which contains path to services.This can be empty or null.")]
         public IList<NSXTServiceEntryType> ServiceEntries { get; set; }
         /// <summary>
         /// If set to true, the rule gets applied on all the groups that are
         /// NOT part of the destination groups. If false, the rule applies to the
         /// destination groups
         /// </summary>
-        [JsonProperty(PropertyName = "destinations_excluded")]
-        [NSXTProperty(IsRequired: false, Description: @"If set to true, the rule gets applied on all the groups that areNOT part of the destination groups. If false, the rule applies to thedestination groups")]
         public bool? DestinationsExcluded { get; set; }
         /// <summary>
         /// This field is used to resolve conflicts between multiple
@@ -156,17 +122,12 @@ namespace nsxtsdk.PolicyModels
         /// a query parameter action=revise to let the framework assign a
         /// sequence number
         /// </summary>
-        [JsonProperty(PropertyName = "sequence_number")]
-        [NSXTProperty(IsRequired: false, Description: @"This field is used to resolve conflicts between multipleRules under Security or Gateway Policy for a DomainIf no sequence number is specified in the payload, a value of 0 isassigned by default. If there are multiple rules with the samesequence number then their order is not deterministic. If a specificorder of rules is desired, then one has to specify unique sequencenumbers or use the POST request on the rule entity witha query parameter action=revise to let the framework assign asequence number")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
         public int? SequenceNumber { get; set; }
         /// <summary>
         /// If set to true, the rule gets applied on all the groups that are
         /// NOT part of the source groups. If false, the rule applies to the
         /// source groups
         /// </summary>
-        [JsonProperty(PropertyName = "sources_excluded")]
-        [NSXTProperty(IsRequired: false, Description: @"If set to true, the rule gets applied on all the groups that areNOT part of the source groups. If false, the rule applies to thesource groups")]
         public bool? SourcesExcluded { get; set; }
     }
 }

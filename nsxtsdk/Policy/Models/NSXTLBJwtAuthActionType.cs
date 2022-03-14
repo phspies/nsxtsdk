@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,9 +17,6 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLBJwtAuthActionType : NSXTLBRuleActionType
     {
-        public NSXTLBJwtAuthActionType()
-        {
-        }
         /// <summary>
         /// JWT is an open standard that defines a compact and
         /// self-contained way for securely transmitting information between
@@ -29,16 +26,12 @@ namespace nsxtsdk.PolicyModels
         /// balancer searches the Bearer header by default in the http request
         /// "Authorization: Bearer <token>".
         /// </summary>
-        [JsonProperty(PropertyName = "tokens")]
-        [NSXTProperty(IsRequired: false, Description: @"JWT is an open standard that defines a compact andself-contained way for securely transmitting information betweenparties as a JSON object. Load balancer will search for every specifiedtokens one by one for the jwt message until found. This parameter isoptional. In case not found or this field is not configured, loadbalancer searches the Bearer header by default in the http request&quot;Authorization: Bearer &amp;lt;token&amp;gt;&quot;.")]
         public IList<string> Tokens { get; set; }
         /// <summary>
         /// Specify whether to pass the JWT to backend server or remove it. By
         /// default, it is false which means will not pass the JWT to backend
         /// servers.
         /// </summary>
-        [JsonProperty(PropertyName = "pass_jwt_to_pool")]
-        [NSXTProperty(IsRequired: false, Description: @"Specify whether to pass the JWT to backend server or remove it. Bydefault, it is false which means will not pass the JWT to backendservers.")]
         public bool? PassJwtToPool { get; set; }
         /// <summary>
         /// A description of the protected area. If no realm is specified, clients
@@ -46,14 +39,10 @@ namespace nsxtsdk.PolicyModels
         /// returned when client request is rejected with 401 http status. In the
         /// response, it will be "WWW-Authentication: Bearer realm=<realm>".
         /// </summary>
-        [JsonProperty(PropertyName = "realm")]
-        [NSXTProperty(IsRequired: false, Description: @"A description of the protected area. If no realm is specified, clientsoften display a formatted hostname instead. The configured realm isreturned when client request is rejected with 401 http status. In theresponse, it will be &quot;WWW-Authentication: Bearer realm=&amp;lt;realm&amp;gt;&quot;.")]
         public string? Realm { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "key")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTLBJwtKeyType Key { get; set; }
     }
 }

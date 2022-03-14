@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -18,15 +18,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Contains a list of NSX-Intelligence cluster node VM deployment requests and optionallya clustering configuration.")]
     public class NSXTAddIntelligenceClusterNodeVMInfoType 
     {
-        public NSXTAddIntelligenceClusterNodeVMInfoType()
-        {
-        }
         /// <summary>
         /// Intelligence Cluster node VM deployment requests to be deployed by NSX.
         /// </summary>
         [JsonProperty(PropertyName = "deployment_requests", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Intelligence Cluster node VM deployment requests to be deployed by NSX.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTIntelligenceClusterNodeVMDeploymentRequestType> DeploymentRequests { get; set; }
     }
 }

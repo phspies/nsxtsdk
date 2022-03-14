@@ -21,16 +21,23 @@ namespace nsxtapi.PolicyModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public PolicyFirewallScheduler(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public PolicyFirewallScheduler(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyFirewallSchedulerType UpdatePolicyFirewallScheduler(string FirewallSchedulerId, NSXTPolicyFirewallSchedulerType PolicyFirewallScheduler)
+        public async Task<NSXTPolicyFirewallSchedulerType> UpdatePolicyFirewallScheduler(string FirewallSchedulerId, NSXTPolicyFirewallSchedulerType PolicyFirewallScheduler)
         {
             if (FirewallSchedulerId == null) { throw new System.ArgumentNullException("FirewallSchedulerId cannot be null"); }
             if (PolicyFirewallScheduler == null) { throw new System.ArgumentNullException("PolicyFirewallScheduler cannot be null"); }
@@ -45,31 +52,19 @@ namespace nsxtapi.PolicyModules
             UpdatePolicyFirewallSchedulerServiceURL.Replace("{firewall-scheduler-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FirewallSchedulerId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(PolicyFirewallScheduler, defaultSerializationSettings));
             request.Resource = UpdatePolicyFirewallSchedulerServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyFirewallSchedulerType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyFirewallSchedulerType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdatePolicyFirewallSchedulerServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyFirewallSchedulerType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyFirewallSchedulerType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyFirewallSchedulerType GetPolicyFirewallScheduler(string FirewallSchedulerId)
+        public async Task<NSXTPolicyFirewallSchedulerType> GetPolicyFirewallScheduler(string FirewallSchedulerId)
         {
             if (FirewallSchedulerId == null) { throw new System.ArgumentNullException("FirewallSchedulerId cannot be null"); }
             NSXTPolicyFirewallSchedulerType returnValue = default(NSXTPolicyFirewallSchedulerType);
@@ -82,31 +77,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             GetPolicyFirewallSchedulerServiceURL.Replace("{firewall-scheduler-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FirewallSchedulerId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetPolicyFirewallSchedulerServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyFirewallSchedulerType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyFirewallSchedulerType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetPolicyFirewallSchedulerServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyFirewallSchedulerType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyFirewallSchedulerType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeletePolicyFirewallScheduler(string FirewallSchedulerId, bool? Force = null)
+        public async Task DeletePolicyFirewallScheduler(string FirewallSchedulerId, bool? Force = null)
         {
             if (FirewallSchedulerId == null) { throw new System.ArgumentNullException("FirewallSchedulerId cannot be null"); }
             
@@ -120,7 +103,7 @@ namespace nsxtapi.PolicyModules
             DeletePolicyFirewallSchedulerServiceURL.Replace("{firewall-scheduler-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FirewallSchedulerId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
             request.Resource = DeletePolicyFirewallSchedulerServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeletePolicyFirewallSchedulerServiceURL.ToString() + " did not complete successfull";
@@ -132,7 +115,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchPolicyFirewallScheduler(string FirewallSchedulerId, NSXTPolicyFirewallSchedulerType PolicyFirewallScheduler)
+        public async Task PatchPolicyFirewallScheduler(string FirewallSchedulerId, NSXTPolicyFirewallSchedulerType PolicyFirewallScheduler)
         {
             if (FirewallSchedulerId == null) { throw new System.ArgumentNullException("FirewallSchedulerId cannot be null"); }
             if (PolicyFirewallScheduler == null) { throw new System.ArgumentNullException("PolicyFirewallScheduler cannot be null"); }
@@ -147,7 +130,7 @@ namespace nsxtapi.PolicyModules
             PatchPolicyFirewallSchedulerServiceURL.Replace("{firewall-scheduler-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FirewallSchedulerId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(PolicyFirewallScheduler, defaultSerializationSettings));
             request.Resource = PatchPolicyFirewallSchedulerServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchPolicyFirewallSchedulerServiceURL.ToString() + " did not complete successfull";
@@ -159,7 +142,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyFirewallSchedulerListResultType ListPolicyFirewallSchedulers(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTPolicyFirewallSchedulerListResultType> ListPolicyFirewallSchedulers(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTPolicyFirewallSchedulerListResultType returnValue = default(NSXTPolicyFirewallSchedulerListResultType);
             StringBuilder ListPolicyFirewallSchedulersServiceURL = new StringBuilder("/infra/firewall-schedulers");
@@ -176,25 +159,13 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListPolicyFirewallSchedulersServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyFirewallSchedulerListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyFirewallSchedulerListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListPolicyFirewallSchedulersServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyFirewallSchedulerListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyFirewallSchedulerListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

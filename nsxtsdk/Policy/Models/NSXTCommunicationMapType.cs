@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTCommunicationMapType : NSXTPolicyConfigResourceType
     {
-        public NSXTCommunicationMapType()
-        {
-        }
         /// <summary>
         /// CommunicationEntries that are a part of this CommunicationMap
         /// </summary>
-        [JsonProperty(PropertyName = "communication_entries")]
-        [NSXTProperty(IsRequired: false, Description: @"CommunicationEntries that are a part of this CommunicationMap")]
         public IList<NSXTCommunicationEntryType> CommunicationEntries { get; set; }
         /// <summary>
         /// - Distributed Firewall -
@@ -39,8 +34,6 @@ namespace nsxtsdk.PolicyModels
         /// above categories or can choose to leave it empty. If empty it will
         /// have the least precedence w.r.t the above four layer 3 categories.
         /// </summary>
-        [JsonProperty(PropertyName = "category")]
-        [NSXTProperty(IsRequired: false, Description: @"- Distributed Firewall -Policy framework for Distributed Firewall provides four pre-definedcategories for classifying a communication map. They are&quot;Emergency&quot;, &quot;Infrastructure&quot;, &quot;Environment&quot; and &quot;Application&quot;.Amongst the layer 3 communication maps,there is a pre-determinedorder in which the policy framework manages the priority of thesecommunication maps. Emergency category has the highest priorityfollowed by Infrastructure, Environment and then Application rules.Administrator can choose to categorize a communication  map into theabove categories or can choose to leave it empty. If empty it willhave the least precedence w.r.t the above four layer 3 categories.")]
         public string? Category { get; set; }
         /// <summary>
         /// This field is used to resolve conflicts between communication maps
@@ -60,8 +53,6 @@ namespace nsxtsdk.PolicyModels
         /// communication map entity with a query parameter action=revise to let
         /// the framework assign a precedence
         /// </summary>
-        [JsonProperty(PropertyName = "precedence")]
-        [NSXTProperty(IsRequired: false, Description: @"This field is used to resolve conflicts between communication mapsacross domains. In order to change the precedence of a communicationmap one can fire a POST request on the communication map entity witha query parameter action=reviseThe precedence field will reflect the value of the computed precedenceupon execution of the above mentioned POST request.For scenarios where the administrator is using a template to updateseveral communication maps, the only way to set the precedence is toexplicitly specify the precedence number for each communication map.If no precedence is specified in the payload, a value of 0 isassigned by default. If there are multiple communication maps withthe same precedence then their order is not deterministic. If aspecific order of communication map is desired, then one has tospecify a unique precedence or use the POST request on thecommunication map entity with a query parameter action=revise to letthe framework assign a precedence")]
         public int? Precedence { get; set; }
     }
 }

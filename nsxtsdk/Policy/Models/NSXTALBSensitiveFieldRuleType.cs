@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,10 +17,6 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer SensitiveFieldRule object")]
     public class NSXTALBSensitiveFieldRuleType 
     {
-        public NSXTALBSensitiveFieldRuleType()
-        {
-            Action = test
-        }
         /// <summary>
         /// Action for the matched log field, for instance the matched
         /// field can be removed or masked off.
@@ -28,34 +24,24 @@ namespace nsxtsdk.PolicyModels
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as LOG_FIELD_REMOVE.
         /// </summary>
-        [JsonProperty(PropertyName = "action")]
-        [NSXTProperty(IsRequired: false, Description: @"Action for the matched log field, for instance the matchedfield can be removed or masked off.Enum options - LOG_FIELD_REMOVE, LOG_FIELD_MASKOFF.Default value when not specified in API or module isinterpreted by ALB Controller as LOG_FIELD_REMOVE.")]
         public NSXTAlbsensitiveFieldRuleActionEnumType? Action { get; set; }
         /// <summary>
         /// Index of the rule.
         /// </summary>
-        [JsonProperty(PropertyName = "index")]
-        [NSXTProperty(IsRequired: false, Description: @"Index of the rule.")]
         public long? Index { get; set; }
         /// <summary>
         /// Enable rule to match the sensitive fields.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as false.
         /// </summary>
-        [JsonProperty(PropertyName = "enabled")]
-        [NSXTProperty(IsRequired: false, Description: @"Enable rule to match the sensitive fields.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
         public bool? Enabled { get; set; }
         /// <summary>
         /// Name of the rule.
         /// </summary>
-        [JsonProperty(PropertyName = "name")]
-        [NSXTProperty(IsRequired: false, Description: @"Name of the rule.")]
         public string? Name { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "match")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBStringMatchType Match { get; set; }
     }
 }

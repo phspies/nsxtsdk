@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,22 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLogicalRouterDownLinkPortType : NSXTLogicalRouterPortType
     {
-        public NSXTLogicalRouterDownLinkPortType()
-        {
-            UrpfMode = test
-        }
         /// <summary>
         /// Logical router port subnets
         /// </summary>
         [JsonProperty(PropertyName = "subnets", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Logical router port subnets")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTIPSubnetType> Subnets { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "linked_logical_switch_port_id")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTResourceReferenceType LinkedLogicalSwitchPortId { get; set; }
         /// <summary>
         /// Identifier of Neighbor Discovery Router Advertisement profile
@@ -40,27 +32,19 @@ namespace nsxtsdk.ManagerModels
         /// both the port level and logical router level, the profile id
         /// specified at port level takes the precedence.
         /// </summary>
-        [JsonProperty(PropertyName = "ndra_profile_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Identifier of Neighbor Discovery Router Advertisement profileassociated with port. When NDRA profile id is associated atboth the port level and logical router level, the profile idspecified at port level takes the precedence.")]
         public string? NdraProfileId { get; set; }
         /// <summary>
         /// MAC address
         /// </summary>
-        [JsonProperty(PropertyName = "mac_address")]
-        [NSXTProperty(IsRequired: false, Description: @"MAC address")]
         public string? MacAddress { get; set; }
         /// <summary>
         /// Unicast Reverse Path Forwarding mode
         /// </summary>
-        [JsonProperty(PropertyName = "urpf_mode")]
-        [NSXTProperty(IsRequired: false, Description: @"Unicast Reverse Path Forwarding mode")]
         public NSXTLogicalRouterDownLinkPortUrpfModeEnumType? UrpfMode { get; set; }
         /// <summary>
         /// Routing policies used to specify how the traffic, which matches the
         /// policy routes, will be processed.
         /// </summary>
-        [JsonProperty(PropertyName = "routing_policies")]
-        [NSXTProperty(IsRequired: false, Description: @"Routing policies used to specify how the traffic, which matches thepolicy routes, will be processed.")]
         public IList<NSXTRoutingPolicyType> RoutingPolicies { get; set; }
         /// <summary>
         /// If this flag is set to true - it will enable multicast on the
@@ -68,8 +52,6 @@ namespace nsxtsdk.ManagerModels
         /// multicast on the downlink interface. This is supported only on
         /// Tier0 downlinks. Default value for Tier0 downlink will be true.
         /// </summary>
-        [JsonProperty(PropertyName = "enable_multicast")]
-        [NSXTProperty(IsRequired: false, Description: @"If this flag is set to true - it will enable multicast on thedownlink interface. If this flag is set to false - it will disablemulticast on the downlink interface. This is supported only onTier0 downlinks. Default value for Tier0 downlink will be true.")]
         public bool? EnableMulticast { get; set; }
         /// <summary>
         /// Configuration to override the neighbor discovery router advertisement
@@ -77,8 +59,6 @@ namespace nsxtsdk.ManagerModels
         /// to override the prefix time only for IPv6 subnets which are configured
         /// on the port.
         /// </summary>
-        [JsonProperty(PropertyName = "ndra_prefix_config")]
-        [NSXTProperty(IsRequired: false, Description: @"Configuration to override the neighbor discovery router advertisementprefix time parameters at the subnet level. Note that users are allowedto override the prefix time only for IPv6 subnets which are configuredon the port.")]
         public IList<NSXTNDRAPrefixConfigType> NdraPrefixConfig { get; set; }
     }
 }

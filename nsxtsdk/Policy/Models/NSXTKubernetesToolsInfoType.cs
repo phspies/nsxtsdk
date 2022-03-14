@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,28 +17,18 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTKubernetesToolsInfoType : NSXTPolicyConfigResourceType
     {
-        public NSXTKubernetesToolsInfoType()
-        {
-            Compatible = test
-        }
         /// <summary>
         /// Show compatibility flag, whether kubectl client version is compatible with Kubernetes api server version. kubectl is
         /// supported within one minor version (older or newer) of kube-apiserver.
         /// </summary>
-        [JsonProperty(PropertyName = "compatible")]
-        [NSXTProperty(IsRequired: false, Description: @"Show compatibility flag, whether kubectl client version is compatible with Kubernetes api server version. kubectl is supported within one minor version (older or newer) of kube-apiserver.")]
         public bool? Compatible { get; set; }
         /// <summary>
         /// kubectl client version.
         /// </summary>
-        [JsonProperty(PropertyName = "client_version")]
-        [NSXTProperty(IsRequired: false, Description: @"kubectl client version.")]
         public string? ClientVersion { get; set; }
         /// <summary>
         /// Kubernetes api server version.
         /// </summary>
-        [JsonProperty(PropertyName = "server_version")]
-        [NSXTProperty(IsRequired: false, Description: @"Kubernetes api server version.")]
         public string? ServerVersion { get; set; }
     }
 }

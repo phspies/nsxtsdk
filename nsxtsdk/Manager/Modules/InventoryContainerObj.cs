@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public InventoryContainerObj(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public InventoryContainerObj(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTContainerApplicationInstanceType GetContainerApplicationInstance(string ContainerApplicationInstanceId)
+        public async Task<NSXTContainerApplicationInstanceType> GetContainerApplicationInstance(string ContainerApplicationInstanceId)
         {
             if (ContainerApplicationInstanceId == null) { throw new System.ArgumentNullException("ContainerApplicationInstanceId cannot be null"); }
             NSXTContainerApplicationInstanceType returnValue = default(NSXTContainerApplicationInstanceType);
@@ -43,31 +50,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             GetContainerApplicationInstanceServiceURL.Replace("{container-application-instance-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ContainerApplicationInstanceId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetContainerApplicationInstanceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTContainerApplicationInstanceType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTContainerApplicationInstanceType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetContainerApplicationInstanceServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTContainerApplicationInstanceType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTContainerApplicationInstanceType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTContainerClusterListResultType ListContainerClusters(string? ClusterType = null, string? Cursor = null, string? IncludedFields = null, string? InfraType = null, long? PageSize = null, string? ScopeId = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTContainerClusterListResultType> ListContainerClusters(string? ClusterType = null, string? Cursor = null, string? IncludedFields = null, string? InfraType = null, long? PageSize = null, string? ScopeId = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTContainerClusterListResultType returnValue = default(NSXTContainerClusterListResultType);
             StringBuilder ListContainerClustersServiceURL = new StringBuilder("/fabric/container-clusters");
@@ -86,31 +81,19 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListContainerClustersServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTContainerClusterListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTContainerClusterListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListContainerClustersServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTContainerClusterListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTContainerClusterListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTContainerIngressPolicyType GetContainerIngressPolicy(string IngressPolicyId)
+        public async Task<NSXTContainerIngressPolicyType> GetContainerIngressPolicy(string IngressPolicyId)
         {
             if (IngressPolicyId == null) { throw new System.ArgumentNullException("IngressPolicyId cannot be null"); }
             NSXTContainerIngressPolicyType returnValue = default(NSXTContainerIngressPolicyType);
@@ -123,31 +106,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             GetContainerIngressPolicyServiceURL.Replace("{ingress-policy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(IngressPolicyId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetContainerIngressPolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTContainerIngressPolicyType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTContainerIngressPolicyType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetContainerIngressPolicyServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTContainerIngressPolicyType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTContainerIngressPolicyType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTContainerIngressPolicyListResultType ListContainerIngressPolicies(string? ContainerClusterId = null, string? ContainerProjectId = null, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, string? ScopeId = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTContainerIngressPolicyListResultType> ListContainerIngressPolicies(string? ContainerClusterId = null, string? ContainerProjectId = null, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, string? ScopeId = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTContainerIngressPolicyListResultType returnValue = default(NSXTContainerIngressPolicyListResultType);
             StringBuilder ListContainerIngressPoliciesServiceURL = new StringBuilder("/fabric/container-ingress-policies");
@@ -166,31 +137,19 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListContainerIngressPoliciesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTContainerIngressPolicyListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTContainerIngressPolicyListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListContainerIngressPoliciesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTContainerIngressPolicyListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTContainerIngressPolicyListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTContainerApplicationType GetContainerApplication(string ContainerApplicationId)
+        public async Task<NSXTContainerApplicationType> GetContainerApplication(string ContainerApplicationId)
         {
             if (ContainerApplicationId == null) { throw new System.ArgumentNullException("ContainerApplicationId cannot be null"); }
             NSXTContainerApplicationType returnValue = default(NSXTContainerApplicationType);
@@ -203,31 +162,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             GetContainerApplicationServiceURL.Replace("{container-application-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ContainerApplicationId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetContainerApplicationServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTContainerApplicationType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTContainerApplicationType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetContainerApplicationServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTContainerApplicationType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTContainerApplicationType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTContainerProjectListResultType ListContainerProjects(string? ContainerClusterId = null, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, string? ScopeId = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTContainerProjectListResultType> ListContainerProjects(string? ContainerClusterId = null, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, string? ScopeId = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTContainerProjectListResultType returnValue = default(NSXTContainerProjectListResultType);
             StringBuilder ListContainerProjectsServiceURL = new StringBuilder("/fabric/container-projects");
@@ -245,31 +192,19 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListContainerProjectsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTContainerProjectListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTContainerProjectListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListContainerProjectsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTContainerProjectListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTContainerProjectListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTContainerApplicationListResultType ListContainerApplications(string? ContainerClusterId = null, string? ContainerProjectId = null, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, string? ScopeId = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTContainerApplicationListResultType> ListContainerApplications(string? ContainerClusterId = null, string? ContainerProjectId = null, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, string? ScopeId = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTContainerApplicationListResultType returnValue = default(NSXTContainerApplicationListResultType);
             StringBuilder ListContainerApplicationsServiceURL = new StringBuilder("/fabric/container-applications");
@@ -288,31 +223,19 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListContainerApplicationsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTContainerApplicationListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTContainerApplicationListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListContainerApplicationsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTContainerApplicationListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTContainerApplicationListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTContainerNetworkPolicyListResultType ListContainerNetworkPolicies(string? ContainerClusterId = null, string? ContainerProjectId = null, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, string? ScopeId = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTContainerNetworkPolicyListResultType> ListContainerNetworkPolicies(string? ContainerClusterId = null, string? ContainerProjectId = null, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, string? ScopeId = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTContainerNetworkPolicyListResultType returnValue = default(NSXTContainerNetworkPolicyListResultType);
             StringBuilder ListContainerNetworkPoliciesServiceURL = new StringBuilder("/fabric/container-network-policies");
@@ -331,31 +254,19 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListContainerNetworkPoliciesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTContainerNetworkPolicyListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTContainerNetworkPolicyListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListContainerNetworkPoliciesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTContainerNetworkPolicyListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTContainerNetworkPolicyListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTContainerProjectType GetContainerProject(string ContainerProjectId)
+        public async Task<NSXTContainerProjectType> GetContainerProject(string ContainerProjectId)
         {
             if (ContainerProjectId == null) { throw new System.ArgumentNullException("ContainerProjectId cannot be null"); }
             NSXTContainerProjectType returnValue = default(NSXTContainerProjectType);
@@ -368,31 +279,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             GetContainerProjectServiceURL.Replace("{container-project-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ContainerProjectId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetContainerProjectServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTContainerProjectType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTContainerProjectType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetContainerProjectServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTContainerProjectType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTContainerProjectType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTContainerClusterType GetContainerCluster(string ContainerClusterId)
+        public async Task<NSXTContainerClusterType> GetContainerCluster(string ContainerClusterId)
         {
             if (ContainerClusterId == null) { throw new System.ArgumentNullException("ContainerClusterId cannot be null"); }
             NSXTContainerClusterType returnValue = default(NSXTContainerClusterType);
@@ -405,31 +304,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             GetContainerClusterServiceURL.Replace("{container-cluster-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ContainerClusterId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetContainerClusterServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTContainerClusterType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTContainerClusterType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetContainerClusterServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTContainerClusterType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTContainerClusterType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTContainerClusterNodeType GetContainerClusterNode(string ContainerClusterNodeId)
+        public async Task<NSXTContainerClusterNodeType> GetContainerClusterNode(string ContainerClusterNodeId)
         {
             if (ContainerClusterNodeId == null) { throw new System.ArgumentNullException("ContainerClusterNodeId cannot be null"); }
             NSXTContainerClusterNodeType returnValue = default(NSXTContainerClusterNodeType);
@@ -442,31 +329,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             GetContainerClusterNodeServiceURL.Replace("{container-cluster-node-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ContainerClusterNodeId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetContainerClusterNodeServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTContainerClusterNodeType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTContainerClusterNodeType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetContainerClusterNodeServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTContainerClusterNodeType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTContainerClusterNodeType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTContainerNetworkPolicyType GetContainerNetworkPolicy(string NetworkPolicyId)
+        public async Task<NSXTContainerNetworkPolicyType> GetContainerNetworkPolicy(string NetworkPolicyId)
         {
             if (NetworkPolicyId == null) { throw new System.ArgumentNullException("NetworkPolicyId cannot be null"); }
             NSXTContainerNetworkPolicyType returnValue = default(NSXTContainerNetworkPolicyType);
@@ -479,31 +354,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             GetContainerNetworkPolicyServiceURL.Replace("{network-policy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NetworkPolicyId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetContainerNetworkPolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTContainerNetworkPolicyType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTContainerNetworkPolicyType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetContainerNetworkPolicyServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTContainerNetworkPolicyType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTContainerNetworkPolicyType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTContainerApplicationInstanceListResultType ListContainerApplicationInstances(string? ContainerApplicationId = null, string? ContainerClusterId = null, string? ContainerProjectId = null, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, string? ScopeId = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTContainerApplicationInstanceListResultType> ListContainerApplicationInstances(string? ContainerApplicationId = null, string? ContainerClusterId = null, string? ContainerProjectId = null, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, string? ScopeId = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTContainerApplicationInstanceListResultType returnValue = default(NSXTContainerApplicationInstanceListResultType);
             StringBuilder ListContainerApplicationInstancesServiceURL = new StringBuilder("/fabric/container-application-instances");
@@ -523,31 +386,19 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListContainerApplicationInstancesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTContainerApplicationInstanceListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTContainerApplicationInstanceListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListContainerApplicationInstancesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTContainerApplicationInstanceListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTContainerApplicationInstanceListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTContainerClusterNodeListResultType ListContainerClusterNodes(string? ContainerClusterId = null, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, string? ScopeId = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTContainerClusterNodeListResultType> ListContainerClusterNodes(string? ContainerClusterId = null, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, string? ScopeId = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTContainerClusterNodeListResultType returnValue = default(NSXTContainerClusterNodeListResultType);
             StringBuilder ListContainerClusterNodesServiceURL = new StringBuilder("/fabric/container-cluster-nodes");
@@ -565,25 +416,13 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListContainerClusterNodesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTContainerClusterNodeListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTContainerClusterNodeListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListContainerClusterNodesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTContainerClusterNodeListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTContainerClusterNodeListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

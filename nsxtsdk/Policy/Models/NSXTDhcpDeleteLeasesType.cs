@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"List of DHCP leases to be deleted")]
     public class NSXTDhcpDeleteLeasesType 
     {
-        public NSXTDhcpDeleteLeasesType()
-        {
-        }
         /// <summary>
         /// List of DHCP leases
         /// </summary>
         [JsonProperty(PropertyName = "leases", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"List of DHCP leases")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTDhcpDeleteLeaseRequestParametersType> Leases { get; set; }
     }
 }

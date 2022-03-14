@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,29 +17,19 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer ClientLogFilter object")]
     public class NSXTALBClientLogFilterType 
     {
-        public NSXTALBClientLogFilterType()
-        {
-            Duration = test
-        }
         /// <summary>
         /// Number of index.
         /// </summary>
         [JsonProperty(PropertyName = "index", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Number of index.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public long Index { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "client_ip")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBIpAddrMatchType ClientIp { get; set; }
         /// <summary>
         /// Name of the object.
         /// </summary>
         [JsonProperty(PropertyName = "name", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Name of the object.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Name { get; set; }
         /// <summary>
         /// Special values are 0 - 'infinite'.
@@ -47,8 +37,6 @@ namespace nsxtsdk.PolicyModels
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 30.
         /// </summary>
-        [JsonProperty(PropertyName = "duration")]
-        [NSXTProperty(IsRequired: false, Description: @"Special values are 0 - &apos;infinite&apos;.Unit is MIN.Default value when not specified in API or module isinterpreted by ALB Controller as 30.")]
         public long? Duration { get; set; }
         /// <summary>
         /// Placeholder for description of property all_headers of obj
@@ -56,8 +44,6 @@ namespace nsxtsdk.PolicyModels
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as false.
         /// </summary>
-        [JsonProperty(PropertyName = "all_headers")]
-        [NSXTProperty(IsRequired: false, Description: @"Placeholder for description of property all_headers of objtype ClientLogFilter field type str  type boolean.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
         public bool? AllHeaders { get; set; }
         /// <summary>
         /// Placeholder for description of property enabled of obj type
@@ -66,14 +52,10 @@ namespace nsxtsdk.PolicyModels
         /// interpreted by ALB Controller as false.
         /// </summary>
         [JsonProperty(PropertyName = "enabled", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Placeholder for description of property enabled of obj typeClientLogFilter field type str  type boolean.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public bool Enabled { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "uri")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBStringMatchType Uri { get; set; }
     }
 }

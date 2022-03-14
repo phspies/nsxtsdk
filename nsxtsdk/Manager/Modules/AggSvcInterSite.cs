@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public AggSvcInterSite(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public AggSvcInterSite(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTBgpNeighborRouteDetailsType GetInterSiteEdgeNodeBgpNeighborRoutes(string EdgeNodeId, string NeighborId)
+        public async Task<NSXTBgpNeighborRouteDetailsType> GetInterSiteEdgeNodeBgpNeighborRoutes(string EdgeNodeId, string NeighborId)
         {
             if (EdgeNodeId == null) { throw new System.ArgumentNullException("EdgeNodeId cannot be null"); }
             if (NeighborId == null) { throw new System.ArgumentNullException("NeighborId cannot be null"); }
@@ -45,31 +52,19 @@ namespace nsxtapi.ManagerModules
             GetInterSiteEdgeNodeBgpNeighborRoutesServiceURL.Replace("{edge-node-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EdgeNodeId, System.Globalization.CultureInfo.InvariantCulture)));
             GetInterSiteEdgeNodeBgpNeighborRoutesServiceURL.Replace("{neighbor-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NeighborId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetInterSiteEdgeNodeBgpNeighborRoutesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTBgpNeighborRouteDetailsType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTBgpNeighborRouteDetailsType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetInterSiteEdgeNodeBgpNeighborRoutesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTBgpNeighborRouteDetailsType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTBgpNeighborRouteDetailsType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTInterSiteBgpSummaryType GetInterSiteEdgeNodeBgpSummary(string EdgeNodeId)
+        public async Task<NSXTInterSiteBgpSummaryType> GetInterSiteEdgeNodeBgpSummary(string EdgeNodeId)
         {
             if (EdgeNodeId == null) { throw new System.ArgumentNullException("EdgeNodeId cannot be null"); }
             NSXTInterSiteBgpSummaryType returnValue = default(NSXTInterSiteBgpSummaryType);
@@ -82,31 +77,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             GetInterSiteEdgeNodeBgpSummaryServiceURL.Replace("{edge-node-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EdgeNodeId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetInterSiteEdgeNodeBgpSummaryServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTInterSiteBgpSummaryType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTInterSiteBgpSummaryType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetInterSiteEdgeNodeBgpSummaryServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTInterSiteBgpSummaryType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTInterSiteBgpSummaryType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTBgpNeighborRouteDetailsType GetInterSiteEdgeNodeBgpNeighborAdvertisedRoutes(string EdgeNodeId, string NeighborId)
+        public async Task<NSXTBgpNeighborRouteDetailsType> GetInterSiteEdgeNodeBgpNeighborAdvertisedRoutes(string EdgeNodeId, string NeighborId)
         {
             if (EdgeNodeId == null) { throw new System.ArgumentNullException("EdgeNodeId cannot be null"); }
             if (NeighborId == null) { throw new System.ArgumentNullException("NeighborId cannot be null"); }
@@ -121,31 +104,19 @@ namespace nsxtapi.ManagerModules
             GetInterSiteEdgeNodeBgpNeighborAdvertisedRoutesServiceURL.Replace("{edge-node-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EdgeNodeId, System.Globalization.CultureInfo.InvariantCulture)));
             GetInterSiteEdgeNodeBgpNeighborAdvertisedRoutesServiceURL.Replace("{neighbor-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NeighborId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetInterSiteEdgeNodeBgpNeighborAdvertisedRoutesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTBgpNeighborRouteDetailsType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTBgpNeighborRouteDetailsType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetInterSiteEdgeNodeBgpNeighborAdvertisedRoutesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTBgpNeighborRouteDetailsType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTBgpNeighborRouteDetailsType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNodeInterSiteStatisticsType GetInterSiteEdgeNodeStatistics(string EdgeNodeId)
+        public async Task<NSXTNodeInterSiteStatisticsType> GetInterSiteEdgeNodeStatistics(string EdgeNodeId)
         {
             if (EdgeNodeId == null) { throw new System.ArgumentNullException("EdgeNodeId cannot be null"); }
             NSXTNodeInterSiteStatisticsType returnValue = default(NSXTNodeInterSiteStatisticsType);
@@ -158,31 +129,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             GetInterSiteEdgeNodeStatisticsServiceURL.Replace("{edge-node-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EdgeNodeId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetInterSiteEdgeNodeStatisticsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNodeInterSiteStatisticsType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNodeInterSiteStatisticsType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetInterSiteEdgeNodeStatisticsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNodeInterSiteStatisticsType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNodeInterSiteStatisticsType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTBgpNeighborListResultType ListInterSiteEdgeNodeBgpNeighbors(string EdgeNodeId, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTBgpNeighborListResultType> ListInterSiteEdgeNodeBgpNeighbors(string EdgeNodeId, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (EdgeNodeId == null) { throw new System.ArgumentNullException("EdgeNodeId cannot be null"); }
             NSXTBgpNeighborListResultType returnValue = default(NSXTBgpNeighborListResultType);
@@ -200,25 +159,13 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListInterSiteEdgeNodeBgpNeighborsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTBgpNeighborListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTBgpNeighborListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListInterSiteEdgeNodeBgpNeighborsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTBgpNeighborListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTBgpNeighborListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

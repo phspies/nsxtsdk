@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer SSLClientCertificateAction object")]
     public class NSXTALBSSLClientCertificateActionType 
     {
-        public NSXTALBSSLClientCertificateActionType()
-        {
-        }
         /// <summary>
         /// Placeholder for description of property headers of obj type
         /// SSLClientCertificateAction field type str  type array.
         /// </summary>
-        [JsonProperty(PropertyName = "headers")]
-        [NSXTProperty(IsRequired: false, Description: @"Placeholder for description of property headers of obj typeSSLClientCertificateAction field type str  type array.")]
         public IList<NSXTALBSSLClientRequestHeaderType> Headers { get; set; }
         /// <summary>
         /// Placeholder for description of property close_connection of
@@ -34,8 +29,6 @@ namespace nsxtsdk.PolicyModels
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as false.
         /// </summary>
-        [JsonProperty(PropertyName = "close_connection")]
-        [NSXTProperty(IsRequired: false, Description: @"Placeholder for description of property close_connection ofobj type SSLClientCertificateAction field type str  typeboolean.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
         public bool? CloseConnection { get; set; }
     }
 }

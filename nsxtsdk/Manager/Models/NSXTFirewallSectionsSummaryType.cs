@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,26 +17,17 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTFirewallSectionsSummaryType : NSXTResourceType
     {
-        public NSXTFirewallSectionsSummaryType()
-        {
-        }
         /// <summary>
         /// Total number of sections for the section type.
         /// </summary>
-        [JsonProperty(PropertyName = "section_count")]
-        [NSXTProperty(IsRequired: false, Description: @"Total number of sections for the section type.")]
         public long? SectionCount { get; set; }
         /// <summary>
         /// Total number of rules in the section.
         /// </summary>
-        [JsonProperty(PropertyName = "rule_count")]
-        [NSXTProperty(IsRequired: false, Description: @"Total number of rules in the section.")]
         public long? RuleCount { get; set; }
         /// <summary>
         /// Type of rules which a section can contain.
         /// </summary>
-        [JsonProperty(PropertyName = "section_type")]
-        [NSXTProperty(IsRequired: false, Description: @"Type of rules which a section can contain.")]
         public NSXTFirewallSectionsSummarySectionTypeEnumType? SectionType { get; set; }
     }
 }

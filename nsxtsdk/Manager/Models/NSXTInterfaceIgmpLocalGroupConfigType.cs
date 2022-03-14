@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,16 +17,11 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Interface IGMP[Internet Group Management Protocol] configuration parameters.")]
     public class NSXTInterfaceIgmpLocalGroupConfigType 
     {
-        public NSXTInterfaceIgmpLocalGroupConfigType()
-        {
-        }
         /// <summary>
         /// IGMP join group manages the membership of hosts and routing devices in
         /// the multicast group. Host will join the group by conveying its information
         /// through IGMP.
         /// </summary>
-        [JsonProperty(PropertyName = "igmp_local_join_groups")]
-        [NSXTProperty(IsRequired: false, Description: @"IGMP join group manages the membership of hosts and routing devices inthe multicast group. Host will join the group by conveying its informationthrough IGMP.")]
         public IList<string> IgmpLocalJoinGroups { get; set; }
     }
 }

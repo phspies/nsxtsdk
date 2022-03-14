@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTManagementConfigType : NSXTRevisionedResourceType
     {
-        public NSXTManagementConfigType()
-        {
-        }
         /// <summary>
         /// True if Management nodes publish their fqdns(instead of default IP addresses) across NSX for its reachability.
         /// </summary>
         [JsonProperty(PropertyName = "publish_fqdns", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"True if Management nodes publish their fqdns(instead of default IP addresses) across NSX for its reachability.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public bool PublishFqdns { get; set; }
     }
 }

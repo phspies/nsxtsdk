@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,25 +17,18 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer URIParam object")]
     public class NSXTALBURIParamType 
     {
-        public NSXTALBURIParamType()
-        {
-        }
         /// <summary>
         /// Token config either for the URI components or a constant
         /// string.
         /// Minimum of 1 items required.
         /// </summary>
         [JsonProperty(PropertyName = "tokens", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Token config either for the URI components or a constantstring.Minimum of 1 items required.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTALBURIParamTokenType> Tokens { get; set; }
         /// <summary>
         /// URI param type.
         /// Enum options - URI_PARAM_TYPE_TOKENIZED.
         /// </summary>
         [JsonProperty(PropertyName = "type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"URI param type.Enum options - URI_PARAM_TYPE_TOKENIZED.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTAlburiparamTypeEnumType Type { get; set; }
     }
 }

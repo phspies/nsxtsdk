@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,43 +17,28 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIPSecVPNPeerEndpointType : NSXTManagedResourceType
     {
-        public NSXTIPSecVPNPeerEndpointType()
-        {
-            AuthenticationMode = test
-            ConnectionInitiationMode = test
-        }
         /// <summary>
         /// IPSec Pre-shared key. Maximum length of this field is 128 characters.
         /// </summary>
-        [JsonProperty(PropertyName = "psk")]
-        [NSXTProperty(IsRequired: false, Description: @"IPSec Pre-shared key. Maximum length of this field is 128 characters.")]
         public string? Psk { get; set; }
         /// <summary>
         /// Peer identifier.
         /// </summary>
         [JsonProperty(PropertyName = "peer_id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Peer identifier.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string PeerId { get; set; }
         /// <summary>
         /// Tunnel profile id to be used. By default it will point to system default profile.
         /// </summary>
-        [JsonProperty(PropertyName = "ipsec_tunnel_profile_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Tunnel profile id to be used. By default it will point to system default profile.")]
         public string? IpsecTunnelProfileId { get; set; }
         /// <summary>
         /// Authentication mode used for the peer authentication. For PSK (Pre Shared Key) authentication mode, 'psk' property is
         /// mandatory and for the CERTIFICATE authentication mode, 'peer_id' property is mandatory.
         /// </summary>
-        [JsonProperty(PropertyName = "authentication_mode")]
-        [NSXTProperty(IsRequired: false, Description: @"Authentication mode used for the peer authentication. For PSK (Pre Shared Key) authentication mode, &apos;psk&apos; property is mandatory and for the CERTIFICATE authentication mode, &apos;peer_id&apos; property is mandatory.")]
         public NSXTIpsecVpnpeerEndpointAuthenticationModeEnumType? AuthenticationMode { get; set; }
         /// <summary>
         /// IPV4 address of peer endpoint on remote site.
         /// </summary>
         [JsonProperty(PropertyName = "peer_address", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"IPV4 address of peer endpoint on remote site.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string PeerAddress { get; set; }
         /// <summary>
         /// Connection initiation mode used by local
@@ -68,20 +53,14 @@ namespace nsxtsdk.ManagerModels
         /// creation once first packet matching the policy rule is
         /// received and will also respond to incoming initiation request.
         /// </summary>
-        [JsonProperty(PropertyName = "connection_initiation_mode")]
-        [NSXTProperty(IsRequired: false, Description: @"Connection initiation mode used by localendpoint to establish ike connection with peer endpoint.INITIATOR - In this mode local endpoint initiates tunnelsetup and will also respond to incoming tunnel setup requestsfrom peer gateway.RESPOND_ONLY - In this mode, local endpoint shall onlyrespond to incoming tunnel setup requests. It shall notinitiate the tunnel setup.ON_DEMAND - In this mode local endpoint will initiate tunnelcreation once first packet matching the policy rule isreceived and will also respond to incoming initiation request.")]
         public NSXTIpsecVpnpeerEndpointConnectionInitiationModeEnumType? ConnectionInitiationMode { get; set; }
         /// <summary>
         /// Dead peer detection (DPD) profile id. Default will be set according to system default policy.
         /// </summary>
-        [JsonProperty(PropertyName = "dpd_profile_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Dead peer detection (DPD) profile id. Default will be set according to system default policy.")]
         public string? DpdProfileId { get; set; }
         /// <summary>
         /// IKE profile id to be used. Default will be set according to system default policy.
         /// </summary>
-        [JsonProperty(PropertyName = "ike_profile_id")]
-        [NSXTProperty(IsRequired: false, Description: @"IKE profile id to be used. Default will be set according to system default policy.")]
         public string? IkeProfileId { get; set; }
     }
 }

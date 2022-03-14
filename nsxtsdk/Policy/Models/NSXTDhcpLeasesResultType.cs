@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTDhcpLeasesResultType : NSXTDhcpLeasesType
     {
-        public NSXTDhcpLeasesResultType()
-        {
-        }
         /// <summary>
         /// Policy path to Segment, Tier0 or Tier1 gateway where DHCP server
         /// is attached.
         /// </summary>
-        [JsonProperty(PropertyName = "connectivity_path")]
-        [NSXTProperty(IsRequired: false, Description: @"Policy path to Segment, Tier0 or Tier1 gateway where DHCP serveris attached.")]
         public string? ConnectivityPath { get; set; }
     }
 }

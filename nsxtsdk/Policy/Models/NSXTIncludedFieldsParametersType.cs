@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"A list of fields to include in query results")]
     public class NSXTIncludedFieldsParametersType 
     {
-        public NSXTIncludedFieldsParametersType()
-        {
-        }
         /// <summary>
         /// Note - this parameter currently only works when used with the search APIs /policy/api/v1/search/query and
         /// /policy/api/v1/search/dsl. It is ignored for other list APIs.
         /// </summary>
-        [JsonProperty(PropertyName = "included_fields")]
-        [NSXTProperty(IsRequired: false, Description: @"Note - this parameter currently only works when used with the search APIs /policy/api/v1/search/query and /policy/api/v1/search/dsl. It is ignored for other list APIs.")]
         public string? IncludedFields { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,9 +17,6 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTSecurityFeatureType : NSXTSecurityFeatureBaseType
     {
-        public NSXTSecurityFeatureType()
-        {
-        }
         /// <summary>
         /// Feature to be enabled/disabled.
         /// IDPS - Intrusion Detection System
@@ -28,8 +25,6 @@ namespace nsxtsdk.PolicyModels
         /// Use any one of this to enable/disabe it.
         /// </summary>
         [JsonProperty(PropertyName = "feature", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Feature to be enabled/disabled.IDPS - Intrusion Detection SystemTLS - Transport Layer Security InspectionMALWAREPREVENTION - Malware PreventionUse any one of this to enable/disabe it.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTSecurityFeatureFeatureEnumType Feature { get; set; }
     }
 }

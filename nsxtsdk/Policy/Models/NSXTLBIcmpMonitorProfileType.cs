@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,17 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLBIcmpMonitorProfileType : NSXTLBActiveMonitorType
     {
-        public NSXTLBIcmpMonitorProfileType()
-        {
-            DataLength = test
-        }
         /// <summary>
         /// The data size (in byte) of the ICMP healthcheck packet
         /// </summary>
-        [JsonProperty(PropertyName = "data_length")]
-        [NSXTProperty(IsRequired: false, Description: @"The data size (in byte) of the ICMP healthcheck packet")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(65507)]
         public long? DataLength { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -18,46 +18,25 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Enables traffic limit for incoming/outgoing broadcast and multicast packets. Use 0 to disable rate limiting for a specific traffic type")]
     public class NSXTRateLimitsType 
     {
-        public NSXTRateLimitsType()
-        {
-            RxMulticast = test
-            TxMulticast = test
-            TxBroadcast = test
-            RxBroadcast = test
-        }
         /// <summary>
         /// Incoming multicast traffic limit in packets per second
         /// </summary>
-        [JsonProperty(PropertyName = "rx_multicast")]
-        [NSXTProperty(IsRequired: false, Description: @"Incoming multicast traffic limit in packets per second")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
         public int? RxMulticast { get; set; }
         /// <summary>
         /// Outgoing multicast traffic limit in packets per second
         /// </summary>
-        [JsonProperty(PropertyName = "tx_multicast")]
-        [NSXTProperty(IsRequired: false, Description: @"Outgoing multicast traffic limit in packets per second")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
         public int? TxMulticast { get; set; }
         /// <summary>
         /// Whether rate limiting is enabled
         /// </summary>
-        [JsonProperty(PropertyName = "enabled")]
-        [NSXTProperty(IsRequired: false, Description: @"Whether rate limiting is enabled")]
         public bool? Enabled { get; set; }
         /// <summary>
         /// Outgoing broadcast traffic limit in packets per second
         /// </summary>
-        [JsonProperty(PropertyName = "tx_broadcast")]
-        [NSXTProperty(IsRequired: false, Description: @"Outgoing broadcast traffic limit in packets per second")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
         public int? TxBroadcast { get; set; }
         /// <summary>
         /// Incoming broadcast traffic limit in packets per second
         /// </summary>
-        [JsonProperty(PropertyName = "rx_broadcast")]
-        [NSXTProperty(IsRequired: false, Description: @"Incoming broadcast traffic limit in packets per second")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
         public int? RxBroadcast { get; set; }
     }
 }

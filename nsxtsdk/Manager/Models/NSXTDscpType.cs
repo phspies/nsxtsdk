@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,23 +17,13 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Dscp value is ignored in case of &apos;TRUSTED&apos; DscpMode.")]
     public class NSXTDscpType 
     {
-        public NSXTDscpType()
-        {
-            Priority = test
-        }
         /// <summary>
         /// Internal Forwarding Priority
         /// </summary>
-        [JsonProperty(PropertyName = "priority")]
-        [NSXTProperty(IsRequired: false, Description: @"Internal Forwarding Priority")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(63)]
         public int? Priority { get; set; }
         /// <summary>
         /// Trust settings
         /// </summary>
-        [JsonProperty(PropertyName = "mode")]
-        [NSXTProperty(IsRequired: false, Description: @"Trust settings")]
         public NSXTDscpModeEnumType? Mode { get; set; }
     }
 }

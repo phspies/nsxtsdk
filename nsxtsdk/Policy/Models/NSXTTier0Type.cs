@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,38 +17,25 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTTier0Type : NSXTPolicyConfigResourceType
     {
-        public NSXTTier0Type()
-        {
-            HaMode = test
-            FailoverMode = test
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "federation_config")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTFederationGatewayConfigType FederationConfig { get; set; }
         /// <summary>
         /// Indicates if logging should be enabled for the default whitelisting rule. This field is
         /// deprecated and recommended to change Rule logging field. Note that this
         /// field is not synchronized with default logging field.
         /// </summary>
-        [JsonProperty(PropertyName = "default_rule_logging")]
-        [NSXTProperty(IsRequired: false, Description: @"Indicates if logging should be enabled for the default whitelisting rule. This field isdeprecated and recommended to change Rule logging field. Note that thisfield is not synchronized with default logging field.")]
         public bool? DefaultRuleLogging { get; set; }
         /// <summary>
         /// Specify transit subnets that are used to assign addresses to logical links
         /// connecting tier-0 and tier-1s. Both IPv4 and IPv6 addresses are supported.
         /// When not specified, subnet 100.64.0.0/16 is configured by default.
         /// </summary>
-        [JsonProperty(PropertyName = "transit_subnets")]
-        [NSXTProperty(IsRequired: false, Description: @"Specify transit subnets that are used to assign addresses to logical linksconnecting tier-0 and tier-1s. Both IPv4 and IPv6 addresses are supported.When not specified, subnet 100.64.0.0/16 is configured by default.")]
         public IList<string> TransitSubnets { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "advanced_config")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTTier0AdvancedConfigType AdvancedConfig { get; set; }
         /// <summary>
         /// Specify high-availability mode for Tier-0. Default is ACTIVE_ACTIVE.
@@ -58,14 +45,10 @@ namespace nsxtsdk.PolicyModels
         /// inter SR iBGP (in BGP) and previously configured preferred edge nodes
         /// (in Tier0 locale-service) are removed.
         /// </summary>
-        [JsonProperty(PropertyName = "ha_mode")]
-        [NSXTProperty(IsRequired: false, Description: @"Specify high-availability mode for Tier-0. Default is ACTIVE_ACTIVE.When ha_mode is changed from ACTIVE_ACTIVE to ACTIVE_STANDBY,inter SR iBGP (in BGP) is disabled.Changing ha_mode from ACTIVE_STANDBY to ACTIVE_ACTIVE will enableinter SR iBGP (in BGP) and previously configured preferred edge nodes(in Tier0 locale-service) are removed.")]
         public NSXTTier0HaModeEnumType? HaMode { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "vrf_config")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTTier0VrfConfigType VrfConfig { get; set; }
         /// <summary>
         /// Specify subnets that are used to assign addresses to logical links
@@ -74,8 +57,6 @@ namespace nsxtsdk.PolicyModels
         /// When not specified, subnet 169.254.0.0/24 is assigned by default
         /// in ACTIVE_ACTIVE HA mode or 169.254.0.0/28 in ACTIVE_STANDBY mode.
         /// </summary>
-        [JsonProperty(PropertyName = "internal_transit_subnets")]
-        [NSXTProperty(IsRequired: false, Description: @"Specify subnets that are used to assign addresses to logical linksconnecting service routers and distributed routers. Only IPv4addresses are supported.When not specified, subnet 169.254.0.0/24 is assigned by defaultin ACTIVE_ACTIVE HA mode or 169.254.0.0/28 in ACTIVE_STANDBY mode.")]
         public IList<string> InternalTransitSubnets { get; set; }
         /// <summary>
         /// Determines the behavior when a Tier-0 instance in ACTIVE-STANDBY
@@ -87,57 +68,39 @@ namespace nsxtsdk.PolicyModels
         /// Only applicable when edge cluster is configured in Tier0
         /// locale-service.
         /// </summary>
-        [JsonProperty(PropertyName = "failover_mode")]
-        [NSXTProperty(IsRequired: false, Description: @"Determines the behavior when a Tier-0 instance in ACTIVE-STANDBYhigh-availability mode restarts after a failure. If set toPREEMPTIVE, the preferred node will take over, even if it causesanother failure. If set to NON_PREEMPTIVE, then the instance thatrestarted will remain secondary. This property is not used whenthe ha_mode property is set to ACTIVE_ACTIVE.Only applicable when edge cluster is configured in Tier0locale-service.")]
         public NSXTTier0FailoverModeEnumType? FailoverMode { get; set; }
         /// <summary>
         /// Maximum number of ARP entries per transport node.
         /// </summary>
-        [JsonProperty(PropertyName = "arp_limit")]
-        [NSXTProperty(IsRequired: false, Description: @"Maximum number of ARP entries per transport node.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(5000)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(50000)]
         public int? ArpLimit { get; set; }
         /// <summary>
         /// This field is deprecated and recommended to change Rule action field.
         /// Note that this field is not synchronized with default rule field.
         /// </summary>
-        [JsonProperty(PropertyName = "force_whitelisting")]
-        [NSXTProperty(IsRequired: false, Description: @"This field is deprecated and recommended to change Rule action field.Note that this field is not synchronized with default rule field.")]
         public bool? ForceWhitelisting { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "intersite_config")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTIntersiteGatewayConfigType IntersiteConfig { get; set; }
         /// <summary>
         /// If you are using EVPN service, then route distinguisher administrator address
         /// should be defined if you need auto generation of route distinguisher on your
         /// VRF configuration.
         /// </summary>
-        [JsonProperty(PropertyName = "rd_admin_field")]
-        [NSXTProperty(IsRequired: false, Description: @"If you are using EVPN service, then route distinguisher administrator addressshould be defined if you need auto generation of route distinguisher on yourVRF configuration.")]
         public string? RdAdminField { get; set; }
         /// <summary>
         /// IPv6 NDRA and DAD profiles configuration on Tier0. Either or both
         /// NDRA and/or DAD profiles can be configured.
         /// </summary>
-        [JsonProperty(PropertyName = "ipv6_profile_paths")]
-        [NSXTProperty(IsRequired: false, Description: @"IPv6 NDRA and DAD profiles configuration on Tier0. Either or bothNDRA and/or DAD profiles can be configured.")]
         public IList<string> Ipv6ProfilePaths { get; set; }
         /// <summary>
         /// Disable or enable gateway fiewall.
         /// </summary>
-        [JsonProperty(PropertyName = "disable_firewall")]
-        [NSXTProperty(IsRequired: false, Description: @"Disable or enable gateway fiewall.")]
         public bool? DisableFirewall { get; set; }
         /// <summary>
         /// DHCP configuration for Segments connected to Tier-0. DHCP service is
         /// configured in relay mode.
         /// </summary>
-        [JsonProperty(PropertyName = "dhcp_config_paths")]
-        [NSXTProperty(IsRequired: false, Description: @"DHCP configuration for Segments connected to Tier-0. DHCP service isconfigured in relay mode.")]
         public IList<string> DhcpConfigPaths { get; set; }
     }
 }

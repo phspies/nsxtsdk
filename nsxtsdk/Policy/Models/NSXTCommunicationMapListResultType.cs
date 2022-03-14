@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTCommunicationMapListResultType : NSXTListResultType
     {
-        public NSXTCommunicationMapListResultType()
-        {
-        }
         /// <summary>
         /// CommunicationMap list results
         /// </summary>
         [JsonProperty(PropertyName = "results", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"CommunicationMap list results")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTCommunicationMapType> Results { get; set; }
     }
 }

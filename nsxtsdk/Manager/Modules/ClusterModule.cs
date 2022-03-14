@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public ClusterModule(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public ClusterModule(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTClusterConfigurationType DetachClusterNodeRemoveNode(string NodeId, string? Force = null, string? GracefulShutdown = null, string? IgnoreRepositoryIpCheck = null)
+        public async Task<NSXTClusterConfigurationType> DetachClusterNodeRemoveNode(string NodeId, string? Force = null, string? GracefulShutdown = null, string? IgnoreRepositoryIpCheck = null)
         {
             if (NodeId == null) { throw new System.ArgumentNullException("NodeId cannot be null"); }
             NSXTClusterConfigurationType returnValue = default(NSXTClusterConfigurationType);
@@ -46,31 +53,19 @@ namespace nsxtapi.ManagerModules
             if (GracefulShutdown != null) { request.AddQueryParameter("graceful-shutdown", GracefulShutdown.ToString()); }
             if (IgnoreRepositoryIpCheck != null) { request.AddQueryParameter("ignore-repository-ip-check", IgnoreRepositoryIpCheck.ToString()); }
             request.Resource = DetachClusterNodeRemoveNodeServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTClusterConfigurationType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTClusterConfigurationType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + DetachClusterNodeRemoveNodeServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTClusterConfigurationType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTClusterConfigurationType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTClusterConfigurationType JoinClusterJoinCluster(NSXTJoinClusterParametersType JoinClusterParameters)
+        public async Task<NSXTClusterConfigurationType> JoinClusterJoinCluster(NSXTJoinClusterParametersType JoinClusterParameters)
         {
             if (JoinClusterParameters == null) { throw new System.ArgumentNullException("JoinClusterParameters cannot be null"); }
             NSXTClusterConfigurationType returnValue = default(NSXTClusterConfigurationType);
@@ -83,25 +78,13 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(JoinClusterParameters, defaultSerializationSettings));
             request.Resource = JoinClusterJoinClusterServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTClusterConfigurationType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTClusterConfigurationType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + JoinClusterJoinClusterServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTClusterConfigurationType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTClusterConfigurationType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

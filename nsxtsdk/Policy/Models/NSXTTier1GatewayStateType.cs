@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,39 +17,26 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Tier1 gateway state")]
     public class NSXTTier1GatewayStateType 
     {
-        public NSXTTier1GatewayStateType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "tier1_status")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTLogicalRouterStatusType Tier1Status { get; set; }
         /// <summary>
         /// IPv6 DAD status for interfaces configured on Tier1
         /// </summary>
-        [JsonProperty(PropertyName = "ipv6_status")]
-        [NSXTProperty(IsRequired: false, Description: @"IPv6 DAD status for interfaces configured on Tier1")]
         public IList<NSXTIPv6StatusType> Ipv6Status { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "tier1_state")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTLogicalRouterStateType Tier1State { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "transport_zone")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTPolicyTransportZoneType TransportZone { get; set; }
         /// <summary>
         /// String Path of the enforcement point.
         /// When not specified, routes from all enforcement-points are returned.
         /// </summary>
-        [JsonProperty(PropertyName = "enforcement_point_path")]
-        [NSXTProperty(IsRequired: false, Description: @"String Path of the enforcement point.When not specified, routes from all enforcement-points are returned.")]
         public string? EnforcementPointPath { get; set; }
     }
 }

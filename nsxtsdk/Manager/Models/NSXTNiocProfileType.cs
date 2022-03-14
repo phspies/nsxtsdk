@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,16 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNiocProfileType : NSXTBaseHostSwitchProfileType
     {
-        public NSXTNiocProfileType()
-        {
-            Enabled = test
-        }
         /// <summary>
         /// host_infra_traffic_res specifies bandwidth allocation for
         /// various traffic resources.
         /// </summary>
-        [JsonProperty(PropertyName = "host_infra_traffic_res")]
-        [NSXTProperty(IsRequired: false, Description: @"host_infra_traffic_res specifies bandwidth allocation forvarious traffic resources.")]
         public IList<NSXTResourceAllocationType> HostInfraTrafficRes { get; set; }
         /// <summary>
         /// The enabled property specifies the status of NIOC feature.
@@ -36,8 +30,6 @@ namespace nsxtsdk.ManagerModels
         /// is turned off and no bandwidth allocation is guaranteed.
         /// By default, enabled will be set to true.
         /// </summary>
-        [JsonProperty(PropertyName = "enabled")]
-        [NSXTProperty(IsRequired: false, Description: @"The enabled property specifies the status of NIOC feature.When enabled is set to true, NIOC feature is turned on andthe bandwidth allocations specified for the traffic resourcesare enforced. When enabled is set to false, NIOC featureis turned off and no bandwidth allocation is guaranteed.By default, enabled will be set to true.")]
         public bool? Enabled { get; set; }
     }
 }

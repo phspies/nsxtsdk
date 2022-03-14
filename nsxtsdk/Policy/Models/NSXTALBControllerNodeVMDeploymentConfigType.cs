@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Contains info used to configure the VM on deployment.")]
     public class NSXTALBControllerNodeVMDeploymentConfigType 
     {
-        public NSXTALBControllerNodeVMDeploymentConfigType()
-        {
-        }
         /// <summary>
         /// Specifies the config for the platform through which to deploy the VM.
         /// </summary>
         [JsonProperty(PropertyName = "placement_type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Specifies the config for the platform through which to deploy the VM.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTAlbcontrollerNodeVmdeploymentConfigPlacementTypeEnumType PlacementType { get; set; }
     }
 }

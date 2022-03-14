@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,32 +17,21 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTMigrationDataInfoType 
     {
-        public NSXTMigrationDataInfoType()
-        {
-        }
         /// <summary>
         /// Type of the Migration data file for which info is requested.
         /// </summary>
-        [JsonProperty(PropertyName = "file_type")]
-        [NSXTProperty(IsRequired: false, Description: @"Type of the Migration data file for which info is requested.")]
         public NSXTMigrationDataInfoFileTypeEnumType? FileType { get; set; }
         /// <summary>
         /// Absolute location of the file.
         /// </summary>
-        [JsonProperty(PropertyName = "file_location")]
-        [NSXTProperty(IsRequired: false, Description: @"Absolute location of the file.")]
         public string? FileLocation { get; set; }
         /// <summary>
         /// Id of the site in NSX-T Federation
         /// </summary>
-        [JsonProperty(PropertyName = "federation_site_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Id of the site in NSX-T Federation")]
         public string? FederationSiteId { get; set; }
         /// <summary>
         /// Indicates if the file is present.
         /// </summary>
-        [JsonProperty(PropertyName = "is_present")]
-        [NSXTProperty(IsRequired: false, Description: @"Indicates if the file is present.")]
         public bool? IsPresent { get; set; }
     }
 }

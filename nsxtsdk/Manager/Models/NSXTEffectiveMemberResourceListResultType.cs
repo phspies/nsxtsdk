@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTEffectiveMemberResourceListResultType : NSXTListResultType
     {
-        public NSXTEffectiveMemberResourceListResultType()
-        {
-        }
         /// <summary>
         /// Paged Collection of resources which are the effective members of an NSGroup.
         /// </summary>
         [JsonProperty(PropertyName = "results", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Paged Collection of resources which are the effective members of an NSGroup.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTResourceReferenceType> Results { get; set; }
     }
 }

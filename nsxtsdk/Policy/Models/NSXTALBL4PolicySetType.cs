@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,28 +17,19 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTALBL4PolicySetType : NSXTPolicyConfigResourceType
     {
-        public NSXTALBL4PolicySetType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "l4_connection_policy")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBL4ConnectionPolicyType L4ConnectionPolicy { get; set; }
         /// <summary>
         /// List of labels to be used for granular RBAC.
         /// Allowed in Basic edition, Essentials edition, Enterprise
         /// edition.
         /// </summary>
-        [JsonProperty(PropertyName = "markers")]
-        [NSXTProperty(IsRequired: false, Description: @"List of labels to be used for granular RBAC.Allowed in Basic edition, Essentials edition, Enterpriseedition.")]
         public IList<NSXTALBRoleFilterMatchLabelType> Markers { get; set; }
         /// <summary>
         /// Creator name.
         /// </summary>
-        [JsonProperty(PropertyName = "created_by")]
-        [NSXTProperty(IsRequired: false, Description: @"Creator name.")]
         public string? CreatedBy { get; set; }
         /// <summary>
         /// Placeholder for description of property is_internal_policy
@@ -46,8 +37,6 @@ namespace nsxtsdk.PolicyModels
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as false.
         /// </summary>
-        [JsonProperty(PropertyName = "is_internal_policy")]
-        [NSXTProperty(IsRequired: false, Description: @"Placeholder for description of property is_internal_policyof obj type L4PolicySet field type str  type boolean.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
         public bool? IsInternalPolicy { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,22 +17,15 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer IpAddr object")]
     public class NSXTALBIpAddrType 
     {
-        public NSXTALBIpAddrType()
-        {
-        }
         /// <summary>
         /// Enum options - V4, DNS, V6.
         /// </summary>
         [JsonProperty(PropertyName = "type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Enum options - V4, DNS, V6.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTAlbipAddrTypeEnumType Type { get; set; }
         /// <summary>
         /// IP address.
         /// </summary>
         [JsonProperty(PropertyName = "addr", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"IP address.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Addr { get; set; }
     }
 }

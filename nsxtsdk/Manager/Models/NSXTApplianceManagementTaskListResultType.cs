@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTApplianceManagementTaskListResultType : NSXTListResultType
     {
-        public NSXTApplianceManagementTaskListResultType()
-        {
-        }
         /// <summary>
         /// Task property results
         /// </summary>
         [JsonProperty(PropertyName = "results", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Task property results")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTApplianceManagementTaskPropertiesType> Results { get; set; }
     }
 }

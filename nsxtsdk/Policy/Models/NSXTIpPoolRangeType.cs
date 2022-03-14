@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,22 +17,15 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIpPoolRangeType : NSXTResourceType
     {
-        public NSXTIpPoolRangeType()
-        {
-        }
         /// <summary>
         /// The start IP Address of the IP Range.
         /// </summary>
         [JsonProperty(PropertyName = "start", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"The start IP Address of the IP Range.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Start { get; set; }
         /// <summary>
         /// The end IP Address of the IP Range.
         /// </summary>
         [JsonProperty(PropertyName = "end", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"The end IP Address of the IP Range.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string End { get; set; }
     }
 }

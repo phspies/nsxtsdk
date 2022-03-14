@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLogicalPortMirrorDestinationType : NSXTMirrorDestinationType
     {
-        public NSXTLogicalPortMirrorDestinationType()
-        {
-        }
         /// <summary>
         /// Destination logical port identifier list.
         /// </summary>
         [JsonProperty(PropertyName = "port_ids", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Destination logical port identifier list.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<string> PortIds { get; set; }
     }
 }

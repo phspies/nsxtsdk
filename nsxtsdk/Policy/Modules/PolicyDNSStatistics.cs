@@ -21,16 +21,23 @@ namespace nsxtapi.PolicyModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public PolicyDNSStatistics(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public PolicyDNSStatistics(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTAggregateDNSForwarderStatusType GlobalGlobalInfraGetTier1DnsforwarderStatus(string Tier1Id, string? EnforcementPointPath = null)
+        public async Task<NSXTAggregateDNSForwarderStatusType> GlobalGlobalInfraGetTier1DnsforwarderStatus(string Tier1Id, string? EnforcementPointPath = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             NSXTAggregateDNSForwarderStatusType returnValue = default(NSXTAggregateDNSForwarderStatusType);
@@ -44,31 +51,19 @@ namespace nsxtapi.PolicyModules
             GlobalInfraGetTier1DnsforwarderStatusServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             request.Resource = GlobalInfraGetTier1DnsforwarderStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTAggregateDNSForwarderStatusType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTAggregateDNSForwarderStatusType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraGetTier1DnsforwarderStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTAggregateDNSForwarderStatusType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTAggregateDNSForwarderStatusType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTAggregateDNSForwarderStatusType GlobalGlobalInfraGetTier0DnsforwarderStatus(string Tier0Id, string? EnforcementPointPath = null)
+        public async Task<NSXTAggregateDNSForwarderStatusType> GlobalGlobalInfraGetTier0DnsforwarderStatus(string Tier0Id, string? EnforcementPointPath = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             NSXTAggregateDNSForwarderStatusType returnValue = default(NSXTAggregateDNSForwarderStatusType);
@@ -82,31 +77,19 @@ namespace nsxtapi.PolicyModules
             GlobalInfraGetTier0DnsforwarderStatusServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             request.Resource = GlobalInfraGetTier0DnsforwarderStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTAggregateDNSForwarderStatusType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTAggregateDNSForwarderStatusType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraGetTier0DnsforwarderStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTAggregateDNSForwarderStatusType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTAggregateDNSForwarderStatusType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTAggregateDNSForwarderStatusType GetTier0DnsforwarderStatus(string Tier0Id, string? EnforcementPointPath = null)
+        public async Task<NSXTAggregateDNSForwarderStatusType> GetTier0DnsforwarderStatus(string Tier0Id, string? EnforcementPointPath = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             NSXTAggregateDNSForwarderStatusType returnValue = default(NSXTAggregateDNSForwarderStatusType);
@@ -120,31 +103,19 @@ namespace nsxtapi.PolicyModules
             GetTier0DnsforwarderStatusServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             request.Resource = GetTier0DnsforwarderStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTAggregateDNSForwarderStatusType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTAggregateDNSForwarderStatusType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetTier0DnsforwarderStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTAggregateDNSForwarderStatusType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTAggregateDNSForwarderStatusType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTAggregateDNSForwarderStatisticsType GlobalGlobalInfraGetTier1DnsforwarderStatistics(string Tier1Id, string? EnforcementPointPath = null)
+        public async Task<NSXTAggregateDNSForwarderStatisticsType> GlobalGlobalInfraGetTier1DnsforwarderStatistics(string Tier1Id, string? EnforcementPointPath = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             NSXTAggregateDNSForwarderStatisticsType returnValue = default(NSXTAggregateDNSForwarderStatisticsType);
@@ -158,31 +129,19 @@ namespace nsxtapi.PolicyModules
             GlobalInfraGetTier1DnsforwarderStatisticsServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             request.Resource = GlobalInfraGetTier1DnsforwarderStatisticsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTAggregateDNSForwarderStatisticsType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTAggregateDNSForwarderStatisticsType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraGetTier1DnsforwarderStatisticsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTAggregateDNSForwarderStatisticsType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTAggregateDNSForwarderStatisticsType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTAggregateDNSForwarderStatusType GetTier1DnsforwarderStatus(string Tier1Id, string? EnforcementPointPath = null)
+        public async Task<NSXTAggregateDNSForwarderStatusType> GetTier1DnsforwarderStatus(string Tier1Id, string? EnforcementPointPath = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             NSXTAggregateDNSForwarderStatusType returnValue = default(NSXTAggregateDNSForwarderStatusType);
@@ -196,31 +155,19 @@ namespace nsxtapi.PolicyModules
             GetTier1DnsforwarderStatusServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             request.Resource = GetTier1DnsforwarderStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTAggregateDNSForwarderStatusType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTAggregateDNSForwarderStatusType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetTier1DnsforwarderStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTAggregateDNSForwarderStatusType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTAggregateDNSForwarderStatusType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTAggregateDNSForwarderStatisticsType GlobalGlobalInfraGetTier0DnsforwarderStatistics(string Tier0Id, string? EnforcementPointPath = null)
+        public async Task<NSXTAggregateDNSForwarderStatisticsType> GlobalGlobalInfraGetTier0DnsforwarderStatistics(string Tier0Id, string? EnforcementPointPath = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             NSXTAggregateDNSForwarderStatisticsType returnValue = default(NSXTAggregateDNSForwarderStatisticsType);
@@ -234,31 +181,19 @@ namespace nsxtapi.PolicyModules
             GlobalInfraGetTier0DnsforwarderStatisticsServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             request.Resource = GlobalInfraGetTier0DnsforwarderStatisticsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTAggregateDNSForwarderStatisticsType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTAggregateDNSForwarderStatisticsType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraGetTier0DnsforwarderStatisticsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTAggregateDNSForwarderStatisticsType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTAggregateDNSForwarderStatisticsType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTAggregateDNSForwarderStatisticsType GetTier0DnsforwarderStatistics(string Tier0Id, string? EnforcementPointPath = null)
+        public async Task<NSXTAggregateDNSForwarderStatisticsType> GetTier0DnsforwarderStatistics(string Tier0Id, string? EnforcementPointPath = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             NSXTAggregateDNSForwarderStatisticsType returnValue = default(NSXTAggregateDNSForwarderStatisticsType);
@@ -272,31 +207,19 @@ namespace nsxtapi.PolicyModules
             GetTier0DnsforwarderStatisticsServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             request.Resource = GetTier0DnsforwarderStatisticsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTAggregateDNSForwarderStatisticsType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTAggregateDNSForwarderStatisticsType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetTier0DnsforwarderStatisticsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTAggregateDNSForwarderStatisticsType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTAggregateDNSForwarderStatisticsType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTAggregateDNSForwarderStatisticsType GetTier1DnsforwarderStatistics(string Tier1Id, string? EnforcementPointPath = null)
+        public async Task<NSXTAggregateDNSForwarderStatisticsType> GetTier1DnsforwarderStatistics(string Tier1Id, string? EnforcementPointPath = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             NSXTAggregateDNSForwarderStatisticsType returnValue = default(NSXTAggregateDNSForwarderStatisticsType);
@@ -310,25 +233,13 @@ namespace nsxtapi.PolicyModules
             GetTier1DnsforwarderStatisticsServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             request.Resource = GetTier1DnsforwarderStatisticsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTAggregateDNSForwarderStatisticsType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTAggregateDNSForwarderStatisticsType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetTier1DnsforwarderStatisticsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTAggregateDNSForwarderStatisticsType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTAggregateDNSForwarderStatisticsType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

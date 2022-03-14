@@ -21,16 +21,23 @@ namespace nsxtapi.PolicyModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public PolicyTransportZone(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public PolicyTransportZone(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyTransportZoneType CreateOrUpdateTransportZoneForEnforcementPoint(string SiteId, string EnforcementpointId, string TransportZoneId, NSXTPolicyTransportZoneType PolicyTransportZone)
+        public async Task<NSXTPolicyTransportZoneType> CreateOrUpdateTransportZoneForEnforcementPoint(string SiteId, string EnforcementpointId, string TransportZoneId, NSXTPolicyTransportZoneType PolicyTransportZone)
         {
             if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
             if (EnforcementpointId == null) { throw new System.ArgumentNullException("EnforcementpointId cannot be null"); }
@@ -49,31 +56,19 @@ namespace nsxtapi.PolicyModules
             CreateOrUpdateTransportZoneForEnforcementPointServiceURL.Replace("{transport-zone-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(TransportZoneId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(PolicyTransportZone, defaultSerializationSettings));
             request.Resource = CreateOrUpdateTransportZoneForEnforcementPointServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyTransportZoneType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyTransportZoneType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateOrUpdateTransportZoneForEnforcementPointServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyTransportZoneType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyTransportZoneType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyTransportZoneType PatchTransportZoneForEnforcementPoint(string SiteId, string EnforcementpointId, string TransportZoneId, NSXTPolicyTransportZoneType PolicyTransportZone)
+        public async Task<NSXTPolicyTransportZoneType> PatchTransportZoneForEnforcementPoint(string SiteId, string EnforcementpointId, string TransportZoneId, NSXTPolicyTransportZoneType PolicyTransportZone)
         {
             if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
             if (EnforcementpointId == null) { throw new System.ArgumentNullException("EnforcementpointId cannot be null"); }
@@ -92,31 +87,19 @@ namespace nsxtapi.PolicyModules
             PatchTransportZoneForEnforcementPointServiceURL.Replace("{transport-zone-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(TransportZoneId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(PolicyTransportZone, defaultSerializationSettings));
             request.Resource = PatchTransportZoneForEnforcementPointServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyTransportZoneType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyTransportZoneType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchTransportZoneForEnforcementPointServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyTransportZoneType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyTransportZoneType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyTransportZoneType ReadTransportZoneForEnforcementPoint(string SiteId, string EnforcementpointId, string TransportZoneId)
+        public async Task<NSXTPolicyTransportZoneType> ReadTransportZoneForEnforcementPoint(string SiteId, string EnforcementpointId, string TransportZoneId)
         {
             if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
             if (EnforcementpointId == null) { throw new System.ArgumentNullException("EnforcementpointId cannot be null"); }
@@ -133,31 +116,19 @@ namespace nsxtapi.PolicyModules
             ReadTransportZoneForEnforcementPointServiceURL.Replace("{enforcementpoint-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EnforcementpointId, System.Globalization.CultureInfo.InvariantCulture)));
             ReadTransportZoneForEnforcementPointServiceURL.Replace("{transport-zone-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(TransportZoneId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadTransportZoneForEnforcementPointServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyTransportZoneType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyTransportZoneType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadTransportZoneForEnforcementPointServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyTransportZoneType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyTransportZoneType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteTransportZoneForEnforcementPoint(string SiteId, string EnforcementpointId, string TransportZoneId)
+        public async Task DeleteTransportZoneForEnforcementPoint(string SiteId, string EnforcementpointId, string TransportZoneId)
         {
             if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
             if (EnforcementpointId == null) { throw new System.ArgumentNullException("EnforcementpointId cannot be null"); }
@@ -174,7 +145,7 @@ namespace nsxtapi.PolicyModules
             DeleteTransportZoneForEnforcementPointServiceURL.Replace("{enforcementpoint-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EnforcementpointId, System.Globalization.CultureInfo.InvariantCulture)));
             DeleteTransportZoneForEnforcementPointServiceURL.Replace("{transport-zone-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(TransportZoneId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteTransportZoneForEnforcementPointServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteTransportZoneForEnforcementPointServiceURL.ToString() + " did not complete successfull";
@@ -186,7 +157,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyTransportZoneType GlobalGlobalInfraReadTransportZoneForEnforcementPoint(string SiteId, string EnforcementpointId, string TransportZoneId)
+        public async Task<NSXTPolicyTransportZoneType> GlobalGlobalInfraReadTransportZoneForEnforcementPoint(string SiteId, string EnforcementpointId, string TransportZoneId)
         {
             if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
             if (EnforcementpointId == null) { throw new System.ArgumentNullException("EnforcementpointId cannot be null"); }
@@ -203,31 +174,19 @@ namespace nsxtapi.PolicyModules
             GlobalInfraReadTransportZoneForEnforcementPointServiceURL.Replace("{enforcementpoint-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EnforcementpointId, System.Globalization.CultureInfo.InvariantCulture)));
             GlobalInfraReadTransportZoneForEnforcementPointServiceURL.Replace("{transport-zone-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(TransportZoneId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GlobalInfraReadTransportZoneForEnforcementPointServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyTransportZoneType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyTransportZoneType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraReadTransportZoneForEnforcementPointServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyTransportZoneType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyTransportZoneType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyTransportZoneListResultType ListTransportZonesForEnforcementPoint(string SiteId, string EnforcementpointId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTPolicyTransportZoneListResultType> ListTransportZonesForEnforcementPoint(string SiteId, string EnforcementpointId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
             if (EnforcementpointId == null) { throw new System.ArgumentNullException("EnforcementpointId cannot be null"); }
@@ -248,31 +207,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListTransportZonesForEnforcementPointServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyTransportZoneListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyTransportZoneListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListTransportZonesForEnforcementPointServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyTransportZoneListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyTransportZoneListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyTransportZoneListResultType GlobalGlobalInfraListTransportZonesForEnforcementPoint(string SiteId, string EnforcementpointId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTPolicyTransportZoneListResultType> GlobalGlobalInfraListTransportZonesForEnforcementPoint(string SiteId, string EnforcementpointId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
             if (EnforcementpointId == null) { throw new System.ArgumentNullException("EnforcementpointId cannot be null"); }
@@ -293,25 +240,13 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GlobalInfraListTransportZonesForEnforcementPointServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyTransportZoneListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyTransportZoneListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GlobalInfraListTransportZonesForEnforcementPointServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyTransportZoneListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyTransportZoneListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

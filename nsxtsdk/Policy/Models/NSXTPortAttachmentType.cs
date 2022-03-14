@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,34 +17,22 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Detail information about port attachment")]
     public class NSXTPortAttachmentType 
     {
-        public NSXTPortAttachmentType()
-        {
-            HyperbusMode = test
-        }
         /// <summary>
         /// Not valid when type field is INDEPENDENT, mainly used to identify
         /// traffic from different ports in container use case.
         /// </summary>
-        [JsonProperty(PropertyName = "traffic_tag")]
-        [NSXTProperty(IsRequired: false, Description: @"Not valid when type field is INDEPENDENT, mainly used to identifytraffic from different ports in container use case.")]
         public long? TrafficTag { get; set; }
         /// <summary>
         /// Indicate how IP will be allocated for the port
         /// </summary>
-        [JsonProperty(PropertyName = "allocate_addresses")]
-        [NSXTProperty(IsRequired: false, Description: @"Indicate how IP will be allocated for the port")]
         public NSXTPortAttachmentAllocateAddressesEnumType? AllocateAddresses { get; set; }
         /// <summary>
         /// Flag to indicate if hyperbus configuration is required.
         /// </summary>
-        [JsonProperty(PropertyName = "hyperbus_mode")]
-        [NSXTProperty(IsRequired: false, Description: @"Flag to indicate if hyperbus configuration is required.")]
         public NSXTPortAttachmentHyperbusModeEnumType? HyperbusMode { get; set; }
         /// <summary>
         /// Set to PARENT when type field is CHILD. Read only field.
         /// </summary>
-        [JsonProperty(PropertyName = "context_type")]
-        [NSXTProperty(IsRequired: false, Description: @"Set to PARENT when type field is CHILD. Read only field.")]
         public NSXTPortAttachmentContextTypeEnumType? ContextType { get; set; }
         /// <summary>
         /// If type is CHILD and the parent port is on the same segment as the child port, then this
@@ -53,39 +41,27 @@ namespace nsxtsdk.PolicyModels
         /// field should be policy path of the parent port.
         /// If type is INDEPENDENT/STATIC, then this field should be transport node ID.
         /// </summary>
-        [JsonProperty(PropertyName = "context_id")]
-        [NSXTProperty(IsRequired: false, Description: @"If type is CHILD and the parent port is on the same segment as the child port, then thisfield should be VIF ID of the parent port.If type is CHILD and the parent port is on a different segment, then thisfield should be policy path of the parent port.If type is INDEPENDENT/STATIC, then this field should be transport node ID.")]
         public string? ContextId { get; set; }
         /// <summary>
         /// List of Evpn tenant VLAN IDs the Parent logical-port serves in Evpn Route-Server mode. Only effective when attachment
         /// type is PARENT and the logical-port is attached to vRouter VM.
         /// </summary>
-        [JsonProperty(PropertyName = "evpn_vlans")]
-        [NSXTProperty(IsRequired: false, Description: @"List of Evpn tenant VLAN IDs the Parent logical-port serves in Evpn Route-Server mode. Only effective when attachment type is PARENT and the logical-port is attached to vRouter VM.")]
         public IList<string> EvpnVlans { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "bms_interface_config")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTAttachedInterfaceEntryType BmsInterfaceConfig { get; set; }
         /// <summary>
         /// Type of port attachment. STATIC is added to replace INDEPENDENT. INDEPENDENT type and PARENT type are deprecated.
         /// </summary>
-        [JsonProperty(PropertyName = "type")]
-        [NSXTProperty(IsRequired: false, Description: @"Type of port attachment. STATIC is added to replace INDEPENDENT. INDEPENDENT type and PARENT type are deprecated.")]
         public NSXTPortAttachmentTypeEnumType? Type { get; set; }
         /// <summary>
         /// ID used to identify/look up a child attachment behind a parent attachment
         /// </summary>
-        [JsonProperty(PropertyName = "app_id")]
-        [NSXTProperty(IsRequired: false, Description: @"ID used to identify/look up a child attachment behind a parent attachment")]
         public string? AppId { get; set; }
         /// <summary>
         /// VIF UUID on NSX Manager. If the attachement type is PARENT, this property is required.
         /// </summary>
-        [JsonProperty(PropertyName = "id")]
-        [NSXTProperty(IsRequired: false, Description: @"VIF UUID on NSX Manager. If the attachement type is PARENT, this property is required.")]
         public string? Id { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,16 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer UDPFastPathProfile object")]
     public class NSXTALBUDPFastPathProfileType 
     {
-        public NSXTALBUDPFastPathProfileType()
-        {
-            Snat = test
-            SessionIdleTimeout = test
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "dsr_profile")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBDsrProfileType DsrProfile { get; set; }
         /// <summary>
         /// When enabled, every UDP packet is considered a new
@@ -39,8 +32,6 @@ namespace nsxtsdk.PolicyModels
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as false.
         /// </summary>
-        [JsonProperty(PropertyName = "per_pkt_loadbalance")]
-        [NSXTProperty(IsRequired: false, Description: @"When enabled, every UDP packet is considered a newtransaction and may be load balanced to a different server.When disabled, packets from the same client source IP andport are sent to the same server.Allowed in Basic(Allowed values- false) edition,Essentials(Allowed values- false) edition, Enterpriseedition.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
         public bool? PerPktLoadbalance { get; set; }
         /// <summary>
         /// When disabled, Source NAT will not be performed for all
@@ -48,8 +39,6 @@ namespace nsxtsdk.PolicyModels
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as true.
         /// </summary>
-        [JsonProperty(PropertyName = "snat")]
-        [NSXTProperty(IsRequired: false, Description: @"When disabled, Source NAT will not be performed for allclient UDP packets.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
         public bool? Snat { get; set; }
         /// <summary>
         /// The amount of time (in sec) for which a flow needs to be
@@ -59,10 +48,6 @@ namespace nsxtsdk.PolicyModels
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 10.
         /// </summary>
-        [JsonProperty(PropertyName = "session_idle_timeout")]
-        [NSXTProperty(IsRequired: false, Description: @"The amount of time (in sec) for which a flow needs to beidle before it is deleted.Allowed values are 2-3600.Unit is SEC.Default value when not specified in API or module isinterpreted by ALB Controller as 10.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(2)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(3600)]
         public long? SessionIdleTimeout { get; set; }
     }
 }

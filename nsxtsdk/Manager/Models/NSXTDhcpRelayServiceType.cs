@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTDhcpRelayServiceType : NSXTManagedResourceType
     {
-        public NSXTDhcpRelayServiceType()
-        {
-        }
         /// <summary>
         /// dhcp relay profile referenced by the dhcp relay service
         /// </summary>
         [JsonProperty(PropertyName = "dhcp_relay_profile_id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"dhcp relay profile referenced by the dhcp relay service")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string DhcpRelayProfileId { get; set; }
     }
 }

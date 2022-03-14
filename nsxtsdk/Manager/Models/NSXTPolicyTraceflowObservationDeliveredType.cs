@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyTraceflowObservationDeliveredType : NSXTTraceflowObservationDeliveredType
     {
-        public NSXTPolicyTraceflowObservationDeliveredType()
-        {
-        }
         /// <summary>
         /// The path of the segment port or router port into which the traceflow packet was delivered
         /// </summary>
-        [JsonProperty(PropertyName = "segment_port_path")]
-        [NSXTProperty(IsRequired: false, Description: @"The path of the segment port or router port into which the traceflow packet was delivered")]
         public string? SegmentPortPath { get; set; }
     }
 }

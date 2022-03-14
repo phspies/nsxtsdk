@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,20 +17,13 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Status LDAP server of directory domain")]
     public class NSXTDirectoryLdapServerStatusType 
     {
-        public NSXTDirectoryLdapServerStatusType()
-        {
-        }
         /// <summary>
         /// Error ID of the directory LDAP server status maintained by the NSX directory service.
         /// </summary>
-        [JsonProperty(PropertyName = "error_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Error ID of the directory LDAP server status maintained by the NSX directory service.")]
         public long? ErrorId { get; set; }
         /// <summary>
         /// Error message of the directory LDAP server status maintained by the NSX directory service.
         /// </summary>
-        [JsonProperty(PropertyName = "error_message")]
-        [NSXTProperty(IsRequired: false, Description: @"Error message of the directory LDAP server status maintained by the NSX directory service.")]
         public string? ErrorMessage { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,17 +17,12 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTTier0SecurityFeatureType : NSXTSecurityFeatureBaseType
     {
-        public NSXTTier0SecurityFeatureType()
-        {
-        }
         /// <summary>
         /// Feature to be enabled/disabled.
         /// IDFW - Identity Firewall
         /// Use any one of this to enable/disabe it.
         /// </summary>
         [JsonProperty(PropertyName = "feature", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Feature to be enabled/disabled.IDFW - Identity FirewallUse any one of this to enable/disabe it.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTTier0SecurityFeatureFeatureEnumType Feature { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,34 +17,23 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Uplink Teaming Policy")]
     public class NSXTTeamingPolicyType 
     {
-        public NSXTTeamingPolicyType()
-        {
-        }
         /// <summary>
         /// Teaming policy
         /// </summary>
         [JsonProperty(PropertyName = "policy", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Teaming policy")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTTeamingPolicyPolicyEnumType Policy { get; set; }
         /// <summary>
         /// List of Uplinks used in standby list
         /// </summary>
-        [JsonProperty(PropertyName = "standby_list")]
-        [NSXTProperty(IsRequired: false, Description: @"List of Uplinks used in standby list")]
         public IList<NSXTUplinkType> StandbyList { get; set; }
         /// <summary>
         /// List of Uplinks used in active list
         /// </summary>
         [JsonProperty(PropertyName = "active_list", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"List of Uplinks used in active list")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTUplinkType> ActiveList { get; set; }
         /// <summary>
         /// Flag for preemptive mode
         /// </summary>
-        [JsonProperty(PropertyName = "rolling_order")]
-        [NSXTProperty(IsRequired: false, Description: @"Flag for preemptive mode")]
         public bool? RollingOrder { get; set; }
     }
 }

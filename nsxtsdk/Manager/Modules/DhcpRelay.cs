@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public DhcpRelay(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public DhcpRelay(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDhcpRelayServiceType UpdateDhcpRelay(string RelayId, NSXTDhcpRelayServiceType DhcpRelayService)
+        public async Task<NSXTDhcpRelayServiceType> UpdateDhcpRelay(string RelayId, NSXTDhcpRelayServiceType DhcpRelayService)
         {
             if (RelayId == null) { throw new System.ArgumentNullException("RelayId cannot be null"); }
             if (DhcpRelayService == null) { throw new System.ArgumentNullException("DhcpRelayService cannot be null"); }
@@ -45,31 +52,19 @@ namespace nsxtapi.ManagerModules
             UpdateDhcpRelayServiceURL.Replace("{relay-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(RelayId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(DhcpRelayService, defaultSerializationSettings));
             request.Resource = UpdateDhcpRelayServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDhcpRelayServiceType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDhcpRelayServiceType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateDhcpRelayServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDhcpRelayServiceType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDhcpRelayServiceType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteDhcpRelay(string RelayId)
+        public async Task DeleteDhcpRelay(string RelayId)
         {
             if (RelayId == null) { throw new System.ArgumentNullException("RelayId cannot be null"); }
             
@@ -82,7 +77,7 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             DeleteDhcpRelayServiceURL.Replace("{relay-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(RelayId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteDhcpRelayServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteDhcpRelayServiceURL.ToString() + " did not complete successfull";
@@ -94,7 +89,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDhcpRelayServiceType ReadDhcpRelay(string RelayId)
+        public async Task<NSXTDhcpRelayServiceType> ReadDhcpRelay(string RelayId)
         {
             if (RelayId == null) { throw new System.ArgumentNullException("RelayId cannot be null"); }
             NSXTDhcpRelayServiceType returnValue = default(NSXTDhcpRelayServiceType);
@@ -107,31 +102,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             ReadDhcpRelayServiceURL.Replace("{relay-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(RelayId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadDhcpRelayServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDhcpRelayServiceType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDhcpRelayServiceType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadDhcpRelayServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDhcpRelayServiceType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDhcpRelayServiceType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDhcpRelayProfileType UpdateDhcpRelayProfile(string RelayProfileId, NSXTDhcpRelayProfileType DhcpRelayProfile)
+        public async Task<NSXTDhcpRelayProfileType> UpdateDhcpRelayProfile(string RelayProfileId, NSXTDhcpRelayProfileType DhcpRelayProfile)
         {
             if (RelayProfileId == null) { throw new System.ArgumentNullException("RelayProfileId cannot be null"); }
             if (DhcpRelayProfile == null) { throw new System.ArgumentNullException("DhcpRelayProfile cannot be null"); }
@@ -146,31 +129,19 @@ namespace nsxtapi.ManagerModules
             UpdateDhcpRelayProfileServiceURL.Replace("{relay-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(RelayProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(DhcpRelayProfile, defaultSerializationSettings));
             request.Resource = UpdateDhcpRelayProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDhcpRelayProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDhcpRelayProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateDhcpRelayProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDhcpRelayProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDhcpRelayProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteDhcpRelayProfile(string RelayProfileId)
+        public async Task DeleteDhcpRelayProfile(string RelayProfileId)
         {
             if (RelayProfileId == null) { throw new System.ArgumentNullException("RelayProfileId cannot be null"); }
             
@@ -183,7 +154,7 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             DeleteDhcpRelayProfileServiceURL.Replace("{relay-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(RelayProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteDhcpRelayProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteDhcpRelayProfileServiceURL.ToString() + " did not complete successfull";
@@ -195,7 +166,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDhcpRelayProfileType ReadDhcpRelayProfile(string RelayProfileId)
+        public async Task<NSXTDhcpRelayProfileType> ReadDhcpRelayProfile(string RelayProfileId)
         {
             if (RelayProfileId == null) { throw new System.ArgumentNullException("RelayProfileId cannot be null"); }
             NSXTDhcpRelayProfileType returnValue = default(NSXTDhcpRelayProfileType);
@@ -208,31 +179,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             ReadDhcpRelayProfileServiceURL.Replace("{relay-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(RelayProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadDhcpRelayProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDhcpRelayProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDhcpRelayProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadDhcpRelayProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDhcpRelayProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDhcpRelayProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDhcpRelayProfileType CreateDhcpRelayProfile(NSXTDhcpRelayProfileType DhcpRelayProfile)
+        public async Task<NSXTDhcpRelayProfileType> CreateDhcpRelayProfile(NSXTDhcpRelayProfileType DhcpRelayProfile)
         {
             if (DhcpRelayProfile == null) { throw new System.ArgumentNullException("DhcpRelayProfile cannot be null"); }
             NSXTDhcpRelayProfileType returnValue = default(NSXTDhcpRelayProfileType);
@@ -245,31 +204,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(DhcpRelayProfile, defaultSerializationSettings));
             request.Resource = CreateDhcpRelayProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDhcpRelayProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDhcpRelayProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CreateDhcpRelayProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDhcpRelayProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDhcpRelayProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDhcpRelayProfileListResultType ListDhcpRelayProfiles(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTDhcpRelayProfileListResultType> ListDhcpRelayProfiles(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTDhcpRelayProfileListResultType returnValue = default(NSXTDhcpRelayProfileListResultType);
             StringBuilder ListDhcpRelayProfilesServiceURL = new StringBuilder("/dhcp/relay-profiles");
@@ -285,31 +232,19 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListDhcpRelayProfilesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDhcpRelayProfileListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDhcpRelayProfileListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListDhcpRelayProfilesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDhcpRelayProfileListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDhcpRelayProfileListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDhcpRelayServiceType CreateDhcpRelay(NSXTDhcpRelayServiceType DhcpRelayService)
+        public async Task<NSXTDhcpRelayServiceType> CreateDhcpRelay(NSXTDhcpRelayServiceType DhcpRelayService)
         {
             if (DhcpRelayService == null) { throw new System.ArgumentNullException("DhcpRelayService cannot be null"); }
             NSXTDhcpRelayServiceType returnValue = default(NSXTDhcpRelayServiceType);
@@ -322,31 +257,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(DhcpRelayService, defaultSerializationSettings));
             request.Resource = CreateDhcpRelayServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDhcpRelayServiceType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDhcpRelayServiceType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CreateDhcpRelayServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDhcpRelayServiceType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDhcpRelayServiceType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDhcpRelayServiceListResultType ListDhcpRelays(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTDhcpRelayServiceListResultType> ListDhcpRelays(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTDhcpRelayServiceListResultType returnValue = default(NSXTDhcpRelayServiceListResultType);
             StringBuilder ListDhcpRelaysServiceURL = new StringBuilder("/dhcp/relays");
@@ -362,25 +285,13 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListDhcpRelaysServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDhcpRelayServiceListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDhcpRelayServiceListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListDhcpRelaysServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDhcpRelayServiceListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDhcpRelayServiceListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

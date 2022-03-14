@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"List of MAC Addresses.")]
     public class NSXTMACAddressListType 
     {
-        public NSXTMACAddressListType()
-        {
-        }
         /// <summary>
         /// The array contains MAC addresses.
         /// </summary>
         [JsonProperty(PropertyName = "mac_addresses", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"The array contains MAC addresses.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<string> MacAddresses { get; set; }
     }
 }

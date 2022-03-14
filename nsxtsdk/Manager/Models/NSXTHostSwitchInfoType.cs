@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,32 +17,21 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Information of host switch participating in transport zone")]
     public class NSXTHostSwitchInfoType 
     {
-        public NSXTHostSwitchInfoType()
-        {
-        }
         /// <summary>
         /// Type of a host switch
         /// </summary>
-        [JsonProperty(PropertyName = "host_switch_type")]
-        [NSXTProperty(IsRequired: false, Description: @"Type of a host switch")]
         public NSXTHostSwitchInfoHostSwitchTypeEnumType? HostSwitchType { get; set; }
         /// <summary>
         /// Unique ID of a host switch
         /// </summary>
-        [JsonProperty(PropertyName = "host_switch_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Unique ID of a host switch")]
         public string? HostSwitchId { get; set; }
         /// <summary>
         /// Mode of host switch
         /// </summary>
-        [JsonProperty(PropertyName = "host_switch_mode")]
-        [NSXTProperty(IsRequired: false, Description: @"Mode of host switch")]
         public NSXTHostSwitchInfoHostSwitchModeEnumType? HostSwitchMode { get; set; }
         /// <summary>
         /// Name of a host switch
         /// </summary>
-        [JsonProperty(PropertyName = "host_switch_name")]
-        [NSXTProperty(IsRequired: false, Description: @"Name of a host switch")]
         public string? HostSwitchName { get; set; }
     }
 }

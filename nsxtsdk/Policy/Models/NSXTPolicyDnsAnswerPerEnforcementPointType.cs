@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,22 +17,15 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"DNS forwarder nslookup answer per enforcement point.")]
     public class NSXTPolicyDnsAnswerPerEnforcementPointType 
     {
-        public NSXTPolicyDnsAnswerPerEnforcementPointType()
-        {
-        }
         /// <summary>
         /// Resource type of the DNS forwarder nslookup answer.
         /// </summary>
         [JsonProperty(PropertyName = "resource_type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Resource type of the DNS forwarder nslookup answer.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTPolicyDnsAnswerPerEnforcementPointResourceTypeEnumType ResourceType { get; set; }
         /// <summary>
         /// Policy path referencing the enforcement point from where the
         /// DNS forwarder nslookup answer is fetched.
         /// </summary>
-        [JsonProperty(PropertyName = "enforcement_point_path")]
-        [NSXTProperty(IsRequired: false, Description: @"Policy path referencing the enforcement point from where theDNS forwarder nslookup answer is fetched.")]
         public string? EnforcementPointPath { get; set; }
     }
 }

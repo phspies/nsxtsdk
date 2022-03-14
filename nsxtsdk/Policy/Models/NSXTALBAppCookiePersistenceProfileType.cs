@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,22 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer AppCookiePersistenceProfile object")]
     public class NSXTALBAppCookiePersistenceProfileType 
     {
-        public NSXTALBAppCookiePersistenceProfileType()
-        {
-            Timeout = test
-        }
         /// <summary>
         /// Header or cookie name for application cookie persistence.
         /// </summary>
         [JsonProperty(PropertyName = "prst_hdr_name", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Header or cookie name for application cookie persistence.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string PrstHdrName { get; set; }
         /// <summary>
         /// Key to use for cookie encryption.
         /// </summary>
-        [JsonProperty(PropertyName = "encryption_key")]
-        [NSXTProperty(IsRequired: false, Description: @"Key to use for cookie encryption.")]
         public string? EncryptionKey { get; set; }
         /// <summary>
         /// The length of time after a client's connections have closed
@@ -42,10 +34,6 @@ namespace nsxtsdk.PolicyModels
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 20.
         /// </summary>
-        [JsonProperty(PropertyName = "timeout")]
-        [NSXTProperty(IsRequired: false, Description: @"The length of time after a client&apos;s connections have closedbefore expiring the client&apos;s persistence to a server.Allowed values are 1-720.Unit is MIN.Default value when not specified in API or module isinterpreted by ALB Controller as 20.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(720)]
         public long? Timeout { get; set; }
     }
 }

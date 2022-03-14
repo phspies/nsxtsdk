@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,17 +17,12 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer ClientLogStreamingFormat object")]
     public class NSXTALBClientLogStreamingFormatType 
     {
-        public NSXTALBClientLogStreamingFormatType()
-        {
-        }
         /// <summary>
         /// List of log fields to be streamed, when selective fields
         /// (LOG_STREAMING_FORMAT_JSON_SELECTED) option is chosen.
         /// Only top-level fields in application or connection logs are
         /// supported.
         /// </summary>
-        [JsonProperty(PropertyName = "included_fields")]
-        [NSXTProperty(IsRequired: false, Description: @"List of log fields to be streamed, when selective fields(LOG_STREAMING_FORMAT_JSON_SELECTED) option is chosen.Only top-level fields in application or connection logs aresupported.")]
         public IList<string> IncludedFields { get; set; }
         /// <summary>
         /// Format for the streamed logs.
@@ -35,8 +30,6 @@ namespace nsxtsdk.PolicyModels
         /// LOG_STREAMING_FORMAT_JSON_SELECTED.
         /// </summary>
         [JsonProperty(PropertyName = "format", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Format for the streamed logs.Enum options - LOG_STREAMING_FORMAT_JSON_FULL,LOG_STREAMING_FORMAT_JSON_SELECTED.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTAlbclientLogStreamingFormatFormatEnumType Format { get; set; }
     }
 }

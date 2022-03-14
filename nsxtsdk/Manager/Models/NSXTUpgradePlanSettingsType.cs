@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,27 +17,17 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTUpgradePlanSettingsType 
     {
-        public NSXTUpgradePlanSettingsType()
-        {
-            Parallel = test
-        }
         /// <summary>
         /// Flag to indicate whether to pause the upgrade after upgrade of each group is completed
         /// </summary>
-        [JsonProperty(PropertyName = "pause_after_each_group")]
-        [NSXTProperty(IsRequired: false, Description: @"Flag to indicate whether to pause the upgrade after upgrade of each group is completed")]
         public bool? PauseAfterEachGroup { get; set; }
         /// <summary>
         /// Flag to indicate whether to pause the upgrade plan execution when an error occurs
         /// </summary>
-        [JsonProperty(PropertyName = "pause_on_error")]
-        [NSXTProperty(IsRequired: false, Description: @"Flag to indicate whether to pause the upgrade plan execution when an error occurs")]
         public bool? PauseOnError { get; set; }
         /// <summary>
         /// Upgrade Method to specify whether the upgrade is to be performed serially or in parallel
         /// </summary>
-        [JsonProperty(PropertyName = "parallel")]
-        [NSXTProperty(IsRequired: false, Description: @"Upgrade Method to specify whether the upgrade is to be performed serially or in parallel")]
         public bool? Parallel { get; set; }
     }
 }

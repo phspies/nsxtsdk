@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,16 +17,11 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIdfwTransportNodeStatusListResultType : NSXTListResultType
     {
-        public NSXTIdfwTransportNodeStatusListResultType()
-        {
-        }
         /// <summary>
         /// List of transport node ids and  status for idfw enabled
         /// Compute collection.
         /// </summary>
         [JsonProperty(PropertyName = "results", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"List of transport node ids and  status for idfw enabledCompute collection.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTIdfwTransportNodeStatusType> Results { get; set; }
     }
 }

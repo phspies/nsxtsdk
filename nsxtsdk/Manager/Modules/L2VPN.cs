@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public L2VPN(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public L2VPN(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTL2VpnSessionType UpdateL2VpnSession(string L2vpnSessionId, NSXTL2VpnSessionType L2VpnSession)
+        public async Task<NSXTL2VpnSessionType> UpdateL2VpnSession(string L2vpnSessionId, NSXTL2VpnSessionType L2VpnSession)
         {
             if (L2vpnSessionId == null) { throw new System.ArgumentNullException("L2vpnSessionId cannot be null"); }
             if (L2VpnSession == null) { throw new System.ArgumentNullException("L2VpnSession cannot be null"); }
@@ -45,31 +52,19 @@ namespace nsxtapi.ManagerModules
             UpdateL2VpnSessionServiceURL.Replace("{l2vpn-session-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(L2vpnSessionId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(L2VpnSession, defaultSerializationSettings));
             request.Resource = UpdateL2VpnSessionServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTL2VpnSessionType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTL2VpnSessionType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateL2VpnSessionServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTL2VpnSessionType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTL2VpnSessionType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteL2VpnSession(string L2vpnSessionId)
+        public async Task DeleteL2VpnSession(string L2vpnSessionId)
         {
             if (L2vpnSessionId == null) { throw new System.ArgumentNullException("L2vpnSessionId cannot be null"); }
             
@@ -82,7 +77,7 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             DeleteL2VpnSessionServiceURL.Replace("{l2vpn-session-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(L2vpnSessionId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteL2VpnSessionServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteL2VpnSessionServiceURL.ToString() + " did not complete successfull";
@@ -94,7 +89,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTL2VpnSessionType GetL2VpnSession(string L2vpnSessionId)
+        public async Task<NSXTL2VpnSessionType> GetL2VpnSession(string L2vpnSessionId)
         {
             if (L2vpnSessionId == null) { throw new System.ArgumentNullException("L2vpnSessionId cannot be null"); }
             NSXTL2VpnSessionType returnValue = default(NSXTL2VpnSessionType);
@@ -107,31 +102,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             GetL2VpnSessionServiceURL.Replace("{l2vpn-session-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(L2vpnSessionId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetL2VpnSessionServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTL2VpnSessionType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTL2VpnSessionType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetL2VpnSessionServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTL2VpnSessionType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTL2VpnSessionType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTL2VpnSessionType CreateL2VpnSession(NSXTL2VpnSessionType L2VpnSession)
+        public async Task<NSXTL2VpnSessionType> CreateL2VpnSession(NSXTL2VpnSessionType L2VpnSession)
         {
             if (L2VpnSession == null) { throw new System.ArgumentNullException("L2VpnSession cannot be null"); }
             NSXTL2VpnSessionType returnValue = default(NSXTL2VpnSessionType);
@@ -144,31 +127,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(L2VpnSession, defaultSerializationSettings));
             request.Resource = CreateL2VpnSessionServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTL2VpnSessionType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTL2VpnSessionType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CreateL2VpnSessionServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTL2VpnSessionType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTL2VpnSessionType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTL2VpnSessionListResultType ListL2VpnSessions(string? Cursor = null, string? IncludedFields = null, string? L2vpnServiceId = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTL2VpnSessionListResultType> ListL2VpnSessions(string? Cursor = null, string? IncludedFields = null, string? L2vpnServiceId = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTL2VpnSessionListResultType returnValue = default(NSXTL2VpnSessionListResultType);
             StringBuilder ListL2VpnSessionsServiceURL = new StringBuilder("/vpn/l2vpn/sessions");
@@ -185,31 +156,19 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListL2VpnSessionsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTL2VpnSessionListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTL2VpnSessionListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListL2VpnSessionsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTL2VpnSessionListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTL2VpnSessionListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTL2VpnServiceType CreateL2VpnService(NSXTL2VpnServiceType L2VpnService)
+        public async Task<NSXTL2VpnServiceType> CreateL2VpnService(NSXTL2VpnServiceType L2VpnService)
         {
             if (L2VpnService == null) { throw new System.ArgumentNullException("L2VpnService cannot be null"); }
             NSXTL2VpnServiceType returnValue = default(NSXTL2VpnServiceType);
@@ -222,31 +181,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(L2VpnService, defaultSerializationSettings));
             request.Resource = CreateL2VpnServiceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTL2VpnServiceType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTL2VpnServiceType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CreateL2VpnServiceServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTL2VpnServiceType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTL2VpnServiceType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTL2VpnServiceListResultType ListL2VpnServices(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTL2VpnServiceListResultType> ListL2VpnServices(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTL2VpnServiceListResultType returnValue = default(NSXTL2VpnServiceListResultType);
             StringBuilder ListL2VpnServicesServiceURL = new StringBuilder("/vpn/l2vpn/services");
@@ -262,31 +209,19 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListL2VpnServicesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTL2VpnServiceListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTL2VpnServiceListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListL2VpnServicesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTL2VpnServiceListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTL2VpnServiceListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTL2VpnSessionPeerCodesType GetL2VpnSessionPeerCodes(string L2vpnSessionId)
+        public async Task<NSXTL2VpnSessionPeerCodesType> GetL2VpnSessionPeerCodes(string L2vpnSessionId)
         {
             if (L2vpnSessionId == null) { throw new System.ArgumentNullException("L2vpnSessionId cannot be null"); }
             NSXTL2VpnSessionPeerCodesType returnValue = default(NSXTL2VpnSessionPeerCodesType);
@@ -299,31 +234,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             GetL2VpnSessionPeerCodesServiceURL.Replace("{l2vpn-session-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(L2vpnSessionId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetL2VpnSessionPeerCodesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTL2VpnSessionPeerCodesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTL2VpnSessionPeerCodesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetL2VpnSessionPeerCodesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTL2VpnSessionPeerCodesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTL2VpnSessionPeerCodesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTL2VpnServiceType UpdateL2VpnService(string L2vpnServiceId, NSXTL2VpnServiceType L2VpnService)
+        public async Task<NSXTL2VpnServiceType> UpdateL2VpnService(string L2vpnServiceId, NSXTL2VpnServiceType L2VpnService)
         {
             if (L2vpnServiceId == null) { throw new System.ArgumentNullException("L2vpnServiceId cannot be null"); }
             if (L2VpnService == null) { throw new System.ArgumentNullException("L2VpnService cannot be null"); }
@@ -338,31 +261,19 @@ namespace nsxtapi.ManagerModules
             UpdateL2VpnServiceServiceURL.Replace("{l2vpn-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(L2vpnServiceId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(L2VpnService, defaultSerializationSettings));
             request.Resource = UpdateL2VpnServiceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTL2VpnServiceType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTL2VpnServiceType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateL2VpnServiceServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTL2VpnServiceType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTL2VpnServiceType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteL2VpnService(string L2vpnServiceId, bool? Force = null)
+        public async Task DeleteL2VpnService(string L2vpnServiceId, bool? Force = null)
         {
             if (L2vpnServiceId == null) { throw new System.ArgumentNullException("L2vpnServiceId cannot be null"); }
             
@@ -376,7 +287,7 @@ namespace nsxtapi.ManagerModules
             DeleteL2VpnServiceServiceURL.Replace("{l2vpn-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(L2vpnServiceId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
             request.Resource = DeleteL2VpnServiceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteL2VpnServiceServiceURL.ToString() + " did not complete successfull";
@@ -388,7 +299,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTL2VpnServiceType GetL2VpnService(string L2vpnServiceId)
+        public async Task<NSXTL2VpnServiceType> GetL2VpnService(string L2vpnServiceId)
         {
             if (L2vpnServiceId == null) { throw new System.ArgumentNullException("L2vpnServiceId cannot be null"); }
             NSXTL2VpnServiceType returnValue = default(NSXTL2VpnServiceType);
@@ -401,25 +312,13 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             GetL2VpnServiceServiceURL.Replace("{l2vpn-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(L2vpnServiceId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetL2VpnServiceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTL2VpnServiceType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTL2VpnServiceType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetL2VpnServiceServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTL2VpnServiceType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTL2VpnServiceType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

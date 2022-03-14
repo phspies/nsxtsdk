@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,121 +17,65 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTTlsInspectionInternalProfileType : NSXTTlsProfileType
     {
-        public NSXTTlsInspectionInternalProfileType()
-        {
-            DecryptionFailAction = test
-            TLSECDHERSAWITHAES128GCMSHA256 = test
-            TLSECDHERSAWITHAES256GCMSHA384 = test
-            TLSECDHERSAWITHAES128CBCSHA = test
-            TLSECDHERSAWITHAES256CBCSHA = test
-            TLSECDHERSAWITHAES128CBCSHA256 = test
-            TLSECDHERSAWITHAES256CBCSHA384 = test
-            TLSRSAWITHAES128GCMSHA256 = test
-            TLSRSAWITHAES128CBCSHA256 = test
-            TLSRSAWITHAES256GCMSHA384 = test
-            TLSRSAWITHAES256CBCSHA256 = test
-            CryptoEnforcement = test
-            TlsConfigSetting = test
-            TLSECDHERSAWITHAES128GCMSHA256 = test
-            TLSECDHERSAWITHAES256GCMSHA384 = test
-            TLSECDHERSAWITHAES128CBCSHA = test
-            TLSECDHERSAWITHAES256CBCSHA = test
-            TLSECDHERSAWITHAES128CBCSHA256 = test
-            TLSECDHERSAWITHAES256CBCSHA384 = test
-            TLSRSAWITHAES128GCMSHA256 = test
-            TLSRSAWITHAES128CBCSHA256 = test
-            TLSRSAWITHAES256GCMSHA384 = test
-            TLSRSAWITHAES256CBCSHA256 = test
-            ClientMinTlsVersion = test
-            ServerMinTlsVersion = test
-            ServerMaxTlsVersion = test
-            ClientMaxTlsVersion = test
-        }
         /// <summary>
         /// Action to take when TLS handshake fails.
         /// </summary>
-        [JsonProperty(PropertyName = "decryption_fail_action")]
-        [NSXTProperty(IsRequired: false, Description: @"Action to take when TLS handshake fails.")]
         public NSXTTlsInspectionInternalProfileDecryptionFailActionEnumType? DecryptionFailAction { get; set; }
         /// <summary>
         /// Server's list of cipher suites. Required if CryptoEnforcement
         /// is ENFORCE. e.g. TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256.
         /// </summary>
-        [JsonProperty(PropertyName = "server_cipher_suite")]
-        [NSXTProperty(IsRequired: false, Description: @"Server&apos;s list of cipher suites. Required if CryptoEnforcementis ENFORCE. e.g. TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256.")]
         public IList<string> ServerCipherSuite { get; set; }
         /// <summary>
         /// If enforced and if TLS protocol Client/Server Hello has none of the
         /// permitted TLS versions or ciphers then the connection is immediately terminated.
         /// </summary>
-        [JsonProperty(PropertyName = "crypto_enforcement")]
-        [NSXTProperty(IsRequired: false, Description: @"If enforced and if TLS protocol Client/Server Hello has none of thepermitted TLS versions or ciphers then the connection is immediately terminated.")]
         public NSXTTlsInspectionInternalProfileCryptoEnforcementEnumType? CryptoEnforcement { get; set; }
         /// <summary>
         /// Pre-defined config settings. Settings could be one of Balanced, High Fidelity, High Security, Custom
         /// </summary>
-        [JsonProperty(PropertyName = "tls_config_setting")]
-        [NSXTProperty(IsRequired: false, Description: @"Pre-defined config settings. Settings could be one of Balanced, High Fidelity, High Security, Custom")]
         public NSXTTlsInspectionInternalProfileTlsConfigSettingEnumType? TlsConfigSetting { get; set; }
         /// <summary>
         /// Server certificate presented to the client.
         /// </summary>
         [JsonProperty(PropertyName = "server_certs_key", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Server certificate presented to the client.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<string> ServerCertsKey { get; set; }
         /// <summary>
         /// Client's list of cipher suites. Required if CryptoEnforcement
         /// is ENFORCE. e.g. TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256.
         /// </summary>
-        [JsonProperty(PropertyName = "client_cipher_suite")]
-        [NSXTProperty(IsRequired: false, Description: @"Client&apos;s list of cipher suites. Required if CryptoEnforcementis ENFORCE. e.g. TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256.")]
         public IList<string> ClientCipherSuite { get; set; }
         /// <summary>
         /// Client's minimum TLS version to enforce. Required if CryptoEnforcement is ENFORCE. Supported versions are TLS1.1 and
         /// TLS1.2.
         /// </summary>
-        [JsonProperty(PropertyName = "client_min_tls_version")]
-        [NSXTProperty(IsRequired: false, Description: @"Client&apos;s minimum TLS version to enforce. Required if CryptoEnforcement is ENFORCE. Supported versions are TLS1.1 and TLS1.2.")]
         public NSXTTlsInspectionInternalProfileClientMinTlsVersionEnumType? ClientMinTlsVersion { get; set; }
         /// <summary>
         /// true - enable the ocsp must staple, false - disable it.
         /// </summary>
-        [JsonProperty(PropertyName = "ocsp_must_staple")]
-        [NSXTProperty(IsRequired: false, Description: @"true - enable the ocsp must staple, false - disable it.")]
         public bool? OcspMustStaple { get; set; }
         /// <summary>
         /// Server's minimum TLS version to enforce. Required if CryptoEnforcement is ENFORCE. supported versions are TLS1.1 and
         /// TLS1.2.
         /// </summary>
-        [JsonProperty(PropertyName = "server_min_tls_version")]
-        [NSXTProperty(IsRequired: false, Description: @"Server&apos;s minimum TLS version to enforce. Required if CryptoEnforcement is ENFORCE. supported versions are TLS1.1 and TLS1.2.")]
         public NSXTTlsInspectionInternalProfileServerMinTlsVersionEnumType? ServerMinTlsVersion { get; set; }
         /// <summary>
         /// Server's maximum TLS version to enforce. Required if CryptoEnforcement is ENFORCE. Supported versions are TLS1.0, TLS1.1
         /// and TLS1.2
         /// </summary>
-        [JsonProperty(PropertyName = "server_max_tls_version")]
-        [NSXTProperty(IsRequired: false, Description: @"Server&apos;s maximum TLS version to enforce. Required if CryptoEnforcement is ENFORCE. Supported versions are TLS1.0, TLS1.1 and TLS1.2")]
         public NSXTTlsInspectionInternalProfileServerMaxTlsVersionEnumType? ServerMaxTlsVersion { get; set; }
         /// <summary>
         /// Client's maximum TLS version to enforce. Required if CryptoEnforcement is ENFORCE. Supported versions are TLS1.1 and
         /// TLS1.2.
         /// </summary>
-        [JsonProperty(PropertyName = "client_max_tls_version")]
-        [NSXTProperty(IsRequired: false, Description: @"Client&apos;s maximum TLS version to enforce. Required if CryptoEnforcement is ENFORCE. Supported versions are TLS1.1 and TLS1.2.")]
         public NSXTTlsInspectionInternalProfileClientMaxTlsVersionEnumType? ClientMaxTlsVersion { get; set; }
         /// <summary>
         /// Default server certificate presented to the user.
         /// </summary>
-        [JsonProperty(PropertyName = "default_cert_key")]
-        [NSXTProperty(IsRequired: false, Description: @"Default server certificate presented to the user.")]
         public string? DefaultCertKey { get; set; }
         /// <summary>
         /// true - enable the certificate validation; false - disable it.
         /// </summary>
-        [JsonProperty(PropertyName = "certificate_validation")]
-        [NSXTProperty(IsRequired: false, Description: @"true - enable the certificate validation; false - disable it.")]
         public bool? CertificateValidation { get; set; }
     }
 }

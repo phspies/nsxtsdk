@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTAutomaticHealthCheckToggleType : NSXTManagedResourceType
     {
-        public NSXTAutomaticHealthCheckToggleType()
-        {
-        }
         /// <summary>
         /// Status of automatic health check
         /// </summary>
         [JsonProperty(PropertyName = "enabled", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Status of automatic health check")]
-        [System.ComponentModel.DataAnnotations.Required]
         public bool Enabled { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,21 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLbSelectPoolActionType : NSXTLbRuleActionType
     {
-        public NSXTLbSelectPoolActionType()
-        {
-        }
         /// <summary>
         /// Display name of load balancer pool
         /// </summary>
-        [JsonProperty(PropertyName = "pool_name")]
-        [NSXTProperty(IsRequired: false, Description: @"Display name of load balancer pool")]
         public string? PoolName { get; set; }
         /// <summary>
         /// UUID of load balancer pool
         /// </summary>
         [JsonProperty(PropertyName = "pool_id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"UUID of load balancer pool")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string PoolId { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,77 +17,52 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Structured data entry in RFC5424 log format")]
     public class NSXTStructuredDataType 
     {
-        public NSXTStructuredDataType()
-        {
-        }
         /// <summary>
         /// Audit flag of the log
         /// </summary>
         [JsonProperty(PropertyName = "audit", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Audit flag of the log")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Audit { get; set; }
         /// <summary>
         /// Username value of the log
         /// </summary>
-        [JsonProperty(PropertyName = "username")]
-        [NSXTProperty(IsRequired: false, Description: @"Username value of the log")]
         public string? Username { get; set; }
         /// <summary>
         /// External request Id value of the log
         /// </summary>
-        [JsonProperty(PropertyName = "ereq_id")]
-        [NSXTProperty(IsRequired: false, Description: @"External request Id value of the log")]
         public string? EreqId { get; set; }
         /// <summary>
         /// Level value of the log
         /// </summary>
-        [JsonProperty(PropertyName = "level")]
-        [NSXTProperty(IsRequired: false, Description: @"Level value of the log")]
         public string? Level { get; set; }
         /// <summary>
         /// Component value of the log
         /// </summary>
         [JsonProperty(PropertyName = "comp", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Component value of the log")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Comp { get; set; }
         /// <summary>
         /// Error Code value of the log
         /// </summary>
-        [JsonProperty(PropertyName = "error_code")]
-        [NSXTProperty(IsRequired: false, Description: @"Error Code value of the log")]
         public string? ErrorCode { get; set; }
         /// <summary>
         /// Sub-subcomponent value of the log
         /// </summary>
-        [JsonProperty(PropertyName = "s2comp")]
-        [NSXTProperty(IsRequired: false, Description: @"Sub-subcomponent value of the log")]
         public string? S2comp { get; set; }
         /// <summary>
         /// Request Id value of the log
         /// </summary>
-        [JsonProperty(PropertyName = "req_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Request Id value of the log")]
         public string? ReqId { get; set; }
         /// <summary>
         /// Entity Id value of the log
         /// </summary>
-        [JsonProperty(PropertyName = "ent_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Entity Id value of the log")]
         public string? EntId { get; set; }
         /// <summary>
         /// Security flag of the log
         /// </summary>
-        [JsonProperty(PropertyName = "security")]
-        [NSXTProperty(IsRequired: false, Description: @"Security flag of the log")]
         public string? Security { get; set; }
         /// <summary>
         /// Subcomponent value of the log
         /// </summary>
         [JsonProperty(PropertyName = "subcomp", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Subcomponent value of the log")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Subcomp { get; set; }
     }
 }

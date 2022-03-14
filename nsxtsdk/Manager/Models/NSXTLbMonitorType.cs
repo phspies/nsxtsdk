@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,9 +17,6 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLbMonitorType : NSXTManagedResourceType
     {
-        public NSXTLbMonitorType()
-        {
-        }
         /// <summary>
         /// Load balancers monitor the health of backend servers to ensure traffic
         /// is not black holed.
@@ -34,8 +31,6 @@ namespace nsxtsdk.ManagerModels
         /// and ICMP protocols.
         /// </summary>
         [JsonProperty(PropertyName = "resource_type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Load balancers monitor the health of backend servers to ensure trafficis not black holed.There are two types of healthchecks: active and passive.Passive healthchecks depend on failures in actual client traffic (e.g. RSTfrom server in response to a client connection) to detect that the serveror the application is down.In case of active healthchecks, load balancer itself initiates newconnections (or sends ICMP ping) to the servers periodically to check theirhealth, completely independent of any data traffic.Currently, active health monitors are supported for HTTP, HTTPS, TCP, UDPand ICMP protocols.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTLbMonitorResourceTypeEnumType ResourceType { get; set; }
     }
 }

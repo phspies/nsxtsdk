@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public DirectoryService(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public DirectoryService(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDirectoryDomainSizeType ScanDirectoryDomainSize(NSXTDirectoryDomainType DirectoryDomain)
+        public async Task<NSXTDirectoryDomainSizeType> ScanDirectoryDomainSize(NSXTDirectoryDomainType DirectoryDomain)
         {
             if (DirectoryDomain == null) { throw new System.ArgumentNullException("DirectoryDomain cannot be null"); }
             NSXTDirectoryDomainSizeType returnValue = default(NSXTDirectoryDomainSizeType);
@@ -43,31 +50,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(DirectoryDomain, defaultSerializationSettings));
             request.Resource = ScanDirectoryDomainSizeServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDirectoryDomainSizeType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDirectoryDomainSizeType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + ScanDirectoryDomainSizeServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDirectoryDomainSizeType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDirectoryDomainSizeType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDirectoryLdapServerStatusType VerifyDirectoryLdapServer(NSXTDirectoryLdapServerType DirectoryLdapServer, string Action)
+        public async Task<NSXTDirectoryLdapServerStatusType> VerifyDirectoryLdapServer(NSXTDirectoryLdapServerType DirectoryLdapServer, string Action)
         {
             if (DirectoryLdapServer == null) { throw new System.ArgumentNullException("DirectoryLdapServer cannot be null"); }
             if (Action == null) { throw new System.ArgumentNullException("Action cannot be null"); }
@@ -82,31 +77,19 @@ namespace nsxtapi.ManagerModules
             request.AddJsonBody(JsonConvert.SerializeObject(DirectoryLdapServer, defaultSerializationSettings));
             if (Action != null) { request.AddQueryParameter("action", Action.ToString()); }
             request.Resource = VerifyDirectoryLdapServerServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDirectoryLdapServerStatusType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDirectoryLdapServerStatusType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + VerifyDirectoryLdapServerServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDirectoryLdapServerStatusType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDirectoryLdapServerStatusType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDirectoryOrgUnitListResultsType FetchDirectoryOrgUnits(NSXTDirectoryLdapServerType DirectoryLdapServer)
+        public async Task<NSXTDirectoryOrgUnitListResultsType> FetchDirectoryOrgUnits(NSXTDirectoryLdapServerType DirectoryLdapServer)
         {
             if (DirectoryLdapServer == null) { throw new System.ArgumentNullException("DirectoryLdapServer cannot be null"); }
             NSXTDirectoryOrgUnitListResultsType returnValue = default(NSXTDirectoryOrgUnitListResultsType);
@@ -119,31 +102,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(DirectoryLdapServer, defaultSerializationSettings));
             request.Resource = FetchDirectoryOrgUnitsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDirectoryOrgUnitListResultsType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDirectoryOrgUnitListResultsType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + FetchDirectoryOrgUnitsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDirectoryOrgUnitListResultsType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDirectoryOrgUnitListResultsType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDirectoryOrgUnitListResultsType FetchDirectoryOrgUnitsForDirectoryDomain(string DomainId)
+        public async Task<NSXTDirectoryOrgUnitListResultsType> FetchDirectoryOrgUnitsForDirectoryDomain(string DomainId)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             NSXTDirectoryOrgUnitListResultsType returnValue = default(NSXTDirectoryOrgUnitListResultsType);
@@ -156,31 +127,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             FetchDirectoryOrgUnitsForDirectoryDomainServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = FetchDirectoryOrgUnitsForDirectoryDomainServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDirectoryOrgUnitListResultsType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDirectoryOrgUnitListResultsType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + FetchDirectoryOrgUnitsForDirectoryDomainServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDirectoryOrgUnitListResultsType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDirectoryOrgUnitListResultsType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDirectoryDomainSyncStatsType GetDirectoryDomainSyncStats(string DomainId)
+        public async Task<NSXTDirectoryDomainSyncStatsType> GetDirectoryDomainSyncStats(string DomainId)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             NSXTDirectoryDomainSyncStatsType returnValue = default(NSXTDirectoryDomainSyncStatsType);
@@ -193,31 +152,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             GetDirectoryDomainSyncStatsServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetDirectoryDomainSyncStatsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDirectoryDomainSyncStatsType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDirectoryDomainSyncStatsType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetDirectoryDomainSyncStatsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDirectoryDomainSyncStatsType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDirectoryDomainSyncStatsType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDirectoryGroupListResultsType SearchDirectoryGroups(string DomainId, string FilterValue, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTDirectoryGroupListResultsType> SearchDirectoryGroups(string DomainId, string FilterValue, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (FilterValue == null) { throw new System.ArgumentNullException("FilterValue cannot be null"); }
@@ -237,31 +184,19 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = SearchDirectoryGroupsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDirectoryGroupListResultsType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDirectoryGroupListResultsType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + SearchDirectoryGroupsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDirectoryGroupListResultsType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDirectoryGroupListResultsType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDirectoryLdapServerType CreateDirectoryLdapServer(string DomainId, NSXTDirectoryLdapServerType DirectoryLdapServer)
+        public async Task<NSXTDirectoryLdapServerType> CreateDirectoryLdapServer(string DomainId, NSXTDirectoryLdapServerType DirectoryLdapServer)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (DirectoryLdapServer == null) { throw new System.ArgumentNullException("DirectoryLdapServer cannot be null"); }
@@ -276,31 +211,19 @@ namespace nsxtapi.ManagerModules
             CreateDirectoryLdapServerServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(DirectoryLdapServer, defaultSerializationSettings));
             request.Resource = CreateDirectoryLdapServerServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDirectoryLdapServerType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDirectoryLdapServerType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CreateDirectoryLdapServerServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDirectoryLdapServerType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDirectoryLdapServerType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDirectoryLdapServerListResultsType ListDirectoryLdapServers(string DomainId, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTDirectoryLdapServerListResultsType> ListDirectoryLdapServers(string DomainId, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             NSXTDirectoryLdapServerListResultsType returnValue = default(NSXTDirectoryLdapServerListResultsType);
@@ -318,31 +241,19 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListDirectoryLdapServersServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDirectoryLdapServerListResultsType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDirectoryLdapServerListResultsType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListDirectoryLdapServersServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDirectoryLdapServerListResultsType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDirectoryLdapServerListResultsType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDirectoryDomainType UpdateDirectoryDomain(string DomainId, NSXTDirectoryDomainType DirectoryDomain)
+        public async Task<NSXTDirectoryDomainType> UpdateDirectoryDomain(string DomainId, NSXTDirectoryDomainType DirectoryDomain)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (DirectoryDomain == null) { throw new System.ArgumentNullException("DirectoryDomain cannot be null"); }
@@ -357,31 +268,19 @@ namespace nsxtapi.ManagerModules
             UpdateDirectoryDomainServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(DirectoryDomain, defaultSerializationSettings));
             request.Resource = UpdateDirectoryDomainServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDirectoryDomainType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDirectoryDomainType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateDirectoryDomainServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDirectoryDomainType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDirectoryDomainType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void RequestDirectoryDomainSync(string DomainId, string Action, long? Delay = null)
+        public async Task RequestDirectoryDomainSync(string DomainId, string Action, long? Delay = null)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (Action == null) { throw new System.ArgumentNullException("Action cannot be null"); }
@@ -397,7 +296,7 @@ namespace nsxtapi.ManagerModules
             if (Action != null) { request.AddQueryParameter("action", Action.ToString()); }
             if (Delay != null) { request.AddQueryParameter("delay", Delay.ToString()); }
             request.Resource = RequestDirectoryDomainSyncServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + RequestDirectoryDomainSyncServiceURL.ToString() + " did not complete successfull";
@@ -409,7 +308,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteDirectoryDomain(string DomainId, bool? Force = null)
+        public async Task DeleteDirectoryDomain(string DomainId, bool? Force = null)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             
@@ -423,7 +322,7 @@ namespace nsxtapi.ManagerModules
             DeleteDirectoryDomainServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
             request.Resource = DeleteDirectoryDomainServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteDirectoryDomainServiceURL.ToString() + " did not complete successfull";
@@ -435,7 +334,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDirectoryDomainType GetDirectoryDomain(string DomainId)
+        public async Task<NSXTDirectoryDomainType> GetDirectoryDomain(string DomainId)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             NSXTDirectoryDomainType returnValue = default(NSXTDirectoryDomainType);
@@ -448,31 +347,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             GetDirectoryDomainServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetDirectoryDomainServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDirectoryDomainType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDirectoryDomainType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetDirectoryDomainServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDirectoryDomainType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDirectoryDomainType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDirectoryDomainType CreateDirectoryDomain(NSXTDirectoryDomainType DirectoryDomain)
+        public async Task<NSXTDirectoryDomainType> CreateDirectoryDomain(NSXTDirectoryDomainType DirectoryDomain)
         {
             if (DirectoryDomain == null) { throw new System.ArgumentNullException("DirectoryDomain cannot be null"); }
             NSXTDirectoryDomainType returnValue = default(NSXTDirectoryDomainType);
@@ -485,31 +372,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(DirectoryDomain, defaultSerializationSettings));
             request.Resource = CreateDirectoryDomainServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDirectoryDomainType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDirectoryDomainType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CreateDirectoryDomainServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDirectoryDomainType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDirectoryDomainType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDirectoryDomainListResultsType ListDirectoryDomains(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTDirectoryDomainListResultsType> ListDirectoryDomains(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTDirectoryDomainListResultsType returnValue = default(NSXTDirectoryDomainListResultsType);
             StringBuilder ListDirectoryDomainsServiceURL = new StringBuilder("/directory/domains");
@@ -525,31 +400,19 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListDirectoryDomainsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDirectoryDomainListResultsType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDirectoryDomainListResultsType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListDirectoryDomainsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDirectoryDomainListResultsType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDirectoryDomainListResultsType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDirectoryLdapServerType UpdateDirectoryLdapServer(string DomainId, string ServerId, NSXTDirectoryLdapServerType DirectoryLdapServer)
+        public async Task<NSXTDirectoryLdapServerType> UpdateDirectoryLdapServer(string DomainId, string ServerId, NSXTDirectoryLdapServerType DirectoryLdapServer)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (ServerId == null) { throw new System.ArgumentNullException("ServerId cannot be null"); }
@@ -566,31 +429,19 @@ namespace nsxtapi.ManagerModules
             UpdateDirectoryLdapServerServiceURL.Replace("{server-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServerId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(DirectoryLdapServer, defaultSerializationSettings));
             request.Resource = UpdateDirectoryLdapServerServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDirectoryLdapServerType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDirectoryLdapServerType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateDirectoryLdapServerServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDirectoryLdapServerType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDirectoryLdapServerType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void TestDirectoryLdapServer(string DomainId, string ServerId, string Action)
+        public async Task TestDirectoryLdapServer(string DomainId, string ServerId, string Action)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (ServerId == null) { throw new System.ArgumentNullException("ServerId cannot be null"); }
@@ -607,7 +458,7 @@ namespace nsxtapi.ManagerModules
             TestDirectoryLdapServerServiceURL.Replace("{server-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServerId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Action != null) { request.AddQueryParameter("action", Action.ToString()); }
             request.Resource = TestDirectoryLdapServerServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + TestDirectoryLdapServerServiceURL.ToString() + " did not complete successfull";
@@ -619,7 +470,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDirectoryLdapServerType GetDirectoryLdapServer(string DomainId, string ServerId)
+        public async Task<NSXTDirectoryLdapServerType> GetDirectoryLdapServer(string DomainId, string ServerId)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (ServerId == null) { throw new System.ArgumentNullException("ServerId cannot be null"); }
@@ -634,31 +485,19 @@ namespace nsxtapi.ManagerModules
             GetDirectoryLdapServerServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
             GetDirectoryLdapServerServiceURL.Replace("{server-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServerId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetDirectoryLdapServerServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDirectoryLdapServerType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDirectoryLdapServerType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetDirectoryLdapServerServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDirectoryLdapServerType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDirectoryLdapServerType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteDirectoryLdapServer(string DomainId, string ServerId)
+        public async Task DeleteDirectoryLdapServer(string DomainId, string ServerId)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (ServerId == null) { throw new System.ArgumentNullException("ServerId cannot be null"); }
@@ -673,7 +512,7 @@ namespace nsxtapi.ManagerModules
             DeleteDirectoryLdapServerServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
             DeleteDirectoryLdapServerServiceURL.Replace("{server-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServerId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteDirectoryLdapServerServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteDirectoryLdapServerServiceURL.ToString() + " did not complete successfull";
@@ -685,7 +524,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDirectoryGroupMemberListResultsType ListDirectoryGroupMemberGroups(string DomainId, string GroupId, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTDirectoryGroupMemberListResultsType> ListDirectoryGroupMemberGroups(string DomainId, string GroupId, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (GroupId == null) { throw new System.ArgumentNullException("GroupId cannot be null"); }
@@ -705,25 +544,13 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListDirectoryGroupMemberGroupsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDirectoryGroupMemberListResultsType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDirectoryGroupMemberListResultsType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListDirectoryGroupMemberGroupsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDirectoryGroupMemberListResultsType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDirectoryGroupMemberListResultsType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

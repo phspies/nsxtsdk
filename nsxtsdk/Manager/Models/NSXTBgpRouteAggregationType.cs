@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,22 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTBgpRouteAggregationType 
     {
-        public NSXTBgpRouteAggregationType()
-        {
-            SummaryOnly = test
-        }
         /// <summary>
         /// Flag to send only summarized route
         /// </summary>
-        [JsonProperty(PropertyName = "summary_only")]
-        [NSXTProperty(IsRequired: false, Description: @"Flag to send only summarized route")]
         public bool? SummaryOnly { get; set; }
         /// <summary>
         /// cidr of the aggregate address
         /// </summary>
         [JsonProperty(PropertyName = "prefix", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"cidr of the aggregate address")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Prefix { get; set; }
     }
 }

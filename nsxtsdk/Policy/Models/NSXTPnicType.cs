@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,22 +17,15 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Physical NIC specification")]
     public class NSXTPnicType 
     {
-        public NSXTPnicType()
-        {
-        }
         /// <summary>
         /// Uplink name for this Pnic. This name will be used to reference this Pnic in other configurations.
         /// </summary>
         [JsonProperty(PropertyName = "uplink_name", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Uplink name for this Pnic. This name will be used to reference this Pnic in other configurations.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string UplinkName { get; set; }
         /// <summary>
         /// device name or key
         /// </summary>
         [JsonProperty(PropertyName = "device_name", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"device name or key")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string DeviceName { get; set; }
     }
 }

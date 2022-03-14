@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,10 +17,6 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer SSLVersion object")]
     public class NSXTALBSSLVersionType 
     {
-        public NSXTALBSSLVersionType()
-        {
-            Type = test
-        }
         /// <summary>
         /// Enum options - SSL_VERSION_SSLV3, SSL_VERSION_TLS1,
         /// SSL_VERSION_TLS1_1, SSL_VERSION_TLS1_2, SSL_VERSION_TLS1_3.
@@ -33,8 +29,6 @@ namespace nsxtsdk.PolicyModels
         /// interpreted by ALB Controller as SSL_VERSION_TLS1_1.
         /// </summary>
         [JsonProperty(PropertyName = "type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Enum options - SSL_VERSION_SSLV3, SSL_VERSION_TLS1,SSL_VERSION_TLS1_1, SSL_VERSION_TLS1_2, SSL_VERSION_TLS1_3.Allowed in Basic(Allowed values-SSL_VERSION_SSLV3,SSL_VERSION_TLS1,SSL_VERSION_TLS1_1,SSL_VERSION_TLS1_2)edition, Essentials(Allowed values-SSL_VERSION_SSLV3,SSL_VERSION_TLS1,SSL_VERSION_TLS1_1,SSL_VERSION_TLS1_2)edition, Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller as SSL_VERSION_TLS1_1.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTAlbsslversionTypeEnumType Type { get; set; }
     }
 }

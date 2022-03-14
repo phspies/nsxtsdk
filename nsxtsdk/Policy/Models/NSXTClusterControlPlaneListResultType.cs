@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTClusterControlPlaneListResultType : NSXTListResultType
     {
-        public NSXTClusterControlPlaneListResultType()
-        {
-        }
         /// <summary>
         /// This property include all cluster control Plane in NSX-T.
         /// </summary>
-        [JsonProperty(PropertyName = "results")]
-        [NSXTProperty(IsRequired: false, Description: @"This property include all cluster control Plane in NSX-T.")]
         public IList<NSXTClusterControlPlaneType> Results { get; set; }
     }
 }

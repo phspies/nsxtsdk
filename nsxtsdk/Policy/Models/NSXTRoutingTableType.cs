@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,39 +17,26 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Routing table.")]
     public class NSXTRoutingTableType 
     {
-        public NSXTRoutingTableType()
-        {
-        }
         /// <summary>
         /// Entry count.
         /// </summary>
-        [JsonProperty(PropertyName = "count")]
-        [NSXTProperty(IsRequired: false, Description: @"Entry count.")]
         public int? Count { get; set; }
         /// <summary>
         /// Routing table fetch status from Transport node.
         /// </summary>
-        [JsonProperty(PropertyName = "status")]
-        [NSXTProperty(IsRequired: false, Description: @"Routing table fetch status from Transport node.")]
         public NSXTRoutingTableStatusEnumType? Status { get; set; }
         /// <summary>
         /// Route entries.
         /// </summary>
         [JsonProperty(PropertyName = "route_entries", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Route entries.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTRoutingEntryType> RouteEntries { get; set; }
         /// <summary>
         /// Routing table fetch error message, populated only if status if failure.
         /// </summary>
-        [JsonProperty(PropertyName = "error_message")]
-        [NSXTProperty(IsRequired: false, Description: @"Routing table fetch error message, populated only if status if failure.")]
         public string? ErrorMessage { get; set; }
         /// <summary>
         /// Transport node ID.
         /// </summary>
-        [JsonProperty(PropertyName = "edge_node")]
-        [NSXTProperty(IsRequired: false, Description: @"Transport node ID.")]
         public string? EdgeNode { get; set; }
     }
 }

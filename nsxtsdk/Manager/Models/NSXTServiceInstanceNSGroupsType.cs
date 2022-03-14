@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -18,14 +18,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"ServiceInstanceNSGroups contains list of NS Groups referenced in North-South Service Insertion Rules for a particular Service Instance.")]
     public class NSXTServiceInstanceNSGroupsType 
     {
-        public NSXTServiceInstanceNSGroupsType()
-        {
-        }
         /// <summary>
         /// List of NSGroups Used in ServiceInsertion Rules.
         /// </summary>
-        [JsonProperty(PropertyName = "nsroups")]
-        [NSXTProperty(IsRequired: false, Description: @"List of NSGroups Used in ServiceInsertion Rules.")]
         public IList<NSXTNSGroupInfoType> Nsroups { get; set; }
     }
 }

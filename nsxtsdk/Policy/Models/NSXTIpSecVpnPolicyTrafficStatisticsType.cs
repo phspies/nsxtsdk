@@ -6,8 +6,9 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
+using nsxtsdk.ManagerModels;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,26 +18,17 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"IPSec VPN policy traffic statistics.")]
     public class NSXTIPSecVpnPolicyTrafficStatisticsType 
     {
-        public NSXTIPSecVpnPolicyTrafficStatisticsType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "aggregate_traffic_counters")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTIPSecVpnTrafficCountersType AggregateTrafficCounters { get; set; }
         /// <summary>
         /// Tunnel statistics.
         /// </summary>
-        [JsonProperty(PropertyName = "tunnel_statistics")]
-        [NSXTProperty(IsRequired: false, Description: @"Tunnel statistics.")]
-        public IList<NSXTIPSecVpnTunnelTrafficStatisticsType> TunnelStatistics { get; set; }
+        public IList<NSXTIPSecVPNTunnelTrafficStatisticsType> TunnelStatistics { get; set; }
         /// <summary>
         /// L3Vpn rule path.
         /// </summary>
-        [JsonProperty(PropertyName = "rule_path")]
-        [NSXTProperty(IsRequired: false, Description: @"L3Vpn rule path.")]
         public string? RulePath { get; set; }
     }
 }

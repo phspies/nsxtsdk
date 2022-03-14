@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,21 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"compute collection ID and status connected to VC.")]
     public class NSXTIdfwComputeCollectionStatusType 
     {
-        public NSXTIdfwComputeCollectionStatusType()
-        {
-        }
         /// <summary>
         /// IDFW enabled compute collection status.
         /// </summary>
-        [JsonProperty(PropertyName = "compute_collection_status")]
-        [NSXTProperty(IsRequired: false, Description: @"IDFW enabled compute collection status.")]
         public IList<NSXTIdfwComputeCollectionConditionType> ComputeCollectionStatus { get; set; }
         /// <summary>
         /// IDFW compute collection ID connected to VC.
         /// </summary>
         [JsonProperty(PropertyName = "compute_collection_id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"IDFW compute collection ID connected to VC.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string ComputeCollectionId { get; set; }
     }
 }

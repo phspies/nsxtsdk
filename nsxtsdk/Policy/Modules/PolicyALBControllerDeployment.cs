@@ -21,16 +21,23 @@ namespace nsxtapi.PolicyModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public PolicyALBControllerDeployment(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public PolicyALBControllerDeployment(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBControllerNodeVMClusterConfigType AddAlbcontrollerNodeClusterConfig(NSXTALBControllerNodeVMClusterConfigType AlbcontrollerNodeVmclusterConfig)
+        public async Task<NSXTALBControllerNodeVMClusterConfigType> AddAlbcontrollerNodeClusterConfig(NSXTALBControllerNodeVMClusterConfigType AlbcontrollerNodeVmclusterConfig)
         {
             if (AlbcontrollerNodeVmclusterConfig == null) { throw new System.ArgumentNullException("AlbcontrollerNodeVmclusterConfig cannot be null"); }
             NSXTALBControllerNodeVMClusterConfigType returnValue = default(NSXTALBControllerNodeVMClusterConfigType);
@@ -43,31 +50,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(AlbcontrollerNodeVmclusterConfig, defaultSerializationSettings));
             request.Resource = AddAlbcontrollerNodeClusterConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBControllerNodeVMClusterConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBControllerNodeVMClusterConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + AddAlbcontrollerNodeClusterConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBControllerNodeVMClusterConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBControllerNodeVMClusterConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBControllerNodeVMClusterConfigType ReadAlbcontrollerNodeClusterConfig()
+        public async Task<NSXTALBControllerNodeVMClusterConfigType> ReadAlbcontrollerNodeClusterConfig()
         {
             NSXTALBControllerNodeVMClusterConfigType returnValue = default(NSXTALBControllerNodeVMClusterConfigType);
             StringBuilder ReadAlbcontrollerNodeClusterConfigServiceURL = new StringBuilder("/alb/controller-nodes/clusterconfig");
@@ -78,31 +73,19 @@ namespace nsxtapi.PolicyModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = ReadAlbcontrollerNodeClusterConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBControllerNodeVMClusterConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBControllerNodeVMClusterConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadAlbcontrollerNodeClusterConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBControllerNodeVMClusterConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBControllerNodeVMClusterConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBControllerNodeFormFactorsType ListAlbcontrollerFormFactors()
+        public async Task<NSXTALBControllerNodeFormFactorsType> ListAlbcontrollerFormFactors()
         {
             NSXTALBControllerNodeFormFactorsType returnValue = default(NSXTALBControllerNodeFormFactorsType);
             StringBuilder ListAlbcontrollerFormFactorsServiceURL = new StringBuilder("/alb/controller-nodes/form-factors");
@@ -113,31 +96,19 @@ namespace nsxtapi.PolicyModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = ListAlbcontrollerFormFactorsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBControllerNodeFormFactorsType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBControllerNodeFormFactorsType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListAlbcontrollerFormFactorsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBControllerNodeFormFactorsType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBControllerNodeFormFactorsType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBControllerNodeVMDeploymentRequestListType AddAlbcontrollerNodeVM(NSXTAddALBControllerNodeVMInfoType AddAlbcontrollerNodeVminfo)
+        public async Task<NSXTALBControllerNodeVMDeploymentRequestListType> AddAlbcontrollerNodeVM(NSXTAddALBControllerNodeVMInfoType AddAlbcontrollerNodeVminfo)
         {
             if (AddAlbcontrollerNodeVminfo == null) { throw new System.ArgumentNullException("AddAlbcontrollerNodeVminfo cannot be null"); }
             NSXTALBControllerNodeVMDeploymentRequestListType returnValue = default(NSXTALBControllerNodeVMDeploymentRequestListType);
@@ -150,31 +121,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(AddAlbcontrollerNodeVminfo, defaultSerializationSettings));
             request.Resource = AddAlbcontrollerNodeVMServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBControllerNodeVMDeploymentRequestListType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBControllerNodeVMDeploymentRequestListType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + AddAlbcontrollerNodeVMServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBControllerNodeVMDeploymentRequestListType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBControllerNodeVMDeploymentRequestListType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBControllerNodeVMDeploymentRequestListType ListAlbcontrollerNodeVmdeploymentRequests(string? State = null)
+        public async Task<NSXTALBControllerNodeVMDeploymentRequestListType> ListAlbcontrollerNodeVmdeploymentRequests(string? State = null)
         {
             NSXTALBControllerNodeVMDeploymentRequestListType returnValue = default(NSXTALBControllerNodeVMDeploymentRequestListType);
             StringBuilder ListAlbcontrollerNodeVmdeploymentRequestsServiceURL = new StringBuilder("/alb/controller-nodes/deployments");
@@ -186,31 +145,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             if (State != null) { request.AddQueryParameter("state", State.ToString()); }
             request.Resource = ListAlbcontrollerNodeVmdeploymentRequestsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBControllerNodeVMDeploymentRequestListType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBControllerNodeVMDeploymentRequestListType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListAlbcontrollerNodeVmdeploymentRequestsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBControllerNodeVMDeploymentRequestListType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBControllerNodeVMDeploymentRequestListType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBControllerClusterTriggerType RetriggerClustering()
+        public async Task<NSXTALBControllerClusterTriggerType> RetriggerClustering()
         {
             NSXTALBControllerClusterTriggerType returnValue = default(NSXTALBControllerClusterTriggerType);
             StringBuilder RetriggerClusteringServiceURL = new StringBuilder("/alb/controller-nodes/cluster");
@@ -221,31 +168,19 @@ namespace nsxtapi.PolicyModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = RetriggerClusteringServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBControllerClusterTriggerType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBControllerClusterTriggerType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + RetriggerClusteringServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBControllerClusterTriggerType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBControllerClusterTriggerType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBControllerClusterInfoType ListAlbcontrollerClusterInfo()
+        public async Task<NSXTALBControllerClusterInfoType> ListAlbcontrollerClusterInfo()
         {
             NSXTALBControllerClusterInfoType returnValue = default(NSXTALBControllerClusterInfoType);
             StringBuilder ListAlbcontrollerClusterInfoServiceURL = new StringBuilder("/alb/controller-nodes/cluster");
@@ -256,31 +191,19 @@ namespace nsxtapi.PolicyModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = ListAlbcontrollerClusterInfoServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBControllerClusterInfoType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBControllerClusterInfoType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListAlbcontrollerClusterInfoServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBControllerClusterInfoType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBControllerClusterInfoType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBControllerNodeVMDeploymentRequestType UpdateAlbcontrollerNodeVmdeploymentRequest(string NodeId, NSXTALBControllerNodeVMDeploymentRequestType AlbcontrollerNodeVmdeploymentRequest, bool? RunningConfig = null)
+        public async Task<NSXTALBControllerNodeVMDeploymentRequestType> UpdateAlbcontrollerNodeVmdeploymentRequest(string NodeId, NSXTALBControllerNodeVMDeploymentRequestType AlbcontrollerNodeVmdeploymentRequest, bool? RunningConfig = null)
         {
             if (NodeId == null) { throw new System.ArgumentNullException("NodeId cannot be null"); }
             if (AlbcontrollerNodeVmdeploymentRequest == null) { throw new System.ArgumentNullException("AlbcontrollerNodeVmdeploymentRequest cannot be null"); }
@@ -296,31 +219,19 @@ namespace nsxtapi.PolicyModules
             request.AddJsonBody(JsonConvert.SerializeObject(AlbcontrollerNodeVmdeploymentRequest, defaultSerializationSettings));
             if (RunningConfig != null) { request.AddQueryParameter("running_config", RunningConfig.ToString()); }
             request.Resource = UpdateAlbcontrollerNodeVmdeploymentRequestServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBControllerNodeVMDeploymentRequestType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBControllerNodeVMDeploymentRequestType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateAlbcontrollerNodeVmdeploymentRequestServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBControllerNodeVMDeploymentRequestType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBControllerNodeVMDeploymentRequestType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBControllerNodeVMDeploymentRequestType ReadAlbcontrollerNodeVmdeploymentRequest(string NodeId)
+        public async Task<NSXTALBControllerNodeVMDeploymentRequestType> ReadAlbcontrollerNodeVmdeploymentRequest(string NodeId)
         {
             if (NodeId == null) { throw new System.ArgumentNullException("NodeId cannot be null"); }
             NSXTALBControllerNodeVMDeploymentRequestType returnValue = default(NSXTALBControllerNodeVMDeploymentRequestType);
@@ -333,31 +244,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ReadAlbcontrollerNodeVmdeploymentRequestServiceURL.Replace("{node-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NodeId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadAlbcontrollerNodeVmdeploymentRequestServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBControllerNodeVMDeploymentRequestType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBControllerNodeVMDeploymentRequestType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadAlbcontrollerNodeVmdeploymentRequestServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBControllerNodeVMDeploymentRequestType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBControllerNodeVMDeploymentRequestType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTALBControllerNodeVMDeploymentStatusReportType ReadAlbcontrollerNodeVmdeploymentStatus(string NodeId)
+        public async Task<NSXTALBControllerNodeVMDeploymentStatusReportType> ReadAlbcontrollerNodeVmdeploymentStatus(string NodeId)
         {
             if (NodeId == null) { throw new System.ArgumentNullException("NodeId cannot be null"); }
             NSXTALBControllerNodeVMDeploymentStatusReportType returnValue = default(NSXTALBControllerNodeVMDeploymentStatusReportType);
@@ -370,31 +269,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ReadAlbcontrollerNodeVmdeploymentStatusServiceURL.Replace("{node-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NodeId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadAlbcontrollerNodeVmdeploymentStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTALBControllerNodeVMDeploymentStatusReportType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTALBControllerNodeVMDeploymentStatusReportType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadAlbcontrollerNodeVmdeploymentStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTALBControllerNodeVMDeploymentStatusReportType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTALBControllerNodeVMDeploymentStatusReportType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteAutoDeployedAlbcontrollerNodeVM(string NodeId, bool? ForceDelete = null, string? Inaccessible = null)
+        public async Task DeleteAutoDeployedAlbcontrollerNodeVM(string NodeId, bool? ForceDelete = null, string? Inaccessible = null)
         {
             if (NodeId == null) { throw new System.ArgumentNullException("NodeId cannot be null"); }
             
@@ -409,7 +296,7 @@ namespace nsxtapi.PolicyModules
             if (ForceDelete != null) { request.AddQueryParameter("force_delete", ForceDelete.ToString()); }
             if (Inaccessible != null) { request.AddQueryParameter("inaccessible", Inaccessible.ToString()); }
             request.Resource = DeleteAutoDeployedAlbcontrollerNodeVMServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + DeleteAutoDeployedAlbcontrollerNodeVMServiceURL.ToString() + " did not complete successfull";

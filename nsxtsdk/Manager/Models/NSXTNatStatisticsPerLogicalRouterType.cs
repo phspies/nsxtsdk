@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,32 +17,21 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNatStatisticsPerLogicalRouterType 
     {
-        public NSXTNatStatisticsPerLogicalRouterType()
-        {
-        }
         /// <summary>
         /// Timestamp when the data was last updated; unset if data source has never updated the data.
         /// </summary>
-        [JsonProperty(PropertyName = "last_update_timestamp")]
-        [NSXTProperty(IsRequired: false, Description: @"Timestamp when the data was last updated; unset if data source has never updated the data.")]
         public long? LastUpdateTimestamp { get; set; }
         /// <summary>
         /// Detailed per node statistics
         /// </summary>
-        [JsonProperty(PropertyName = "per_transport_node_statistics")]
-        [NSXTProperty(IsRequired: false, Description: @"Detailed per node statistics")]
         public IList<NSXTNatStatisticsPerTransportNodeType> PerTransportNodeStatistics { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "statistics_across_all_nodes")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTNatCountersType StatisticsAcrossAllNodes { get; set; }
         /// <summary>
         /// Id for the logical router
         /// </summary>
-        [JsonProperty(PropertyName = "logical_router_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Id for the logical router")]
         public string? LogicalRouterId { get; set; }
     }
 }

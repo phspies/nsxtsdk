@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,9 +17,6 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTDnsSecurityProfileBindingMapType : NSXTProfileBindingMapType
     {
-        public NSXTDnsSecurityProfileBindingMapType()
-        {
-        }
         /// <summary>
         /// Sequence number used to resolve conflicts betweeen two profiles applied on
         /// the same group. Lower sequence number takes higher precedence. Two binding
@@ -27,10 +24,6 @@ namespace nsxtsdk.PolicyModels
         /// User defined sequence numbers range from 1 through 100,000.
         /// System defined sequence numbers range from 100,001 through 200,000.
         /// </summary>
-        [JsonProperty(PropertyName = "sequence_number")]
-        [NSXTProperty(IsRequired: false, Description: @"Sequence number used to resolve conflicts betweeen two profiles applied onthe same group. Lower sequence number takes higher precedence. Two bindingmaps applied to the same profile must have the same sequence number.User defined sequence numbers range from 1 through 100,000.System defined sequence numbers range from 100,001 through 200,000.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(100000)]
         public long? SequenceNumber { get; set; }
     }
 }

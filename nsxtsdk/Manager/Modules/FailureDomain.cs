@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public FailureDomain(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public FailureDomain(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTFailureDomainType UpdateFailureDomain(string FailureDomainId, NSXTFailureDomainType FailureDomain)
+        public async Task<NSXTFailureDomainType> UpdateFailureDomain(string FailureDomainId, NSXTFailureDomainType FailureDomain)
         {
             if (FailureDomainId == null) { throw new System.ArgumentNullException("FailureDomainId cannot be null"); }
             if (FailureDomain == null) { throw new System.ArgumentNullException("FailureDomain cannot be null"); }
@@ -45,31 +52,19 @@ namespace nsxtapi.ManagerModules
             UpdateFailureDomainServiceURL.Replace("{failure-domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FailureDomainId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(FailureDomain, defaultSerializationSettings));
             request.Resource = UpdateFailureDomainServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTFailureDomainType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTFailureDomainType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateFailureDomainServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTFailureDomainType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTFailureDomainType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteFailureDomain(string FailureDomainId)
+        public async Task DeleteFailureDomain(string FailureDomainId)
         {
             if (FailureDomainId == null) { throw new System.ArgumentNullException("FailureDomainId cannot be null"); }
             
@@ -82,7 +77,7 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             DeleteFailureDomainServiceURL.Replace("{failure-domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FailureDomainId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteFailureDomainServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteFailureDomainServiceURL.ToString() + " did not complete successfull";
@@ -94,7 +89,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTFailureDomainType GetFailureDomain(string FailureDomainId)
+        public async Task<NSXTFailureDomainType> GetFailureDomain(string FailureDomainId)
         {
             if (FailureDomainId == null) { throw new System.ArgumentNullException("FailureDomainId cannot be null"); }
             NSXTFailureDomainType returnValue = default(NSXTFailureDomainType);
@@ -107,31 +102,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             GetFailureDomainServiceURL.Replace("{failure-domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FailureDomainId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetFailureDomainServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTFailureDomainType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTFailureDomainType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetFailureDomainServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTFailureDomainType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTFailureDomainType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTFailureDomainType CreateFailureDomain(NSXTFailureDomainType FailureDomain)
+        public async Task<NSXTFailureDomainType> CreateFailureDomain(NSXTFailureDomainType FailureDomain)
         {
             if (FailureDomain == null) { throw new System.ArgumentNullException("FailureDomain cannot be null"); }
             NSXTFailureDomainType returnValue = default(NSXTFailureDomainType);
@@ -144,31 +127,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(FailureDomain, defaultSerializationSettings));
             request.Resource = CreateFailureDomainServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTFailureDomainType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTFailureDomainType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CreateFailureDomainServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTFailureDomainType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTFailureDomainType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTFailureDomainListResultType ListFailureDomains()
+        public async Task<NSXTFailureDomainListResultType> ListFailureDomains()
         {
             NSXTFailureDomainListResultType returnValue = default(NSXTFailureDomainListResultType);
             StringBuilder ListFailureDomainsServiceURL = new StringBuilder("/failure-domains");
@@ -179,25 +150,13 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = ListFailureDomainsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTFailureDomainListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTFailureDomainListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListFailureDomainsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTFailureDomainListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTFailureDomainListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

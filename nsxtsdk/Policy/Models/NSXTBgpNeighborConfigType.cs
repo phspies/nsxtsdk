@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,12 +17,6 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTBgpNeighborConfigType : NSXTPolicyConfigResourceType
     {
-        public NSXTBgpNeighborConfigType()
-        {
-            KeepAliveTime = test
-            MaximumHopLimit = test
-            HoldDownTime = test
-        }
         /// <summary>
         /// Specify path of prefix-list or route map to filter routes for OUT direction.
         /// When not specified, a built-in prefix-list named 'prefixlist-out-default'
@@ -30,8 +24,6 @@ namespace nsxtsdk.PolicyModels
         /// This property is deprecated, use route_filtering instead. Specifying different
         /// values for both properties will result in error.
         /// </summary>
-        [JsonProperty(PropertyName = "out_route_filters")]
-        [NSXTProperty(IsRequired: false, Description: @"Specify path of prefix-list or route map to filter routes for OUT direction.When not specified, a built-in prefix-list named &apos;prefixlist-out-default&apos;is automatically applied.This property is deprecated, use route_filtering instead. Specifying differentvalues for both properties will result in error.")]
         public IList<string> OutRouteFilters { get; set; }
         /// <summary>
         /// If mode is DISABLE, then graceful restart and helper modes are disabled.
@@ -42,87 +34,57 @@ namespace nsxtsdk.PolicyModels
         /// GRACEFUL_RESTART mode is the ability of a BGP speaker to advertise its restart
         /// to its peers.
         /// </summary>
-        [JsonProperty(PropertyName = "graceful_restart_mode")]
-        [NSXTProperty(IsRequired: false, Description: @"If mode is DISABLE, then graceful restart and helper modes are disabled.If mode is GR_AND_HELPER, then both graceful restart and helper modes are enabled.If mode is HELPER_ONLY, then helper mode is enabled.HELPER_ONLY mode is the ability for a BGP speaker to indicate its abilityto preserve forwarding state during BGP restart.GRACEFUL_RESTART mode is the ability of a BGP speaker to advertise its restartto its peers.")]
         public NSXTBgpNeighborConfigGracefulRestartModeEnumType? GracefulRestartMode { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "bfd")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTBgpBfdConfigType Bfd { get; set; }
         /// <summary>
         /// Interval (in seconds) between keep alive messages sent to peer.
         /// </summary>
-        [JsonProperty(PropertyName = "keep_alive_time")]
-        [NSXTProperty(IsRequired: false, Description: @"Interval (in seconds) between keep alive messages sent to peer.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
         public int? KeepAliveTime { get; set; }
         /// <summary>
         /// Maximum number of hops allowed to reach BGP neighbor.
         /// </summary>
-        [JsonProperty(PropertyName = "maximum_hop_limit")]
-        [NSXTProperty(IsRequired: false, Description: @"Maximum number of hops allowed to reach BGP neighbor.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(255)]
         public int? MaximumHopLimit { get; set; }
         /// <summary>
         /// Wait time in seconds before declaring peer dead.
         /// </summary>
-        [JsonProperty(PropertyName = "hold_down_time")]
-        [NSXTProperty(IsRequired: false, Description: @"Wait time in seconds before declaring peer dead.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
         public int? HoldDownTime { get; set; }
         /// <summary>
         /// Specify path of prefix-list or route map to filter routes for IN direction.
         /// This property is deprecated, use route_filtering instead. Specifying different
         /// values for both properties will result in error.
         /// </summary>
-        [JsonProperty(PropertyName = "in_route_filters")]
-        [NSXTProperty(IsRequired: false, Description: @"Specify path of prefix-list or route map to filter routes for IN direction.This property is deprecated, use route_filtering instead. Specifying differentvalues for both properties will result in error.")]
         public IList<string> InRouteFilters { get; set; }
         /// <summary>
         /// 4 Byte ASN of the neighbor in ASPLAIN Format
         /// </summary>
         [JsonProperty(PropertyName = "remote_as_num", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"4 Byte ASN of the neighbor in ASPLAIN Format")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string RemoteAsNum { get; set; }
         /// <summary>
         /// Enable address families and route filtering in each direction.
         /// </summary>
-        [JsonProperty(PropertyName = "route_filtering")]
-        [NSXTProperty(IsRequired: false, Description: @"Enable address families and route filtering in each direction.")]
         public IList<NSXTBgpRouteFilteringType> RouteFiltering { get; set; }
         /// <summary>
         /// Source addresses should belong to Tier0 external or loopback interface
         /// IP Addresses . BGP peering is formed from all these addresses.
         /// This property is mandatory when maximum_hop_limit is greater than 1.
         /// </summary>
-        [JsonProperty(PropertyName = "source_addresses")]
-        [NSXTProperty(IsRequired: false, Description: @"Source addresses should belong to Tier0 external or loopback interfaceIP Addresses . BGP peering is formed from all these addresses.This property is mandatory when maximum_hop_limit is greater than 1.")]
         public IList<string> SourceAddresses { get; set; }
         /// <summary>
         /// Specify password for BGP neighbor authentication.
         /// Empty string ("") clears existing password.
         /// </summary>
-        [JsonProperty(PropertyName = "password")]
-        [NSXTProperty(IsRequired: false, Description: @"Specify password for BGP neighbor authentication.Empty string (&quot;&quot;) clears existing password.")]
         public string? Password { get; set; }
         /// <summary>
         /// Flag to enable allowas_in option for BGP neighbor
         /// </summary>
-        [JsonProperty(PropertyName = "allow_as_in")]
-        [NSXTProperty(IsRequired: false, Description: @"Flag to enable allowas_in option for BGP neighbor")]
         public bool? AllowAsIn { get; set; }
         /// <summary>
         /// Neighbor IP Address
         /// </summary>
         [JsonProperty(PropertyName = "neighbor_address", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Neighbor IP Address")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string NeighborAddress { get; set; }
     }
 }

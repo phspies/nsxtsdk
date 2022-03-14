@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,26 +17,15 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTVtepLabelRangeType : NSXTResourceType
     {
-        public NSXTVtepLabelRangeType()
-        {
-        }
         /// <summary>
         /// Start value for virtual tunnel endpoint label range
         /// </summary>
         [JsonProperty(PropertyName = "start", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Start value for virtual tunnel endpoint label range")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(131071)]
-        [System.ComponentModel.DataAnnotations.Required]
         public long Start { get; set; }
         /// <summary>
         /// End value for virtual tunnel endpoint label range
         /// </summary>
         [JsonProperty(PropertyName = "end", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"End value for virtual tunnel endpoint label range")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(131071)]
-        [System.ComponentModel.DataAnnotations.Required]
         public long End { get; set; }
     }
 }

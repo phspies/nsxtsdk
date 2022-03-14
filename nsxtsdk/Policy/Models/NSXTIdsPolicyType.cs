@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIdsPolicyType : NSXTPolicyType
     {
-        public NSXTIdsPolicyType()
-        {
-        }
         /// <summary>
         /// IDS Rules that are a part of this SecurityPolicy
         /// </summary>
-        [JsonProperty(PropertyName = "rules")]
-        [NSXTProperty(IsRequired: false, Description: @"IDS Rules that are a part of this SecurityPolicy")]
         public IList<NSXTIdsRuleType> Rules { get; set; }
     }
 }

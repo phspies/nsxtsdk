@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"User supplied metadata needed for resolving errors")]
     public class NSXTErrorResolverUserMetadataType 
     {
-        public NSXTErrorResolverUserMetadataType()
-        {
-        }
         /// <summary>
         /// List of user supplied input data.
         /// </summary>
-        [JsonProperty(PropertyName = "user_input_list")]
-        [NSXTProperty(IsRequired: false, Description: @"List of user supplied input data.")]
         public IList<NSXTErrorResolverUserInputDataType> UserInputList { get; set; }
     }
 }

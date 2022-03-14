@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,26 +17,17 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Different form factor for deployment.")]
     public class NSXTFormFactorsType 
     {
-        public NSXTFormFactorsType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "evaluation")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTFormFactorDetailType Evaluation { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "advanced")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTFormFactorDetailType Advanced { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "standard")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTFormFactorDetailType Standard { get; set; }
     }
 }

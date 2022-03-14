@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -18,20 +18,13 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Aggregate statistics of all the IDS rules in a security policy for a specificenforcement point.")]
     public class NSXTIdsSecurityPolicyStatisticsForEnforcementPointType 
     {
-        public NSXTIdsSecurityPolicyStatisticsForEnforcementPointType()
-        {
-        }
         /// <summary>
         /// Enforcement point to fetch the statistics from.
         /// </summary>
-        [JsonProperty(PropertyName = "enforcement_point")]
-        [NSXTProperty(IsRequired: false, Description: @"Enforcement point to fetch the statistics from.")]
         public string? EnforcementPoint { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "statistics")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTIdsSecurityPolicyStatisticsType Statistics { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -18,21 +18,13 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Configuration for BFD session between host nodes and external gateways.If this configuration is not provided, system defaults are applied.")]
     public class NSXTExternalGatewayBfdConfigType 
     {
-        public NSXTExternalGatewayBfdConfigType()
-        {
-            Enable = test
-        }
         /// <summary>
         /// Policy path to Bfd Profile
         /// </summary>
-        [JsonProperty(PropertyName = "bfd_profile_path")]
-        [NSXTProperty(IsRequired: false, Description: @"Policy path to Bfd Profile")]
         public string? BfdProfilePath { get; set; }
         /// <summary>
         /// Flag to enable BFD session.
         /// </summary>
-        [JsonProperty(PropertyName = "enable")]
-        [NSXTProperty(IsRequired: false, Description: @"Flag to enable BFD session.")]
         public bool? Enable { get; set; }
     }
 }

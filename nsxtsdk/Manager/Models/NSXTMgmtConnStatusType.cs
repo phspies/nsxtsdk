@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTMgmtConnStatusType 
     {
-        public NSXTMgmtConnStatusType()
-        {
-        }
         /// <summary>
         /// Indicates the controller node's MP channel connectivity status
         /// </summary>
-        [JsonProperty(PropertyName = "connectivity_status")]
-        [NSXTProperty(IsRequired: false, Description: @"Indicates the controller node&apos;s MP channel connectivity status")]
         public NSXTMgmtConnStatusConnectivityStatusEnumType? ConnectivityStatus { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,20 +17,13 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Details about mapping of NSX-T site to AVI LB endpoint.")]
     public class NSXTNsxtSiteToAviMappingType 
     {
-        public NSXTNsxtSiteToAviMappingType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "avi_lb_endpoint")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTAviEndPointType AviLbEndpoint { get; set; }
         /// <summary>
         /// Federation NSX-T site id.
         /// </summary>
-        [JsonProperty(PropertyName = "federation_site_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Federation NSX-T site id.")]
         public string? FederationSiteId { get; set; }
     }
 }

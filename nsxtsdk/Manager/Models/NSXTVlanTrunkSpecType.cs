@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"VlanTrunkspec is used for specifying trunk VLAN id ranges.")]
     public class NSXTVlanTrunkSpecType 
     {
-        public NSXTVlanTrunkSpecType()
-        {
-        }
         /// <summary>
         /// Trunk VLAN id ranges
         /// </summary>
         [JsonProperty(PropertyName = "vlan_ranges", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Trunk VLAN id ranges")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTTrunkVlanRangeType> VlanRanges { get; set; }
     }
 }

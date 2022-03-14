@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,26 +17,17 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Details of the member belonging to a Group")]
     public class NSXTPolicyGroupMemberDetailsType 
     {
-        public NSXTPolicyGroupMemberDetailsType()
-        {
-        }
         /// <summary>
         /// The path of the member, if relevant
         /// </summary>
-        [JsonProperty(PropertyName = "path")]
-        [NSXTProperty(IsRequired: false, Description: @"The path of the member, if relevant")]
         public string? Path { get; set; }
         /// <summary>
         /// The display name of the member on the enforcement point
         /// </summary>
-        [JsonProperty(PropertyName = "display_name")]
-        [NSXTProperty(IsRequired: false, Description: @"The display name of the member on the enforcement point")]
         public string? DisplayName { get; set; }
         /// <summary>
         /// The ID of the member on the enforcement point
         /// </summary>
-        [JsonProperty(PropertyName = "id")]
-        [NSXTProperty(IsRequired: false, Description: @"The ID of the member on the enforcement point")]
         public string? Id { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,20 +17,13 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"The option is used to filter data on given node.")]
     public class NSXTPacketCaptureOptionType 
     {
-        public NSXTPacketCaptureOptionType()
-        {
-        }
         /// <summary>
         /// The avaiable option names in the enum can be used to filter the capture data.
         /// </summary>
-        [JsonProperty(PropertyName = "name")]
-        [NSXTProperty(IsRequired: false, Description: @"The avaiable option names in the enum can be used to filter the capture data.")]
         public NSXTPacketCaptureOptionNameEnumType? Name { get; set; }
         /// <summary>
         /// Define the capture value according to the given capture option.
         /// </summary>
-        [JsonProperty(PropertyName = "value")]
-        [NSXTProperty(IsRequired: false, Description: @"Define the capture value according to the given capture option.")]
         public string? Value { get; set; }
     }
 }

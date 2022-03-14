@@ -21,16 +21,23 @@ namespace nsxtapi.PolicyModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public PolicyIDS(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public PolicyIDS(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTGlobalIdsSignatureType CreateOrUpdateGlobalIdsSignature(string SignatureId, NSXTGlobalIdsSignatureType GlobalIdsSignature)
+        public async Task<NSXTGlobalIdsSignatureType> CreateOrUpdateGlobalIdsSignature(string SignatureId, NSXTGlobalIdsSignatureType GlobalIdsSignature)
         {
             if (SignatureId == null) { throw new System.ArgumentNullException("SignatureId cannot be null"); }
             if (GlobalIdsSignature == null) { throw new System.ArgumentNullException("GlobalIdsSignature cannot be null"); }
@@ -45,31 +52,19 @@ namespace nsxtapi.PolicyModules
             CreateOrUpdateGlobalIdsSignatureServiceURL.Replace("{signature-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SignatureId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(GlobalIdsSignature, defaultSerializationSettings));
             request.Resource = CreateOrUpdateGlobalIdsSignatureServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTGlobalIdsSignatureType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTGlobalIdsSignatureType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateOrUpdateGlobalIdsSignatureServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTGlobalIdsSignatureType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTGlobalIdsSignatureType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchGlobalIdsSignature(string SignatureId, NSXTGlobalIdsSignatureType GlobalIdsSignature)
+        public async Task PatchGlobalIdsSignature(string SignatureId, NSXTGlobalIdsSignatureType GlobalIdsSignature)
         {
             if (SignatureId == null) { throw new System.ArgumentNullException("SignatureId cannot be null"); }
             if (GlobalIdsSignature == null) { throw new System.ArgumentNullException("GlobalIdsSignature cannot be null"); }
@@ -84,7 +79,7 @@ namespace nsxtapi.PolicyModules
             PatchGlobalIdsSignatureServiceURL.Replace("{signature-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SignatureId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(GlobalIdsSignature, defaultSerializationSettings));
             request.Resource = PatchGlobalIdsSignatureServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchGlobalIdsSignatureServiceURL.ToString() + " did not complete successfull";
@@ -96,7 +91,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTGlobalIdsSignatureType GetGlobalIdsSignature(string SignatureId)
+        public async Task<NSXTGlobalIdsSignatureType> GetGlobalIdsSignature(string SignatureId)
         {
             if (SignatureId == null) { throw new System.ArgumentNullException("SignatureId cannot be null"); }
             NSXTGlobalIdsSignatureType returnValue = default(NSXTGlobalIdsSignatureType);
@@ -109,31 +104,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             GetGlobalIdsSignatureServiceURL.Replace("{signature-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SignatureId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetGlobalIdsSignatureServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTGlobalIdsSignatureType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTGlobalIdsSignatureType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetGlobalIdsSignatureServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTGlobalIdsSignatureType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTGlobalIdsSignatureType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteGlobalIdsSignature(string SignatureId)
+        public async Task DeleteGlobalIdsSignature(string SignatureId)
         {
             if (SignatureId == null) { throw new System.ArgumentNullException("SignatureId cannot be null"); }
             
@@ -146,7 +129,7 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             DeleteGlobalIdsSignatureServiceURL.Replace("{signature-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SignatureId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteGlobalIdsSignatureServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteGlobalIdsSignatureServiceURL.ToString() + " did not complete successfull";
@@ -158,7 +141,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIdsStandaloneHostConfigType CreateOrUpdateIdsStandaloneHostConfig(NSXTIdsStandaloneHostConfigType IdsStandaloneHostConfig)
+        public async Task<NSXTIdsStandaloneHostConfigType> CreateOrUpdateIdsStandaloneHostConfig(NSXTIdsStandaloneHostConfigType IdsStandaloneHostConfig)
         {
             if (IdsStandaloneHostConfig == null) { throw new System.ArgumentNullException("IdsStandaloneHostConfig cannot be null"); }
             NSXTIdsStandaloneHostConfigType returnValue = default(NSXTIdsStandaloneHostConfigType);
@@ -171,31 +154,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(IdsStandaloneHostConfig, defaultSerializationSettings));
             request.Resource = CreateOrUpdateIdsStandaloneHostConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIdsStandaloneHostConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIdsStandaloneHostConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateOrUpdateIdsStandaloneHostConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIdsStandaloneHostConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIdsStandaloneHostConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchIdsStandaloneHostConfig(NSXTIdsStandaloneHostConfigType IdsStandaloneHostConfig)
+        public async Task PatchIdsStandaloneHostConfig(NSXTIdsStandaloneHostConfigType IdsStandaloneHostConfig)
         {
             if (IdsStandaloneHostConfig == null) { throw new System.ArgumentNullException("IdsStandaloneHostConfig cannot be null"); }
             
@@ -208,7 +179,7 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(IdsStandaloneHostConfig, defaultSerializationSettings));
             request.Resource = PatchIdsStandaloneHostConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchIdsStandaloneHostConfigServiceURL.ToString() + " did not complete successfull";
@@ -220,7 +191,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIdsStandaloneHostConfigType GetIdsStandaloneHostConfig()
+        public async Task<NSXTIdsStandaloneHostConfigType> GetIdsStandaloneHostConfig()
         {
             NSXTIdsStandaloneHostConfigType returnValue = default(NSXTIdsStandaloneHostConfigType);
             StringBuilder GetIdsStandaloneHostConfigServiceURL = new StringBuilder("/infra/settings/firewall/security/intrusion-services/ids-standalone-host-config");
@@ -231,31 +202,19 @@ namespace nsxtapi.PolicyModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = GetIdsStandaloneHostConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIdsStandaloneHostConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIdsStandaloneHostConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetIdsStandaloneHostConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIdsStandaloneHostConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIdsStandaloneHostConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIdsProfileListResultType ListIdsProfiles(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTIdsProfileListResultType> ListIdsProfiles(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTIdsProfileListResultType returnValue = default(NSXTIdsProfileListResultType);
             StringBuilder ListIdsProfilesServiceURL = new StringBuilder("/infra/settings/firewall/security/intrusion-services/profiles");
@@ -272,31 +231,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListIdsProfilesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIdsProfileListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIdsProfileListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListIdsProfilesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIdsProfileListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIdsProfileListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void UpdateIdsSignatures()
+        public async Task UpdateIdsSignatures()
         {
             
             StringBuilder UpdateIdsSignaturesServiceURL = new StringBuilder("/infra/settings/firewall/security/intrusion-services/signatures?action=update_signatures");
@@ -307,7 +254,7 @@ namespace nsxtapi.PolicyModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = UpdateIdsSignaturesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + UpdateIdsSignaturesServiceURL.ToString() + " did not complete successfull";
@@ -319,7 +266,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIdsSignatureStatusType GetIdsSignatureStatus()
+        public async Task<NSXTIdsSignatureStatusType> GetIdsSignatureStatus()
         {
             NSXTIdsSignatureStatusType returnValue = default(NSXTIdsSignatureStatusType);
             StringBuilder GetIdsSignatureStatusServiceURL = new StringBuilder("/infra/settings/firewall/security/intrusion-services/signatures/status");
@@ -330,31 +277,19 @@ namespace nsxtapi.PolicyModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = GetIdsSignatureStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIdsSignatureStatusType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIdsSignatureStatusType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetIdsSignatureStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIdsSignatureStatusType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIdsSignatureStatusType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIdsSecurityPolicyListResultType ListIdsSecurityPolicies(string DomainId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, bool? IncludeRuleCount = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTIdsSecurityPolicyListResultType> ListIdsSecurityPolicies(string DomainId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, bool? IncludeRuleCount = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             NSXTIdsSecurityPolicyListResultType returnValue = default(NSXTIdsSecurityPolicyListResultType);
@@ -374,31 +309,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListIdsSecurityPoliciesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIdsSecurityPolicyListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIdsSecurityPolicyListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListIdsSecurityPoliciesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIdsSecurityPolicyListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIdsSecurityPolicyListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIdsRuleListResultType ListIdsRules(string DomainId, string PolicyId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTIdsRuleListResultType> ListIdsRules(string DomainId, string PolicyId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (PolicyId == null) { throw new System.ArgumentNullException("PolicyId cannot be null"); }
@@ -419,31 +342,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListIdsRulesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIdsRuleListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIdsRuleListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListIdsRulesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIdsRuleListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIdsRuleListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIdsClusterConfigType CreateOrUpdateIdsClusterConfig(string ClusterConfigId, NSXTIdsClusterConfigType IdsClusterConfig)
+        public async Task<NSXTIdsClusterConfigType> CreateOrUpdateIdsClusterConfig(string ClusterConfigId, NSXTIdsClusterConfigType IdsClusterConfig)
         {
             if (ClusterConfigId == null) { throw new System.ArgumentNullException("ClusterConfigId cannot be null"); }
             if (IdsClusterConfig == null) { throw new System.ArgumentNullException("IdsClusterConfig cannot be null"); }
@@ -458,31 +369,19 @@ namespace nsxtapi.PolicyModules
             CreateOrUpdateIdsClusterConfigServiceURL.Replace("{cluster-config-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ClusterConfigId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(IdsClusterConfig, defaultSerializationSettings));
             request.Resource = CreateOrUpdateIdsClusterConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIdsClusterConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIdsClusterConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateOrUpdateIdsClusterConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIdsClusterConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIdsClusterConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchIdsClusterConfig(string ClusterConfigId, NSXTIdsClusterConfigType IdsClusterConfig)
+        public async Task PatchIdsClusterConfig(string ClusterConfigId, NSXTIdsClusterConfigType IdsClusterConfig)
         {
             if (ClusterConfigId == null) { throw new System.ArgumentNullException("ClusterConfigId cannot be null"); }
             if (IdsClusterConfig == null) { throw new System.ArgumentNullException("IdsClusterConfig cannot be null"); }
@@ -497,7 +396,7 @@ namespace nsxtapi.PolicyModules
             PatchIdsClusterConfigServiceURL.Replace("{cluster-config-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ClusterConfigId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(IdsClusterConfig, defaultSerializationSettings));
             request.Resource = PatchIdsClusterConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchIdsClusterConfigServiceURL.ToString() + " did not complete successfull";
@@ -509,7 +408,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIdsClusterConfigType GetIdsClusterConfig(string ClusterConfigId)
+        public async Task<NSXTIdsClusterConfigType> GetIdsClusterConfig(string ClusterConfigId)
         {
             if (ClusterConfigId == null) { throw new System.ArgumentNullException("ClusterConfigId cannot be null"); }
             NSXTIdsClusterConfigType returnValue = default(NSXTIdsClusterConfigType);
@@ -522,31 +421,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             GetIdsClusterConfigServiceURL.Replace("{cluster-config-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ClusterConfigId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetIdsClusterConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIdsClusterConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIdsClusterConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetIdsClusterConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIdsClusterConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIdsClusterConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIdsSecurityPolicyType ReviseIdsSecurityPolicy(string DomainId, string PolicyId, NSXTIdsSecurityPolicyType IdsSecurityPolicy, string? AnchorPath = null, string? Operation = null)
+        public async Task<NSXTIdsSecurityPolicyType> ReviseIdsSecurityPolicy(string DomainId, string PolicyId, NSXTIdsSecurityPolicyType IdsSecurityPolicy, string? AnchorPath = null, string? Operation = null)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (PolicyId == null) { throw new System.ArgumentNullException("PolicyId cannot be null"); }
@@ -565,31 +452,19 @@ namespace nsxtapi.PolicyModules
             if (AnchorPath != null) { request.AddQueryParameter("anchor_path", AnchorPath.ToString()); }
             if (Operation != null) { request.AddQueryParameter("operation", Operation.ToString()); }
             request.Resource = ReviseIdsSecurityPolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIdsSecurityPolicyType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIdsSecurityPolicyType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + ReviseIdsSecurityPolicyServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIdsSecurityPolicyType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIdsSecurityPolicyType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIdsProfileSignaturesType GetIdsProfileSignatures(string ProfileId)
+        public async Task<NSXTIdsProfileSignaturesType> GetIdsProfileSignatures(string ProfileId)
         {
             if (ProfileId == null) { throw new System.ArgumentNullException("ProfileId cannot be null"); }
             NSXTIdsProfileSignaturesType returnValue = default(NSXTIdsProfileSignaturesType);
@@ -602,31 +477,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             GetIdsProfileSignaturesServiceURL.Replace("{profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetIdsProfileSignaturesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIdsProfileSignaturesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIdsProfileSignaturesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetIdsProfileSignaturesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIdsProfileSignaturesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIdsProfileSignaturesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIdsSignatureListResultType ListIdsSignatures(string VersionId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTIdsSignatureListResultType> ListIdsSignatures(string VersionId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (VersionId == null) { throw new System.ArgumentNullException("VersionId cannot be null"); }
             NSXTIdsSignatureListResultType returnValue = default(NSXTIdsSignatureListResultType);
@@ -645,31 +508,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListIdsSignaturesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIdsSignatureListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIdsSignatureListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListIdsSignaturesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIdsSignatureListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIdsSignatureListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIdsClusterConfigListResultType ListIdsClusterConfigs(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTIdsClusterConfigListResultType> ListIdsClusterConfigs(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTIdsClusterConfigListResultType returnValue = default(NSXTIdsClusterConfigListResultType);
             StringBuilder ListIdsClusterConfigsServiceURL = new StringBuilder("/infra/settings/firewall/security/intrusion-services/cluster-configs");
@@ -686,31 +537,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListIdsClusterConfigsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIdsClusterConfigListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIdsClusterConfigListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListIdsClusterConfigsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIdsClusterConfigListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIdsClusterConfigListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void MakeVersionAsActive(NSXTIdsSignatureVersionType IdsSignatureVersion)
+        public async Task MakeVersionAsActive(NSXTIdsSignatureVersionType IdsSignatureVersion)
         {
             if (IdsSignatureVersion == null) { throw new System.ArgumentNullException("IdsSignatureVersion cannot be null"); }
             
@@ -723,7 +562,7 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(IdsSignatureVersion, defaultSerializationSettings));
             request.Resource = MakeVersionAsActiveServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + MakeVersionAsActiveServiceURL.ToString() + " did not complete successfull";
@@ -735,7 +574,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIdsSecurityPolicyType CreateOrUpdateIdsSecurityPolicy(string DomainId, string PolicyId, NSXTIdsSecurityPolicyType IdsSecurityPolicy)
+        public async Task<NSXTIdsSecurityPolicyType> CreateOrUpdateIdsSecurityPolicy(string DomainId, string PolicyId, NSXTIdsSecurityPolicyType IdsSecurityPolicy)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (PolicyId == null) { throw new System.ArgumentNullException("PolicyId cannot be null"); }
@@ -752,31 +591,19 @@ namespace nsxtapi.PolicyModules
             CreateOrUpdateIdsSecurityPolicyServiceURL.Replace("{policy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PolicyId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(IdsSecurityPolicy, defaultSerializationSettings));
             request.Resource = CreateOrUpdateIdsSecurityPolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIdsSecurityPolicyType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIdsSecurityPolicyType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateOrUpdateIdsSecurityPolicyServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIdsSecurityPolicyType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIdsSecurityPolicyType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteIdsSecurityPolicy(string DomainId, string PolicyId)
+        public async Task DeleteIdsSecurityPolicy(string DomainId, string PolicyId)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (PolicyId == null) { throw new System.ArgumentNullException("PolicyId cannot be null"); }
@@ -791,7 +618,7 @@ namespace nsxtapi.PolicyModules
             DeleteIdsSecurityPolicyServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
             DeleteIdsSecurityPolicyServiceURL.Replace("{policy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PolicyId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteIdsSecurityPolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteIdsSecurityPolicyServiceURL.ToString() + " did not complete successfull";
@@ -803,7 +630,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchIdsSecurityPolicy(string DomainId, string PolicyId, NSXTIdsSecurityPolicyType IdsSecurityPolicy)
+        public async Task PatchIdsSecurityPolicy(string DomainId, string PolicyId, NSXTIdsSecurityPolicyType IdsSecurityPolicy)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (PolicyId == null) { throw new System.ArgumentNullException("PolicyId cannot be null"); }
@@ -820,7 +647,7 @@ namespace nsxtapi.PolicyModules
             PatchIdsSecurityPolicyServiceURL.Replace("{policy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PolicyId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(IdsSecurityPolicy, defaultSerializationSettings));
             request.Resource = PatchIdsSecurityPolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchIdsSecurityPolicyServiceURL.ToString() + " did not complete successfull";
@@ -832,7 +659,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIdsSecurityPolicyType GetIdsSecurityPolicy(string DomainId, string PolicyId)
+        public async Task<NSXTIdsSecurityPolicyType> GetIdsSecurityPolicy(string DomainId, string PolicyId)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (PolicyId == null) { throw new System.ArgumentNullException("PolicyId cannot be null"); }
@@ -847,31 +674,19 @@ namespace nsxtapi.PolicyModules
             GetIdsSecurityPolicyServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
             GetIdsSecurityPolicyServiceURL.Replace("{policy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PolicyId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetIdsSecurityPolicyServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIdsSecurityPolicyType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIdsSecurityPolicyType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetIdsSecurityPolicyServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIdsSecurityPolicyType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIdsSecurityPolicyType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIdsRuleType ReviseIdsRule(string DomainId, string PolicyId, string RuleId, NSXTIdsRuleType IdsRule, string? AnchorPath = null, string? Operation = null)
+        public async Task<NSXTIdsRuleType> ReviseIdsRule(string DomainId, string PolicyId, string RuleId, NSXTIdsRuleType IdsRule, string? AnchorPath = null, string? Operation = null)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (PolicyId == null) { throw new System.ArgumentNullException("PolicyId cannot be null"); }
@@ -892,31 +707,19 @@ namespace nsxtapi.PolicyModules
             if (AnchorPath != null) { request.AddQueryParameter("anchor_path", AnchorPath.ToString()); }
             if (Operation != null) { request.AddQueryParameter("operation", Operation.ToString()); }
             request.Resource = ReviseIdsRuleServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIdsRuleType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIdsRuleType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + ReviseIdsRuleServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIdsRuleType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIdsRuleType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIdsSettingsType UpdateIdsSettings(NSXTIdsSettingsType IdsSettings)
+        public async Task<NSXTIdsSettingsType> UpdateIdsSettings(NSXTIdsSettingsType IdsSettings)
         {
             if (IdsSettings == null) { throw new System.ArgumentNullException("IdsSettings cannot be null"); }
             NSXTIdsSettingsType returnValue = default(NSXTIdsSettingsType);
@@ -929,31 +732,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(IdsSettings, defaultSerializationSettings));
             request.Resource = UpdateIdsSettingsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIdsSettingsType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIdsSettingsType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateIdsSettingsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIdsSettingsType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIdsSettingsType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIdsSettingsType GetIdsSettings()
+        public async Task<NSXTIdsSettingsType> GetIdsSettings()
         {
             NSXTIdsSettingsType returnValue = default(NSXTIdsSettingsType);
             StringBuilder GetIdsSettingsServiceURL = new StringBuilder("/infra/settings/firewall/security/intrusion-services");
@@ -964,31 +755,19 @@ namespace nsxtapi.PolicyModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = GetIdsSettingsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIdsSettingsType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIdsSettingsType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetIdsSettingsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIdsSettingsType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIdsSettingsType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchIdsSettings(NSXTIdsSettingsType IdsSettings)
+        public async Task PatchIdsSettings(NSXTIdsSettingsType IdsSettings)
         {
             if (IdsSettings == null) { throw new System.ArgumentNullException("IdsSettings cannot be null"); }
             
@@ -1001,7 +780,7 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(IdsSettings, defaultSerializationSettings));
             request.Resource = PatchIdsSettingsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchIdsSettingsServiceURL.ToString() + " did not complete successfull";
@@ -1013,7 +792,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIdsRuleType CreateOrUpdateIdsRule(string DomainId, string PolicyId, string RuleId, NSXTIdsRuleType IdsRule)
+        public async Task<NSXTIdsRuleType> CreateOrUpdateIdsRule(string DomainId, string PolicyId, string RuleId, NSXTIdsRuleType IdsRule)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (PolicyId == null) { throw new System.ArgumentNullException("PolicyId cannot be null"); }
@@ -1032,31 +811,19 @@ namespace nsxtapi.PolicyModules
             CreateOrUpdateIdsRuleServiceURL.Replace("{rule-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(RuleId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(IdsRule, defaultSerializationSettings));
             request.Resource = CreateOrUpdateIdsRuleServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIdsRuleType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIdsRuleType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateOrUpdateIdsRuleServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIdsRuleType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIdsRuleType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchIdsRule(string DomainId, string PolicyId, string RuleId, NSXTIdsRuleType IdsRule)
+        public async Task PatchIdsRule(string DomainId, string PolicyId, string RuleId, NSXTIdsRuleType IdsRule)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (PolicyId == null) { throw new System.ArgumentNullException("PolicyId cannot be null"); }
@@ -1075,7 +842,7 @@ namespace nsxtapi.PolicyModules
             PatchIdsRuleServiceURL.Replace("{rule-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(RuleId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(IdsRule, defaultSerializationSettings));
             request.Resource = PatchIdsRuleServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchIdsRuleServiceURL.ToString() + " did not complete successfull";
@@ -1087,7 +854,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIdsRuleType GetIdsRule(string DomainId, string PolicyId, string RuleId)
+        public async Task<NSXTIdsRuleType> GetIdsRule(string DomainId, string PolicyId, string RuleId)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (PolicyId == null) { throw new System.ArgumentNullException("PolicyId cannot be null"); }
@@ -1104,31 +871,19 @@ namespace nsxtapi.PolicyModules
             GetIdsRuleServiceURL.Replace("{policy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PolicyId, System.Globalization.CultureInfo.InvariantCulture)));
             GetIdsRuleServiceURL.Replace("{rule-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(RuleId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetIdsRuleServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIdsRuleType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIdsRuleType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetIdsRuleServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIdsRuleType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIdsRuleType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteIdsRule(string DomainId, string PolicyId, string RuleId)
+        public async Task DeleteIdsRule(string DomainId, string PolicyId, string RuleId)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (PolicyId == null) { throw new System.ArgumentNullException("PolicyId cannot be null"); }
@@ -1145,7 +900,7 @@ namespace nsxtapi.PolicyModules
             DeleteIdsRuleServiceURL.Replace("{policy-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PolicyId, System.Globalization.CultureInfo.InvariantCulture)));
             DeleteIdsRuleServiceURL.Replace("{rule-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(RuleId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteIdsRuleServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteIdsRuleServiceURL.ToString() + " did not complete successfull";
@@ -1157,7 +912,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTGlobalIdsSignatureListResultType ListGlobalIdsSignatures(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTGlobalIdsSignatureListResultType> ListGlobalIdsSignatures(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTGlobalIdsSignatureListResultType returnValue = default(NSXTGlobalIdsSignatureListResultType);
             StringBuilder ListGlobalIdsSignaturesServiceURL = new StringBuilder("/infra/settings/firewall/security/intrusion-services/global-signatures");
@@ -1174,31 +929,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListGlobalIdsSignaturesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTGlobalIdsSignatureListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTGlobalIdsSignatureListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListGlobalIdsSignaturesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTGlobalIdsSignatureListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTGlobalIdsSignatureListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIdsProfileType CreateOrUpdateIdsProfile(string ProfileId, NSXTIdsProfileType IdsProfile)
+        public async Task<NSXTIdsProfileType> CreateOrUpdateIdsProfile(string ProfileId, NSXTIdsProfileType IdsProfile)
         {
             if (ProfileId == null) { throw new System.ArgumentNullException("ProfileId cannot be null"); }
             if (IdsProfile == null) { throw new System.ArgumentNullException("IdsProfile cannot be null"); }
@@ -1213,31 +956,19 @@ namespace nsxtapi.PolicyModules
             CreateOrUpdateIdsProfileServiceURL.Replace("{profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(IdsProfile, defaultSerializationSettings));
             request.Resource = CreateOrUpdateIdsProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIdsProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIdsProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateOrUpdateIdsProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIdsProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIdsProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchIdsProfile(string ProfileId, NSXTIdsProfileType IdsProfile)
+        public async Task PatchIdsProfile(string ProfileId, NSXTIdsProfileType IdsProfile)
         {
             if (ProfileId == null) { throw new System.ArgumentNullException("ProfileId cannot be null"); }
             if (IdsProfile == null) { throw new System.ArgumentNullException("IdsProfile cannot be null"); }
@@ -1252,7 +983,7 @@ namespace nsxtapi.PolicyModules
             PatchIdsProfileServiceURL.Replace("{profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(IdsProfile, defaultSerializationSettings));
             request.Resource = PatchIdsProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchIdsProfileServiceURL.ToString() + " did not complete successfull";
@@ -1264,7 +995,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIdsProfileType GetIdsProfile(string ProfileId)
+        public async Task<NSXTIdsProfileType> GetIdsProfile(string ProfileId)
         {
             if (ProfileId == null) { throw new System.ArgumentNullException("ProfileId cannot be null"); }
             NSXTIdsProfileType returnValue = default(NSXTIdsProfileType);
@@ -1277,31 +1008,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             GetIdsProfileServiceURL.Replace("{profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetIdsProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIdsProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIdsProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetIdsProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIdsProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIdsProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteIdsProfile(string ProfileId)
+        public async Task DeleteIdsProfile(string ProfileId)
         {
             if (ProfileId == null) { throw new System.ArgumentNullException("ProfileId cannot be null"); }
             
@@ -1314,7 +1033,7 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             DeleteIdsProfileServiceURL.Replace("{profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteIdsProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteIdsProfileServiceURL.ToString() + " did not complete successfull";
@@ -1326,7 +1045,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIdsSignatureVersionListResultType GetIdsSignatureVersions(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTIdsSignatureVersionListResultType> GetIdsSignatureVersions(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTIdsSignatureVersionListResultType returnValue = default(NSXTIdsSignatureVersionListResultType);
             StringBuilder GetIdsSignatureVersionsServiceURL = new StringBuilder("/infra/settings/firewall/security/intrusion-services/signature-versions");
@@ -1343,25 +1062,13 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GetIdsSignatureVersionsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIdsSignatureVersionListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIdsSignatureVersionListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetIdsSignatureVersionsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIdsSignatureVersionListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIdsSignatureVersionListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

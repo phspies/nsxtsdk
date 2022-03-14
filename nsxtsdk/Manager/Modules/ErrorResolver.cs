@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public ErrorResolver(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public ErrorResolver(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTErrorResolverInfoType GetErrorResolverInfo(string ErrorId)
+        public async Task<NSXTErrorResolverInfoType> GetErrorResolverInfo(string ErrorId)
         {
             if (ErrorId == null) { throw new System.ArgumentNullException("ErrorId cannot be null"); }
             NSXTErrorResolverInfoType returnValue = default(NSXTErrorResolverInfoType);
@@ -43,31 +50,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             GetErrorResolverInfoServiceURL.Replace("{error_id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ErrorId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetErrorResolverInfoServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTErrorResolverInfoType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTErrorResolverInfoType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetErrorResolverInfoServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTErrorResolverInfoType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTErrorResolverInfoType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTErrorResolverInfoListType ListErrorResolverInfo()
+        public async Task<NSXTErrorResolverInfoListType> ListErrorResolverInfo()
         {
             NSXTErrorResolverInfoListType returnValue = default(NSXTErrorResolverInfoListType);
             StringBuilder ListErrorResolverInfoServiceURL = new StringBuilder("/error-resolver");
@@ -78,31 +73,19 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = ListErrorResolverInfoServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTErrorResolverInfoListType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTErrorResolverInfoListType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListErrorResolverInfoServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTErrorResolverInfoListType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTErrorResolverInfoListType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void ResolveError(NSXTErrorResolverMetadataListType ErrorResolverMetadataList)
+        public async Task ResolveError(NSXTErrorResolverMetadataListType ErrorResolverMetadataList)
         {
             if (ErrorResolverMetadataList == null) { throw new System.ArgumentNullException("ErrorResolverMetadataList cannot be null"); }
             
@@ -115,7 +98,7 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(ErrorResolverMetadataList, defaultSerializationSettings));
             request.Resource = ResolveErrorServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + ResolveErrorServiceURL.ToString() + " did not complete successfull";

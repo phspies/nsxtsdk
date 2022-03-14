@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyIdsEventsBySignatureResultType : NSXTListResultType
     {
-        public NSXTPolicyIdsEventsBySignatureResultType()
-        {
-        }
         /// <summary>
         /// List of all intrusions detected, grouped by signature. The details include signature id, name, severity, timestamp, and
         /// total number of attempts per signature.
         /// </summary>
-        [JsonProperty(PropertyName = "results")]
-        [NSXTProperty(IsRequired: false, Description: @"List of all intrusions detected, grouped by signature. The details include signature id, name, severity, timestamp, and total number of attempts per signature.")]
         public IList<NSXTPolicyIdsEventsBySignatureType> Results { get; set; }
     }
 }

@@ -21,16 +21,23 @@ namespace nsxtapi.PolicyModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public PolicyHostTransportNodeProfile(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public PolicyHostTransportNodeProfile(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyHostTransportNodeProfileListResultType ListPolicyHostTransportNodeProfiles(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTPolicyHostTransportNodeProfileListResultType> ListPolicyHostTransportNodeProfiles(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTPolicyHostTransportNodeProfileListResultType returnValue = default(NSXTPolicyHostTransportNodeProfileListResultType);
             StringBuilder ListPolicyHostTransportNodeProfilesServiceURL = new StringBuilder("/infra/host-transport-node-profiles");
@@ -46,31 +53,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListPolicyHostTransportNodeProfilesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyHostTransportNodeProfileListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyHostTransportNodeProfileListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListPolicyHostTransportNodeProfilesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyHostTransportNodeProfileListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyHostTransportNodeProfileListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyHostTransportNodeProfileType CreateOrUpdatePolicyHostTransportNodeProfile(string TransportNodeProfileId, NSXTPolicyHostTransportNodeProfileType PolicyHostTransportNodeProfile)
+        public async Task<NSXTPolicyHostTransportNodeProfileType> CreateOrUpdatePolicyHostTransportNodeProfile(string TransportNodeProfileId, NSXTPolicyHostTransportNodeProfileType PolicyHostTransportNodeProfile)
         {
             if (TransportNodeProfileId == null) { throw new System.ArgumentNullException("TransportNodeProfileId cannot be null"); }
             if (PolicyHostTransportNodeProfile == null) { throw new System.ArgumentNullException("PolicyHostTransportNodeProfile cannot be null"); }
@@ -85,31 +80,19 @@ namespace nsxtapi.PolicyModules
             CreateOrUpdatePolicyHostTransportNodeProfileServiceURL.Replace("{transport-node-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(TransportNodeProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(PolicyHostTransportNodeProfile, defaultSerializationSettings));
             request.Resource = CreateOrUpdatePolicyHostTransportNodeProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyHostTransportNodeProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyHostTransportNodeProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateOrUpdatePolicyHostTransportNodeProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyHostTransportNodeProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyHostTransportNodeProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeletePolicyHostTransportNodeProfile(string TransportNodeProfileId)
+        public async Task DeletePolicyHostTransportNodeProfile(string TransportNodeProfileId)
         {
             if (TransportNodeProfileId == null) { throw new System.ArgumentNullException("TransportNodeProfileId cannot be null"); }
             
@@ -122,7 +105,7 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             DeletePolicyHostTransportNodeProfileServiceURL.Replace("{transport-node-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(TransportNodeProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeletePolicyHostTransportNodeProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeletePolicyHostTransportNodeProfileServiceURL.ToString() + " did not complete successfull";
@@ -134,7 +117,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPolicyHostTransportNodeProfileType GetPolicyHostTransportNodeProfile(string HostTransportNodeProfileId)
+        public async Task<NSXTPolicyHostTransportNodeProfileType> GetPolicyHostTransportNodeProfile(string HostTransportNodeProfileId)
         {
             if (HostTransportNodeProfileId == null) { throw new System.ArgumentNullException("HostTransportNodeProfileId cannot be null"); }
             NSXTPolicyHostTransportNodeProfileType returnValue = default(NSXTPolicyHostTransportNodeProfileType);
@@ -147,25 +130,13 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             GetPolicyHostTransportNodeProfileServiceURL.Replace("{host-transport-node-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(HostTransportNodeProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetPolicyHostTransportNodeProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPolicyHostTransportNodeProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPolicyHostTransportNodeProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetPolicyHostTransportNodeProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPolicyHostTransportNodeProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPolicyHostTransportNodeProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

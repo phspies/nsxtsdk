@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public LoadBalancer(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public LoadBalancer(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLbAppProfileType UpdateLoadBalancerApplicationProfile(string ApplicationProfileId, NSXTLbAppProfileType LbAppProfile)
+        public async Task<NSXTLbAppProfileType> UpdateLoadBalancerApplicationProfile(string ApplicationProfileId, NSXTLbAppProfileType LbAppProfile)
         {
             if (ApplicationProfileId == null) { throw new System.ArgumentNullException("ApplicationProfileId cannot be null"); }
             if (LbAppProfile == null) { throw new System.ArgumentNullException("LbAppProfile cannot be null"); }
@@ -45,31 +52,19 @@ namespace nsxtapi.ManagerModules
             UpdateLoadBalancerApplicationProfileServiceURL.Replace("{application-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ApplicationProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(LbAppProfile, defaultSerializationSettings));
             request.Resource = UpdateLoadBalancerApplicationProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLbAppProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLbAppProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateLoadBalancerApplicationProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLbAppProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLbAppProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteLoadBalancerApplicationProfile(string ApplicationProfileId)
+        public async Task DeleteLoadBalancerApplicationProfile(string ApplicationProfileId)
         {
             if (ApplicationProfileId == null) { throw new System.ArgumentNullException("ApplicationProfileId cannot be null"); }
             
@@ -82,7 +77,7 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             DeleteLoadBalancerApplicationProfileServiceURL.Replace("{application-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ApplicationProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteLoadBalancerApplicationProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteLoadBalancerApplicationProfileServiceURL.ToString() + " did not complete successfull";
@@ -94,7 +89,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLbAppProfileType ReadLoadBalancerApplicationProfile(string ApplicationProfileId)
+        public async Task<NSXTLbAppProfileType> ReadLoadBalancerApplicationProfile(string ApplicationProfileId)
         {
             if (ApplicationProfileId == null) { throw new System.ArgumentNullException("ApplicationProfileId cannot be null"); }
             NSXTLbAppProfileType returnValue = default(NSXTLbAppProfileType);
@@ -107,31 +102,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             ReadLoadBalancerApplicationProfileServiceURL.Replace("{application-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ApplicationProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadLoadBalancerApplicationProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLbAppProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLbAppProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadLoadBalancerApplicationProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLbAppProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLbAppProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLbServerSslProfileType CreateLoadBalancerServerSslProfile(NSXTLbServerSslProfileType LbServerSslProfile)
+        public async Task<NSXTLbServerSslProfileType> CreateLoadBalancerServerSslProfile(NSXTLbServerSslProfileType LbServerSslProfile)
         {
             if (LbServerSslProfile == null) { throw new System.ArgumentNullException("LbServerSslProfile cannot be null"); }
             NSXTLbServerSslProfileType returnValue = default(NSXTLbServerSslProfileType);
@@ -144,31 +127,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(LbServerSslProfile, defaultSerializationSettings));
             request.Resource = CreateLoadBalancerServerSslProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLbServerSslProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLbServerSslProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CreateLoadBalancerServerSslProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLbServerSslProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLbServerSslProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLbServerSslProfileListResultType ListLoadBalancerServerSslProfiles(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTLbServerSslProfileListResultType> ListLoadBalancerServerSslProfiles(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTLbServerSslProfileListResultType returnValue = default(NSXTLbServerSslProfileListResultType);
             StringBuilder ListLoadBalancerServerSslProfilesServiceURL = new StringBuilder("/loadbalancer/server-ssl-profiles");
@@ -184,31 +155,19 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListLoadBalancerServerSslProfilesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLbServerSslProfileListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLbServerSslProfileListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListLoadBalancerServerSslProfilesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLbServerSslProfileListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLbServerSslProfileListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLbServiceType UpdateLoadBalancerService(string ServiceId, NSXTLbServiceType LbService)
+        public async Task<NSXTLbServiceType> UpdateLoadBalancerService(string ServiceId, NSXTLbServiceType LbService)
         {
             if (ServiceId == null) { throw new System.ArgumentNullException("ServiceId cannot be null"); }
             if (LbService == null) { throw new System.ArgumentNullException("LbService cannot be null"); }
@@ -223,31 +182,19 @@ namespace nsxtapi.ManagerModules
             UpdateLoadBalancerServiceServiceURL.Replace("{service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServiceId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(LbService, defaultSerializationSettings));
             request.Resource = UpdateLoadBalancerServiceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLbServiceType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLbServiceType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateLoadBalancerServiceServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLbServiceType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLbServiceType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteLoadBalancerService(string ServiceId)
+        public async Task DeleteLoadBalancerService(string ServiceId)
         {
             if (ServiceId == null) { throw new System.ArgumentNullException("ServiceId cannot be null"); }
             
@@ -260,7 +207,7 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             DeleteLoadBalancerServiceServiceURL.Replace("{service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServiceId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteLoadBalancerServiceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteLoadBalancerServiceServiceURL.ToString() + " did not complete successfull";
@@ -272,7 +219,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLbServiceType ReadLoadBalancerService(string ServiceId)
+        public async Task<NSXTLbServiceType> ReadLoadBalancerService(string ServiceId)
         {
             if (ServiceId == null) { throw new System.ArgumentNullException("ServiceId cannot be null"); }
             NSXTLbServiceType returnValue = default(NSXTLbServiceType);
@@ -285,31 +232,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             ReadLoadBalancerServiceServiceURL.Replace("{service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServiceId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadLoadBalancerServiceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLbServiceType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLbServiceType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadLoadBalancerServiceServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLbServiceType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLbServiceType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLbRuleType UpdateLoadBalancerRule(string RuleId, NSXTLbRuleType LbRule)
+        public async Task<NSXTLbRuleType> UpdateLoadBalancerRule(string RuleId, NSXTLbRuleType LbRule)
         {
             if (RuleId == null) { throw new System.ArgumentNullException("RuleId cannot be null"); }
             if (LbRule == null) { throw new System.ArgumentNullException("LbRule cannot be null"); }
@@ -324,31 +259,19 @@ namespace nsxtapi.ManagerModules
             UpdateLoadBalancerRuleServiceURL.Replace("{rule-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(RuleId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(LbRule, defaultSerializationSettings));
             request.Resource = UpdateLoadBalancerRuleServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLbRuleType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLbRuleType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateLoadBalancerRuleServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLbRuleType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLbRuleType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLbRuleType ReadLoadBalancerRule(string RuleId)
+        public async Task<NSXTLbRuleType> ReadLoadBalancerRule(string RuleId)
         {
             if (RuleId == null) { throw new System.ArgumentNullException("RuleId cannot be null"); }
             NSXTLbRuleType returnValue = default(NSXTLbRuleType);
@@ -361,31 +284,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             ReadLoadBalancerRuleServiceURL.Replace("{rule-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(RuleId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadLoadBalancerRuleServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLbRuleType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLbRuleType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadLoadBalancerRuleServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLbRuleType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLbRuleType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteLoadBalancerRule(string RuleId)
+        public async Task DeleteLoadBalancerRule(string RuleId)
         {
             if (RuleId == null) { throw new System.ArgumentNullException("RuleId cannot be null"); }
             
@@ -398,7 +309,7 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             DeleteLoadBalancerRuleServiceURL.Replace("{rule-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(RuleId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteLoadBalancerRuleServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteLoadBalancerRuleServiceURL.ToString() + " did not complete successfull";
@@ -410,7 +321,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLbPoolType UpdateLoadBalancerPool(string PoolId, NSXTLbPoolType LbPool)
+        public async Task<NSXTLbPoolType> UpdateLoadBalancerPool(string PoolId, NSXTLbPoolType LbPool)
         {
             if (PoolId == null) { throw new System.ArgumentNullException("PoolId cannot be null"); }
             if (LbPool == null) { throw new System.ArgumentNullException("LbPool cannot be null"); }
@@ -425,31 +336,19 @@ namespace nsxtapi.ManagerModules
             UpdateLoadBalancerPoolServiceURL.Replace("{pool-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PoolId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(LbPool, defaultSerializationSettings));
             request.Resource = UpdateLoadBalancerPoolServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLbPoolType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLbPoolType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateLoadBalancerPoolServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLbPoolType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLbPoolType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLbPoolType PerformPoolMemberAction(string PoolId, NSXTPoolMemberSettingListType PoolMemberSettingList, string Action)
+        public async Task<NSXTLbPoolType> PerformPoolMemberAction(string PoolId, NSXTPoolMemberSettingListType PoolMemberSettingList, string Action)
         {
             if (PoolId == null) { throw new System.ArgumentNullException("PoolId cannot be null"); }
             if (PoolMemberSettingList == null) { throw new System.ArgumentNullException("PoolMemberSettingList cannot be null"); }
@@ -466,31 +365,19 @@ namespace nsxtapi.ManagerModules
             request.AddJsonBody(JsonConvert.SerializeObject(PoolMemberSettingList, defaultSerializationSettings));
             if (Action != null) { request.AddQueryParameter("action", Action.ToString()); }
             request.Resource = PerformPoolMemberActionServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLbPoolType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLbPoolType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + PerformPoolMemberActionServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLbPoolType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLbPoolType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteLoadBalancerPool(string PoolId)
+        public async Task DeleteLoadBalancerPool(string PoolId)
         {
             if (PoolId == null) { throw new System.ArgumentNullException("PoolId cannot be null"); }
             
@@ -503,7 +390,7 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             DeleteLoadBalancerPoolServiceURL.Replace("{pool-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PoolId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteLoadBalancerPoolServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteLoadBalancerPoolServiceURL.ToString() + " did not complete successfull";
@@ -515,7 +402,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLbPoolType ReadLoadBalancerPool(string PoolId)
+        public async Task<NSXTLbPoolType> ReadLoadBalancerPool(string PoolId)
         {
             if (PoolId == null) { throw new System.ArgumentNullException("PoolId cannot be null"); }
             NSXTLbPoolType returnValue = default(NSXTLbPoolType);
@@ -528,31 +415,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             ReadLoadBalancerPoolServiceURL.Replace("{pool-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PoolId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadLoadBalancerPoolServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLbPoolType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLbPoolType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadLoadBalancerPoolServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLbPoolType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLbPoolType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLbRuleType CreateLoadBalancerRule(NSXTLbRuleType LbRule)
+        public async Task<NSXTLbRuleType> CreateLoadBalancerRule(NSXTLbRuleType LbRule)
         {
             if (LbRule == null) { throw new System.ArgumentNullException("LbRule cannot be null"); }
             NSXTLbRuleType returnValue = default(NSXTLbRuleType);
@@ -565,31 +440,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(LbRule, defaultSerializationSettings));
             request.Resource = CreateLoadBalancerRuleServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLbRuleType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLbRuleType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CreateLoadBalancerRuleServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLbRuleType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLbRuleType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLbRuleListResultType ListLoadBalancerRules(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTLbRuleListResultType> ListLoadBalancerRules(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTLbRuleListResultType returnValue = default(NSXTLbRuleListResultType);
             StringBuilder ListLoadBalancerRulesServiceURL = new StringBuilder("/loadbalancer/rules");
@@ -605,31 +468,19 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListLoadBalancerRulesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLbRuleListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLbRuleListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListLoadBalancerRulesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLbRuleListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLbRuleListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLbVirtualServerWithRuleType UpdateLoadBalancerVirtualServerWithRules(string VirtualServerId, NSXTLbVirtualServerWithRuleType LbVirtualServerWithRule)
+        public async Task<NSXTLbVirtualServerWithRuleType> UpdateLoadBalancerVirtualServerWithRules(string VirtualServerId, NSXTLbVirtualServerWithRuleType LbVirtualServerWithRule)
         {
             if (VirtualServerId == null) { throw new System.ArgumentNullException("VirtualServerId cannot be null"); }
             if (LbVirtualServerWithRule == null) { throw new System.ArgumentNullException("LbVirtualServerWithRule cannot be null"); }
@@ -644,31 +495,19 @@ namespace nsxtapi.ManagerModules
             UpdateLoadBalancerVirtualServerWithRulesServiceURL.Replace("{virtual-server-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(VirtualServerId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(LbVirtualServerWithRule, defaultSerializationSettings));
             request.Resource = UpdateLoadBalancerVirtualServerWithRulesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLbVirtualServerWithRuleType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLbVirtualServerWithRuleType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateLoadBalancerVirtualServerWithRulesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLbVirtualServerWithRuleType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLbVirtualServerWithRuleType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLbPersistenceProfileType CreateLoadBalancerPersistenceProfile(NSXTLbPersistenceProfileType LbPersistenceProfile)
+        public async Task<NSXTLbPersistenceProfileType> CreateLoadBalancerPersistenceProfile(NSXTLbPersistenceProfileType LbPersistenceProfile)
         {
             if (LbPersistenceProfile == null) { throw new System.ArgumentNullException("LbPersistenceProfile cannot be null"); }
             NSXTLbPersistenceProfileType returnValue = default(NSXTLbPersistenceProfileType);
@@ -681,31 +520,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(LbPersistenceProfile, defaultSerializationSettings));
             request.Resource = CreateLoadBalancerPersistenceProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLbPersistenceProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLbPersistenceProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CreateLoadBalancerPersistenceProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLbPersistenceProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLbPersistenceProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLbPersistenceProfileListResultType ListLoadBalancerPersistenceProfiles(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? Type = null)
+        public async Task<NSXTLbPersistenceProfileListResultType> ListLoadBalancerPersistenceProfiles(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? Type = null)
         {
             NSXTLbPersistenceProfileListResultType returnValue = default(NSXTLbPersistenceProfileListResultType);
             StringBuilder ListLoadBalancerPersistenceProfilesServiceURL = new StringBuilder("/loadbalancer/persistence-profiles");
@@ -722,31 +549,19 @@ namespace nsxtapi.ManagerModules
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             if (Type != null) { request.AddQueryParameter("type", Type.ToString()); }
             request.Resource = ListLoadBalancerPersistenceProfilesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLbPersistenceProfileListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLbPersistenceProfileListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListLoadBalancerPersistenceProfilesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLbPersistenceProfileListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLbPersistenceProfileListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLbServerSslProfileType UpdateLoadBalancerServerSslProfile(string ServerSslProfileId, NSXTLbServerSslProfileType LbServerSslProfile)
+        public async Task<NSXTLbServerSslProfileType> UpdateLoadBalancerServerSslProfile(string ServerSslProfileId, NSXTLbServerSslProfileType LbServerSslProfile)
         {
             if (ServerSslProfileId == null) { throw new System.ArgumentNullException("ServerSslProfileId cannot be null"); }
             if (LbServerSslProfile == null) { throw new System.ArgumentNullException("LbServerSslProfile cannot be null"); }
@@ -761,31 +576,19 @@ namespace nsxtapi.ManagerModules
             UpdateLoadBalancerServerSslProfileServiceURL.Replace("{server-ssl-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServerSslProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(LbServerSslProfile, defaultSerializationSettings));
             request.Resource = UpdateLoadBalancerServerSslProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLbServerSslProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLbServerSslProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateLoadBalancerServerSslProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLbServerSslProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLbServerSslProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteLoadBalancerServerSslProfile(string ServerSslProfileId)
+        public async Task DeleteLoadBalancerServerSslProfile(string ServerSslProfileId)
         {
             if (ServerSslProfileId == null) { throw new System.ArgumentNullException("ServerSslProfileId cannot be null"); }
             
@@ -798,7 +601,7 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             DeleteLoadBalancerServerSslProfileServiceURL.Replace("{server-ssl-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServerSslProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteLoadBalancerServerSslProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteLoadBalancerServerSslProfileServiceURL.ToString() + " did not complete successfull";
@@ -810,7 +613,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLbServerSslProfileType ReadLoadBalancerServerSslProfile(string ServerSslProfileId)
+        public async Task<NSXTLbServerSslProfileType> ReadLoadBalancerServerSslProfile(string ServerSslProfileId)
         {
             if (ServerSslProfileId == null) { throw new System.ArgumentNullException("ServerSslProfileId cannot be null"); }
             NSXTLbServerSslProfileType returnValue = default(NSXTLbServerSslProfileType);
@@ -823,31 +626,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             ReadLoadBalancerServerSslProfileServiceURL.Replace("{server-ssl-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServerSslProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadLoadBalancerServerSslProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLbServerSslProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLbServerSslProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadLoadBalancerServerSslProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLbServerSslProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLbServerSslProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLbNodeUsageSummaryType ReadLoadBalancerNodeUsageSummary(bool? IncludeUsages = null)
+        public async Task<NSXTLbNodeUsageSummaryType> ReadLoadBalancerNodeUsageSummary(bool? IncludeUsages = null)
         {
             NSXTLbNodeUsageSummaryType returnValue = default(NSXTLbNodeUsageSummaryType);
             StringBuilder ReadLoadBalancerNodeUsageSummaryServiceURL = new StringBuilder("/loadbalancer/node-usage-summary");
@@ -859,31 +650,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             if (IncludeUsages != null) { request.AddQueryParameter("include_usages", IncludeUsages.ToString()); }
             request.Resource = ReadLoadBalancerNodeUsageSummaryServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLbNodeUsageSummaryType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLbNodeUsageSummaryType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadLoadBalancerNodeUsageSummaryServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLbNodeUsageSummaryType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLbNodeUsageSummaryType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLbNodeUsageType ReadLoadBalancerNodeUsage(string NodeId)
+        public async Task<NSXTLbNodeUsageType> ReadLoadBalancerNodeUsage(string NodeId)
         {
             if (NodeId == null) { throw new System.ArgumentNullException("NodeId cannot be null"); }
             NSXTLbNodeUsageType returnValue = default(NSXTLbNodeUsageType);
@@ -896,31 +675,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             ReadLoadBalancerNodeUsageServiceURL.Replace("{node-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NodeId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadLoadBalancerNodeUsageServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLbNodeUsageType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLbNodeUsageType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadLoadBalancerNodeUsageServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLbNodeUsageType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLbNodeUsageType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLbSslCipherAndProtocolListResultType ListLoadBalancerSslCiphersAndProtocols(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTLbSslCipherAndProtocolListResultType> ListLoadBalancerSslCiphersAndProtocols(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTLbSslCipherAndProtocolListResultType returnValue = default(NSXTLbSslCipherAndProtocolListResultType);
             StringBuilder ListLoadBalancerSslCiphersAndProtocolsServiceURL = new StringBuilder("/loadbalancer/ssl/ciphers-and-protocols");
@@ -936,31 +703,19 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListLoadBalancerSslCiphersAndProtocolsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLbSslCipherAndProtocolListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLbSslCipherAndProtocolListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListLoadBalancerSslCiphersAndProtocolsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLbSslCipherAndProtocolListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLbSslCipherAndProtocolListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLbServiceDebugInfoType ReadLoadBalancerServiceDebugInfo(string ServiceId)
+        public async Task<NSXTLbServiceDebugInfoType> ReadLoadBalancerServiceDebugInfo(string ServiceId)
         {
             if (ServiceId == null) { throw new System.ArgumentNullException("ServiceId cannot be null"); }
             NSXTLbServiceDebugInfoType returnValue = default(NSXTLbServiceDebugInfoType);
@@ -973,31 +728,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             ReadLoadBalancerServiceDebugInfoServiceURL.Replace("{service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServiceId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadLoadBalancerServiceDebugInfoServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLbServiceDebugInfoType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLbServiceDebugInfoType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadLoadBalancerServiceDebugInfoServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLbServiceDebugInfoType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLbServiceDebugInfoType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLbAppProfileType CreateLoadBalancerApplicationProfile(NSXTLbAppProfileType LbAppProfile)
+        public async Task<NSXTLbAppProfileType> CreateLoadBalancerApplicationProfile(NSXTLbAppProfileType LbAppProfile)
         {
             if (LbAppProfile == null) { throw new System.ArgumentNullException("LbAppProfile cannot be null"); }
             NSXTLbAppProfileType returnValue = default(NSXTLbAppProfileType);
@@ -1010,31 +753,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(LbAppProfile, defaultSerializationSettings));
             request.Resource = CreateLoadBalancerApplicationProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLbAppProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLbAppProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CreateLoadBalancerApplicationProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLbAppProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLbAppProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLbAppProfileListResultType ListLoadBalancerApplicationProfiles(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? Type = null)
+        public async Task<NSXTLbAppProfileListResultType> ListLoadBalancerApplicationProfiles(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? Type = null)
         {
             NSXTLbAppProfileListResultType returnValue = default(NSXTLbAppProfileListResultType);
             StringBuilder ListLoadBalancerApplicationProfilesServiceURL = new StringBuilder("/loadbalancer/application-profiles");
@@ -1051,31 +782,19 @@ namespace nsxtapi.ManagerModules
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             if (Type != null) { request.AddQueryParameter("type", Type.ToString()); }
             request.Resource = ListLoadBalancerApplicationProfilesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLbAppProfileListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLbAppProfileListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListLoadBalancerApplicationProfilesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLbAppProfileListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLbAppProfileListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLbMonitorType UpdateLoadBalancerMonitor(string MonitorId, NSXTLbMonitorType LbMonitor)
+        public async Task<NSXTLbMonitorType> UpdateLoadBalancerMonitor(string MonitorId, NSXTLbMonitorType LbMonitor)
         {
             if (MonitorId == null) { throw new System.ArgumentNullException("MonitorId cannot be null"); }
             if (LbMonitor == null) { throw new System.ArgumentNullException("LbMonitor cannot be null"); }
@@ -1090,31 +809,19 @@ namespace nsxtapi.ManagerModules
             UpdateLoadBalancerMonitorServiceURL.Replace("{monitor-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(MonitorId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(LbMonitor, defaultSerializationSettings));
             request.Resource = UpdateLoadBalancerMonitorServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLbMonitorType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLbMonitorType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateLoadBalancerMonitorServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLbMonitorType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLbMonitorType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLbMonitorType ReadLoadBalancerMonitor(string MonitorId)
+        public async Task<NSXTLbMonitorType> ReadLoadBalancerMonitor(string MonitorId)
         {
             if (MonitorId == null) { throw new System.ArgumentNullException("MonitorId cannot be null"); }
             NSXTLbMonitorType returnValue = default(NSXTLbMonitorType);
@@ -1127,31 +834,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             ReadLoadBalancerMonitorServiceURL.Replace("{monitor-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(MonitorId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadLoadBalancerMonitorServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLbMonitorType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLbMonitorType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadLoadBalancerMonitorServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLbMonitorType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLbMonitorType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteLoadBalancerMonitor(string MonitorId)
+        public async Task DeleteLoadBalancerMonitor(string MonitorId)
         {
             if (MonitorId == null) { throw new System.ArgumentNullException("MonitorId cannot be null"); }
             
@@ -1164,7 +859,7 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             DeleteLoadBalancerMonitorServiceURL.Replace("{monitor-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(MonitorId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteLoadBalancerMonitorServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteLoadBalancerMonitorServiceURL.ToString() + " did not complete successfull";
@@ -1176,7 +871,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLbClientSslProfileType UpdateLoadBalancerClientSslProfile(string ClientSslProfileId, NSXTLbClientSslProfileType LbClientSslProfile)
+        public async Task<NSXTLbClientSslProfileType> UpdateLoadBalancerClientSslProfile(string ClientSslProfileId, NSXTLbClientSslProfileType LbClientSslProfile)
         {
             if (ClientSslProfileId == null) { throw new System.ArgumentNullException("ClientSslProfileId cannot be null"); }
             if (LbClientSslProfile == null) { throw new System.ArgumentNullException("LbClientSslProfile cannot be null"); }
@@ -1191,31 +886,19 @@ namespace nsxtapi.ManagerModules
             UpdateLoadBalancerClientSslProfileServiceURL.Replace("{client-ssl-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ClientSslProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(LbClientSslProfile, defaultSerializationSettings));
             request.Resource = UpdateLoadBalancerClientSslProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLbClientSslProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLbClientSslProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateLoadBalancerClientSslProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLbClientSslProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLbClientSslProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLbClientSslProfileType ReadLoadBalancerClientSslProfile(string ClientSslProfileId)
+        public async Task<NSXTLbClientSslProfileType> ReadLoadBalancerClientSslProfile(string ClientSslProfileId)
         {
             if (ClientSslProfileId == null) { throw new System.ArgumentNullException("ClientSslProfileId cannot be null"); }
             NSXTLbClientSslProfileType returnValue = default(NSXTLbClientSslProfileType);
@@ -1228,31 +911,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             ReadLoadBalancerClientSslProfileServiceURL.Replace("{client-ssl-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ClientSslProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadLoadBalancerClientSslProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLbClientSslProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLbClientSslProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadLoadBalancerClientSslProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLbClientSslProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLbClientSslProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteLoadBalancerClientSslProfile(string ClientSslProfileId)
+        public async Task DeleteLoadBalancerClientSslProfile(string ClientSslProfileId)
         {
             if (ClientSslProfileId == null) { throw new System.ArgumentNullException("ClientSslProfileId cannot be null"); }
             
@@ -1265,7 +936,7 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             DeleteLoadBalancerClientSslProfileServiceURL.Replace("{client-ssl-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ClientSslProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteLoadBalancerClientSslProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteLoadBalancerClientSslProfileServiceURL.ToString() + " did not complete successfull";
@@ -1277,7 +948,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLbServiceUsageType ReadLoadBalancerServiceUsage(string ServiceId)
+        public async Task<NSXTLbServiceUsageType> ReadLoadBalancerServiceUsage(string ServiceId)
         {
             if (ServiceId == null) { throw new System.ArgumentNullException("ServiceId cannot be null"); }
             NSXTLbServiceUsageType returnValue = default(NSXTLbServiceUsageType);
@@ -1290,31 +961,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             ReadLoadBalancerServiceUsageServiceURL.Replace("{service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ServiceId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadLoadBalancerServiceUsageServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLbServiceUsageType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLbServiceUsageType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadLoadBalancerServiceUsageServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLbServiceUsageType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLbServiceUsageType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLbPoolType CreateLoadBalancerPool(NSXTLbPoolType LbPool)
+        public async Task<NSXTLbPoolType> CreateLoadBalancerPool(NSXTLbPoolType LbPool)
         {
             if (LbPool == null) { throw new System.ArgumentNullException("LbPool cannot be null"); }
             NSXTLbPoolType returnValue = default(NSXTLbPoolType);
@@ -1327,31 +986,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(LbPool, defaultSerializationSettings));
             request.Resource = CreateLoadBalancerPoolServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLbPoolType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLbPoolType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CreateLoadBalancerPoolServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLbPoolType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLbPoolType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLbPoolListResultType ListLoadBalancerPools(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTLbPoolListResultType> ListLoadBalancerPools(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTLbPoolListResultType returnValue = default(NSXTLbPoolListResultType);
             StringBuilder ListLoadBalancerPoolsServiceURL = new StringBuilder("/loadbalancer/pools");
@@ -1367,31 +1014,19 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListLoadBalancerPoolsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLbPoolListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLbPoolListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListLoadBalancerPoolsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLbPoolListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLbPoolListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLbMonitorType CreateLoadBalancerMonitor(NSXTLbMonitorType LbMonitor)
+        public async Task<NSXTLbMonitorType> CreateLoadBalancerMonitor(NSXTLbMonitorType LbMonitor)
         {
             if (LbMonitor == null) { throw new System.ArgumentNullException("LbMonitor cannot be null"); }
             NSXTLbMonitorType returnValue = default(NSXTLbMonitorType);
@@ -1404,31 +1039,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(LbMonitor, defaultSerializationSettings));
             request.Resource = CreateLoadBalancerMonitorServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLbMonitorType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLbMonitorType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CreateLoadBalancerMonitorServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLbMonitorType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLbMonitorType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLbMonitorListResultType ListLoadBalancerMonitors(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? Type = null)
+        public async Task<NSXTLbMonitorListResultType> ListLoadBalancerMonitors(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? Type = null)
         {
             NSXTLbMonitorListResultType returnValue = default(NSXTLbMonitorListResultType);
             StringBuilder ListLoadBalancerMonitorsServiceURL = new StringBuilder("/loadbalancer/monitors");
@@ -1445,31 +1068,19 @@ namespace nsxtapi.ManagerModules
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             if (Type != null) { request.AddQueryParameter("type", Type.ToString()); }
             request.Resource = ListLoadBalancerMonitorsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLbMonitorListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLbMonitorListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListLoadBalancerMonitorsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLbMonitorListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLbMonitorListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLbServiceType CreateLoadBalancerService(NSXTLbServiceType LbService)
+        public async Task<NSXTLbServiceType> CreateLoadBalancerService(NSXTLbServiceType LbService)
         {
             if (LbService == null) { throw new System.ArgumentNullException("LbService cannot be null"); }
             NSXTLbServiceType returnValue = default(NSXTLbServiceType);
@@ -1482,31 +1093,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(LbService, defaultSerializationSettings));
             request.Resource = CreateLoadBalancerServiceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLbServiceType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLbServiceType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CreateLoadBalancerServiceServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLbServiceType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLbServiceType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLbServiceListResultType ListLoadBalancerServices(string? Cursor = null, string? IncludedFields = null, string? LogicalRouterId = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTLbServiceListResultType> ListLoadBalancerServices(string? Cursor = null, string? IncludedFields = null, string? LogicalRouterId = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTLbServiceListResultType returnValue = default(NSXTLbServiceListResultType);
             StringBuilder ListLoadBalancerServicesServiceURL = new StringBuilder("/loadbalancer/services");
@@ -1523,31 +1122,19 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListLoadBalancerServicesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLbServiceListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLbServiceListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListLoadBalancerServicesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLbServiceListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLbServiceListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLbVirtualServerType UpdateLoadBalancerVirtualServer(string VirtualServerId, NSXTLbVirtualServerType LbVirtualServer)
+        public async Task<NSXTLbVirtualServerType> UpdateLoadBalancerVirtualServer(string VirtualServerId, NSXTLbVirtualServerType LbVirtualServer)
         {
             if (VirtualServerId == null) { throw new System.ArgumentNullException("VirtualServerId cannot be null"); }
             if (LbVirtualServer == null) { throw new System.ArgumentNullException("LbVirtualServer cannot be null"); }
@@ -1562,31 +1149,19 @@ namespace nsxtapi.ManagerModules
             UpdateLoadBalancerVirtualServerServiceURL.Replace("{virtual-server-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(VirtualServerId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(LbVirtualServer, defaultSerializationSettings));
             request.Resource = UpdateLoadBalancerVirtualServerServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLbVirtualServerType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLbVirtualServerType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateLoadBalancerVirtualServerServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLbVirtualServerType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLbVirtualServerType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteLoadBalancerVirtualServer(string VirtualServerId, bool? DeleteAssociatedRules = null)
+        public async Task DeleteLoadBalancerVirtualServer(string VirtualServerId, bool? DeleteAssociatedRules = null)
         {
             if (VirtualServerId == null) { throw new System.ArgumentNullException("VirtualServerId cannot be null"); }
             
@@ -1600,7 +1175,7 @@ namespace nsxtapi.ManagerModules
             DeleteLoadBalancerVirtualServerServiceURL.Replace("{virtual-server-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(VirtualServerId, System.Globalization.CultureInfo.InvariantCulture)));
             if (DeleteAssociatedRules != null) { request.AddQueryParameter("delete_associated_rules", DeleteAssociatedRules.ToString()); }
             request.Resource = DeleteLoadBalancerVirtualServerServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteLoadBalancerVirtualServerServiceURL.ToString() + " did not complete successfull";
@@ -1612,7 +1187,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLbVirtualServerType ReadLoadBalancerVirtualServer(string VirtualServerId)
+        public async Task<NSXTLbVirtualServerType> ReadLoadBalancerVirtualServer(string VirtualServerId)
         {
             if (VirtualServerId == null) { throw new System.ArgumentNullException("VirtualServerId cannot be null"); }
             NSXTLbVirtualServerType returnValue = default(NSXTLbVirtualServerType);
@@ -1625,31 +1200,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             ReadLoadBalancerVirtualServerServiceURL.Replace("{virtual-server-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(VirtualServerId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadLoadBalancerVirtualServerServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLbVirtualServerType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLbVirtualServerType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadLoadBalancerVirtualServerServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLbVirtualServerType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLbVirtualServerType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLbPersistenceProfileType UpdateLoadBalancerPersistenceProfile(string PersistenceProfileId, NSXTLbPersistenceProfileType LbPersistenceProfile)
+        public async Task<NSXTLbPersistenceProfileType> UpdateLoadBalancerPersistenceProfile(string PersistenceProfileId, NSXTLbPersistenceProfileType LbPersistenceProfile)
         {
             if (PersistenceProfileId == null) { throw new System.ArgumentNullException("PersistenceProfileId cannot be null"); }
             if (LbPersistenceProfile == null) { throw new System.ArgumentNullException("LbPersistenceProfile cannot be null"); }
@@ -1664,31 +1227,19 @@ namespace nsxtapi.ManagerModules
             UpdateLoadBalancerPersistenceProfileServiceURL.Replace("{persistence-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PersistenceProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(LbPersistenceProfile, defaultSerializationSettings));
             request.Resource = UpdateLoadBalancerPersistenceProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLbPersistenceProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLbPersistenceProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateLoadBalancerPersistenceProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLbPersistenceProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLbPersistenceProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLbPersistenceProfileType ReadLoadBalancerPersistenceProfile(string PersistenceProfileId)
+        public async Task<NSXTLbPersistenceProfileType> ReadLoadBalancerPersistenceProfile(string PersistenceProfileId)
         {
             if (PersistenceProfileId == null) { throw new System.ArgumentNullException("PersistenceProfileId cannot be null"); }
             NSXTLbPersistenceProfileType returnValue = default(NSXTLbPersistenceProfileType);
@@ -1701,31 +1252,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             ReadLoadBalancerPersistenceProfileServiceURL.Replace("{persistence-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PersistenceProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadLoadBalancerPersistenceProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLbPersistenceProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLbPersistenceProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadLoadBalancerPersistenceProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLbPersistenceProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLbPersistenceProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteLoadBalancerPersistenceProfile(string PersistenceProfileId)
+        public async Task DeleteLoadBalancerPersistenceProfile(string PersistenceProfileId)
         {
             if (PersistenceProfileId == null) { throw new System.ArgumentNullException("PersistenceProfileId cannot be null"); }
             
@@ -1738,7 +1277,7 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             DeleteLoadBalancerPersistenceProfileServiceURL.Replace("{persistence-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PersistenceProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteLoadBalancerPersistenceProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteLoadBalancerPersistenceProfileServiceURL.ToString() + " did not complete successfull";
@@ -1750,7 +1289,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLbClientSslProfileType CreateLoadBalancerClientSslProfile(NSXTLbClientSslProfileType LbClientSslProfile)
+        public async Task<NSXTLbClientSslProfileType> CreateLoadBalancerClientSslProfile(NSXTLbClientSslProfileType LbClientSslProfile)
         {
             if (LbClientSslProfile == null) { throw new System.ArgumentNullException("LbClientSslProfile cannot be null"); }
             NSXTLbClientSslProfileType returnValue = default(NSXTLbClientSslProfileType);
@@ -1763,31 +1302,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(LbClientSslProfile, defaultSerializationSettings));
             request.Resource = CreateLoadBalancerClientSslProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLbClientSslProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLbClientSslProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CreateLoadBalancerClientSslProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLbClientSslProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLbClientSslProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLbClientSslProfileListResultType ListLoadBalancerClientSslProfiles(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTLbClientSslProfileListResultType> ListLoadBalancerClientSslProfiles(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTLbClientSslProfileListResultType returnValue = default(NSXTLbClientSslProfileListResultType);
             StringBuilder ListLoadBalancerClientSslProfilesServiceURL = new StringBuilder("/loadbalancer/client-ssl-profiles");
@@ -1803,31 +1330,19 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListLoadBalancerClientSslProfilesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLbClientSslProfileListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLbClientSslProfileListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListLoadBalancerClientSslProfilesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLbClientSslProfileListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLbClientSslProfileListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLbVirtualServerType CreateLoadBalancerVirtualServer(NSXTLbVirtualServerType LbVirtualServer)
+        public async Task<NSXTLbVirtualServerType> CreateLoadBalancerVirtualServer(NSXTLbVirtualServerType LbVirtualServer)
         {
             if (LbVirtualServer == null) { throw new System.ArgumentNullException("LbVirtualServer cannot be null"); }
             NSXTLbVirtualServerType returnValue = default(NSXTLbVirtualServerType);
@@ -1840,31 +1355,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(LbVirtualServer, defaultSerializationSettings));
             request.Resource = CreateLoadBalancerVirtualServerServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLbVirtualServerType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLbVirtualServerType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CreateLoadBalancerVirtualServerServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLbVirtualServerType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLbVirtualServerType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLbVirtualServerListResultType ListLoadBalancerVirtualServers(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTLbVirtualServerListResultType> ListLoadBalancerVirtualServers(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTLbVirtualServerListResultType returnValue = default(NSXTLbVirtualServerListResultType);
             StringBuilder ListLoadBalancerVirtualServersServiceURL = new StringBuilder("/loadbalancer/virtual-servers");
@@ -1880,31 +1383,19 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListLoadBalancerVirtualServersServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLbVirtualServerListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLbVirtualServerListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListLoadBalancerVirtualServersServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLbVirtualServerListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLbVirtualServerListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLbVirtualServerWithRuleType CreateLoadBalancerVirtualServerWithRules(NSXTLbVirtualServerWithRuleType LbVirtualServerWithRule)
+        public async Task<NSXTLbVirtualServerWithRuleType> CreateLoadBalancerVirtualServerWithRules(NSXTLbVirtualServerWithRuleType LbVirtualServerWithRule)
         {
             if (LbVirtualServerWithRule == null) { throw new System.ArgumentNullException("LbVirtualServerWithRule cannot be null"); }
             NSXTLbVirtualServerWithRuleType returnValue = default(NSXTLbVirtualServerWithRuleType);
@@ -1917,25 +1408,13 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(LbVirtualServerWithRule, defaultSerializationSettings));
             request.Resource = CreateLoadBalancerVirtualServerWithRulesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLbVirtualServerWithRuleType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLbVirtualServerWithRuleType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CreateLoadBalancerVirtualServerWithRulesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLbVirtualServerWithRuleType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLbVirtualServerWithRuleType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

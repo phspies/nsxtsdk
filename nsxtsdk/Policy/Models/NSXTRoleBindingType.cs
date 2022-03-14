@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,39 +17,25 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTRoleBindingType : NSXTManagedResourceType
     {
-        public NSXTRoleBindingType()
-        {
-            IdentitySourceType = test
-        }
         /// <summary>
         /// Identity source type
         /// </summary>
-        [JsonProperty(PropertyName = "identity_source_type")]
-        [NSXTProperty(IsRequired: false, Description: @"Identity source type")]
         public NSXTRoleBindingIdentitySourceTypeEnumType? IdentitySourceType { get; set; }
         /// <summary>
         /// Local user's numeric id on the system.
         /// </summary>
-        [JsonProperty(PropertyName = "user_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Local user&apos;s numeric id on the system.")]
         public string? UserId { get; set; }
         /// <summary>
         /// User/Group's name
         /// </summary>
-        [JsonProperty(PropertyName = "name")]
-        [NSXTProperty(IsRequired: false, Description: @"User/Group&apos;s name")]
         public string? Name { get; set; }
         /// <summary>
         /// The roles of the user.
         /// </summary>
-        [JsonProperty(PropertyName = "roles")]
-        [NSXTProperty(IsRequired: false, Description: @"The roles of the user.")]
         public IList<NSXTRoleType> Roles { get; set; }
         /// <summary>
         /// Type
         /// </summary>
-        [JsonProperty(PropertyName = "type")]
-        [NSXTProperty(IsRequired: false, Description: @"Type")]
         public NSXTRoleBindingTypeEnumType? Type { get; set; }
         /// <summary>
         /// Property 'stale' can be considered to have these values - absent  - This type of rolebinding does not support stale
@@ -57,15 +43,11 @@ namespace nsxtsdk.PolicyModels
         /// available in vIDM UNKNOWN - Rolebinding's state of staleness in unknown Once rolebindings become stale, they can be
         /// deleted using the API POST /aaa/role-bindings?action=delete_stale_bindings
         /// </summary>
-        [JsonProperty(PropertyName = "stale")]
-        [NSXTProperty(IsRequired: false, Description: @"Property &apos;stale&apos; can be considered to have these values - absent  - This type of rolebinding does not support stale property TRUE    - Rolebinding is stale in vIDM meaning the user is no longer present in vIDM FALSE   - Rolebinding is available in vIDM UNKNOWN - Rolebinding&apos;s state of staleness in unknown Once rolebindings become stale, they can be deleted using the API POST /aaa/role-bindings?action=delete_stale_bindings")]
         public NSXTRoleBindingStaleEnumType? Stale { get; set; }
         /// <summary>
         /// The ID of the external identity source that holds the referenced external entity. Currently, only external LDAP and OIDC
         /// servers are allowed.
         /// </summary>
-        [JsonProperty(PropertyName = "identity_source_id")]
-        [NSXTProperty(IsRequired: false, Description: @"The ID of the external identity source that holds the referenced external entity. Currently, only external LDAP and OIDC servers are allowed.")]
         public string? IdentitySourceId { get; set; }
     }
 }

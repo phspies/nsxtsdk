@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTTagInfoType : NSXTTagType
     {
-        public NSXTTagInfoType()
-        {
-        }
         /// <summary>
         /// Number of objects with assigned with matching scope and tag values
         /// </summary>
-        [JsonProperty(PropertyName = "tagged_objects_count")]
-        [NSXTProperty(IsRequired: false, Description: @"Number of objects with assigned with matching scope and tag values")]
         public int? TaggedObjectsCount { get; set; }
     }
 }

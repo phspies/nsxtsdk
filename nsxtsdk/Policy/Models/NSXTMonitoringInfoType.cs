@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -21,20 +21,13 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Provides monitoring information for all flows in federation from thegiven site where the API is invoked. For example - monitoring informationfrom Global Manager doesn&apos;t provide details of Local Manager to Local Managerflows. Similary, LocalManager will not provide Global Manager ACTIVE toGlobal Manager STANDBY flow details.")]
     public class NSXTMonitoringInfoType 
     {
-        public NSXTMonitoringInfoType()
-        {
-        }
         /// <summary>
         /// All errors occurred while gathering monitoring info
         /// </summary>
-        [JsonProperty(PropertyName = "errors")]
-        [NSXTProperty(IsRequired: false, Description: @"All errors occurred while gathering monitoring info")]
         public IList<NSXTMonitoringErrorType> Errors { get; set; }
         /// <summary>
         /// Monitoring information of flows in federation
         /// </summary>
-        [JsonProperty(PropertyName = "flow_info")]
-        [NSXTProperty(IsRequired: false, Description: @"Monitoring information of flows in federation")]
         public IList<NSXTFlowInfoType> FlowInfo { get; set; }
     }
 }

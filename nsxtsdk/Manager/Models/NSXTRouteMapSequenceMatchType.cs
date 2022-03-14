@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -19,20 +19,13 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Match sequence in route map which is used for matching routes.IP prefix lists and match community expression are mutuallyexclusive fields, one of them must be provided.")]
     public class NSXTRouteMapSequenceMatchType 
     {
-        public NSXTRouteMapSequenceMatchType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "match_community_expression")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTCommunityMatchExpressionType MatchCommunityExpression { get; set; }
         /// <summary>
         /// IPPrefixList Identifiers for RouteMap Sequence Match Criteria
         /// </summary>
-        [JsonProperty(PropertyName = "ip_prefix_lists")]
-        [NSXTProperty(IsRequired: false, Description: @"IPPrefixList Identifiers for RouteMap Sequence Match Criteria")]
         public IList<string> IpPrefixLists { get; set; }
     }
 }

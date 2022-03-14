@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,26 +17,17 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTFirewallStatsListType 
     {
-        public NSXTFirewallStatsListType()
-        {
-        }
         /// <summary>
         /// Total count for firewall rule statistics in results set
         /// </summary>
-        [JsonProperty(PropertyName = "result_count")]
-        [NSXTProperty(IsRequired: false, Description: @"Total count for firewall rule statistics in results set")]
         public long? ResultCount { get; set; }
         /// <summary>
         /// Corresponding firewall section identifier for list of rule statistics
         /// </summary>
-        [JsonProperty(PropertyName = "section_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Corresponding firewall section identifier for list of rule statistics")]
         public string? SectionId { get; set; }
         /// <summary>
         /// List of rule statistics
         /// </summary>
-        [JsonProperty(PropertyName = "results")]
-        [NSXTProperty(IsRequired: false, Description: @"List of rule statistics")]
         public IList<NSXTFirewallStatsType> Results { get; set; }
     }
 }

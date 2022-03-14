@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,36 +17,25 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTALBNetworkSecurityPolicyType : NSXTPolicyConfigResourceType
     {
-        public NSXTALBNetworkSecurityPolicyType()
-        {
-        }
         /// <summary>
         /// Placeholder for description of property rules of obj type
         /// NetworkSecurityPolicy field type str  type array.
         /// </summary>
-        [JsonProperty(PropertyName = "rules")]
-        [NSXTProperty(IsRequired: false, Description: @"Placeholder for description of property rules of obj typeNetworkSecurityPolicy field type str  type array.")]
         public IList<NSXTALBNetworkSecurityRuleType> Rules { get; set; }
         /// <summary>
         /// Checksum of cloud configuration for Network Sec Policy.
         /// Internally set by cloud connector.
         /// </summary>
-        [JsonProperty(PropertyName = "cloud_config_cksum")]
-        [NSXTProperty(IsRequired: false, Description: @"Checksum of cloud configuration for Network Sec Policy.Internally set by cloud connector.")]
         public string? CloudConfigCksum { get; set; }
         /// <summary>
         /// List of labels to be used for granular RBAC.
         /// Allowed in Basic edition, Essentials edition, Enterprise
         /// edition.
         /// </summary>
-        [JsonProperty(PropertyName = "markers")]
-        [NSXTProperty(IsRequired: false, Description: @"List of labels to be used for granular RBAC.Allowed in Basic edition, Essentials edition, Enterpriseedition.")]
         public IList<NSXTALBRoleFilterMatchLabelType> Markers { get; set; }
         /// <summary>
         /// Creator name.
         /// </summary>
-        [JsonProperty(PropertyName = "created_by")]
-        [NSXTProperty(IsRequired: false, Description: @"Creator name.")]
         public string? CreatedBy { get; set; }
     }
 }

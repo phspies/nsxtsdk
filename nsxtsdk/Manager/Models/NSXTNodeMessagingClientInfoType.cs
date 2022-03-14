@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,20 +17,13 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNodeMessagingClientInfoType 
     {
-        public NSXTNodeMessagingClientInfoType()
-        {
-        }
         /// <summary>
         /// A list of messaging clients owned by this entity
         /// </summary>
-        [JsonProperty(PropertyName = "clients")]
-        [NSXTProperty(IsRequired: false, Description: @"A list of messaging clients owned by this entity")]
         public IList<NSXTMessagingClientInfoType> Clients { get; set; }
         /// <summary>
         /// Entity type of this messaging client
         /// </summary>
-        [JsonProperty(PropertyName = "entity_type")]
-        [NSXTProperty(IsRequired: false, Description: @"Entity type of this messaging client")]
         public NSXTNodeMessagingClientInfoEntityTypeEnumType? EntityType { get; set; }
     }
 }

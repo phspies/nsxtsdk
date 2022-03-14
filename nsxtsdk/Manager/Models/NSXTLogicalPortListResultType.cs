@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLogicalPortListResultType : NSXTListResultType
     {
-        public NSXTLogicalPortListResultType()
-        {
-        }
         /// <summary>
         /// LogicalPort Results
         /// </summary>
-        [JsonProperty(PropertyName = "results")]
-        [NSXTProperty(IsRequired: false, Description: @"LogicalPort Results")]
         public IList<NSXTLogicalPortType> Results { get; set; }
     }
 }

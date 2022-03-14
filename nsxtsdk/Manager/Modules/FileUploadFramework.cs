@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public FileUploadFramework(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public FileUploadFramework(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTBundleIdType UploadBundleViaRemoteFile(NSXTRemoteBundleUrlType RemoteBundleUrl, string FileType, string Product)
+        public async Task<NSXTBundleIdType> UploadBundleViaRemoteFile(NSXTRemoteBundleUrlType RemoteBundleUrl, string FileType, string Product)
         {
             if (RemoteBundleUrl == null) { throw new System.ArgumentNullException("RemoteBundleUrl cannot be null"); }
             if (FileType == null) { throw new System.ArgumentNullException("FileType cannot be null"); }
@@ -47,31 +54,19 @@ namespace nsxtapi.ManagerModules
             if (FileType != null) { request.AddQueryParameter("file_type", FileType.ToString()); }
             if (Product != null) { request.AddQueryParameter("product", Product.ToString()); }
             request.Resource = UploadBundleViaRemoteFileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTBundleIdType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTBundleIdType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + UploadBundleViaRemoteFileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTBundleIdType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTBundleIdType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTBundleIdsType GetBundleIds(string FileType, string Product)
+        public async Task<NSXTBundleIdsType> GetBundleIds(string FileType, string Product)
         {
             if (FileType == null) { throw new System.ArgumentNullException("FileType cannot be null"); }
             if (Product == null) { throw new System.ArgumentNullException("Product cannot be null"); }
@@ -86,31 +81,19 @@ namespace nsxtapi.ManagerModules
             if (FileType != null) { request.AddQueryParameter("file_type", FileType.ToString()); }
             if (Product != null) { request.AddQueryParameter("product", Product.ToString()); }
             request.Resource = GetBundleIdsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTBundleIdsType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTBundleIdsType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetBundleIdsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTBundleIdsType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTBundleIdsType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTBundleUploadStatusType GetBundleUploadStatus(string BundleId, string Product)
+        public async Task<NSXTBundleUploadStatusType> GetBundleUploadStatus(string BundleId, string Product)
         {
             if (BundleId == null) { throw new System.ArgumentNullException("BundleId cannot be null"); }
             if (Product == null) { throw new System.ArgumentNullException("Product cannot be null"); }
@@ -125,31 +108,19 @@ namespace nsxtapi.ManagerModules
             GetBundleUploadStatusServiceURL.Replace("{bundle-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(BundleId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Product != null) { request.AddQueryParameter("product", Product.ToString()); }
             request.Resource = GetBundleUploadStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTBundleUploadStatusType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTBundleUploadStatusType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetBundleUploadStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTBundleUploadStatusType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTBundleUploadStatusType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTOvfInfoType GetOvfDeployInfo(string Product)
+        public async Task<NSXTOvfInfoType> GetOvfDeployInfo(string Product)
         {
             if (Product == null) { throw new System.ArgumentNullException("Product cannot be null"); }
             NSXTOvfInfoType returnValue = default(NSXTOvfInfoType);
@@ -162,31 +133,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             if (Product != null) { request.AddQueryParameter("product", Product.ToString()); }
             request.Resource = GetOvfDeployInfoServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTOvfInfoType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTOvfInfoType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetOvfDeployInfoServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTOvfInfoType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTOvfInfoType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void CancelBundleUpload(string BundleId, string Product)
+        public async Task CancelBundleUpload(string BundleId, string Product)
         {
             if (BundleId == null) { throw new System.ArgumentNullException("BundleId cannot be null"); }
             if (Product == null) { throw new System.ArgumentNullException("Product cannot be null"); }
@@ -201,7 +160,7 @@ namespace nsxtapi.ManagerModules
             CancelBundleUploadServiceURL.Replace("{bundle-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(BundleId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Product != null) { request.AddQueryParameter("product", Product.ToString()); }
             request.Resource = CancelBundleUploadServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CancelBundleUploadServiceURL.ToString() + " did not complete successfull";
@@ -213,7 +172,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTBundleUploadPermissionType GetBundleUploadPermissions(string Product)
+        public async Task<NSXTBundleUploadPermissionType> GetBundleUploadPermissions(string Product)
         {
             if (Product == null) { throw new System.ArgumentNullException("Product cannot be null"); }
             NSXTBundleUploadPermissionType returnValue = default(NSXTBundleUploadPermissionType);
@@ -226,31 +185,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             if (Product != null) { request.AddQueryParameter("product", Product.ToString()); }
             request.Resource = GetBundleUploadPermissionsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTBundleUploadPermissionType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTBundleUploadPermissionType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetBundleUploadPermissionsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTBundleUploadPermissionType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTBundleUploadPermissionType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTBundleIdType UploadBundleViaLocalFile(string File, string FileType, string Product)
+        public async Task<NSXTBundleIdType> UploadBundleViaLocalFile(string File, string FileType, string Product)
         {
             if (File == null) { throw new System.ArgumentNullException("File cannot be null"); }
             if (FileType == null) { throw new System.ArgumentNullException("FileType cannot be null"); }
@@ -267,25 +214,13 @@ namespace nsxtapi.ManagerModules
             if (FileType != null) { request.AddQueryParameter("file_type", FileType.ToString()); }
             if (Product != null) { request.AddQueryParameter("product", Product.ToString()); }
             request.Resource = UploadBundleViaLocalFileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTBundleIdType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTBundleIdType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + UploadBundleViaLocalFileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTBundleIdType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTBundleIdType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

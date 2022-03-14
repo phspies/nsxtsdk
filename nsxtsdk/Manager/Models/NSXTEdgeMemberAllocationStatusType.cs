@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,38 +17,25 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTEdgeMemberAllocationStatusType 
     {
-        public NSXTEdgeMemberAllocationStatusType()
-        {
-        }
         /// <summary>
         /// List of services allocated on the edge node.
         /// </summary>
-        [JsonProperty(PropertyName = "allocated_services")]
-        [NSXTProperty(IsRequired: false, Description: @"List of services allocated on the edge node.")]
         public IList<NSXTAllocatedServiceType> AllocatedServices { get; set; }
         /// <summary>
         /// Display name of edge cluster member. Defaults to ID if not set.
         /// </summary>
-        [JsonProperty(PropertyName = "node_display_name")]
-        [NSXTProperty(IsRequired: false, Description: @"Display name of edge cluster member. Defaults to ID if not set.")]
         public string? NodeDisplayName { get; set; }
         /// <summary>
         /// System generated index for transport node backed by edge node.
         /// </summary>
-        [JsonProperty(PropertyName = "member_index")]
-        [NSXTProperty(IsRequired: false, Description: @"System generated index for transport node backed by edge node.")]
         public int? MemberIndex { get; set; }
         /// <summary>
         /// Allocation details of pools defined on the edge node.
         /// </summary>
-        [JsonProperty(PropertyName = "allocation_pools")]
-        [NSXTProperty(IsRequired: false, Description: @"Allocation details of pools defined on the edge node.")]
         public IList<NSXTAllocationPoolType> AllocationPools { get; set; }
         /// <summary>
         /// System allotted UUID of edge node.
         /// </summary>
-        [JsonProperty(PropertyName = "node_id")]
-        [NSXTProperty(IsRequired: false, Description: @"System allotted UUID of edge node.")]
         public string? NodeId { get; set; }
     }
 }

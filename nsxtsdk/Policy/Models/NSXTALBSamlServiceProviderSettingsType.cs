@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,58 +17,39 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer SamlServiceProviderSettings object")]
     public class NSXTALBSamlServiceProviderSettingsType 
     {
-        public NSXTALBSamlServiceProviderSettingsType()
-        {
-        }
         /// <summary>
         /// Service Provider Organization Name.
         /// </summary>
-        [JsonProperty(PropertyName = "org_name")]
-        [NSXTProperty(IsRequired: false, Description: @"Service Provider Organization Name.")]
         public string? OrgName { get; set; }
         /// <summary>
         /// Service Provider technical contact email.
         /// </summary>
-        [JsonProperty(PropertyName = "tech_contact_email")]
-        [NSXTProperty(IsRequired: false, Description: @"Service Provider technical contact email.")]
         public string? TechContactEmail { get; set; }
         /// <summary>
         /// Service Provider node information.
         /// </summary>
-        [JsonProperty(PropertyName = "sp_nodes")]
-        [NSXTProperty(IsRequired: false, Description: @"Service Provider node information.")]
         public IList<NSXTALBSamlServiceProviderNodeType> SpNodes { get; set; }
         /// <summary>
         /// Service Provider Organization Display Name.
         /// </summary>
-        [JsonProperty(PropertyName = "org_display_name")]
-        [NSXTProperty(IsRequired: false, Description: @"Service Provider Organization Display Name.")]
         public string? OrgDisplayName { get; set; }
         /// <summary>
         /// Service Provider Organization URL.
         /// </summary>
-        [JsonProperty(PropertyName = "org_url")]
-        [NSXTProperty(IsRequired: false, Description: @"Service Provider Organization URL.")]
         public string? OrgUrl { get; set; }
         /// <summary>
         /// Service Provider technical contact name.
         /// </summary>
-        [JsonProperty(PropertyName = "tech_contact_name")]
-        [NSXTProperty(IsRequired: false, Description: @"Service Provider technical contact name.")]
         public string? TechContactName { get; set; }
         /// <summary>
         /// FQDN if entity type is DNS_FQDN .
         /// </summary>
-        [JsonProperty(PropertyName = "fqdn")]
-        [NSXTProperty(IsRequired: false, Description: @"FQDN if entity type is DNS_FQDN .")]
         public string? Fqdn { get; set; }
         /// <summary>
         /// Type of SAML endpoint.
         /// Enum options - AUTH_SAML_CLUSTER_VIP, AUTH_SAML_DNS_FQDN,
         /// AUTH_SAML_APP_VS.
         /// </summary>
-        [JsonProperty(PropertyName = "saml_entity_type")]
-        [NSXTProperty(IsRequired: false, Description: @"Type of SAML endpoint.Enum options - AUTH_SAML_CLUSTER_VIP, AUTH_SAML_DNS_FQDN,AUTH_SAML_APP_VS.")]
         public NSXTAlbsamlServiceProviderSettingsSamlEntityTypeEnumType? SamlEntityType { get; set; }
     }
 }

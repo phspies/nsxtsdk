@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Base type for CSV result.")]
     public class NSXTCsvListResultType 
     {
-        public NSXTCsvListResultType()
-        {
-        }
         /// <summary>
         /// File name set by HTTP server if API  returns CSV result as a file.
         /// </summary>
-        [JsonProperty(PropertyName = "file_name")]
-        [NSXTProperty(IsRequired: false, Description: @"File name set by HTTP server if API  returns CSV result as a file.")]
         public string? FileName { get; set; }
     }
 }

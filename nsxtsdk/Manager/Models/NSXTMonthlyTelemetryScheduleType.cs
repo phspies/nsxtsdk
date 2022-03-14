@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,35 +17,19 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTMonthlyTelemetryScheduleType : NSXTTelemetryScheduleType
     {
-        public NSXTMonthlyTelemetryScheduleType()
-        {
-            Minutes = test
-        }
         /// <summary>
         /// Minute at which data will be collected. Specify a value between 0 through 59.
         /// </summary>
-        [JsonProperty(PropertyName = "minutes")]
-        [NSXTProperty(IsRequired: false, Description: @"Minute at which data will be collected. Specify a value between 0 through 59.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(59)]
         public long? Minutes { get; set; }
         /// <summary>
         /// Day of month on which data will be collected. Specify a value between 1 through 31.
         /// </summary>
         [JsonProperty(PropertyName = "day_of_month", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Day of month on which data will be collected. Specify a value between 1 through 31.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(31)]
-        [System.ComponentModel.DataAnnotations.Required]
         public long DayOfMonth { get; set; }
         /// <summary>
         /// Hour at which data will be collected. Specify a value between 0 through 23.
         /// </summary>
         [JsonProperty(PropertyName = "hour_of_day", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Hour at which data will be collected. Specify a value between 0 through 23.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(23)]
-        [System.ComponentModel.DataAnnotations.Required]
         public long HourOfDay { get; set; }
     }
 }

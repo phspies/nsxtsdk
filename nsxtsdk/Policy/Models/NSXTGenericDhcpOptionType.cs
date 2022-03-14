@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,24 +17,15 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Define DHCP options other than option 121.")]
     public class NSXTGenericDhcpOptionType 
     {
-        public NSXTGenericDhcpOptionType()
-        {
-        }
         /// <summary>
         /// Code of the dhcp option.
         /// </summary>
         [JsonProperty(PropertyName = "code", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Code of the dhcp option.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(255)]
-        [System.ComponentModel.DataAnnotations.Required]
         public long Code { get; set; }
         /// <summary>
         /// Value of the option.
         /// </summary>
         [JsonProperty(PropertyName = "values", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Value of the option.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<string> Values { get; set; }
     }
 }

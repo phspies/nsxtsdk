@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTSetFieldsType : NSXTActionType
     {
-        public NSXTSetFieldsType()
-        {
-        }
         /// <summary>
         /// Field Settings.
         /// </summary>
-        [JsonProperty(PropertyName = "field_settings")]
-        [NSXTProperty(IsRequired: false, Description: @"Field Settings.")]
         public IList<NSXTFieldSettingType> FieldSettings { get; set; }
     }
 }

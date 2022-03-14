@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,23 +17,16 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer SSLProfileSelector object")]
     public class NSXTALBSSLProfileSelectorType 
     {
-        public NSXTALBSSLProfileSelectorType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty(PropertyName = "client_ip_list", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTALBIpAddrMatchType ClientIpList { get; set; }
         /// <summary>
         /// SSL profile for the client IP addresses listed.
         /// It is a reference to an object of type SSLProfile.
         /// </summary>
         [JsonProperty(PropertyName = "ssl_profile_path", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"SSL profile for the client IP addresses listed.It is a reference to an object of type SSLProfile.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string SslProfilePath { get; set; }
     }
 }

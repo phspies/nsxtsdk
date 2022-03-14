@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,21 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Statistics counters of the DNS forwarder zone.")]
     public class NSXTNsxTDNSForwarderZoneStatisticsType 
     {
-        public NSXTNsxTDNSForwarderZoneStatisticsType()
-        {
-        }
         /// <summary>
         /// Statistics per upstream server.
         /// </summary>
-        [JsonProperty(PropertyName = "upstream_statistics")]
-        [NSXTProperty(IsRequired: false, Description: @"Statistics per upstream server.")]
         public IList<NSXTNsxTUpstreamServerStatisticsType> UpstreamStatistics { get; set; }
         /// <summary>
         /// Domain names configured for the forwarder. Empty if this is the
         /// default forwarder.
         /// </summary>
-        [JsonProperty(PropertyName = "domain_names")]
-        [NSXTProperty(IsRequired: false, Description: @"Domain names configured for the forwarder. Empty if this is thedefault forwarder.")]
         public IList<string> DomainNames { get; set; }
     }
 }

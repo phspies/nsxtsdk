@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,32 +17,21 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTSegmentCrossSiteTrafficStatsType 
     {
-        public NSXTSegmentCrossSiteTrafficStatsType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "tx_stats")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTInterSitePortCountersType TxStats { get; set; }
         /// <summary>
         /// Timestamp when the l2 forwarder statistics was last updated.
         /// </summary>
-        [JsonProperty(PropertyName = "last_update_timestamp")]
-        [NSXTProperty(IsRequired: false, Description: @"Timestamp when the l2 forwarder statistics was last updated.")]
         public long? LastUpdateTimestamp { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "rx_stats")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTInterSitePortCountersType RxStats { get; set; }
         /// <summary>
         /// Policy path of Segment to attach interface.
         /// </summary>
-        [JsonProperty(PropertyName = "segment_path")]
-        [NSXTProperty(IsRequired: false, Description: @"Policy path of Segment to attach interface.")]
         public string? SegmentPath { get; set; }
     }
 }

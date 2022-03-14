@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,22 +17,15 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTFederationGatewayConfigType : NSXTFederationConnectivityConfigType
     {
-        public NSXTFederationGatewayConfigType()
-        {
-        }
         /// <summary>
         /// Indicies for cross site allocation for edge cluster
         /// and its members referred by gateway.
         /// </summary>
-        [JsonProperty(PropertyName = "site_allocation_indices")]
-        [NSXTProperty(IsRequired: false, Description: @"Indicies for cross site allocation for edge clusterand its members referred by gateway.")]
         public IList<NSXTSiteAllocationIndexForEdgeType> SiteAllocationIndices { get; set; }
         /// <summary>
         /// Global UUID for transit segment id to be used by Layer2 services for
         /// federation usecases.
         /// </summary>
-        [JsonProperty(PropertyName = "transit_segment_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Global UUID for transit segment id to be used by Layer2 services forfederation usecases.")]
         public string? TransitSegmentId { get; set; }
     }
 }

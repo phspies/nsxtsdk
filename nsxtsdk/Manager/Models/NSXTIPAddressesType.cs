@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIPAddressesType 
     {
-        public NSXTIPAddressesType()
-        {
-        }
         /// <summary>
         /// The IP addresses in the form of IP Address, IP Range, CIDR, used as source IPs or destination IPs of filters.
         /// </summary>
-        [JsonProperty(PropertyName = "ip_addresses")]
-        [NSXTProperty(IsRequired: false, Description: @"The IP addresses in the form of IP Address, IP Range, CIDR, used as source IPs or destination IPs of filters.")]
         public IList<string> IpAddresses { get; set; }
     }
 }

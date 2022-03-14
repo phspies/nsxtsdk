@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,29 +17,20 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Policy Sub Attributes data holder")]
     public class NSXTPolicySubAttributesType 
     {
-        public NSXTPolicySubAttributesType()
-        {
-        }
         /// <summary>
         /// Datatype for sub attribute
         /// </summary>
         [JsonProperty(PropertyName = "datatype", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Datatype for sub attribute")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTPolicySubAttributesDatatypeEnumType Datatype { get; set; }
         /// <summary>
         /// Multiple sub attribute values can be specified as elements of array.
         /// </summary>
         [JsonProperty(PropertyName = "value", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Multiple sub attribute values can be specified as elements of array.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<string> Value { get; set; }
         /// <summary>
         /// Key for sub attribute
         /// </summary>
         [JsonProperty(PropertyName = "key", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Key for sub attribute")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTPolicySubAttributesKeyEnumType Key { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,16 +17,11 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTDhcpRelayConfigType : NSXTPolicyConfigResourceType
     {
-        public NSXTDhcpRelayConfigType()
-        {
-        }
         /// <summary>
         /// DHCP server IP addresses for DHCP relay configuration.
         /// Both IPv4 and IPv6 addresses are supported.
         /// </summary>
         [JsonProperty(PropertyName = "server_addresses", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"DHCP server IP addresses for DHCP relay configuration.Both IPv4 and IPv6 addresses are supported.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<string> ServerAddresses { get; set; }
     }
 }

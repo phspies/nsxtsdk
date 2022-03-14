@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLogicalRouterPortStateType : NSXTEdgeConfigurationStateType
     {
-        public NSXTLogicalRouterPortStateType()
-        {
-        }
         /// <summary>
         /// Array of DAD status which contains DAD information for IP addresses
         /// on the port.
         /// </summary>
-        [JsonProperty(PropertyName = "ipv6_dad_statuses")]
-        [NSXTProperty(IsRequired: false, Description: @"Array of DAD status which contains DAD information for IP addresseson the port.")]
         public IList<NSXTIPv6DADStatusType> Ipv6DadStatuses { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,17 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer DnsAttack object")]
     public class NSXTALBDnsAttackType 
     {
-        public NSXTALBDnsAttackType()
-        {
-            MaxMitigationAge = test
-            Enabled = test
-        }
         /// <summary>
         /// Threshold, in terms of DNS packet per second, for the DNS
         /// attack vector.
         /// </summary>
-        [JsonProperty(PropertyName = "threshold")]
-        [NSXTProperty(IsRequired: false, Description: @"Threshold, in terms of DNS packet per second, for the DNSattack vector.")]
         public long? Threshold { get; set; }
         /// <summary>
         /// Time in minutes after which mitigation will be deactivated.
@@ -37,24 +30,16 @@ namespace nsxtsdk.PolicyModels
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 60.
         /// </summary>
-        [JsonProperty(PropertyName = "max_mitigation_age")]
-        [NSXTProperty(IsRequired: false, Description: @"Time in minutes after which mitigation will be deactivated.Allowed values are 1-4294967295.Special values are 0- &apos;blocked for ever&apos;.Unit is MIN.Default value when not specified in API or module isinterpreted by ALB Controller as 60.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(4294967295)]
         public long? MaxMitigationAge { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "mitigation_action")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBAttackMitigationActionType MitigationAction { get; set; }
         /// <summary>
         /// Enable or disable the mitigation of the attack vector.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as true.
         /// </summary>
-        [JsonProperty(PropertyName = "enabled")]
-        [NSXTProperty(IsRequired: false, Description: @"Enable or disable the mitigation of the attack vector.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
         public bool? Enabled { get; set; }
         /// <summary>
         /// The DNS attack vector.
@@ -62,8 +47,6 @@ namespace nsxtsdk.PolicyModels
         /// DNS_AMPLIFICATION_EGRESS.
         /// </summary>
         [JsonProperty(PropertyName = "attack_vector", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"The DNS attack vector.Enum options - DNS_REFLECTION, DNS_NXDOMAIN,DNS_AMPLIFICATION_EGRESS.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTAlbdnsAttackAttackVectorEnumType AttackVector { get; set; }
     }
 }

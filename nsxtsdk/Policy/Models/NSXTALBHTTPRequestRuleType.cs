@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,16 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer HTTPRequestRule object")]
     public class NSXTALBHTTPRequestRuleType 
     {
-        public NSXTALBHTTPRequestRuleType()
-        {
-            Enable = test
-        }
         /// <summary>
         /// Index of the rule.
         /// </summary>
         [JsonProperty(PropertyName = "index", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Index of the rule.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public long Index { get; set; }
         /// <summary>
         /// Enable or disable the rule.
@@ -34,57 +28,39 @@ namespace nsxtsdk.PolicyModels
         /// interpreted by ALB Controller as true.
         /// </summary>
         [JsonProperty(PropertyName = "enable", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Enable or disable the rule.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public bool Enable { get; set; }
         /// <summary>
         /// Log HTTP request upon rule match.
         /// </summary>
-        [JsonProperty(PropertyName = "log")]
-        [NSXTProperty(IsRequired: false, Description: @"Log HTTP request upon rule match.")]
         public bool? Log { get; set; }
         /// <summary>
         /// Log all HTTP headers upon rule match.
         /// </summary>
-        [JsonProperty(PropertyName = "all_headers")]
-        [NSXTProperty(IsRequired: false, Description: @"Log all HTTP headers upon rule match.")]
         public bool? AllHeaders { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "rewrite_url_action")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBHTTPRewriteURLActionType RewriteUrlAction { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "switching_action")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBHTTPSwitchingActionType SwitchingAction { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "redirect_action")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBHTTPRedirectActionType RedirectAction { get; set; }
         /// <summary>
         /// Name of the rule.
         /// </summary>
         [JsonProperty(PropertyName = "name", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Name of the rule.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Name { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "match")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBMatchTargetType Match { get; set; }
         /// <summary>
         /// HTTP header rewrite action.
         /// </summary>
-        [JsonProperty(PropertyName = "hdr_action")]
-        [NSXTProperty(IsRequired: false, Description: @"HTTP header rewrite action.")]
         public IList<NSXTALBHTTPHdrActionType> HdrAction { get; set; }
     }
 }

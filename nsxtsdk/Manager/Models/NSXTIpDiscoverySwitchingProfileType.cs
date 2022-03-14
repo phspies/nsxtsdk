@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,21 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIpDiscoverySwitchingProfileType : NSXTBaseSwitchingProfileType
     {
-        public NSXTIpDiscoverySwitchingProfileType()
-        {
-            ArpSnoopingEnabled = test
-            ArpBindingsLimit = test
-            DhcpSnoopingEnabled = test
-            ArpNdBindingTimeout = test
-            VmToolsEnabled = test
-            TrustOnFirstUseEnabled = test
-            NdBindingsLimit = test
-        }
         /// <summary>
         /// Indicates whether ARP snooping is enabled
         /// </summary>
-        [JsonProperty(PropertyName = "arp_snooping_enabled")]
-        [NSXTProperty(IsRequired: false, Description: @"Indicates whether ARP snooping is enabled")]
         public bool? ArpSnoopingEnabled { get; set; }
         /// <summary>
         /// Indicates the number of arp snooped IP addresses to be remembered per LogicalPort. Decreasing this value, will retain
@@ -39,50 +27,32 @@ namespace nsxtsdk.ManagerModels
         /// also learn any new address bindings discovered on the port until the new limit is reached. This limit only applies to
         /// IPv4 addresses and is independent of the nd_bindings_limit used for IPv6 snooping.
         /// </summary>
-        [JsonProperty(PropertyName = "arp_bindings_limit")]
-        [NSXTProperty(IsRequired: false, Description: @"Indicates the number of arp snooped IP addresses to be remembered per LogicalPort. Decreasing this value, will retain the latest bindings from the existing list of address bindings. Increasing this value will retain existing bindings and also learn any new address bindings discovered on the port until the new limit is reached. This limit only applies to IPv4 addresses and is independent of the nd_bindings_limit used for IPv6 snooping.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(256)]
         public int? ArpBindingsLimit { get; set; }
         /// <summary>
         /// This option is the IPv6 equivalent of DHCP snooping.
         /// </summary>
-        [JsonProperty(PropertyName = "dhcpv6_snooping_enabled")]
-        [NSXTProperty(IsRequired: false, Description: @"This option is the IPv6 equivalent of DHCP snooping.")]
         public bool? Dhcpv6SnoopingEnabled { get; set; }
         /// <summary>
         /// This option is the IPv6 equivalent of ARP snooping.
         /// </summary>
-        [JsonProperty(PropertyName = "nd_snooping_enabled")]
-        [NSXTProperty(IsRequired: false, Description: @"This option is the IPv6 equivalent of ARP snooping.")]
         public bool? NdSnoopingEnabled { get; set; }
         /// <summary>
         /// This option is only supported on ESX where vm-tools is installed.
         /// </summary>
-        [JsonProperty(PropertyName = "vm_tools_v6_enabled")]
-        [NSXTProperty(IsRequired: false, Description: @"This option is only supported on ESX where vm-tools is installed.")]
         public bool? VmToolsV6Enabled { get; set; }
         /// <summary>
         /// Indicates whether DHCP snooping is enabled
         /// </summary>
-        [JsonProperty(PropertyName = "dhcp_snooping_enabled")]
-        [NSXTProperty(IsRequired: false, Description: @"Indicates whether DHCP snooping is enabled")]
         public bool? DhcpSnoopingEnabled { get; set; }
         /// <summary>
         /// This property controls the ARP and ND cache timeout period.It
         /// is recommended that this property be greater than the ARP/ND
         /// cache timeout on the VM.
         /// </summary>
-        [JsonProperty(PropertyName = "arp_nd_binding_timeout")]
-        [NSXTProperty(IsRequired: false, Description: @"This property controls the ARP and ND cache timeout period.Itis recommended that this property be greater than the ARP/NDcache timeout on the VM.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(5)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(120)]
         public int? ArpNdBindingTimeout { get; set; }
         /// <summary>
         /// This option is only supported on ESX where vm-tools is installed.
         /// </summary>
-        [JsonProperty(PropertyName = "vm_tools_enabled")]
-        [NSXTProperty(IsRequired: false, Description: @"This option is only supported on ESX where vm-tools is installed.")]
         public bool? VmToolsEnabled { get; set; }
         /// <summary>
         /// ARP snooping being inherently susceptible to ARP spoofing,
@@ -97,8 +67,6 @@ namespace nsxtsdk.ManagerModels
         /// be trusted until they are timed out, where N is configured by
         /// arp_bindings_limit.
         /// </summary>
-        [JsonProperty(PropertyName = "trust_on_first_use_enabled")]
-        [NSXTProperty(IsRequired: false, Description: @"ARP snooping being inherently susceptible to ARP spoofing,uses a turst-on-fisrt-use (TOFU) paradigm where only the first IP addressdiscovered via ARP snooping is trusted. The remaining are ignored.In order to allow for more flexibility, we allow the user toconfigure how many ARP snooped address bindings should be trustedfor the lifetime of the logical port. This is controlled by thearp_bindings_limit property in the IP Discovery profile. We referto this extension of TOFU as N-TOFU.However, if TOFU is disabled, then N ARP snooped IP addresses willbe trusted until they are timed out, where N is configured byarp_bindings_limit.")]
         public bool? TrustOnFirstUseEnabled { get; set; }
         /// <summary>
         /// Indicates the number of neighbor-discovery snooped IP addresses to be remembered per LogicalPort. Decreasing this value,
@@ -106,16 +74,10 @@ namespace nsxtsdk.ManagerModels
         /// bindings and also learn any new address bindings discovered on the port until the new limit is reached. This limit only
         /// applies to IPv6 addresses and is independent of the arp_bindings_limit used for IPv4 snooping.
         /// </summary>
-        [JsonProperty(PropertyName = "nd_bindings_limit")]
-        [NSXTProperty(IsRequired: false, Description: @"Indicates the number of neighbor-discovery snooped IP addresses to be remembered per LogicalPort. Decreasing this value, will retain the latest bindings from the existing list of address bindings. Increasing this value will retain existing bindings and also learn any new address bindings discovered on the port until the new limit is reached. This limit only applies to IPv6 addresses and is independent of the arp_bindings_limit used for IPv4 snooping.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(2)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(15)]
         public int? NdBindingsLimit { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "duplicate_ip_detection")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTDuplicateIPDetectionType DuplicateIpDetection { get; set; }
     }
 }

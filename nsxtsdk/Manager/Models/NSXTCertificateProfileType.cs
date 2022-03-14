@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,44 +17,29 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTCertificateProfileType : NSXTResourceType
     {
-        public NSXTCertificateProfileType()
-        {
-        }
         /// <summary>
         /// True if this is for a cluster certificate
         /// </summary>
-        [JsonProperty(PropertyName = "cluster_certificate")]
-        [NSXTProperty(IsRequired: false, Description: @"True if this is for a cluster certificate")]
         public bool? ClusterCertificate { get; set; }
         /// <summary>
         /// List of types of node this certificate applies to.
         /// </summary>
-        [JsonProperty(PropertyName = "node_type")]
-        [NSXTProperty(IsRequired: false, Description: @"List of types of node this certificate applies to.")]
         public IList<string> NodeType { get; set; }
         /// <summary>
         /// Certificate Profile Name
         /// </summary>
-        [JsonProperty(PropertyName = "profile_name")]
-        [NSXTProperty(IsRequired: false, Description: @"Certificate Profile Name")]
         public string? ProfileName { get; set; }
         /// <summary>
         /// Indicating whether this certificate is used for server-auth, client-auth or both.
         /// </summary>
-        [JsonProperty(PropertyName = "extended_key_usage")]
-        [NSXTProperty(IsRequired: false, Description: @"Indicating whether this certificate is used for server-auth, client-auth or both.")]
         public IList<string> ExtendedKeyUsage { get; set; }
         /// <summary>
         /// Unique Service Type
         /// </summary>
-        [JsonProperty(PropertyName = "service_type")]
-        [NSXTProperty(IsRequired: false, Description: @"Unique Service Type")]
         public NSXTCertificateProfileServiceTypeEnumType? ServiceType { get; set; }
         /// <summary>
         /// True if the certificate used for this service-type cannot be used anywhere else.
         /// </summary>
-        [JsonProperty(PropertyName = "unique_use")]
-        [NSXTProperty(IsRequired: false, Description: @"True if the certificate used for this service-type cannot be used anywhere else.")]
         public bool? UniqueUse { get; set; }
     }
 }

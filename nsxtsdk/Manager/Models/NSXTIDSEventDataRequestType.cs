@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Filtering parameters to get only a subset of intrusion events.")]
     public class NSXTIDSEventDataRequestType 
     {
-        public NSXTIDSEventDataRequestType()
-        {
-        }
         /// <summary>
         /// An array of filter conditions.
         /// </summary>
-        [JsonProperty(PropertyName = "filters")]
-        [NSXTProperty(IsRequired: false, Description: @"An array of filter conditions.")]
         public IList<NSXTFilterRequestType> Filters { get; set; }
     }
 }

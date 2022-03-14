@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,40 +17,27 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"IPv6 status")]
     public class NSXTIPv6StatusType 
     {
-        public NSXTIPv6StatusType()
-        {
-        }
         /// <summary>
         /// Tier-0 Gateway this router Link belongs to.
         /// </summary>
-        [JsonProperty(PropertyName = "tier0_gateway")]
-        [NSXTProperty(IsRequired: false, Description: @"Tier-0 Gateway this router Link belongs to.")]
         public string? Tier0Gateway { get; set; }
         /// <summary>
         /// Tier-1 Gateway this router Link belongs to.
         /// </summary>
-        [JsonProperty(PropertyName = "tier1_gateway")]
-        [NSXTProperty(IsRequired: false, Description: @"Tier-1 Gateway this router Link belongs to.")]
         public string? Tier1Gateway { get; set; }
         /// <summary>
         /// Array of DAD status which contains DAD information for IP addresses
         /// on the interface.
         /// </summary>
-        [JsonProperty(PropertyName = "dad_statuses")]
-        [NSXTProperty(IsRequired: false, Description: @"Array of DAD status which contains DAD information for IP addresseson the interface.")]
         public IList<NSXTIPv6DADStatusType> DadStatuses { get; set; }
         /// <summary>
         /// Path of the segment attached to the interface.
         /// </summary>
-        [JsonProperty(PropertyName = "connected_segment_path")]
-        [NSXTProperty(IsRequired: false, Description: @"Path of the segment attached to the interface.")]
         public string? ConnectedSegmentPath { get; set; }
         /// <summary>
         /// Policy path or realization ID of interface for which IPv6 DAD
         /// status is returned.
         /// </summary>
-        [JsonProperty(PropertyName = "interface_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Policy path or realization ID of interface for which IPv6 DADstatus is returned.")]
         public string? InterfaceId { get; set; }
     }
 }

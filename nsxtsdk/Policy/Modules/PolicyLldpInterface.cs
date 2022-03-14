@@ -21,16 +21,23 @@ namespace nsxtapi.PolicyModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public PolicyLldpInterface(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public PolicyLldpInterface(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTInterfaceNeighborPropertiesType ShowLldpNeighborInterfaces(string SiteId, string EnforcementPointId, string NodeId, string InterfaceName)
+        public async Task<NSXTInterfaceNeighborPropertiesType> ShowLldpNeighborInterfaces(string SiteId, string EnforcementPointId, string NodeId, string InterfaceName)
         {
             if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
             if (EnforcementPointId == null) { throw new System.ArgumentNullException("EnforcementPointId cannot be null"); }
@@ -49,31 +56,19 @@ namespace nsxtapi.PolicyModules
             ShowLldpNeighborInterfacesServiceURL.Replace("{node-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NodeId, System.Globalization.CultureInfo.InvariantCulture)));
             ShowLldpNeighborInterfacesServiceURL.Replace("{interface-name}", System.Uri.EscapeDataString(Helpers.ConvertToString(InterfaceName, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ShowLldpNeighborInterfacesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTInterfaceNeighborPropertiesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTInterfaceNeighborPropertiesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ShowLldpNeighborInterfacesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTInterfaceNeighborPropertiesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTInterfaceNeighborPropertiesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTInterfaceNeighborPropertyListResultType ListAllLldpNeighborInterfaces(string SiteId, string EnforcementPointId, string NodeId)
+        public async Task<NSXTInterfaceNeighborPropertyListResultType> ListAllLldpNeighborInterfaces(string SiteId, string EnforcementPointId, string NodeId)
         {
             if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
             if (EnforcementPointId == null) { throw new System.ArgumentNullException("EnforcementPointId cannot be null"); }
@@ -90,25 +85,13 @@ namespace nsxtapi.PolicyModules
             ListAllLldpNeighborInterfacesServiceURL.Replace("{enforcement-point-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EnforcementPointId, System.Globalization.CultureInfo.InvariantCulture)));
             ListAllLldpNeighborInterfacesServiceURL.Replace("{node-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NodeId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ListAllLldpNeighborInterfacesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTInterfaceNeighborPropertyListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTInterfaceNeighborPropertyListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListAllLldpNeighborInterfacesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTInterfaceNeighborPropertyListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTInterfaceNeighborPropertyListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

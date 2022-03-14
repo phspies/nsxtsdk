@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,33 +17,22 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer HealthMonitorExternal object")]
     public class NSXTALBHealthMonitorExternalType 
     {
-        public NSXTALBHealthMonitorExternalType()
-        {
-        }
         /// <summary>
         /// Command script provided inline.
         /// </summary>
         [JsonProperty(PropertyName = "command_code", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Command script provided inline.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string CommandCode { get; set; }
         /// <summary>
         /// Environment variables to be fed into the script.
         /// </summary>
-        [JsonProperty(PropertyName = "command_variables")]
-        [NSXTProperty(IsRequired: false, Description: @"Environment variables to be fed into the script.")]
         public string? CommandVariables { get; set; }
         /// <summary>
         /// Optional arguments to feed into the script.
         /// </summary>
-        [JsonProperty(PropertyName = "command_parameters")]
-        [NSXTProperty(IsRequired: false, Description: @"Optional arguments to feed into the script.")]
         public string? CommandParameters { get; set; }
         /// <summary>
         /// Path of external health monitor script.
         /// </summary>
-        [JsonProperty(PropertyName = "command_path")]
-        [NSXTProperty(IsRequired: false, Description: @"Path of external health monitor script.")]
         public string? CommandPath { get; set; }
     }
 }

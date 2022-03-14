@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,42 +17,29 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNSAttributesDataType : NSXTManagedResourceType
     {
-        public NSXTNSAttributesDataType()
-        {
-        }
         /// <summary>
         /// Data type of attribute/sub attribute key
         /// </summary>
         [JsonProperty(PropertyName = "datatype", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Data type of attribute/sub attribute key")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTNsattributesDataDatatypeEnumType Datatype { get; set; }
         /// <summary>
         /// Attribute is predefined or custom
         /// </summary>
-        [JsonProperty(PropertyName = "attribute_source")]
-        [NSXTProperty(IsRequired: false, Description: @"Attribute is predefined or custom")]
         public NSXTNsattributesDataAttributeSourceEnumType? AttributeSource { get; set; }
         /// <summary>
         /// Multiple attribute/sub attribute values can be specified
         /// as elements of array.
         /// </summary>
         [JsonProperty(PropertyName = "value", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Multiple attribute/sub attribute values can be specifiedas elements of array.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<string> Value { get; set; }
         /// <summary>
         /// NSProfile attribute/sub attribute keys.
         /// </summary>
         [JsonProperty(PropertyName = "key", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"NSProfile attribute/sub attribute keys.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Key { get; set; }
         /// <summary>
         /// Description for NSProfile attributes
         /// </summary>
-        [JsonProperty(PropertyName = "description")]
-        [NSXTProperty(IsRequired: false, Description: @"Description for NSProfile attributes")]
         public string? Description { get; set; }
     }
 }

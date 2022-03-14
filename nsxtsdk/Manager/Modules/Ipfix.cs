@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public Ipfix(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public Ipfix(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIpfixConfigType CreateIpfixConfig(NSXTIpfixConfigType IpfixConfig)
+        public async Task<NSXTIpfixConfigType> CreateIpfixConfig(NSXTIpfixConfigType IpfixConfig)
         {
             if (IpfixConfig == null) { throw new System.ArgumentNullException("IpfixConfig cannot be null"); }
             NSXTIpfixConfigType returnValue = default(NSXTIpfixConfigType);
@@ -43,31 +50,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(IpfixConfig, defaultSerializationSettings));
             request.Resource = CreateIpfixConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIpfixConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIpfixConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CreateIpfixConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIpfixConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIpfixConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIpfixConfigListResultType ListIpfixConfig(string? AppliedTo = null, string? Cursor = null, string? IncludedFields = null, string? IpfixConfigType = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTIpfixConfigListResultType> ListIpfixConfig(string? AppliedTo = null, string? Cursor = null, string? IncludedFields = null, string? IpfixConfigType = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTIpfixConfigListResultType returnValue = default(NSXTIpfixConfigListResultType);
             StringBuilder ListIpfixConfigServiceURL = new StringBuilder("/ipfix/configs");
@@ -85,31 +80,19 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListIpfixConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIpfixConfigListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIpfixConfigListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListIpfixConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIpfixConfigListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIpfixConfigListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIpfixConfigType UpdateIpfixConfig(string ConfigId, NSXTIpfixConfigType IpfixConfig)
+        public async Task<NSXTIpfixConfigType> UpdateIpfixConfig(string ConfigId, NSXTIpfixConfigType IpfixConfig)
         {
             if (ConfigId == null) { throw new System.ArgumentNullException("ConfigId cannot be null"); }
             if (IpfixConfig == null) { throw new System.ArgumentNullException("IpfixConfig cannot be null"); }
@@ -124,31 +107,19 @@ namespace nsxtapi.ManagerModules
             UpdateIpfixConfigServiceURL.Replace("{config-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ConfigId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(IpfixConfig, defaultSerializationSettings));
             request.Resource = UpdateIpfixConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIpfixConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIpfixConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateIpfixConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIpfixConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIpfixConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteIpfixConfig(string ConfigId)
+        public async Task DeleteIpfixConfig(string ConfigId)
         {
             if (ConfigId == null) { throw new System.ArgumentNullException("ConfigId cannot be null"); }
             
@@ -161,7 +132,7 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             DeleteIpfixConfigServiceURL.Replace("{config-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ConfigId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteIpfixConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteIpfixConfigServiceURL.ToString() + " did not complete successfull";
@@ -173,7 +144,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIpfixConfigType GetIpfixConfig(string ConfigId)
+        public async Task<NSXTIpfixConfigType> GetIpfixConfig(string ConfigId)
         {
             if (ConfigId == null) { throw new System.ArgumentNullException("ConfigId cannot be null"); }
             NSXTIpfixConfigType returnValue = default(NSXTIpfixConfigType);
@@ -186,31 +157,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             GetIpfixConfigServiceURL.Replace("{config-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ConfigId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetIpfixConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIpfixConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIpfixConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetIpfixConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIpfixConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIpfixConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIpfixCollectorConfigType CreateIpfixCollectorConfig(NSXTIpfixCollectorConfigType IpfixCollectorConfig)
+        public async Task<NSXTIpfixCollectorConfigType> CreateIpfixCollectorConfig(NSXTIpfixCollectorConfigType IpfixCollectorConfig)
         {
             if (IpfixCollectorConfig == null) { throw new System.ArgumentNullException("IpfixCollectorConfig cannot be null"); }
             NSXTIpfixCollectorConfigType returnValue = default(NSXTIpfixCollectorConfigType);
@@ -223,31 +182,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(IpfixCollectorConfig, defaultSerializationSettings));
             request.Resource = CreateIpfixCollectorConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIpfixCollectorConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIpfixCollectorConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CreateIpfixCollectorConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIpfixCollectorConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIpfixCollectorConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIpfixCollectorConfigListResultType ListIpfixCollectorConfig(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTIpfixCollectorConfigListResultType> ListIpfixCollectorConfig(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTIpfixCollectorConfigListResultType returnValue = default(NSXTIpfixCollectorConfigListResultType);
             StringBuilder ListIpfixCollectorConfigServiceURL = new StringBuilder("/ipfix/collectorconfigs");
@@ -263,31 +210,19 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListIpfixCollectorConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIpfixCollectorConfigListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIpfixCollectorConfigListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListIpfixCollectorConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIpfixCollectorConfigListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIpfixCollectorConfigListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIpfixCollectorConfigType UpdateIpfixCollectorConfig(string CollectorConfigId, NSXTIpfixCollectorConfigType IpfixCollectorConfig)
+        public async Task<NSXTIpfixCollectorConfigType> UpdateIpfixCollectorConfig(string CollectorConfigId, NSXTIpfixCollectorConfigType IpfixCollectorConfig)
         {
             if (CollectorConfigId == null) { throw new System.ArgumentNullException("CollectorConfigId cannot be null"); }
             if (IpfixCollectorConfig == null) { throw new System.ArgumentNullException("IpfixCollectorConfig cannot be null"); }
@@ -302,31 +237,19 @@ namespace nsxtapi.ManagerModules
             UpdateIpfixCollectorConfigServiceURL.Replace("{collector-config-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CollectorConfigId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(IpfixCollectorConfig, defaultSerializationSettings));
             request.Resource = UpdateIpfixCollectorConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIpfixCollectorConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIpfixCollectorConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateIpfixCollectorConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIpfixCollectorConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIpfixCollectorConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteIpfixCollectorConfig(string CollectorConfigId)
+        public async Task DeleteIpfixCollectorConfig(string CollectorConfigId)
         {
             if (CollectorConfigId == null) { throw new System.ArgumentNullException("CollectorConfigId cannot be null"); }
             
@@ -339,7 +262,7 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             DeleteIpfixCollectorConfigServiceURL.Replace("{collector-config-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CollectorConfigId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteIpfixCollectorConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteIpfixCollectorConfigServiceURL.ToString() + " did not complete successfull";
@@ -351,7 +274,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIpfixCollectorConfigType GetIpfixCollectorConfig(string CollectorConfigId)
+        public async Task<NSXTIpfixCollectorConfigType> GetIpfixCollectorConfig(string CollectorConfigId)
         {
             if (CollectorConfigId == null) { throw new System.ArgumentNullException("CollectorConfigId cannot be null"); }
             NSXTIpfixCollectorConfigType returnValue = default(NSXTIpfixCollectorConfigType);
@@ -364,25 +287,13 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             GetIpfixCollectorConfigServiceURL.Replace("{collector-config-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CollectorConfigId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetIpfixCollectorConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIpfixCollectorConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIpfixCollectorConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetIpfixCollectorConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIpfixCollectorConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIpfixCollectorConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

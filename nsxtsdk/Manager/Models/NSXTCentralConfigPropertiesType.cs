@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Central Config properties")]
     public class NSXTCentralConfigPropertiesType 
     {
-        public NSXTCentralConfigPropertiesType()
-        {
-        }
         /// <summary>
         /// Override Central Config
         /// </summary>
         [JsonProperty(PropertyName = "local_override", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Override Central Config")]
-        [System.ComponentModel.DataAnnotations.Required]
         public bool LocalOverride { get; set; }
     }
 }

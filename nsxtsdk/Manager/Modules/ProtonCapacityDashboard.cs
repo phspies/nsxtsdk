@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public ProtonCapacityDashboard(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public ProtonCapacityDashboard(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTCapacityThresholdListType UpdateProtonCapacityThresholds(NSXTCapacityThresholdListType CapacityThresholdList)
+        public async Task<NSXTCapacityThresholdListType> UpdateProtonCapacityThresholds(NSXTCapacityThresholdListType CapacityThresholdList)
         {
             if (CapacityThresholdList == null) { throw new System.ArgumentNullException("CapacityThresholdList cannot be null"); }
             NSXTCapacityThresholdListType returnValue = default(NSXTCapacityThresholdListType);
@@ -43,31 +50,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(CapacityThresholdList, defaultSerializationSettings));
             request.Resource = UpdateProtonCapacityThresholdsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTCapacityThresholdListType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTCapacityThresholdListType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateProtonCapacityThresholdsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTCapacityThresholdListType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTCapacityThresholdListType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTCapacityThresholdListType GetProtonCapacityThresholds()
+        public async Task<NSXTCapacityThresholdListType> GetProtonCapacityThresholds()
         {
             NSXTCapacityThresholdListType returnValue = default(NSXTCapacityThresholdListType);
             StringBuilder GetProtonCapacityThresholdsServiceURL = new StringBuilder("/capacity/threshold");
@@ -78,31 +73,19 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = GetProtonCapacityThresholdsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTCapacityThresholdListType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTCapacityThresholdListType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetProtonCapacityThresholdsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTCapacityThresholdListType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTCapacityThresholdListType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTCapacityUsageResponseType GetProtonCapacityUsage(string? Category = null, string? Cursor = null, bool? Force = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTCapacityUsageResponseType> GetProtonCapacityUsage(string? Category = null, string? Cursor = null, bool? Force = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTCapacityUsageResponseType returnValue = default(NSXTCapacityUsageResponseType);
             StringBuilder GetProtonCapacityUsageServiceURL = new StringBuilder("/capacity/usage");
@@ -120,25 +103,13 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GetProtonCapacityUsageServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTCapacityUsageResponseType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTCapacityUsageResponseType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetProtonCapacityUsageServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTCapacityUsageResponseType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTCapacityUsageResponseType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

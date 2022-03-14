@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public IntelligenceNodeFormFactors(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public IntelligenceNodeFormFactors(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIntelligenceFormFactorsType ListIntelligenceFormFactors()
+        public async Task<NSXTIntelligenceFormFactorsType> ListIntelligenceFormFactors()
         {
             NSXTIntelligenceFormFactorsType returnValue = default(NSXTIntelligenceFormFactorsType);
             StringBuilder ListIntelligenceFormFactorsServiceURL = new StringBuilder("/node/intelligence/form-factors");
@@ -41,25 +48,13 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = ListIntelligenceFormFactorsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIntelligenceFormFactorsType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIntelligenceFormFactorsType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListIntelligenceFormFactorsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIntelligenceFormFactorsType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIntelligenceFormFactorsType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

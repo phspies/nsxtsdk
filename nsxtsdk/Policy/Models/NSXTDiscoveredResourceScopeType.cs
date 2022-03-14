@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,20 +17,13 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Scope of discovered resource")]
     public class NSXTDiscoveredResourceScopeType 
     {
-        public NSXTDiscoveredResourceScopeType()
-        {
-        }
         /// <summary>
         /// Type of the scope for the discovered resource.
         /// </summary>
-        [JsonProperty(PropertyName = "scope_type")]
-        [NSXTProperty(IsRequired: false, Description: @"Type of the scope for the discovered resource.")]
         public NSXTDiscoveredResourceScopeScopeTypeEnumType? ScopeType { get; set; }
         /// <summary>
         /// Specifies the scope id of discovered resource.
         /// </summary>
-        [JsonProperty(PropertyName = "scope_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Specifies the scope id of discovered resource.")]
         public string? ScopeId { get; set; }
     }
 }

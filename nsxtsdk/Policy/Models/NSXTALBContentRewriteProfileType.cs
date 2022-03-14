@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,24 +17,17 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer ContentRewriteProfile object")]
     public class NSXTALBContentRewriteProfileType 
     {
-        public NSXTALBContentRewriteProfileType()
-        {
-        }
         /// <summary>
         /// Enable rewrite on response body.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as false.
         /// </summary>
-        [JsonProperty(PropertyName = "response_rewrite_enabled")]
-        [NSXTProperty(IsRequired: false, Description: @"Enable rewrite on response body.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
         public bool? ResponseRewriteEnabled { get; set; }
         /// <summary>
         /// Rewrite only content types listed in this string group.
         /// Content types not present in this list are not rewritten.
         /// It is a reference to an object of type StringGroup.
         /// </summary>
-        [JsonProperty(PropertyName = "rewritable_content_path")]
-        [NSXTProperty(IsRequired: false, Description: @"Rewrite only content types listed in this string group.Content types not present in this list are not rewritten.It is a reference to an object of type StringGroup.")]
         public string? RewritableContentPath { get; set; }
         /// <summary>
         /// Strings to be matched and replaced with on the response
@@ -42,8 +35,6 @@ namespace nsxtsdk.PolicyModels
         /// This should be configured when response_rewrite_enabled is
         /// set to true.
         /// </summary>
-        [JsonProperty(PropertyName = "rsp_match_replace_pair")]
-        [NSXTProperty(IsRequired: false, Description: @"Strings to be matched and replaced with on the responsebody.This should be configured when response_rewrite_enabled isset to true.")]
         public IList<NSXTALBMatchReplacePairType> RspMatchReplacePair { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Information about recent changes, if any, that are not reflected in the Enforced Realized Status.")]
     public class NSXTPendingChangesInfoNsxTType 
     {
-        public NSXTPendingChangesInfoNsxTType()
-        {
-        }
         /// <summary>
         /// Flag describing whether there are any pending changes that are not reflected in the status.
         /// </summary>
-        [JsonProperty(PropertyName = "pending_changes_flag")]
-        [NSXTProperty(IsRequired: false, Description: @"Flag describing whether there are any pending changes that are not reflected in the status.")]
         public bool? PendingChangesFlag { get; set; }
     }
 }

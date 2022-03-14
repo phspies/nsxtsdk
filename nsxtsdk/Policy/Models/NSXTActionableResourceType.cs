@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTActionableResourceType : NSXTManagedResourceType
     {
-        public NSXTActionableResourceType()
-        {
-        }
         /// <summary>
         /// A resource reference on which actions can be performed
         /// </summary>
-        [JsonProperty(PropertyName = "ip_address")]
-        [NSXTProperty(IsRequired: false, Description: @"A resource reference on which actions can be performed")]
         public string? IpAddress { get; set; }
     }
 }

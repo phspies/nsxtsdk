@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,32 +17,21 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTManagementClusterStatusType 
     {
-        public NSXTManagementClusterStatusType()
-        {
-        }
         /// <summary>
         /// The current status of the management cluster
         /// </summary>
-        [JsonProperty(PropertyName = "status")]
-        [NSXTProperty(IsRequired: false, Description: @"The current status of the management cluster")]
         public NSXTManagementClusterStatusStatusEnumType? Status { get; set; }
         /// <summary>
         /// Current missing management plane nodes
         /// </summary>
-        [JsonProperty(PropertyName = "offline_nodes")]
-        [NSXTProperty(IsRequired: false, Description: @"Current missing management plane nodes")]
         public IList<NSXTManagementPlaneBaseNodeInfoType> OfflineNodes { get; set; }
         /// <summary>
         /// The details of the cluster nodes required for cluster initialization
         /// </summary>
-        [JsonProperty(PropertyName = "required_members_for_initialization")]
-        [NSXTProperty(IsRequired: false, Description: @"The details of the cluster nodes required for cluster initialization")]
         public IList<NSXTClusterInitializationNodeInfoType> RequiredMembersForInitialization { get; set; }
         /// <summary>
         /// Current alive management plane nodes
         /// </summary>
-        [JsonProperty(PropertyName = "online_nodes")]
-        [NSXTProperty(IsRequired: false, Description: @"Current alive management plane nodes")]
         public IList<NSXTManagementPlaneBaseNodeInfoType> OnlineNodes { get; set; }
     }
 }

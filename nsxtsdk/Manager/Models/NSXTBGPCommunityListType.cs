@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,22 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTBGPCommunityListType : NSXTManagedResourceType
     {
-        public NSXTBGPCommunityListType()
-        {
-            CommunityType = test
-        }
         /// <summary>
         /// Array of BGP communities
         /// </summary>
         [JsonProperty(PropertyName = "communities", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Array of BGP communities")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<string> Communities { get; set; }
         /// <summary>
         /// Logical router id
         /// </summary>
-        [JsonProperty(PropertyName = "logical_router_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Logical router id")]
         public string? LogicalRouterId { get; set; }
         /// <summary>
         /// BGP community type. It has two types as
@@ -43,8 +35,6 @@ namespace nsxtsdk.ManagerModels
         /// in aa:bb:nn format where aa, bb, nn are unsigned integers in the range
         /// [1-4294967295].
         /// </summary>
-        [JsonProperty(PropertyName = "community_type")]
-        [NSXTProperty(IsRequired: false, Description: @"BGP community type. It has two types asNormalBGPCommunity BGP normal community which includes well-knowncommunity name as well as community value in range from [1-4294967295]or value in aa:nn format(aa/nn range from 1-65535).LargeBGPCommunity BGP large community which includes community valuein aa:bb:nn format where aa, bb, nn are unsigned integers in the range[1-4294967295].")]
         public NSXTBgpcommunityListCommunityTypeEnumType? CommunityType { get; set; }
     }
 }

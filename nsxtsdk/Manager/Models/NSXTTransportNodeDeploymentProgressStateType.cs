@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,20 +17,13 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Deployment progress state of transport node. Object has current deployment step title and progress in percentage.")]
     public class NSXTTransportNodeDeploymentProgressStateType 
     {
-        public NSXTTransportNodeDeploymentProgressStateType()
-        {
-        }
         /// <summary>
         /// Percentage of deployment completed
         /// </summary>
-        [JsonProperty(PropertyName = "progress")]
-        [NSXTProperty(IsRequired: false, Description: @"Percentage of deployment completed")]
         public long? Progress { get; set; }
         /// <summary>
         /// Deployment step title
         /// </summary>
-        [JsonProperty(PropertyName = "current_step_title")]
-        [NSXTProperty(IsRequired: false, Description: @"Deployment step title")]
         public string? CurrentStepTitle { get; set; }
     }
 }

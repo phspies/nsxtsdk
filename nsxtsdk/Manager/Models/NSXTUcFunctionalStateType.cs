@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,20 +17,13 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Upgrade coordinator Uc functional State.")]
     public class NSXTUcFunctionalStateType 
     {
-        public NSXTUcFunctionalStateType()
-        {
-        }
         /// <summary>
         /// function state of the upgrade coordinator
         /// </summary>
-        [JsonProperty(PropertyName = "state")]
-        [NSXTProperty(IsRequired: false, Description: @"function state of the upgrade coordinator")]
         public NSXTUcFunctionalStateStateEnumType? State { get; set; }
         /// <summary>
         /// error message that explains why UC is on standby mode.
         /// </summary>
-        [JsonProperty(PropertyName = "error_message")]
-        [NSXTProperty(IsRequired: false, Description: @"error message that explains why UC is on standby mode.")]
         public string? ErrorMessage { get; set; }
     }
 }

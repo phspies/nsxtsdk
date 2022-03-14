@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,26 +17,17 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNodeRtepIpsConfigType 
     {
-        public NSXTNodeRtepIpsConfigType()
-        {
-        }
         /// <summary>
         /// System generated index for cluster member
         /// </summary>
-        [JsonProperty(PropertyName = "member_index")]
-        [NSXTProperty(IsRequired: false, Description: @"System generated index for cluster member")]
         public int? MemberIndex { get; set; }
         /// <summary>
         /// Remote tunnel endpoint ip address.
         /// </summary>
-        [JsonProperty(PropertyName = "rtep_ips")]
-        [NSXTProperty(IsRequired: false, Description: @"Remote tunnel endpoint ip address.")]
         public IList<string> RtepIps { get; set; }
         /// <summary>
         /// Identifier of the transport node backed by an Edge node
         /// </summary>
-        [JsonProperty(PropertyName = "transport_node_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Identifier of the transport node backed by an Edge node")]
         public string? TransportNodeId { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,117 +17,80 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLBStatisticsCounterType 
     {
-        public NSXTLBStatisticsCounterType()
-        {
-        }
         /// <summary>
         /// Number of source IP persistence entries
         /// </summary>
-        [JsonProperty(PropertyName = "source_ip_persistence_entry_size")]
-        [NSXTProperty(IsRequired: false, Description: @"Number of source IP persistence entries")]
         public long? SourceIpPersistenceEntrySize { get; set; }
         /// <summary>
         /// Number of packets out.
         /// </summary>
-        [JsonProperty(PropertyName = "packets_out")]
-        [NSXTProperty(IsRequired: false, Description: @"Number of packets out.")]
         public long? PacketsOut { get; set; }
         /// <summary>
         /// The total number of dropped TCP SYN or UDP packets by access list
         /// control.
         /// </summary>
-        [JsonProperty(PropertyName = "dropped_packets_by_access_list")]
-        [NSXTProperty(IsRequired: false, Description: @"The total number of dropped TCP SYN or UDP packets by access listcontrol.")]
         public long? DroppedPacketsByAccessList { get; set; }
         /// <summary>
         /// The average number of outbound bytes per second, the number is
         /// averaged over the last 5 one-second intervals.
         /// </summary>
-        [JsonProperty(PropertyName = "bytes_out_rate")]
-        [NSXTProperty(IsRequired: false, Description: @"The average number of outbound bytes per second, the number isaveraged over the last 5 one-second intervals.")]
         public double? BytesOutRate { get; set; }
         /// <summary>
         /// Number of total sessions.
         /// </summary>
-        [JsonProperty(PropertyName = "total_sessions")]
-        [NSXTProperty(IsRequired: false, Description: @"Number of total sessions.")]
         public long? TotalSessions { get; set; }
         /// <summary>
         /// The average number of http requests per second, the number is
         /// averaged over the last 5 one-second intervals.
         /// </summary>
-        [JsonProperty(PropertyName = "http_request_rate")]
-        [NSXTProperty(IsRequired: false, Description: @"The average number of http requests per second, the number isaveraged over the last 5 one-second intervals.")]
         public double? HttpRequestRate { get; set; }
         /// <summary>
         /// Number of bytes out.
         /// </summary>
-        [JsonProperty(PropertyName = "bytes_out")]
-        [NSXTProperty(IsRequired: false, Description: @"Number of bytes out.")]
         public long? BytesOut { get; set; }
         /// <summary>
         /// The average number of inbound packets per second, the number is
         /// averaged over the last 5 one-second intervals.
         /// </summary>
-        [JsonProperty(PropertyName = "packets_in_rate")]
-        [NSXTProperty(IsRequired: false, Description: @"The average number of inbound packets per second, the number isaveraged over the last 5 one-second intervals.")]
         public double? PacketsInRate { get; set; }
         /// <summary>
         /// The average number of inbound bytes per second, the number is
         /// averaged over the last 5 one-second intervals.
         /// </summary>
-        [JsonProperty(PropertyName = "bytes_in_rate")]
-        [NSXTProperty(IsRequired: false, Description: @"The average number of inbound bytes per second, the number isaveraged over the last 5 one-second intervals.")]
         public double? BytesInRate { get; set; }
         /// <summary>
         /// Number of current sessions.
         /// </summary>
-        [JsonProperty(PropertyName = "current_sessions")]
-        [NSXTProperty(IsRequired: false, Description: @"Number of current sessions.")]
         public long? CurrentSessions { get; set; }
         /// <summary>
         /// Number of maximum sessions.
         /// </summary>
-        [JsonProperty(PropertyName = "max_sessions")]
-        [NSXTProperty(IsRequired: false, Description: @"Number of maximum sessions.")]
         public long? MaxSessions { get; set; }
         /// <summary>
         /// The average number of outbound packets per second, the number is
         /// averaged over the last 5 one-second intervals.
         /// </summary>
-        [JsonProperty(PropertyName = "packets_out_rate")]
-        [NSXTProperty(IsRequired: false, Description: @"The average number of outbound packets per second, the number isaveraged over the last 5 one-second intervals.")]
         public double? PacketsOutRate { get; set; }
         /// <summary>
         /// The total number of http requests.
         /// </summary>
-        [JsonProperty(PropertyName = "http_requests")]
-        [NSXTProperty(IsRequired: false, Description: @"The total number of http requests.")]
         public long? HttpRequests { get; set; }
         /// <summary>
         /// Number of bytes in.
         /// </summary>
-        [JsonProperty(PropertyName = "bytes_in")]
-        [NSXTProperty(IsRequired: false, Description: @"Number of bytes in.")]
         public long? BytesIn { get; set; }
         /// <summary>
         /// The average number of current sessions per second, the number is
         /// averaged over the last 5 one-second intervals.
         /// </summary>
-        [JsonProperty(PropertyName = "current_session_rate")]
-        [NSXTProperty(IsRequired: false, Description: @"The average number of current sessions per second, the number isaveraged over the last 5 one-second intervals.")]
         public double? CurrentSessionRate { get; set; }
         /// <summary>
         /// The total number of dropped sessions by LB rule action.
         /// </summary>
-        [JsonProperty(PropertyName = "dropped_sessions_by_lbrule_action")]
-        [NSXTProperty(IsRequired: false, Description: @"The total number of dropped sessions by LB rule action.")]
         public long? DroppedSessionsByLbruleAction { get; set; }
         /// <summary>
         /// Number of packets in.
         /// </summary>
-        [JsonProperty(PropertyName = "packets_in")]
-        [NSXTProperty(IsRequired: false, Description: @"Number of packets in.")]
         public long? PacketsIn { get; set; }
     }
 }

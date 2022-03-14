@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,22 +17,15 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTEdgeClusterMemberTransportNodeType 
     {
-        public NSXTEdgeClusterMemberTransportNodeType()
-        {
-        }
         /// <summary>
         /// System generated index for cluster member
         /// </summary>
         [JsonProperty(PropertyName = "member_index", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"System generated index for cluster member")]
-        [System.ComponentModel.DataAnnotations.Required]
         public int MemberIndex { get; set; }
         /// <summary>
         /// Identifier of the transport node backed by an Edge node
         /// </summary>
         [JsonProperty(PropertyName = "transport_node_id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Identifier of the transport node backed by an Edge node")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string TransportNodeId { get; set; }
     }
 }

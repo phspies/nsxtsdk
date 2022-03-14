@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public IDSMetrics(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public IDSMetrics(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIDSEventsBySignatureResultType GetAllIdsEvents(NSXTIDSEventDataRequestType IdseventDataRequest)
+        public async Task<NSXTIDSEventsBySignatureResultType> GetAllIdsEvents(NSXTIDSEventDataRequestType IdseventDataRequest)
         {
             if (IdseventDataRequest == null) { throw new System.ArgumentNullException("IdseventDataRequest cannot be null"); }
             NSXTIDSEventsBySignatureResultType returnValue = default(NSXTIDSEventsBySignatureResultType);
@@ -43,31 +50,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(IdseventDataRequest, defaultSerializationSettings));
             request.Resource = GetAllIdsEventsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIDSEventsBySignatureResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIDSEventsBySignatureResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + GetAllIdsEventsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIDSEventsBySignatureResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIDSEventsBySignatureResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIdsVmListType GetAffectedVms(NSXTIDSEventDataRequestType IdseventDataRequest, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTIdsVmListType> GetAffectedVms(NSXTIDSEventDataRequestType IdseventDataRequest, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (IdseventDataRequest == null) { throw new System.ArgumentNullException("IdseventDataRequest cannot be null"); }
             NSXTIdsVmListType returnValue = default(NSXTIdsVmListType);
@@ -85,31 +80,19 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GetAffectedVmsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIdsVmListType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIdsVmListType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + GetAffectedVmsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIdsVmListType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIdsVmListType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIDSSummaryListResultType GetIdsDashboardSummary(NSXTIDSEventDataRequestType IdseventDataRequest, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTIDSSummaryListResultType> GetIdsDashboardSummary(NSXTIDSEventDataRequestType IdseventDataRequest, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (IdseventDataRequest == null) { throw new System.ArgumentNullException("IdseventDataRequest cannot be null"); }
             NSXTIDSSummaryListResultType returnValue = default(NSXTIDSSummaryListResultType);
@@ -127,31 +110,19 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GetIdsDashboardSummaryServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIDSSummaryListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIDSSummaryListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + GetIdsDashboardSummaryServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIDSSummaryListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIDSSummaryListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIdsUserListType GetAffectedUsers(NSXTIDSEventDataRequestType IdseventDataRequest, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTIdsUserListType> GetAffectedUsers(NSXTIDSEventDataRequestType IdseventDataRequest, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (IdseventDataRequest == null) { throw new System.ArgumentNullException("IdseventDataRequest cannot be null"); }
             NSXTIdsUserListType returnValue = default(NSXTIdsUserListType);
@@ -169,25 +140,13 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GetAffectedUsersServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIdsUserListType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIdsUserListType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + GetAffectedUsersServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIdsUserListType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIdsUserListType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTDnsSecurityProfileBindingMapListResultType : NSXTListResultType
     {
-        public NSXTDnsSecurityProfileBindingMapListResultType()
-        {
-        }
         /// <summary>
         /// DNS Security Profile Binding Map List Results
         /// </summary>
-        [JsonProperty(PropertyName = "results")]
-        [NSXTProperty(IsRequired: false, Description: @"DNS Security Profile Binding Map List Results")]
         public IList<NSXTDnsSecurityProfileBindingMapType> Results { get; set; }
     }
 }

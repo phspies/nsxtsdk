@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,20 +17,13 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyComplianceStatusType 
     {
-        public NSXTPolicyComplianceStatusType()
-        {
-        }
         /// <summary>
         /// Timestamp of last update
         /// </summary>
-        [JsonProperty(PropertyName = "last_updated_time")]
-        [NSXTProperty(IsRequired: false, Description: @"Timestamp of last update")]
         public long? LastUpdatedTime { get; set; }
         /// <summary>
         /// List of non compliant configuration and impacted services
         /// </summary>
-        [JsonProperty(PropertyName = "non_compliant_configs")]
-        [NSXTProperty(IsRequired: false, Description: @"List of non compliant configuration and impacted services")]
         public IList<NSXTPolicyNonCompliantConfigType> NonCompliantConfigs { get; set; }
     }
 }

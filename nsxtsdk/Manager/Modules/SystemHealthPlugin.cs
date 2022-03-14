@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public SystemHealthPlugin(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public SystemHealthPlugin(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSystemHealthPluginProfileType CreateSystemHealthPlugin(NSXTSystemHealthPluginProfileType SystemHealthPluginProfile)
+        public async Task<NSXTSystemHealthPluginProfileType> CreateSystemHealthPlugin(NSXTSystemHealthPluginProfileType SystemHealthPluginProfile)
         {
             if (SystemHealthPluginProfile == null) { throw new System.ArgumentNullException("SystemHealthPluginProfile cannot be null"); }
             NSXTSystemHealthPluginProfileType returnValue = default(NSXTSystemHealthPluginProfileType);
@@ -43,31 +50,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(SystemHealthPluginProfile, defaultSerializationSettings));
             request.Resource = CreateSystemHealthPluginServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTSystemHealthPluginProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTSystemHealthPluginProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CreateSystemHealthPluginServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSystemHealthPluginProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSystemHealthPluginProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSystemHealthPluginProfileListType ListAllSystemHealthPlugins(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTSystemHealthPluginProfileListType> ListAllSystemHealthPlugins(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTSystemHealthPluginProfileListType returnValue = default(NSXTSystemHealthPluginProfileListType);
             StringBuilder ListAllSystemHealthPluginsServiceURL = new StringBuilder("/systemhealth/plugins");
@@ -83,31 +78,19 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListAllSystemHealthPluginsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTSystemHealthPluginProfileListType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTSystemHealthPluginProfileListType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListAllSystemHealthPluginsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSystemHealthPluginProfileListType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSystemHealthPluginProfileListType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSystemHealthPluginProfileType ShowSystemHealthPlugin(string PluginId)
+        public async Task<NSXTSystemHealthPluginProfileType> ShowSystemHealthPlugin(string PluginId)
         {
             if (PluginId == null) { throw new System.ArgumentNullException("PluginId cannot be null"); }
             NSXTSystemHealthPluginProfileType returnValue = default(NSXTSystemHealthPluginProfileType);
@@ -120,31 +103,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             ShowSystemHealthPluginServiceURL.Replace("{plugin-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PluginId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ShowSystemHealthPluginServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTSystemHealthPluginProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTSystemHealthPluginProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ShowSystemHealthPluginServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSystemHealthPluginProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSystemHealthPluginProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteSystemHealthPlugin(string PluginId)
+        public async Task DeleteSystemHealthPlugin(string PluginId)
         {
             if (PluginId == null) { throw new System.ArgumentNullException("PluginId cannot be null"); }
             
@@ -157,7 +128,7 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             DeleteSystemHealthPluginServiceURL.Replace("{plugin-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PluginId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteSystemHealthPluginServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteSystemHealthPluginServiceURL.ToString() + " did not complete successfull";
@@ -169,7 +140,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPluginFilePropertiesType CreatePluginFile(string FileName, string PluginId)
+        public async Task<NSXTPluginFilePropertiesType> CreatePluginFile(string FileName, string PluginId)
         {
             if (FileName == null) { throw new System.ArgumentNullException("FileName cannot be null"); }
             if (PluginId == null) { throw new System.ArgumentNullException("PluginId cannot be null"); }
@@ -184,31 +155,19 @@ namespace nsxtapi.ManagerModules
             CreatePluginFileServiceURL.Replace("{file-name}", System.Uri.EscapeDataString(Helpers.ConvertToString(FileName, System.Globalization.CultureInfo.InvariantCulture)));
             CreatePluginFileServiceURL.Replace("{plugin-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PluginId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = CreatePluginFileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPluginFilePropertiesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPluginFilePropertiesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CreatePluginFileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPluginFilePropertiesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPluginFilePropertiesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPluginStatusListType ShowSystemHealthPluginOnNode(string NodeId)
+        public async Task<NSXTPluginStatusListType> ShowSystemHealthPluginOnNode(string NodeId)
         {
             if (NodeId == null) { throw new System.ArgumentNullException("NodeId cannot be null"); }
             NSXTPluginStatusListType returnValue = default(NSXTPluginStatusListType);
@@ -221,25 +180,13 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             ShowSystemHealthPluginOnNodeServiceURL.Replace("{node-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NodeId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ShowSystemHealthPluginOnNodeServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPluginStatusListType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPluginStatusListType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ShowSystemHealthPluginOnNodeServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPluginStatusListType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPluginStatusListType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

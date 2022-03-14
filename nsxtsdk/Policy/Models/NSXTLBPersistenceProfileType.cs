@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -21,9 +21,6 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLBPersistenceProfileType : NSXTPolicyConfigResourceType
     {
-        public NSXTLBPersistenceProfileType()
-        {
-        }
         /// <summary>
         /// Persistence shared setting indicates that all LBVirtualServers
         /// that consume this LBPersistenceProfile should share the same
@@ -45,8 +42,6 @@ namespace nsxtsdk.PolicyModels
         /// persistence table will be shared across virtual servers which consume
         /// the same persistence profile in LBRule actions.
         /// </summary>
-        [JsonProperty(PropertyName = "persistence_shared")]
-        [NSXTProperty(IsRequired: false, Description: @"Persistence shared setting indicates that all LBVirtualServersthat consume this LBPersistenceProfile should share the samepersistence mechanism when enabled.  Meaning, persistence entries ofa client accessing one virtual server will also affect the sameclient&apos;s connections to a different virtual server. For example, saythere are two virtual servers vip-ip1:80 and vip-ip1:8080 bound tothe same Group g1 consisting of two servers (s11:80 and s12:80). Bydefault, each virtual server will have its own persistence table orcookie. So, in the earlier example, there will be two tables(vip-ip1:80, p1) and (vip-ip1:8080, p1) or cookies. So, if a clientconnects to vip1:80 and later connects to vip1:8080, the secondconnection may be sent to a different server than the first.  Whenpersistence_shared is enabled, then the second connection will alwaysconnect to the same server as the original connection. For COOKIEpersistence type, the same cookie will be shared by multiple virtualservers. For SOURCE_IP persistence type, the persistence table willbe shared across virtual servers. For GENERIC persistence type, thepersistence table will be shared across virtual servers which consumethe same persistence profile in LBRule actions.")]
         public bool? PersistenceShared { get; set; }
         /// <summary>
         /// The resource_type property identifies persistence profile type.
@@ -54,8 +49,6 @@ namespace nsxtsdk.PolicyModels
         /// deprecated as NSX-T Load Balancer is deprecated.
         /// </summary>
         [JsonProperty(PropertyName = "resource_type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"The resource_type property identifies persistence profile type.LBCookiePersistenceProfile and LBGenericPersistenceProfile aredeprecated as NSX-T Load Balancer is deprecated.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTLbpersistenceProfileResourceTypeEnumType ResourceType { get; set; }
     }
 }

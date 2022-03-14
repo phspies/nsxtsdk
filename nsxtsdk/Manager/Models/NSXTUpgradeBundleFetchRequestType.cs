@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"URL and other fetch requests of upgrade bundle")]
     public class NSXTUpgradeBundleFetchRequestType 
     {
-        public NSXTUpgradeBundleFetchRequestType()
-        {
-        }
         /// <summary>
         /// URL for uploading upgrade bundle
         /// </summary>
         [JsonProperty(PropertyName = "url", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"URL for uploading upgrade bundle")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Url { get; set; }
     }
 }

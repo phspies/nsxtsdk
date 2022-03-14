@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,27 +17,18 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"SNMP v3 user properties")]
     public class NSXTSnmpV3UserType 
     {
-        public NSXTSnmpV3UserType()
-        {
-        }
         /// <summary>
         /// SNMP v3 user private password
         /// </summary>
-        [JsonProperty(PropertyName = "priv_password")]
-        [NSXTProperty(IsRequired: false, Description: @"SNMP v3 user private password")]
         public string? PrivPassword { get; set; }
         /// <summary>
         /// SNMP v3 user auth password
         /// </summary>
-        [JsonProperty(PropertyName = "auth_password")]
-        [NSXTProperty(IsRequired: false, Description: @"SNMP v3 user auth password")]
         public string? AuthPassword { get; set; }
         /// <summary>
         /// SNMP v3 user ID
         /// </summary>
         [JsonProperty(PropertyName = "user_id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"SNMP v3 user ID")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string UserId { get; set; }
     }
 }

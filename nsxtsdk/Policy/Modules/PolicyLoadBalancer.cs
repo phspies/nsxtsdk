@@ -21,16 +21,23 @@ namespace nsxtapi.PolicyModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public PolicyLoadBalancer(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public PolicyLoadBalancer(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLBServiceListResultType ListLbservices(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTLBServiceListResultType> ListLbservices(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTLBServiceListResultType returnValue = default(NSXTLBServiceListResultType);
             StringBuilder ListLbservicesServiceURL = new StringBuilder("/infra/lb-services");
@@ -47,31 +54,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListLbservicesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLBServiceListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLBServiceListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListLbservicesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLBServiceListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLBServiceListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLbSslCipherAndProtocolListResultType ListSslCiphersAndProtocols(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTLbSslCipherAndProtocolListResultType> ListSslCiphersAndProtocols(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTLbSslCipherAndProtocolListResultType returnValue = default(NSXTLbSslCipherAndProtocolListResultType);
             StringBuilder ListSslCiphersAndProtocolsServiceURL = new StringBuilder("/infra/lb-ssl-ciphers-and-protocols");
@@ -88,31 +83,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListSslCiphersAndProtocolsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLbSslCipherAndProtocolListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLbSslCipherAndProtocolListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListSslCiphersAndProtocolsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLbSslCipherAndProtocolListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLbSslCipherAndProtocolListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLBClientSslProfileType UpdateLbclientSslProfile(string LbClientSslProfileId, NSXTLBClientSslProfileType LbclientSslProfile)
+        public async Task<NSXTLBClientSslProfileType> UpdateLbclientSslProfile(string LbClientSslProfileId, NSXTLBClientSslProfileType LbclientSslProfile)
         {
             if (LbClientSslProfileId == null) { throw new System.ArgumentNullException("LbClientSslProfileId cannot be null"); }
             if (LbclientSslProfile == null) { throw new System.ArgumentNullException("LbclientSslProfile cannot be null"); }
@@ -127,31 +110,19 @@ namespace nsxtapi.PolicyModules
             UpdateLbclientSslProfileServiceURL.Replace("{lb-client-ssl-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LbClientSslProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(LbclientSslProfile, defaultSerializationSettings));
             request.Resource = UpdateLbclientSslProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLBClientSslProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLBClientSslProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateLbclientSslProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLBClientSslProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLBClientSslProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteLbclientSslProfile(string LbClientSslProfileId, bool? Force = null)
+        public async Task DeleteLbclientSslProfile(string LbClientSslProfileId, bool? Force = null)
         {
             if (LbClientSslProfileId == null) { throw new System.ArgumentNullException("LbClientSslProfileId cannot be null"); }
             
@@ -165,7 +136,7 @@ namespace nsxtapi.PolicyModules
             DeleteLbclientSslProfileServiceURL.Replace("{lb-client-ssl-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LbClientSslProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
             request.Resource = DeleteLbclientSslProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteLbclientSslProfileServiceURL.ToString() + " did not complete successfull";
@@ -177,7 +148,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchLbclientSslProfile(string LbClientSslProfileId, NSXTLBClientSslProfileType LbclientSslProfile)
+        public async Task PatchLbclientSslProfile(string LbClientSslProfileId, NSXTLBClientSslProfileType LbclientSslProfile)
         {
             if (LbClientSslProfileId == null) { throw new System.ArgumentNullException("LbClientSslProfileId cannot be null"); }
             if (LbclientSslProfile == null) { throw new System.ArgumentNullException("LbclientSslProfile cannot be null"); }
@@ -192,7 +163,7 @@ namespace nsxtapi.PolicyModules
             PatchLbclientSslProfileServiceURL.Replace("{lb-client-ssl-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LbClientSslProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(LbclientSslProfile, defaultSerializationSettings));
             request.Resource = PatchLbclientSslProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchLbclientSslProfileServiceURL.ToString() + " did not complete successfull";
@@ -204,7 +175,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLBClientSslProfileType ReadLbclientSslProfile(string LbClientSslProfileId)
+        public async Task<NSXTLBClientSslProfileType> ReadLbclientSslProfile(string LbClientSslProfileId)
         {
             if (LbClientSslProfileId == null) { throw new System.ArgumentNullException("LbClientSslProfileId cannot be null"); }
             NSXTLBClientSslProfileType returnValue = default(NSXTLBClientSslProfileType);
@@ -217,31 +188,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ReadLbclientSslProfileServiceURL.Replace("{lb-client-ssl-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LbClientSslProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadLbclientSslProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLBClientSslProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLBClientSslProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadLbclientSslProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLBClientSslProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLBClientSslProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLBServiceType UpdateLbservice(string LbServiceId, NSXTLBServiceType Lbservice)
+        public async Task<NSXTLBServiceType> UpdateLbservice(string LbServiceId, NSXTLBServiceType Lbservice)
         {
             if (LbServiceId == null) { throw new System.ArgumentNullException("LbServiceId cannot be null"); }
             if (Lbservice == null) { throw new System.ArgumentNullException("Lbservice cannot be null"); }
@@ -256,31 +215,19 @@ namespace nsxtapi.PolicyModules
             UpdateLbserviceServiceURL.Replace("{lb-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LbServiceId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(Lbservice, defaultSerializationSettings));
             request.Resource = UpdateLbserviceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLBServiceType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLBServiceType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateLbserviceServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLBServiceType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLBServiceType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLBServiceType ReadLbservice(string LbServiceId)
+        public async Task<NSXTLBServiceType> ReadLbservice(string LbServiceId)
         {
             if (LbServiceId == null) { throw new System.ArgumentNullException("LbServiceId cannot be null"); }
             NSXTLBServiceType returnValue = default(NSXTLBServiceType);
@@ -293,31 +240,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ReadLbserviceServiceURL.Replace("{lb-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LbServiceId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadLbserviceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLBServiceType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLBServiceType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadLbserviceServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLBServiceType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLBServiceType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchLbservice(string LbServiceId, NSXTLBServiceType Lbservice)
+        public async Task PatchLbservice(string LbServiceId, NSXTLBServiceType Lbservice)
         {
             if (LbServiceId == null) { throw new System.ArgumentNullException("LbServiceId cannot be null"); }
             if (Lbservice == null) { throw new System.ArgumentNullException("Lbservice cannot be null"); }
@@ -332,7 +267,7 @@ namespace nsxtapi.PolicyModules
             PatchLbserviceServiceURL.Replace("{lb-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LbServiceId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(Lbservice, defaultSerializationSettings));
             request.Resource = PatchLbserviceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchLbserviceServiceURL.ToString() + " did not complete successfull";
@@ -344,7 +279,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteLbservice(string LbServiceId, bool? Force = null)
+        public async Task DeleteLbservice(string LbServiceId, bool? Force = null)
         {
             if (LbServiceId == null) { throw new System.ArgumentNullException("LbServiceId cannot be null"); }
             
@@ -358,7 +293,7 @@ namespace nsxtapi.PolicyModules
             DeleteLbserviceServiceURL.Replace("{lb-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LbServiceId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
             request.Resource = DeleteLbserviceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteLbserviceServiceURL.ToString() + " did not complete successfull";
@@ -370,7 +305,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLBPersistenceProfileListResultType ListLbpersistenceProfiles(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTLBPersistenceProfileListResultType> ListLbpersistenceProfiles(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTLBPersistenceProfileListResultType returnValue = default(NSXTLBPersistenceProfileListResultType);
             StringBuilder ListLbpersistenceProfilesServiceURL = new StringBuilder("/infra/lb-persistence-profiles");
@@ -387,31 +322,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListLbpersistenceProfilesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLBPersistenceProfileListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLBPersistenceProfileListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListLbpersistenceProfilesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLBPersistenceProfileListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLBPersistenceProfileListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLBClientSslProfileListResultType ListLbclientSslProfiles(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTLBClientSslProfileListResultType> ListLbclientSslProfiles(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTLBClientSslProfileListResultType returnValue = default(NSXTLBClientSslProfileListResultType);
             StringBuilder ListLbclientSslProfilesServiceURL = new StringBuilder("/infra/lb-client-ssl-profiles");
@@ -428,31 +351,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListLbclientSslProfilesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLBClientSslProfileListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLBClientSslProfileListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListLbclientSslProfilesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLBClientSslProfileListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLBClientSslProfileListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLBServerSslProfileListResultType ListLbserverSslProfiles(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTLBServerSslProfileListResultType> ListLbserverSslProfiles(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTLBServerSslProfileListResultType returnValue = default(NSXTLBServerSslProfileListResultType);
             StringBuilder ListLbserverSslProfilesServiceURL = new StringBuilder("/infra/lb-server-ssl-profiles");
@@ -469,31 +380,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListLbserverSslProfilesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLBServerSslProfileListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLBServerSslProfileListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListLbserverSslProfilesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLBServerSslProfileListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLBServerSslProfileListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLBMonitorProfileListResultType ListLbmonitorProfiles(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTLBMonitorProfileListResultType> ListLbmonitorProfiles(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTLBMonitorProfileListResultType returnValue = default(NSXTLBMonitorProfileListResultType);
             StringBuilder ListLbmonitorProfilesServiceURL = new StringBuilder("/infra/lb-monitor-profiles");
@@ -510,31 +409,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListLbmonitorProfilesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLBMonitorProfileListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLBMonitorProfileListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListLbmonitorProfilesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLBMonitorProfileListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLBMonitorProfileListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLBPersistenceProfileType UpdateLbpersistenceProfile(string LbPersistenceProfileId, NSXTLBPersistenceProfileType LbpersistenceProfile)
+        public async Task<NSXTLBPersistenceProfileType> UpdateLbpersistenceProfile(string LbPersistenceProfileId, NSXTLBPersistenceProfileType LbpersistenceProfile)
         {
             if (LbPersistenceProfileId == null) { throw new System.ArgumentNullException("LbPersistenceProfileId cannot be null"); }
             if (LbpersistenceProfile == null) { throw new System.ArgumentNullException("LbpersistenceProfile cannot be null"); }
@@ -549,31 +436,19 @@ namespace nsxtapi.PolicyModules
             UpdateLbpersistenceProfileServiceURL.Replace("{lb-persistence-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LbPersistenceProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(LbpersistenceProfile, defaultSerializationSettings));
             request.Resource = UpdateLbpersistenceProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLBPersistenceProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLBPersistenceProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateLbpersistenceProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLBPersistenceProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLBPersistenceProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchLbpersistenceProfile(string LbPersistenceProfileId, NSXTLBPersistenceProfileType LbpersistenceProfile)
+        public async Task PatchLbpersistenceProfile(string LbPersistenceProfileId, NSXTLBPersistenceProfileType LbpersistenceProfile)
         {
             if (LbPersistenceProfileId == null) { throw new System.ArgumentNullException("LbPersistenceProfileId cannot be null"); }
             if (LbpersistenceProfile == null) { throw new System.ArgumentNullException("LbpersistenceProfile cannot be null"); }
@@ -588,7 +463,7 @@ namespace nsxtapi.PolicyModules
             PatchLbpersistenceProfileServiceURL.Replace("{lb-persistence-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LbPersistenceProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(LbpersistenceProfile, defaultSerializationSettings));
             request.Resource = PatchLbpersistenceProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchLbpersistenceProfileServiceURL.ToString() + " did not complete successfull";
@@ -600,7 +475,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLBPersistenceProfileType ReadLbpersistenceProfile(string LbPersistenceProfileId)
+        public async Task<NSXTLBPersistenceProfileType> ReadLbpersistenceProfile(string LbPersistenceProfileId)
         {
             if (LbPersistenceProfileId == null) { throw new System.ArgumentNullException("LbPersistenceProfileId cannot be null"); }
             NSXTLBPersistenceProfileType returnValue = default(NSXTLBPersistenceProfileType);
@@ -613,31 +488,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ReadLbpersistenceProfileServiceURL.Replace("{lb-persistence-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LbPersistenceProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadLbpersistenceProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLBPersistenceProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLBPersistenceProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadLbpersistenceProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLBPersistenceProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLBPersistenceProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteLbpersistenceProfile(string LbPersistenceProfileId, bool? Force = null)
+        public async Task DeleteLbpersistenceProfile(string LbPersistenceProfileId, bool? Force = null)
         {
             if (LbPersistenceProfileId == null) { throw new System.ArgumentNullException("LbPersistenceProfileId cannot be null"); }
             
@@ -651,7 +514,7 @@ namespace nsxtapi.PolicyModules
             DeleteLbpersistenceProfileServiceURL.Replace("{lb-persistence-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LbPersistenceProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
             request.Resource = DeleteLbpersistenceProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteLbpersistenceProfileServiceURL.ToString() + " did not complete successfull";
@@ -663,7 +526,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLBServerSslProfileType UpdateLbserverSslProfile(string LbServerSslProfileId, NSXTLBServerSslProfileType LbserverSslProfile)
+        public async Task<NSXTLBServerSslProfileType> UpdateLbserverSslProfile(string LbServerSslProfileId, NSXTLBServerSslProfileType LbserverSslProfile)
         {
             if (LbServerSslProfileId == null) { throw new System.ArgumentNullException("LbServerSslProfileId cannot be null"); }
             if (LbserverSslProfile == null) { throw new System.ArgumentNullException("LbserverSslProfile cannot be null"); }
@@ -678,31 +541,19 @@ namespace nsxtapi.PolicyModules
             UpdateLbserverSslProfileServiceURL.Replace("{lb-server-ssl-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LbServerSslProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(LbserverSslProfile, defaultSerializationSettings));
             request.Resource = UpdateLbserverSslProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLBServerSslProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLBServerSslProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateLbserverSslProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLBServerSslProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLBServerSslProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchLbserverSslProfile(string LbServerSslProfileId, NSXTLBServerSslProfileType LbserverSslProfile)
+        public async Task PatchLbserverSslProfile(string LbServerSslProfileId, NSXTLBServerSslProfileType LbserverSslProfile)
         {
             if (LbServerSslProfileId == null) { throw new System.ArgumentNullException("LbServerSslProfileId cannot be null"); }
             if (LbserverSslProfile == null) { throw new System.ArgumentNullException("LbserverSslProfile cannot be null"); }
@@ -717,7 +568,7 @@ namespace nsxtapi.PolicyModules
             PatchLbserverSslProfileServiceURL.Replace("{lb-server-ssl-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LbServerSslProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(LbserverSslProfile, defaultSerializationSettings));
             request.Resource = PatchLbserverSslProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchLbserverSslProfileServiceURL.ToString() + " did not complete successfull";
@@ -729,7 +580,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteLbserverSslProfile(string LbServerSslProfileId, bool? Force = null)
+        public async Task DeleteLbserverSslProfile(string LbServerSslProfileId, bool? Force = null)
         {
             if (LbServerSslProfileId == null) { throw new System.ArgumentNullException("LbServerSslProfileId cannot be null"); }
             
@@ -743,7 +594,7 @@ namespace nsxtapi.PolicyModules
             DeleteLbserverSslProfileServiceURL.Replace("{lb-server-ssl-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LbServerSslProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
             request.Resource = DeleteLbserverSslProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteLbserverSslProfileServiceURL.ToString() + " did not complete successfull";
@@ -755,7 +606,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLBServerSslProfileType ReadLbserverSslProfile(string LbServerSslProfileId)
+        public async Task<NSXTLBServerSslProfileType> ReadLbserverSslProfile(string LbServerSslProfileId)
         {
             if (LbServerSslProfileId == null) { throw new System.ArgumentNullException("LbServerSslProfileId cannot be null"); }
             NSXTLBServerSslProfileType returnValue = default(NSXTLBServerSslProfileType);
@@ -768,31 +619,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ReadLbserverSslProfileServiceURL.Replace("{lb-server-ssl-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LbServerSslProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadLbserverSslProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLBServerSslProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLBServerSslProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadLbserverSslProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLBServerSslProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLBServerSslProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLBMonitorProfileType UpdateLbmonitorProfile(string LbMonitorProfileId, NSXTLBMonitorProfileType LbmonitorProfile)
+        public async Task<NSXTLBMonitorProfileType> UpdateLbmonitorProfile(string LbMonitorProfileId, NSXTLBMonitorProfileType LbmonitorProfile)
         {
             if (LbMonitorProfileId == null) { throw new System.ArgumentNullException("LbMonitorProfileId cannot be null"); }
             if (LbmonitorProfile == null) { throw new System.ArgumentNullException("LbmonitorProfile cannot be null"); }
@@ -807,31 +646,19 @@ namespace nsxtapi.PolicyModules
             UpdateLbmonitorProfileServiceURL.Replace("{lb-monitor-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LbMonitorProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(LbmonitorProfile, defaultSerializationSettings));
             request.Resource = UpdateLbmonitorProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLBMonitorProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLBMonitorProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateLbmonitorProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLBMonitorProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLBMonitorProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLBMonitorProfileType ReadLbmonitorProfile(string LbMonitorProfileId)
+        public async Task<NSXTLBMonitorProfileType> ReadLbmonitorProfile(string LbMonitorProfileId)
         {
             if (LbMonitorProfileId == null) { throw new System.ArgumentNullException("LbMonitorProfileId cannot be null"); }
             NSXTLBMonitorProfileType returnValue = default(NSXTLBMonitorProfileType);
@@ -844,31 +671,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ReadLbmonitorProfileServiceURL.Replace("{lb-monitor-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LbMonitorProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadLbmonitorProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLBMonitorProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLBMonitorProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadLbmonitorProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLBMonitorProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLBMonitorProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteLbmonitorProfile(string LbMonitorProfileId, bool? Force = null)
+        public async Task DeleteLbmonitorProfile(string LbMonitorProfileId, bool? Force = null)
         {
             if (LbMonitorProfileId == null) { throw new System.ArgumentNullException("LbMonitorProfileId cannot be null"); }
             
@@ -882,7 +697,7 @@ namespace nsxtapi.PolicyModules
             DeleteLbmonitorProfileServiceURL.Replace("{lb-monitor-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LbMonitorProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
             request.Resource = DeleteLbmonitorProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteLbmonitorProfileServiceURL.ToString() + " did not complete successfull";
@@ -894,7 +709,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchLbmonitorProfile(string LbMonitorProfileId, NSXTLBMonitorProfileType LbmonitorProfile)
+        public async Task PatchLbmonitorProfile(string LbMonitorProfileId, NSXTLBMonitorProfileType LbmonitorProfile)
         {
             if (LbMonitorProfileId == null) { throw new System.ArgumentNullException("LbMonitorProfileId cannot be null"); }
             if (LbmonitorProfile == null) { throw new System.ArgumentNullException("LbmonitorProfile cannot be null"); }
@@ -909,7 +724,7 @@ namespace nsxtapi.PolicyModules
             PatchLbmonitorProfileServiceURL.Replace("{lb-monitor-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LbMonitorProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(LbmonitorProfile, defaultSerializationSettings));
             request.Resource = PatchLbmonitorProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchLbmonitorProfileServiceURL.ToString() + " did not complete successfull";
@@ -921,7 +736,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLBVirtualServerType UpdateLbvirtualServer(string LbVirtualServerId, NSXTLBVirtualServerType LbvirtualServer)
+        public async Task<NSXTLBVirtualServerType> UpdateLbvirtualServer(string LbVirtualServerId, NSXTLBVirtualServerType LbvirtualServer)
         {
             if (LbVirtualServerId == null) { throw new System.ArgumentNullException("LbVirtualServerId cannot be null"); }
             if (LbvirtualServer == null) { throw new System.ArgumentNullException("LbvirtualServer cannot be null"); }
@@ -936,31 +751,19 @@ namespace nsxtapi.PolicyModules
             UpdateLbvirtualServerServiceURL.Replace("{lb-virtual-server-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LbVirtualServerId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(LbvirtualServer, defaultSerializationSettings));
             request.Resource = UpdateLbvirtualServerServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLBVirtualServerType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLBVirtualServerType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateLbvirtualServerServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLBVirtualServerType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLBVirtualServerType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteLbvirtualServer(string LbVirtualServerId, bool? Force = null)
+        public async Task DeleteLbvirtualServer(string LbVirtualServerId, bool? Force = null)
         {
             if (LbVirtualServerId == null) { throw new System.ArgumentNullException("LbVirtualServerId cannot be null"); }
             
@@ -974,7 +777,7 @@ namespace nsxtapi.PolicyModules
             DeleteLbvirtualServerServiceURL.Replace("{lb-virtual-server-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LbVirtualServerId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
             request.Resource = DeleteLbvirtualServerServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteLbvirtualServerServiceURL.ToString() + " did not complete successfull";
@@ -986,7 +789,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchLbvirtualServer(string LbVirtualServerId, NSXTLBVirtualServerType LbvirtualServer)
+        public async Task PatchLbvirtualServer(string LbVirtualServerId, NSXTLBVirtualServerType LbvirtualServer)
         {
             if (LbVirtualServerId == null) { throw new System.ArgumentNullException("LbVirtualServerId cannot be null"); }
             if (LbvirtualServer == null) { throw new System.ArgumentNullException("LbvirtualServer cannot be null"); }
@@ -1001,7 +804,7 @@ namespace nsxtapi.PolicyModules
             PatchLbvirtualServerServiceURL.Replace("{lb-virtual-server-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LbVirtualServerId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(LbvirtualServer, defaultSerializationSettings));
             request.Resource = PatchLbvirtualServerServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchLbvirtualServerServiceURL.ToString() + " did not complete successfull";
@@ -1013,7 +816,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLBVirtualServerType ReadLbvirtualServer(string LbVirtualServerId)
+        public async Task<NSXTLBVirtualServerType> ReadLbvirtualServer(string LbVirtualServerId)
         {
             if (LbVirtualServerId == null) { throw new System.ArgumentNullException("LbVirtualServerId cannot be null"); }
             NSXTLBVirtualServerType returnValue = default(NSXTLBVirtualServerType);
@@ -1026,31 +829,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ReadLbvirtualServerServiceURL.Replace("{lb-virtual-server-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LbVirtualServerId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadLbvirtualServerServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLBVirtualServerType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLBVirtualServerType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadLbvirtualServerServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLBVirtualServerType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLBVirtualServerType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLBAppProfileListResultType ListLbappProfiles(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTLBAppProfileListResultType> ListLbappProfiles(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTLBAppProfileListResultType returnValue = default(NSXTLBAppProfileListResultType);
             StringBuilder ListLbappProfilesServiceURL = new StringBuilder("/infra/lb-app-profiles");
@@ -1067,31 +858,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListLbappProfilesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLBAppProfileListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLBAppProfileListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListLbappProfilesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLBAppProfileListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLBAppProfileListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLBPoolListResultType ListLbpools(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTLBPoolListResultType> ListLbpools(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTLBPoolListResultType returnValue = default(NSXTLBPoolListResultType);
             StringBuilder ListLbpoolsServiceURL = new StringBuilder("/infra/lb-pools");
@@ -1108,31 +887,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListLbpoolsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLBPoolListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLBPoolListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListLbpoolsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLBPoolListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLBPoolListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLBPoolType UpdateLbpool(string LbPoolId, NSXTLBPoolType Lbpool)
+        public async Task<NSXTLBPoolType> UpdateLbpool(string LbPoolId, NSXTLBPoolType Lbpool)
         {
             if (LbPoolId == null) { throw new System.ArgumentNullException("LbPoolId cannot be null"); }
             if (Lbpool == null) { throw new System.ArgumentNullException("Lbpool cannot be null"); }
@@ -1147,31 +914,19 @@ namespace nsxtapi.PolicyModules
             UpdateLbpoolServiceURL.Replace("{lb-pool-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LbPoolId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(Lbpool, defaultSerializationSettings));
             request.Resource = UpdateLbpoolServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLBPoolType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLBPoolType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateLbpoolServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLBPoolType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLBPoolType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLBPoolType ReadLbpool(string LbPoolId)
+        public async Task<NSXTLBPoolType> ReadLbpool(string LbPoolId)
         {
             if (LbPoolId == null) { throw new System.ArgumentNullException("LbPoolId cannot be null"); }
             NSXTLBPoolType returnValue = default(NSXTLBPoolType);
@@ -1184,31 +939,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ReadLbpoolServiceURL.Replace("{lb-pool-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LbPoolId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadLbpoolServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLBPoolType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLBPoolType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadLbpoolServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLBPoolType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLBPoolType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchLbpool(string LbPoolId, NSXTLBPoolType Lbpool)
+        public async Task PatchLbpool(string LbPoolId, NSXTLBPoolType Lbpool)
         {
             if (LbPoolId == null) { throw new System.ArgumentNullException("LbPoolId cannot be null"); }
             if (Lbpool == null) { throw new System.ArgumentNullException("Lbpool cannot be null"); }
@@ -1223,7 +966,7 @@ namespace nsxtapi.PolicyModules
             PatchLbpoolServiceURL.Replace("{lb-pool-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LbPoolId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(Lbpool, defaultSerializationSettings));
             request.Resource = PatchLbpoolServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchLbpoolServiceURL.ToString() + " did not complete successfull";
@@ -1235,7 +978,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteLbpool(string LbPoolId, bool? Force = null)
+        public async Task DeleteLbpool(string LbPoolId, bool? Force = null)
         {
             if (LbPoolId == null) { throw new System.ArgumentNullException("LbPoolId cannot be null"); }
             
@@ -1249,7 +992,7 @@ namespace nsxtapi.PolicyModules
             DeleteLbpoolServiceURL.Replace("{lb-pool-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LbPoolId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
             request.Resource = DeleteLbpoolServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteLbpoolServiceURL.ToString() + " did not complete successfull";
@@ -1261,7 +1004,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLBAppProfileType UpdateLbappProfile(string LbAppProfileId, NSXTLBAppProfileType LbappProfile)
+        public async Task<NSXTLBAppProfileType> UpdateLbappProfile(string LbAppProfileId, NSXTLBAppProfileType LbappProfile)
         {
             if (LbAppProfileId == null) { throw new System.ArgumentNullException("LbAppProfileId cannot be null"); }
             if (LbappProfile == null) { throw new System.ArgumentNullException("LbappProfile cannot be null"); }
@@ -1276,31 +1019,19 @@ namespace nsxtapi.PolicyModules
             UpdateLbappProfileServiceURL.Replace("{lb-app-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LbAppProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(LbappProfile, defaultSerializationSettings));
             request.Resource = UpdateLbappProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLBAppProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLBAppProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateLbappProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLBAppProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLBAppProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchLbappProfile(string LbAppProfileId, NSXTLBAppProfileType LbappProfile)
+        public async Task PatchLbappProfile(string LbAppProfileId, NSXTLBAppProfileType LbappProfile)
         {
             if (LbAppProfileId == null) { throw new System.ArgumentNullException("LbAppProfileId cannot be null"); }
             if (LbappProfile == null) { throw new System.ArgumentNullException("LbappProfile cannot be null"); }
@@ -1315,7 +1046,7 @@ namespace nsxtapi.PolicyModules
             PatchLbappProfileServiceURL.Replace("{lb-app-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LbAppProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(LbappProfile, defaultSerializationSettings));
             request.Resource = PatchLbappProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchLbappProfileServiceURL.ToString() + " did not complete successfull";
@@ -1327,7 +1058,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteLbappProfile(string LbAppProfileId, bool? Force = null)
+        public async Task DeleteLbappProfile(string LbAppProfileId, bool? Force = null)
         {
             if (LbAppProfileId == null) { throw new System.ArgumentNullException("LbAppProfileId cannot be null"); }
             
@@ -1341,7 +1072,7 @@ namespace nsxtapi.PolicyModules
             DeleteLbappProfileServiceURL.Replace("{lb-app-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LbAppProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
             request.Resource = DeleteLbappProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteLbappProfileServiceURL.ToString() + " did not complete successfull";
@@ -1353,7 +1084,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLBAppProfileType ReadLbappProfile(string LbAppProfileId)
+        public async Task<NSXTLBAppProfileType> ReadLbappProfile(string LbAppProfileId)
         {
             if (LbAppProfileId == null) { throw new System.ArgumentNullException("LbAppProfileId cannot be null"); }
             NSXTLBAppProfileType returnValue = default(NSXTLBAppProfileType);
@@ -1366,31 +1097,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             ReadLbappProfileServiceURL.Replace("{lb-app-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LbAppProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadLbappProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLBAppProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLBAppProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadLbappProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLBAppProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLBAppProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLBVirtualServerListResultType ListLbvirtualServers(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTLBVirtualServerListResultType> ListLbvirtualServers(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTLBVirtualServerListResultType returnValue = default(NSXTLBVirtualServerListResultType);
             StringBuilder ListLbvirtualServersServiceURL = new StringBuilder("/infra/lb-virtual-servers");
@@ -1407,25 +1126,13 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListLbvirtualServersServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLBVirtualServerListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLBVirtualServerListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListLbvirtualServersServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLBVirtualServerListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLBVirtualServerListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

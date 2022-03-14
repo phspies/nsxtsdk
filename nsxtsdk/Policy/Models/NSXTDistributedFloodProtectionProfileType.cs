@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,20 +17,13 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTDistributedFloodProtectionProfileType : NSXTFloodProtectionProfileType
     {
-        public NSXTDistributedFloodProtectionProfileType()
-        {
-        }
         /// <summary>
         /// If set to true, rst spoofing will be enabled. Flag is used only for distributed firewall profiles.
         /// </summary>
-        [JsonProperty(PropertyName = "enable_rst_spoofing")]
-        [NSXTProperty(IsRequired: false, Description: @"If set to true, rst spoofing will be enabled. Flag is used only for distributed firewall profiles.")]
         public bool? EnableRstSpoofing { get; set; }
         /// <summary>
         /// If set to true, sync cache will be enabled. Flag is used only for distributed firewall profiles.
         /// </summary>
-        [JsonProperty(PropertyName = "enable_syncache")]
-        [NSXTProperty(IsRequired: false, Description: @"If set to true, sync cache will be enabled. Flag is used only for distributed firewall profiles.")]
         public bool? EnableSyncache { get; set; }
     }
 }

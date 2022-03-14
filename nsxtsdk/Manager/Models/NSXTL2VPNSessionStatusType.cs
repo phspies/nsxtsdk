@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,32 +17,21 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"L2VPN session status.")]
     public class NSXTL2VPNSessionStatusType 
     {
-        public NSXTL2VPNSessionStatusType()
-        {
-        }
         /// <summary>
         /// L2 VPN session status, specifies UP/DOWN.
         /// </summary>
-        [JsonProperty(PropertyName = "status")]
-        [NSXTProperty(IsRequired: false, Description: @"L2 VPN session status, specifies UP/DOWN.")]
         public NSXTL2VpnsessionStatusStatusEnumType? Status { get; set; }
         /// <summary>
         /// Transport tunnels status.
         /// </summary>
-        [JsonProperty(PropertyName = "transport_tunnels")]
-        [NSXTProperty(IsRequired: false, Description: @"Transport tunnels status.")]
         public IList<NSXTL2VPNTransportTunnelStatusType> TransportTunnels { get; set; }
         /// <summary>
         /// L2VPN display name.
         /// </summary>
-        [JsonProperty(PropertyName = "display_name")]
-        [NSXTProperty(IsRequired: false, Description: @"L2VPN display name.")]
         public string? DisplayName { get; set; }
         /// <summary>
         /// L2VPN session identifier.
         /// </summary>
-        [JsonProperty(PropertyName = "session_id")]
-        [NSXTProperty(IsRequired: false, Description: @"L2VPN session identifier.")]
         public string? SessionId { get; set; }
     }
 }

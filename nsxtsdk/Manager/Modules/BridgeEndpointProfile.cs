@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public BridgeEndpointProfile(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public BridgeEndpointProfile(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTBridgeEndpointProfileType UpdateBridgeEndpointProfile(string BridgeendpointprofileId, NSXTBridgeEndpointProfileType BridgeEndpointProfile)
+        public async Task<NSXTBridgeEndpointProfileType> UpdateBridgeEndpointProfile(string BridgeendpointprofileId, NSXTBridgeEndpointProfileType BridgeEndpointProfile)
         {
             if (BridgeendpointprofileId == null) { throw new System.ArgumentNullException("BridgeendpointprofileId cannot be null"); }
             if (BridgeEndpointProfile == null) { throw new System.ArgumentNullException("BridgeEndpointProfile cannot be null"); }
@@ -45,31 +52,19 @@ namespace nsxtapi.ManagerModules
             UpdateBridgeEndpointProfileServiceURL.Replace("{bridgeendpointprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(BridgeendpointprofileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(BridgeEndpointProfile, defaultSerializationSettings));
             request.Resource = UpdateBridgeEndpointProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTBridgeEndpointProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTBridgeEndpointProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateBridgeEndpointProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTBridgeEndpointProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTBridgeEndpointProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTBridgeEndpointProfileType GetBridgeEndpointProfile(string BridgeendpointprofileId)
+        public async Task<NSXTBridgeEndpointProfileType> GetBridgeEndpointProfile(string BridgeendpointprofileId)
         {
             if (BridgeendpointprofileId == null) { throw new System.ArgumentNullException("BridgeendpointprofileId cannot be null"); }
             NSXTBridgeEndpointProfileType returnValue = default(NSXTBridgeEndpointProfileType);
@@ -82,31 +77,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             GetBridgeEndpointProfileServiceURL.Replace("{bridgeendpointprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(BridgeendpointprofileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetBridgeEndpointProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTBridgeEndpointProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTBridgeEndpointProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetBridgeEndpointProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTBridgeEndpointProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTBridgeEndpointProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteBridgeEndpointProfile(string BridgeendpointprofileId)
+        public async Task DeleteBridgeEndpointProfile(string BridgeendpointprofileId)
         {
             if (BridgeendpointprofileId == null) { throw new System.ArgumentNullException("BridgeendpointprofileId cannot be null"); }
             
@@ -119,7 +102,7 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             DeleteBridgeEndpointProfileServiceURL.Replace("{bridgeendpointprofile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(BridgeendpointprofileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteBridgeEndpointProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteBridgeEndpointProfileServiceURL.ToString() + " did not complete successfull";
@@ -131,7 +114,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTBridgeEndpointProfileType CreateBridgeEndpointProfile(NSXTBridgeEndpointProfileType BridgeEndpointProfile)
+        public async Task<NSXTBridgeEndpointProfileType> CreateBridgeEndpointProfile(NSXTBridgeEndpointProfileType BridgeEndpointProfile)
         {
             if (BridgeEndpointProfile == null) { throw new System.ArgumentNullException("BridgeEndpointProfile cannot be null"); }
             NSXTBridgeEndpointProfileType returnValue = default(NSXTBridgeEndpointProfileType);
@@ -144,31 +127,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(BridgeEndpointProfile, defaultSerializationSettings));
             request.Resource = CreateBridgeEndpointProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTBridgeEndpointProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTBridgeEndpointProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CreateBridgeEndpointProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTBridgeEndpointProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTBridgeEndpointProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTBridgeEndpointProfileListResultType ListBridgeEndpointProfiles(string? Cursor = null, string? EdgeClusterId = null, string? FailoverMode = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTBridgeEndpointProfileListResultType> ListBridgeEndpointProfiles(string? Cursor = null, string? EdgeClusterId = null, string? FailoverMode = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTBridgeEndpointProfileListResultType returnValue = default(NSXTBridgeEndpointProfileListResultType);
             StringBuilder ListBridgeEndpointProfilesServiceURL = new StringBuilder("/bridge-endpoint-profiles");
@@ -186,25 +157,13 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListBridgeEndpointProfilesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTBridgeEndpointProfileListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTBridgeEndpointProfileListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListBridgeEndpointProfilesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTBridgeEndpointProfileListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTBridgeEndpointProfileListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

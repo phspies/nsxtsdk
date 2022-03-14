@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,38 +17,25 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Gives the statistics of a NAT rule per logical router on specified enforcement point.")]
     public class NSXTPolicyNatRuleStatisticsPerLogicalRouterType 
     {
-        public NSXTPolicyNatRuleStatisticsPerLogicalRouterType()
-        {
-        }
         /// <summary>
         /// Timestamp when the data was last updated.
         /// </summary>
-        [JsonProperty(PropertyName = "last_update_timestamp")]
-        [NSXTProperty(IsRequired: false, Description: @"Timestamp when the data was last updated.")]
         public long? LastUpdateTimestamp { get; set; }
         /// <summary>
         /// Detailed Rule statistics per logical router.
         /// </summary>
-        [JsonProperty(PropertyName = "per_node_statistics")]
-        [NSXTProperty(IsRequired: false, Description: @"Detailed Rule statistics per logical router.")]
         public IList<NSXTPolicyNatRuleStatisticsPerTransportNodeType> PerNodeStatistics { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "statistics")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTPolicyNATRuleCountersType Statistics { get; set; }
         /// <summary>
         /// Path of the router.
         /// </summary>
-        [JsonProperty(PropertyName = "router_path")]
-        [NSXTProperty(IsRequired: false, Description: @"Path of the router.")]
         public string? RouterPath { get; set; }
         /// <summary>
         /// Policy Path referencing the enforcement point from where the statistics are fetched.
         /// </summary>
-        [JsonProperty(PropertyName = "enforcement_point_path")]
-        [NSXTProperty(IsRequired: false, Description: @"Policy Path referencing the enforcement point from where the statistics are fetched.")]
         public string? EnforcementPointPath { get; set; }
     }
 }

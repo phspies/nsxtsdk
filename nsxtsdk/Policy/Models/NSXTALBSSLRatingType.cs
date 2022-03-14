@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,30 +17,21 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer SSLRating object")]
     public class NSXTALBSSLRatingType 
     {
-        public NSXTALBSSLRatingType()
-        {
-        }
         /// <summary>
         /// Enum options - SSL_SCORE_NOT_SECURE, SSL_SCORE_VERY_BAD,
         /// SSL_SCORE_BAD, SSL_SCORE_AVERAGE, SSL_SCORE_GOOD,
         /// SSL_SCORE_EXCELLENT.
         /// </summary>
-        [JsonProperty(PropertyName = "performance_rating")]
-        [NSXTProperty(IsRequired: false, Description: @"Enum options - SSL_SCORE_NOT_SECURE, SSL_SCORE_VERY_BAD,SSL_SCORE_BAD, SSL_SCORE_AVERAGE, SSL_SCORE_GOOD,SSL_SCORE_EXCELLENT.")]
         public NSXTAlbsslratingPerformanceRatingEnumType? PerformanceRating { get; set; }
         /// <summary>
         /// security_score of SSLRating.
         /// </summary>
-        [JsonProperty(PropertyName = "security_score")]
-        [NSXTProperty(IsRequired: false, Description: @"security_score of SSLRating.")]
         public string? SecurityScore { get; set; }
         /// <summary>
         /// Enum options - SSL_SCORE_NOT_SECURE, SSL_SCORE_VERY_BAD,
         /// SSL_SCORE_BAD, SSL_SCORE_AVERAGE, SSL_SCORE_GOOD,
         /// SSL_SCORE_EXCELLENT.
         /// </summary>
-        [JsonProperty(PropertyName = "compatibility_rating")]
-        [NSXTProperty(IsRequired: false, Description: @"Enum options - SSL_SCORE_NOT_SECURE, SSL_SCORE_VERY_BAD,SSL_SCORE_BAD, SSL_SCORE_AVERAGE, SSL_SCORE_GOOD,SSL_SCORE_EXCELLENT.")]
         public NSXTAlbsslratingCompatibilityRatingEnumType? CompatibilityRating { get; set; }
     }
 }

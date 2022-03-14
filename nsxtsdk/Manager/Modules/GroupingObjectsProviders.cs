@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public GroupingObjectsProviders(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public GroupingObjectsProviders(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTServiceAssociationListResultType GetServiceAssociations(string NsgroupId, string ServiceType, string? Cursor = null, bool? FetchParentgroupAssociations = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTServiceAssociationListResultType> GetServiceAssociations(string NsgroupId, string ServiceType, string? Cursor = null, bool? FetchParentgroupAssociations = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (NsgroupId == null) { throw new System.ArgumentNullException("NsgroupId cannot be null"); }
             if (ServiceType == null) { throw new System.ArgumentNullException("ServiceType cannot be null"); }
@@ -51,31 +58,19 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GetServiceAssociationsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTServiceAssociationListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTServiceAssociationListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetServiceAssociationsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTServiceAssociationListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTServiceAssociationListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTConsolidatedEffectiveIPAddressMemberListResultType GetConsolidatedEffectiveIpaddressMembers(string NsGroupId, string? Cursor = null, string? IncludedFields = null, string? IpFilter = null, long? PageSize = null, string? SiteId = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTConsolidatedEffectiveIPAddressMemberListResultType> GetConsolidatedEffectiveIpaddressMembers(string NsGroupId, string? Cursor = null, string? IncludedFields = null, string? IpFilter = null, long? PageSize = null, string? SiteId = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (NsGroupId == null) { throw new System.ArgumentNullException("NsGroupId cannot be null"); }
             NSXTConsolidatedEffectiveIPAddressMemberListResultType returnValue = default(NSXTConsolidatedEffectiveIPAddressMemberListResultType);
@@ -95,31 +90,19 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GetConsolidatedEffectiveIpaddressMembersServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTConsolidatedEffectiveIPAddressMemberListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTConsolidatedEffectiveIPAddressMemberListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetConsolidatedEffectiveIpaddressMembersServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTConsolidatedEffectiveIPAddressMemberListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTConsolidatedEffectiveIPAddressMemberListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTUnassociatedVMListResultType GetUnassociatedVirtualMachines(string? Cursor = null, string? DisplayName = null, string? ExcludeVmType = null, string? ExternalId = null, string? HostId = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTUnassociatedVMListResultType> GetUnassociatedVirtualMachines(string? Cursor = null, string? DisplayName = null, string? ExcludeVmType = null, string? ExternalId = null, string? HostId = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTUnassociatedVMListResultType returnValue = default(NSXTUnassociatedVMListResultType);
             StringBuilder GetUnassociatedVirtualMachinesServiceURL = new StringBuilder("/ns-groups/unassociated-virtual-machines");
@@ -139,25 +122,13 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GetUnassociatedVirtualMachinesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTUnassociatedVMListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTUnassociatedVMListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetUnassociatedVirtualMachinesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTUnassociatedVMListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTUnassociatedVMListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

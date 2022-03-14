@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public Lldp(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public Lldp(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTInterfaceNeighborPropertyListResultType ListFabricNodeNeighborProperties(string FabricNodeId)
+        public async Task<NSXTInterfaceNeighborPropertyListResultType> ListFabricNodeNeighborProperties(string FabricNodeId)
         {
             if (FabricNodeId == null) { throw new System.ArgumentNullException("FabricNodeId cannot be null"); }
             NSXTInterfaceNeighborPropertyListResultType returnValue = default(NSXTInterfaceNeighborPropertyListResultType);
@@ -43,31 +50,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             ListFabricNodeNeighborPropertiesServiceURL.Replace("{fabric-node-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FabricNodeId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ListFabricNodeNeighborPropertiesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTInterfaceNeighborPropertyListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTInterfaceNeighborPropertyListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListFabricNodeNeighborPropertiesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTInterfaceNeighborPropertyListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTInterfaceNeighborPropertyListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTInterfaceNeighborPropertiesType ReadNeighborProperties(string NodeId, string InterfaceName)
+        public async Task<NSXTInterfaceNeighborPropertiesType> ReadNeighborProperties(string NodeId, string InterfaceName)
         {
             if (NodeId == null) { throw new System.ArgumentNullException("NodeId cannot be null"); }
             if (InterfaceName == null) { throw new System.ArgumentNullException("InterfaceName cannot be null"); }
@@ -82,31 +77,19 @@ namespace nsxtapi.ManagerModules
             ReadNeighborPropertiesServiceURL.Replace("{node-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NodeId, System.Globalization.CultureInfo.InvariantCulture)));
             ReadNeighborPropertiesServiceURL.Replace("{interface-name}", System.Uri.EscapeDataString(Helpers.ConvertToString(InterfaceName, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadNeighborPropertiesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTInterfaceNeighborPropertiesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTInterfaceNeighborPropertiesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadNeighborPropertiesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTInterfaceNeighborPropertiesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTInterfaceNeighborPropertiesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTInterfaceNeighborPropertiesType ReadFabricNodeNeighborProperties(string FabricNodeId, string InterfaceName)
+        public async Task<NSXTInterfaceNeighborPropertiesType> ReadFabricNodeNeighborProperties(string FabricNodeId, string InterfaceName)
         {
             if (FabricNodeId == null) { throw new System.ArgumentNullException("FabricNodeId cannot be null"); }
             if (InterfaceName == null) { throw new System.ArgumentNullException("InterfaceName cannot be null"); }
@@ -121,31 +104,19 @@ namespace nsxtapi.ManagerModules
             ReadFabricNodeNeighborPropertiesServiceURL.Replace("{fabric-node-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FabricNodeId, System.Globalization.CultureInfo.InvariantCulture)));
             ReadFabricNodeNeighborPropertiesServiceURL.Replace("{interface-name}", System.Uri.EscapeDataString(Helpers.ConvertToString(InterfaceName, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadFabricNodeNeighborPropertiesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTInterfaceNeighborPropertiesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTInterfaceNeighborPropertiesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadFabricNodeNeighborPropertiesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTInterfaceNeighborPropertiesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTInterfaceNeighborPropertiesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTInterfaceNeighborPropertyListResultType ListNeighborProperties(string NodeId)
+        public async Task<NSXTInterfaceNeighborPropertyListResultType> ListNeighborProperties(string NodeId)
         {
             if (NodeId == null) { throw new System.ArgumentNullException("NodeId cannot be null"); }
             NSXTInterfaceNeighborPropertyListResultType returnValue = default(NSXTInterfaceNeighborPropertyListResultType);
@@ -158,25 +129,13 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             ListNeighborPropertiesServiceURL.Replace("{node-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(NodeId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ListNeighborPropertiesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTInterfaceNeighborPropertyListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTInterfaceNeighborPropertyListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListNeighborPropertiesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTInterfaceNeighborPropertyListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTInterfaceNeighborPropertyListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

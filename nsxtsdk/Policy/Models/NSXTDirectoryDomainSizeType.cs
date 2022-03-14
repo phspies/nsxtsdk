@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,26 +17,17 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Size of Directory Domain")]
     public class NSXTDirectoryDomainSizeType 
     {
-        public NSXTDirectoryDomainSizeType()
-        {
-        }
         /// <summary>
         /// Number of groups
         /// </summary>
-        [JsonProperty(PropertyName = "group_count")]
-        [NSXTProperty(IsRequired: false, Description: @"Number of groups")]
         public int? GroupCount { get; set; }
         /// <summary>
         /// Number of users
         /// </summary>
-        [JsonProperty(PropertyName = "user_count")]
-        [NSXTProperty(IsRequired: false, Description: @"Number of users")]
         public int? UserCount { get; set; }
         /// <summary>
         /// Number of group members
         /// </summary>
-        [JsonProperty(PropertyName = "group_member_count")]
-        [NSXTProperty(IsRequired: false, Description: @"Number of group members")]
         public int? GroupMemberCount { get; set; }
     }
 }

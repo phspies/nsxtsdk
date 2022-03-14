@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,55 +17,36 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTServerSslProfileBindingType 
     {
-        public NSXTServerSslProfileBindingType()
-        {
-            ServerAuth = test
-            CertificateChainDepth = test
-        }
         /// <summary>
         /// A Certificate Revocation List (CRL) can be specified in the server-side
         /// SSL profile binding to disallow compromised server certificates.
         /// </summary>
-        [JsonProperty(PropertyName = "server_auth_crl_ids")]
-        [NSXTProperty(IsRequired: false, Description: @"A Certificate Revocation List (CRL) can be specified in the server-sideSSL profile binding to disallow compromised server certificates.")]
         public IList<string> ServerAuthCrlIds { get; set; }
         /// <summary>
         /// server authentication mode
         /// </summary>
-        [JsonProperty(PropertyName = "server_auth")]
-        [NSXTProperty(IsRequired: false, Description: @"server authentication mode")]
         public NSXTServerSslProfileBindingServerAuthEnumType? ServerAuth { get; set; }
         /// <summary>
         /// authentication depth is used to set the verification depth in the server
         /// certificates chain.
         /// </summary>
-        [JsonProperty(PropertyName = "certificate_chain_depth")]
-        [NSXTProperty(IsRequired: false, Description: @"authentication depth is used to set the verification depth in the servercertificates chain.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(2147483647)]
         public long? CertificateChainDepth { get; set; }
         /// <summary>
         /// To support client authentication (load balancer acting as a client
         /// authenticating to the backend server), client certificate can be
         /// specified in the server-side SSL profile binding
         /// </summary>
-        [JsonProperty(PropertyName = "client_certificate_id")]
-        [NSXTProperty(IsRequired: false, Description: @"To support client authentication (load balancer acting as a clientauthenticating to the backend server), client certificate can bespecified in the server-side SSL profile binding")]
         public string? ClientCertificateId { get; set; }
         /// <summary>
         /// If server auth type is REQUIRED, server certificate must be signed by
         /// one of the trusted Certificate Authorities (CAs), also referred to as
         /// root CAs, whose self signed certificates are specified.
         /// </summary>
-        [JsonProperty(PropertyName = "server_auth_ca_ids")]
-        [NSXTProperty(IsRequired: false, Description: @"If server auth type is REQUIRED, server certificate must be signed byone of the trusted Certificate Authorities (CAs), also referred to asroot CAs, whose self signed certificates are specified.")]
         public IList<string> ServerAuthCaIds { get; set; }
         /// <summary>
         /// Server SSL profile defines reusable, application-independent server side
         /// SSL properties.
         /// </summary>
-        [JsonProperty(PropertyName = "ssl_profile_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Server SSL profile defines reusable, application-independent server sideSSL properties.")]
         public string? SslProfileId { get; set; }
     }
 }

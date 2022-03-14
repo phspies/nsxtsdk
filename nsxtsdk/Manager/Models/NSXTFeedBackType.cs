@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -18,36 +18,25 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Provide details of validation/errors occurred during collection,translation and apply phase in MP to Policy promotion.")]
     public class NSXTFeedBackType 
     {
-        public NSXTFeedBackType()
-        {
-        }
         /// <summary>
         /// Manager resource display name
         /// </summary>
         [JsonProperty(PropertyName = "mp_display_name", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Manager resource display name")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string MpDisplayName { get; set; }
         /// <summary>
         /// Error array list
         /// </summary>
         [JsonProperty(PropertyName = "error_list", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Error array list")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTFeedBackErrorMessageType> ErrorList { get; set; }
         /// <summary>
         /// Manager resource id
         /// </summary>
         [JsonProperty(PropertyName = "mp_id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Manager resource id")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string MpId { get; set; }
         /// <summary>
         /// Manager resource type
         /// </summary>
         [JsonProperty(PropertyName = "type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Manager resource type")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Type { get; set; }
     }
 }

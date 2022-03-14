@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,20 +17,13 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Authenticated User Info")]
     public class NSXTUserInfoType 
     {
-        public NSXTUserInfoType()
-        {
-        }
         /// <summary>
         /// User Name
         /// </summary>
-        [JsonProperty(PropertyName = "user_name")]
-        [NSXTProperty(IsRequired: false, Description: @"User Name")]
         public string? UserName { get; set; }
         /// <summary>
         /// Permissions
         /// </summary>
-        [JsonProperty(PropertyName = "roles")]
-        [NSXTProperty(IsRequired: false, Description: @"Permissions")]
         public IList<NSXTNsxRoleType> Roles { get; set; }
     }
 }

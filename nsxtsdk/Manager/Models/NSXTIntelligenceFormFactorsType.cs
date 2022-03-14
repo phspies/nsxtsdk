@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Napp cluster form factors list result")]
     public class NSXTIntelligenceFormFactorsType 
     {
-        public NSXTIntelligenceFormFactorsType()
-        {
-        }
         /// <summary>
         /// Napp cluster form factor list
         /// </summary>
-        [JsonProperty(PropertyName = "form_factors")]
-        [NSXTProperty(IsRequired: false, Description: @"Napp cluster form factor list")]
         public IList<NSXTIntelligenceFormFactorType> FormFactors { get; set; }
     }
 }

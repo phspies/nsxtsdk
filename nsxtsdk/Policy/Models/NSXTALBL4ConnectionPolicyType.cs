@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer L4ConnectionPolicy object")]
     public class NSXTALBL4ConnectionPolicyType 
     {
-        public NSXTALBL4ConnectionPolicyType()
-        {
-        }
         /// <summary>
         /// Rules to apply when a new transport connection is setup.
         /// </summary>
-        [JsonProperty(PropertyName = "rules")]
-        [NSXTProperty(IsRequired: false, Description: @"Rules to apply when a new transport connection is setup.")]
         public IList<NSXTALBL4RuleType> Rules { get; set; }
     }
 }

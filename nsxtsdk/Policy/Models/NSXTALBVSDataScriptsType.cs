@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,23 +17,16 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer VSDataScripts object")]
     public class NSXTALBVSDataScriptsType 
     {
-        public NSXTALBVSDataScriptsType()
-        {
-        }
         /// <summary>
         /// Index of the virtual service datascript collection.
         /// </summary>
         [JsonProperty(PropertyName = "index", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Index of the virtual service datascript collection.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public long Index { get; set; }
         /// <summary>
         /// path of the virtual service datascript collection.
         /// It is a reference to an object of type VSDataScriptSet.
         /// </summary>
         [JsonProperty(PropertyName = "vs_datascript_set_path", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"path of the virtual service datascript collection.It is a reference to an object of type VSDataScriptSet.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string VsDatascriptSetPath { get; set; }
     }
 }

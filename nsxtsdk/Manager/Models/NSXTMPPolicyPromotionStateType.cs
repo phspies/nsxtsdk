@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,16 +17,11 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Provides information if system is currently going under mp policy promotion.")]
     public class NSXTMPPolicyPromotionStateType 
     {
-        public NSXTMPPolicyPromotionStateType()
-        {
-        }
         /// <summary>
         /// Used to get the mp policy promotion state. If system is under mp to policy promotion, it will be PROMOTION_IN_PROGRESS
         /// else PROMOTION_NOT_IN_PROGRESS.State is CANCELLING_PROMOTION, if ongoing promotion is cancelled.
         /// </summary>
         [JsonProperty(PropertyName = "mp_policy_promotion", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Used to get the mp policy promotion state. If system is under mp to policy promotion, it will be PROMOTION_IN_PROGRESS else PROMOTION_NOT_IN_PROGRESS.State is CANCELLING_PROMOTION, if ongoing promotion is cancelled.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTMppolicyPromotionStateMpPolicyPromotionEnumType MpPolicyPromotion { get; set; }
     }
 }

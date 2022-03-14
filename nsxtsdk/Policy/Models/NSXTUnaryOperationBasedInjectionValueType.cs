@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,21 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTUnaryOperationBasedInjectionValueType : NSXTInjectionValueType
     {
-        public NSXTUnaryOperationBasedInjectionValueType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "operation")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTUnaryOperationType Operation { get; set; }
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty(PropertyName = "initial_value", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTResourceFieldPointerType InitialValue { get; set; }
     }
 }

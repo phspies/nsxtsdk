@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Tunnel endpoint configuration of preconfigured host switch")]
     public class NSXTPreconfiguredEndpointType 
     {
-        public NSXTPreconfiguredEndpointType()
-        {
-        }
         /// <summary>
         /// Name of the virtual tunnel endpoint
         /// </summary>
         [JsonProperty(PropertyName = "device_name", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Name of the virtual tunnel endpoint")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string DeviceName { get; set; }
     }
 }

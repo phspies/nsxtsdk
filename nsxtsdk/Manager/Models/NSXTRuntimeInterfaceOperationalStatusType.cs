@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,27 +17,18 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTRuntimeInterfaceOperationalStatusType 
     {
-        public NSXTRuntimeInterfaceOperationalStatusType()
-        {
-        }
         /// <summary>
         /// The Operational status of the interface
         /// </summary>
         [JsonProperty(PropertyName = "status", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"The Operational status of the interface")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTRuntimeInterfaceOperationalStatusStatusEnumType Status { get; set; }
         /// <summary>
         /// Timestamp when the data was last updated; unset if data source has never updated the data.
         /// </summary>
-        [JsonProperty(PropertyName = "last_update_timestamp")]
-        [NSXTProperty(IsRequired: false, Description: @"Timestamp when the data was last updated; unset if data source has never updated the data.")]
         public long? LastUpdateTimestamp { get; set; }
         /// <summary>
         /// Index of the interface
         /// </summary>
-        [JsonProperty(PropertyName = "interface_index")]
-        [NSXTProperty(IsRequired: false, Description: @"Index of the interface")]
         public long? InterfaceIndex { get; set; }
     }
 }

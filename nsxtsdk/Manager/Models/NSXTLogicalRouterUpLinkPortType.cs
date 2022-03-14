@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,22 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLogicalRouterUpLinkPortType : NSXTLogicalRouterPortType
     {
-        public NSXTLogicalRouterUpLinkPortType()
-        {
-            UrpfMode = test
-        }
         /// <summary>
         /// Logical router port subnets
         /// </summary>
         [JsonProperty(PropertyName = "subnets", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Logical router port subnets")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTIPSubnetType> Subnets { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "linked_logical_switch_port_id")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTResourceReferenceType LinkedLogicalSwitchPortId { get; set; }
         /// <summary>
         /// Configuration to override the neighbor discovery router advertisement
@@ -40,39 +32,27 @@ namespace nsxtsdk.ManagerModels
         /// to override the prefix time only for IPv6 subnets which are configured
         /// on the port.
         /// </summary>
-        [JsonProperty(PropertyName = "ndra_prefix_config")]
-        [NSXTProperty(IsRequired: false, Description: @"Configuration to override the neighbor discovery router advertisementprefix time parameters at the subnet level. Note that users are allowedto override the prefix time only for IPv6 subnets which are configuredon the port.")]
         public IList<NSXTNDRAPrefixConfigType> NdraPrefixConfig { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "igmp_config")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTInterfaceIgmpLocalGroupConfigType IgmpConfig { get; set; }
         /// <summary>
         /// Member index of the edge node on the cluster
         /// </summary>
         [JsonProperty(PropertyName = "edge_cluster_member_index", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Member index of the edge node on the cluster")]
-        [System.ComponentModel.DataAnnotations.Required]
         public long EdgeClusterMemberIndex { get; set; }
         /// <summary>
         /// Unicast Reverse Path Forwarding mode
         /// </summary>
-        [JsonProperty(PropertyName = "urpf_mode")]
-        [NSXTProperty(IsRequired: false, Description: @"Unicast Reverse Path Forwarding mode")]
         public NSXTLogicalRouterUpLinkPortUrpfModeEnumType? UrpfMode { get; set; }
         /// <summary>
         /// MAC address
         /// </summary>
-        [JsonProperty(PropertyName = "mac_address")]
-        [NSXTProperty(IsRequired: false, Description: @"MAC address")]
         public string? MacAddress { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "pim_config")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTInterfacePimConfigType PimConfig { get; set; }
         /// <summary>
         /// Identifier of Neighbor Discovery Router Advertisement profile
@@ -80,8 +60,6 @@ namespace nsxtsdk.ManagerModels
         /// both the port level and logical router level, the profile id
         /// specified at port level takes the precedence.
         /// </summary>
-        [JsonProperty(PropertyName = "ndra_profile_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Identifier of Neighbor Discovery Router Advertisement profileassociated with port. When NDRA profile id is associated atboth the port level and logical router level, the profile idspecified at port level takes the precedence.")]
         public string? NdraProfileId { get; set; }
         /// <summary>
         /// Maximum transmission unit specifies the size of the largest packet that
@@ -89,9 +67,6 @@ namespace nsxtsdk.ManagerModels
         /// MTU set in the /api/v1/global-configs/RoutingGlobalConfig API will be
         /// used.
         /// </summary>
-        [JsonProperty(PropertyName = "mtu")]
-        [NSXTProperty(IsRequired: false, Description: @"Maximum transmission unit specifies the size of the largest packet thata network protocol can transmit. If not specified, the global logicalMTU set in the /api/v1/global-configs/RoutingGlobalConfig API will beused.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(64)]
         public long? Mtu { get; set; }
     }
 }

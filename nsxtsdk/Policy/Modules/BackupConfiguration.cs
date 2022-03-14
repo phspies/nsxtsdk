@@ -21,16 +21,23 @@ namespace nsxtapi.PolicyModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public BackupConfiguration(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public BackupConfiguration(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTBackupConfigurationType ConfigureBackupConfig(NSXTBackupConfigurationType BackupConfiguration, string? FrameType = null, string? SiteId = null)
+        public async Task<NSXTBackupConfigurationType> ConfigureBackupConfig(NSXTBackupConfigurationType BackupConfiguration, string? FrameType = null, string? SiteId = null)
         {
             if (BackupConfiguration == null) { throw new System.ArgumentNullException("BackupConfiguration cannot be null"); }
             NSXTBackupConfigurationType returnValue = default(NSXTBackupConfigurationType);
@@ -45,31 +52,19 @@ namespace nsxtapi.PolicyModules
             if (FrameType != null) { request.AddQueryParameter("frame_type", FrameType.ToString()); }
             if (SiteId != null) { request.AddQueryParameter("site_id", SiteId.ToString()); }
             request.Resource = ConfigureBackupConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTBackupConfigurationType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTBackupConfigurationType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + ConfigureBackupConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTBackupConfigurationType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTBackupConfigurationType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTBackupConfigurationType GetBackupConfig()
+        public async Task<NSXTBackupConfigurationType> GetBackupConfig()
         {
             NSXTBackupConfigurationType returnValue = default(NSXTBackupConfigurationType);
             StringBuilder GetBackupConfigServiceURL = new StringBuilder("/cluster/backups/config");
@@ -80,31 +75,19 @@ namespace nsxtapi.PolicyModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = GetBackupConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTBackupConfigurationType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTBackupConfigurationType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetBackupConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTBackupConfigurationType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTBackupConfigurationType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTBackupOperationHistoryType GetBackupHistory()
+        public async Task<NSXTBackupOperationHistoryType> GetBackupHistory()
         {
             NSXTBackupOperationHistoryType returnValue = default(NSXTBackupOperationHistoryType);
             StringBuilder GetBackupHistoryServiceURL = new StringBuilder("/cluster/backups/history");
@@ -115,31 +98,19 @@ namespace nsxtapi.PolicyModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = GetBackupHistoryServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTBackupOperationHistoryType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTBackupOperationHistoryType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetBackupHistoryServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTBackupOperationHistoryType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTBackupOperationHistoryType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void RequestOnetimeBackup(string? FrameType = null, string? SiteId = null)
+        public async Task RequestOnetimeBackup(string? FrameType = null, string? SiteId = null)
         {
             
             StringBuilder RequestOnetimeBackupServiceURL = new StringBuilder("/cluster?action=backup_to_remote");
@@ -152,7 +123,7 @@ namespace nsxtapi.PolicyModules
             if (FrameType != null) { request.AddQueryParameter("frame_type", FrameType.ToString()); }
             if (SiteId != null) { request.AddQueryParameter("site_id", SiteId.ToString()); }
             request.Resource = RequestOnetimeBackupServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + RequestOnetimeBackupServiceURL.ToString() + " did not complete successfull";
@@ -164,7 +135,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTCurrentBackupOperationStatusType GetBackupStatus()
+        public async Task<NSXTCurrentBackupOperationStatusType> GetBackupStatus()
         {
             NSXTCurrentBackupOperationStatusType returnValue = default(NSXTCurrentBackupOperationStatusType);
             StringBuilder GetBackupStatusServiceURL = new StringBuilder("/cluster/backups/status");
@@ -175,31 +146,19 @@ namespace nsxtapi.PolicyModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = GetBackupStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTCurrentBackupOperationStatusType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTCurrentBackupOperationStatusType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetBackupStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTCurrentBackupOperationStatusType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTCurrentBackupOperationStatusType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTRestoreConfigurationType ConfigureRestoreConfig(NSXTRestoreConfigurationType RestoreConfiguration)
+        public async Task<NSXTRestoreConfigurationType> ConfigureRestoreConfig(NSXTRestoreConfigurationType RestoreConfiguration)
         {
             if (RestoreConfiguration == null) { throw new System.ArgumentNullException("RestoreConfiguration cannot be null"); }
             NSXTRestoreConfigurationType returnValue = default(NSXTRestoreConfigurationType);
@@ -212,31 +171,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(RestoreConfiguration, defaultSerializationSettings));
             request.Resource = ConfigureRestoreConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTRestoreConfigurationType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTRestoreConfigurationType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + ConfigureRestoreConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTRestoreConfigurationType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTRestoreConfigurationType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTRestoreConfigurationType GetRestoreConfig()
+        public async Task<NSXTRestoreConfigurationType> GetRestoreConfig()
         {
             NSXTRestoreConfigurationType returnValue = default(NSXTRestoreConfigurationType);
             StringBuilder GetRestoreConfigServiceURL = new StringBuilder("/cluster/restore/config");
@@ -247,31 +194,19 @@ namespace nsxtapi.PolicyModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = GetRestoreConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTRestoreConfigurationType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTRestoreConfigurationType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetRestoreConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTRestoreConfigurationType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTRestoreConfigurationType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTBackupOverviewType GetBackupOverview(string? Cursor = null, string? FrameType = null, string? IncludedFields = null, long? PageSize = null, bool? ShowBackupsList = null, string? SiteId = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTBackupOverviewType> GetBackupOverview(string? Cursor = null, string? FrameType = null, string? IncludedFields = null, long? PageSize = null, bool? ShowBackupsList = null, string? SiteId = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTBackupOverviewType returnValue = default(NSXTBackupOverviewType);
             StringBuilder GetBackupOverviewServiceURL = new StringBuilder("/cluster/backups/overview");
@@ -290,31 +225,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GetBackupOverviewServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTBackupOverviewType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTBackupOverviewType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetBackupOverviewServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTBackupOverviewType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTBackupOverviewType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void RequestOnetimeInventorySummary()
+        public async Task RequestOnetimeInventorySummary()
         {
             
             StringBuilder RequestOnetimeInventorySummaryServiceURL = new StringBuilder("/cluster?action=summarize_inventory_to_remote");
@@ -325,7 +248,7 @@ namespace nsxtapi.PolicyModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = RequestOnetimeInventorySummaryServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + RequestOnetimeInventorySummaryServiceURL.ToString() + " did not complete successfull";
@@ -337,7 +260,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTRemoteServerFingerprintType GetSshFingerprintOfServer(NSXTRemoteServerFingerprintRequestType RemoteServerFingerprintRequest)
+        public async Task<NSXTRemoteServerFingerprintType> GetSshFingerprintOfServer(NSXTRemoteServerFingerprintRequestType RemoteServerFingerprintRequest)
         {
             if (RemoteServerFingerprintRequest == null) { throw new System.ArgumentNullException("RemoteServerFingerprintRequest cannot be null"); }
             NSXTRemoteServerFingerprintType returnValue = default(NSXTRemoteServerFingerprintType);
@@ -350,25 +273,13 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(RemoteServerFingerprintRequest, defaultSerializationSettings));
             request.Resource = GetSshFingerprintOfServerServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTRemoteServerFingerprintType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTRemoteServerFingerprintType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + GetSshFingerprintOfServerServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTRemoteServerFingerprintType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTRemoteServerFingerprintType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

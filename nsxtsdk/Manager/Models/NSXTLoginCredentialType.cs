@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Base type for various login credential types")]
     public class NSXTLoginCredentialType 
     {
-        public NSXTLoginCredentialType()
-        {
-        }
         /// <summary>
         /// Possible values are 'UsernamePasswordLoginCredential', 'VerifiableAsymmetricLoginCredential', 'SessionLoginCredential'.
         /// </summary>
         [JsonProperty(PropertyName = "credential_type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Possible values are &apos;UsernamePasswordLoginCredential&apos;, &apos;VerifiableAsymmetricLoginCredential&apos;, &apos;SessionLoginCredential&apos;.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string CredentialType { get; set; }
     }
 }

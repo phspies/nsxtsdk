@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,29 +17,17 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"time range filter information")]
     public class NSXTTimeRangeFilterInfoType 
     {
-        public NSXTTimeRangeFilterInfoType()
-        {
-            ToParamName = test
-            FromParamName = test
-            ValueType = test
-        }
         /// <summary>
         /// to parameter name used for time range filter to date value.
         /// </summary>
-        [JsonProperty(PropertyName = "to_param_name")]
-        [NSXTProperty(IsRequired: false, Description: @"to parameter name used for time range filter to date value.")]
         public string? ToParamName { get; set; }
         /// <summary>
         /// from parameter name used for time range filter from date value.
         /// </summary>
-        [JsonProperty(PropertyName = "from_param_name")]
-        [NSXTProperty(IsRequired: false, Description: @"from parameter name used for time range filter from date value.")]
         public string? FromParamName { get; set; }
         /// <summary>
         /// type of time range filter value can be epoch, ISO date Format.
         /// </summary>
-        [JsonProperty(PropertyName = "value_type")]
-        [NSXTProperty(IsRequired: false, Description: @"type of time range filter value can be epoch, ISO date Format.")]
         public NSXTTimeRangeFilterInfoValueTypeEnumType? ValueType { get; set; }
     }
 }

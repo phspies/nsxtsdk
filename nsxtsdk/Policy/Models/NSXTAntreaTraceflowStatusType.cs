@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,20 +17,13 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"The status value of one Antrea traceflow.")]
     public class NSXTAntreaTraceflowStatusType 
     {
-        public NSXTAntreaTraceflowStatusType()
-        {
-        }
         /// <summary>
         /// The execution phase of one traceflow.
         /// </summary>
-        [JsonProperty(PropertyName = "phase")]
-        [NSXTProperty(IsRequired: false, Description: @"The execution phase of one traceflow.")]
         public NSXTAntreaTraceflowStatusPhaseEnumType? Phase { get; set; }
         /// <summary>
         /// The reason for the failure.
         /// </summary>
-        [JsonProperty(PropertyName = "reason")]
-        [NSXTProperty(IsRequired: false, Description: @"The reason for the failure.")]
         public string? Reason { get; set; }
     }
 }

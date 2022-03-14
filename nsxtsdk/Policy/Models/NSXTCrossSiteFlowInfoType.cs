@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -22,56 +22,37 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Represents details of the config flow between sites.Federation has the following flows- Global Manager to Local Manager (GM -&gt; LM)- Local Manager to Glocal Manager (LM -&gt; GM)- Global Manager Active to Glocal Manager Standby (GM -&gt; GM)- Local Manager to Local Manager (LM -&gt; LM)")]
     public class NSXTCrossSiteFlowInfoType 
     {
-        public NSXTCrossSiteFlowInfoType()
-        {
-        }
         /// <summary>
         /// Overall status of the flow
         /// </summary>
-        [JsonProperty(PropertyName = "status")]
-        [NSXTProperty(IsRequired: false, Description: @"Overall status of the flow")]
         public NSXTCrossSiteFlowInfoStatusEnumType? Status { get; set; }
         /// <summary>
         /// Timestamp of latency measurement
         /// </summary>
-        [JsonProperty(PropertyName = "latency_measured_ts")]
-        [NSXTProperty(IsRequired: false, Description: @"Timestamp of latency measurement")]
         public long? LatencyMeasuredTs { get; set; }
         /// <summary>
         /// Site id of the destination
         /// </summary>
-        [JsonProperty(PropertyName = "to_site_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Site id of the destination")]
         public string? ToSiteId { get; set; }
         /// <summary>
         /// Latency from source to destination site in milli seconds
         /// </summary>
-        [JsonProperty(PropertyName = "latency_millis")]
-        [NSXTProperty(IsRequired: false, Description: @"Latency from source to destination site in milli seconds")]
         public long? LatencyMillis { get; set; }
         /// <summary>
         /// Source site policy path
         /// </summary>
-        [JsonProperty(PropertyName = "from_site_path")]
-        [NSXTProperty(IsRequired: false, Description: @"Source site policy path")]
         public string? FromSitePath { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "full_sync_info")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTFullSyncInfoType FullSyncInfo { get; set; }
         /// <summary>
         /// Site id of the source
         /// </summary>
-        [JsonProperty(PropertyName = "from_site_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Site id of the source")]
         public string? FromSiteId { get; set; }
         /// <summary>
         /// Destination site policy path
         /// </summary>
-        [JsonProperty(PropertyName = "to_site_path")]
-        [NSXTProperty(IsRequired: false, Description: @"Destination site policy path")]
         public string? ToSitePath { get; set; }
     }
 }

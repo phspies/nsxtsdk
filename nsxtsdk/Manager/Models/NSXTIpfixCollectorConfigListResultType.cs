@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIpfixCollectorConfigListResultType : NSXTListResultType
     {
-        public NSXTIpfixCollectorConfigListResultType()
-        {
-        }
         /// <summary>
         /// IPFIX Collector Config
         /// </summary>
-        [JsonProperty(PropertyName = "results")]
-        [NSXTProperty(IsRequired: false, Description: @"IPFIX Collector Config")]
         public IList<NSXTIpfixCollectorConfigType> Results { get; set; }
     }
 }

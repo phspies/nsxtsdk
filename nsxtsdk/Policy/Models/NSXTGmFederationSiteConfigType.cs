@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,17 +17,12 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Additional configuration required for federation at Site.")]
     public class NSXTGmFederationSiteConfigType 
     {
-        public NSXTGmFederationSiteConfigType()
-        {
-        }
         /// <summary>
         /// IP Addresses to be allocated for transit segment when the gateway is
         /// stretched. Note that Global Manager will carve out the IP Pool for each
         /// site to be used for edge nodes when gateway is stretched based on the
         /// user provided subnet and maximum number of edge nodes allowed per site.
         /// </summary>
-        [JsonProperty(PropertyName = "transit_subnet")]
-        [NSXTProperty(IsRequired: false, Description: @"IP Addresses to be allocated for transit segment when the gateway isstretched. Note that Global Manager will carve out the IP Pool for eachsite to be used for edge nodes when gateway is stretched based on theuser provided subnet and maximum number of edge nodes allowed per site.")]
         public string? TransitSubnet { get; set; }
     }
 }

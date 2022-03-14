@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIPSecVpnTunnelInterfaceType : NSXTPolicyConfigResourceType
     {
-        public NSXTIPSecVpnTunnelInterfaceType()
-        {
-        }
         /// <summary>
         /// IP Tunnel interface (commonly referred as VTI) subnet.
         /// </summary>
         [JsonProperty(PropertyName = "ip_subnets", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"IP Tunnel interface (commonly referred as VTI) subnet.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTTunnelInterfaceIPSubnetType> IpSubnets { get; set; }
     }
 }

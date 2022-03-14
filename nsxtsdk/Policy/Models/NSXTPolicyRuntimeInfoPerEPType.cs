@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,20 +17,13 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Runtime Info Per Enforcement Point.")]
     public class NSXTPolicyRuntimeInfoPerEPType 
     {
-        public NSXTPolicyRuntimeInfoPerEPType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "alarm")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTPolicyRuntimeAlarmType Alarm { get; set; }
         /// <summary>
         /// Policy Path referencing the enforcement point where the info is fetched.
         /// </summary>
-        [JsonProperty(PropertyName = "enforcement_point_path")]
-        [NSXTProperty(IsRequired: false, Description: @"Policy Path referencing the enforcement point where the info is fetched.")]
         public string? EnforcementPointPath { get; set; }
     }
 }

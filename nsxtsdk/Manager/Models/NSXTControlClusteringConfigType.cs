@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,9 +17,6 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTControlClusteringConfigType : NSXTClusteringConfigType
     {
-        public NSXTControlClusteringConfigType()
-        {
-        }
         /// <summary>
         /// Specifies whether or not the cluster node VM should try to join to
         /// the existing control cluster or initialize a new one.
@@ -27,8 +24,6 @@ namespace nsxtsdk.ManagerModels
         /// deployed controllers that are registered but not connected to the
         /// cluster and no auto-deployed controllers are part of the cluster.
         /// </summary>
-        [JsonProperty(PropertyName = "join_to_existing_cluster")]
-        [NSXTProperty(IsRequired: false, Description: @"Specifies whether or not the cluster node VM should try to join tothe existing control cluster or initialize a new one.Only required in uncertainty case, i.e. when there are manually-deployed controllers that are registered but not connected to thecluster and no auto-deployed controllers are part of the cluster.")]
         public bool? JoinToExistingCluster { get; set; }
         /// <summary>
         /// Shared secret to be used when joining the cluster node VM to a control
@@ -36,8 +31,6 @@ namespace nsxtsdk.ManagerModels
         /// Must contain at least 4 unique characters and be at least 6 characters
         /// long.
         /// </summary>
-        [JsonProperty(PropertyName = "shared_secret")]
-        [NSXTProperty(IsRequired: false, Description: @"Shared secret to be used when joining the cluster node VM to a controlcluster or for initializing a new cluster with the VM.Must contain at least 4 unique characters and be at least 6 characterslong.")]
         public string? SharedSecret { get; set; }
     }
 }

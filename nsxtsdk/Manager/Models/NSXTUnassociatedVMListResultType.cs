@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,21 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTUnassociatedVMListResultType : NSXTListResultType
     {
-        public NSXTUnassociatedVMListResultType()
-        {
-        }
         /// <summary>
         /// Timestamp in milliseconds since epoch
         /// </summary>
-        [JsonProperty(PropertyName = "last_update_timestamp")]
-        [NSXTProperty(IsRequired: false, Description: @"Timestamp in milliseconds since epoch")]
         public long? LastUpdateTimestamp { get; set; }
         /// <summary>
         /// List of VMs which are not associated with any NSGroup
         /// </summary>
         [JsonProperty(PropertyName = "results", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"List of VMs which are not associated with any NSGroup")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTVirtualMachineType> Results { get; set; }
     }
 }

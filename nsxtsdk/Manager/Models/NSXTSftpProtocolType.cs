@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,22 +17,15 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTSftpProtocolType : NSXTProtocolType
     {
-        public NSXTSftpProtocolType()
-        {
-        }
         /// <summary>
         /// SSH fingerprint of server
         /// </summary>
         [JsonProperty(PropertyName = "ssh_fingerprint", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"SSH fingerprint of server")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string SshFingerprint { get; set; }
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty(PropertyName = "authentication_scheme", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTPasswordAuthenticationSchemeType AuthenticationScheme { get; set; }
     }
 }

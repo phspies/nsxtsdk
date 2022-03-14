@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,21 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Status of the Identity Firewall enabled Compute collection.")]
     public class NSXTIdfwComputeCollectionConditionType 
     {
-        public NSXTIdfwComputeCollectionConditionType()
-        {
-        }
         /// <summary>
         /// IDFW enabled Compute collection status.
         /// </summary>
         [JsonProperty(PropertyName = "status", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"IDFW enabled Compute collection status.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTIdfwComputeCollectionConditionStatusEnumType Status { get; set; }
         /// <summary>
         /// Status of the Compute collection.
         /// </summary>
-        [JsonProperty(PropertyName = "status_detail")]
-        [NSXTProperty(IsRequired: false, Description: @"Status of the Compute collection.")]
         public string? StatusDetail { get; set; }
     }
 }

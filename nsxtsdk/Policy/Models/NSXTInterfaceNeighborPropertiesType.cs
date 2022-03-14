@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,32 +17,21 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTInterfaceNeighborPropertiesType : NSXTManagedResourceType
     {
-        public NSXTInterfaceNeighborPropertiesType()
-        {
-        }
         /// <summary>
         /// Interface index
         /// </summary>
-        [JsonProperty(PropertyName = "ifindex")]
-        [NSXTProperty(IsRequired: false, Description: @"Interface index")]
         public long? Ifindex { get; set; }
         /// <summary>
         /// Neighbor properties
         /// </summary>
-        [JsonProperty(PropertyName = "neighbors")]
-        [NSXTProperty(IsRequired: false, Description: @"Neighbor properties")]
         public IList<NSXTNeighborPropertiesType> Neighbors { get; set; }
         /// <summary>
         /// Interface MAC address
         /// </summary>
-        [JsonProperty(PropertyName = "mac")]
-        [NSXTProperty(IsRequired: false, Description: @"Interface MAC address")]
         public string? Mac { get; set; }
         /// <summary>
         /// Interface Name
         /// </summary>
-        [JsonProperty(PropertyName = "name")]
-        [NSXTProperty(IsRequired: false, Description: @"Interface Name")]
         public string? Name { get; set; }
     }
 }

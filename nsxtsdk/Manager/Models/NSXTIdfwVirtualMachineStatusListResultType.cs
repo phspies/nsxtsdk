@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIdfwVirtualMachineStatusListResultType : NSXTListResultType
     {
-        public NSXTIdfwVirtualMachineStatusListResultType()
-        {
-        }
         /// <summary>
         /// List of VM's on Identity Firewall Compute collection.
         /// </summary>
         [JsonProperty(PropertyName = "results", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"List of VM&apos;s on Identity Firewall Compute collection.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTIdfwVirtualMachineStatusType> Results { get; set; }
     }
 }

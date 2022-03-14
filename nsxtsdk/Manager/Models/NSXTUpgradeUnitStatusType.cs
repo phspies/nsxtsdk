@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,44 +17,29 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTUpgradeUnitStatusType 
     {
-        public NSXTUpgradeUnitStatusType()
-        {
-        }
         /// <summary>
         /// Status of upgrade unit
         /// </summary>
-        [JsonProperty(PropertyName = "status")]
-        [NSXTProperty(IsRequired: false, Description: @"Status of upgrade unit")]
         public NSXTUpgradeUnitStatusStatusEnumType? Status { get; set; }
         /// <summary>
         /// List of errors occurred during upgrade of this upgrade unit
         /// </summary>
-        [JsonProperty(PropertyName = "errors")]
-        [NSXTProperty(IsRequired: false, Description: @"List of errors occurred during upgrade of this upgrade unit")]
         public IList<string> Errors { get; set; }
         /// <summary>
         /// Name of upgrade unit
         /// </summary>
-        [JsonProperty(PropertyName = "display_name")]
-        [NSXTProperty(IsRequired: false, Description: @"Name of upgrade unit")]
         public string? DisplayName { get; set; }
         /// <summary>
         /// Indicator of upgrade progress in percentage
         /// </summary>
-        [JsonProperty(PropertyName = "percent_complete")]
-        [NSXTProperty(IsRequired: false, Description: @"Indicator of upgrade progress in percentage")]
         public double? PercentComplete { get; set; }
         /// <summary>
         /// Identifier of upgrade unit
         /// </summary>
-        [JsonProperty(PropertyName = "id")]
-        [NSXTProperty(IsRequired: false, Description: @"Identifier of upgrade unit")]
         public string? Id { get; set; }
         /// <summary>
         /// Metadata about upgrade unit
         /// </summary>
-        [JsonProperty(PropertyName = "metadata")]
-        [NSXTProperty(IsRequired: false, Description: @"Metadata about upgrade unit")]
         public IList<NSXTKeyValuePairType> Metadata { get; set; }
     }
 }

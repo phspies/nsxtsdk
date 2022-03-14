@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,44 +17,29 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Migrated resource.")]
     public class NSXTMigratedObjectType 
     {
-        public NSXTMigratedObjectType()
-        {
-        }
         /// <summary>
         /// Policy path.
         /// </summary>
-        [JsonProperty(PropertyName = "policy_path")]
-        [NSXTProperty(IsRequired: false, Description: @"Policy path.")]
         public string? PolicyPath { get; set; }
         /// <summary>
         /// Parent resource type.
         /// </summary>
-        [JsonProperty(PropertyName = "parent_resource_type")]
-        [NSXTProperty(IsRequired: false, Description: @"Parent resource type.")]
         public string? ParentResourceType { get; set; }
         /// <summary>
         /// Resource id.
         /// </summary>
-        [JsonProperty(PropertyName = "resource_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Resource id.")]
         public string? ResourceId { get; set; }
         /// <summary>
         /// Parent resource id.
         /// </summary>
-        [JsonProperty(PropertyName = "parent_resource_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Parent resource id.")]
         public string? ParentResourceId { get; set; }
         /// <summary>
         /// Resource type.
         /// </summary>
-        [JsonProperty(PropertyName = "resource_type")]
-        [NSXTProperty(IsRequired: false, Description: @"Resource type.")]
         public string? ResourceType { get; set; }
         /// <summary>
         /// Policy id.
         /// </summary>
-        [JsonProperty(PropertyName = "policy_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Policy id.")]
         public string? PolicyId { get; set; }
     }
 }

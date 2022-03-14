@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,32 +17,21 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced Load Balancer node form factor.")]
     public class NSXTALBControllerNodeFormFactorType 
     {
-        public NSXTALBControllerNodeFormFactorType()
-        {
-        }
         /// <summary>
         /// Number of virtual cpus on the Advanced Load Balancer controller node.
         /// </summary>
-        [JsonProperty(PropertyName = "vcpu")]
-        [NSXTProperty(IsRequired: false, Description: @"Number of virtual cpus on the Advanced Load Balancer controller node.")]
         public long? Vcpu { get; set; }
         /// <summary>
         /// Disk size of the Advanced Load Balancer controller node in Bytes.
         /// </summary>
-        [JsonProperty(PropertyName = "disk")]
-        [NSXTProperty(IsRequired: false, Description: @"Disk size of the Advanced Load Balancer controller node in Bytes.")]
         public long? Disk { get; set; }
         /// <summary>
         /// Advanced Load Balancer controller node form factor type.
         /// </summary>
-        [JsonProperty(PropertyName = "type")]
-        [NSXTProperty(IsRequired: false, Description: @"Advanced Load Balancer controller node form factor type.")]
         public NSXTAlbcontrollerNodeFormFactorTypeEnumType? Type { get; set; }
         /// <summary>
         /// Memory size of the Advanced Load Balancer controller node in Bytes.
         /// </summary>
-        [JsonProperty(PropertyName = "memory")]
-        [NSXTProperty(IsRequired: false, Description: @"Memory size of the Advanced Load Balancer controller node in Bytes.")]
         public long? Memory { get; set; }
     }
 }

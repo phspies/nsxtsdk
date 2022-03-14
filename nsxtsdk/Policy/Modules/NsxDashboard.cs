@@ -21,16 +21,23 @@ namespace nsxtapi.PolicyModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public NsxDashboard(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public NsxDashboard(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTViewType UpdateView(string ViewId, NSXTViewType View)
+        public async Task<NSXTViewType> UpdateView(string ViewId, NSXTViewType View)
         {
             if (ViewId == null) { throw new System.ArgumentNullException("ViewId cannot be null"); }
             if (View == null) { throw new System.ArgumentNullException("View cannot be null"); }
@@ -45,31 +52,19 @@ namespace nsxtapi.PolicyModules
             UpdateViewServiceURL.Replace("{view-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ViewId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(View, defaultSerializationSettings));
             request.Resource = UpdateViewServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTViewType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTViewType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateViewServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTViewType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTViewType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeletView(string ViewId)
+        public async Task DeletView(string ViewId)
         {
             if (ViewId == null) { throw new System.ArgumentNullException("ViewId cannot be null"); }
             
@@ -82,7 +77,7 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             DeletViewServiceURL.Replace("{view-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ViewId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeletViewServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeletViewServiceURL.ToString() + " did not complete successfull";
@@ -94,7 +89,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTViewType GetView(string ViewId)
+        public async Task<NSXTViewType> GetView(string ViewId)
         {
             if (ViewId == null) { throw new System.ArgumentNullException("ViewId cannot be null"); }
             NSXTViewType returnValue = default(NSXTViewType);
@@ -107,31 +102,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             GetViewServiceURL.Replace("{view-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ViewId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetViewServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTViewType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTViewType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetViewServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTViewType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTViewType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTWidgetConfigurationType UpdateWidgetConfiguration(string ViewId, string WidgetconfigurationId, NSXTWidgetConfigurationType WidgetConfiguration)
+        public async Task<NSXTWidgetConfigurationType> UpdateWidgetConfiguration(string ViewId, string WidgetconfigurationId, NSXTWidgetConfigurationType WidgetConfiguration)
         {
             if (ViewId == null) { throw new System.ArgumentNullException("ViewId cannot be null"); }
             if (WidgetconfigurationId == null) { throw new System.ArgumentNullException("WidgetconfigurationId cannot be null"); }
@@ -148,31 +131,19 @@ namespace nsxtapi.PolicyModules
             UpdateWidgetConfigurationServiceURL.Replace("{widgetconfiguration-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(WidgetconfigurationId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(WidgetConfiguration, defaultSerializationSettings));
             request.Resource = UpdateWidgetConfigurationServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTWidgetConfigurationType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTWidgetConfigurationType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateWidgetConfigurationServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTWidgetConfigurationType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTWidgetConfigurationType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTWidgetConfigurationType GetWidgetConfiguration(string ViewId, string WidgetconfigurationId)
+        public async Task<NSXTWidgetConfigurationType> GetWidgetConfiguration(string ViewId, string WidgetconfigurationId)
         {
             if (ViewId == null) { throw new System.ArgumentNullException("ViewId cannot be null"); }
             if (WidgetconfigurationId == null) { throw new System.ArgumentNullException("WidgetconfigurationId cannot be null"); }
@@ -187,31 +158,19 @@ namespace nsxtapi.PolicyModules
             GetWidgetConfigurationServiceURL.Replace("{view-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ViewId, System.Globalization.CultureInfo.InvariantCulture)));
             GetWidgetConfigurationServiceURL.Replace("{widgetconfiguration-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(WidgetconfigurationId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetWidgetConfigurationServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTWidgetConfigurationType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTWidgetConfigurationType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetWidgetConfigurationServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTWidgetConfigurationType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTWidgetConfigurationType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteWidgetConfiguration(string ViewId, string WidgetconfigurationId)
+        public async Task DeleteWidgetConfiguration(string ViewId, string WidgetconfigurationId)
         {
             if (ViewId == null) { throw new System.ArgumentNullException("ViewId cannot be null"); }
             if (WidgetconfigurationId == null) { throw new System.ArgumentNullException("WidgetconfigurationId cannot be null"); }
@@ -226,7 +185,7 @@ namespace nsxtapi.PolicyModules
             DeleteWidgetConfigurationServiceURL.Replace("{view-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ViewId, System.Globalization.CultureInfo.InvariantCulture)));
             DeleteWidgetConfigurationServiceURL.Replace("{widgetconfiguration-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(WidgetconfigurationId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteWidgetConfigurationServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteWidgetConfigurationServiceURL.ToString() + " did not complete successfull";
@@ -238,7 +197,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTViewType CreateView(NSXTViewType View)
+        public async Task<NSXTViewType> CreateView(NSXTViewType View)
         {
             if (View == null) { throw new System.ArgumentNullException("View cannot be null"); }
             NSXTViewType returnValue = default(NSXTViewType);
@@ -251,31 +210,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(View, defaultSerializationSettings));
             request.Resource = CreateViewServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTViewType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTViewType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CreateViewServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTViewType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTViewType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTViewListType ListViews(string? Tag = null, string? ViewIds = null, string? WidgetId = null)
+        public async Task<NSXTViewListType> ListViews(string? Tag = null, string? ViewIds = null, string? WidgetId = null)
         {
             NSXTViewListType returnValue = default(NSXTViewListType);
             StringBuilder ListViewsServiceURL = new StringBuilder("/ui-views");
@@ -289,31 +236,19 @@ namespace nsxtapi.PolicyModules
             if (ViewIds != null) { request.AddQueryParameter("view_ids", ViewIds.ToString()); }
             if (WidgetId != null) { request.AddQueryParameter("widget_id", WidgetId.ToString()); }
             request.Resource = ListViewsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTViewListType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTViewListType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListViewsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTViewListType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTViewListType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTWidgetConfigurationType CreateWidgetConfiguration(string ViewId, NSXTWidgetConfigurationType WidgetConfiguration)
+        public async Task<NSXTWidgetConfigurationType> CreateWidgetConfiguration(string ViewId, NSXTWidgetConfigurationType WidgetConfiguration)
         {
             if (ViewId == null) { throw new System.ArgumentNullException("ViewId cannot be null"); }
             if (WidgetConfiguration == null) { throw new System.ArgumentNullException("WidgetConfiguration cannot be null"); }
@@ -328,31 +263,19 @@ namespace nsxtapi.PolicyModules
             CreateWidgetConfigurationServiceURL.Replace("{view-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ViewId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(WidgetConfiguration, defaultSerializationSettings));
             request.Resource = CreateWidgetConfigurationServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTWidgetConfigurationType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTWidgetConfigurationType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CreateWidgetConfigurationServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTWidgetConfigurationType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTWidgetConfigurationType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTWidgetConfigurationListType ListWidgetConfigurations(string ViewId, string? Container = null, string? WidgetIds = null)
+        public async Task<NSXTWidgetConfigurationListType> ListWidgetConfigurations(string ViewId, string? Container = null, string? WidgetIds = null)
         {
             if (ViewId == null) { throw new System.ArgumentNullException("ViewId cannot be null"); }
             NSXTWidgetConfigurationListType returnValue = default(NSXTWidgetConfigurationListType);
@@ -367,25 +290,13 @@ namespace nsxtapi.PolicyModules
             if (Container != null) { request.AddQueryParameter("container", Container.ToString()); }
             if (WidgetIds != null) { request.AddQueryParameter("widget_ids", WidgetIds.ToString()); }
             request.Resource = ListWidgetConfigurationsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTWidgetConfigurationListType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTWidgetConfigurationListType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListWidgetConfigurationsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTWidgetConfigurationListType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTWidgetConfigurationListType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

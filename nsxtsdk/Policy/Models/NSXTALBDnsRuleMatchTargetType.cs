@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,38 +17,25 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer DnsRuleMatchTarget object")]
     public class NSXTALBDnsRuleMatchTargetType 
     {
-        public NSXTALBDnsRuleMatchTargetType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "query_type")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBDnsQueryTypeMatchType QueryType { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "geo_location")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBDnsGeoLocationMatchType GeoLocation { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "query_name")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBDnsQueryNameMatchType QueryName { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "protocol")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBDnsTransportProtocolMatchType Protocol { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "client_ip_address")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBDnsClientIpMatchType ClientIpAddress { get; set; }
     }
 }

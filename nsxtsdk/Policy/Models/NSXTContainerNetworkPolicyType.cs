@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,58 +17,39 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTContainerNetworkPolicyType : NSXTDiscoveredResourceType
     {
-        public NSXTContainerNetworkPolicyType()
-        {
-        }
         /// <summary>
         /// Network status of container network policy.
         /// </summary>
-        [JsonProperty(PropertyName = "network_status")]
-        [NSXTProperty(IsRequired: false, Description: @"Network status of container network policy.")]
         public NSXTContainerNetworkPolicyNetworkStatusEnumType? NetworkStatus { get; set; }
         /// <summary>
         /// Identifier of the container cluster this network policy belongs to.
         /// </summary>
-        [JsonProperty(PropertyName = "container_cluster_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Identifier of the container cluster this network policy belongs to.")]
         public string? ContainerClusterId { get; set; }
         /// <summary>
         /// Type e.g. Network Policy, ASG.
         /// </summary>
-        [JsonProperty(PropertyName = "policy_type")]
-        [NSXTProperty(IsRequired: false, Description: @"Type e.g. Network Policy, ASG.")]
         public NSXTContainerNetworkPolicyPolicyTypeEnumType? PolicyType { get; set; }
         /// <summary>
         /// Array of additional specific properties of container network policy
         /// in key-value format.
         /// </summary>
-        [JsonProperty(PropertyName = "origin_properties")]
-        [NSXTProperty(IsRequired: false, Description: @"Array of additional specific properties of container network policyin key-value format.")]
         public IList<NSXTKeyValuePairType> OriginProperties { get; set; }
         /// <summary>
         /// Identifier of the container network policy.
         /// </summary>
         [JsonProperty(PropertyName = "external_id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Identifier of the container network policy.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string ExternalId { get; set; }
         /// <summary>
         /// Identifier of the project which this network policy belongs to.
         /// </summary>
-        [JsonProperty(PropertyName = "container_project_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Identifier of the project which this network policy belongs to.")]
         public string? ContainerProjectId { get; set; }
         /// <summary>
         /// List of network errors related to container network policy.
         /// </summary>
-        [JsonProperty(PropertyName = "network_errors")]
-        [NSXTProperty(IsRequired: false, Description: @"List of network errors related to container network policy.")]
         public IList<NSXTNetworkErrorType> NetworkErrors { get; set; }
         /// <summary>
         /// Container network policy specification.
         /// </summary>
-        [JsonProperty(PropertyName = "spec")]
-        [NSXTProperty(IsRequired: false, Description: @"Container network policy specification.")]
         public string? Spec { get; set; }
     }
 }

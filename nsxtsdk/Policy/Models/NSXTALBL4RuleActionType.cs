@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer L4RuleAction object")]
     public class NSXTALBL4RuleActionType 
     {
-        public NSXTALBL4RuleActionType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "select_pool")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBL4RuleActionSelectPoolType SelectPool { get; set; }
     }
 }

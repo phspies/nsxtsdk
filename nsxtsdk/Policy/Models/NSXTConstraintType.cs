@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,28 +17,19 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTConstraintType : NSXTPolicyConfigResourceType
     {
-        public NSXTConstraintType()
-        {
-        }
         /// <summary>
         /// User friendly message to be shown to users upon violation.
         /// </summary>
-        [JsonProperty(PropertyName = "message")]
-        [NSXTProperty(IsRequired: false, Description: @"User friendly message to be shown to users upon violation.")]
         public string? Message { get; set; }
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty(PropertyName = "constraint_expression", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTConstraintExpressionType ConstraintExpression { get; set; }
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty(PropertyName = "target", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTConstraintTargetType Target { get; set; }
     }
 }

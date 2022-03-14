@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,26 +17,17 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTCvxConnectionInfoType : NSXTEnforcementPointConnectionInfoType
     {
-        public NSXTCvxConnectionInfoType()
-        {
-        }
         /// <summary>
         /// Username.
         /// </summary>
-        [JsonProperty(PropertyName = "username")]
-        [NSXTProperty(IsRequired: false, Description: @"Username.")]
         public string? Username { get; set; }
         /// <summary>
         /// Password.
         /// </summary>
-        [JsonProperty(PropertyName = "password")]
-        [NSXTProperty(IsRequired: false, Description: @"Password.")]
         public string? Password { get; set; }
         /// <summary>
         /// Thumbprint of EnforcementPoint in the form of a SHA-256 hash represented in lower case HEX.
         /// </summary>
-        [JsonProperty(PropertyName = "thumbprint")]
-        [NSXTProperty(IsRequired: false, Description: @"Thumbprint of EnforcementPoint in the form of a SHA-256 hash represented in lower case HEX.")]
         public string? Thumbprint { get; set; }
     }
 }

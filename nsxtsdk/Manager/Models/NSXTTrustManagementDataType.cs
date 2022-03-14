@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTTrustManagementDataType 
     {
-        public NSXTTrustManagementDataType()
-        {
-        }
         /// <summary>
         /// List of supported algorithms.
         /// </summary>
-        [JsonProperty(PropertyName = "supported_algorithms")]
-        [NSXTProperty(IsRequired: false, Description: @"List of supported algorithms.")]
         public IList<NSXTCryptoAlgorithmType> SupportedAlgorithms { get; set; }
     }
 }

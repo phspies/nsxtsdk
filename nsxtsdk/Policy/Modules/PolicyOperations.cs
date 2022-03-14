@@ -21,16 +21,23 @@ namespace nsxtapi.PolicyModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public PolicyOperations(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public PolicyOperations(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPortMirroringInstanceType CreateOrReplacePortMirroringInstance(string DomainId, string GroupId, string PortMirroringInstanceId, NSXTPortMirroringInstanceType PortMirroringInstance)
+        public async Task<NSXTPortMirroringInstanceType> CreateOrReplacePortMirroringInstance(string DomainId, string GroupId, string PortMirroringInstanceId, NSXTPortMirroringInstanceType PortMirroringInstance)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (GroupId == null) { throw new System.ArgumentNullException("GroupId cannot be null"); }
@@ -49,31 +56,19 @@ namespace nsxtapi.PolicyModules
             CreateOrReplacePortMirroringInstanceServiceURL.Replace("{port-mirroring-instance-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortMirroringInstanceId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(PortMirroringInstance, defaultSerializationSettings));
             request.Resource = CreateOrReplacePortMirroringInstanceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPortMirroringInstanceType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPortMirroringInstanceType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateOrReplacePortMirroringInstanceServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPortMirroringInstanceType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPortMirroringInstanceType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeletePortMirroringInstance(string DomainId, string GroupId, string PortMirroringInstanceId)
+        public async Task DeletePortMirroringInstance(string DomainId, string GroupId, string PortMirroringInstanceId)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (GroupId == null) { throw new System.ArgumentNullException("GroupId cannot be null"); }
@@ -90,7 +85,7 @@ namespace nsxtapi.PolicyModules
             DeletePortMirroringInstanceServiceURL.Replace("{group-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GroupId, System.Globalization.CultureInfo.InvariantCulture)));
             DeletePortMirroringInstanceServiceURL.Replace("{port-mirroring-instance-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortMirroringInstanceId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeletePortMirroringInstanceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeletePortMirroringInstanceServiceURL.ToString() + " did not complete successfull";
@@ -102,7 +97,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchPortMirroringInstance(string DomainId, string GroupId, string PortMirroringInstanceId, NSXTPortMirroringInstanceType PortMirroringInstance)
+        public async Task PatchPortMirroringInstance(string DomainId, string GroupId, string PortMirroringInstanceId, NSXTPortMirroringInstanceType PortMirroringInstance)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (GroupId == null) { throw new System.ArgumentNullException("GroupId cannot be null"); }
@@ -121,7 +116,7 @@ namespace nsxtapi.PolicyModules
             PatchPortMirroringInstanceServiceURL.Replace("{port-mirroring-instance-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortMirroringInstanceId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(PortMirroringInstance, defaultSerializationSettings));
             request.Resource = PatchPortMirroringInstanceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchPortMirroringInstanceServiceURL.ToString() + " did not complete successfull";
@@ -133,7 +128,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPortMirroringInstanceType ReadPortMirroringInstance(string DomainId, string GroupId, string PortMirroringInstanceId)
+        public async Task<NSXTPortMirroringInstanceType> ReadPortMirroringInstance(string DomainId, string GroupId, string PortMirroringInstanceId)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (GroupId == null) { throw new System.ArgumentNullException("GroupId cannot be null"); }
@@ -150,31 +145,19 @@ namespace nsxtapi.PolicyModules
             ReadPortMirroringInstanceServiceURL.Replace("{group-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(GroupId, System.Globalization.CultureInfo.InvariantCulture)));
             ReadPortMirroringInstanceServiceURL.Replace("{port-mirroring-instance-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(PortMirroringInstanceId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadPortMirroringInstanceServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPortMirroringInstanceType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPortMirroringInstanceType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadPortMirroringInstanceServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPortMirroringInstanceType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPortMirroringInstanceType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPortMirroringInstanceListResultType ListPortMirroringInstances(string DomainId, string GroupId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTPortMirroringInstanceListResultType> ListPortMirroringInstances(string DomainId, string GroupId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (GroupId == null) { throw new System.ArgumentNullException("GroupId cannot be null"); }
@@ -195,25 +178,13 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListPortMirroringInstancesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPortMirroringInstanceListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPortMirroringInstanceListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListPortMirroringInstancesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPortMirroringInstanceListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPortMirroringInstanceListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

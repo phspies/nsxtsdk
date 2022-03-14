@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"List of capabilities of a fabric node")]
     public class NSXTNodeCapabilitiesResultType 
     {
-        public NSXTNodeCapabilitiesResultType()
-        {
-        }
         /// <summary>
         /// Node capability results
         /// </summary>
         [JsonProperty(PropertyName = "capabilities", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Node capability results")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTNodeCapabilityType> Capabilities { get; set; }
     }
 }

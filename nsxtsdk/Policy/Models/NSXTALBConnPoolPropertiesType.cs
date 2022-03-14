@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,13 +17,6 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer ConnPoolProperties object")]
     public class NSXTALBConnPoolPropertiesType 
     {
-        public NSXTALBConnPoolPropertiesType()
-        {
-            UpstreamConnpoolConnLifeTmo = test
-            UpstreamConnpoolServerMaxCache = test
-            UpstreamConnpoolConnMaxReuse = test
-            UpstreamConnpoolConnIdleTmo = test
-        }
         /// <summary>
         /// Connection life timeout.
         /// Allowed in Basic(Allowed values- 600000) edition,
@@ -32,8 +25,6 @@ namespace nsxtsdk.PolicyModels
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 600000.
         /// </summary>
-        [JsonProperty(PropertyName = "upstream_connpool_conn_life_tmo")]
-        [NSXTProperty(IsRequired: false, Description: @"Connection life timeout.Allowed in Basic(Allowed values- 600000) edition,Essentials(Allowed values- 600000) edition, Enterpriseedition.Default value when not specified in API or module isinterpreted by ALB Controller as 600000.")]
         public long? UpstreamConnpoolConnLifeTmo { get; set; }
         /// <summary>
         /// Maximum number of connections a server can cache.
@@ -41,8 +32,6 @@ namespace nsxtsdk.PolicyModels
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 0.
         /// </summary>
-        [JsonProperty(PropertyName = "upstream_connpool_server_max_cache")]
-        [NSXTProperty(IsRequired: false, Description: @"Maximum number of connections a server can cache.Special values are 0- &apos;unlimited&apos;.Default value when not specified in API or module isinterpreted by ALB Controller as 0.")]
         public long? UpstreamConnpoolServerMaxCache { get; set; }
         /// <summary>
         /// Maximum number of times a connection can be reused.
@@ -52,8 +41,6 @@ namespace nsxtsdk.PolicyModels
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 0.
         /// </summary>
-        [JsonProperty(PropertyName = "upstream_connpool_conn_max_reuse")]
-        [NSXTProperty(IsRequired: false, Description: @"Maximum number of times a connection can be reused.Special values are 0- &apos;unlimited&apos;.Allowed in Basic(Allowed values- 0) edition,Essentials(Allowed values- 0) edition, Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller as 0.")]
         public long? UpstreamConnpoolConnMaxReuse { get; set; }
         /// <summary>
         /// Connection idle timeout.
@@ -63,8 +50,6 @@ namespace nsxtsdk.PolicyModels
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 60000.
         /// </summary>
-        [JsonProperty(PropertyName = "upstream_connpool_conn_idle_tmo")]
-        [NSXTProperty(IsRequired: false, Description: @"Connection idle timeout.Allowed in Basic(Allowed values- 60000) edition,Essentials(Allowed values- 60000) edition, Enterpriseedition.Default value when not specified in API or module isinterpreted by ALB Controller as 60000.")]
         public long? UpstreamConnpoolConnIdleTmo { get; set; }
     }
 }

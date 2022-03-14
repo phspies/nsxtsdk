@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,9 +17,6 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLBVirtualServerStatusType : NSXTLBVirtualServerStatusPerEPType
     {
-        public NSXTLBVirtualServerStatusType()
-        {
-        }
         /// <summary>
         /// UP means that all primary members in default pool are in UP status.
         /// For L7 virtual server, if there is no default pool, the virtual server
@@ -38,20 +35,14 @@ namespace nsxtsdk.PolicyModels
         /// UNKOWN means that no status reported from transport-nodes. The
         /// associated load balancer service may be working(or not working).
         /// </summary>
-        [JsonProperty(PropertyName = "status")]
-        [NSXTProperty(IsRequired: false, Description: @"UP means that all primary members in default pool are in UP status.For L7 virtual server, if there is no default pool, the virtual serverwould be treated as UP.PARTIALLY_UP means that some(not all) primary members in default poolare in UP status. The size of these active primary members should belarger than or equal to the certain number(min_active_members) which isdefined in LBPool. When there are no backup members which are in the UPstatus, the number(min_active_members) would be ignored.PRIMARY_DOWN means that less than certain(min_active_members) primarymembers in default pool are in UP status but backup members are in UPstatus, the connections would be dispatched to backup members.DOWN means that all primary and backup members are in DOWN status.DETACHED means that the virtual server is not bound to any service.DISABLED means that the admin state of the virtual server is disabled.UNKOWN means that no status reported from transport-nodes. Theassociated load balancer service may be working(or not working).")]
         public NSXTLbvirtualServerStatusStatusEnumType? Status { get; set; }
         /// <summary>
         /// Timestamp when the data was last updated.
         /// </summary>
-        [JsonProperty(PropertyName = "last_update_timestamp")]
-        [NSXTProperty(IsRequired: false, Description: @"Timestamp when the data was last updated.")]
         public long? LastUpdateTimestamp { get; set; }
         /// <summary>
         /// load balancer virtual server object path.
         /// </summary>
-        [JsonProperty(PropertyName = "virtual_server_path")]
-        [NSXTProperty(IsRequired: false, Description: @"load balancer virtual server object path.")]
         public string? VirtualServerPath { get; set; }
     }
 }

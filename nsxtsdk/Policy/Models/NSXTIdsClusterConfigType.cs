@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,22 +17,15 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIdsClusterConfigType : NSXTPolicyConfigResourceType
     {
-        public NSXTIdsClusterConfigType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty(PropertyName = "cluster", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTPolicyResourceReferenceType Cluster { get; set; }
         /// <summary>
         /// If set to true, IDS is enabled on the respective cluster
         /// </summary>
         [JsonProperty(PropertyName = "ids_enabled", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"If set to true, IDS is enabled on the respective cluster")]
-        [System.ComponentModel.DataAnnotations.Required]
         public bool IdsEnabled { get; set; }
     }
 }

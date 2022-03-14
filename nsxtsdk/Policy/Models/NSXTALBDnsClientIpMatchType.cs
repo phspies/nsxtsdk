@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,10 +17,6 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer DnsClientIpMatch object")]
     public class NSXTALBDnsClientIpMatchType 
     {
-        public NSXTALBDnsClientIpMatchType()
-        {
-            UseEdnsClientSubnetIp = test
-        }
         /// <summary>
         /// Use the IP address from the EDNS client subnet option, if
         /// available, as the source IP address of the client.
@@ -29,15 +25,11 @@ namespace nsxtsdk.PolicyModels
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as true.
         /// </summary>
-        [JsonProperty(PropertyName = "use_edns_client_subnet_ip")]
-        [NSXTProperty(IsRequired: false, Description: @"Use the IP address from the EDNS client subnet option, ifavailable, as the source IP address of the client.It should be noted that the edns subnet IP may not be a /32IP address.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
         public bool? UseEdnsClientSubnetIp { get; set; }
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty(PropertyName = "client_ip", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTALBIpAddrMatchType ClientIp { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,33 +17,22 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTTraceflowObservationReplicationLogicalType : NSXTTraceflowObservationType
     {
-        public NSXTTraceflowObservationReplicationLogicalType()
-        {
-        }
         /// <summary>
         /// The label of VTEP
         /// </summary>
-        [JsonProperty(PropertyName = "vtep_label")]
-        [NSXTProperty(IsRequired: false, Description: @"The label of VTEP")]
         public long? VtepLabel { get; set; }
         /// <summary>
         /// This field specifies the type of replication message TX_VTEP - Transmit replication to all VTEPs TX_MTEP - Transmit
         /// replication to all MTEPs RX - Receive replication
         /// </summary>
-        [JsonProperty(PropertyName = "replication_type")]
-        [NSXTProperty(IsRequired: false, Description: @"This field specifies the type of replication message TX_VTEP - Transmit replication to all VTEPs TX_MTEP - Transmit replication to all MTEPs RX - Receive replication")]
         public NSXTTraceflowObservationReplicationLogicalReplicationTypeEnumType? ReplicationType { get; set; }
         /// <summary>
         /// Local IP address of the component that replicates the packet.
         /// </summary>
-        [JsonProperty(PropertyName = "local_ip_address")]
-        [NSXTProperty(IsRequired: false, Description: @"Local IP address of the component that replicates the packet.")]
         public string? LocalIpAddress { get; set; }
         /// <summary>
         /// The name of uplink
         /// </summary>
-        [JsonProperty(PropertyName = "uplink_name")]
-        [NSXTProperty(IsRequired: false, Description: @"The name of uplink")]
         public string? UplinkName { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,26 +17,17 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Transport header stuffs for Antrea traceflow.")]
     public class NSXTAntreaTraceflowTransportHeaderType 
     {
-        public NSXTAntreaTraceflowTransportHeaderType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "tcpHeader")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTAntreaTraceflowTcpHeaderType TcpHeader { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "icmpEchoRequestHeader")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTAntreaTraceflowIcmpEchoRequestHeaderType IcmpEchoRequestHeader { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "udpHeader")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTAntreaTraceflowUdpHeaderType UdpHeader { get; set; }
     }
 }

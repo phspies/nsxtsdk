@@ -21,16 +21,23 @@ namespace nsxtapi.PolicyModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public PolicyOspf(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public PolicyOspf(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTOspfAreaConfigType CreateOrReplaceOspfAreaConfig(string Tier0Id, string LocaleServiceId, string AreaId, NSXTOspfAreaConfigType OspfAreaConfig)
+        public async Task<NSXTOspfAreaConfigType> CreateOrReplaceOspfAreaConfig(string Tier0Id, string LocaleServiceId, string AreaId, NSXTOspfAreaConfigType OspfAreaConfig)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -49,31 +56,19 @@ namespace nsxtapi.PolicyModules
             CreateOrReplaceOspfAreaConfigServiceURL.Replace("{area-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AreaId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(OspfAreaConfig, defaultSerializationSettings));
             request.Resource = CreateOrReplaceOspfAreaConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTOspfAreaConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTOspfAreaConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateOrReplaceOspfAreaConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTOspfAreaConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTOspfAreaConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTOspfAreaConfigType PatchOspfAreaConfig(string Tier0Id, string LocaleServiceId, string AreaId, NSXTOspfAreaConfigType OspfAreaConfig)
+        public async Task<NSXTOspfAreaConfigType> PatchOspfAreaConfig(string Tier0Id, string LocaleServiceId, string AreaId, NSXTOspfAreaConfigType OspfAreaConfig)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -92,31 +87,19 @@ namespace nsxtapi.PolicyModules
             PatchOspfAreaConfigServiceURL.Replace("{area-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AreaId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(OspfAreaConfig, defaultSerializationSettings));
             request.Resource = PatchOspfAreaConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTOspfAreaConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTOspfAreaConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchOspfAreaConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTOspfAreaConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTOspfAreaConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTOspfAreaConfigType ReadOspfAreaConfig(string Tier0Id, string LocaleServiceId, string AreaId)
+        public async Task<NSXTOspfAreaConfigType> ReadOspfAreaConfig(string Tier0Id, string LocaleServiceId, string AreaId)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -133,31 +116,19 @@ namespace nsxtapi.PolicyModules
             ReadOspfAreaConfigServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
             ReadOspfAreaConfigServiceURL.Replace("{area-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AreaId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadOspfAreaConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTOspfAreaConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTOspfAreaConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadOspfAreaConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTOspfAreaConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTOspfAreaConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteOspfAreaConfig(string Tier0Id, string LocaleServiceId, string AreaId)
+        public async Task DeleteOspfAreaConfig(string Tier0Id, string LocaleServiceId, string AreaId)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -174,7 +145,7 @@ namespace nsxtapi.PolicyModules
             DeleteOspfAreaConfigServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
             DeleteOspfAreaConfigServiceURL.Replace("{area-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(AreaId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteOspfAreaConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteOspfAreaConfigServiceURL.ToString() + " did not complete successfull";
@@ -186,7 +157,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTOspfAreaConfigListResultType ListPolicyOspfAreaConfig(string Tier0Id, string LocaleServiceId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTOspfAreaConfigListResultType> ListPolicyOspfAreaConfig(string Tier0Id, string LocaleServiceId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -207,31 +178,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListPolicyOspfAreaConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTOspfAreaConfigListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTOspfAreaConfigListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListPolicyOspfAreaConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTOspfAreaConfigListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTOspfAreaConfigListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTOspfRoutingConfigType CreateOrReplaceOspfRoutingConfig(string Tier0Id, string LocaleServiceId, NSXTOspfRoutingConfigType OspfRoutingConfig)
+        public async Task<NSXTOspfRoutingConfigType> CreateOrReplaceOspfRoutingConfig(string Tier0Id, string LocaleServiceId, NSXTOspfRoutingConfigType OspfRoutingConfig)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -248,31 +207,19 @@ namespace nsxtapi.PolicyModules
             CreateOrReplaceOspfRoutingConfigServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(OspfRoutingConfig, defaultSerializationSettings));
             request.Resource = CreateOrReplaceOspfRoutingConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTOspfRoutingConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTOspfRoutingConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateOrReplaceOspfRoutingConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTOspfRoutingConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTOspfRoutingConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTOspfRoutingConfigType PatchOspfRoutingConfig(string Tier0Id, string LocaleServiceId, NSXTOspfRoutingConfigType OspfRoutingConfig)
+        public async Task<NSXTOspfRoutingConfigType> PatchOspfRoutingConfig(string Tier0Id, string LocaleServiceId, NSXTOspfRoutingConfigType OspfRoutingConfig)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -289,31 +236,19 @@ namespace nsxtapi.PolicyModules
             PatchOspfRoutingConfigServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(OspfRoutingConfig, defaultSerializationSettings));
             request.Resource = PatchOspfRoutingConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTOspfRoutingConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTOspfRoutingConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchOspfRoutingConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTOspfRoutingConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTOspfRoutingConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTOspfRoutingConfigType ReadOspfRoutingConfig(string Tier0Id, string LocaleServiceId)
+        public async Task<NSXTOspfRoutingConfigType> ReadOspfRoutingConfig(string Tier0Id, string LocaleServiceId)
         {
             if (Tier0Id == null) { throw new System.ArgumentNullException("Tier0Id cannot be null"); }
             if (LocaleServiceId == null) { throw new System.ArgumentNullException("LocaleServiceId cannot be null"); }
@@ -328,25 +263,13 @@ namespace nsxtapi.PolicyModules
             ReadOspfRoutingConfigServiceURL.Replace("{tier-0-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier0Id, System.Globalization.CultureInfo.InvariantCulture)));
             ReadOspfRoutingConfigServiceURL.Replace("{locale-service-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LocaleServiceId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadOspfRoutingConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTOspfRoutingConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTOspfRoutingConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadOspfRoutingConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTOspfRoutingConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTOspfRoutingConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

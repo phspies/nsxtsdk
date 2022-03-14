@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTFullSyncStateListResultType : NSXTListResultType
     {
-        public NSXTFullSyncStateListResultType()
-        {
-        }
         /// <summary>
         /// FullSync states list.
         /// </summary>
         [JsonProperty(PropertyName = "results", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"FullSync states list.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTFullSyncStateType> Results { get; set; }
     }
 }

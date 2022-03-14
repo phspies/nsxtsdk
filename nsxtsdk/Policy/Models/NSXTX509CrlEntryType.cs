@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,20 +17,13 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Each revoked certificate is identified in a CRL by its certificate serial number.")]
     public class NSXTX509CrlEntryType 
     {
-        public NSXTX509CrlEntryType()
-        {
-        }
         /// <summary>
         /// Revocation date.
         /// </summary>
-        [JsonProperty(PropertyName = "revocation_date")]
-        [NSXTProperty(IsRequired: false, Description: @"Revocation date.")]
         public string? RevocationDate { get; set; }
         /// <summary>
         /// The revoked certificate's serial number.
         /// </summary>
-        [JsonProperty(PropertyName = "serial_number")]
-        [NSXTProperty(IsRequired: false, Description: @"The revoked certificate&apos;s serial number.")]
         public string? SerialNumber { get; set; }
     }
 }

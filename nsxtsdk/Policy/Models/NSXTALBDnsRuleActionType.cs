@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,38 +17,25 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer DnsRuleAction object")]
     public class NSXTALBDnsRuleActionType 
     {
-        public NSXTALBDnsRuleActionType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "pool_switching")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBDnsRuleActionPoolSwitchingType PoolSwitching { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "gslb_site_selection")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBDnsRuleActionGslbSiteSelectionType GslbSiteSelection { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "response")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBDnsRuleActionResponseType Response { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "allow")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBDnsRuleActionAllowDropType Allow { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "dns_rate_limiter")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBDnsRateLimiterType DnsRateLimiter { get; set; }
     }
 }

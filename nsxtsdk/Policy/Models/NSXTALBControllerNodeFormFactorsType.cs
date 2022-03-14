@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced Load Balancer controller form factors list result")]
     public class NSXTALBControllerNodeFormFactorsType 
     {
-        public NSXTALBControllerNodeFormFactorsType()
-        {
-        }
         /// <summary>
         /// Advanced Load Balancer controller form factor list
         /// </summary>
-        [JsonProperty(PropertyName = "form_factors")]
-        [NSXTProperty(IsRequired: false, Description: @"Advanced Load Balancer controller form factor list")]
         public IList<NSXTALBControllerNodeFormFactorType> FormFactors { get; set; }
     }
 }

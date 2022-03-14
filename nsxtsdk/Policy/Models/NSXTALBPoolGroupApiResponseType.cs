@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,20 +17,13 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTALBPoolGroupApiResponseType : NSXTListResultType
     {
-        public NSXTALBPoolGroupApiResponseType()
-        {
-        }
         /// <summary>
         /// count
         /// </summary>
-        [JsonProperty(PropertyName = "count")]
-        [NSXTProperty(IsRequired: false, Description: @"count")]
         public int? Count { get; set; }
         /// <summary>
         /// Array of PoolGroup
         /// </summary>
-        [JsonProperty(PropertyName = "results")]
-        [NSXTProperty(IsRequired: false, Description: @"Array of PoolGroup")]
         public IList<NSXTALBPoolGroupType> Results { get; set; }
     }
 }

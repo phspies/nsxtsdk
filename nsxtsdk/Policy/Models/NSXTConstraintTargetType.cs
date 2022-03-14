@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -24,14 +24,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Resource attribute on which constraint should be applied.Example - sourceGroups attribute of Edge CommunicationEntry to be  restricted, is given as:  {     &quot;target_resource_type&quot;:&quot;CommunicationEntry&quot;,     &quot;attribute&quot;:&quot;sourceGroups&quot;,     &quot;path_prefix&quot;:&quot;/infra/domains/vmc-domain/edge-communication-maps/default/communication-entries&quot;  }")]
     public class NSXTConstraintTargetType 
     {
-        public NSXTConstraintTargetType()
-        {
-        }
         /// <summary>
         /// Attribute name of the target entity.
         /// </summary>
-        [JsonProperty(PropertyName = "attribute")]
-        [NSXTProperty(IsRequired: false, Description: @"Attribute name of the target entity.")]
         public string? Attribute { get; set; }
         /// <summary>
         /// Path prefix of the entity to apply constraint.
@@ -40,15 +35,11 @@ namespace nsxtsdk.PolicyModels
         /// Example - Edge FW and DFW use the same resource type CommunicationMap,
         /// CommunicationEntry, Group, etc.
         /// </summary>
-        [JsonProperty(PropertyName = "path_prefix")]
-        [NSXTProperty(IsRequired: false, Description: @"Path prefix of the entity to apply constraint.This is required to further disambiguiate if multiple policy entitiesshare the same resource type.Example - Edge FW and DFW use the same resource type CommunicationMap,CommunicationEntry, Group, etc.")]
         public string? PathPrefix { get; set; }
         /// <summary>
         /// Resource type of the target entity.
         /// </summary>
         [JsonProperty(PropertyName = "target_resource_type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Resource type of the target entity.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string TargetResourceType { get; set; }
     }
 }

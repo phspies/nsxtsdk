@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,30 +17,21 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTEvpnTenantConfigType : NSXTPolicyConfigResourceType
     {
-        public NSXTEvpnTenantConfigType()
-        {
-        }
         /// <summary>
         /// Policy path to transport zone. Only overlay transport zone is supported.
         /// </summary>
         [JsonProperty(PropertyName = "transport_zone_path", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Policy path to transport zone. Only overlay transport zone is supported.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string TransportZonePath { get; set; }
         /// <summary>
         /// This property specifies a mapping spec of incoming Evpn tenant vlan-ids to VXLAN VNIs used for overlay
         /// transmission to Physical-Gateways used by vRouters.
         /// </summary>
         [JsonProperty(PropertyName = "mappings", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"This property specifies a mapping spec of incoming Evpn tenant vlan-ids to VXLAN VNIs used for overlaytransmission to Physical-Gateways used by vRouters.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTVlanVniRangePairType> Mappings { get; set; }
         /// <summary>
         /// Policy path to the vni pool used for Evpn in ROUTE-SERVER mode.
         /// </summary>
         [JsonProperty(PropertyName = "vni_pool_path", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Policy path to the vni pool used for Evpn in ROUTE-SERVER mode.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string VniPoolPath { get; set; }
     }
 }

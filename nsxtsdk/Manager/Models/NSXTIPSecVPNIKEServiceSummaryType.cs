@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,26 +17,17 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIPSecVPNIKEServiceSummaryType : NSXTIPSecVPNSessionSummaryType
     {
-        public NSXTIPSecVPNIKEServiceSummaryType()
-        {
-        }
         /// <summary>
         /// UUID for a vpn service.
         /// </summary>
-        [JsonProperty(PropertyName = "ipsec_vpn_service_id")]
-        [NSXTProperty(IsRequired: false, Description: @"UUID for a vpn service.")]
         public string? IpsecVpnServiceId { get; set; }
         /// <summary>
         /// VPN service display name.
         /// </summary>
-        [JsonProperty(PropertyName = "display_name")]
-        [NSXTProperty(IsRequired: false, Description: @"VPN service display name.")]
         public string? DisplayName { get; set; }
         /// <summary>
         /// Logical router identifier associated with vpn service.
         /// </summary>
-        [JsonProperty(PropertyName = "logical_router_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Logical router identifier associated with vpn service.")]
         public string? LogicalRouterId { get; set; }
     }
 }

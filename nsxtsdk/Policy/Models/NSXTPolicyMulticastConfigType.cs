@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,32 +17,21 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyMulticastConfigType : NSXTPolicyConfigResourceType
     {
-        public NSXTPolicyMulticastConfigType()
-        {
-        }
         /// <summary>
         /// Replication multicast range. Required when enabled.
         /// </summary>
-        [JsonProperty(PropertyName = "replication_multicast_range")]
-        [NSXTProperty(IsRequired: false, Description: @"Replication multicast range. Required when enabled.")]
         public string? ReplicationMulticastRange { get; set; }
         /// <summary>
         /// Updates to IGMP profile applied on all Tier0 gateways consuming the configuration.
         /// </summary>
-        [JsonProperty(PropertyName = "igmp_profile_path")]
-        [NSXTProperty(IsRequired: false, Description: @"Updates to IGMP profile applied on all Tier0 gateways consuming the configuration.")]
         public string? IgmpProfilePath { get; set; }
         /// <summary>
         /// Updates to PIM profile applied on all Tier0 gateways consuming the configuration.
         /// </summary>
-        [JsonProperty(PropertyName = "pim_profile_path")]
-        [NSXTProperty(IsRequired: false, Description: @"Updates to PIM profile applied on all Tier0 gateways consuming the configuration.")]
         public string? PimProfilePath { get; set; }
         /// <summary>
         /// Enable/disable Multicast Configuration.
         /// </summary>
-        [JsonProperty(PropertyName = "enabled")]
-        [NSXTProperty(IsRequired: false, Description: @"Enable/disable Multicast Configuration.")]
         public bool? Enabled { get; set; }
     }
 }

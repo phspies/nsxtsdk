@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,21 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Aggregate of DNS forwarder statistics across enforcement points.")]
     public class NSXTAggregateDNSForwarderStatisticsType 
     {
-        public NSXTAggregateDNSForwarderStatisticsType()
-        {
-        }
         /// <summary>
         /// List of DNS forwarder statistics per enforcement point.
         /// </summary>
-        [JsonProperty(PropertyName = "statistics_per_enforcement_point")]
-        [NSXTProperty(IsRequired: false, Description: @"List of DNS forwarder statistics per enforcement point.")]
         public IList<NSXTDNSForwarderStatisticsPerEnforcementPointType> StatisticsPerEnforcementPoint { get; set; }
         /// <summary>
         /// String path of the DNS forwarder intent.
         /// </summary>
         [JsonProperty(PropertyName = "intent_path", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"String path of the DNS forwarder intent.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string IntentPath { get; set; }
     }
 }

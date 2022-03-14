@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,10 +17,6 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTL2VpnServiceType : NSXTManagedResourceType
     {
-        public NSXTL2VpnServiceType()
-        {
-            Mode = test
-        }
         /// <summary>
         /// Full mesh topology auto disables traffic replication between connected
         /// peers. However, this property is deprecated. Please refer enable_hub
@@ -28,8 +24,6 @@ namespace nsxtsdk.ManagerModels
         /// The value of enable_full_mesh will not be used anymore. If enable_hub
         /// is not provided explicitly, the default value of it will be used.
         /// </summary>
-        [JsonProperty(PropertyName = "enable_full_mesh")]
-        [NSXTProperty(IsRequired: false, Description: @"Full mesh topology auto disables traffic replication between connectedpeers. However, this property is deprecated. Please refer enable_hubproperty instead to control client to client forwarding via the server.The value of enable_full_mesh will not be used anymore. If enable_hubis not provided explicitly, the default value of it will be used.")]
         public bool? EnableFullMesh { get; set; }
         /// <summary>
         /// This property only applies in SERVER mode. If set to true,
@@ -37,15 +31,11 @@ namespace nsxtsdk.ManagerModels
         /// If set to false, traffic received from clients is only replicated
         /// to the local VPN endpoint.
         /// </summary>
-        [JsonProperty(PropertyName = "enable_hub")]
-        [NSXTProperty(IsRequired: false, Description: @"This property only applies in SERVER mode. If set to true,traffic from any client will be replicated to all other clients.If set to false, traffic received from clients is only replicatedto the local VPN endpoint.")]
         public bool? EnableHub { get; set; }
         /// <summary>
         /// Logical router id
         /// </summary>
         [JsonProperty(PropertyName = "logical_router_id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Logical router id")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string LogicalRouterId { get; set; }
         /// <summary>
         /// Specify an L2VPN service mode as SERVER or CLIENT. L2VPN service
@@ -53,14 +43,10 @@ namespace nsxtsdk.ManagerModels
         /// L2VPN service in CLIENT mode can use peercode generated from SERVER
         /// to configure L2VPN session.
         /// </summary>
-        [JsonProperty(PropertyName = "mode")]
-        [NSXTProperty(IsRequired: false, Description: @"Specify an L2VPN service mode as SERVER or CLIENT. L2VPN servicein SERVER mode requires user to configure L2VPN session explicitly.L2VPN service in CLIENT mode can use peercode generated from SERVERto configure L2VPN session.")]
         public NSXTL2VpnServiceModeEnumType? Mode { get; set; }
         /// <summary>
         /// IP Pool to allocate local and peer endpoint IPs for L2VpnSession logical Tap.
         /// </summary>
-        [JsonProperty(PropertyName = "logical_tap_ip_pool")]
-        [NSXTProperty(IsRequired: false, Description: @"IP Pool to allocate local and peer endpoint IPs for L2VpnSession logical Tap.")]
         public IList<string> LogicalTapIpPool { get; set; }
     }
 }

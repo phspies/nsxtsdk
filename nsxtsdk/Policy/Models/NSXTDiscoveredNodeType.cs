@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,82 +17,55 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTDiscoveredNodeType : NSXTDiscoveredResourceType
     {
-        public NSXTDiscoveredNodeType()
-        {
-        }
         /// <summary>
         /// The stateless property describes whether host persists its state across reboot or not. If state persists, value is set
         /// as false otherwise true.
         /// </summary>
-        [JsonProperty(PropertyName = "stateless")]
-        [NSXTProperty(IsRequired: false, Description: @"The stateless property describes whether host persists its state across reboot or not. If state persists, value is set as false otherwise true.")]
         public bool? Stateless { get; set; }
         /// <summary>
         /// External id of the compute collection to which this node belongs
         /// </summary>
-        [JsonProperty(PropertyName = "parent_compute_collection")]
-        [NSXTProperty(IsRequired: false, Description: @"External id of the compute collection to which this node belongs")]
         public string? ParentComputeCollection { get; set; }
         /// <summary>
         /// Certificate of the discovered node
         /// </summary>
-        [JsonProperty(PropertyName = "certificate")]
-        [NSXTProperty(IsRequired: false, Description: @"Certificate of the discovered node")]
         public string? Certificate { get; set; }
         /// <summary>
         /// Id of the compute manager from where this node was discovered
         /// </summary>
-        [JsonProperty(PropertyName = "origin_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Id of the compute manager from where this node was discovered")]
         public string? OriginId { get; set; }
         /// <summary>
         /// IP Addresses of the the discovered node.
         /// </summary>
-        [JsonProperty(PropertyName = "ip_addresses")]
-        [NSXTProperty(IsRequired: false, Description: @"IP Addresses of the the discovered node.")]
         public IList<string> IpAddresses { get; set; }
         /// <summary>
         /// Hardware Id is generated using system hardware info. It is used to retrieve fabric node of the esx.
         /// </summary>
-        [JsonProperty(PropertyName = "hardware_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Hardware Id is generated using system hardware info. It is used to retrieve fabric node of the esx.")]
         public string? HardwareId { get; set; }
         /// <summary>
         /// OS version of the discovered node
         /// </summary>
-        [JsonProperty(PropertyName = "os_version")]
-        [NSXTProperty(IsRequired: false, Description: @"OS version of the discovered node")]
         public string? OsVersion { get; set; }
         /// <summary>
         /// Discovered Node type like Host
         /// </summary>
-        [JsonProperty(PropertyName = "node_type")]
-        [NSXTProperty(IsRequired: false, Description: @"Discovered Node type like Host")]
         public string? NodeType { get; set; }
         /// <summary>
         /// OS type of the discovered node
         /// </summary>
-        [JsonProperty(PropertyName = "os_type")]
-        [NSXTProperty(IsRequired: false, Description: @"OS type of the discovered node")]
         public string? OsType { get; set; }
         /// <summary>
         /// Key-Value map of additional specific properties of discovered
         /// node in the Compute Manager
         /// </summary>
-        [JsonProperty(PropertyName = "origin_properties")]
-        [NSXTProperty(IsRequired: false, Description: @"Key-Value map of additional specific properties of discoverednode in the Compute Manager")]
         public IList<NSXTKeyValuePairType> OriginProperties { get; set; }
         /// <summary>
         /// External id of the discovered node, ex. a mo-ref from VC
         /// </summary>
-        [JsonProperty(PropertyName = "external_id")]
-        [NSXTProperty(IsRequired: false, Description: @"External id of the discovered node, ex. a mo-ref from VC")]
         public string? ExternalId { get; set; }
         /// <summary>
         /// Local Id of the discovered node in the Compute Manager
         /// </summary>
-        [JsonProperty(PropertyName = "cm_local_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Local Id of the discovered node in the Compute Manager")]
         public string? CmLocalId { get; set; }
     }
 }

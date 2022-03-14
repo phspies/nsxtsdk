@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -18,20 +18,13 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Service insertion data path inserts unique &apos;source node id&apos; value into each packet before it received by Service VM. This value can be resolved to multiple Source Entities. It represents source of the packets.")]
     public class NSXTSourceEntityType 
     {
-        public NSXTSourceEntityType()
-        {
-        }
         /// <summary>
         /// Type of source entity. Currently source value can be resolved to VIF and Virtual Machine.
         /// </summary>
-        [JsonProperty(PropertyName = "source_entity_type")]
-        [NSXTProperty(IsRequired: false, Description: @"Type of source entity. Currently source value can be resolved to VIF and Virtual Machine.")]
         public NSXTSourceEntitySourceEntityTypeEnumType? SourceEntityType { get; set; }
         /// <summary>
         /// UUID of Source entity
         /// </summary>
-        [JsonProperty(PropertyName = "source_entity_id")]
-        [NSXTProperty(IsRequired: false, Description: @"UUID of Source entity")]
         public string? SourceEntityId { get; set; }
     }
 }

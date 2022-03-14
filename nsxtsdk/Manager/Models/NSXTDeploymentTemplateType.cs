@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -18,21 +18,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Deployment Template holds the attributes specific to partner for which the service is created. These attributes are opaque to NSX.")]
     public class NSXTDeploymentTemplateType 
     {
-        public NSXTDeploymentTemplateType()
-        {
-        }
         /// <summary>
         /// List of attributes specific to a partner for which the service is created. There attributes are passed on to the partner
         /// appliance and is opaque to the NSX Manager.
         /// </summary>
-        [JsonProperty(PropertyName = "attributes")]
-        [NSXTProperty(IsRequired: false, Description: @"List of attributes specific to a partner for which the service is created. There attributes are passed on to the partner appliance and is opaque to the NSX Manager.")]
         public IList<NSXTAttributeType> Attributes { get; set; }
         /// <summary>
         /// Deployment Template name.
         /// </summary>
-        [JsonProperty(PropertyName = "name")]
-        [NSXTProperty(IsRequired: false, Description: @"Deployment Template name.")]
         public string? Name { get; set; }
     }
 }

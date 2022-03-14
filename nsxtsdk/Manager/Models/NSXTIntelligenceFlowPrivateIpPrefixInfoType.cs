@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -19,31 +19,20 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"This is deprecated. Please use CommonAgentPrivateIpRangeInfo instead.An IP prefix to mark the private network that NSX-Intelligencenetwork flow is collected from.")]
     public class NSXTIntelligenceFlowPrivateIpPrefixInfoType 
     {
-        public NSXTIntelligenceFlowPrivateIpPrefixInfoType()
-        {
-        }
         /// <summary>
         /// The type of IP address.
         /// </summary>
         [JsonProperty(PropertyName = "address_type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"The type of IP address.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTIntelligenceFlowPrivateIpPrefixInfoAddressTypeEnumType AddressType { get; set; }
         /// <summary>
         /// The length of IP address prefix that marks the range of private network.
         /// </summary>
         [JsonProperty(PropertyName = "prefix_length", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"The length of IP address prefix that marks the range of private network.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(128)]
-        [System.ComponentModel.DataAnnotations.Required]
         public long PrefixLength { get; set; }
         /// <summary>
         /// The prefix of IP address that marks the range of private network.
         /// </summary>
         [JsonProperty(PropertyName = "address", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"The prefix of IP address that marks the range of private network.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Address { get; set; }
     }
 }

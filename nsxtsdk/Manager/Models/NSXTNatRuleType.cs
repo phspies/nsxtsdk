@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,17 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNatRuleType : NSXTManagedResourceType
     {
-        public NSXTNatRuleType()
-        {
-            RulePriority = test
-            Enabled = test
-            NatPass = test
-        }
         /// <summary>
         /// IP Address | CIDR | (null implies Any)
         /// </summary>
-        [JsonProperty(PropertyName = "match_destination_network")]
-        [NSXTProperty(IsRequired: false, Description: @"IP Address | CIDR | (null implies Any)")]
         public string? MatchDestinationNetwork { get; set; }
         /// <summary>
         /// The translated address for the matched IP packet. For a SNAT, it can be
@@ -35,21 +27,15 @@ namespace nsxtsdk.ManagerModels
         /// a REFLEXIVE, it can be a single ip address or a CIDR block. Translated
         /// network is not supported for NO_SNAT or NO_DNAT.
         /// </summary>
-        [JsonProperty(PropertyName = "translated_network")]
-        [NSXTProperty(IsRequired: false, Description: @"The translated address for the matched IP packet. For a SNAT, it can bea single ip address, an ip range, or a CIDR block. For a DNAT anda REFLEXIVE, it can be a single ip address or a CIDR block. Translatednetwork is not supported for NO_SNAT or NO_DNAT.")]
         public string? TranslatedNetwork { get; set; }
         /// <summary>
         /// Ascending, valid range [0-2147483647]. If multiple rules have the same
         /// priority, evaluation sequence is undefined.
         /// </summary>
-        [JsonProperty(PropertyName = "rule_priority")]
-        [NSXTProperty(IsRequired: false, Description: @"Ascending, valid range [0-2147483647]. If multiple rules have the samepriority, evaluation sequence is undefined.")]
         public long? RulePriority { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "match_service")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTNSServiceElementType MatchService { get; set; }
         /// <summary>
         /// Holds the list of LogicalRouterPort Ids that a NAT rule can be applied to. The LogicalRouterPort used must belong to the
@@ -57,34 +43,24 @@ namespace nsxtsdk.ManagerModels
         /// applied_tos. When applied_tos is not set, the NAT rule is applied to all LogicalRouterPorts beloging to the
         /// LogicalRouter.
         /// </summary>
-        [JsonProperty(PropertyName = "applied_tos")]
-        [NSXTProperty(IsRequired: false, Description: @"Holds the list of LogicalRouterPort Ids that a NAT rule can be applied to. The LogicalRouterPort used must belong to the same LogicalRouter for which the NAT Rule is created. As of now a NAT rule can only have a single LogicalRouterPort as applied_tos. When applied_tos is not set, the NAT rule is applied to all LogicalRouterPorts beloging to the LogicalRouter.")]
         public IList<NSXTResourceReferenceType> AppliedTos { get; set; }
         /// <summary>
         /// Indicator to enable/disable the rule.
         /// </summary>
-        [JsonProperty(PropertyName = "enabled")]
-        [NSXTProperty(IsRequired: false, Description: @"Indicator to enable/disable the rule.")]
         public bool? Enabled { get; set; }
         /// <summary>
         /// Internal NAT rule uuid for debug used in Controller and backend.
         /// </summary>
-        [JsonProperty(PropertyName = "internal_rule_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Internal NAT rule uuid for debug used in Controller and backend.")]
         public string? InternalRuleId { get; set; }
         /// <summary>
         /// Enable/disable the logging of rule.
         /// </summary>
-        [JsonProperty(PropertyName = "logging")]
-        [NSXTProperty(IsRequired: false, Description: @"Enable/disable the logging of rule.")]
         public bool? Logging { get; set; }
         /// <summary>
         /// The translated port(s) for the mtached IP packet. It can be a single
         /// port or a port range. Please note, port translating is supported only
         /// for DNAT.
         /// </summary>
-        [JsonProperty(PropertyName = "translated_ports")]
-        [NSXTProperty(IsRequired: false, Description: @"The translated port(s) for the mtached IP packet. It can be a singleport or a port range. Please note, port translating is supported onlyfor DNAT.")]
         public string? TranslatedPorts { get; set; }
         /// <summary>
         /// Valid actions: SNAT, DNAT, NO_SNAT, NO_DNAT, REFLEXIVE, NAT64. All
@@ -95,8 +71,6 @@ namespace nsxtsdk.ManagerModels
         /// match fields are supported.
         /// </summary>
         [JsonProperty(PropertyName = "action", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Valid actions: SNAT, DNAT, NO_SNAT, NO_DNAT, REFLEXIVE, NAT64. Allrules in a logical router are either stateless or stateful. Mix isnot supported. SNAT and DNAT are stateful, can NOT be supported whenthe logical router is running at active-active HA mode; REFLEXIVEis stateless. NO_SNAT and NO_DNAT have no translated_fields, onlymatch fields are supported.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTNatRuleActionEnumType Action { get; set; }
         /// <summary>
         /// Indicate how firewall is applied to a traffic packet. Firewall can be
@@ -105,8 +79,6 @@ namespace nsxtsdk.ManagerModels
         /// The firewall_match will take priority over nat_pass. If the firewall_match
         /// is not provided, the nat_pass will be picked up.
         /// </summary>
-        [JsonProperty(PropertyName = "firewall_match")]
-        [NSXTProperty(IsRequired: false, Description: @"Indicate how firewall is applied to a traffic packet. Firewall can bebypassed, or be applied to external/internal address of NAT rule.The firewall_match will take priority over nat_pass. If the firewall_matchis not provided, the nat_pass will be picked up.")]
         public NSXTNatRuleFirewallMatchEnumType? FirewallMatch { get; set; }
         /// <summary>
         /// Default is true. If the nat_pass is set to true, the following firewall
@@ -125,20 +97,14 @@ namespace nsxtsdk.ManagerModels
         /// picked up. In this case, if nat_pass is set to false, firewall rule will
         /// be applied on internall address of a packet, i.e. MATCH_INTERNAL_ADDRESS.
         /// </summary>
-        [JsonProperty(PropertyName = "nat_pass")]
-        [NSXTProperty(IsRequired: false, Description: @"Default is true. If the nat_pass is set to true, the following firewallstage will be skipped. Please note, if action is NO_SNAT or NO_DNAT,then nat_pass must be set to true or omitted.Nat_pass was deprecated with an alternative firewall_match. Please stopusing nat_pass to specify whether firewall stage is skipped. if you wantto skip, please set firewall_match to BYPASS. If you do not want to skip,please set the firewall_match to MATCH_EXTERNAL_ADDRESS orMATCH_INTERNAL_ADDRESS.Please note, the firewall_match will take priority over the nat_pass.If both are provided, the nat_pass is ignored. If firewall_match is notprovided while the nat_pass is specified, the nat_pass will still bepicked up. In this case, if nat_pass is set to false, firewall rule willbe applied on internall address of a packet, i.e. MATCH_INTERNAL_ADDRESS.")]
         public bool? NatPass { get; set; }
         /// <summary>
         /// The logical router id which the nat rule runs on.
         /// </summary>
-        [JsonProperty(PropertyName = "logical_router_id")]
-        [NSXTProperty(IsRequired: false, Description: @"The logical router id which the nat rule runs on.")]
         public string? LogicalRouterId { get; set; }
         /// <summary>
         /// IP Address | CIDR | (null implies Any)
         /// </summary>
-        [JsonProperty(PropertyName = "match_source_network")]
-        [NSXTProperty(IsRequired: false, Description: @"IP Address | CIDR | (null implies Any)")]
         public string? MatchSourceNetwork { get; set; }
     }
 }

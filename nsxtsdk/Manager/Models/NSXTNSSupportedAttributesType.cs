@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,16 +17,11 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Supported attributes and sub-attributes for NSProfile")]
     public class NSXTNSSupportedAttributesType 
     {
-        public NSXTNSSupportedAttributesType()
-        {
-        }
         /// <summary>
         /// The type represent pre-defined or user defined list of supported attributes
         /// and sub-attributes that can be used while creating NSProfile
         /// </summary>
         [JsonProperty(PropertyName = "ns_attributes", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"The type represent pre-defined or user defined list of supported attributesand sub-attributes that can be used while creating NSProfile")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTNSAttributesType> NsAttributes { get; set; }
     }
 }

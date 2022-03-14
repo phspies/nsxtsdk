@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,53 +17,34 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTBgpNeighborAddressFamilyType 
     {
-        public NSXTBgpNeighborAddressFamilyType()
-        {
-            Enabled = test
-        }
         /// <summary>
         /// Id of the IPPrefix List to be used for IN direction filter
         /// </summary>
-        [JsonProperty(PropertyName = "in_filter_ipprefixlist_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Id of the IPPrefix List to be used for IN direction filter")]
         public string? InFilterIpprefixlistId { get; set; }
         /// <summary>
         /// Id of the RouteMap to be used for OUT direction filter
         /// </summary>
-        [JsonProperty(PropertyName = "out_filter_routemap_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Id of the RouteMap to be used for OUT direction filter")]
         public string? OutFilterRoutemapId { get; set; }
         /// <summary>
         /// Address family type
         /// </summary>
         [JsonProperty(PropertyName = "type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Address family type")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTBgpNeighborAddressFamilyTypeEnumType Type { get; set; }
         /// <summary>
         /// Id of the RouteMap to be used for IN direction filter
         /// </summary>
-        [JsonProperty(PropertyName = "in_filter_routemap_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Id of the RouteMap to be used for IN direction filter")]
         public string? InFilterRoutemapId { get; set; }
         /// <summary>
         /// Enable this address family
         /// </summary>
-        [JsonProperty(PropertyName = "enabled")]
-        [NSXTProperty(IsRequired: false, Description: @"Enable this address family")]
         public bool? Enabled { get; set; }
         /// <summary>
         /// Id of the IPPrefixList to be used for OUT direction filter
         /// </summary>
-        [JsonProperty(PropertyName = "out_filter_ipprefixlist_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Id of the IPPrefixList to be used for OUT direction filter")]
         public string? OutFilterIpprefixlistId { get; set; }
         /// <summary>
         /// Maximum number of routes supported on the address family
         /// </summary>
-        [JsonProperty(PropertyName = "maximum_routes")]
-        [NSXTProperty(IsRequired: false, Description: @"Maximum number of routes supported on the address family")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
         public long? MaximumRoutes { get; set; }
     }
 }

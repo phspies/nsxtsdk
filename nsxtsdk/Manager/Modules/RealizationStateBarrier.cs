@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public RealizationStateBarrier(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public RealizationStateBarrier(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTCurrentRealizationStateBarrierType GetCurrentBarrier()
+        public async Task<NSXTCurrentRealizationStateBarrierType> GetCurrentBarrier()
         {
             NSXTCurrentRealizationStateBarrierType returnValue = default(NSXTCurrentRealizationStateBarrierType);
             StringBuilder GetCurrentBarrierServiceURL = new StringBuilder("/realization-state-barrier/current");
@@ -41,31 +48,19 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = GetCurrentBarrierServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTCurrentRealizationStateBarrierType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTCurrentRealizationStateBarrierType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetCurrentBarrierServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTCurrentRealizationStateBarrierType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTCurrentRealizationStateBarrierType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTCurrentRealizationStateBarrierType IncrementRealizationStateBarrier()
+        public async Task<NSXTCurrentRealizationStateBarrierType> IncrementRealizationStateBarrier()
         {
             NSXTCurrentRealizationStateBarrierType returnValue = default(NSXTCurrentRealizationStateBarrierType);
             StringBuilder IncrementRealizationStateBarrierServiceURL = new StringBuilder("/realization-state-barrier/current?action=increment");
@@ -76,31 +71,19 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = IncrementRealizationStateBarrierServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTCurrentRealizationStateBarrierType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTCurrentRealizationStateBarrierType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + IncrementRealizationStateBarrierServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTCurrentRealizationStateBarrierType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTCurrentRealizationStateBarrierType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTRealizationStateBarrierConfigType UpdateRealizationStateBarrierConfig(NSXTRealizationStateBarrierConfigType RealizationStateBarrierConfig)
+        public async Task<NSXTRealizationStateBarrierConfigType> UpdateRealizationStateBarrierConfig(NSXTRealizationStateBarrierConfigType RealizationStateBarrierConfig)
         {
             if (RealizationStateBarrierConfig == null) { throw new System.ArgumentNullException("RealizationStateBarrierConfig cannot be null"); }
             NSXTRealizationStateBarrierConfigType returnValue = default(NSXTRealizationStateBarrierConfigType);
@@ -113,31 +96,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(RealizationStateBarrierConfig, defaultSerializationSettings));
             request.Resource = UpdateRealizationStateBarrierConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTRealizationStateBarrierConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTRealizationStateBarrierConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateRealizationStateBarrierConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTRealizationStateBarrierConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTRealizationStateBarrierConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTRealizationStateBarrierConfigType GetRealizationStateBarrierConfig()
+        public async Task<NSXTRealizationStateBarrierConfigType> GetRealizationStateBarrierConfig()
         {
             NSXTRealizationStateBarrierConfigType returnValue = default(NSXTRealizationStateBarrierConfigType);
             StringBuilder GetRealizationStateBarrierConfigServiceURL = new StringBuilder("/realization-state-barrier/config");
@@ -148,25 +119,13 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = GetRealizationStateBarrierConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTRealizationStateBarrierConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTRealizationStateBarrierConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetRealizationStateBarrierConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTRealizationStateBarrierConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTRealizationStateBarrierConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

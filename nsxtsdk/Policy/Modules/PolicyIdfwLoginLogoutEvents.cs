@@ -21,16 +21,23 @@ namespace nsxtapi.PolicyModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public PolicyIdfwLoginLogoutEvents(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public PolicyIdfwLoginLogoutEvents(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PostLoginLogoutEvents(NSXTLoginLogoutEventCollectionType LoginLogoutEventCollection)
+        public async Task PostLoginLogoutEvents(NSXTLoginLogoutEventCollectionType LoginLogoutEventCollection)
         {
             if (LoginLogoutEventCollection == null) { throw new System.ArgumentNullException("LoginLogoutEventCollection cannot be null"); }
             
@@ -43,7 +50,7 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(LoginLogoutEventCollection, defaultSerializationSettings));
             request.Resource = PostLoginLogoutEventsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + PostLoginLogoutEventsServiceURL.ToString() + " did not complete successfull";

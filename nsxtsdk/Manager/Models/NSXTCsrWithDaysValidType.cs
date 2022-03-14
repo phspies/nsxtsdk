@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,17 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTCsrWithDaysValidType : NSXTCsrType
     {
-        public NSXTCsrWithDaysValidType()
-        {
-            DaysValid = test
-        }
         /// <summary>
         /// Number of days the certificate will be valid, default 825 days
         /// </summary>
-        [JsonProperty(PropertyName = "days_valid")]
-        [NSXTProperty(IsRequired: false, Description: @"Number of days the certificate will be valid, default 825 days")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(10000)]
         public long? DaysValid { get; set; }
     }
 }

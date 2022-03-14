@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,29 +17,19 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTGlobalIdsSignatureType : NSXTPolicyConfigResourceType
     {
-        public NSXTGlobalIdsSignatureType()
-        {
-            Enable = test
-        }
         /// <summary>
         /// It denotes the global action of a IDS Signature.
         /// This will take precedence over IDS signature's action.
         /// </summary>
-        [JsonProperty(PropertyName = "action")]
-        [NSXTProperty(IsRequired: false, Description: @"It denotes the global action of a IDS Signature.This will take precedence over IDS signature&apos;s action.")]
         public NSXTGlobalIdsSignatureActionEnumType? Action { get; set; }
         /// <summary>
         /// Represents the Signature's id.
         /// </summary>
         [JsonProperty(PropertyName = "signature_id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Represents the Signature&apos;s id.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string SignatureId { get; set; }
         /// <summary>
         /// Flag through which user can Enable/Disable a Signature at Global Level.
         /// </summary>
-        [JsonProperty(PropertyName = "enable")]
-        [NSXTProperty(IsRequired: false, Description: @"Flag through which user can Enable/Disable a Signature at Global Level.")]
         public bool? Enable { get; set; }
     }
 }

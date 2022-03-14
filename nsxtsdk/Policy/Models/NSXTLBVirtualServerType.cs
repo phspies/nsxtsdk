@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,31 +17,21 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTLBVirtualServerType : NSXTPolicyConfigResourceType
     {
-        public NSXTLBVirtualServerType()
-        {
-            Enabled = test
-        }
         /// <summary>
         /// Path to optional object that enables persistence on a virtual server
         /// allowing related client connections to be sent to the same backend
         /// server. Persistence is disabled by default.
         /// </summary>
-        [JsonProperty(PropertyName = "lb_persistence_profile_path")]
-        [NSXTProperty(IsRequired: false, Description: @"Path to optional object that enables persistence on a virtual serverallowing related client connections to be sent to the same backendserver. Persistence is disabled by default.")]
         public string? LbPersistenceProfilePath { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "access_list_control")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTLBAccessListControlType AccessListControl { get; set; }
         /// <summary>
         /// The server pool(LBPool) contains backend servers. Server pool
         /// consists of one or more servers, also referred to as pool members, that
         /// are similarly configured and are running the same application.
         /// </summary>
-        [JsonProperty(PropertyName = "pool_path")]
-        [NSXTProperty(IsRequired: false, Description: @"The server pool(LBPool) contains backend servers. Server poolconsists of one or more servers, also referred to as pool members, thatare similarly configured and are running the same application.")]
         public string? PoolPath { get; set; }
         /// <summary>
         /// The property log_significant_event_only can take effect only when
@@ -52,8 +42,6 @@ namespace nsxtsdk.PolicyModels
         /// For L7 virtual server, significant event means unsuccessful connections
         /// or HTTP/HTTPS requests which have error response code(e.g. 4xx, 5xx).
         /// </summary>
-        [JsonProperty(PropertyName = "log_significant_event_only")]
-        [NSXTProperty(IsRequired: false, Description: @"The property log_significant_event_only can take effect only whenaccess_log_enabled is true. If log_significant_event_only is true,significant events are logged in access log.For L4 virtual server, significant event means unsuccessful(error ordropped) TCP/UDP connections.For L7 virtual server, significant event means unsuccessful connectionsor HTTP/HTTPS requests which have error response code(e.g. 4xx, 5xx).")]
         public bool? LogSignificantEventOnly { get; set; }
         /// <summary>
         /// Load balancer rules allow customization of load balancing behavior using
@@ -61,20 +49,14 @@ namespace nsxtsdk.PolicyModels
         /// only layer 7 virtual servers with LBHttpProfile. The property is
         /// deprecated as NSX-T Load Balancer is deprecated.
         /// </summary>
-        [JsonProperty(PropertyName = "rules")]
-        [NSXTProperty(IsRequired: false, Description: @"Load balancer rules allow customization of load balancing behavior usingmatch/action rules. Currently, load balancer rules are supported foronly layer 7 virtual servers with LBHttpProfile. The property isdeprecated as NSX-T Load Balancer is deprecated.")]
         public IList<NSXTLBRuleType> Rules { get; set; }
         /// <summary>
         /// Default pool member ports when member port is not defined.
         /// </summary>
-        [JsonProperty(PropertyName = "default_pool_member_ports")]
-        [NSXTProperty(IsRequired: false, Description: @"Default pool member ports when member port is not defined.")]
         public IList<string> DefaultPoolMemberPorts { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "server_ssl_profile_binding")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTLBServerSslProfileBindingType ServerSslProfileBinding { get; set; }
         /// <summary>
         /// The application profile defines the application protocol characteristics.
@@ -83,8 +65,6 @@ namespace nsxtsdk.PolicyModels
         /// LBHttpProfile, etc are supported.
         /// </summary>
         [JsonProperty(PropertyName = "application_profile_path", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"The application profile defines the application protocol characteristics.It is used to influence how load balancing is performed. Currently,LBFastTCPProfile, LBFastUDPProfile andLBHttpProfile, etc are supported.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string ApplicationProfilePath { get; set; }
         /// <summary>
         /// If access log is enabled, all HTTP requests sent to L7 virtual server
@@ -96,8 +76,6 @@ namespace nsxtsdk.PolicyModels
         /// successful requests are not logged if log_significant_event_only is set
         /// to true.
         /// </summary>
-        [JsonProperty(PropertyName = "access_log_enabled")]
-        [NSXTProperty(IsRequired: false, Description: @"If access log is enabled, all HTTP requests sent to L7 virtual serverare logged to the access log file. Both successful returns informationresponses(1xx), successful responses(2xx), redirection messages(3xx) andunsuccessful requests, backend server returns 4xx or 5xx, are logged toaccess log, if enabled. All L4 virtual server connections are alsologged to the access log if enabled. The non-significant events such assuccessful requests are not logged if log_significant_event_only is setto true.")]
         public bool? AccessLogEnabled { get; set; }
         /// <summary>
         /// To ensure one virtual server does not over consume resources,
@@ -106,10 +84,6 @@ namespace nsxtsdk.PolicyModels
         /// If it is not specified, it means that connections are unlimited.
         /// The property is deprecated as NSX-T Load Balancer is deprecated.
         /// </summary>
-        [JsonProperty(PropertyName = "max_concurrent_connections")]
-        [NSXTProperty(IsRequired: false, Description: @"To ensure one virtual server does not over consume resources,affecting other applications hosted on the same LBS, connectionsto a virtual server can be capped.If it is not specified, it means that connections are unlimited.The property is deprecated as NSX-T Load Balancer is deprecated.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(2147483647)]
         public long? MaxConcurrentConnections { get; set; }
         /// <summary>
         /// To ensure one virtual server does not over consume resources,
@@ -117,10 +91,6 @@ namespace nsxtsdk.PolicyModels
         /// If it is not specified, it means that connection rate is unlimited.
         /// The property is deprecated as NSX-T Load Balancer is deprecated.
         /// </summary>
-        [JsonProperty(PropertyName = "max_new_connection_rate")]
-        [NSXTProperty(IsRequired: false, Description: @"To ensure one virtual server does not over consume resources,connections to a member can be rate limited.If it is not specified, it means that connection rate is unlimited.The property is deprecated as NSX-T Load Balancer is deprecated.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(2147483647)]
         public long? MaxNewConnectionRate { get; set; }
         /// <summary>
         /// virtual servers can be associated to LBService(which is
@@ -129,14 +99,10 @@ namespace nsxtsdk.PolicyModels
         /// identifier list here would be used to maintain the relationship of
         /// LBService and other LB entities.
         /// </summary>
-        [JsonProperty(PropertyName = "lb_service_path")]
-        [NSXTProperty(IsRequired: false, Description: @"virtual servers can be associated to LBService(which issimilar to physical/virtual load balancer), LB virtual servers,pools and other entities could be defined independently, the LBServiceidentifier list here would be used to maintain the relationship ofLBService and other LB entities.")]
         public string? LbServicePath { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "client_ssl_profile_binding")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTLBClientSslProfileBindingType ClientSslProfileBinding { get; set; }
         /// <summary>
         /// When load balancer can not select a backend server to serve the
@@ -144,8 +110,6 @@ namespace nsxtsdk.PolicyModels
         /// by sorry server pool. The property is deprecated as NSX-T Load Balancer
         /// is deprecated.
         /// </summary>
-        [JsonProperty(PropertyName = "sorry_pool_path")]
-        [NSXTProperty(IsRequired: false, Description: @"When load balancer can not select a backend server to serve therequest in default pool or pool in rules, the request would be servedby sorry server pool. The property is deprecated as NSX-T Load Balanceris deprecated.")]
         public string? SorryPoolPath { get; set; }
         /// <summary>
         /// Configures the IP address of the LBVirtualServer where it
@@ -153,8 +117,6 @@ namespace nsxtsdk.PolicyModels
         /// backend servers.
         /// </summary>
         [JsonProperty(PropertyName = "ip_address", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Configures the IP address of the LBVirtualServer where itreceives all client connections and distributes them among thebackend servers.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string IpAddress { get; set; }
         /// <summary>
         /// Ports contains a list of at least one port or port range such as "80",
@@ -162,14 +124,10 @@ namespace nsxtsdk.PolicyModels
         /// single port range.
         /// </summary>
         [JsonProperty(PropertyName = "ports", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Ports contains a list of at least one port or port range such as &quot;80&quot;,&quot;1234-1236&quot;. Each port element in the list should be a single port or asingle port range.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<string> Ports { get; set; }
         /// <summary>
         /// Flag to enable the load balancer virtual server.
         /// </summary>
-        [JsonProperty(PropertyName = "enabled")]
-        [NSXTProperty(IsRequired: false, Description: @"Flag to enable the load balancer virtual server.")]
         public bool? Enabled { get; set; }
     }
 }

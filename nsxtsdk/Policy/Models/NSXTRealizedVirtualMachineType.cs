@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,33 +17,22 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTRealizedVirtualMachineType : NSXTPolicyRealizedResourceType
     {
-        public NSXTRealizedVirtualMachineType()
-        {
-        }
         /// <summary>
         /// Id of the host on which the vm exists.
         /// </summary>
-        [JsonProperty(PropertyName = "host_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Id of the host on which the vm exists.")]
         public string? HostId { get; set; }
         /// <summary>
         /// Id of the vm unique within the host.
         /// </summary>
-        [JsonProperty(PropertyName = "local_id_on_host")]
-        [NSXTProperty(IsRequired: false, Description: @"Id of the vm unique within the host.")]
         public string? LocalIdOnHost { get; set; }
         /// <summary>
         /// Current power state of this virtual machine in the system.
         /// </summary>
-        [JsonProperty(PropertyName = "power_state")]
-        [NSXTProperty(IsRequired: false, Description: @"Current power state of this virtual machine in the system.")]
         public NSXTRealizedVirtualMachinePowerStateEnumType? PowerState { get; set; }
         /// <summary>
         /// List of external compute ids of the virtual machine in the format 'id-type-key:value' , list of external compute ids
         /// ['uuid:xxxx-xxxx-xxxx-xxxx', 'moIdOnHost:moref-11', 'instanceUuid:xxxx-xxxx-xxxx-xxxx']
         /// </summary>
-        [JsonProperty(PropertyName = "compute_ids")]
-        [NSXTProperty(IsRequired: false, Description: @"List of external compute ids of the virtual machine in the format &apos;id-type-key:value&apos; , list of external compute ids [&apos;uuid:xxxx-xxxx-xxxx-xxxx&apos;, &apos;moIdOnHost:moref-11&apos;, &apos;instanceUuid:xxxx-xxxx-xxxx-xxxx&apos;]")]
         public IList<string> ComputeIds { get; set; }
     }
 }

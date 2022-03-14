@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -19,15 +19,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Configuration for automatically joining a cluster node to thecluster after it is deployed. ClusteringConfig is requiredif any of the deployment nodes has CONTROLLER role.")]
     public class NSXTClusteringConfigType 
     {
-        public NSXTClusteringConfigType()
-        {
-        }
         /// <summary>
         /// Specifies the type of clustering config to be used.
         /// </summary>
         [JsonProperty(PropertyName = "clustering_type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Specifies the type of clustering config to be used.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTClusteringConfigClusteringTypeEnumType ClusteringType { get; set; }
     }
 }

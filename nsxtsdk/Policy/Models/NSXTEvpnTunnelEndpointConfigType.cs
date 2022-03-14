@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,30 +17,19 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTEvpnTunnelEndpointConfigType : NSXTPolicyConfigResourceType
     {
-        public NSXTEvpnTunnelEndpointConfigType()
-        {
-        }
         /// <summary>
         /// MTU
         /// </summary>
-        [JsonProperty(PropertyName = "mtu")]
-        [NSXTProperty(IsRequired: false, Description: @"MTU")]
-        //[System.ComponentModel.DataAnnotations.MinLength(64)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(9100)]
         public int? Mtu { get; set; }
         /// <summary>
         /// edge path
         /// </summary>
         [JsonProperty(PropertyName = "edge_path", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"edge path")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string EdgePath { get; set; }
         /// <summary>
         /// local addresses
         /// </summary>
         [JsonProperty(PropertyName = "local_addresses", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"local addresses")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<string> LocalAddresses { get; set; }
     }
 }

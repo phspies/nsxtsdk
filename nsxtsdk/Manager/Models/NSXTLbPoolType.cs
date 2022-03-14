@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,37 +17,23 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLbPoolType : NSXTManagedResourceType
     {
-        public NSXTLbPoolType()
-        {
-            Algorithm = test
-            TcpMultiplexingNumber = test
-            MinActiveMembers = test
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "member_group")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTPoolMemberGroupType MemberGroup { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "snat_translation")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTLbSnatTranslationType SnatTranslation { get; set; }
         /// <summary>
         /// Load balancing algorithm, configurable per pool controls how the
         /// incoming connections are distributed among the members.
         /// </summary>
-        [JsonProperty(PropertyName = "algorithm")]
-        [NSXTProperty(IsRequired: false, Description: @"Load balancing algorithm, configurable per pool controls how theincoming connections are distributed among the members.")]
         public NSXTLbPoolAlgorithmEnumType? Algorithm { get; set; }
         /// <summary>
         /// Server pool consists of one or more pool members. Each pool member
         /// is identified, typically, by an IP address and a port.
         /// </summary>
-        [JsonProperty(PropertyName = "members")]
-        [NSXTProperty(IsRequired: false, Description: @"Server pool consists of one or more pool members. Each pool memberis identified, typically, by an IP address and a port.")]
         public IList<NSXTPoolMemberType> Members { get; set; }
         /// <summary>
         /// Passive healthchecks are disabled by default and can be enabled by
@@ -62,18 +48,12 @@ namespace nsxtsdk.ManagerModels
         /// considered to have failed and the failed count is incremented.
         /// The property is deprecated as NSX-T Load Balancer is deprecated.
         /// </summary>
-        [JsonProperty(PropertyName = "passive_monitor_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Passive healthchecks are disabled by default and can be enabled byattaching a passive health monitor to a server pool.Each time a client connection to a pool member fails, its failed countis incremented. For pools bound to L7 virtual servers, a connection isconsidered to be failed and failed count is incremented if any TCPconnection errors (e.g. TCP RST or failure to send data) or SSLhandshake failures occur. For pools bound to L4 virtual servers, if noresponse is received to a TCP SYN sent to the pool member or if a TCPRST is received in response to a TCP SYN, then the pool member isconsidered to have failed and the failed count is incremented.The property is deprecated as NSX-T Load Balancer is deprecated.")]
         public string? PassiveMonitorId { get; set; }
         /// <summary>
         /// The maximum number of TCP connections per pool that are idly kept alive
         /// for sending future client requests.
         /// The property is deprecated as NSX-T Load Balancer is deprecated.
         /// </summary>
-        [JsonProperty(PropertyName = "tcp_multiplexing_number")]
-        [NSXTProperty(IsRequired: false, Description: @"The maximum number of TCP connections per pool that are idly kept alivefor sending future client requests.The property is deprecated as NSX-T Load Balancer is deprecated.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(2147483647)]
         public long? TcpMultiplexingNumber { get; set; }
         /// <summary>
         /// In case of active healthchecks, load balancer itself initiates new
@@ -85,8 +65,6 @@ namespace nsxtsdk.ManagerModels
         /// health check status for all the monitors are UP.
         /// The property is deprecated as NSX-T Load Balancer is deprecated.
         /// </summary>
-        [JsonProperty(PropertyName = "active_monitor_ids")]
-        [NSXTProperty(IsRequired: false, Description: @"In case of active healthchecks, load balancer itself initiates newconnections (or sends ICMP ping) to the servers periodically to checktheir health, completely independent of any data traffic. Activehealthchecks are disabled by default and can be enabled for a serverpool by binding a health monitor to the pool. If multiple activemonitors are configured, the pool member status is UP only when thehealth check status for all the monitors are UP.The property is deprecated as NSX-T Load Balancer is deprecated.")]
         public IList<string> ActiveMonitorIds { get; set; }
         /// <summary>
         /// TCP multiplexing allows the same TCP connection between load balancer
@@ -94,17 +72,11 @@ namespace nsxtsdk.ManagerModels
         /// from different client TCP connections.
         /// The property is deprecated as NSX-T Load Balancer is deprecated.
         /// </summary>
-        [JsonProperty(PropertyName = "tcp_multiplexing_enabled")]
-        [NSXTProperty(IsRequired: false, Description: @"TCP multiplexing allows the same TCP connection between load balancerand the backend server to be used for sending multiple client requestsfrom different client TCP connections.The property is deprecated as NSX-T Load Balancer is deprecated.")]
         public bool? TcpMultiplexingEnabled { get; set; }
         /// <summary>
         /// A pool is considered active if there are at least certain
         /// minimum number of members.
         /// </summary>
-        [JsonProperty(PropertyName = "min_active_members")]
-        [NSXTProperty(IsRequired: false, Description: @"A pool is considered active if there are at least certainminimum number of members.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(2147483647)]
         public long? MinActiveMembers { get; set; }
     }
 }

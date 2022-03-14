@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,29 +17,20 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTStaticIpMacListSpecType : NSXTIpAssignmentSpecType
     {
-        public NSXTStaticIpMacListSpecType()
-        {
-        }
         /// <summary>
         /// Subnet mask
         /// </summary>
         [JsonProperty(PropertyName = "subnet_mask", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Subnet mask")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string SubnetMask { get; set; }
         /// <summary>
         /// List of IPs and MACs for transport node host switch virtual tunnel endpoints
         /// </summary>
         [JsonProperty(PropertyName = "ip_mac_list", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"List of IPs and MACs for transport node host switch virtual tunnel endpoints")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTIpMacPairType> IpMacList { get; set; }
         /// <summary>
         /// Gateway IP
         /// </summary>
         [JsonProperty(PropertyName = "default_gateway", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Gateway IP")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string DefaultGateway { get; set; }
     }
 }

@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public NodeAuditLog(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public NodeAuditLog(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTAuditLogListResultType CollectAuditLogs(NSXTAuditLogRequestType AuditLogRequest, long? Cursor = null, string? Fields = null, long? PageSize = null)
+        public async Task<NSXTAuditLogListResultType> CollectAuditLogs(NSXTAuditLogRequestType AuditLogRequest, long? Cursor = null, string? Fields = null, long? PageSize = null)
         {
             if (AuditLogRequest == null) { throw new System.ArgumentNullException("AuditLogRequest cannot be null"); }
             NSXTAuditLogListResultType returnValue = default(NSXTAuditLogListResultType);
@@ -46,25 +53,13 @@ namespace nsxtapi.ManagerModules
             if (Fields != null) { request.AddQueryParameter("fields", Fields.ToString()); }
             if (PageSize != null) { request.AddQueryParameter("page_size", PageSize.ToString()); }
             request.Resource = CollectAuditLogsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTAuditLogListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTAuditLogListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CollectAuditLogsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTAuditLogListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTAuditLogListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

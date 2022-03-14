@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,21 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTShaDynamicPluginType : NSXTPolicyConfigResourceType
     {
-        public NSXTShaDynamicPluginType()
-        {
-        }
         /// <summary>
         /// The Policy group path to apply the changes on Sha Plugin.
         /// It can be pre-defined plugin or dynamic created plugin.
         /// </summary>
-        [JsonProperty(PropertyName = "applied_to_group_path")]
-        [NSXTProperty(IsRequired: false, Description: @"The Policy group path to apply the changes on Sha Plugin.It can be pre-defined plugin or dynamic created plugin.")]
         public string? AppliedToGroupPath { get; set; }
         /// <summary>
         /// Flag to show the dynamic plugin zip file is uploaded.
         /// </summary>
-        [JsonProperty(PropertyName = "is_plugin_uploaded")]
-        [NSXTProperty(IsRequired: false, Description: @"Flag to show the dynamic plugin zip file is uploaded.")]
         public bool? IsPluginUploaded { get; set; }
     }
 }

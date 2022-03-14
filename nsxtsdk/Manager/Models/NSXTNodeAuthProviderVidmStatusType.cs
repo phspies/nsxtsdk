@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,22 +17,15 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Node AAA provider vIDM status")]
     public class NSXTNodeAuthProviderVidmStatusType 
     {
-        public NSXTNodeAuthProviderVidmStatusType()
-        {
-        }
         /// <summary>
         /// AAA provider vIDM status
         /// </summary>
         [JsonProperty(PropertyName = "runtime_state", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"AAA provider vIDM status")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string RuntimeState { get; set; }
         /// <summary>
         /// vIDM enable flag
         /// </summary>
         [JsonProperty(PropertyName = "vidm_enable", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"vIDM enable flag")]
-        [System.ComponentModel.DataAnnotations.Required]
         public bool VidmEnable { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,26 +17,17 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNodeCertificateInfoType 
     {
-        public NSXTNodeCertificateInfoType()
-        {
-        }
         /// <summary>
         /// SHA256 of certificate
         /// </summary>
-        [JsonProperty(PropertyName = "certificate_sha256_thumbprint")]
-        [NSXTProperty(IsRequired: false, Description: @"SHA256 of certificate")]
         public string? CertificateSha256Thumbprint { get; set; }
         /// <summary>
         /// Certificate content
         /// </summary>
-        [JsonProperty(PropertyName = "certificate")]
-        [NSXTProperty(IsRequired: false, Description: @"Certificate content")]
         public string? Certificate { get; set; }
         /// <summary>
         /// Entity type of this certificate
         /// </summary>
-        [JsonProperty(PropertyName = "entity_type")]
-        [NSXTProperty(IsRequired: false, Description: @"Entity type of this certificate")]
         public NSXTNodeCertificateInfoEntityTypeEnumType? EntityType { get; set; }
     }
 }

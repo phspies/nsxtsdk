@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLogicalSwitchStateType : NSXTConfigurationStateType
     {
-        public NSXTLogicalSwitchStateType()
-        {
-        }
         /// <summary>
         /// Id of the logical switch
         /// </summary>
-        [JsonProperty(PropertyName = "logical_switch_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Id of the logical switch")]
         public string? LogicalSwitchId { get; set; }
     }
 }

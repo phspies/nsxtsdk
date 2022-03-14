@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -20,20 +20,13 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Information about the realized status of the intent object on an NSX-T type of enforcement point.Some very recent changes may be excluded when preparing this information, which is indicated byPending Changes Info. In addition to the realized status across all scopes, this information holdsdetails about enforced realized status per scope.")]
     public class NSXTEnforcedStatusInfoNsxTType 
     {
-        public NSXTEnforcedStatusInfoNsxTType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "enforced_status")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTEnforcedStatusNsxTType EnforcedStatus { get; set; }
         /// <summary>
         /// List of Enforced Realized Status per Scope.
         /// </summary>
-        [JsonProperty(PropertyName = "enforced_status_per_scope")]
-        [NSXTProperty(IsRequired: false, Description: @"List of Enforced Realized Status per Scope.")]
         public IList<NSXTEnforcedStatusPerScopeNsxTType> EnforcedStatusPerScope { get; set; }
     }
 }

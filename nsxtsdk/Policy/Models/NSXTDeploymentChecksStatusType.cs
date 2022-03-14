@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,9 +17,6 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Pre/Post deployment status.")]
     public class NSXTDeploymentChecksStatusType 
     {
-        public NSXTDeploymentChecksStatusType()
-        {
-        }
         /// <summary>
         /// Status pre/post check.
         /// SUCCESS - Successfully completed pre/post check.
@@ -31,27 +28,19 @@ namespace nsxtsdk.PolicyModels
         /// STOPPED - Pre/post check stopped.
         /// NOT_STARTED - Pre/post check not started
         /// </summary>
-        [JsonProperty(PropertyName = "status")]
-        [NSXTProperty(IsRequired: false, Description: @"Status pre/post check.SUCCESS - Successfully completed pre/post check.FAILED - Failed pre/post check.WARNING - Warning in pre/post check.SKIPPED - Pre/post check skipped.IN_PROGRESS - Pre/post check in progress.STOPPING - Stopping pre/post check.STOPPED - Pre/post check stopped.NOT_STARTED - Pre/post check not started")]
         public NSXTDeploymentChecksStatusStatusEnumType? Status { get; set; }
         /// <summary>
         /// Reason for failure of pre/post check.
         /// Otherwise empty.
         /// </summary>
-        [JsonProperty(PropertyName = "reason")]
-        [NSXTProperty(IsRequired: false, Description: @"Reason for failure of pre/post check.Otherwise empty.")]
         public string? Reason { get; set; }
         /// <summary>
         /// Name of pre/post check.
         /// </summary>
-        [JsonProperty(PropertyName = "name")]
-        [NSXTProperty(IsRequired: false, Description: @"Name of pre/post check.")]
         public string? Name { get; set; }
         /// <summary>
         /// Show more information about pre/post check performed.
         /// </summary>
-        [JsonProperty(PropertyName = "description")]
-        [NSXTProperty(IsRequired: false, Description: @"Show more information about pre/post check performed.")]
         public string? Description { get; set; }
     }
 }

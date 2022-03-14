@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public AggSvcLogicalRouterPort(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public AggSvcLogicalRouterPort(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLogicalRouterPortStatisticsSummaryType GetLogicalRouterPortStatisticsSummary(string LogicalRouterPortId, string? Source = null)
+        public async Task<NSXTLogicalRouterPortStatisticsSummaryType> GetLogicalRouterPortStatisticsSummary(string LogicalRouterPortId, string? Source = null)
         {
             if (LogicalRouterPortId == null) { throw new System.ArgumentNullException("LogicalRouterPortId cannot be null"); }
             NSXTLogicalRouterPortStatisticsSummaryType returnValue = default(NSXTLogicalRouterPortStatisticsSummaryType);
@@ -44,31 +51,19 @@ namespace nsxtapi.ManagerModules
             GetLogicalRouterPortStatisticsSummaryServiceURL.Replace("{logical-router-port-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(LogicalRouterPortId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             request.Resource = GetLogicalRouterPortStatisticsSummaryServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLogicalRouterPortStatisticsSummaryType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLogicalRouterPortStatisticsSummaryType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetLogicalRouterPortStatisticsSummaryServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLogicalRouterPortStatisticsSummaryType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLogicalRouterPortStatisticsSummaryType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLogicalRouterPortStatisticsType GetLogicalRouterPortStatistics(string LogicalRouterPortId, string? Source = null, string? TransportNodeId = null)
+        public async Task<NSXTLogicalRouterPortStatisticsType> GetLogicalRouterPortStatistics(string LogicalRouterPortId, string? Source = null, string? TransportNodeId = null)
         {
             if (LogicalRouterPortId == null) { throw new System.ArgumentNullException("LogicalRouterPortId cannot be null"); }
             NSXTLogicalRouterPortStatisticsType returnValue = default(NSXTLogicalRouterPortStatisticsType);
@@ -83,31 +78,19 @@ namespace nsxtapi.ManagerModules
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             if (TransportNodeId != null) { request.AddQueryParameter("transport_node_id", TransportNodeId.ToString()); }
             request.Resource = GetLogicalRouterPortStatisticsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLogicalRouterPortStatisticsType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLogicalRouterPortStatisticsType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetLogicalRouterPortStatisticsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLogicalRouterPortStatisticsType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLogicalRouterPortStatisticsType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLogicalRouterPortArpTableType GetLogicalRouterPortArpTable(string LogicalRouterPortId, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? Source = null, string? TransportNodeId = null)
+        public async Task<NSXTLogicalRouterPortArpTableType> GetLogicalRouterPortArpTable(string LogicalRouterPortId, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? Source = null, string? TransportNodeId = null)
         {
             if (LogicalRouterPortId == null) { throw new System.ArgumentNullException("LogicalRouterPortId cannot be null"); }
             NSXTLogicalRouterPortArpTableType returnValue = default(NSXTLogicalRouterPortArpTableType);
@@ -127,31 +110,19 @@ namespace nsxtapi.ManagerModules
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             if (TransportNodeId != null) { request.AddQueryParameter("transport_node_id", TransportNodeId.ToString()); }
             request.Resource = GetLogicalRouterPortArpTableServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLogicalRouterPortArpTableType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLogicalRouterPortArpTableType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetLogicalRouterPortArpTableServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLogicalRouterPortArpTableType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLogicalRouterPortArpTableType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLogicalRouterPortArpTableInCsvFormatType GetLogicalRouterPortArpTableInCsvFormat(string LogicalRouterPortId, string? Source = null, string? TransportNodeId = null)
+        public async Task<NSXTLogicalRouterPortArpTableInCsvFormatType> GetLogicalRouterPortArpTableInCsvFormat(string LogicalRouterPortId, string? Source = null, string? TransportNodeId = null)
         {
             if (LogicalRouterPortId == null) { throw new System.ArgumentNullException("LogicalRouterPortId cannot be null"); }
             NSXTLogicalRouterPortArpTableInCsvFormatType returnValue = default(NSXTLogicalRouterPortArpTableInCsvFormatType);
@@ -166,25 +137,13 @@ namespace nsxtapi.ManagerModules
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             if (TransportNodeId != null) { request.AddQueryParameter("transport_node_id", TransportNodeId.ToString()); }
             request.Resource = GetLogicalRouterPortArpTableInCsvFormatServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLogicalRouterPortArpTableInCsvFormatType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLogicalRouterPortArpTableInCsvFormatType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetLogicalRouterPortArpTableInCsvFormatServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLogicalRouterPortArpTableInCsvFormatType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLogicalRouterPortArpTableInCsvFormatType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

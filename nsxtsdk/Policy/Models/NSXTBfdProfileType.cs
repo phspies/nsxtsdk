@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,28 +17,15 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTBfdProfileType : NSXTPolicyConfigResourceType
     {
-        public NSXTBfdProfileType()
-        {
-            Interval = test
-            Multiple = test
-        }
         /// <summary>
         /// Time interval between heartbeat packets in milliseconds.
         /// </summary>
-        [JsonProperty(PropertyName = "interval")]
-        [NSXTProperty(IsRequired: false, Description: @"Time interval between heartbeat packets in milliseconds.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(50)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(60000)]
         public int? Interval { get; set; }
         /// <summary>
         /// Declare dead multiple.
         /// Number of times heartbeat packet is missed before BFD declares the
         /// neighbor is down.
         /// </summary>
-        [JsonProperty(PropertyName = "multiple")]
-        [NSXTProperty(IsRequired: false, Description: @"Declare dead multiple.Number of times heartbeat packet is missed before BFD declares theneighbor is down.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(2)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(16)]
         public int? Multiple { get; set; }
     }
 }

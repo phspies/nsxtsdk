@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,27 +17,18 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"The reponse to a batch operation")]
     public class NSXTBatchResponseType 
     {
-        public NSXTBatchResponseType()
-        {
-        }
         /// <summary>
         /// Indicates if any of the APIs failed
         /// </summary>
-        [JsonProperty(PropertyName = "has_errors")]
-        [NSXTProperty(IsRequired: false, Description: @"Indicates if any of the APIs failed")]
         public bool? HasErrors { get; set; }
         /// <summary>
         /// Optional flag indicating that all items were rolled back even if succeeded initially
         /// </summary>
-        [JsonProperty(PropertyName = "rolled_back")]
-        [NSXTProperty(IsRequired: false, Description: @"Optional flag indicating that all items were rolled back even if succeeded initially")]
         public bool? RolledBack { get; set; }
         /// <summary>
         /// Bulk list results
         /// </summary>
         [JsonProperty(PropertyName = "results", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Bulk list results")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTBatchResponseItemType> Results { get; set; }
     }
 }

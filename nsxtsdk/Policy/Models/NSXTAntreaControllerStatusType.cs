@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,26 +17,17 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Antrea Controller status, including component status, connected agent and CONTROLLER_ prefix conditions status.")]
     public class NSXTAntreaControllerStatusType 
     {
-        public NSXTAntreaControllerStatusType()
-        {
-        }
         /// <summary>
         /// Indicate overall healthy status.
         /// </summary>
-        [JsonProperty(PropertyName = "status")]
-        [NSXTProperty(IsRequired: false, Description: @"Indicate overall healthy status.")]
         public NSXTAntreaControllerStatusStatusEnumType? Status { get; set; }
         /// <summary>
         /// Collection of controller related conditions.
         /// </summary>
-        [JsonProperty(PropertyName = "conditions")]
-        [NSXTProperty(IsRequired: false, Description: @"Collection of controller related conditions.")]
         public IList<NSXTComponentConditionItemType> Conditions { get; set; }
         /// <summary>
         /// If status is UNKNOWN, this number is meaningless.
         /// </summary>
-        [JsonProperty(PropertyName = "connected_agent_num")]
-        [NSXTProperty(IsRequired: false, Description: @"If status is UNKNOWN, this number is meaningless.")]
         public int? ConnectedAgentNum { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,26 +17,15 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTVniPoolConfigType : NSXTPolicyConfigResourceType
     {
-        public NSXTVniPoolConfigType()
-        {
-        }
         /// <summary>
         /// Start value of VNI Pool range
         /// </summary>
         [JsonProperty(PropertyName = "start", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Start value of VNI Pool range")]
-        //[System.ComponentModel.DataAnnotations.MinLength(75001)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(16777215)]
-        [System.ComponentModel.DataAnnotations.Required]
         public int Start { get; set; }
         /// <summary>
         /// End value of VNI Pool range
         /// </summary>
         [JsonProperty(PropertyName = "end", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"End value of VNI Pool range")]
-        //[System.ComponentModel.DataAnnotations.MinLength(75001)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(16777215)]
-        [System.ComponentModel.DataAnnotations.Required]
         public int End { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,21 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Details about mapping of NSX-V and NSX-T Local Manager.")]
     public class NSXTV2tSiteMappingType 
     {
-        public NSXTV2tSiteMappingType()
-        {
-        }
         /// <summary>
         /// NSX-V API endpoint IP address
         /// </summary>
-        [JsonProperty(PropertyName = "nsxv_ip")]
-        [NSXTProperty(IsRequired: false, Description: @"NSX-V API endpoint IP address")]
         public string? NsxvIp { get; set; }
         /// <summary>
         /// Federation NSX-T site id.
         /// </summary>
         [JsonProperty(PropertyName = "federation_site_id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Federation NSX-T site id.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string FederationSiteId { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,22 +17,13 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Amount of memory and CPU allocated to the Edge VM.")]
     public class NSXTResourceAssignmentType 
     {
-        public NSXTResourceAssignmentType()
-        {
-        }
         /// <summary>
         /// Memory allocation in MB.
         /// </summary>
-        [JsonProperty(PropertyName = "memory_allocation_in_mb")]
-        [NSXTProperty(IsRequired: false, Description: @"Memory allocation in MB.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
         public int? MemoryAllocationInMb { get; set; }
         /// <summary>
         /// CPU count.
         /// </summary>
-        [JsonProperty(PropertyName = "cpu_count")]
-        [NSXTProperty(IsRequired: false, Description: @"CPU count.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
         public int? CpuCount { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,19 +17,12 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTDscpBitType : NSXTDscpIndicatorType
     {
-        public NSXTDscpBitType()
-        {
-        }
         /// <summary>
         /// A DSCP bit is allocated to indicate the existence of INT header. It takes
         /// effect only when the INT indicator mode is DSCP_BIT. The user should
         /// guarantee that the given DSCP bit is specifically allocated for INT.
         /// </summary>
         [JsonProperty(PropertyName = "dscp_bit", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"A DSCP bit is allocated to indicate the existence of INT header. It takeseffect only when the INT indicator mode is DSCP_BIT. The user shouldguarantee that the given DSCP bit is specifically allocated for INT.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(5)]
-        [System.ComponentModel.DataAnnotations.Required]
         public int DscpBit { get; set; }
     }
 }

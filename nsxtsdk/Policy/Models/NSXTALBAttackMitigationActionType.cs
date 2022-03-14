@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,17 +17,11 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer AttackMitigationAction object")]
     public class NSXTALBAttackMitigationActionType 
     {
-        public NSXTALBAttackMitigationActionType()
-        {
-            Deny = test
-        }
         /// <summary>
         /// Deny the attack packets further processing and drop them.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as true.
         /// </summary>
-        [JsonProperty(PropertyName = "deny")]
-        [NSXTProperty(IsRequired: false, Description: @"Deny the attack packets further processing and drop them.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
         public bool? Deny { get; set; }
     }
 }

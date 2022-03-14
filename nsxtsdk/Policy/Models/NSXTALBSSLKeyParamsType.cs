@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,21 +17,13 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer SSLKeyParams object")]
     public class NSXTALBSSLKeyParamsType 
     {
-        public NSXTALBSSLKeyParamsType()
-        {
-            Algorithm = test
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "ec_params")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBSSLKeyECParamsType EcParams { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "rsa_params")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBSSLKeyRSAParamsType RsaParams { get; set; }
         /// <summary>
         /// Enum options - SSL_KEY_ALGORITHM_RSA, SSL_KEY_ALGORITHM_EC.
@@ -39,8 +31,6 @@ namespace nsxtsdk.PolicyModels
         /// interpreted by ALB Controller as SSL_KEY_ALGORITHM_RSA.
         /// </summary>
         [JsonProperty(PropertyName = "algorithm", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Enum options - SSL_KEY_ALGORITHM_RSA, SSL_KEY_ALGORITHM_EC.Default value when not specified in API or module isinterpreted by ALB Controller as SSL_KEY_ALGORITHM_RSA.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTAlbsslkeyParamsAlgorithmEnumType Algorithm { get; set; }
     }
 }

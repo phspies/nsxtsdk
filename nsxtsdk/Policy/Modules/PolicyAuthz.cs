@@ -21,16 +21,23 @@ namespace nsxtapi.PolicyModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public PolicyAuthz(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public PolicyAuthz(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteObjectPermissions(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, bool? InheritanceDisabled = null, long? PageSize = null, string? PathPrefix = null, string? RoleName = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task DeleteObjectPermissions(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, bool? InheritanceDisabled = null, long? PageSize = null, string? PathPrefix = null, string? RoleName = null, bool? SortAscending = null, string? SortBy = null)
         {
             
             StringBuilder DeleteObjectPermissionsServiceURL = new StringBuilder("/aaa/object-permissions");
@@ -50,7 +57,7 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = DeleteObjectPermissionsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteObjectPermissionsServiceURL.ToString() + " did not complete successfull";
@@ -62,7 +69,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void UpdateObjectPermissions(NSXTObjectRolePermissionGroupType ObjectRolePermissionGroup)
+        public async Task UpdateObjectPermissions(NSXTObjectRolePermissionGroupType ObjectRolePermissionGroup)
         {
             if (ObjectRolePermissionGroup == null) { throw new System.ArgumentNullException("ObjectRolePermissionGroup cannot be null"); }
             
@@ -75,7 +82,7 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(ObjectRolePermissionGroup, defaultSerializationSettings));
             request.Resource = UpdateObjectPermissionsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + UpdateObjectPermissionsServiceURL.ToString() + " did not complete successfull";
@@ -87,7 +94,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTObjectRolePermissionGroupListResultType GetObjectPermissions(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, bool? InheritanceDisabled = null, long? PageSize = null, string? PathPrefix = null, string? RoleName = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTObjectRolePermissionGroupListResultType> GetObjectPermissions(string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, bool? InheritanceDisabled = null, long? PageSize = null, string? PathPrefix = null, string? RoleName = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTObjectRolePermissionGroupListResultType returnValue = default(NSXTObjectRolePermissionGroupListResultType);
             StringBuilder GetObjectPermissionsServiceURL = new StringBuilder("/aaa/object-permissions");
@@ -107,31 +114,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GetObjectPermissionsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTObjectRolePermissionGroupListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTObjectRolePermissionGroupListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetObjectPermissionsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTObjectRolePermissionGroupListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTObjectRolePermissionGroupListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTPathPermissionGroupType GetPathPermissions(string FeatureName, string ObjectPath)
+        public async Task<NSXTPathPermissionGroupType> GetPathPermissions(string FeatureName, string ObjectPath)
         {
             if (FeatureName == null) { throw new System.ArgumentNullException("FeatureName cannot be null"); }
             if (ObjectPath == null) { throw new System.ArgumentNullException("ObjectPath cannot be null"); }
@@ -146,25 +141,13 @@ namespace nsxtapi.PolicyModules
             if (FeatureName != null) { request.AddQueryParameter("feature_name", FeatureName.ToString()); }
             if (ObjectPath != null) { request.AddQueryParameter("object_path", ObjectPath.ToString()); }
             request.Resource = GetPathPermissionsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTPathPermissionGroupType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTPathPermissionGroupType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetPathPermissionsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTPathPermissionGroupType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTPathPermissionGroupType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

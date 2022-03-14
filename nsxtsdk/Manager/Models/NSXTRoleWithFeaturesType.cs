@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,21 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTRoleWithFeaturesType : NSXTManagedResourceType
     {
-        public NSXTRoleWithFeaturesType()
-        {
-        }
         /// <summary>
         /// Short identifier for the role. Must be all lower case with no spaces.
         /// </summary>
-        [JsonProperty(PropertyName = "role")]
-        [NSXTProperty(IsRequired: false, Description: @"Short identifier for the role. Must be all lower case with no spaces.")]
         public string? Role { get; set; }
         /// <summary>
         /// Features
         /// </summary>
         [JsonProperty(PropertyName = "features", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Features")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTFeaturePermissionType> Features { get; set; }
     }
 }

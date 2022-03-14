@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,9 +17,6 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"VIF attachment state of a segment port")]
     public class NSXTSegmentPortAttachmentStateType 
     {
-        public NSXTSegmentPortAttachmentStateType()
-        {
-        }
         /// <summary>
         /// A segment port must be in one of following states.
         /// FREE - If there are no active attachers. The port may or
@@ -37,20 +34,14 @@ namespace nsxtsdk.PolicyModels
         /// been detached. This state is applicable only to a port of
         /// ephemeral type and the port will soon be deleted.
         /// </summary>
-        [JsonProperty(PropertyName = "state")]
-        [NSXTProperty(IsRequired: false, Description: @"A segment port must be in one of following states.FREE - If there are no active attachers. The port may ormay not have an attachment ID configured on it. This state isapplicable only to port of static type.ATTACHED - Segment port has exactly one active attacher and nofurther configuration is pending.ATTACHED_PENDING_CONF - Segment port has exactly one attacher,however it may not have been configured completely. Additionalconfiguration will be provided by other nsx components.ATTACHED_IN_MOTION - Segment port has multiple active attachers.This state represents a scenario where VM is moving from onelocation (host or storage) to another (e.g. vmotion, vSphere HA)DETACHED - A temporary state after all port attachers havebeen detached. This state is applicable only to a port ofephemeral type and the port will soon be deleted.")]
         public NSXTSegmentPortAttachmentStateStateEnumType? State { get; set; }
         /// <summary>
         /// VM or vmknic entities that are attached to the Segment Port
         /// </summary>
-        [JsonProperty(PropertyName = "attachers")]
-        [NSXTProperty(IsRequired: false, Description: @"VM or vmknic entities that are attached to the Segment Port")]
         public IList<NSXTPortAttacherType> Attachers { get; set; }
         /// <summary>
         /// VIF ID
         /// </summary>
-        [JsonProperty(PropertyName = "id")]
-        [NSXTProperty(IsRequired: false, Description: @"VIF ID")]
         public string? Id { get; set; }
     }
 }

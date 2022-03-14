@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -18,31 +18,20 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"The GlobalCollectorConfig is the base class for global collector configurations fordifferent types in a NSX domain.")]
     public class NSXTGlobalCollectorConfigType 
     {
-        public NSXTGlobalCollectorConfigType()
-        {
-        }
         /// <summary>
         /// Port for the global collector.
         /// </summary>
         [JsonProperty(PropertyName = "collector_port", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Port for the global collector.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(65535)]
-        [System.ComponentModel.DataAnnotations.Required]
         public int CollectorPort { get; set; }
         /// <summary>
         /// Specify the global collector type.
         /// </summary>
         [JsonProperty(PropertyName = "collector_type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Specify the global collector type.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTGlobalCollectorConfigCollectorTypeEnumType CollectorType { get; set; }
         /// <summary>
         /// IP address for the global collector.
         /// </summary>
         [JsonProperty(PropertyName = "collector_ip", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"IP address for the global collector.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string CollectorIp { get; set; }
     }
 }

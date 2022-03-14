@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTAntreaTraceflowConfigListResultType : NSXTListResultType
     {
-        public NSXTAntreaTraceflowConfigListResultType()
-        {
-        }
         /// <summary>
         /// AntreaTraceflowConfig list results
         /// </summary>
         [JsonProperty(PropertyName = "results", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"AntreaTraceflowConfig list results")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTAntreaTraceflowConfigType> Results { get; set; }
     }
 }

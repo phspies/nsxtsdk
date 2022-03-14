@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTProtocolType 
     {
-        public NSXTProtocolType()
-        {
-        }
         /// <summary>
         /// Protocol name
         /// </summary>
         [JsonProperty(PropertyName = "name", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Protocol name")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTProtocolNameEnumType Name { get; set; }
     }
 }

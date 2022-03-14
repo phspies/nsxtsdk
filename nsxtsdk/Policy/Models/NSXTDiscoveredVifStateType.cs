@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,41 +17,28 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"State of VIFs connected to discovered segment on the TransportNode.")]
     public class NSXTDiscoveredVifStateType 
     {
-        public NSXTDiscoveredVifStateType()
-        {
-        }
         /// <summary>
         /// The state of specific discovered VIF.
         /// </summary>
-        [JsonProperty(PropertyName = "state")]
-        [NSXTProperty(IsRequired: false, Description: @"The state of specific discovered VIF.")]
         public NSXTDiscoveredVifStateStateEnumType? State { get; set; }
         /// <summary>
         /// Error encountered during segment port creation for the discovered VIF.
         /// </summary>
-        [JsonProperty(PropertyName = "error_msg")]
-        [NSXTProperty(IsRequired: false, Description: @"Error encountered during segment port creation for the discovered VIF.")]
         public string? ErrorMsg { get; set; }
         /// <summary>
         /// Id of discovered VIF.
         /// </summary>
         [JsonProperty(PropertyName = "id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Id of discovered VIF.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Id { get; set; }
         /// <summary>
         /// SegmentPort path related with discovered VIF.
         /// </summary>
         [JsonProperty(PropertyName = "segment_port_path", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"SegmentPort path related with discovered VIF.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string SegmentPortPath { get; set; }
         /// <summary>
         /// Segment path related with discovered VIF.
         /// </summary>
         [JsonProperty(PropertyName = "segment_path", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Segment path related with discovered VIF.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string SegmentPath { get; set; }
     }
 }

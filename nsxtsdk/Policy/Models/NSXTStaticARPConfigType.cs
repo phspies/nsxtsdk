@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,22 +17,15 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTStaticARPConfigType : NSXTPolicyConfigResourceType
     {
-        public NSXTStaticARPConfigType()
-        {
-        }
         /// <summary>
         /// IP Address
         /// </summary>
         [JsonProperty(PropertyName = "ip_address", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"IP Address")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string IpAddress { get; set; }
         /// <summary>
         /// MAC Address
         /// </summary>
         [JsonProperty(PropertyName = "mac_address", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"MAC Address")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string MacAddress { get; set; }
     }
 }

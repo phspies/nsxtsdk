@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,9 +17,6 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIPAddressElementType : NSXTRevisionedResourceType
     {
-        public NSXTIPAddressElementType()
-        {
-        }
         /// <summary>
         /// IPElement can be a single IP address, IP address range or a Subnet. Its
         /// type can be of IPv4 or IPv6. Supported list of formats are "192.168.1.1",
@@ -29,8 +26,6 @@ namespace nsxtsdk.ManagerModels
         /// "fe80::250:56ff:fe83:318c/64"
         /// </summary>
         [JsonProperty(PropertyName = "ip_address", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"IPElement can be a single IP address, IP address range or a Subnet. Itstype can be of IPv4 or IPv6. Supported list of formats are &quot;192.168.1.1&quot;,&quot;192.168.1.1-192.168.1.100&quot;, &quot;192.168.0.0/24&quot;,&quot;fe80::250:56ff:fe83:318c&quot;,&quot;fe80::250:56ff:fe83:3181-fe80::250:56ff:fe83:318c&quot;,&quot;fe80::250:56ff:fe83:318c/64&quot;")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string IpAddress { get; set; }
     }
 }

@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public Inventory(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public Inventory(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTInventoryConfigType GetInventoryConfig()
+        public async Task<NSXTInventoryConfigType> GetInventoryConfig()
         {
             NSXTInventoryConfigType returnValue = default(NSXTInventoryConfigType);
             StringBuilder GetInventoryConfigServiceURL = new StringBuilder("/configs/inventory");
@@ -41,31 +48,19 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = GetInventoryConfigServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTInventoryConfigType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTInventoryConfigType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetInventoryConfigServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTInventoryConfigType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTInventoryConfigType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTVirtualMachineListResultType ListVirtualMachines(string? Cursor = null, string? DisplayName = null, string? ExcludeVmType = null, string? ExternalId = null, string? HostId = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTVirtualMachineListResultType> ListVirtualMachines(string? Cursor = null, string? DisplayName = null, string? ExcludeVmType = null, string? ExternalId = null, string? HostId = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTVirtualMachineListResultType returnValue = default(NSXTVirtualMachineListResultType);
             StringBuilder ListVirtualMachinesServiceURL = new StringBuilder("/fabric/virtual-machines");
@@ -85,31 +80,19 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListVirtualMachinesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTVirtualMachineListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTVirtualMachineListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListVirtualMachinesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTVirtualMachineListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTVirtualMachineListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTVirtualNetworkInterfaceListResultType ListVifs(string? Cursor = null, string? HostId = null, string? IncludedFields = null, string? LportAttachmentId = null, string? OwnerVmId = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? VmId = null)
+        public async Task<NSXTVirtualNetworkInterfaceListResultType> ListVifs(string? Cursor = null, string? HostId = null, string? IncludedFields = null, string? LportAttachmentId = null, string? OwnerVmId = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? VmId = null)
         {
             NSXTVirtualNetworkInterfaceListResultType returnValue = default(NSXTVirtualNetworkInterfaceListResultType);
             StringBuilder ListVifsServiceURL = new StringBuilder("/fabric/vifs");
@@ -129,25 +112,13 @@ namespace nsxtapi.ManagerModules
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             if (VmId != null) { request.AddQueryParameter("vm_id", VmId.ToString()); }
             request.Resource = ListVifsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTVirtualNetworkInterfaceListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTVirtualNetworkInterfaceListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListVifsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTVirtualNetworkInterfaceListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTVirtualNetworkInterfaceListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

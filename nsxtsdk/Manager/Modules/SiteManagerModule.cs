@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public SiteManagerModule(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public SiteManagerModule(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTFederationConfigurationType GetSiteConfiguration()
+        public async Task<NSXTFederationConfigurationType> GetSiteConfiguration()
         {
             NSXTFederationConfigurationType returnValue = default(NSXTFederationConfigurationType);
             StringBuilder GetSiteConfigurationServiceURL = new StringBuilder("/sites");
@@ -41,31 +48,19 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = GetSiteConfigurationServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTFederationConfigurationType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTFederationConfigurationType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetSiteConfigurationServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTFederationConfigurationType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTFederationConfigurationType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSiteCompatibilityInfoType CompatibleList()
+        public async Task<NSXTSiteCompatibilityInfoType> CompatibleList()
         {
             NSXTSiteCompatibilityInfoType returnValue = default(NSXTSiteCompatibilityInfoType);
             StringBuilder CompatibleListServiceURL = new StringBuilder("/sites/compatibility");
@@ -76,31 +71,19 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = CompatibleListServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTSiteCompatibilityInfoType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTSiteCompatibilityInfoType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + CompatibleListServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSiteCompatibilityInfoType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSiteCompatibilityInfoType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTFederationConfigurationType GetSiteConfigurationVersioned310()
+        public async Task<NSXTFederationConfigurationType> GetSiteConfigurationVersioned310()
         {
             NSXTFederationConfigurationType returnValue = default(NSXTFederationConfigurationType);
             StringBuilder GetSiteConfigurationVersioned310ServiceURL = new StringBuilder("/sites?version=3.1.0");
@@ -111,31 +94,19 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = GetSiteConfigurationVersioned310ServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTFederationConfigurationType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTFederationConfigurationType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetSiteConfigurationVersioned310ServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTFederationConfigurationType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTFederationConfigurationType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLocalSiteConfigurationType GetSiteSelf()
+        public async Task<NSXTLocalSiteConfigurationType> GetSiteSelf()
         {
             NSXTLocalSiteConfigurationType returnValue = default(NSXTLocalSiteConfigurationType);
             StringBuilder GetSiteSelfServiceURL = new StringBuilder("/sites/self");
@@ -146,31 +117,19 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = GetSiteSelfServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLocalSiteConfigurationType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLocalSiteConfigurationType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetSiteSelfServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLocalSiteConfigurationType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLocalSiteConfigurationType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTRemoteSiteCompatibilityInfoType CompatibleListRemote(NSXTRemoteSiteCredentialType RemoteSiteCredential)
+        public async Task<NSXTRemoteSiteCompatibilityInfoType> CompatibleListRemote(NSXTRemoteSiteCredentialType RemoteSiteCredential)
         {
             if (RemoteSiteCredential == null) { throw new System.ArgumentNullException("RemoteSiteCredential cannot be null"); }
             NSXTRemoteSiteCompatibilityInfoType returnValue = default(NSXTRemoteSiteCompatibilityInfoType);
@@ -183,31 +142,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(RemoteSiteCredential, defaultSerializationSettings));
             request.Resource = CompatibleListRemoteServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTRemoteSiteCompatibilityInfoType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTRemoteSiteCompatibilityInfoType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + CompatibleListRemoteServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTRemoteSiteCompatibilityInfoType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTRemoteSiteCompatibilityInfoType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTFederationConfigurationType GetSiteConfigurationVersionedLatest()
+        public async Task<NSXTFederationConfigurationType> GetSiteConfigurationVersionedLatest()
         {
             NSXTFederationConfigurationType returnValue = default(NSXTFederationConfigurationType);
             StringBuilder GetSiteConfigurationVersionedLatestServiceURL = new StringBuilder("/sites?version=latest");
@@ -218,31 +165,19 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = GetSiteConfigurationVersionedLatestServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTFederationConfigurationType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTFederationConfigurationType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetSiteConfigurationVersionedLatestServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTFederationConfigurationType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTFederationConfigurationType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSwitchoverStatusType MakeActiveStatus()
+        public async Task<NSXTSwitchoverStatusType> MakeActiveStatus()
         {
             NSXTSwitchoverStatusType returnValue = default(NSXTSwitchoverStatusType);
             StringBuilder MakeActiveStatusServiceURL = new StringBuilder("/sites/switchover-status");
@@ -253,31 +188,19 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = MakeActiveStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTSwitchoverStatusType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTSwitchoverStatusType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + MakeActiveStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSwitchoverStatusType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSwitchoverStatusType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTFederationConfigurationType GetSiteConfigurationVersioned302()
+        public async Task<NSXTFederationConfigurationType> GetSiteConfigurationVersioned302()
         {
             NSXTFederationConfigurationType returnValue = default(NSXTFederationConfigurationType);
             StringBuilder GetSiteConfigurationVersioned302ServiceURL = new StringBuilder("/sites?version=3.0.2");
@@ -288,31 +211,19 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = GetSiteConfigurationVersioned302ServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTFederationConfigurationType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTFederationConfigurationType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetSiteConfigurationVersioned302ServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTFederationConfigurationType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTFederationConfigurationType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTFederationStatusType GetFederationStatus()
+        public async Task<NSXTFederationStatusType> GetFederationStatus()
         {
             NSXTFederationStatusType returnValue = default(NSXTFederationStatusType);
             StringBuilder GetFederationStatusServiceURL = new StringBuilder("/sites/status");
@@ -323,25 +234,13 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = GetFederationStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTFederationStatusType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTFederationStatusType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetFederationStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTFederationStatusType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTFederationStatusType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

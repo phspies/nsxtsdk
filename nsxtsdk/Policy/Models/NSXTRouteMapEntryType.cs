@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,37 +17,26 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Route map entry")]
     public class NSXTRouteMapEntryType 
     {
-        public NSXTRouteMapEntryType()
-        {
-        }
         /// <summary>
         /// Action for the route map entry
         /// </summary>
         [JsonProperty(PropertyName = "action", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Action for the route map entry")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTRouteMapEntryActionEnumType Action { get; set; }
         /// <summary>
         /// Community list match criteria for route map.
         /// Properties community_list_matches and prefix_list_matches are mutually
         /// exclusive and cannot be used in the same route map entry.
         /// </summary>
-        [JsonProperty(PropertyName = "community_list_matches")]
-        [NSXTProperty(IsRequired: false, Description: @"Community list match criteria for route map.Properties community_list_matches and prefix_list_matches are mutuallyexclusive and cannot be used in the same route map entry.")]
         public IList<NSXTCommunityMatchCriteriaType> CommunityListMatches { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "set")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTRouteMapEntrySetType Set { get; set; }
         /// <summary>
         /// Prefix list match criteria for route map.
         /// Properties community_list_matches and prefix_list_matches are mutually
         /// exclusive and cannot be used in the same route map entry.
         /// </summary>
-        [JsonProperty(PropertyName = "prefix_list_matches")]
-        [NSXTProperty(IsRequired: false, Description: @"Prefix list match criteria for route map.Properties community_list_matches and prefix_list_matches are mutuallyexclusive and cannot be used in the same route map entry.")]
         public IList<string> PrefixListMatches { get; set; }
     }
 }

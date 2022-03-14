@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,20 +17,13 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"ALB Controller Version")]
     public class NSXTALBControllerVersionType 
     {
-        public NSXTALBControllerVersionType()
-        {
-        }
         /// <summary>
         /// It is ALB Controller version deployed by NSX-ALB.
         /// </summary>
-        [JsonProperty(PropertyName = "alb_controller_version")]
-        [NSXTProperty(IsRequired: false, Description: @"It is ALB Controller version deployed by NSX-ALB.")]
         public string? AlbControllerVersion { get; set; }
         /// <summary>
         /// It is ALB API version supported by NSX-ALB.
         /// </summary>
-        [JsonProperty(PropertyName = "alb_api_version")]
-        [NSXTProperty(IsRequired: false, Description: @"It is ALB API version supported by NSX-ALB.")]
         public string? AlbApiVersion { get; set; }
     }
 }

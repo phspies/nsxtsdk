@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public NodeNetworkRoutesModule(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public NodeNetworkRoutesModule(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNodeRoutePropertiesType ReadNodeNetworkRoute(string RouteId)
+        public async Task<NSXTNodeRoutePropertiesType> ReadNodeNetworkRoute(string RouteId)
         {
             if (RouteId == null) { throw new System.ArgumentNullException("RouteId cannot be null"); }
             NSXTNodeRoutePropertiesType returnValue = default(NSXTNodeRoutePropertiesType);
@@ -43,31 +50,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             ReadNodeNetworkRouteServiceURL.Replace("{route-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(RouteId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadNodeNetworkRouteServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNodeRoutePropertiesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNodeRoutePropertiesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadNodeNetworkRouteServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNodeRoutePropertiesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNodeRoutePropertiesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteNodeNetworkRoute(string RouteId)
+        public async Task DeleteNodeNetworkRoute(string RouteId)
         {
             if (RouteId == null) { throw new System.ArgumentNullException("RouteId cannot be null"); }
             
@@ -80,7 +75,7 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             DeleteNodeNetworkRouteServiceURL.Replace("{route-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(RouteId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteNodeNetworkRouteServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteNodeNetworkRouteServiceURL.ToString() + " did not complete successfull";
@@ -92,7 +87,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNodeRoutePropertiesType CreateNodeNetworkRoute(NSXTNodeRoutePropertiesType NodeRouteProperties)
+        public async Task<NSXTNodeRoutePropertiesType> CreateNodeNetworkRoute(NSXTNodeRoutePropertiesType NodeRouteProperties)
         {
             if (NodeRouteProperties == null) { throw new System.ArgumentNullException("NodeRouteProperties cannot be null"); }
             NSXTNodeRoutePropertiesType returnValue = default(NSXTNodeRoutePropertiesType);
@@ -105,31 +100,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(NodeRouteProperties, defaultSerializationSettings));
             request.Resource = CreateNodeNetworkRouteServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNodeRoutePropertiesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNodeRoutePropertiesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CreateNodeNetworkRouteServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNodeRoutePropertiesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNodeRoutePropertiesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNodeRoutePropertiesListResultType ListNodeNetworkRoutes()
+        public async Task<NSXTNodeRoutePropertiesListResultType> ListNodeNetworkRoutes()
         {
             NSXTNodeRoutePropertiesListResultType returnValue = default(NSXTNodeRoutePropertiesListResultType);
             StringBuilder ListNodeNetworkRoutesServiceURL = new StringBuilder("/node/network/routes");
@@ -140,25 +123,13 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = ListNodeNetworkRoutesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNodeRoutePropertiesListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNodeRoutePropertiesListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListNodeNetworkRoutesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNodeRoutePropertiesListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNodeRoutePropertiesListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

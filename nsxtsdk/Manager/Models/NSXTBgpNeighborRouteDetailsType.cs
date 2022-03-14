@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,32 +17,21 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"BGP neighbor learned/advertised route details.")]
     public class NSXTBgpNeighborRouteDetailsType 
     {
-        public NSXTBgpNeighborRouteDetailsType()
-        {
-        }
         /// <summary>
         /// Logical router id
         /// </summary>
-        [JsonProperty(PropertyName = "logical_router_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Logical router id")]
         public string? LogicalRouterId { get; set; }
         /// <summary>
         /// BGP neighbor id
         /// </summary>
-        [JsonProperty(PropertyName = "neighbor_id")]
-        [NSXTProperty(IsRequired: false, Description: @"BGP neighbor id")]
         public string? NeighborId { get; set; }
         /// <summary>
         /// Array of BGP neighbor route details per transport node.
         /// </summary>
-        [JsonProperty(PropertyName = "per_transport_node_routes")]
-        [NSXTProperty(IsRequired: false, Description: @"Array of BGP neighbor route details per transport node.")]
         public IList<NSXTRoutesPerTransportNodeType> PerTransportNodeRoutes { get; set; }
         /// <summary>
         /// BGP neighbor peer IP address.
         /// </summary>
-        [JsonProperty(PropertyName = "neighbor_address")]
-        [NSXTProperty(IsRequired: false, Description: @"BGP neighbor peer IP address.")]
         public string? NeighborAddress { get; set; }
     }
 }

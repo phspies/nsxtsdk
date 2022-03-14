@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,22 +17,15 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Key value structure for holding metadata of context profile attributes")]
     public class NSXTContextProfileAttributesMetadataType 
     {
-        public NSXTContextProfileAttributesMetadataType()
-        {
-        }
         /// <summary>
         /// Value for metadata key
         /// </summary>
         [JsonProperty(PropertyName = "value", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Value for metadata key")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Value { get; set; }
         /// <summary>
         /// Key for metadata
         /// </summary>
         [JsonProperty(PropertyName = "key", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Key for metadata")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Key { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,11 +17,6 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer TCPApplicationProfile object")]
     public class NSXTALBTCPApplicationProfileType 
     {
-        public NSXTALBTCPApplicationProfileType()
-        {
-            ProxyProtocolVersion = test
-            SslClientCertificateMode = test
-        }
         /// <summary>
         /// Version of proxy protocol to be used to convey client
         /// connection information to the back-end servers.
@@ -33,8 +28,6 @@ namespace nsxtsdk.PolicyModels
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as PROXY_PROTOCOL_VERSION_1.
         /// </summary>
-        [JsonProperty(PropertyName = "proxy_protocol_version")]
-        [NSXTProperty(IsRequired: false, Description: @"Version of proxy protocol to be used to convey clientconnection information to the back-end servers.Enum options - PROXY_PROTOCOL_VERSION_1,PROXY_PROTOCOL_VERSION_2.Allowed in Basic(Allowed values- PROXY_PROTOCOL_VERSION_1)edition, Essentials(Allowed values-PROXY_PROTOCOL_VERSION_1) edition, Enterprise edition.Default value when not specified in API or module isinterpreted by ALB Controller as PROXY_PROTOCOL_VERSION_1.")]
         public NSXTAlbtcpapplicationProfileProxyProtocolVersionEnumType? ProxyProtocolVersion { get; set; }
         /// <summary>
         /// Specifies whether the client side verification is set to
@@ -50,8 +43,6 @@ namespace nsxtsdk.PolicyModels
         /// interpreted by ALB Controller as
         /// SSL_CLIENT_CERTIFICATE_NONE.
         /// </summary>
-        [JsonProperty(PropertyName = "ssl_client_certificate_mode")]
-        [NSXTProperty(IsRequired: false, Description: @"Specifies whether the client side verification is set tonone, request or require.Enum options - SSL_CLIENT_CERTIFICATE_NONE,SSL_CLIENT_CERTIFICATE_REQUEST,SSL_CLIENT_CERTIFICATE_REQUIRE.Allowed in Basic(Allowed values-SSL_CLIENT_CERTIFICATE_NONE) edition, Essentials(Allowedvalues- SSL_CLIENT_CERTIFICATE_NONE) edition, Enterpriseedition.Default value when not specified in API or module isinterpreted by ALB Controller asSSL_CLIENT_CERTIFICATE_NONE.")]
         public NSXTAlbtcpapplicationProfileSslClientCertificateModeEnumType? SslClientCertificateMode { get; set; }
         /// <summary>
         /// Select the PKI profile to be associated with the Virtual
@@ -62,8 +53,6 @@ namespace nsxtsdk.PolicyModels
         /// Allowed in Basic edition, Essentials edition, Enterprise
         /// edition.
         /// </summary>
-        [JsonProperty(PropertyName = "pki_profile_path")]
-        [NSXTProperty(IsRequired: false, Description: @"Select the PKI profile to be associated with the VirtualService.This profile defines the Certificate Authority andRevocation List.It is a reference to an object of type PKIProfile.Allowed in Basic edition, Essentials edition, Enterpriseedition.")]
         public string? PkiProfilePath { get; set; }
         /// <summary>
         /// Enable/Disable the usage of proxy protocol to convey client
@@ -75,8 +64,6 @@ namespace nsxtsdk.PolicyModels
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as false.
         /// </summary>
-        [JsonProperty(PropertyName = "proxy_protocol_enabled")]
-        [NSXTProperty(IsRequired: false, Description: @"Enable/Disable the usage of proxy protocol to convey clientconnection information to the back-end servers.Valid only for L4 application profiles and TCP proxy.Allowed in Basic(Allowed values- false) edition,Essentials(Allowed values- false) edition, Enterpriseedition.Default value when not specified in API or module isinterpreted by ALB Controller as false.")]
         public bool? ProxyProtocolEnabled { get; set; }
     }
 }

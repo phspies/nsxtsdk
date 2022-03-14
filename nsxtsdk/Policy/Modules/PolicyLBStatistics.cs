@@ -21,16 +21,23 @@ namespace nsxtapi.PolicyModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public PolicyLBStatistics(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public PolicyLBStatistics(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTAggregateLBServiceStatusType GetLbserviceStatus(string LbServiceId, string? EnforcementPointPath = null, bool? IncludeInstanceDetails = null, string? Source = null, string? TransportNodeIds = null)
+        public async Task<NSXTAggregateLBServiceStatusType> GetLbserviceStatus(string LbServiceId, string? EnforcementPointPath = null, bool? IncludeInstanceDetails = null, string? Source = null, string? TransportNodeIds = null)
         {
             if (LbServiceId == null) { throw new System.ArgumentNullException("LbServiceId cannot be null"); }
             NSXTAggregateLBServiceStatusType returnValue = default(NSXTAggregateLBServiceStatusType);
@@ -47,31 +54,19 @@ namespace nsxtapi.PolicyModules
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             if (TransportNodeIds != null) { request.AddQueryParameter("transport_node_ids", TransportNodeIds.ToString()); }
             request.Resource = GetLbserviceStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTAggregateLBServiceStatusType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTAggregateLBServiceStatusType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetLbserviceStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTAggregateLBServiceStatusType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTAggregateLBServiceStatusType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLBNodeUsageType GetLbnodeUsage(string NodePath)
+        public async Task<NSXTLBNodeUsageType> GetLbnodeUsage(string NodePath)
         {
             if (NodePath == null) { throw new System.ArgumentNullException("NodePath cannot be null"); }
             NSXTLBNodeUsageType returnValue = default(NSXTLBNodeUsageType);
@@ -84,31 +79,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             if (NodePath != null) { request.AddQueryParameter("node_path", NodePath.ToString()); }
             request.Resource = GetLbnodeUsageServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLBNodeUsageType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLBNodeUsageType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetLbnodeUsageServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLBNodeUsageType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLBNodeUsageType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTAggregateLBPoolStatusType GetLbpoolStatus(string LbServiceId, string LbPoolId, string? EnforcementPointPath = null, string? Source = null)
+        public async Task<NSXTAggregateLBPoolStatusType> GetLbpoolStatus(string LbServiceId, string LbPoolId, string? EnforcementPointPath = null, string? Source = null)
         {
             if (LbServiceId == null) { throw new System.ArgumentNullException("LbServiceId cannot be null"); }
             if (LbPoolId == null) { throw new System.ArgumentNullException("LbPoolId cannot be null"); }
@@ -125,31 +108,19 @@ namespace nsxtapi.PolicyModules
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             request.Resource = GetLbpoolStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTAggregateLBPoolStatusType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTAggregateLBPoolStatusType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetLbpoolStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTAggregateLBPoolStatusType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTAggregateLBPoolStatusType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTAggregateLBServiceStatisticsType GetLbserviceStatistics(string LbServiceId, string? EnforcementPointPath = null, string? Source = null)
+        public async Task<NSXTAggregateLBServiceStatisticsType> GetLbserviceStatistics(string LbServiceId, string? EnforcementPointPath = null, string? Source = null)
         {
             if (LbServiceId == null) { throw new System.ArgumentNullException("LbServiceId cannot be null"); }
             NSXTAggregateLBServiceStatisticsType returnValue = default(NSXTAggregateLBServiceStatisticsType);
@@ -164,31 +135,19 @@ namespace nsxtapi.PolicyModules
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             request.Resource = GetLbserviceStatisticsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTAggregateLBServiceStatisticsType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTAggregateLBServiceStatisticsType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetLbserviceStatisticsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTAggregateLBServiceStatisticsType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTAggregateLBServiceStatisticsType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTAggregateLBVirtualServerStatisticsType GetLbvirtualServerStatistics(string LbServiceId, string LbVirtualServerId, string? EnforcementPointPath = null, string? Source = null)
+        public async Task<NSXTAggregateLBVirtualServerStatisticsType> GetLbvirtualServerStatistics(string LbServiceId, string LbVirtualServerId, string? EnforcementPointPath = null, string? Source = null)
         {
             if (LbServiceId == null) { throw new System.ArgumentNullException("LbServiceId cannot be null"); }
             if (LbVirtualServerId == null) { throw new System.ArgumentNullException("LbVirtualServerId cannot be null"); }
@@ -205,31 +164,19 @@ namespace nsxtapi.PolicyModules
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             request.Resource = GetLbvirtualServerStatisticsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTAggregateLBVirtualServerStatisticsType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTAggregateLBVirtualServerStatisticsType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetLbvirtualServerStatisticsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTAggregateLBVirtualServerStatisticsType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTAggregateLBVirtualServerStatisticsType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTAggregateLBVirtualServerStatusType GetLbvirtualServerStatus(string LbServiceId, string LbVirtualServerId, string? EnforcementPointPath = null, string? Source = null)
+        public async Task<NSXTAggregateLBVirtualServerStatusType> GetLbvirtualServerStatus(string LbServiceId, string LbVirtualServerId, string? EnforcementPointPath = null, string? Source = null)
         {
             if (LbServiceId == null) { throw new System.ArgumentNullException("LbServiceId cannot be null"); }
             if (LbVirtualServerId == null) { throw new System.ArgumentNullException("LbVirtualServerId cannot be null"); }
@@ -246,31 +193,19 @@ namespace nsxtapi.PolicyModules
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             request.Resource = GetLbvirtualServerStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTAggregateLBVirtualServerStatusType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTAggregateLBVirtualServerStatusType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetLbvirtualServerStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTAggregateLBVirtualServerStatusType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTAggregateLBVirtualServerStatusType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTLBServiceUsageSummaryType GetLbserviceUsageSummary(bool? IncludeUsages = null)
+        public async Task<NSXTLBServiceUsageSummaryType> GetLbserviceUsageSummary(bool? IncludeUsages = null)
         {
             NSXTLBServiceUsageSummaryType returnValue = default(NSXTLBServiceUsageSummaryType);
             StringBuilder GetLbserviceUsageSummaryServiceURL = new StringBuilder("/infra/lb-service-usage-summary");
@@ -282,31 +217,19 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             if (IncludeUsages != null) { request.AddQueryParameter("include_usages", IncludeUsages.ToString()); }
             request.Resource = GetLbserviceUsageSummaryServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTLBServiceUsageSummaryType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTLBServiceUsageSummaryType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetLbserviceUsageSummaryServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTLBServiceUsageSummaryType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTLBServiceUsageSummaryType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTAggregateLBPoolStatisticsType GetLbpoolStatistics(string LbServiceId, string LbPoolId, string? EnforcementPointPath = null, string? Source = null)
+        public async Task<NSXTAggregateLBPoolStatisticsType> GetLbpoolStatistics(string LbServiceId, string LbPoolId, string? EnforcementPointPath = null, string? Source = null)
         {
             if (LbServiceId == null) { throw new System.ArgumentNullException("LbServiceId cannot be null"); }
             if (LbPoolId == null) { throw new System.ArgumentNullException("LbPoolId cannot be null"); }
@@ -323,31 +246,19 @@ namespace nsxtapi.PolicyModules
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             request.Resource = GetLbpoolStatisticsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTAggregateLBPoolStatisticsType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTAggregateLBPoolStatisticsType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetLbpoolStatisticsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTAggregateLBPoolStatisticsType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTAggregateLBPoolStatisticsType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTAggregateLBServiceUsageType GetLbserviceUsage(string LbServiceId, string? EnforcementPointPath = null, string? Source = null)
+        public async Task<NSXTAggregateLBServiceUsageType> GetLbserviceUsage(string LbServiceId, string? EnforcementPointPath = null, string? Source = null)
         {
             if (LbServiceId == null) { throw new System.ArgumentNullException("LbServiceId cannot be null"); }
             NSXTAggregateLBServiceUsageType returnValue = default(NSXTAggregateLBServiceUsageType);
@@ -362,31 +273,19 @@ namespace nsxtapi.PolicyModules
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             request.Resource = GetLbserviceUsageServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTAggregateLBServiceUsageType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTAggregateLBServiceUsageType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetLbserviceUsageServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTAggregateLBServiceUsageType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTAggregateLBServiceUsageType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTAggregateLBNodeUsageSummaryType GetLbnodeUsageSummary(string? EnforcementPointPath = null, bool? IncludeUsages = null)
+        public async Task<NSXTAggregateLBNodeUsageSummaryType> GetLbnodeUsageSummary(string? EnforcementPointPath = null, bool? IncludeUsages = null)
         {
             NSXTAggregateLBNodeUsageSummaryType returnValue = default(NSXTAggregateLBNodeUsageSummaryType);
             StringBuilder GetLbnodeUsageSummaryServiceURL = new StringBuilder("/infra/lb-node-usage-summary");
@@ -399,25 +298,13 @@ namespace nsxtapi.PolicyModules
             if (EnforcementPointPath != null) { request.AddQueryParameter("enforcement_point_path", EnforcementPointPath.ToString()); }
             if (IncludeUsages != null) { request.AddQueryParameter("include_usages", IncludeUsages.ToString()); }
             request.Resource = GetLbnodeUsageSummaryServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTAggregateLBNodeUsageSummaryType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTAggregateLBNodeUsageSummaryType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetLbnodeUsageSummaryServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTAggregateLBNodeUsageSummaryType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTAggregateLBNodeUsageSummaryType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

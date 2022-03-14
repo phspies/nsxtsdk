@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTBaseServiceProfileType : NSXTManagedResourceType
     {
-        public NSXTBaseServiceProfileType()
-        {
-        }
         /// <summary>
         /// Service Profile type, for example 'GiServiceProfile', 'ServiceInsertionServiceProfile'
         /// </summary>
         [JsonProperty(PropertyName = "resource_type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Service Profile type, for example &apos;GiServiceProfile&apos;, &apos;ServiceInsertionServiceProfile&apos;")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string ResourceType { get; set; }
     }
 }

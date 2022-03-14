@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public ServiceInsertionStatus(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public ServiceInsertionStatus(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTServiceInsertionStatusListResultType ListServiceInsertionStatus()
+        public async Task<NSXTServiceInsertionStatusListResultType> ListServiceInsertionStatus()
         {
             NSXTServiceInsertionStatusListResultType returnValue = default(NSXTServiceInsertionStatusListResultType);
             StringBuilder ListServiceInsertionStatusServiceURL = new StringBuilder("/serviceinsertion/status");
@@ -41,31 +48,19 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = ListServiceInsertionStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTServiceInsertionStatusListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTServiceInsertionStatusListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListServiceInsertionStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTServiceInsertionStatusListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTServiceInsertionStatusListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTServiceInsertionStatusType UpdateServiceInsertionStatus(string ContextType, NSXTServiceInsertionStatusType ServiceInsertionStatus)
+        public async Task<NSXTServiceInsertionStatusType> UpdateServiceInsertionStatus(string ContextType, NSXTServiceInsertionStatusType ServiceInsertionStatus)
         {
             if (ContextType == null) { throw new System.ArgumentNullException("ContextType cannot be null"); }
             if (ServiceInsertionStatus == null) { throw new System.ArgumentNullException("ServiceInsertionStatus cannot be null"); }
@@ -80,31 +75,19 @@ namespace nsxtapi.ManagerModules
             UpdateServiceInsertionStatusServiceURL.Replace("{context-type}", System.Uri.EscapeDataString(Helpers.ConvertToString(ContextType, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(ServiceInsertionStatus, defaultSerializationSettings));
             request.Resource = UpdateServiceInsertionStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTServiceInsertionStatusType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTServiceInsertionStatusType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateServiceInsertionStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTServiceInsertionStatusType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTServiceInsertionStatusType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTServiceInsertionStatusType GetServiceInsertionStatus(string ContextType)
+        public async Task<NSXTServiceInsertionStatusType> GetServiceInsertionStatus(string ContextType)
         {
             if (ContextType == null) { throw new System.ArgumentNullException("ContextType cannot be null"); }
             NSXTServiceInsertionStatusType returnValue = default(NSXTServiceInsertionStatusType);
@@ -117,25 +100,13 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             GetServiceInsertionStatusServiceURL.Replace("{context-type}", System.Uri.EscapeDataString(Helpers.ConvertToString(ContextType, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetServiceInsertionStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTServiceInsertionStatusType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTServiceInsertionStatusType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetServiceInsertionStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTServiceInsertionStatusType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTServiceInsertionStatusType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

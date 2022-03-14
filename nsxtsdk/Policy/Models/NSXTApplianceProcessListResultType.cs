@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTApplianceProcessListResultType : NSXTListResultType
     {
-        public NSXTApplianceProcessListResultType()
-        {
-        }
         /// <summary>
         /// Display the appliance process list.
         /// </summary>
-        [JsonProperty(PropertyName = "results")]
-        [NSXTProperty(IsRequired: false, Description: @"Display the appliance process list.")]
         public IList<NSXTApplianceProcessDataType> Results { get; set; }
     }
 }

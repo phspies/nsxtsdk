@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTComponentUpgradeChecksInfoListResultType : NSXTListResultType
     {
-        public NSXTComponentUpgradeChecksInfoListResultType()
-        {
-        }
         /// <summary>
         /// Collection of info of pre/post-upgrade checks for components
         /// </summary>
         [JsonProperty(PropertyName = "results", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Collection of info of pre/post-upgrade checks for components")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTComponentUpgradeChecksInfoType> Results { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,33 +17,22 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Credential info to connect to a node in the federated remote site.")]
     public class NSXTSiteNodeConnectionInfoType 
     {
-        public NSXTSiteNodeConnectionInfoType()
-        {
-        }
         /// <summary>
         /// Username to connect to Site's Local Manager.
         /// </summary>
-        [JsonProperty(PropertyName = "username")]
-        [NSXTProperty(IsRequired: false, Description: @"Username to connect to Site&apos;s Local Manager.")]
         public string? Username { get; set; }
         /// <summary>
         /// Password to connect to Site's Local Manager.
         /// </summary>
-        [JsonProperty(PropertyName = "password")]
-        [NSXTProperty(IsRequired: false, Description: @"Password to connect to Site&apos;s Local Manager.")]
         public string? Password { get; set; }
         /// <summary>
         /// Please specify the fqdn of the Management Node of your site.
         /// </summary>
         [JsonProperty(PropertyName = "fqdn", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Please specify the fqdn of the Management Node of your site.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Fqdn { get; set; }
         /// <summary>
         /// Thumbprint of Site's Local Manager in the form of a SHA-256 hash represented in lower case HEX.
         /// </summary>
-        [JsonProperty(PropertyName = "thumbprint")]
-        [NSXTProperty(IsRequired: false, Description: @"Thumbprint of Site&apos;s Local Manager in the form of a SHA-256 hash represented in lower case HEX.")]
         public string? Thumbprint { get; set; }
     }
 }

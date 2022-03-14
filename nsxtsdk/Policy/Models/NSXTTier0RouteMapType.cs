@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTTier0RouteMapType : NSXTPolicyConfigResourceType
     {
-        public NSXTTier0RouteMapType()
-        {
-        }
         /// <summary>
         /// Ordered list of route map entries.
         /// </summary>
         [JsonProperty(PropertyName = "entries", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Ordered list of route map entries.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTRouteMapEntryType> Entries { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,35 +17,23 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Contains the deployment information for a NSX-Intelligence node VM.")]
     public class NSXTIntelligenceClusterNodeVMDeploymentRequestType 
     {
-        public NSXTIntelligenceClusterNodeVMDeploymentRequestType()
-        {
-            FormFactor = test
-        }
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty(PropertyName = "deployment_config", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTIntelligenceClusterNodeVMDeploymentConfigType DeploymentConfig { get; set; }
         /// <summary>
         /// ID of the VM maintained internally.
         /// Note: This is automatically generated and cannot be modified.
         /// </summary>
-        [JsonProperty(PropertyName = "vm_id")]
-        [NSXTProperty(IsRequired: false, Description: @"ID of the VM maintained internally.Note: This is automatically generated and cannot be modified.")]
         public string? VmId { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "user_settings")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTNodeUserSettingsType UserSettings { get; set; }
         /// <summary>
         /// Specifies the desired "size" of the VM
         /// </summary>
-        [JsonProperty(PropertyName = "form_factor")]
-        [NSXTProperty(IsRequired: false, Description: @"Specifies the desired &quot;size&quot; of the VM")]
         public NSXTIntelligenceClusterNodeVmdeploymentRequestFormFactorEnumType? FormFactor { get; set; }
     }
 }

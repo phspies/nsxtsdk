@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,26 +17,15 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTVniRangeType : NSXTResourceType
     {
-        public NSXTVniRangeType()
-        {
-        }
         /// <summary>
         /// Start value for vni range to be used for virtual networks
         /// </summary>
         [JsonProperty(PropertyName = "start", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Start value for vni range to be used for virtual networks")]
-        //[System.ComponentModel.DataAnnotations.MinLength(5000)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(16777215)]
-        [System.ComponentModel.DataAnnotations.Required]
         public long Start { get; set; }
         /// <summary>
         /// End value for vni range to be used for virtual networks
         /// </summary>
         [JsonProperty(PropertyName = "end", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"End value for vni range to be used for virtual networks")]
-        //[System.ComponentModel.DataAnnotations.MinLength(5000)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(16777215)]
-        [System.ComponentModel.DataAnnotations.Required]
         public long End { get; set; }
     }
 }

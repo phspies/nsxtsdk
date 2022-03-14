@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,39 +17,25 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTSwitchSecuritySwitchingProfileType : NSXTBaseSwitchingProfileType
     {
-        public NSXTSwitchSecuritySwitchingProfileType()
-        {
-            RaGuardEnabled = test
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "bpdu_filter")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTBpduFilterType BpduFilter { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "rate_limits")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTRateLimitsType RateLimits { get; set; }
         /// <summary>
         /// RA Guard when enabled blocks unauthorized/rogue Router Advertisement (RA) packets.
         /// </summary>
-        [JsonProperty(PropertyName = "ra_guard_enabled")]
-        [NSXTProperty(IsRequired: false, Description: @"RA Guard when enabled blocks unauthorized/rogue Router Advertisement (RA) packets.")]
         public bool? RaGuardEnabled { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "dhcp_filter")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTDhcpFilterType DhcpFilter { get; set; }
         /// <summary>
         /// A flag to block all traffic except IP/(G)ARP/BPDU
         /// </summary>
-        [JsonProperty(PropertyName = "block_non_ip_traffic")]
-        [NSXTProperty(IsRequired: false, Description: @"A flag to block all traffic except IP/(G)ARP/BPDU")]
         public bool? BlockNonIpTraffic { get; set; }
     }
 }

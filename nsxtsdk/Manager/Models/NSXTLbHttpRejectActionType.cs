@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,21 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLbHttpRejectActionType : NSXTLbRuleActionType
     {
-        public NSXTLbHttpRejectActionType()
-        {
-        }
         /// <summary>
         /// HTTP response status code
         /// </summary>
         [JsonProperty(PropertyName = "reply_status", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"HTTP response status code")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string ReplyStatus { get; set; }
         /// <summary>
         /// Response message
         /// </summary>
-        [JsonProperty(PropertyName = "reply_message")]
-        [NSXTProperty(IsRequired: false, Description: @"Response message")]
         public string? ReplyMessage { get; set; }
     }
 }

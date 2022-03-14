@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTTunnelListType : NSXTListResultType
     {
-        public NSXTTunnelListType()
-        {
-        }
         /// <summary>
         /// List of transport node tunnels
         /// </summary>
-        [JsonProperty(PropertyName = "tunnels")]
-        [NSXTProperty(IsRequired: false, Description: @"List of transport node tunnels")]
         public IList<NSXTTunnelPropertiesType> Tunnels { get; set; }
     }
 }

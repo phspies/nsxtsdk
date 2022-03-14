@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,67 +17,36 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTRAConfigType 
     {
-        public NSXTRAConfigType()
-        {
-            RouterLifetime = test
-            RaInterval = test
-            PrefixPreferredTime = test
-            HopLimit = test
-            PrefixLifetime = test
-            RouterPreference = test
-        }
         /// <summary>
         /// Router lifetime value in seconds. A value of 0 indicates the
         /// router is not a default router for the receiving end. Any other value
         /// in this field specifies the lifetime, in seconds, associated with
         /// this router as a default router.
         /// </summary>
-        [JsonProperty(PropertyName = "router_lifetime")]
-        [NSXTProperty(IsRequired: false, Description: @"Router lifetime value in seconds. A value of 0 indicates therouter is not a default router for the receiving end. Any other valuein this field specifies the lifetime, in seconds, associated withthis router as a default router.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(65520)]
         public long? RouterLifetime { get; set; }
         /// <summary>
         /// Interval between 2 Router advertisement in seconds.
         /// </summary>
-        [JsonProperty(PropertyName = "ra_interval")]
-        [NSXTProperty(IsRequired: false, Description: @"Interval between 2 Router advertisement in seconds.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(4)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(1800)]
         public long? RaInterval { get; set; }
         /// <summary>
         /// The time interval in seconds, in which the prefix is advertised
         /// as preferred.
         /// </summary>
-        [JsonProperty(PropertyName = "prefix_preferred_time")]
-        [NSXTProperty(IsRequired: false, Description: @"The time interval in seconds, in which the prefix is advertisedas preferred.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(4294967295)]
         public long? PrefixPreferredTime { get; set; }
         /// <summary>
         /// The maximum number of hops through which packets can
         /// pass before being discarded.
         /// </summary>
-        [JsonProperty(PropertyName = "hop_limit")]
-        [NSXTProperty(IsRequired: false, Description: @"The maximum number of hops through which packets canpass before being discarded.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(255)]
         public long? HopLimit { get; set; }
         /// <summary>
         /// The time interval in seconds, in which the prefix is advertised
         /// as valid.
         /// </summary>
-        [JsonProperty(PropertyName = "prefix_lifetime")]
-        [NSXTProperty(IsRequired: false, Description: @"The time interval in seconds, in which the prefix is advertisedas valid.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(4294967295)]
         public long? PrefixLifetime { get; set; }
         /// <summary>
         /// NDRA Router preference value with MEDIUM as default. If the router_lifetime is 0,
         /// the preference must be set to MEDIUM.
         /// </summary>
-        [JsonProperty(PropertyName = "router_preference")]
-        [NSXTProperty(IsRequired: false, Description: @"NDRA Router preference value with MEDIUM as default. If the router_lifetime is 0,the preference must be set to MEDIUM.")]
         public NSXTRaconfigRouterPreferenceEnumType? RouterPreference { get; set; }
     }
 }

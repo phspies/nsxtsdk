@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTFipsGlobalConfigType : NSXTGlobalConfigsType
     {
-        public NSXTFipsGlobalConfigType()
-        {
-        }
         /// <summary>
         /// When this flag is set to true FIPS mode will be set on ssl encryptions of load balancer feature.
         /// </summary>
-        [JsonProperty(PropertyName = "lb_fips_enabled")]
-        [NSXTProperty(IsRequired: false, Description: @"When this flag is set to true FIPS mode will be set on ssl encryptions of load balancer feature.")]
         public bool? LbFipsEnabled { get; set; }
     }
 }

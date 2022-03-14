@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,36 +17,23 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLbVariableConditionType : NSXTLbRuleConditionType
     {
-        public NSXTLbVariableConditionType()
-        {
-            CaseSensitive = test
-            MatchType = test
-        }
         /// <summary>
         /// Value of variable to be matched
         /// </summary>
         [JsonProperty(PropertyName = "variable_value", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Value of variable to be matched")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string VariableValue { get; set; }
         /// <summary>
         /// If true, case is significant when comparing variable value.
         /// </summary>
-        [JsonProperty(PropertyName = "case_sensitive")]
-        [NSXTProperty(IsRequired: false, Description: @"If true, case is significant when comparing variable value.")]
         public bool? CaseSensitive { get; set; }
         /// <summary>
         /// Match type of variable value
         /// </summary>
-        [JsonProperty(PropertyName = "match_type")]
-        [NSXTProperty(IsRequired: false, Description: @"Match type of variable value")]
         public NSXTLbVariableConditionMatchTypeEnumType? MatchType { get; set; }
         /// <summary>
         /// Name of the variable to be matched
         /// </summary>
         [JsonProperty(PropertyName = "variable_name", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Name of the variable to be matched")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string VariableName { get; set; }
     }
 }

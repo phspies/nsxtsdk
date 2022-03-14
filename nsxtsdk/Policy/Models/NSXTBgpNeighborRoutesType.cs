@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,32 +17,21 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"BGP neighbor learned/advertised route details.")]
     public class NSXTBgpNeighborRoutesType 
     {
-        public NSXTBgpNeighborRoutesType()
-        {
-        }
         /// <summary>
         /// Array of BGP neighbor route details per edge node.
         /// </summary>
-        [JsonProperty(PropertyName = "edge_node_routes")]
-        [NSXTProperty(IsRequired: false, Description: @"Array of BGP neighbor route details per edge node.")]
         public IList<NSXTRoutesPerTransportNodeType> EdgeNodeRoutes { get; set; }
         /// <summary>
         /// BGP neighbor policy path
         /// </summary>
-        [JsonProperty(PropertyName = "neighbor_path")]
-        [NSXTProperty(IsRequired: false, Description: @"BGP neighbor policy path")]
         public string? NeighborPath { get; set; }
         /// <summary>
         /// Array of BGP neighbor route details per edge node.
         /// </summary>
-        [JsonProperty(PropertyName = "egde_node_routes")]
-        [NSXTProperty(IsRequired: false, Description: @"Array of BGP neighbor route details per edge node.")]
         public IList<NSXTRoutesPerTransportNodeType> EgdeNodeRoutes { get; set; }
         /// <summary>
         /// Enforcement point policy path
         /// </summary>
-        [JsonProperty(PropertyName = "enforcement_point_path")]
-        [NSXTProperty(IsRequired: false, Description: @"Enforcement point policy path")]
         public string? EnforcementPointPath { get; set; }
     }
 }

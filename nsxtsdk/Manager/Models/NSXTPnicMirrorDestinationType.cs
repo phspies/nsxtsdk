@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,22 +17,15 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTPnicMirrorDestinationType : NSXTMirrorDestinationType
     {
-        public NSXTPnicMirrorDestinationType()
-        {
-        }
         /// <summary>
         /// Physical NIC device names to which to send the mirrored packets
         /// </summary>
         [JsonProperty(PropertyName = "dest_pnics", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Physical NIC device names to which to send the mirrored packets")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<string> DestPnics { get; set; }
         /// <summary>
         /// Transport node to which to send the mirrored packets
         /// </summary>
         [JsonProperty(PropertyName = "node_id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Transport node to which to send the mirrored packets")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string NodeId { get; set; }
     }
 }

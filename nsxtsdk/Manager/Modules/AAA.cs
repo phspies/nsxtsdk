@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public AAA(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public AAA(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTRoleWithFeaturesType CreateOrUpdateRole(string Role, NSXTRoleWithFeaturesType RoleWithFeatures)
+        public async Task<NSXTRoleWithFeaturesType> CreateOrUpdateRole(string Role, NSXTRoleWithFeaturesType RoleWithFeatures)
         {
             if (Role == null) { throw new System.ArgumentNullException("Role cannot be null"); }
             if (RoleWithFeatures == null) { throw new System.ArgumentNullException("RoleWithFeatures cannot be null"); }
@@ -45,31 +52,19 @@ namespace nsxtapi.ManagerModules
             CreateOrUpdateRoleServiceURL.Replace("{role}", System.Uri.EscapeDataString(Helpers.ConvertToString(Role, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(RoleWithFeatures, defaultSerializationSettings));
             request.Resource = CreateOrUpdateRoleServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTRoleWithFeaturesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTRoleWithFeaturesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateOrUpdateRoleServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTRoleWithFeaturesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTRoleWithFeaturesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteRole(string Role)
+        public async Task DeleteRole(string Role)
         {
             if (Role == null) { throw new System.ArgumentNullException("Role cannot be null"); }
             
@@ -82,7 +77,7 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             DeleteRoleServiceURL.Replace("{role}", System.Uri.EscapeDataString(Helpers.ConvertToString(Role, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteRoleServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteRoleServiceURL.ToString() + " did not complete successfull";
@@ -94,7 +89,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTRoleWithFeaturesType GetRoleInfo(string Role)
+        public async Task<NSXTRoleWithFeaturesType> GetRoleInfo(string Role)
         {
             if (Role == null) { throw new System.ArgumentNullException("Role cannot be null"); }
             NSXTRoleWithFeaturesType returnValue = default(NSXTRoleWithFeaturesType);
@@ -107,31 +102,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             GetRoleInfoServiceURL.Replace("{role}", System.Uri.EscapeDataString(Helpers.ConvertToString(Role, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetRoleInfoServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTRoleWithFeaturesType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTRoleWithFeaturesType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetRoleInfoServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTRoleWithFeaturesType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTRoleWithFeaturesType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTVidmInfoListResultType GetGroupVidmSearchResult(string SearchString, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTVidmInfoListResultType> GetGroupVidmSearchResult(string SearchString, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (SearchString == null) { throw new System.ArgumentNullException("SearchString cannot be null"); }
             NSXTVidmInfoListResultType returnValue = default(NSXTVidmInfoListResultType);
@@ -149,31 +132,19 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GetGroupVidmSearchResultServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTVidmInfoListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTVidmInfoListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetGroupVidmSearchResultServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTVidmInfoListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTVidmInfoListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNewRoleType CloneRole(string Role, NSXTNewRoleType NewRole)
+        public async Task<NSXTNewRoleType> CloneRole(string Role, NSXTNewRoleType NewRole)
         {
             if (Role == null) { throw new System.ArgumentNullException("Role cannot be null"); }
             if (NewRole == null) { throw new System.ArgumentNullException("NewRole cannot be null"); }
@@ -188,31 +159,19 @@ namespace nsxtapi.ManagerModules
             CloneRoleServiceURL.Replace("{role}", System.Uri.EscapeDataString(Helpers.ConvertToString(Role, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(NewRole, defaultSerializationSettings));
             request.Resource = CloneRoleServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNewRoleType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNewRoleType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CloneRoleServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNewRoleType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNewRoleType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTRecommendedFeaturePermissionListResultType ValidateAndRecommendPermissions(NSXTFeaturePermissionArrayType FeaturePermissionArray)
+        public async Task<NSXTRecommendedFeaturePermissionListResultType> ValidateAndRecommendPermissions(NSXTFeaturePermissionArrayType FeaturePermissionArray)
         {
             if (FeaturePermissionArray == null) { throw new System.ArgumentNullException("FeaturePermissionArray cannot be null"); }
             NSXTRecommendedFeaturePermissionListResultType returnValue = default(NSXTRecommendedFeaturePermissionListResultType);
@@ -225,31 +184,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(FeaturePermissionArray, defaultSerializationSettings));
             request.Resource = ValidateAndRecommendPermissionsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTRecommendedFeaturePermissionListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTRecommendedFeaturePermissionListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + ValidateAndRecommendPermissionsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTRecommendedFeaturePermissionListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTRecommendedFeaturePermissionListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTVidmInfoListResultType GetUserVidmSearchResult(string SearchString, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTVidmInfoListResultType> GetUserVidmSearchResult(string SearchString, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (SearchString == null) { throw new System.ArgumentNullException("SearchString cannot be null"); }
             NSXTVidmInfoListResultType returnValue = default(NSXTVidmInfoListResultType);
@@ -267,31 +214,19 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GetUserVidmSearchResultServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTVidmInfoListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTVidmInfoListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetUserVidmSearchResultServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTVidmInfoListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTVidmInfoListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTUserInfoType GetCurrentUserInfo(string? RootPath = null)
+        public async Task<NSXTUserInfoType> GetCurrentUserInfo(string? RootPath = null)
         {
             NSXTUserInfoType returnValue = default(NSXTUserInfoType);
             StringBuilder GetCurrentUserInfoServiceURL = new StringBuilder("/aaa/user-info");
@@ -303,31 +238,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             if (RootPath != null) { request.AddQueryParameter("root_path", RootPath.ToString()); }
             request.Resource = GetCurrentUserInfoServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTUserInfoType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTUserInfoType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetCurrentUserInfoServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTUserInfoType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTUserInfoType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTVidmInfoListResultType GetVidmSearchResult(string SearchString, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTVidmInfoListResultType> GetVidmSearchResult(string SearchString, string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (SearchString == null) { throw new System.ArgumentNullException("SearchString cannot be null"); }
             NSXTVidmInfoListResultType returnValue = default(NSXTVidmInfoListResultType);
@@ -345,31 +268,19 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = GetVidmSearchResultServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTVidmInfoListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTVidmInfoListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + GetVidmSearchResultServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTVidmInfoListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTVidmInfoListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTFeaturePermissionListResultType ListFeatures()
+        public async Task<NSXTFeaturePermissionListResultType> ListFeatures()
         {
             NSXTFeaturePermissionListResultType returnValue = default(NSXTFeaturePermissionListResultType);
             StringBuilder ListFeaturesServiceURL = new StringBuilder("/aaa/features-with-properties");
@@ -380,31 +291,19 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = ListFeaturesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTFeaturePermissionListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTFeaturePermissionListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListFeaturesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTFeaturePermissionListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTFeaturePermissionListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTRoleWithFeaturesListResultType ListRolesInfo(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTRoleWithFeaturesListResultType> ListRolesInfo(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTRoleWithFeaturesListResultType returnValue = default(NSXTRoleWithFeaturesListResultType);
             StringBuilder ListRolesInfoServiceURL = new StringBuilder("/aaa/roles-with-feature-permissions");
@@ -420,31 +319,19 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListRolesInfoServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTRoleWithFeaturesListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTRoleWithFeaturesListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListRolesInfoServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTRoleWithFeaturesListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTRoleWithFeaturesListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTRoleBindingType UpdateRoleBinding(string BindingId, NSXTRoleBindingType RoleBinding)
+        public async Task<NSXTRoleBindingType> UpdateRoleBinding(string BindingId, NSXTRoleBindingType RoleBinding)
         {
             if (BindingId == null) { throw new System.ArgumentNullException("BindingId cannot be null"); }
             if (RoleBinding == null) { throw new System.ArgumentNullException("RoleBinding cannot be null"); }
@@ -459,31 +346,19 @@ namespace nsxtapi.ManagerModules
             UpdateRoleBindingServiceURL.Replace("{binding-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(BindingId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(RoleBinding, defaultSerializationSettings));
             request.Resource = UpdateRoleBindingServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTRoleBindingType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTRoleBindingType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateRoleBindingServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTRoleBindingType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTRoleBindingType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteRoleBinding(string BindingId, string? Cursor = null, string? IdentitySourceId = null, string? IdentitySourceType = null, string? IncludedFields = null, string? Name = null, long? PageSize = null, string? Role = null, bool? SortAscending = null, string? SortBy = null, string? Type = null)
+        public async Task DeleteRoleBinding(string BindingId, string? Cursor = null, string? IdentitySourceId = null, string? IdentitySourceType = null, string? IncludedFields = null, string? Name = null, long? PageSize = null, string? Role = null, bool? SortAscending = null, string? SortBy = null, string? Type = null)
         {
             if (BindingId == null) { throw new System.ArgumentNullException("BindingId cannot be null"); }
             
@@ -506,7 +381,7 @@ namespace nsxtapi.ManagerModules
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             if (Type != null) { request.AddQueryParameter("type", Type.ToString()); }
             request.Resource = DeleteRoleBindingServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteRoleBindingServiceURL.ToString() + " did not complete successfull";
@@ -518,7 +393,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTRoleBindingType GetRoleBinding(string BindingId, string? Cursor = null, string? IdentitySourceId = null, string? IdentitySourceType = null, string? IncludedFields = null, string? Name = null, long? PageSize = null, string? Role = null, bool? SortAscending = null, string? SortBy = null, string? Type = null)
+        public async Task<NSXTRoleBindingType> GetRoleBinding(string BindingId, string? Cursor = null, string? IdentitySourceId = null, string? IdentitySourceType = null, string? IncludedFields = null, string? Name = null, long? PageSize = null, string? Role = null, bool? SortAscending = null, string? SortBy = null, string? Type = null)
         {
             if (BindingId == null) { throw new System.ArgumentNullException("BindingId cannot be null"); }
             NSXTRoleBindingType returnValue = default(NSXTRoleBindingType);
@@ -541,31 +416,19 @@ namespace nsxtapi.ManagerModules
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             if (Type != null) { request.AddQueryParameter("type", Type.ToString()); }
             request.Resource = GetRoleBindingServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTRoleBindingType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTRoleBindingType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetRoleBindingServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTRoleBindingType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTRoleBindingType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteAllStaleRoleBindings(string? Cursor = null, string? IdentitySourceId = null, string? IdentitySourceType = null, string? IncludedFields = null, string? Name = null, long? PageSize = null, string? Role = null, bool? SortAscending = null, string? SortBy = null, string? Type = null)
+        public async Task DeleteAllStaleRoleBindings(string? Cursor = null, string? IdentitySourceId = null, string? IdentitySourceType = null, string? IncludedFields = null, string? Name = null, long? PageSize = null, string? Role = null, bool? SortAscending = null, string? SortBy = null, string? Type = null)
         {
             
             StringBuilder DeleteAllStaleRoleBindingsServiceURL = new StringBuilder("/aaa/role-bindings?action=delete_stale_bindings");
@@ -586,7 +449,7 @@ namespace nsxtapi.ManagerModules
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             if (Type != null) { request.AddQueryParameter("type", Type.ToString()); }
             request.Resource = DeleteAllStaleRoleBindingsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + DeleteAllStaleRoleBindingsServiceURL.ToString() + " did not complete successfull";
@@ -598,7 +461,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTRoleListResultType GetAllRolesInfo()
+        public async Task<NSXTRoleListResultType> GetAllRolesInfo()
         {
             NSXTRoleListResultType returnValue = default(NSXTRoleListResultType);
             StringBuilder GetAllRolesInfoServiceURL = new StringBuilder("/aaa/roles");
@@ -609,31 +472,19 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = GetAllRolesInfoServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTRoleListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTRoleListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetAllRolesInfoServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTRoleListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTRoleListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTRoleBindingType CreateRoleBinding(NSXTRoleBindingType RoleBinding)
+        public async Task<NSXTRoleBindingType> CreateRoleBinding(NSXTRoleBindingType RoleBinding)
         {
             if (RoleBinding == null) { throw new System.ArgumentNullException("RoleBinding cannot be null"); }
             NSXTRoleBindingType returnValue = default(NSXTRoleBindingType);
@@ -646,31 +497,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(RoleBinding, defaultSerializationSettings));
             request.Resource = CreateRoleBindingServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTRoleBindingType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTRoleBindingType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CreateRoleBindingServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTRoleBindingType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTRoleBindingType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTRoleBindingListResultType GetAllRoleBindings(string? Cursor = null, string? IdentitySourceId = null, string? IdentitySourceType = null, string? IncludedFields = null, string? Name = null, long? PageSize = null, string? Role = null, bool? SortAscending = null, string? SortBy = null, string? Type = null)
+        public async Task<NSXTRoleBindingListResultType> GetAllRoleBindings(string? Cursor = null, string? IdentitySourceId = null, string? IdentitySourceType = null, string? IncludedFields = null, string? Name = null, long? PageSize = null, string? Role = null, bool? SortAscending = null, string? SortBy = null, string? Type = null)
         {
             NSXTRoleBindingListResultType returnValue = default(NSXTRoleBindingListResultType);
             StringBuilder GetAllRoleBindingsServiceURL = new StringBuilder("/aaa/role-bindings");
@@ -691,25 +530,13 @@ namespace nsxtapi.ManagerModules
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             if (Type != null) { request.AddQueryParameter("type", Type.ToString()); }
             request.Resource = GetAllRoleBindingsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTRoleBindingListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTRoleBindingListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetAllRoleBindingsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTRoleBindingListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTRoleBindingListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

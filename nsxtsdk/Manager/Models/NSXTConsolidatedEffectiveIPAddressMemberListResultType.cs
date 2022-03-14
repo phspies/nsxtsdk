@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTConsolidatedEffectiveIPAddressMemberListResultType : NSXTListResultType
     {
-        public NSXTConsolidatedEffectiveIPAddressMemberListResultType()
-        {
-        }
         /// <summary>
         /// Paged Collection of site wise consolidated effective ip addresses for the given NSGroup
         /// </summary>
         [JsonProperty(PropertyName = "results", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Paged Collection of site wise consolidated effective ip addresses for the given NSGroup")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTEffectiveIPInfoType> Results { get; set; }
     }
 }

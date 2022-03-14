@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyLldpHostSwitchProfileType : NSXTPolicyBaseHostSwitchProfileType
     {
-        public NSXTPolicyLldpHostSwitchProfileType()
-        {
-        }
         /// <summary>
         /// Enabled or disabled sending LLDP packets
         /// </summary>
         [JsonProperty(PropertyName = "send_enabled", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Enabled or disabled sending LLDP packets")]
-        [System.ComponentModel.DataAnnotations.Required]
         public bool SendEnabled { get; set; }
     }
 }

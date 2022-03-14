@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public ShaApplianceMonitor(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public ShaApplianceMonitor(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTApplianceLatencyListResultType ShowAllApplianceLatencyData(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTApplianceLatencyListResultType> ShowAllApplianceLatencyData(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTApplianceLatencyListResultType returnValue = default(NSXTApplianceLatencyListResultType);
             StringBuilder ShowAllApplianceLatencyDataServiceURL = new StringBuilder("/systemhealth/appliances/latency/status");
@@ -46,31 +53,19 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ShowAllApplianceLatencyDataServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTApplianceLatencyListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTApplianceLatencyListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ShowAllApplianceLatencyDataServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTApplianceLatencyListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTApplianceLatencyListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTApplianceLatencyDataType ShowApplianceLatencyData(string ApplianceId)
+        public async Task<NSXTApplianceLatencyDataType> ShowApplianceLatencyData(string ApplianceId)
         {
             if (ApplianceId == null) { throw new System.ArgumentNullException("ApplianceId cannot be null"); }
             NSXTApplianceLatencyDataType returnValue = default(NSXTApplianceLatencyDataType);
@@ -83,31 +78,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             ShowApplianceLatencyDataServiceURL.Replace("{appliance-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ApplianceId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ShowApplianceLatencyDataServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTApplianceLatencyDataType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTApplianceLatencyDataType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ShowApplianceLatencyDataServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTApplianceLatencyDataType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTApplianceLatencyDataType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTApplianceProcessListResultType ShowAllapplianceProcessData(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTApplianceProcessListResultType> ShowAllapplianceProcessData(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTApplianceProcessListResultType returnValue = default(NSXTApplianceProcessListResultType);
             StringBuilder ShowAllapplianceProcessDataServiceURL = new StringBuilder("/systemhealth/appliances/process/status");
@@ -123,31 +106,19 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ShowAllapplianceProcessDataServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTApplianceProcessListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTApplianceProcessListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ShowAllapplianceProcessDataServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTApplianceProcessListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTApplianceProcessListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTApplianceProcessDataType ShowApplianceProcessData(string ApplianceId)
+        public async Task<NSXTApplianceProcessDataType> ShowApplianceProcessData(string ApplianceId)
         {
             if (ApplianceId == null) { throw new System.ArgumentNullException("ApplianceId cannot be null"); }
             NSXTApplianceProcessDataType returnValue = default(NSXTApplianceProcessDataType);
@@ -160,25 +131,13 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             ShowApplianceProcessDataServiceURL.Replace("{appliance-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ApplianceId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ShowApplianceProcessDataServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTApplianceProcessDataType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTApplianceProcessDataType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ShowApplianceProcessDataServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTApplianceProcessDataType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTApplianceProcessDataType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

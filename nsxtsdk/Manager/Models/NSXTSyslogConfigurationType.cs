@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,42 +17,26 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Syslog server configuration parameters")]
     public class NSXTSyslogConfigurationType 
     {
-        public NSXTSyslogConfigurationType()
-        {
-            LogLevel = test
-            Protocol = test
-            Port = test
-        }
         /// <summary>
         /// Log level that needs to be redirected.
         /// </summary>
-        [JsonProperty(PropertyName = "log_level")]
-        [NSXTProperty(IsRequired: false, Description: @"Log level that needs to be redirected.")]
         public NSXTSyslogConfigurationLogLevelEnumType? LogLevel { get; set; }
         /// <summary>
         /// Supported Syslog protocol.
         /// </summary>
-        [JsonProperty(PropertyName = "protocol")]
-        [NSXTProperty(IsRequired: false, Description: @"Supported Syslog protocol.")]
         public NSXTSyslogConfigurationProtocolEnumType? Protocol { get; set; }
         /// <summary>
         /// Syslog server listening port.
         /// </summary>
-        [JsonProperty(PropertyName = "port")]
-        [NSXTProperty(IsRequired: false, Description: @"Syslog server listening port.")]
         public string? Port { get; set; }
         /// <summary>
         /// Display name of the syslog server
         /// </summary>
-        [JsonProperty(PropertyName = "name")]
-        [NSXTProperty(IsRequired: false, Description: @"Display name of the syslog server")]
         public string? Name { get; set; }
         /// <summary>
         /// Syslog server Ip or fqdn.
         /// </summary>
         [JsonProperty(PropertyName = "server", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Syslog server Ip or fqdn.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Server { get; set; }
     }
 }

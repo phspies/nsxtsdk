@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,41 +17,27 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTAdvertiseRuleType 
     {
-        public NSXTAdvertiseRuleType()
-        {
-            Action = test
-        }
         /// <summary>
         /// ALLOW action enables the advertisment and DENY action disables the advertisement of a filtered routes to the connected
         /// TIER0 router.
         /// </summary>
-        [JsonProperty(PropertyName = "action")]
-        [NSXTProperty(IsRequired: false, Description: @"ALLOW action enables the advertisment and DENY action disables the advertisement of a filtered routes to the connected TIER0 router.")]
         public NSXTAdvertiseRuleActionEnumType? Action { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "rule_filter")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTAdvertisementRuleFilterType RuleFilter { get; set; }
         /// <summary>
         /// Display name
         /// </summary>
-        [JsonProperty(PropertyName = "display_name")]
-        [NSXTProperty(IsRequired: false, Description: @"Display name")]
         public string? DisplayName { get; set; }
         /// <summary>
         /// network(CIDR) to be routed
         /// </summary>
         [JsonProperty(PropertyName = "networks", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"network(CIDR) to be routed")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<string> Networks { get; set; }
         /// <summary>
         /// Description
         /// </summary>
-        [JsonProperty(PropertyName = "description")]
-        [NSXTProperty(IsRequired: false, Description: @"Description")]
         public string? Description { get; set; }
     }
 }

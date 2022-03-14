@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,16 +17,11 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTBgpRoutingConfigType : NSXTPolicyConfigResourceType
     {
-        public NSXTBgpRoutingConfigType()
-        {
-        }
         /// <summary>
         /// Flag to enable inter SR IBGP configuration.
         /// When not specified, inter SR IBGP is automatically enabled if Tier-0
         /// is created in ACTIVE_ACTIVE ha_mode.
         /// </summary>
-        [JsonProperty(PropertyName = "inter_sr_ibgp")]
-        [NSXTProperty(IsRequired: false, Description: @"Flag to enable inter SR IBGP configuration.When not specified, inter SR IBGP is automatically enabled if Tier-0is created in ACTIVE_ACTIVE ha_mode.")]
         public bool? InterSrIbgp { get; set; }
         /// <summary>
         /// Specify BGP AS number for Tier-0 to advertize to BGP peers.
@@ -34,8 +29,6 @@ namespace nsxtsdk.PolicyModels
         /// ASDOT (e.g., "1.10") format. Empty string disables BGP feature.
         /// It is required by normal tier0 but not required in vrf tier0.
         /// </summary>
-        [JsonProperty(PropertyName = "local_as_num")]
-        [NSXTProperty(IsRequired: false, Description: @"Specify BGP AS number for Tier-0 to advertize to BGP peers.AS number can be specified in ASPLAIN (e.g., &quot;65546&quot;) orASDOT (e.g., &quot;1.10&quot;) format. Empty string disables BGP feature.It is required by normal tier0 but not required in vrf tier0.")]
         public string? LocalAsNum { get; set; }
         /// <summary>
         /// Flag to enable graceful restart. This field is deprecated, please use
@@ -46,39 +39,27 @@ namespace nsxtsdk.PolicyModels
         /// then this is allowed, but if inconsistent with each other then this
         /// is not allowed and validation error will be thrown.
         /// </summary>
-        [JsonProperty(PropertyName = "graceful_restart")]
-        [NSXTProperty(IsRequired: false, Description: @"Flag to enable graceful restart. This field is deprecated, please usegraceful_restart_config parameter for graceful restart configuration.If both parameters are set and consistent with each other(i.e. graceful_restart=false and graceful_restart_mode=HELPER_ONLY ORgraceful_restart=true and graceful_restart_mode=GR_AND_HELPER)then this is allowed, but if inconsistent with each other then thisis not allowed and validation error will be thrown.")]
         public bool? GracefulRestart { get; set; }
         /// <summary>
         /// List of routes to be aggregated.
         /// </summary>
-        [JsonProperty(PropertyName = "route_aggregations")]
-        [NSXTProperty(IsRequired: false, Description: @"List of routes to be aggregated.")]
         public IList<NSXTRouteAggregationEntryType> RouteAggregations { get; set; }
         /// <summary>
         /// Flag to enable BGP configuration. Disabling will stop feature and
         /// BGP peering.
         /// </summary>
-        [JsonProperty(PropertyName = "enabled")]
-        [NSXTProperty(IsRequired: false, Description: @"Flag to enable BGP configuration. Disabling will stop feature andBGP peering.")]
         public bool? Enabled { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "graceful_restart_config")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTBgpGracefulRestartConfigType GracefulRestartConfig { get; set; }
         /// <summary>
         /// Flag to enable BGP multipath relax option.
         /// </summary>
-        [JsonProperty(PropertyName = "multipath_relax")]
-        [NSXTProperty(IsRequired: false, Description: @"Flag to enable BGP multipath relax option.")]
         public bool? MultipathRelax { get; set; }
         /// <summary>
         /// Flag to enable ECMP.
         /// </summary>
-        [JsonProperty(PropertyName = "ecmp")]
-        [NSXTProperty(IsRequired: false, Description: @"Flag to enable ECMP.")]
         public bool? Ecmp { get; set; }
     }
 }

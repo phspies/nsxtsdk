@@ -21,16 +21,23 @@ namespace nsxtapi.PolicyModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public VersionWhitelist(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public VersionWhitelist(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTAcceptableComponentVersionListType GetVersionWhitelist()
+        public async Task<NSXTAcceptableComponentVersionListType> GetVersionWhitelist()
         {
             NSXTAcceptableComponentVersionListType returnValue = default(NSXTAcceptableComponentVersionListType);
             StringBuilder GetVersionWhitelistServiceURL = new StringBuilder("/upgrade/version-whitelist");
@@ -41,31 +48,19 @@ namespace nsxtapi.PolicyModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = GetVersionWhitelistServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTAcceptableComponentVersionListType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTAcceptableComponentVersionListType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetVersionWhitelistServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTAcceptableComponentVersionListType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTAcceptableComponentVersionListType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void UpdateVersionWhitelist(string ComponentType, NSXTVersionListType VersionList)
+        public async Task UpdateVersionWhitelist(string ComponentType, NSXTVersionListType VersionList)
         {
             if (ComponentType == null) { throw new System.ArgumentNullException("ComponentType cannot be null"); }
             if (VersionList == null) { throw new System.ArgumentNullException("VersionList cannot be null"); }
@@ -80,7 +75,7 @@ namespace nsxtapi.PolicyModules
             UpdateVersionWhitelistServiceURL.Replace("{component_type}", System.Uri.EscapeDataString(Helpers.ConvertToString(ComponentType, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(VersionList, defaultSerializationSettings));
             request.Resource = UpdateVersionWhitelistServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateVersionWhitelistServiceURL.ToString() + " did not complete successfull";
@@ -92,7 +87,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTAcceptableComponentVersionType GetVersionWhitelistByComponent(string ComponentType)
+        public async Task<NSXTAcceptableComponentVersionType> GetVersionWhitelistByComponent(string ComponentType)
         {
             if (ComponentType == null) { throw new System.ArgumentNullException("ComponentType cannot be null"); }
             NSXTAcceptableComponentVersionType returnValue = default(NSXTAcceptableComponentVersionType);
@@ -105,25 +100,13 @@ namespace nsxtapi.PolicyModules
             request.AddHeader("Content-type", "application/json");
             GetVersionWhitelistByComponentServiceURL.Replace("{component_type}", System.Uri.EscapeDataString(Helpers.ConvertToString(ComponentType, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetVersionWhitelistByComponentServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTAcceptableComponentVersionType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTAcceptableComponentVersionType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetVersionWhitelistByComponentServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTAcceptableComponentVersionType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTAcceptableComponentVersionType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

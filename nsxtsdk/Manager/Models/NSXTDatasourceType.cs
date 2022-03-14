@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,29 +17,20 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"An instance of a datasource configuration.")]
     public class NSXTDatasourceType 
     {
-        public NSXTDatasourceType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "keystore_info")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTKeyStoreInfoType KeystoreInfo { get; set; }
         /// <summary>
         /// Name of a datasource instance.
         /// </summary>
         [JsonProperty(PropertyName = "display_name", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Name of a datasource instance.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string DisplayName { get; set; }
         /// <summary>
         /// Array of urls relative to the datasource configuration. For example, api/v1/fabric/nodes is a relative url of
         /// nsx-manager instance.
         /// </summary>
         [JsonProperty(PropertyName = "urls", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Array of urls relative to the datasource configuration. For example, api/v1/fabric/nodes is a relative url of nsx-manager instance.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTUrlAliasType> Urls { get; set; }
     }
 }

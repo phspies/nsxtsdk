@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,20 +17,13 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyEdgeClusterInterSiteBgpSummaryType : NSXTListResultType
     {
-        public NSXTPolicyEdgeClusterInterSiteBgpSummaryType()
-        {
-        }
         /// <summary>
         /// Edge cluster path whose status is being reported.
         /// </summary>
-        [JsonProperty(PropertyName = "edge_cluster_path")]
-        [NSXTProperty(IsRequired: false, Description: @"Edge cluster path whose status is being reported.")]
         public string? EdgeClusterPath { get; set; }
         /// <summary>
         /// Status of all edge nodes within cluster.
         /// </summary>
-        [JsonProperty(PropertyName = "edge_nodes")]
-        [NSXTProperty(IsRequired: false, Description: @"Status of all edge nodes within cluster.")]
         public IList<NSXTPolicyEdgeNodeInterSiteBgpSummaryType> EdgeNodes { get; set; }
     }
 }

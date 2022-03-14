@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,33 +17,22 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTCentralNodeConfigProfileType : NSXTManagedResourceType
     {
-        public NSXTCentralNodeConfigProfileType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "syslog")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTSyslogPropertiesType Syslog { get; set; }
         /// <summary>
         /// Timezone to be set for NSX nodes. Only timezone strings listed in the Time Zone database
         /// (https://www.iana.org/time-zones) are allowed.
         /// </summary>
-        [JsonProperty(PropertyName = "timezone")]
-        [NSXTProperty(IsRequired: false, Description: @"Timezone to be set for NSX nodes. Only timezone strings listed in the Time Zone database (https://www.iana.org/time-zones) are allowed.")]
         public string? Timezone { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "snmp")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTSnmpPropertiesType Snmp { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "ntp")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTNtpPropertiesType Ntp { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTServiceInstanceEndpointType : NSXTBaseEndpointType
     {
-        public NSXTServiceInstanceEndpointType()
-        {
-        }
         /// <summary>
         /// Path of Service Interface to which this ServiceInstanceEndpoint is connected.
         /// </summary>
         [JsonProperty(PropertyName = "service_interface_path", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Path of Service Interface to which this ServiceInstanceEndpoint is connected.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string ServiceInterfacePath { get; set; }
     }
 }

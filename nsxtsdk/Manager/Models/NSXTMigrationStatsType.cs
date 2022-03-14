@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,38 +17,25 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Provide stats about ongoing MP2Policy promotion.")]
     public class NSXTMigrationStatsType 
     {
-        public NSXTMigrationStatsType()
-        {
-        }
         /// <summary>
         /// Total mp resource count
         /// </summary>
-        [JsonProperty(PropertyName = "total_count")]
-        [NSXTProperty(IsRequired: false, Description: @"Total mp resource count")]
         public string? TotalCount { get; set; }
         /// <summary>
         /// Promotion status
         /// </summary>
-        [JsonProperty(PropertyName = "promotion_status")]
-        [NSXTProperty(IsRequired: false, Description: @"Promotion status")]
         public NSXTMigrationStatsPromotionStatusEnumType? PromotionStatus { get; set; }
         /// <summary>
         /// failed mp resource count
         /// </summary>
-        [JsonProperty(PropertyName = "failed_objects_count")]
-        [NSXTProperty(IsRequired: false, Description: @"failed mp resource count")]
         public string? FailedObjectsCount { get; set; }
         /// <summary>
         /// Resource type
         /// </summary>
-        [JsonProperty(PropertyName = "resource_type")]
-        [NSXTProperty(IsRequired: false, Description: @"Resource type")]
         public string? ResourceType { get; set; }
         /// <summary>
         /// promoted mp resource count
         /// </summary>
-        [JsonProperty(PropertyName = "promoted_objects_count")]
-        [NSXTProperty(IsRequired: false, Description: @"promoted mp resource count")]
         public string? PromotedObjectsCount { get; set; }
     }
 }

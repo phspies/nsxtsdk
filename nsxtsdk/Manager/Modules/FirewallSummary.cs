@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public FirewallSummary(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public FirewallSummary(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTFirewallSectionsSummaryListType GetSectionsSummary(string? Source = null)
+        public async Task<NSXTFirewallSectionsSummaryListType> GetSectionsSummary(string? Source = null)
         {
             NSXTFirewallSectionsSummaryListType returnValue = default(NSXTFirewallSectionsSummaryListType);
             StringBuilder GetSectionsSummaryServiceURL = new StringBuilder("/firewall/sections/summary");
@@ -42,25 +49,13 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             if (Source != null) { request.AddQueryParameter("source", Source.ToString()); }
             request.Resource = GetSectionsSummaryServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTFirewallSectionsSummaryListType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTFirewallSectionsSummaryListType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetSectionsSummaryServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTFirewallSectionsSummaryListType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTFirewallSectionsSummaryListType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

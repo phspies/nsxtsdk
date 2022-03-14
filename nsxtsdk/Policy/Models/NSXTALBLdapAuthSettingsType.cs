@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,56 +17,37 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer LdapAuthSettings object")]
     public class NSXTALBLdapAuthSettingsType 
     {
-        public NSXTALBLdapAuthSettingsType()
-        {
-            FullNameAttribute = test
-            EmailAttribute = test
-            BindAsAdministrator = test
-            Port = test
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "user_bind")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBLdapUserBindSettingsType UserBind { get; set; }
         /// <summary>
         /// LDAP connection security mode.
         /// Enum options - AUTH_LDAP_SECURE_NONE,
         /// AUTH_LDAP_SECURE_USE_LDAPS.
         /// </summary>
-        [JsonProperty(PropertyName = "security_mode")]
-        [NSXTProperty(IsRequired: false, Description: @"LDAP connection security mode.Enum options - AUTH_LDAP_SECURE_NONE,AUTH_LDAP_SECURE_USE_LDAPS.")]
         public NSXTAlbldapAuthSettingsSecurityModeEnumType? SecurityMode { get; set; }
         /// <summary>
         /// LDAP attribute that refers to user's full name.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as name.
         /// </summary>
-        [JsonProperty(PropertyName = "full_name_attribute")]
-        [NSXTProperty(IsRequired: false, Description: @"LDAP attribute that refers to user&apos;s full name.Default value when not specified in API or module isinterpreted by ALB Controller as name.")]
         public string? FullNameAttribute { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "settings")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTALBLdapDirectorySettingsType Settings { get; set; }
         /// <summary>
         /// The LDAP base DN.
         /// For example, avinetworks.com would be
         /// DC=avinetworks,DC=com.
         /// </summary>
-        [JsonProperty(PropertyName = "base_dn")]
-        [NSXTProperty(IsRequired: false, Description: @"The LDAP base DN.For example, avinetworks.com would beDC=avinetworks,DC=com.")]
         public string? BaseDn { get; set; }
         /// <summary>
         /// LDAP attribute that refers to user email.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as email.
         /// </summary>
-        [JsonProperty(PropertyName = "email_attribute")]
-        [NSXTProperty(IsRequired: false, Description: @"LDAP attribute that refers to user email.Default value when not specified in API or module isinterpreted by ALB Controller as email.")]
         public string? EmailAttribute { get; set; }
         /// <summary>
         /// LDAP administrator credentials are used to search for users
@@ -74,16 +55,12 @@ namespace nsxtsdk.PolicyModels
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as true.
         /// </summary>
-        [JsonProperty(PropertyName = "bind_as_administrator")]
-        [NSXTProperty(IsRequired: false, Description: @"LDAP administrator credentials are used to search for usersand group memberships.Default value when not specified in API or module isinterpreted by ALB Controller as true.")]
         public bool? BindAsAdministrator { get; set; }
         /// <summary>
         /// Query the LDAP servers on this port.
         /// Default value when not specified in API or module is
         /// interpreted by ALB Controller as 389.
         /// </summary>
-        [JsonProperty(PropertyName = "port")]
-        [NSXTProperty(IsRequired: false, Description: @"Query the LDAP servers on this port.Default value when not specified in API or module isinterpreted by ALB Controller as 389.")]
         public long? Port { get; set; }
         /// <summary>
         /// LDAP server IP address or Hostname.
@@ -92,8 +69,6 @@ namespace nsxtsdk.PolicyModels
         /// Minimum of 1 items required.
         /// </summary>
         [JsonProperty(PropertyName = "server", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"LDAP server IP address or Hostname.Use IP address if an auth profile is used to configureVirtual Service.Minimum of 1 items required.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<string> Server { get; set; }
     }
 }

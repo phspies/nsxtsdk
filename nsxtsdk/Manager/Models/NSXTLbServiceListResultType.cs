@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLbServiceListResultType : NSXTListResultType
     {
-        public NSXTLbServiceListResultType()
-        {
-        }
         /// <summary>
         /// paginated list of load balancer services
         /// </summary>
         [JsonProperty(PropertyName = "results", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"paginated list of load balancer services")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTLbServiceType> Results { get; set; }
     }
 }

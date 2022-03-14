@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public NsxIntelligenceHostConfiguration(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public NsxIntelligenceHostConfiguration(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIntelligenceHostConfigurationInfoType ResetPaceHostConfiguration()
+        public async Task<NSXTIntelligenceHostConfigurationInfoType> ResetPaceHostConfiguration()
         {
             NSXTIntelligenceHostConfigurationInfoType returnValue = default(NSXTIntelligenceHostConfigurationInfoType);
             StringBuilder ResetPaceHostConfigurationServiceURL = new StringBuilder("/intelligence/host-config?action=reset");
@@ -41,31 +48,19 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = ResetPaceHostConfigurationServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIntelligenceHostConfigurationInfoType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIntelligenceHostConfigurationInfoType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + ResetPaceHostConfigurationServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIntelligenceHostConfigurationInfoType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIntelligenceHostConfigurationInfoType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIntelligenceHostConfigurationInfoType PatchPaceHostConfiguration(NSXTIntelligenceHostConfigurationInfoType IntelligenceHostConfigurationInfo)
+        public async Task<NSXTIntelligenceHostConfigurationInfoType> PatchPaceHostConfiguration(NSXTIntelligenceHostConfigurationInfoType IntelligenceHostConfigurationInfo)
         {
             if (IntelligenceHostConfigurationInfo == null) { throw new System.ArgumentNullException("IntelligenceHostConfigurationInfo cannot be null"); }
             NSXTIntelligenceHostConfigurationInfoType returnValue = default(NSXTIntelligenceHostConfigurationInfoType);
@@ -78,31 +73,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(IntelligenceHostConfigurationInfo, defaultSerializationSettings));
             request.Resource = PatchPaceHostConfigurationServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIntelligenceHostConfigurationInfoType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIntelligenceHostConfigurationInfoType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchPaceHostConfigurationServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIntelligenceHostConfigurationInfoType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIntelligenceHostConfigurationInfoType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTIntelligenceHostConfigurationInfoType GetPaceHostConfiguration()
+        public async Task<NSXTIntelligenceHostConfigurationInfoType> GetPaceHostConfiguration()
         {
             NSXTIntelligenceHostConfigurationInfoType returnValue = default(NSXTIntelligenceHostConfigurationInfoType);
             StringBuilder GetPaceHostConfigurationServiceURL = new StringBuilder("/intelligence/host-config");
@@ -113,25 +96,13 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = GetPaceHostConfigurationServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTIntelligenceHostConfigurationInfoType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTIntelligenceHostConfigurationInfoType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetPaceHostConfigurationServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTIntelligenceHostConfigurationInfoType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTIntelligenceHostConfigurationInfoType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

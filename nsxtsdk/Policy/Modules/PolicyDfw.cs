@@ -21,16 +21,23 @@ namespace nsxtapi.PolicyModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public PolicyDfw(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public PolicyDfw(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTCommunicationMapType ReviseCommunicationMaps(string DomainId, string CommunicationMapId, NSXTCommunicationMapType CommunicationMap, string? AnchorPath = null, string? Operation = null)
+        public async Task<NSXTCommunicationMapType> ReviseCommunicationMaps(string DomainId, string CommunicationMapId, NSXTCommunicationMapType CommunicationMap, string? AnchorPath = null, string? Operation = null)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (CommunicationMapId == null) { throw new System.ArgumentNullException("CommunicationMapId cannot be null"); }
@@ -49,31 +56,19 @@ namespace nsxtapi.PolicyModules
             if (AnchorPath != null) { request.AddQueryParameter("anchor_path", AnchorPath.ToString()); }
             if (Operation != null) { request.AddQueryParameter("operation", Operation.ToString()); }
             request.Resource = ReviseCommunicationMapsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTCommunicationMapType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTCommunicationMapType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + ReviseCommunicationMapsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTCommunicationMapType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTCommunicationMapType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTCommunicationMapType UpdateCommunicationMapForDomain(string DomainId, string CommunicationMapId, NSXTCommunicationMapType CommunicationMap)
+        public async Task<NSXTCommunicationMapType> UpdateCommunicationMapForDomain(string DomainId, string CommunicationMapId, NSXTCommunicationMapType CommunicationMap)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (CommunicationMapId == null) { throw new System.ArgumentNullException("CommunicationMapId cannot be null"); }
@@ -90,31 +85,19 @@ namespace nsxtapi.PolicyModules
             UpdateCommunicationMapForDomainServiceURL.Replace("{communication-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CommunicationMapId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(CommunicationMap, defaultSerializationSettings));
             request.Resource = UpdateCommunicationMapForDomainServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTCommunicationMapType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTCommunicationMapType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateCommunicationMapForDomainServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTCommunicationMapType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTCommunicationMapType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTCommunicationMapType ReadCommunicationMapForDomain(string DomainId, string CommunicationMapId)
+        public async Task<NSXTCommunicationMapType> ReadCommunicationMapForDomain(string DomainId, string CommunicationMapId)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (CommunicationMapId == null) { throw new System.ArgumentNullException("CommunicationMapId cannot be null"); }
@@ -129,31 +112,19 @@ namespace nsxtapi.PolicyModules
             ReadCommunicationMapForDomainServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
             ReadCommunicationMapForDomainServiceURL.Replace("{communication-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CommunicationMapId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadCommunicationMapForDomainServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTCommunicationMapType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTCommunicationMapType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadCommunicationMapForDomainServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTCommunicationMapType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTCommunicationMapType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteCommunicationMapForDomain(string DomainId, string CommunicationMapId)
+        public async Task DeleteCommunicationMapForDomain(string DomainId, string CommunicationMapId)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (CommunicationMapId == null) { throw new System.ArgumentNullException("CommunicationMapId cannot be null"); }
@@ -168,7 +139,7 @@ namespace nsxtapi.PolicyModules
             DeleteCommunicationMapForDomainServiceURL.Replace("{domain-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(DomainId, System.Globalization.CultureInfo.InvariantCulture)));
             DeleteCommunicationMapForDomainServiceURL.Replace("{communication-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CommunicationMapId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteCommunicationMapForDomainServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteCommunicationMapForDomainServiceURL.ToString() + " did not complete successfull";
@@ -180,7 +151,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchCommunicationMapForDomain(string DomainId, string CommunicationMapId, NSXTCommunicationMapType CommunicationMap)
+        public async Task PatchCommunicationMapForDomain(string DomainId, string CommunicationMapId, NSXTCommunicationMapType CommunicationMap)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (CommunicationMapId == null) { throw new System.ArgumentNullException("CommunicationMapId cannot be null"); }
@@ -197,7 +168,7 @@ namespace nsxtapi.PolicyModules
             PatchCommunicationMapForDomainServiceURL.Replace("{communication-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CommunicationMapId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(CommunicationMap, defaultSerializationSettings));
             request.Resource = PatchCommunicationMapForDomainServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchCommunicationMapForDomainServiceURL.ToString() + " did not complete successfull";
@@ -209,7 +180,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTCommunicationMapListResultType ListCommunicationMapsForDomain(string DomainId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTCommunicationMapListResultType> ListCommunicationMapsForDomain(string DomainId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             NSXTCommunicationMapListResultType returnValue = default(NSXTCommunicationMapListResultType);
@@ -228,31 +199,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListCommunicationMapsForDomainServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTCommunicationMapListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTCommunicationMapListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListCommunicationMapsForDomainServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTCommunicationMapListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTCommunicationMapListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTCommunicationEntryListResultType ListCommunicationEntry(string DomainId, string CommunicationMapId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTCommunicationEntryListResultType> ListCommunicationEntry(string DomainId, string CommunicationMapId, string? Cursor = null, bool? IncludeMarkForDeleteObjects = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (CommunicationMapId == null) { throw new System.ArgumentNullException("CommunicationMapId cannot be null"); }
@@ -273,31 +232,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListCommunicationEntryServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTCommunicationEntryListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTCommunicationEntryListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListCommunicationEntryServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTCommunicationEntryListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTCommunicationEntryListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTCommunicationEntryType ReviseCommunicationEntry(string DomainId, string CommunicationMapId, string CommunicationEntryId, NSXTCommunicationEntryType CommunicationEntry, string? AnchorPath = null, string? Operation = null)
+        public async Task<NSXTCommunicationEntryType> ReviseCommunicationEntry(string DomainId, string CommunicationMapId, string CommunicationEntryId, NSXTCommunicationEntryType CommunicationEntry, string? AnchorPath = null, string? Operation = null)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (CommunicationMapId == null) { throw new System.ArgumentNullException("CommunicationMapId cannot be null"); }
@@ -318,31 +265,19 @@ namespace nsxtapi.PolicyModules
             if (AnchorPath != null) { request.AddQueryParameter("anchor_path", AnchorPath.ToString()); }
             if (Operation != null) { request.AddQueryParameter("operation", Operation.ToString()); }
             request.Resource = ReviseCommunicationEntryServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTCommunicationEntryType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTCommunicationEntryType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + ReviseCommunicationEntryServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTCommunicationEntryType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTCommunicationEntryType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTCommunicationEntryType UpdateCommunicationEntry(string DomainId, string CommunicationMapId, string CommunicationEntryId, NSXTCommunicationEntryType CommunicationEntry)
+        public async Task<NSXTCommunicationEntryType> UpdateCommunicationEntry(string DomainId, string CommunicationMapId, string CommunicationEntryId, NSXTCommunicationEntryType CommunicationEntry)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (CommunicationMapId == null) { throw new System.ArgumentNullException("CommunicationMapId cannot be null"); }
@@ -361,31 +296,19 @@ namespace nsxtapi.PolicyModules
             UpdateCommunicationEntryServiceURL.Replace("{communication-entry-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CommunicationEntryId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(CommunicationEntry, defaultSerializationSettings));
             request.Resource = UpdateCommunicationEntryServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTCommunicationEntryType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTCommunicationEntryType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateCommunicationEntryServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTCommunicationEntryType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTCommunicationEntryType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTCommunicationEntryType ReadCommunicationEntry(string DomainId, string CommunicationMapId, string CommunicationEntryId)
+        public async Task<NSXTCommunicationEntryType> ReadCommunicationEntry(string DomainId, string CommunicationMapId, string CommunicationEntryId)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (CommunicationMapId == null) { throw new System.ArgumentNullException("CommunicationMapId cannot be null"); }
@@ -402,31 +325,19 @@ namespace nsxtapi.PolicyModules
             ReadCommunicationEntryServiceURL.Replace("{communication-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CommunicationMapId, System.Globalization.CultureInfo.InvariantCulture)));
             ReadCommunicationEntryServiceURL.Replace("{communication-entry-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CommunicationEntryId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ReadCommunicationEntryServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTCommunicationEntryType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTCommunicationEntryType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ReadCommunicationEntryServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTCommunicationEntryType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTCommunicationEntryType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteCommunicationEntry(string DomainId, string CommunicationMapId, string CommunicationEntryId)
+        public async Task DeleteCommunicationEntry(string DomainId, string CommunicationMapId, string CommunicationEntryId)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (CommunicationMapId == null) { throw new System.ArgumentNullException("CommunicationMapId cannot be null"); }
@@ -443,7 +354,7 @@ namespace nsxtapi.PolicyModules
             DeleteCommunicationEntryServiceURL.Replace("{communication-map-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CommunicationMapId, System.Globalization.CultureInfo.InvariantCulture)));
             DeleteCommunicationEntryServiceURL.Replace("{communication-entry-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CommunicationEntryId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteCommunicationEntryServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteCommunicationEntryServiceURL.ToString() + " did not complete successfull";
@@ -455,7 +366,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchCommunicationEntry(string DomainId, string CommunicationMapId, string CommunicationEntryId, NSXTCommunicationEntryType CommunicationEntry)
+        public async Task PatchCommunicationEntry(string DomainId, string CommunicationMapId, string CommunicationEntryId, NSXTCommunicationEntryType CommunicationEntry)
         {
             if (DomainId == null) { throw new System.ArgumentNullException("DomainId cannot be null"); }
             if (CommunicationMapId == null) { throw new System.ArgumentNullException("CommunicationMapId cannot be null"); }
@@ -474,7 +385,7 @@ namespace nsxtapi.PolicyModules
             PatchCommunicationEntryServiceURL.Replace("{communication-entry-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(CommunicationEntryId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(CommunicationEntry, defaultSerializationSettings));
             request.Resource = PatchCommunicationEntryServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchCommunicationEntryServiceURL.ToString() + " did not complete successfull";

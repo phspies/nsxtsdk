@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -20,36 +20,25 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTShaPluginProfileType : NSXTPolicyConfigResourceType
     {
-        public NSXTShaPluginProfileType()
-        {
-        }
         /// <summary>
         /// The Policy group path to apply the changes on Sha Plugin.
         /// It can be pre-defined plugin or dynamic created plugin.
         /// </summary>
-        [JsonProperty(PropertyName = "applied_to_group_path")]
-        [NSXTProperty(IsRequired: false, Description: @"The Policy group path to apply the changes on Sha Plugin.It can be pre-defined plugin or dynamic created plugin.")]
         public string? AppliedToGroupPath { get; set; }
         /// <summary>
         /// The policy path of Sha Plugin. It can be pre-defined plugin or dynamic created plugin.
         /// </summary>
         [JsonProperty(PropertyName = "plugin_path", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"The policy path of Sha Plugin. It can be pre-defined plugin or dynamic created plugin.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string PluginPath { get; set; }
         /// <summary>
         /// The on-off switch of System Health Plugin
         /// </summary>
         [JsonProperty(PropertyName = "enabled", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"The on-off switch of System Health Plugin")]
-        [System.ComponentModel.DataAnnotations.Required]
         public bool Enabled { get; set; }
         /// <summary>
         /// Valid System Health plugin types
         /// </summary>
         [JsonProperty(PropertyName = "resource_type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Valid System Health plugin types")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTShaPluginProfileResourceTypeEnumType ResourceType { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,26 +17,17 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyTraceflowObservationDroppedType : NSXTTraceflowObservationDroppedType
     {
-        public NSXTPolicyTraceflowObservationDroppedType()
-        {
-        }
         /// <summary>
         /// The path of the ACL rule that was applied to forward the traceflow packet
         /// </summary>
-        [JsonProperty(PropertyName = "acl_rule_path")]
-        [NSXTProperty(IsRequired: false, Description: @"The path of the ACL rule that was applied to forward the traceflow packet")]
         public string? AclRulePath { get; set; }
         /// <summary>
         /// The path of the NAT rule that was applied to forward the traceflow packet
         /// </summary>
-        [JsonProperty(PropertyName = "nat_rule_path")]
-        [NSXTProperty(IsRequired: false, Description: @"The path of the NAT rule that was applied to forward the traceflow packet")]
         public string? NatRulePath { get; set; }
         /// <summary>
         /// The path of the segment port or router port at which the traceflow packet was dropped
         /// </summary>
-        [JsonProperty(PropertyName = "segment_port_path")]
-        [NSXTProperty(IsRequired: false, Description: @"The path of the segment port or router port at which the traceflow packet was dropped")]
         public string? SegmentPortPath { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,32 +17,20 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTIPSecVPNServiceType : NSXTManagedResourceType
     {
-        public NSXTIPSecVPNServiceType()
-        {
-            IkeLogLevel = test
-            IpsecHaSync = test
-            Enabled = test
-        }
         /// <summary>
         /// Log level for internet key exchange (IKE).
         /// </summary>
-        [JsonProperty(PropertyName = "ike_log_level")]
-        [NSXTProperty(IsRequired: false, Description: @"Log level for internet key exchange (IKE).")]
         public NSXTIpsecVpnserviceIkeLogLevelEnumType? IkeLogLevel { get; set; }
         /// <summary>
         /// Logical router id.
         /// </summary>
         [JsonProperty(PropertyName = "logical_router_id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Logical router id.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string LogicalRouterId { get; set; }
         /// <summary>
         /// Enable/disable IPSec HA state sync. IPSec HA state sync
         /// can be disabled in case there are performance issues with
         /// the state sync messages. Default is to enable HA Sync.
         /// </summary>
-        [JsonProperty(PropertyName = "ipsec_ha_sync")]
-        [NSXTProperty(IsRequired: false, Description: @"Enable/disable IPSec HA state sync. IPSec HA state synccan be disabled in case there are performance issues withthe state sync messages. Default is to enable HA Sync.")]
         public bool? IpsecHaSync { get; set; }
         /// <summary>
         /// Bypass policy rules are configured using VPN service.
@@ -51,14 +39,10 @@ namespace nsxtsdk.ManagerModels
         /// with the IPSec VPN service. Protect rules are defined per
         /// policy based vpn session.
         /// </summary>
-        [JsonProperty(PropertyName = "bypass_rules")]
-        [NSXTProperty(IsRequired: false, Description: @"Bypass policy rules are configured using VPN service.Bypass rules always have higher priority over protectrules and they affect all policy based vpn sessions associatedwith the IPSec VPN service. Protect rules are defined perpolicy based vpn session.")]
         public IList<NSXTIPSecVPNPolicyRuleType> BypassRules { get; set; }
         /// <summary>
         /// If true, enable VPN services for given logical router.
         /// </summary>
-        [JsonProperty(PropertyName = "enabled")]
-        [NSXTProperty(IsRequired: false, Description: @"If true, enable VPN services for given logical router.")]
         public bool? Enabled { get; set; }
     }
 }

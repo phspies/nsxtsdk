@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public HealthCheck(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public HealthCheck(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTAutomaticHealthCheckListResultType ListAutomaticHealthChecks(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTAutomaticHealthCheckListResultType> ListAutomaticHealthChecks(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTAutomaticHealthCheckListResultType returnValue = default(NSXTAutomaticHealthCheckListResultType);
             StringBuilder ListAutomaticHealthChecksServiceURL = new StringBuilder("/automatic-health-checks");
@@ -46,31 +53,19 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListAutomaticHealthChecksServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTAutomaticHealthCheckListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTAutomaticHealthCheckListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListAutomaticHealthChecksServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTAutomaticHealthCheckListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTAutomaticHealthCheckListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTManualHealthCheckType CreateManualHealthCheck(NSXTManualHealthCheckType ManualHealthCheck)
+        public async Task<NSXTManualHealthCheckType> CreateManualHealthCheck(NSXTManualHealthCheckType ManualHealthCheck)
         {
             if (ManualHealthCheck == null) { throw new System.ArgumentNullException("ManualHealthCheck cannot be null"); }
             NSXTManualHealthCheckType returnValue = default(NSXTManualHealthCheckType);
@@ -83,31 +78,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(ManualHealthCheck, defaultSerializationSettings));
             request.Resource = CreateManualHealthCheckServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTManualHealthCheckType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTManualHealthCheckType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CreateManualHealthCheckServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTManualHealthCheckType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTManualHealthCheckType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTManualHealthCheckListResultType ListManualHealthChecks(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTManualHealthCheckListResultType> ListManualHealthChecks(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             NSXTManualHealthCheckListResultType returnValue = default(NSXTManualHealthCheckListResultType);
             StringBuilder ListManualHealthChecksServiceURL = new StringBuilder("/manual-health-checks");
@@ -123,31 +106,19 @@ namespace nsxtapi.ManagerModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListManualHealthChecksServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTManualHealthCheckListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTManualHealthCheckListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListManualHealthChecksServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTManualHealthCheckListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTManualHealthCheckListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTAutomaticHealthCheckType GetAutomaticHealthCheck(string TransportZoneId)
+        public async Task<NSXTAutomaticHealthCheckType> GetAutomaticHealthCheck(string TransportZoneId)
         {
             if (TransportZoneId == null) { throw new System.ArgumentNullException("TransportZoneId cannot be null"); }
             NSXTAutomaticHealthCheckType returnValue = default(NSXTAutomaticHealthCheckType);
@@ -160,31 +131,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             GetAutomaticHealthCheckServiceURL.Replace("{transport-zone-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(TransportZoneId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetAutomaticHealthCheckServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTAutomaticHealthCheckType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTAutomaticHealthCheckType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetAutomaticHealthCheckServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTAutomaticHealthCheckType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTAutomaticHealthCheckType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTAutomaticHealthCheckToggleType UpdateAutomaticHealthCheckToggle(NSXTAutomaticHealthCheckToggleType AutomaticHealthCheckToggle)
+        public async Task<NSXTAutomaticHealthCheckToggleType> UpdateAutomaticHealthCheckToggle(NSXTAutomaticHealthCheckToggleType AutomaticHealthCheckToggle)
         {
             if (AutomaticHealthCheckToggle == null) { throw new System.ArgumentNullException("AutomaticHealthCheckToggle cannot be null"); }
             NSXTAutomaticHealthCheckToggleType returnValue = default(NSXTAutomaticHealthCheckToggleType);
@@ -197,31 +156,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(AutomaticHealthCheckToggle, defaultSerializationSettings));
             request.Resource = UpdateAutomaticHealthCheckToggleServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTAutomaticHealthCheckToggleType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTAutomaticHealthCheckToggleType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateAutomaticHealthCheckToggleServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTAutomaticHealthCheckToggleType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTAutomaticHealthCheckToggleType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTAutomaticHealthCheckToggleType GetAutomaticHealthCheckToggle()
+        public async Task<NSXTAutomaticHealthCheckToggleType> GetAutomaticHealthCheckToggle()
         {
             NSXTAutomaticHealthCheckToggleType returnValue = default(NSXTAutomaticHealthCheckToggleType);
             StringBuilder GetAutomaticHealthCheckToggleServiceURL = new StringBuilder("/automatic-health-check-toggle");
@@ -232,31 +179,19 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = GetAutomaticHealthCheckToggleServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTAutomaticHealthCheckToggleType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTAutomaticHealthCheckToggleType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetAutomaticHealthCheckToggleServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTAutomaticHealthCheckToggleType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTAutomaticHealthCheckToggleType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteManualHealthCheck(string ManualHealthCheckId)
+        public async Task DeleteManualHealthCheck(string ManualHealthCheckId)
         {
             if (ManualHealthCheckId == null) { throw new System.ArgumentNullException("ManualHealthCheckId cannot be null"); }
             
@@ -269,7 +204,7 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             DeleteManualHealthCheckServiceURL.Replace("{manual-health-check-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ManualHealthCheckId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = DeleteManualHealthCheckServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteManualHealthCheckServiceURL.ToString() + " did not complete successfull";
@@ -281,7 +216,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTManualHealthCheckType GetManualHealthCheck(string ManualHealthCheckId)
+        public async Task<NSXTManualHealthCheckType> GetManualHealthCheck(string ManualHealthCheckId)
         {
             if (ManualHealthCheckId == null) { throw new System.ArgumentNullException("ManualHealthCheckId cannot be null"); }
             NSXTManualHealthCheckType returnValue = default(NSXTManualHealthCheckType);
@@ -294,25 +229,13 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             GetManualHealthCheckServiceURL.Replace("{manual-health-check-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(ManualHealthCheckId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetManualHealthCheckServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTManualHealthCheckType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTManualHealthCheckType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetManualHealthCheckServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTManualHealthCheckType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTManualHealthCheckType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

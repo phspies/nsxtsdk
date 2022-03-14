@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,20 +17,13 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTSiteCompatibilityInfoType 
     {
-        public NSXTSiteCompatibilityInfoType()
-        {
-        }
         /// <summary>
         /// Compatibility list
         /// </summary>
-        [JsonProperty(PropertyName = "compatibility_list")]
-        [NSXTProperty(IsRequired: false, Description: @"Compatibility list")]
         public IList<string> CompatibilityList { get; set; }
         /// <summary>
         /// Site version
         /// </summary>
-        [JsonProperty(PropertyName = "site_version")]
-        [NSXTProperty(IsRequired: false, Description: @"Site version")]
         public string? SiteVersion { get; set; }
     }
 }

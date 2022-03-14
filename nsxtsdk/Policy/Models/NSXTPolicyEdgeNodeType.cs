@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,21 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyEdgeNodeType : NSXTPolicyConfigResourceType
     {
-        public NSXTPolicyEdgeNodeType()
-        {
-        }
         /// <summary>
         /// The numerical value of the member index in the edge cluster
         /// that this object represents and to which the edge node connects.
         /// </summary>
-        [JsonProperty(PropertyName = "member_index")]
-        [NSXTProperty(IsRequired: false, Description: @"The numerical value of the member index in the edge clusterthat this object represents and to which the edge node connects.")]
         public long? MemberIndex { get; set; }
         /// <summary>
         /// UUID of edge node on NSX-T enforcement point.
         /// </summary>
-        [JsonProperty(PropertyName = "nsx_id")]
-        [NSXTProperty(IsRequired: false, Description: @"UUID of edge node on NSX-T enforcement point.")]
         public string? NsxId { get; set; }
     }
 }

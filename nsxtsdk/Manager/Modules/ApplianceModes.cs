@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public ApplianceModes(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public ApplianceModes(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNodeModeType GetNodeMode()
+        public async Task<NSXTNodeModeType> GetNodeMode()
         {
             NSXTNodeModeType returnValue = default(NSXTNodeModeType);
             StringBuilder GetNodeModeServiceURL = new StringBuilder("/node/mode");
@@ -41,31 +48,19 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = GetNodeModeServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNodeModeType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNodeModeType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetNodeModeServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNodeModeType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNodeModeType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTNodeModeType ChangeNodeMode(NSXTSwitchingToVmcModeParametersType SwitchingToVmcModeParameters)
+        public async Task<NSXTNodeModeType> ChangeNodeMode(NSXTSwitchingToVmcModeParametersType SwitchingToVmcModeParameters)
         {
             if (SwitchingToVmcModeParameters == null) { throw new System.ArgumentNullException("SwitchingToVmcModeParameters cannot be null"); }
             NSXTNodeModeType returnValue = default(NSXTNodeModeType);
@@ -78,25 +73,13 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(SwitchingToVmcModeParameters, defaultSerializationSettings));
             request.Resource = ChangeNodeModeServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTNodeModeType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTNodeModeType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + ChangeNodeModeServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTNodeModeType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTNodeModeType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

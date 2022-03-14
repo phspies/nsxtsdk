@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyPktCapResourceType : NSXTPktCapResourceType
     {
-        public NSXTPolicyPktCapResourceType()
-        {
-        }
         /// <summary>
         /// The path of segment port or router port where the packets are captured
         /// </summary>
-        [JsonProperty(PropertyName = "logical_port_path")]
-        [NSXTProperty(IsRequired: false, Description: @"The path of segment port or router port where the packets are captured")]
         public string? LogicalPortPath { get; set; }
     }
 }

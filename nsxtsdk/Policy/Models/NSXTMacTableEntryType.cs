@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,43 +17,30 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTMacTableEntryType 
     {
-        public NSXTMacTableEntryType()
-        {
-        }
         /// <summary>
         /// The virtual tunnel endpoint MAC address
         /// </summary>
-        [JsonProperty(PropertyName = "vtep_mac_address")]
-        [NSXTProperty(IsRequired: false, Description: @"The virtual tunnel endpoint MAC address")]
         public string? VtepMacAddress { get; set; }
         /// <summary>
         /// RTEP group id is applicable when the logical switch is stretched
         /// across multiple sites. When rtep_group_id is set, mac_address
         /// represents remote mac_address.
         /// </summary>
-        [JsonProperty(PropertyName = "rtep_group_id")]
-        [NSXTProperty(IsRequired: false, Description: @"RTEP group id is applicable when the logical switch is stretchedacross multiple sites. When rtep_group_id is set, mac_addressrepresents remote mac_address.")]
         public long? RtepGroupId { get; set; }
         /// <summary>
         /// The virtual tunnel endpoint IP address
         /// </summary>
-        [JsonProperty(PropertyName = "vtep_ip")]
-        [NSXTProperty(IsRequired: false, Description: @"The virtual tunnel endpoint IP address")]
         public string? VtepIp { get; set; }
         /// <summary>
         /// VTEP group id is applicable when the logical switch is stretched
         /// across multiple sites. When vtep_group_id is set, mac_address
         /// represents remote mac_address.
         /// </summary>
-        [JsonProperty(PropertyName = "vtep_group_id")]
-        [NSXTProperty(IsRequired: false, Description: @"VTEP group id is applicable when the logical switch is stretchedacross multiple sites. When vtep_group_id is set, mac_addressrepresents remote mac_address.")]
         public long? VtepGroupId { get; set; }
         /// <summary>
         /// The MAC address
         /// </summary>
         [JsonProperty(PropertyName = "mac_address", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"The MAC address")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string MacAddress { get; set; }
     }
 }

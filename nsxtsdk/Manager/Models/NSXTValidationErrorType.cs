@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,20 +17,13 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Error while applying transport node profile on discovered node")]
     public class NSXTValidationErrorType 
     {
-        public NSXTValidationErrorType()
-        {
-        }
         /// <summary>
         /// Discovered Node Id
         /// </summary>
-        [JsonProperty(PropertyName = "discovered_node_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Discovered Node Id")]
         public string? DiscoveredNodeId { get; set; }
         /// <summary>
         /// Validation error message
         /// </summary>
-        [JsonProperty(PropertyName = "error_message")]
-        [NSXTProperty(IsRequired: false, Description: @"Validation error message")]
         public string? ErrorMessage { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPolicyBasedL3VpnSessionType : NSXTL3VpnSessionType
     {
-        public NSXTPolicyBasedL3VpnSessionType()
-        {
-        }
         /// <summary>
         /// L3Vpn rules that are specific to the L3Vpn. Only L3Vpn rules with PROTECT action
         /// are supported.
         /// </summary>
-        [JsonProperty(PropertyName = "rules")]
-        [NSXTProperty(IsRequired: false, Description: @"L3Vpn rules that are specific to the L3Vpn. Only L3Vpn rules with PROTECT actionare supported.")]
         public IList<NSXTL3VpnRuleType> Rules { get; set; }
     }
 }

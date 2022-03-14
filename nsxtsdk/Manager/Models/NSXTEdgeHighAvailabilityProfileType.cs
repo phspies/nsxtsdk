@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,41 +17,21 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTEdgeHighAvailabilityProfileType : NSXTClusterProfileType
     {
-        public NSXTEdgeHighAvailabilityProfileType()
-        {
-            BfdDeclareDeadMultiple = test
-            BfdProbeInterval = test
-            BfdAllowedHops = test
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "standby_relocation_config")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTStandbyRelocationConfigType StandbyRelocationConfig { get; set; }
         /// <summary>
         /// Number of times a packet is missed before BFD declares the neighbor down.
         /// </summary>
-        [JsonProperty(PropertyName = "bfd_declare_dead_multiple")]
-        [NSXTProperty(IsRequired: false, Description: @"Number of times a packet is missed before BFD declares the neighbor down.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(2)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(16)]
         public long? BfdDeclareDeadMultiple { get; set; }
         /// <summary>
         /// the time interval (in millisec) between probe packets for heartbeat purpose
         /// </summary>
-        [JsonProperty(PropertyName = "bfd_probe_interval")]
-        [NSXTProperty(IsRequired: false, Description: @"the time interval (in millisec) between probe packets for heartbeat purpose")]
-        //[System.ComponentModel.DataAnnotations.MinLength(50)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(60000)]
         public long? BfdProbeInterval { get; set; }
         /// <summary>
         /// BFD allowed hops
         /// </summary>
-        [JsonProperty(PropertyName = "bfd_allowed_hops")]
-        [NSXTProperty(IsRequired: false, Description: @"BFD allowed hops")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(255)]
         public long? BfdAllowedHops { get; set; }
     }
 }

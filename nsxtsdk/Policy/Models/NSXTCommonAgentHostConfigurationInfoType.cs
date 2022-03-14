@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,51 +17,34 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTCommonAgentHostConfigurationInfoType : NSXTManagedResourceType
     {
-        public NSXTCommonAgentHostConfigurationInfoType()
-        {
-        }
         /// <summary>
         /// List of private IP prefix that NSX Application Platform Common Agent network flow
         /// is collected from.
         /// </summary>
-        [JsonProperty(PropertyName = "private_ip_range")]
-        [NSXTProperty(IsRequired: false, Description: @"List of private IP prefix that NSX Application Platform Common Agent network flowis collected from.")]
         public IList<NSXTCommonAgentPrivateIpRangeInfoType> PrivateIpRange { get; set; }
         /// <summary>
         /// Cluster id of the NSX Manager cluster.
         /// </summary>
-        [JsonProperty(PropertyName = "nsx_cluster_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Cluster id of the NSX Manager cluster.")]
         public string? NsxClusterId { get; set; }
         /// <summary>
         /// A truststore to establish the trust between NSX and NSX Application Platform.
         /// </summary>
-        [JsonProperty(PropertyName = "truststore")]
-        [NSXTProperty(IsRequired: false, Description: @"A truststore to establish the trust between NSX and NSX Application Platform.")]
         public string? Truststore { get; set; }
         /// <summary>
         /// A Kafka broker certificate to verify the identity of brokers.
         /// </summary>
-        [JsonProperty(PropertyName = "kafka_certificate")]
-        [NSXTProperty(IsRequired: false, Description: @"A Kafka broker certificate to verify the identity of brokers.")]
         public string? KafkaCertificate { get; set; }
         /// <summary>
         /// List of NSX Application Platform ingress endpoints that host nodes contact initially.
         /// </summary>
-        [JsonProperty(PropertyName = "ingress_endpoint")]
-        [NSXTProperty(IsRequired: false, Description: @"List of NSX Application Platform ingress endpoints that host nodes contact initially.")]
         public IList<NSXTCommonAgentEndpointInfoType> IngressEndpoint { get; set; }
         /// <summary>
         /// List of NSX Application Platform broker endpoints that host nodes contact initially.
         /// </summary>
-        [JsonProperty(PropertyName = "kafka_endpoint")]
-        [NSXTProperty(IsRequired: false, Description: @"List of NSX Application Platform broker endpoints that host nodes contact initially.")]
         public IList<NSXTCommonAgentEndpointInfoType> KafkaEndpoint { get; set; }
         /// <summary>
         /// A ingress certificate to verify the identity of brokers.
         /// </summary>
-        [JsonProperty(PropertyName = "ingress_certificate")]
-        [NSXTProperty(IsRequired: false, Description: @"A ingress certificate to verify the identity of brokers.")]
         public string? IngressCertificate { get; set; }
     }
 }

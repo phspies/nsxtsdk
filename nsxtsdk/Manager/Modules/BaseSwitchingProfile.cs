@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public BaseSwitchingProfile(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public BaseSwitchingProfile(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSwitchingProfileStatusType GetSwitchingProfileStatus(string SwitchingProfileId)
+        public async Task<NSXTSwitchingProfileStatusType> GetSwitchingProfileStatus(string SwitchingProfileId)
         {
             if (SwitchingProfileId == null) { throw new System.ArgumentNullException("SwitchingProfileId cannot be null"); }
             NSXTSwitchingProfileStatusType returnValue = default(NSXTSwitchingProfileStatusType);
@@ -43,31 +50,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             GetSwitchingProfileStatusServiceURL.Replace("{switching-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SwitchingProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetSwitchingProfileStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTSwitchingProfileStatusType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTSwitchingProfileStatusType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetSwitchingProfileStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSwitchingProfileStatusType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSwitchingProfileStatusType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTBaseSwitchingProfileType UpdateSwitchingProfile(string SwitchingProfileId, NSXTBaseSwitchingProfileType BaseSwitchingProfile)
+        public async Task<NSXTBaseSwitchingProfileType> UpdateSwitchingProfile(string SwitchingProfileId, NSXTBaseSwitchingProfileType BaseSwitchingProfile)
         {
             if (SwitchingProfileId == null) { throw new System.ArgumentNullException("SwitchingProfileId cannot be null"); }
             if (BaseSwitchingProfile == null) { throw new System.ArgumentNullException("BaseSwitchingProfile cannot be null"); }
@@ -82,31 +77,19 @@ namespace nsxtapi.ManagerModules
             UpdateSwitchingProfileServiceURL.Replace("{switching-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SwitchingProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.AddJsonBody(JsonConvert.SerializeObject(BaseSwitchingProfile, defaultSerializationSettings));
             request.Resource = UpdateSwitchingProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTBaseSwitchingProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTBaseSwitchingProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + UpdateSwitchingProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTBaseSwitchingProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTBaseSwitchingProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTBaseSwitchingProfileType GetSwitchingProfile(string SwitchingProfileId)
+        public async Task<NSXTBaseSwitchingProfileType> GetSwitchingProfile(string SwitchingProfileId)
         {
             if (SwitchingProfileId == null) { throw new System.ArgumentNullException("SwitchingProfileId cannot be null"); }
             NSXTBaseSwitchingProfileType returnValue = default(NSXTBaseSwitchingProfileType);
@@ -119,31 +102,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             GetSwitchingProfileServiceURL.Replace("{switching-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SwitchingProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetSwitchingProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTBaseSwitchingProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTBaseSwitchingProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetSwitchingProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTBaseSwitchingProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTBaseSwitchingProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteSwitchingProfile(string SwitchingProfileId, bool? Unbind = null)
+        public async Task DeleteSwitchingProfile(string SwitchingProfileId, bool? Unbind = null)
         {
             if (SwitchingProfileId == null) { throw new System.ArgumentNullException("SwitchingProfileId cannot be null"); }
             
@@ -157,7 +128,7 @@ namespace nsxtapi.ManagerModules
             DeleteSwitchingProfileServiceURL.Replace("{switching-profile-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(SwitchingProfileId, System.Globalization.CultureInfo.InvariantCulture)));
             if (Unbind != null) { request.AddQueryParameter("unbind", Unbind.ToString()); }
             request.Resource = DeleteSwitchingProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteSwitchingProfileServiceURL.ToString() + " did not complete successfull";
@@ -169,7 +140,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTBaseSwitchingProfileType CreateSwitchingProfile(NSXTBaseSwitchingProfileType BaseSwitchingProfile)
+        public async Task<NSXTBaseSwitchingProfileType> CreateSwitchingProfile(NSXTBaseSwitchingProfileType BaseSwitchingProfile)
         {
             if (BaseSwitchingProfile == null) { throw new System.ArgumentNullException("BaseSwitchingProfile cannot be null"); }
             NSXTBaseSwitchingProfileType returnValue = default(NSXTBaseSwitchingProfileType);
@@ -182,31 +153,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             request.AddJsonBody(JsonConvert.SerializeObject(BaseSwitchingProfile, defaultSerializationSettings));
             request.Resource = CreateSwitchingProfileServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTBaseSwitchingProfileType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTBaseSwitchingProfileType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CreateSwitchingProfileServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTBaseSwitchingProfileType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTBaseSwitchingProfileType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSwitchingProfilesListResultType ListSwitchingProfiles(string? Cursor = null, bool? IncludeSystemOwned = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? SwitchingProfileType = null)
+        public async Task<NSXTSwitchingProfilesListResultType> ListSwitchingProfiles(string? Cursor = null, bool? IncludeSystemOwned = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? SwitchingProfileType = null)
         {
             NSXTSwitchingProfilesListResultType returnValue = default(NSXTSwitchingProfilesListResultType);
             StringBuilder ListSwitchingProfilesServiceURL = new StringBuilder("/switching-profiles");
@@ -224,25 +183,13 @@ namespace nsxtapi.ManagerModules
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             if (SwitchingProfileType != null) { request.AddQueryParameter("switching_profile_type", SwitchingProfileType.ToString()); }
             request.Resource = ListSwitchingProfilesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTSwitchingProfilesListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTSwitchingProfilesListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListSwitchingProfilesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSwitchingProfilesListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSwitchingProfilesListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

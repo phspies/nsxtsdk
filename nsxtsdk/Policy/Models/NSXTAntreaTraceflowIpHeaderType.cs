@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,38 +17,25 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Ip header stuffs for Antrea traceflow.")]
     public class NSXTAntreaTraceflowIpHeaderType 
     {
-        public NSXTAntreaTraceflowIpHeaderType()
-        {
-        }
         /// <summary>
         /// Source ip address in IpHeader.
         /// </summary>
-        [JsonProperty(PropertyName = "srcIp")]
-        [NSXTProperty(IsRequired: false, Description: @"Source ip address in IpHeader.")]
         public string? SrcIp { get; set; }
         /// <summary>
         /// Protocol setting in IpHeader.
         /// </summary>
-        [JsonProperty(PropertyName = "protocol")]
-        [NSXTProperty(IsRequired: false, Description: @"Protocol setting in IpHeader.")]
         public long? Protocol { get; set; }
         /// <summary>
         /// Destination ip address in IpHeader.
         /// </summary>
-        [JsonProperty(PropertyName = "dstIp")]
-        [NSXTProperty(IsRequired: false, Description: @"Destination ip address in IpHeader.")]
         public string? DstIp { get; set; }
         /// <summary>
         /// Protocol setting in IpHeader.
         /// </summary>
-        [JsonProperty(PropertyName = "flags")]
-        [NSXTProperty(IsRequired: false, Description: @"Protocol setting in IpHeader.")]
         public long? Flags { get; set; }
         /// <summary>
         /// TTL value in IpHeader. Default is 64.
         /// </summary>
-        [JsonProperty(PropertyName = "ttl")]
-        [NSXTProperty(IsRequired: false, Description: @"TTL value in IpHeader. Default is 64.")]
         public long? Ttl { get; set; }
     }
 }

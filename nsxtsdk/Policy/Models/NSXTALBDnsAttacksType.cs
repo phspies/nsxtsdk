@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,23 +17,16 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer DnsAttacks object")]
     public class NSXTALBDnsAttacksType 
     {
-        public NSXTALBDnsAttacksType()
-        {
-        }
         /// <summary>
         /// Mode of dealing with the attacks - perform detection only,
         /// or detect and mitigate the attacks.
         /// </summary>
-        [JsonProperty(PropertyName = "attacks")]
-        [NSXTProperty(IsRequired: false, Description: @"Mode of dealing with the attacks - perform detection only,or detect and mitigate the attacks.")]
         public IList<NSXTALBDnsAttackType> Attacks { get; set; }
         /// <summary>
         /// Mode of dealing with the attacks - perform detection only,
         /// or detect and mitigate the attacks.
         /// Enum options - DETECTION, MITIGATION.
         /// </summary>
-        [JsonProperty(PropertyName = "oper_mode")]
-        [NSXTProperty(IsRequired: false, Description: @"Mode of dealing with the attacks - perform detection only,or detect and mitigate the attacks.Enum options - DETECTION, MITIGATION.")]
         public NSXTAlbdnsAttacksOperModeEnumType? OperMode { get; set; }
     }
 }

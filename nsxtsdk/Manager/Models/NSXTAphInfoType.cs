@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,55 +17,38 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"APH information.")]
     public class NSXTAphInfoType 
     {
-        public NSXTAphInfoType()
-        {
-        }
         /// <summary>
         /// Port of APH service
         /// </summary>
         [JsonProperty(PropertyName = "port", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Port of APH service")]
-        [System.ComponentModel.DataAnnotations.Required]
         public long Port { get; set; }
         /// <summary>
         /// Node ID of the APH service
         /// </summary>
         [JsonProperty(PropertyName = "node_id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Node ID of the APH service")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string NodeId { get; set; }
         /// <summary>
         /// whether or not fqdn flag is on
         /// </summary>
-        [JsonProperty(PropertyName = "use_fqdn")]
-        [NSXTProperty(IsRequired: false, Description: @"whether or not fqdn flag is on")]
         public bool? UseFqdn { get; set; }
         /// <summary>
         /// PEM Certificate of APH service
         /// </summary>
         [JsonProperty(PropertyName = "certificate", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"PEM Certificate of APH service")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Certificate { get; set; }
         /// <summary>
         /// IP address of APH service
         /// </summary>
         [JsonProperty(PropertyName = "address", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"IP address of APH service")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Address { get; set; }
         /// <summary>
         /// FQDN, only returned by GET /sites and GET /sites/self
         /// </summary>
-        [JsonProperty(PropertyName = "fqdn")]
-        [NSXTProperty(IsRequired: false, Description: @"FQDN, only returned by GET /sites and GET /sites/self")]
         public string? Fqdn { get; set; }
         /// <summary>
         /// ID of the APH service
         /// </summary>
         [JsonProperty(PropertyName = "uuid", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"ID of the APH service")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Uuid { get; set; }
     }
 }

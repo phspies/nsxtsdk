@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,21 +17,14 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"Configuration where backup files are stored for restore")]
     public class NSXTRestoreConfigurationType 
     {
-        public NSXTRestoreConfigurationType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty(PropertyName = "remote_file_server", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTRemoteFileServerType RemoteFileServer { get; set; }
         /// <summary>
         /// Passphrase used to encrypt backup files.
         /// </summary>
-        [JsonProperty(PropertyName = "passphrase")]
-        [NSXTProperty(IsRequired: false, Description: @"Passphrase used to encrypt backup files.")]
         public string? Passphrase { get; set; }
     }
 }

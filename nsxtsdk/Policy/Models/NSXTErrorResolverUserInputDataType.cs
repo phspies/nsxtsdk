@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,28 +17,19 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Corresponds to one property entered by the user")]
     public class NSXTErrorResolverUserInputDataType 
     {
-        public NSXTErrorResolverUserInputDataType()
-        {
-        }
         /// <summary>
         /// The datatype of the given property. Useful for data validation
         /// </summary>
         [JsonProperty(PropertyName = "data_type", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"The datatype of the given property. Useful for data validation")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTErrorResolverUserInputDataDataTypeEnumType DataType { get; set; }
         /// <summary>
         /// Name of the property supplied by the user
         /// </summary>
         [JsonProperty(PropertyName = "property_name", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Name of the property supplied by the user")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string PropertyName { get; set; }
         /// <summary>
         /// The value associated with the above property
         /// </summary>
-        [JsonProperty(PropertyName = "property_value")]
-        [NSXTProperty(IsRequired: false, Description: @"The value associated with the above property")]
         public string? PropertyValue { get; set; }
     }
 }

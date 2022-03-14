@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -19,22 +19,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Parameters to let the admin specify a relative position of a communicationmap or communication entry w.r.t to another one.This type is deprecated. Use the type RuleInsertParameters instead.")]
     public class NSXTCommunicationInsertParametersType 
     {
-        public NSXTCommunicationInsertParametersType()
-        {
-            Operation = test
-        }
         /// <summary>
         /// The communication map/communication entry path if operation is
         /// 'insert_after' or 'insert_before'
         /// </summary>
-        [JsonProperty(PropertyName = "anchor_path")]
-        [NSXTProperty(IsRequired: false, Description: @"The communication map/communication entry path if operation is&apos;insert_after&apos; or &apos;insert_before&apos;")]
         public string? AnchorPath { get; set; }
         /// <summary>
         /// Operation
         /// </summary>
-        [JsonProperty(PropertyName = "operation")]
-        [NSXTProperty(IsRequired: false, Description: @"Operation")]
         public NSXTCommunicationInsertParametersOperationEnumType? Operation { get; set; }
     }
 }

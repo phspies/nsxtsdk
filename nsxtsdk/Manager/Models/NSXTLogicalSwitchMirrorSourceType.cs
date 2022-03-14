@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,17 +17,12 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTLogicalSwitchMirrorSourceType : NSXTMirrorSourceType
     {
-        public NSXTLogicalSwitchMirrorSourceType()
-        {
-        }
         /// <summary>
         /// Please note as logical port attached with vmk interface is unsupported
         /// as mirror source, traffic from those ports on source logical switch will
         /// not be mirrored.
         /// </summary>
         [JsonProperty(PropertyName = "switch_id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Please note as logical port attached with vmk interface is unsupportedas mirror source, traffic from those ports on source logical switch willnot be mirrored.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string SwitchId { get; set; }
     }
 }

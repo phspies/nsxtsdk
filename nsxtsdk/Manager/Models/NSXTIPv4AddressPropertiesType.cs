@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,20 +17,13 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"IPv4 address properties")]
     public class NSXTIPv4AddressPropertiesType 
     {
-        public NSXTIPv4AddressPropertiesType()
-        {
-        }
         /// <summary>
         /// Interface netmask
         /// </summary>
-        [JsonProperty(PropertyName = "netmask")]
-        [NSXTProperty(IsRequired: false, Description: @"Interface netmask")]
         public string? Netmask { get; set; }
         /// <summary>
         /// Interface IPv4 address
         /// </summary>
-        [JsonProperty(PropertyName = "ip_address")]
-        [NSXTProperty(IsRequired: false, Description: @"Interface IPv4 address")]
         public string? IpAddress { get; set; }
     }
 }

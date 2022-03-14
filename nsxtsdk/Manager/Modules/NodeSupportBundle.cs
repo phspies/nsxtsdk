@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public NodeSupportBundle(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public NodeSupportBundle(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSupportBundleResultType CollectSupportBundlesCollect(NSXTSupportBundleRequestType SupportBundleRequest, bool? OverrideAsyncResponse = null, bool? RequireDeleteOrOverrideAsyncResponse = null)
+        public async Task<NSXTSupportBundleResultType> CollectSupportBundlesCollect(NSXTSupportBundleRequestType SupportBundleRequest, bool? OverrideAsyncResponse = null, bool? RequireDeleteOrOverrideAsyncResponse = null)
         {
             if (SupportBundleRequest == null) { throw new System.ArgumentNullException("SupportBundleRequest cannot be null"); }
             NSXTSupportBundleResultType returnValue = default(NSXTSupportBundleResultType);
@@ -45,31 +52,19 @@ namespace nsxtapi.ManagerModules
             if (OverrideAsyncResponse != null) { request.AddQueryParameter("override_async_response", OverrideAsyncResponse.ToString()); }
             if (RequireDeleteOrOverrideAsyncResponse != null) { request.AddQueryParameter("require_delete_or_override_async_response", RequireDeleteOrOverrideAsyncResponse.ToString()); }
             request.Resource = CollectSupportBundlesCollectServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTSupportBundleResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTSupportBundleResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + CollectSupportBundlesCollectServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSupportBundleResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSupportBundleResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteSupportBundlesAsyncResponseDeleteAsyncResponse()
+        public async Task DeleteSupportBundlesAsyncResponseDeleteAsyncResponse()
         {
             
             StringBuilder DeleteSupportBundlesAsyncResponseDeleteAsyncResponseServiceURL = new StringBuilder("/administration/support-bundles?action=delete_async_response");
@@ -80,7 +75,7 @@ namespace nsxtapi.ManagerModules
             };
             request.AddHeader("Content-type", "application/json");
             request.Resource = DeleteSupportBundlesAsyncResponseDeleteAsyncResponseServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + DeleteSupportBundlesAsyncResponseDeleteAsyncResponseServiceURL.ToString() + " did not complete successfull";
@@ -92,7 +87,7 @@ namespace nsxtapi.ManagerModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDynamicContentFiltersType GetDynamicContentFilterValues(string? Scope = null)
+        public async Task<NSXTDynamicContentFiltersType> GetDynamicContentFilterValues(string? Scope = null)
         {
             NSXTDynamicContentFiltersType returnValue = default(NSXTDynamicContentFiltersType);
             StringBuilder GetDynamicContentFilterValuesServiceURL = new StringBuilder("/administration/support-bundles/dynamic-content-filters");
@@ -104,25 +99,13 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             if (Scope != null) { request.AddQueryParameter("scope", Scope.ToString()); }
             request.Resource = GetDynamicContentFilterValuesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDynamicContentFiltersType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDynamicContentFiltersType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetDynamicContentFilterValuesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDynamicContentFiltersType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDynamicContentFiltersType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

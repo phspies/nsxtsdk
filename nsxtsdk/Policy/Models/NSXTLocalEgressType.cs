@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -18,15 +18,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Local Egress is used on both server and client sites so that the gatewayis used for N-S traffic and overhead on L2VPN tunnel is reduced.")]
     public class NSXTLocalEgressType 
     {
-        public NSXTLocalEgressType()
-        {
-        }
         /// <summary>
         /// Gateway IP for Local Egress. Local egress is enabled only when this
         /// list is not empty.
         /// </summary>
-        [JsonProperty(PropertyName = "optimized_ips")]
-        [NSXTProperty(IsRequired: false, Description: @"Gateway IP for Local Egress. Local egress is enabled only when thislist is not empty.")]
         public IList<string> OptimizedIps { get; set; }
     }
 }

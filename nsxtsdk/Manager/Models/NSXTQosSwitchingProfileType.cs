@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,29 +17,17 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTQosSwitchingProfileType : NSXTBaseSwitchingProfileType
     {
-        public NSXTQosSwitchingProfileType()
-        {
-            ClassOfService = test
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "shaper_configuration")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public IList<NSXTQosBaseRateShaperType> ShaperConfiguration { get; set; }
         /// <summary>
         /// Class of service
         /// </summary>
-        [JsonProperty(PropertyName = "class_of_service")]
-        [NSXTProperty(IsRequired: false, Description: @"Class of service")]
-        //[System.ComponentModel.DataAnnotations.MinLength(0)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(7)]
         public int? ClassOfService { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "dscp")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTDscpType Dscp { get; set; }
     }
 }

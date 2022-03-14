@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,20 +17,13 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTPlatformDeploymentConfigType : NSXTCloudNativeDeploymentConfigType
     {
-        public NSXTPlatformDeploymentConfigType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(PropertyName = "service_config")]
-        [NSXTProperty(IsRequired: false, Description: @"")]
         public NSXTAdvanceServiceConfigType ServiceConfig { get; set; }
         /// <summary>
         /// From factor in use.
         /// </summary>
-        [JsonProperty(PropertyName = "form_factor")]
-        [NSXTProperty(IsRequired: false, Description: @"From factor in use.")]
         public NSXTPlatformDeploymentConfigFormFactorEnumType? FormFactor { get; set; }
     }
 }

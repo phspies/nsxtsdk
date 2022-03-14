@@ -21,16 +21,23 @@ namespace nsxtapi.PolicyModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public PolicyHostTransportNode(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public PolicyHostTransportNode(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void ResyncHostTransportNode(string SiteId, string EnforcementpointId, string HostTransportNodeId)
+        public async Task ResyncHostTransportNode(string SiteId, string EnforcementpointId, string HostTransportNodeId)
         {
             if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
             if (EnforcementpointId == null) { throw new System.ArgumentNullException("EnforcementpointId cannot be null"); }
@@ -47,7 +54,7 @@ namespace nsxtapi.PolicyModules
             ResyncHostTransportNodeServiceURL.Replace("{enforcementpoint-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EnforcementpointId, System.Globalization.CultureInfo.InvariantCulture)));
             ResyncHostTransportNodeServiceURL.Replace("{host-transport-node-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(HostTransportNodeId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = ResyncHostTransportNodeServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP POST operation to " + ResyncHostTransportNodeServiceURL.ToString() + " did not complete successfull";
@@ -59,7 +66,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTDiscoveredVifStateListResultType ListVdsVifsOnTransportNode(string SiteId, string EnforcementpointId, string HostTransportNodeId, string? Cursor = null, string? HostSwitchId = null, string? IncludedFields = null, long? PageSize = null, string? SegmentId = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTDiscoveredVifStateListResultType> ListVdsVifsOnTransportNode(string SiteId, string EnforcementpointId, string HostTransportNodeId, string? Cursor = null, string? HostSwitchId = null, string? IncludedFields = null, long? PageSize = null, string? SegmentId = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
             if (EnforcementpointId == null) { throw new System.ArgumentNullException("EnforcementpointId cannot be null"); }
@@ -83,31 +90,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListVdsVifsOnTransportNodeServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTDiscoveredVifStateListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTDiscoveredVifStateListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListVdsVifsOnTransportNodeServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTDiscoveredVifStateListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTDiscoveredVifStateListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTransportNodeStateListResultType ListHostTransportNodesByState(string SiteId, string EnforcementpointId, string? MmState = null, string? Status = null, string? VtepIp = null)
+        public async Task<NSXTTransportNodeStateListResultType> ListHostTransportNodesByState(string SiteId, string EnforcementpointId, string? MmState = null, string? Status = null, string? VtepIp = null)
         {
             if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
             if (EnforcementpointId == null) { throw new System.ArgumentNullException("EnforcementpointId cannot be null"); }
@@ -125,31 +120,19 @@ namespace nsxtapi.PolicyModules
             if (Status != null) { request.AddQueryParameter("status", Status.ToString()); }
             if (VtepIp != null) { request.AddQueryParameter("vtep_ip", VtepIp.ToString()); }
             request.Resource = ListHostTransportNodesByStateServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTransportNodeStateListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTransportNodeStateListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListHostTransportNodesByStateServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTransportNodeStateListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTransportNodeStateListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTHostTransportNodeListResultType ListHostTransportNodes(string SiteId, string EnforcementpointId, string? Cursor = null, string? DiscoveredNodeId = null, bool? InMaintenanceMode = null, string? IncludedFields = null, string? NodeIp = null, string? NodeTypes = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? TransportZonePath = null)
+        public async Task<NSXTHostTransportNodeListResultType> ListHostTransportNodes(string SiteId, string EnforcementpointId, string? Cursor = null, string? DiscoveredNodeId = null, bool? InMaintenanceMode = null, string? IncludedFields = null, string? NodeIp = null, string? NodeTypes = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? TransportZonePath = null)
         {
             if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
             if (EnforcementpointId == null) { throw new System.ArgumentNullException("EnforcementpointId cannot be null"); }
@@ -174,31 +157,19 @@ namespace nsxtapi.PolicyModules
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             if (TransportZonePath != null) { request.AddQueryParameter("transport_zone_path", TransportZonePath.ToString()); }
             request.Resource = ListHostTransportNodesServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTHostTransportNodeListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTHostTransportNodeListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListHostTransportNodesServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTHostTransportNodeListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTHostTransportNodeListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTransportNodeStateType GetHostTransportNodeState(string SiteId, string EnforcementpointId, string HostTransportNodeId)
+        public async Task<NSXTTransportNodeStateType> GetHostTransportNodeState(string SiteId, string EnforcementpointId, string HostTransportNodeId)
         {
             if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
             if (EnforcementpointId == null) { throw new System.ArgumentNullException("EnforcementpointId cannot be null"); }
@@ -215,31 +186,19 @@ namespace nsxtapi.PolicyModules
             GetHostTransportNodeStateServiceURL.Replace("{enforcementpoint-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EnforcementpointId, System.Globalization.CultureInfo.InvariantCulture)));
             GetHostTransportNodeStateServiceURL.Replace("{host-transport-node-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(HostTransportNodeId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetHostTransportNodeStateServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTransportNodeStateType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTransportNodeStateType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetHostTransportNodeStateServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTransportNodeStateType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTransportNodeStateType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTHostTransportNodeType CreateOrUpdateHostTransportNode(string SiteId, string EnforcementpointId, string HostTransportNodeId, NSXTHostTransportNodeType HostTransportNode, string? EsxMgmtIfMigrationDest = null, string? IfId = null, string? PingIp = null, bool? SkipValidation = null, string? Vnic = null, string? VnicMigrationDest = null)
+        public async Task<NSXTHostTransportNodeType> CreateOrUpdateHostTransportNode(string SiteId, string EnforcementpointId, string HostTransportNodeId, NSXTHostTransportNodeType HostTransportNode, string? EsxMgmtIfMigrationDest = null, string? IfId = null, string? PingIp = null, bool? SkipValidation = null, string? Vnic = null, string? VnicMigrationDest = null)
         {
             if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
             if (EnforcementpointId == null) { throw new System.ArgumentNullException("EnforcementpointId cannot be null"); }
@@ -264,31 +223,19 @@ namespace nsxtapi.PolicyModules
             if (Vnic != null) { request.AddQueryParameter("vnic", Vnic.ToString()); }
             if (VnicMigrationDest != null) { request.AddQueryParameter("vnic_migration_dest", VnicMigrationDest.ToString()); }
             request.Resource = CreateOrUpdateHostTransportNodeServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTHostTransportNodeType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTHostTransportNodeType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + CreateOrUpdateHostTransportNodeServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTHostTransportNodeType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTHostTransportNodeType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void DeleteHostTransportNode(string SiteId, string EnforcementpointId, string HostTransportNodeId, bool? Force = null, bool? UnprepareHost = null)
+        public async Task DeleteHostTransportNode(string SiteId, string EnforcementpointId, string HostTransportNodeId, bool? Force = null, bool? UnprepareHost = null)
         {
             if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
             if (EnforcementpointId == null) { throw new System.ArgumentNullException("EnforcementpointId cannot be null"); }
@@ -307,7 +254,7 @@ namespace nsxtapi.PolicyModules
             if (Force != null) { request.AddQueryParameter("force", Force.ToString()); }
             if (UnprepareHost != null) { request.AddQueryParameter("unprepare_host", UnprepareHost.ToString()); }
             request.Resource = DeleteHostTransportNodeServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP DELETE operation to " + DeleteHostTransportNodeServiceURL.ToString() + " did not complete successfull";
@@ -319,7 +266,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void PatchHostTransportNode(string SiteId, string EnforcementpointId, string HostTransportNodeId, NSXTHostTransportNodeType HostTransportNode, string? EsxMgmtIfMigrationDest = null, string? IfId = null, string? PingIp = null, bool? SkipValidation = null, string? Vnic = null, string? VnicMigrationDest = null)
+        public async Task PatchHostTransportNode(string SiteId, string EnforcementpointId, string HostTransportNodeId, NSXTHostTransportNodeType HostTransportNode, string? EsxMgmtIfMigrationDest = null, string? IfId = null, string? PingIp = null, bool? SkipValidation = null, string? Vnic = null, string? VnicMigrationDest = null)
         {
             if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
             if (EnforcementpointId == null) { throw new System.ArgumentNullException("EnforcementpointId cannot be null"); }
@@ -344,7 +291,7 @@ namespace nsxtapi.PolicyModules
             if (Vnic != null) { request.AddQueryParameter("vnic", Vnic.ToString()); }
             if (VnicMigrationDest != null) { request.AddQueryParameter("vnic_migration_dest", VnicMigrationDest.ToString()); }
             request.Resource = PatchHostTransportNodeServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PATCH operation to " + PatchHostTransportNodeServiceURL.ToString() + " did not complete successfull";
@@ -356,7 +303,7 @@ namespace nsxtapi.PolicyModules
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTHostTransportNodeType GetHostTransportNode(string SiteId, string EnforcementpointId, string HostTransportNodeId)
+        public async Task<NSXTHostTransportNodeType> GetHostTransportNode(string SiteId, string EnforcementpointId, string HostTransportNodeId)
         {
             if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
             if (EnforcementpointId == null) { throw new System.ArgumentNullException("EnforcementpointId cannot be null"); }
@@ -373,31 +320,19 @@ namespace nsxtapi.PolicyModules
             GetHostTransportNodeServiceURL.Replace("{enforcementpoint-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EnforcementpointId, System.Globalization.CultureInfo.InvariantCulture)));
             GetHostTransportNodeServiceURL.Replace("{host-transport-node-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(HostTransportNodeId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetHostTransportNodeServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTHostTransportNodeType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTHostTransportNodeType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetHostTransportNodeServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTHostTransportNodeType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTHostTransportNodeType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTSoftwareModuleResultType GetFabricNodeModulesOfHostTransportNode(string SiteId, string EnforcementpointId, string HostTransportNodeId)
+        public async Task<NSXTSoftwareModuleResultType> GetFabricNodeModulesOfHostTransportNode(string SiteId, string EnforcementpointId, string HostTransportNodeId)
         {
             if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
             if (EnforcementpointId == null) { throw new System.ArgumentNullException("EnforcementpointId cannot be null"); }
@@ -414,31 +349,19 @@ namespace nsxtapi.PolicyModules
             GetFabricNodeModulesOfHostTransportNodeServiceURL.Replace("{enforcementpoint-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EnforcementpointId, System.Globalization.CultureInfo.InvariantCulture)));
             GetFabricNodeModulesOfHostTransportNodeServiceURL.Replace("{host-transport-node-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(HostTransportNodeId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetFabricNodeModulesOfHostTransportNodeServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTSoftwareModuleResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTSoftwareModuleResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetFabricNodeModulesOfHostTransportNodeServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTSoftwareModuleResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTSoftwareModuleResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public void RestoreParentClusterConfigurationOnHostTransportNode(string SiteId, string EnforcementpointId, string HostTransportNodeId)
+        public async Task RestoreParentClusterConfigurationOnHostTransportNode(string SiteId, string EnforcementpointId, string HostTransportNodeId)
         {
             if (SiteId == null) { throw new System.ArgumentNullException("SiteId cannot be null"); }
             if (EnforcementpointId == null) { throw new System.ArgumentNullException("EnforcementpointId cannot be null"); }
@@ -455,7 +378,7 @@ namespace nsxtapi.PolicyModules
             RestoreParentClusterConfigurationOnHostTransportNodeServiceURL.Replace("{enforcementpoint-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(EnforcementpointId, System.Globalization.CultureInfo.InvariantCulture)));
             RestoreParentClusterConfigurationOnHostTransportNodeServiceURL.Replace("{host-transport-node-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(HostTransportNodeId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = RestoreParentClusterConfigurationOnHostTransportNodeServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse response = await restClient.ExecuteTaskAsyncWithPolicy(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP PUT operation to " + RestoreParentClusterConfigurationOnHostTransportNodeServiceURL.ToString() + " did not complete successfull";

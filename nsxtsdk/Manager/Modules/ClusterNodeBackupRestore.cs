@@ -21,16 +21,23 @@ namespace nsxtapi.ManagerModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public ClusterNodeBackupRestore(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public ClusterNodeBackupRestore(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTClusterRestoreStatusType QueryClusterRestoreStatus(string? RestoreComponent = null)
+        public async Task<NSXTClusterRestoreStatusType> QueryClusterRestoreStatus(string? RestoreComponent = null)
         {
             NSXTClusterRestoreStatusType returnValue = default(NSXTClusterRestoreStatusType);
             StringBuilder QueryClusterRestoreStatusServiceURL = new StringBuilder("/cluster/restore/status");
@@ -42,31 +49,19 @@ namespace nsxtapi.ManagerModules
             request.AddHeader("Content-type", "application/json");
             if (RestoreComponent != null) { request.AddQueryParameter("restore_component", RestoreComponent.ToString()); }
             request.Resource = QueryClusterRestoreStatusServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTClusterRestoreStatusType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTClusterRestoreStatusType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + QueryClusterRestoreStatusServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTClusterRestoreStatusType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTClusterRestoreStatusType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTBackupUiFramesInfoListType GetBackupUiFramesInfo(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? UiTabType = null)
+        public async Task<NSXTBackupUiFramesInfoListType> GetBackupUiFramesInfo(string? Cursor = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null, string? UiTabType = null)
         {
             NSXTBackupUiFramesInfoListType returnValue = default(NSXTBackupUiFramesInfoListType);
             StringBuilder GetBackupUiFramesInfoServiceURL = new StringBuilder("/cluster/backups/ui_frames");
@@ -83,25 +78,13 @@ namespace nsxtapi.ManagerModules
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             if (UiTabType != null) { request.AddQueryParameter("ui_tab_type", UiTabType.ToString()); }
             request.Resource = GetBackupUiFramesInfoServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTBackupUiFramesInfoListType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTBackupUiFramesInfoListType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetBackupUiFramesInfoServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTBackupUiFramesInfoListType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTBackupUiFramesInfoListType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

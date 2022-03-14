@@ -21,16 +21,23 @@ namespace nsxtapi.PolicyModules
     {
         RestClient restClient;
         JsonSerializerSettings defaultSerializationSettings;
-        public PolicyTlsState(RestClient Client, JsonSerializerSettings DefaultSerializationSettings)
+        int retry;
+        int timeout;
+        CancellationToken cancellationToken;
+        public PolicyTlsState(RestClient Client, JsonSerializerSettings DefaultSerializationSettings, CancellationToken _cancellationToken, int _timeout, int _retry)
+
         {
             restClient = Client;
             defaultSerializationSettings = DefaultSerializationSettings;
+            retry = _retry;
+            timeout = _timeout;
+            cancellationToken = _cancellationToken;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTlsStateObjectListResultType ListTlsStateFqdns(string Tier1Id, string? Cursor = null, bool? FailedDomains = null, string? Fqdn = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTTlsStateObjectListResultType> ListTlsStateFqdns(string Tier1Id, string? Cursor = null, bool? FailedDomains = null, string? Fqdn = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             NSXTTlsStateObjectListResultType returnValue = default(NSXTTlsStateObjectListResultType);
@@ -50,31 +57,19 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListTlsStateFqdnsServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTlsStateObjectListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTlsStateObjectListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListTlsStateFqdnsServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTlsStateObjectListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTlsStateObjectListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTlsStateObjectType GetTlsStateFqdn(string Tier1Id, string FqdnId)
+        public async Task<NSXTTlsStateObjectType> GetTlsStateFqdn(string Tier1Id, string FqdnId)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             if (FqdnId == null) { throw new System.ArgumentNullException("FqdnId cannot be null"); }
@@ -89,31 +84,19 @@ namespace nsxtapi.PolicyModules
             GetTlsStateFqdnServiceURL.Replace("{tier-1-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(Tier1Id, System.Globalization.CultureInfo.InvariantCulture)));
             GetTlsStateFqdnServiceURL.Replace("{fqdn-id}", System.Uri.EscapeDataString(Helpers.ConvertToString(FqdnId, System.Globalization.CultureInfo.InvariantCulture)));
             request.Resource = GetTlsStateFqdnServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTlsStateObjectType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTlsStateObjectType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + GetTlsStateFqdnServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTlsStateObjectType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTlsStateObjectType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
         /// <summary>
         /// 
         /// </summary>
         [NSXTProperty(Description: @"")]
-        public NSXTTlsStateObjectListResultType ListTlsState(string Tier1Id, string? Cursor = null, bool? FailedDomains = null, string? Fqdn = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
+        public async Task<NSXTTlsStateObjectListResultType> ListTlsState(string Tier1Id, string? Cursor = null, bool? FailedDomains = null, string? Fqdn = null, string? IncludedFields = null, long? PageSize = null, bool? SortAscending = null, string? SortBy = null)
         {
             if (Tier1Id == null) { throw new System.ArgumentNullException("Tier1Id cannot be null"); }
             NSXTTlsStateObjectListResultType returnValue = default(NSXTTlsStateObjectListResultType);
@@ -133,25 +116,13 @@ namespace nsxtapi.PolicyModules
             if (SortAscending != null) { request.AddQueryParameter("sort_ascending", SortAscending.ToString()); }
             if (SortBy != null) { request.AddQueryParameter("sort_by", SortBy.ToString()); }
             request.Resource = ListTlsStateServiceURL.ToString();
-            var response = restClient.Execute(request);
+            IRestResponse<NSXTTlsStateObjectListResultType> response = await restClient.ExecuteTaskAsyncWithPolicy<NSXTTlsStateObjectListResultType>(request, cancellationToken, timeout, retry);
             if (response.StatusCode != HttpStatusCode.OK)
 			{
                 var message = "HTTP GET operation to " + ListTlsStateServiceURL.ToString() + " did not complete successfull";
                 throw new NSXTException(message, (int)response.StatusCode, response.Content,  response.Headers, null);
 			}
-            else
-			{
-				try
-				{
-					returnValue = JsonConvert.DeserializeObject<NSXTTlsStateObjectListResultType>(response.Content, defaultSerializationSettings);
-				}
-				catch (Exception ex)
-				{
-					var message = "Could not deserialize the response body string as " + typeof(NSXTTlsStateObjectListResultType).FullName + ".";
-					throw new NSXTException(message, (int)response.StatusCode, response.Content, response.Headers, ex.InnerException);
-				}
-			}
-			return returnValue;
+            return response.Data;
         }
     }
 }

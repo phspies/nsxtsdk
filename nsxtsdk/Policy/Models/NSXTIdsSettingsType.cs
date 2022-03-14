@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,27 +17,18 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIdsSettingsType : NSXTPolicyConfigResourceType
     {
-        public NSXTIdsSettingsType()
-        {
-        }
         /// <summary>
         /// Parameter to let the user decide whether to update the IDS Signatures
         /// automatically or not.
         /// </summary>
-        [JsonProperty(PropertyName = "auto_update")]
-        [NSXTProperty(IsRequired: false, Description: @"Parameter to let the user decide whether to update the IDS Signaturesautomatically or not.")]
         public bool? AutoUpdate { get; set; }
         /// <summary>
         /// Flag which tells whether IDS was ever enabled.
         /// </summary>
-        [JsonProperty(PropertyName = "ids_ever_enabled")]
-        [NSXTProperty(IsRequired: false, Description: @"Flag which tells whether IDS was ever enabled.")]
         public bool? IdsEverEnabled { get; set; }
         /// <summary>
         /// Flag to send IDS events to syslog server.
         /// </summary>
-        [JsonProperty(PropertyName = "ids_events_to_syslog")]
-        [NSXTProperty(IsRequired: false, Description: @"Flag to send IDS events to syslog server.")]
         public bool? IdsEventsToSyslog { get; set; }
     }
 }

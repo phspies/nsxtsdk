@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,56 +17,37 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Advanced load balancer SSLCertificateDescription object")]
     public class NSXTALBSSLCertificateDescriptionType 
     {
-        public NSXTALBSSLCertificateDescriptionType()
-        {
-        }
         /// <summary>
         /// common_name of SSLCertificateDescription.
         /// </summary>
-        [JsonProperty(PropertyName = "common_name")]
-        [NSXTProperty(IsRequired: false, Description: @"common_name of SSLCertificateDescription.")]
         public string? CommonName { get; set; }
         /// <summary>
         /// state of SSLCertificateDescription.
         /// </summary>
-        [JsonProperty(PropertyName = "state")]
-        [NSXTProperty(IsRequired: false, Description: @"state of SSLCertificateDescription.")]
         public string? State { get; set; }
         /// <summary>
         /// organization of SSLCertificateDescription.
         /// </summary>
-        [JsonProperty(PropertyName = "organization")]
-        [NSXTProperty(IsRequired: false, Description: @"organization of SSLCertificateDescription.")]
         public string? Organization { get; set; }
         /// <summary>
         /// locality of SSLCertificateDescription.
         /// </summary>
-        [JsonProperty(PropertyName = "locality")]
-        [NSXTProperty(IsRequired: false, Description: @"locality of SSLCertificateDescription.")]
         public string? Locality { get; set; }
         /// <summary>
         /// distinguished_name of SSLCertificateDescription.
         /// </summary>
-        [JsonProperty(PropertyName = "distinguished_name")]
-        [NSXTProperty(IsRequired: false, Description: @"distinguished_name of SSLCertificateDescription.")]
         public string? DistinguishedName { get; set; }
         /// <summary>
         /// country of SSLCertificateDescription.
         /// </summary>
-        [JsonProperty(PropertyName = "country")]
-        [NSXTProperty(IsRequired: false, Description: @"country of SSLCertificateDescription.")]
         public string? Country { get; set; }
         /// <summary>
         /// organization_unit of SSLCertificateDescription.
         /// </summary>
-        [JsonProperty(PropertyName = "organization_unit")]
-        [NSXTProperty(IsRequired: false, Description: @"organization_unit of SSLCertificateDescription.")]
         public string? OrganizationUnit { get; set; }
         /// <summary>
         /// email_address of SSLCertificateDescription.
         /// </summary>
-        [JsonProperty(PropertyName = "email_address")]
-        [NSXTProperty(IsRequired: false, Description: @"email_address of SSLCertificateDescription.")]
         public string? EmailAddress { get; set; }
     }
 }

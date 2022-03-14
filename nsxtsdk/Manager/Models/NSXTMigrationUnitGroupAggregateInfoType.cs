@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,33 +17,22 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTMigrationUnitGroupAggregateInfoType : NSXTManagedResourceType
     {
-        public NSXTMigrationUnitGroupAggregateInfoType()
-        {
-        }
         /// <summary>
         /// Migration status of migration unit group
         /// </summary>
-        [JsonProperty(PropertyName = "status")]
-        [NSXTProperty(IsRequired: false, Description: @"Migration status of migration unit group")]
         public NSXTMigrationUnitGroupAggregateInfoStatusEnumType? Status { get; set; }
         /// <summary>
         /// Number of nodes in the migration unit group that failed migration
         /// </summary>
-        [JsonProperty(PropertyName = "failed_count")]
-        [NSXTProperty(IsRequired: false, Description: @"Number of nodes in the migration unit group that failed migration")]
         public int? FailedCount { get; set; }
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty(PropertyName = "group", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTMigrationUnitGroupType Group { get; set; }
         /// <summary>
         /// Indicator of migration progress in percentage
         /// </summary>
-        [JsonProperty(PropertyName = "percent_complete")]
-        [NSXTProperty(IsRequired: false, Description: @"Indicator of migration progress in percentage")]
         public double? PercentComplete { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,15 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTChildPolicyFirewallCpuMemThresholdsProfileType : NSXTChildPolicyConfigResourceType
     {
-        public NSXTChildPolicyFirewallCpuMemThresholdsProfileType()
-        {
-        }
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty(PropertyName = "PolicyFirewallCpuMemThresholdsProfile", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"")]
-        [System.ComponentModel.DataAnnotations.Required]
         public NSXTPolicyFirewallCpuMemThresholdsProfileType PolicyFirewallCpuMemThresholdsProfile { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,28 +17,19 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTALBPriorityLabelsType : NSXTPolicyConfigResourceType
     {
-        public NSXTALBPriorityLabelsType()
-        {
-        }
         /// <summary>
         /// It is a reference to an object of type Cloud.
         /// </summary>
-        [JsonProperty(PropertyName = "cloud_name")]
-        [NSXTProperty(IsRequired: false, Description: @"It is a reference to an object of type Cloud.")]
         public string? CloudName { get; set; }
         /// <summary>
         /// List of labels to be used for granular RBAC.
         /// Allowed in Basic edition, Essentials edition, Enterprise
         /// edition.
         /// </summary>
-        [JsonProperty(PropertyName = "markers")]
-        [NSXTProperty(IsRequired: false, Description: @"List of labels to be used for granular RBAC.Allowed in Basic edition, Essentials edition, Enterpriseedition.")]
         public IList<NSXTALBRoleFilterMatchLabelType> Markers { get; set; }
         /// <summary>
         /// Equivalent priority labels in descending order.
         /// </summary>
-        [JsonProperty(PropertyName = "equivalent_labels")]
-        [NSXTProperty(IsRequired: false, Description: @"Equivalent priority labels in descending order.")]
         public IList<NSXTALBEquivalentLabelsType> EquivalentLabels { get; set; }
     }
 }

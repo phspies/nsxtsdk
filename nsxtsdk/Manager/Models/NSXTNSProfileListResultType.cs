@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,14 +17,9 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTNSProfileListResultType : NSXTListResultType
     {
-        public NSXTNSProfileListResultType()
-        {
-        }
         /// <summary>
         /// Paged collection of NSProfiles
         /// </summary>
-        [JsonProperty(PropertyName = "results")]
-        [NSXTProperty(IsRequired: false, Description: @"Paged collection of NSProfiles")]
         public IList<NSXTNSProfileType> Results { get; set; }
     }
 }

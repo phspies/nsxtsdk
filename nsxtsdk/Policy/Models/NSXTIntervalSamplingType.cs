@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,17 +17,10 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"")]
     public class NSXTIntervalSamplingType : NSXTSamplingArgumentType
     {
-        public NSXTIntervalSamplingType()
-        {
-        }
         /// <summary>
         /// Time interval in ms between two sampling actions.
         /// </summary>
         [JsonProperty(PropertyName = "sampling_interval", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Time interval in ms between two sampling actions.")]
-        //[System.ComponentModel.DataAnnotations.MinLength(1)]
-        //[System.ComponentModel.DataAnnotations.MaxLength(30000)]
-        [System.ComponentModel.DataAnnotations.Required]
         public long SamplingInterval { get; set; }
     }
 }

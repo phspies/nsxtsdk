@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,23 +17,16 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Request parameters that represents a an intent path.")]
     public class NSXTIntentRuntimeRequestParametersType 
     {
-        public NSXTIntentRuntimeRequestParametersType()
-        {
-        }
         /// <summary>
         /// Policy Path referencing a site. This is applicable only on a GlobalManager. If no
         /// site_path is specified, then based on the span of the intent the response will be
         /// fetched from the respective sites
         /// </summary>
-        [JsonProperty(PropertyName = "site_path")]
-        [NSXTProperty(IsRequired: false, Description: @"Policy Path referencing a site. This is applicable only on a GlobalManager. If nosite_path is specified, then based on the span of the intent the response will befetched from the respective sites")]
         public string? SitePath { get; set; }
         /// <summary>
         /// Policy Path referencing an intent object.
         /// </summary>
         [JsonProperty(PropertyName = "intent_path", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Policy Path referencing an intent object.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string IntentPath { get; set; }
     }
 }

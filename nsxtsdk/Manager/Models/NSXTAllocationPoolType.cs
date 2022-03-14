@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,26 +17,17 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTAllocationPoolType 
     {
-        public NSXTAllocationPoolType()
-        {
-        }
         /// <summary>
         /// Represents the number of standby services running on the edge node.
         /// </summary>
-        [JsonProperty(PropertyName = "standby_service_count")]
-        [NSXTProperty(IsRequired: false, Description: @"Represents the number of standby services running on the edge node.")]
         public int? StandbyServiceCount { get; set; }
         /// <summary>
         /// Represents the number of acitve services running on the edge node.
         /// </summary>
-        [JsonProperty(PropertyName = "active_service_count")]
-        [NSXTProperty(IsRequired: false, Description: @"Represents the number of acitve services running on the edge node.")]
         public int? ActiveServiceCount { get; set; }
         /// <summary>
         /// Allocation details of sub-pools configured on edge node.
         /// </summary>
-        [JsonProperty(PropertyName = "sub_pools")]
-        [NSXTProperty(IsRequired: false, Description: @"Allocation details of sub-pools configured on edge node.")]
         public IList<NSXTSubPoolType> SubPools { get; set; }
     }
 }

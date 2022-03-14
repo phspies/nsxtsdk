@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,20 +17,13 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTMigrationStatusType 
     {
-        public NSXTMigrationStatusType()
-        {
-        }
         /// <summary>
         /// Status of migration
         /// </summary>
-        [JsonProperty(PropertyName = "overall_migration_status")]
-        [NSXTProperty(IsRequired: false, Description: @"Status of migration")]
         public NSXTMigrationStatusOverallMigrationStatusEnumType? OverallMigrationStatus { get; set; }
         /// <summary>
         /// List of component statuses
         /// </summary>
-        [JsonProperty(PropertyName = "component_status")]
-        [NSXTProperty(IsRequired: false, Description: @"List of component statuses")]
         public IList<NSXTComponentMigrationStatusType> ComponentStatus { get; set; }
     }
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,29 +17,19 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"L2VPN tunnel encapsulation config.")]
     public class NSXTL2VPNTunnelEncapsulationType 
     {
-        public NSXTL2VPNTunnelEncapsulationType()
-        {
-            Protocol = test
-        }
         /// <summary>
         /// IP Address of the local tunnel port. This property only applies in
         /// CLIENT mode.
         /// </summary>
-        [JsonProperty(PropertyName = "local_endpoint_address")]
-        [NSXTProperty(IsRequired: false, Description: @"IP Address of the local tunnel port. This property only applies inCLIENT mode.")]
         public string? LocalEndpointAddress { get; set; }
         /// <summary>
         /// Encapsulation protocol used by the tunnel.
         /// </summary>
-        [JsonProperty(PropertyName = "protocol")]
-        [NSXTProperty(IsRequired: false, Description: @"Encapsulation protocol used by the tunnel.")]
         public NSXTL2VpntunnelEncapsulationProtocolEnumType? Protocol { get; set; }
         /// <summary>
         /// IP Address of the peer tunnel port. This property only applies in
         /// CLIENT mode.
         /// </summary>
-        [JsonProperty(PropertyName = "peer_endpoint_address")]
-        [NSXTProperty(IsRequired: false, Description: @"IP Address of the peer tunnel port. This property only applies inCLIENT mode.")]
         public string? PeerEndpointAddress { get; set; }
     }
 }

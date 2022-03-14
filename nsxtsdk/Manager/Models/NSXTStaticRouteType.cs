@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.ManagerModels
 {
@@ -17,28 +17,19 @@ namespace nsxtsdk.ManagerModels
     [NSXTProperty(Description: @"")]
     public class NSXTStaticRouteType : NSXTManagedResourceType
     {
-        public NSXTStaticRouteType()
-        {
-        }
         /// <summary>
         /// Next Hops
         /// </summary>
         [JsonProperty(PropertyName = "next_hops", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"Next Hops")]
-        [System.ComponentModel.DataAnnotations.Required]
         public IList<NSXTStaticRouteNextHopType> NextHops { get; set; }
         /// <summary>
         /// Logical router id
         /// </summary>
-        [JsonProperty(PropertyName = "logical_router_id")]
-        [NSXTProperty(IsRequired: false, Description: @"Logical router id")]
         public string? LogicalRouterId { get; set; }
         /// <summary>
         /// CIDR
         /// </summary>
         [JsonProperty(PropertyName = "network", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"CIDR")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Network { get; set; }
     }
 }

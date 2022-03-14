@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using NJsonSchema.Converters;
 using System.ComponentModel;
+using NJsonSchema.Converters;
 
 namespace nsxtsdk.PolicyModels
 {
@@ -17,21 +17,14 @@ namespace nsxtsdk.PolicyModels
     [NSXTProperty(Description: @"Specify which HostSwitch from this TransportNode is used handle traffic for given TransportZone")]
     public class NSXTTransportZoneEndPointType 
     {
-        public NSXTTransportZoneEndPointType()
-        {
-        }
         /// <summary>
         /// For MP APIs provide UUID of transport zone. For Policy APIs provide policyPath of transport zone.
         /// </summary>
         [JsonProperty(PropertyName = "transport_zone_id", Required = Required.AllowNull)]
-        [NSXTProperty(IsRequired: true, Description: @"For MP APIs provide UUID of transport zone. For Policy APIs provide policyPath of transport zone.")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string TransportZoneId { get; set; }
         /// <summary>
         /// For MP APIs provide UUID of transport zone profiles. For Policy APIs provide policyPath of transport zone profiles.
         /// </summary>
-        [JsonProperty(PropertyName = "transport_zone_profile_ids")]
-        [NSXTProperty(IsRequired: false, Description: @"For MP APIs provide UUID of transport zone profiles. For Policy APIs provide policyPath of transport zone profiles.")]
         public IList<NSXTTransportZoneProfileTypeIdEntryType> TransportZoneProfileIds { get; set; }
     }
 }
