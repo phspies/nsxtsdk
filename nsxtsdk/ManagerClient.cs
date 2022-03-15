@@ -12,7 +12,7 @@ using nsxtapi.ManagerModules;
 using nsxtsdk;
 using System.Threading;
 
-namespace nsxtapi
+namespace nsxtsdk
 {
     public class ManagerEngine
     {

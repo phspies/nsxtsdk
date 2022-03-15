@@ -11,7 +11,7 @@ using Newtonsoft.Json.Serialization;
 using nsxtsdk;
 using System.Threading;
 
-namespace nsxtapi
+namespace nsxtsdk
 {
     public class NSXTClient
     {
