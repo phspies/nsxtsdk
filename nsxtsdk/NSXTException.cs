@@ -1,11 +1,7 @@
-﻿using nsxtsdk.Models;
-using RestSharp;
+﻿using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace nsxtsdk
 {
@@ -15,19 +11,50 @@ namespace nsxtsdk
 
         public string Response { get; private set; }
 
-        public IList<Parameter> Headers { get; private set; }
+        public IReadOnlyCollection<HeaderParameter> Headers { get; private set; }
 
-        public NSXTException(string message, int statusCode, string response, IList<Parameter> headers, Exception innerException)
-            : base(message + "\n\nStatus: " + statusCode + "\nResponse: \n" + response.Substring(0, response.Length >= 512 ? 512 : response.Length), innerException)
+        public NSXTException(string message, int statusCode, string response, IReadOnlyCollection<HeaderParameter> headers, Exception innerException)
+            : base(message + " - " + innerException.innerExceptions<Exception>().Last().Message + "\n\nStatus: " + statusCode + "\nResponse: \n" + response, innerException.innerExceptions<Exception>().Last().InnerException)
         {
             StatusCode = statusCode;
             Response = response;
             Headers = headers;
+
         }
 
         public override string ToString()
         {
             return string.Format("HTTP Response: \n\n{0}\n\n{1}", Response, base.ToString());
+        }
+    }
+
+    public static class ExceptionExtensions
+    {
+        public static IEnumerable<T> innerExceptions<T>(this Exception ex) where T : Exception
+        {
+            var rVal = new List<T>();
+
+            Action<Exception> lambda = null;
+            lambda = (x) =>
+            {
+                var xt = x as T;
+                if (xt != null)
+                    rVal.Add(xt);
+
+                if (x.InnerException != null)
+                    lambda(x.InnerException);
+
+                var ax = x as AggregateException;
+                if (ax != null)
+                {
+                    foreach (var aix in ax.InnerExceptions)
+                        lambda(aix);
+                }
+            };
+
+            lambda(ex);
+
+            return rVal;
         }
     }
 }

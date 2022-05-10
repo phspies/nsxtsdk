@@ -568,7 +568,7 @@ namespace nsxtapi
         }
         private static void GetOperationHttpMethod(RenderContext context, IList<object> arguments, IDictionary<string, object> options, RenderBlock fn, RenderBlock inverse)
         {
-            context.Write((arguments[0] as String).ToUpper());
+            context.Write(CultureInfo.CurrentCulture.TextInfo.ToTitleCase(arguments[0] as String));
 
         }
         private static void GetResponseType(RenderContext context, IList<object> arguments, IDictionary<string, object> options, RenderBlock fn, RenderBlock inverse)
@@ -603,7 +603,7 @@ namespace nsxtapi
             }
             if (parameter.Kind == OpenApiParameterKind.Body)
             {
-                context.Write($"request.AddJsonBody(JsonConvert.SerializeObject({PascalCase(parameter.Name)}, defaultSerializationSettings));");
+                context.Write($"request.AddJsonBody({PascalCase(parameter.Name)});");
             }
         }
 
@@ -667,6 +667,10 @@ namespace nsxtapi
             if (arguments != null && arguments.Count > 0 && arguments[0] != null && arguments[0] is JsonSchemaProperty)
             {
                 var parameter = arguments[0] as JsonSchemaProperty;
+                if (parameter.IsEnumeration)
+                {
+                    Console.WriteLine("test");
+                }
 
                 if (parameter.Reference != null)
                 {

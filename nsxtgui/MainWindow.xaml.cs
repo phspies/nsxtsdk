@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using nsxtapi;
+using nsxtsdk;
 using nsxtsdk.PolicyModels;
 using System;
 using System.Collections.Concurrent;
