@@ -21,7 +21,8 @@ namespace sdktesting
             var tzones = (await nsxtsdk.ManagerEngine.TransportZoneModule.ListTransportZones());
 
             var tier0Name = "TestCodeTier0";
-            var tier0 = new NSXTInfraType()
+            var tier1Name = "TestCodeTier1";
+            var tier0_1 = new NSXTInfraType()
             {
                 Children = new List<NSXTChildPolicyConfigResourceType>() {
                     new NSXTChildTier0Type() {
@@ -45,19 +46,41 @@ namespace sdktesting
                                 },
                             }
                         }
+                    },
+                    new NSXTChildTier1Type() {
+                        ResourceType = "ChildTier1",
+                        Tier1 =  new NSXTTier1Type() {
+                             RouteAdvertisementTypes = new List<string>() {"TIER1_IPSEC_LOCAL_ENDPOINT"},
+                            ResourceType = "Tier1",
+                            DisplayName = tier1Name,
+                            Id = tier1Name,
+                            Tier0Path = $"/infra/tier-0s/{tier0Name}",
+                            Children = new List<NSXTChildPolicyConfigResourceType>() {
+                                new NSXTChildLocaleServicesType() {
+                                    LocaleServices = new NSXTLocaleServicesType() {
+                                        Id = "default",
+                                        ResourceType = "LocaleServices"
+                                    },
+                                    ResourceType= "ChildLocaleServices"
+                                },
+                            }
+                        }
                     }
+
                 },
                 ResourceType = "Infra"
             };
 
+     
+
             var segment = new NSXTSegmentType()
             {
                 Id = "TestCodeSegmentCreation",
-                DisplayName= "TestCodeSegmentCreation",
+                DisplayName = "TestCodeSegmentCreation",
                 ReplicationMode = NSXTSegmentReplicationModeEnumType.MTEP,
                 TransportZonePath = $"/infra/sites/default/enforcement-points/default/transport-zones/{tzones.Results.Single(x => x.DisplayName == "nsx-overlay-transportzone").Id}",
                 AdminState = NSXTSegmentAdminStateEnumType.UP,
-                ConnectivityPath = $"/infra/tier-0s/{tier0Name}",
+                ConnectivityPath = $"/infra/tier-1s/{tier1Name}",
                 AdvancedConfig = new NSXTSegmentAdvancedConfigType()
                 {
                     AddressPoolPaths = new List<string>(),
@@ -73,22 +96,8 @@ namespace sdktesting
 
 
             };
-   
-
-            var json = JsonConvert.SerializeObject(segment, Formatting.None, new JsonSerializerSettings
-            {
-                DefaultValueHandling = DefaultValueHandling.Include,
-                TypeNameHandling = TypeNameHandling.Auto,
-                NullValueHandling = NullValueHandling.Ignore,
-                Formatting = Formatting.None,
-                ConstructorHandling = ConstructorHandling.Default,
-                Converters = new List<JsonConverter>() { new Newtonsoft.Json.Converters.StringEnumConverter() }
-            });
-
-            await nsxtsdk.PolicyEngine.PolicyModule.PatchInfra(tier0, EnforceRevisionCheck: true);
-
+            await nsxtsdk.PolicyEngine.PolicyModule.PatchInfra(tier0_1, EnforceRevisionCheck: true);
             var segmentResponse = await nsxtsdk.PolicyEngine.PolicyConnectivityModule.CreateOrReplaceInfraSegment(segment.Id, segment);
-
             await nsxtsdk.LogoutAsync();
         }
     }

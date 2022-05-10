@@ -1,19 +1,26 @@
 ﻿{
-  "display_name": "test",
-  "subnets": [
+  "resource_type": "Infra",
+  "children": [
     {
-      "gateway_address": "10.0.0.1/24"
+      "Tier1": {
+        "resource_type": "Tier1",
+        "route_advertisement_types": [
+          "TIER1_IPSEC_LOCAL_ENDPOINT"
+        ],
+        "display_name": "test",
+        "tier0_path": "/infra/tier-0s/TestCodeTier0",
+        "id": "test",
+        "children": [
+          {
+            "LocaleServices": {
+              "resource_type": "LocaleServices",
+              "id": "default"
+            },
+            "resource_type": "ChildLocaleServices"
+          }
+        ]
+      },
+      "resource_type": "ChildTier1"
     }
-  ],
-  "replication_mode": "MTEP",
-  "transport_zone_path": "/infra/sites/default/enforcement-points/default/transport-zones/1b3a2f36-bfd1-443e-a0f6-4de01abc963e",
-  "admin_state": "UP",
-  "advanced_config": {
-    "address_pool_paths": [],
-    "multicast": true,
-    "urpf_mode": "STRICT",
-    "connectivity": "ON"
-  },
-  "connectivity_path": "/infra/tier-0s/TestCodeTier0",
-  "id": "test"
+  ]
 }
