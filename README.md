@@ -1,6 +1,6 @@
 # C# SDK for NSX-T 3.2
 
-SDK compatable with .net 6.0 for NSX-T 3.2 Manager and Policy engins. It uses RestSharp as the transport and uses Newtonsoft.Json for JSON handeling.
+SDK compatable with .net 6.0 for NSX-T 3.2 Manager and Policy engins. It uses RestSharp as the transport and Newtonsoft.Json for JSON handeling.
 
 ## Modules
 
@@ -24,7 +24,7 @@ You can pass your own serialization settings as part of the client init code
 NSXTClient nsxtClient = new NSXTClient("192.168.0.100", "admin", "password", false, new Newtonsoft.Json.JsonSerializerSettings() {  Formatting = Newtonsoft.Json.Formatting.None });
 ```
 
-##Example Tier0/Tier1/Segment Creation Code
+## Example Tier0/Tier1/Segment Creation Code
 
 ```dotnet
 NSXTClient nsxtsdk = new NSXTClient("10.0.100.14", "admin", "VMware1!VMware1!", false);
